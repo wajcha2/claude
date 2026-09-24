@@ -1,0 +1,7 @@
+# python3 special_tensor.py "<lam>" 0 rand6 unit4 M2 M2S rand7   (generic functional, direction 1, p = 524287)
+# M2 = 2x2 matrix multiplication (8-term decomposition), M2S = same tensor via Strassen's 7 terms, unit4 = rank-4 unit tensor
+lam=((8, 1), (3, 3, 3), (3, 3, 2, 1)) direction 1 (dims (440, 20, 20)): rand6:396 unit4:20 M2:20 M2S:20 rand7:400
+lam=((7, 2), (4, 2, 2, 1), (3, 3, 3)) direction 1 (dims (540, 36, 20)): rand6:500 unit4:20 M2:36 M2S:36 rand7:504
+# PRIME=524269 SEED=31 python3 special_tensor.py "<lam>" 0 rand6 M2 M2S M2g rand7   (second prime, fresh points; M2g = random GL4^3 translate of M2)
+lam=((8, 1), (3, 3, 3), (3, 3, 2, 1)) direction 1 (dims (440, 20, 20)): rand6:396 M2:20 M2S:20 M2g:20 rand7:400
+lam=((7, 2), (4, 2, 2, 1), (3, 3, 3)) direction 1 (dims (540, 36, 20)): rand6:500 M2:36 M2S:36 M2g:36 rand7:504

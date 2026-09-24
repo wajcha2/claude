@@ -46,5 +46,9 @@ git push -q origin claude/wonderful-fermat-1v76ux 2>&1 | tail -1 && echo "shared
 LAST=$(cat $MAIN/.d10_last_shared 2>/dev/null || echo c17b6d7); echo "-- shared commits since last check-in ($LAST): [method] ones marked --"
 git log --format='%h %s' $LAST..HEAD | grep -v '^[0-9a-f]* d10' | sed 's/^\([0-9a-f]* \[method\]\)/*** \1/' || true; git rev-parse --short HEAD > $MAIN/.d10_last_shared
 echo "-- messages to d10 (tail) --"; [ -f agents/to-d10.md ] && tail -12 agents/to-d10.md || echo "(none)"
-cd $MAIN && git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_jobs.txt 2>/dev/null
+cd $MAIN
+# live logs are marked skip-worktree between check-ins (they grow continuously); clear the flag to commit them, then set it again
+git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --no-skip-worktree
+git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_jobs.txt 2>/dev/null
 git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ)" 2>/dev/null && git push -q origin claude/tender-hopper-mcnmta 2>&1 | tail -1 && echo "own branch: pushed" || echo "own branch: nothing new"
+git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --skip-worktree

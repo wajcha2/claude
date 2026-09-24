@@ -34,3 +34,8 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   Verified with seeds 5, 7, 11, fresh draws and prime 524269 (verify_hit.py), reference implementation agrees.
   Natural subspaces: all functionals of this component vanish on sigma_3 (U_1=U_2=U_3=M), U_4=0; swap23 acts trivially.
 - d=9 (d9 agent): two separating g=1 components, see agents/d9.md.
+- d=8 hit, special 1-dim U (pencil.py on a random line of P(M^*), fast evaluator): the rank-6 drop locus has degree 146
+  and is entirely tensor-independent; at the rational point t=509492 (filling-basis coordinates of hit_d8_special.py,
+  seed 5) the flattening has rank 220 on rank-6 tensors vs 225 (full) on rank-7 tensors -> a special 1-dimensional U
+  separates too (generic 1-dim U: 225/225). Another point (t=37168) lowers all tensors to 84.
+- d=7 natural-U search (specialU4_d7.log): 430 direction cases evaluated, no separation.

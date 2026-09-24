@@ -119,11 +119,16 @@ def build_network(fillings, vecs, pts):
             ops.append((I + ''.join(s[b] for b in col), vecs[t][ell]))
     return ops, Y + Z
 
-def prepare(vecs, gs, ells=(1, 2, 3, 4)):
-    """precompute minors: vm[t][ell] (vectors) and pm[t][ell] (evaluation points)."""
-    n = vecs[0].shape[1]
-    vm = [{l: minors_of_vectors(vecs[t], l) for l in ells if l <= n} for t in range(3)]
-    pm = [{l: minors_of_points(gs[t], l) for l in ells if l <= n} for t in range(3)]
+def prepare(vecs, gs, ells=None, lams=None):
+    """precompute minors: vm[t][ell] (vectors) and pm[t][ell] (evaluation points), for every column length ell of
+    factor t: the column lengths of lams[t] if given, else `ells` (default: all 1..n_t; the factors may have
+    different dimensions n_t = vecs[t].shape[1])."""
+    def lengths(t):
+        n_t = vecs[t].shape[1]
+        if lams is not None: return sorted({sum(1 for r in lams[t] if r > j) for j in range(lams[t][0])})
+        return [l for l in (ells if ells is not None else range(1, n_t + 1)) if l <= n_t]
+    vm = [{l: minors_of_vectors(vecs[t], l) for l in lengths(t)} for t in range(3)]
+    pm = [{l: minors_of_points(gs[t], l) for l in lengths(t)} for t in range(3)]
     return vm, pm
 
 def find_path(ops, out, memcap=MEMCAP, optimize='auto-hq'):

@@ -1,4 +1,4 @@
-"""python3 sweep_fast.py n d r_low,r_high [seed] [worker nworkers] [noV]
+"""python3 sweep_fast.py n d r_low,r_high [seed] [worker nworkers] [noV]      (n = 4, or n1,n2,n3 such as 4,5,5)
 
 Isotypic flattening ranks for all unordered components lam = (l1,l2,l3) of partitions of d with <= n rows and
 Kronecker coefficient g > 0, all three flattening directions -- the same quantities as sweep_hwv.py, evaluated with
@@ -30,20 +30,26 @@ from hwv import p, dim_schur, random_fillings, random_gs
 from hwv_fast import prepare, build_network, find_path, execute, matmul_mod
 from isoflat import partitions, kronecker, modrank
 
-n = int(sys.argv[1]); d = int(sys.argv[2]); ranks = [int(x) for x in sys.argv[3].split(',')]
+ns = tuple(int(x) for x in sys.argv[1].split(','))          # dimensions of the three factors
+ns = ns * 3 if len(ns) == 1 else ns
+assert len(ns) == 3
+d = int(sys.argv[2]); ranks = [int(x) for x in sys.argv[3].split(',')]
 SEED = int(sys.argv[4]) if len(sys.argv) > 4 else 5
 WORKER, NWORKERS = (int(sys.argv[5]), int(sys.argv[6])) if len(sys.argv) > 6 else (0, 1)
 NOV = len(sys.argv) > 7 and sys.argv[7] == 'noV'
 MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))
 MAXCOST = float(os.environ.get('MAXCOST', 'inf'))
 MAXDIM = float(os.environ.get('MAXDIM', 'inf'))
-CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%d_d%d' % (n, d))
+CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%s_d%d' % ('x'.join(map(str, ns)) if len(set(ns)) > 1 else ns[0], d))
 PR1, PR2 = 8, 16                       # probe size (source points x target pairs)
 EXTRA = 8                              # extra columns in the random compression of HN
 rlo, rhi = ranks[0], ranks[-1]
 
+def dims_of(lam):
+    return tuple(dim_schur(l, ns[t]) for t, l in enumerate(lam))
+
 def cost_proxy(lam, g):
-    return g * sum((dim_schur(l, n) + 4) ** 2 for l in lam)
+    return g * sum((x + 4) ** 2 for x in dims_of(lam))
 
 class Echelon:
     """incremental linear independence test mod p."""
@@ -67,7 +73,7 @@ def slice_pm(pm, ys, zs):
 def compute_F(f, vm, pm, path=None, info=None):
     """flattening matrix F[Y, Z]; if the path's largest intermediate exceeds MEMCAP, the evaluation points are
     split into blocks (first over Z, then over Y) until every intermediate fits."""
-    N1, K = pm[0][1].shape[0], pm[1][1].shape[0]
+    N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
     if path is None:
         ops, out = build_network(f, vm, pm)
         path, info = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
@@ -95,15 +101,15 @@ def compute_F(f, vm, pm, path=None, info=None):
 
 def direction(lam, g, dirn, crng):
     perm = [dirn] + [t for t in range(3) if t != dirn]
-    lam_p = tuple(lam[t] for t in perm)
-    n1 = dim_schur(lam_p[0], n)
+    lam_p = tuple(lam[t] for t in perm); ns_p = tuple(ns[t] for t in perm)
+    n1 = dim_schur(lam_p[0], ns_p[0])
     N1 = n1 + 4
-    K = (n1 if NOV else min(g * n1, dim_schur(lam_p[1], n) * dim_schur(lam_p[2], n))) + 4
-    gs = random_gs(crng, n, N1, K)
-    gp = random_gs(crng, n, PR1, PR2)
+    K = (n1 if NOV else min(g * n1, dim_schur(lam_p[1], ns_p[1]) * dim_schur(lam_p[2], ns_p[2]))) + 4
+    gs = random_gs(crng, ns_p, N1, K)
+    gp = random_gs(crng, ns_p, PR1, PR2)
     V = {r: tuple(vecs[r][t] for t in perm) for r in ranks}
-    pre = {r: prepare(V[r], gs) for r in ranks}
-    prb = prepare(V[rhi], gp)
+    pre = {r: prepare(V[r], gs, lams=lam_p) for r in ranks}
+    prb = prepare(V[rhi], gp, lams=lam_p)
     ech, chosen, tried = Echelon(), [], 0
     maxtry = 60 * g + 100
     while len(chosen) < g and tried < maxtry:
@@ -149,25 +155,31 @@ def direction(lam, g, dirn, crng):
     return res, len(chosen), tried
 
 rng = np.random.default_rng(SEED)
-vecs = {r: tuple(rng.integers(0, p, (r, n)) for _ in range(3)) for r in ranks}
+vecs = {r: tuple(rng.integers(0, p, (r, ns[t])) for t in range(3)) for r in ranks}
 DONE = set()
 for lf in os.environ.get('RESUME', '').split(':'):
     if lf and os.path.exists(lf):
         DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
+if ns[0] == ns[1] == ns[2]:
+    triples = itertools.combinations_with_replacement(partitions(d, ns[0]), 3)
+elif ns[1] == ns[2]:        # factors 2 and 3 interchangeable: unordered (l2, l3)
+    triples = ((l1, l2, l3) for l1 in partitions(d, ns[0]) for l2, l3 in itertools.combinations_with_replacement(partitions(d, ns[1]), 2))
+else:
+    triples = itertools.product(*(partitions(d, nt) for nt in ns))
 comps = []
-for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n), 3)):
+for li, lam in enumerate(triples):
     g = kronecker(*lam)
     if g:
         comps.append((cost_proxy(lam, g), li, lam, g))
 comps.sort()
 os.makedirs(CLAIMDIR, exist_ok=True)
-print("# sweep_fast n=%d d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%d MAXCOST=%s MAXDIM=%s: %d components, %d already done"
-      % (n, d, ranks, SEED, WORKER, NWORKERS, NOV, p, MEMCAP, MAXCOST, MAXDIM, len(comps), len(DONE)))
+print("# sweep_fast n=%s d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%d MAXCOST=%s MAXDIM=%s: %d components, %d already done"
+      % (','.join(map(str, ns)), d, ranks, SEED, WORKER, NWORKERS, NOV, p, MEMCAP, MAXCOST, MAXDIM, len(comps), len(DONE)))
 sys.stdout.flush()
 found, skipped = [], []
 T0 = time.time()
 for cost, li, lam, g in comps:
-    if cost > MAXCOST or max(dim_schur(l, n) for l in lam) > MAXDIM:
+    if cost > MAXCOST or max(dims_of(lam)) > MAXDIM:
         skipped.append(lam); continue
     if ('lam=%s' % (lam,)) in DONE:
         continue
@@ -185,10 +197,10 @@ for cost, li, lam, g in comps:
     keys = sorted(res)
     sep = [k for k in keys if res[k][0] < res[k][-1]]
     summary = ' '.join('%s%d:%s' % (k[1][0], k[0] + 1, '/'.join(str(x) for x in res[k])) for k in keys)
-    line = "lam=%s g=%d dims=%s  %s  span=%s cost=%.2e (%.1fs)" % (lam, g, tuple(dim_schur(l, n) for l in lam), summary,
+    line = "lam=%s g=%d dims=%s  %s  span=%s cost=%.2e (%.1fs)" % (lam, g, dims_of(lam), summary,
                                                              ','.join(map(str, spans)), cost, time.time() - t0)
     if sep:
         line += "  *** SEPARATES %s" % sep; found.append((lam, sep))
     print(line); sys.stdout.flush()
 print("NOT CHECKED (MAXCOST/MAXDIM filter): %d components: %s" % (len(skipped), skipped))
-print("n=%d d=%d ranks=%s worker %d total %.0fs FOUND: %s" % (n, d, ranks, WORKER, time.time() - T0, found))
+print("n=%s d=%d ranks=%s worker %d total %.0fs FOUND: %s" % (','.join(map(str, ns)), d, ranks, WORKER, time.time() - T0, found))

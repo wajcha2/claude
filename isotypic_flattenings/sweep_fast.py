@@ -178,7 +178,12 @@ print("# sweep_fast n=%s d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%
 sys.stdout.flush()
 found, skipped = [], []
 T0 = time.time()
+ONLY = None
+if os.environ.get('ONLY'):        # file with one component per line, e.g. ((8, 2), (3, 2, 2, 2, 1), (3, 2, 2, 2, 1)); others are skipped
+    ONLY = {tuple(tuple(x) for x in eval(l)) for l in open(os.environ['ONLY']) if l.strip()}
 for cost, li, lam, g in comps:
+    if ONLY is not None and tuple(tuple(x) for x in lam) not in ONLY:
+        continue
     if cost > MAXCOST or max(dims_of(lam)) > MAXDIM:
         skipped.append(lam); continue
     if ('lam=%s' % (lam,)) in DONE:

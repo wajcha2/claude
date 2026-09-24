@@ -5,6 +5,7 @@ from isoflat import modrank
 n = int(sys.argv[1]); d = int(sys.argv[2]); ranks = [int(x) for x in sys.argv[3].split(',')]
 rng = np.random.default_rng(int(sys.argv[4]) if len(sys.argv) > 4 else 5)
 SLICE, NSL = (int(sys.argv[5]), int(sys.argv[6])) if len(sys.argv) > 6 else (0, 1)
+NOV = len(sys.argv) > 7 and sys.argv[7] == 'noV'   # skip the U^*(x)S^{l1}V^* stacked flattening (needs g*n1 columns)
 from specialU import chunked_F
 vecs = {r: tuple(rng.integers(0, p, (r, n)) for _ in range(3)) for r in ranks}
 found = []
@@ -16,7 +17,7 @@ for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n
     for direction in range(3):
         perm = [direction] + [t for t in range(3) if t != direction]
         lam_p = tuple(lam[t] for t in perm)
-        n1 = dim_schur(lam_p[0], n); N1 = n1 + 4; K = min(g * n1, dim_schur(lam_p[1], n) * dim_schur(lam_p[2], n)) + 4
+        n1 = dim_schur(lam_p[0], n); N1 = n1 + 4; K = (n1 if NOV else min(g * n1, dim_schur(lam_p[1], n) * dim_schur(lam_p[2], n))) + 4
         gs = random_gs(rng, n, N1, K)
         fills = []
         tries = 0
@@ -30,7 +31,7 @@ for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n
             Fgen = sum(c * F for c, F in zip(coeffs, Fs)) % p
             res[(r, direction, 'gen')] = modrank(Fgen)
             if g >= 2:
-                res[(r, direction, 'Vstack')] = modrank(np.vstack(Fs))
+                if not NOV: res[(r, direction, 'Vstack')] = modrank(np.vstack(Fs))
                 res[(r, direction, 'Hstack')] = modrank(np.hstack(Fs))
     keys = sorted({k[1:] for k in res})
     sep = [k for k in keys if res[(ranks[0],) + k] < res[(ranks[1],) + k]]

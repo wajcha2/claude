@@ -25,7 +25,7 @@ for P in 1 2 3; do
   for k in 0 1 2; do
     if finished $PFX $k; then echo "pass $P slice $k: finished"
     elif alive $k; then echo "pass $P slice $k: running"
-    else echo "pass $P slice $k: DEAD or not started -> launching"; launch $P $k; fi
+    else echo "pass $P slice $k: not running (sweep stopped by the user 2026-09-24 19:42 UTC; set D10_RESUME=1 to restart)"; [ "$D10_RESUME" = 1 ] && launch $P $k; fi
   done
   break     # only the lowest unfinished pass is active
 done

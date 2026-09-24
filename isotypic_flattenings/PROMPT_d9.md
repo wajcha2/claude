@@ -42,8 +42,8 @@ Environment variables: `MAXDIM=<N>` skips components whose largest Weyl-module d
 `ORDER=cost` (default) processes components cheapest first; `CHUNK` (default 48) bounds memory; `RESUME=log1:log2`
 skips components already present in those logs. The first log line prints the number of components and the filter,
 the end prints `NOT CHECKED (dimension filter)` with the skipped components and `FOUND: [...]`.
-Example pass 1 on 3 processes:  for k in 0 1 2; do MAXDIM=150 CHUNK=32 nohup python3 sweep_hwv.py 4 10 6,7 5 $k 3 noV > hwv4_d10_max150_s$k.log 2>&1 & done
-Example pass 2:                 MINDIM=150 MAXDIM=300 ... > hwv4_d10_max300_s$k.log
+Example pass 1 on 3 processes:  for k in 0 1 2; do MAXDIM=150 CHUNK=32 nohup python3 sweep_hwv.py 4 9 6,7 5 $k 3 noV > hwv4_d9_max150_s$k.log 2>&1 & done
+Example pass 2:                 MINDIM=150 MAXDIM=300 ... > hwv4_d9_max300_s$k.log
 
 ## Reporting
 Report (a) the list of components checked with their ranks, (b) any `SEPARATES` line with the full ranks of both

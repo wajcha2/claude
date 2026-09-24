@@ -81,6 +81,9 @@ out.append('# by hand: RESUME=$(ls hwv455_d<d>*.log | tr "\\n" ":") MAXDIM=<inf|
 out.append('#   setsid nohup python3 sweep_fast.py 4,5,5 <d> 8,9 5 <k> 3 noV >> hwv455_d<d>[_max<N>]_w<k>.log 2>&1 < /dev/null &     (k = 0,1,2; remove the dead worker\'s claim files first)')
 out.append('```')
 out.append('A worker is finished when the last line of its log is `n=4,5,5 d=... FOUND: [...]`. Hourly check-in routine trig_01Kq52M65tDvcZNxEXAWNoxm (this session).')
+out.append('Container behaviour (observed 2026-09-24 20:34 UTC): the session container is stopped when the session is idle between turns and re-provisioned')
+out.append('when the routine fires (disk restored, all processes gone). Detached processes therefore only run while the session is busy; the agent keeps a')
+out.append('harness-tracked Monitor task armed (30 min windows, re-armed at each expiry) and the check-in restarts the runner after any restore.')
 out.append('')
 for d in degrees:
     comps = components(d)

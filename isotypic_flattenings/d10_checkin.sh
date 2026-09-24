@@ -40,7 +40,8 @@ mkdir -p agents && cp $MAIN/hwv4_d10_*.log . && cp $MAIN/agents/d10.md agents/d1
 git add hwv4_d10_*.log agents/d10.md agents/from-d10.md d10_status.sh d10_report.py d10_checkin.sh 2>/dev/null
 git commit -q -m "d10: status + logs $(date -u +%FT%H:%MZ) ($(grep -c '^lam=' hwv4_d10_*.log | awk -F: '{s+=$2} END {print s}') component lines)" 2>/dev/null && echo "shared: committed" || echo "shared: nothing new"
 git push -q origin claude/wonderful-fermat-1v76ux 2>&1 | tail -1 && echo "shared: pushed $(git rev-parse --short HEAD)"
-echo "-- new [method] commits by others on shared (last 10) --"; git log --oneline -10 --grep='^\[method\]' | grep -v "d10" || true
+LAST=$(cat $MAIN/.d10_last_shared 2>/dev/null || echo c17b6d7); echo "-- shared commits since last check-in ($LAST): [method] ones marked --"
+git log --format='%h %s' $LAST..HEAD | grep -v '^[0-9a-f]* d10:' | sed 's/^\([0-9a-f]* \[method\]\)/*** \1/' || true; git rev-parse --short HEAD > $MAIN/.d10_last_shared
 echo "-- messages to d10 --"; [ -f agents/to-d10.md ] && tail -30 agents/to-d10.md || echo "(none)"
 # own branch mirror
 cd $MAIN && git add hwv4_d10_*.log agents/d10.md agents/from-d10.md d10_status.sh d10_report.py d10_checkin.sh 2>/dev/null

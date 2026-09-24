@@ -14,7 +14,7 @@ for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     for direction in range(3):
         perm = [direction] + [t for t in range(3) if t != direction]
         lam_p = tuple(lam[t] for t in perm)
-        n1 = dim_schur(lam_p[0], n); N1 = K = n1 + 4
+        n1 = dim_schur(lam_p[0], n); N1 = n1 + 4; K = g * n1 + 4
         gs = random_gs(rng, n, N1, K)
         fills = []
         tries = 0
@@ -28,8 +28,8 @@ for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
             Fgen = sum(c * F for c, F in zip(coeffs, Fs)) % p
             res[(r, direction, 'gen')] = modrank(Fgen)
             if g >= 2:
-                res[(r, direction, 'U-rows')] = modrank(np.vstack(Fs))
-                res[(r, direction, 'U-cols')] = modrank(np.hstack(Fs))
+                res[(r, direction, 'Vstack')] = modrank(np.vstack(Fs))
+                res[(r, direction, 'Hstack')] = modrank(np.hstack(Fs))
     keys = sorted({k[1:] for k in res})
     sep = [k for k in keys if res[(ranks[0],) + k] < res[(ranks[1],) + k]]
     summary = ' '.join('%s%d:%s' % (k[1][0], k[0] + 1, '/'.join(str(res[(r,) + k]) for r in ranks)) for k in keys)

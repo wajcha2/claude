@@ -26,11 +26,12 @@ def partitions(d, maxparts=None):
             yield from rec(rem - q, q, parts + [q])
     return list(rec(d, d, []))
 
-def dim_schur(lam, n=3):
+def dim_schur(lam, nn=None):
+    nn = n if nn is None else nn
     num = 1; den = 1
     for i, r in enumerate(lam):
         for j in range(r):
-            num *= (n + j - i)
+            num *= (nn + j - i)
             arm = r - j - 1
             leg = sum(1 for k in range(i + 1, len(lam)) if lam[k] > j)
             den *= (arm + leg + 1)

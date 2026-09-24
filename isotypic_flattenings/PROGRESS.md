@@ -39,3 +39,4 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   seed 5) the flattening has rank 220 on rank-6 tensors vs 225 (full) on rank-7 tensors -> a special 1-dimensional U
   separates too (generic 1-dim U: 225/225). Another point (t=37168) lowers all tensors to 84.
 - d=7 natural-U search (specialU4_d7.log): 430 direction cases evaluated, no separation.
+- d=7 natural-U search complete (430 + 155 = 585 direction cases; specialU4_d7.log + specialU4_d7_rest.log): no separation.

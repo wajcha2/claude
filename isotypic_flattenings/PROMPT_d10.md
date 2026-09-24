@@ -21,10 +21,19 @@ compute on a 4-core machine. Therefore:
 1. Sanity check first (1 minute): `python3 sweep_hwv.py 4 4 6,7` -> full ranks, `FOUND: []`;
    `python3 test_hwv.py 3 5 4,5 "((3,2),(3,1,1),(2,2,1))"` -> 12 vs 15.
 2. Order components by cost (largest Weyl dimension, then Kronecker coefficient) and process cheapest first.
-   Add a maximum-dimension filter to the sweep (state the bound in each log name), pass 1 with bound 150,
-   pass 2 with 300, pass 3 unbounded. Always run `noV` and `CHUNK=32`; use one process per core minus one.
+   Use the `MAXDIM`/`MINDIM` environment variables (see below): pass 1 `MAXDIM=150`,
+   pass 2 `MINDIM=150 MAXDIM=300`, pass 3 `MINDIM=300`. Always run `noV` and `CHUNK=32`; use one process per core minus one.
 3. Never run more processes than cores; the container has a hidden memory cgroup limit and kills processes
    silently (`dmesg | grep -i oom`). Restart killed slices with `RESUME` pointing to all existing logs.
+
+## Sweep options (already implemented in sweep_hwv.py)
+Environment variables: `MAXDIM=<N>` skips components whose largest Weyl-module dimension exceeds N (0 = no bound);
+`MINDIM=<M>` skips those with largest dimension <= M (use it for later passes so nothing is recomputed);
+`ORDER=cost` (default) processes components cheapest first; `CHUNK` (default 48) bounds memory; `RESUME=log1:log2`
+skips components already present in those logs. The first log line prints the number of components and the filter,
+the end prints `NOT CHECKED (dimension filter)` with the skipped components and `FOUND: [...]`.
+Example pass 1 on 3 processes:  for k in 0 1 2; do MAXDIM=150 CHUNK=32 nohup python3 sweep_hwv.py 4 10 6,7 5 $k 3 noV > hwv4_d10_max150_s$k.log 2>&1 & done
+Example pass 2:                 MINDIM=150 MAXDIM=300 ... > hwv4_d10_max300_s$k.log
 
 ## Long-running discipline (this is expected to take 1-2 weeks)
 * Start every computation with `nohup ... &` (or setsid) so it survives the end of a turn; never block a turn on it.

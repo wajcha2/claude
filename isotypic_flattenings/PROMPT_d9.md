@@ -29,13 +29,21 @@ Everything is exact modulo the prime p = 524287 (in `hwv.py`).
 2. d = 9 sweep. There are 782 components; Weyl-module dimensions go up to 540 and Kronecker coefficients up to ~30,
    so the biggest components cost hours each. Run
        CHUNK=32 python3 sweep_hwv.py 4 9 6,7 5 <k> <N> noV > hwv4_d9_s<k>.log
-   for k = 0..N-1 with N = number of cores minus one. Prefer processing cheap components first: add a filter
-   (e.g. skip components whose largest dimension exceeds a bound, raising the bound in later passes) and say in
-   the log which bound was used. Use `RESUME` to restart after a crash.
+   for k = 0..N-1 with N = number of cores minus one. Prefer processing cheap components first: use the `MAXDIM`/`MINDIM`
+   environment variables (see below) with increasing bounds in successive passes; the bound is printed in the log. Use `RESUME` to restart after a crash.
 3. Memory: the container may have a cgroup limit far below `free`; processes get OOM-killed silently. Keep
    CHUNK small, do not run more processes than cores, and check `dmesg | grep -i oom` when a process disappears.
 4. Commit and push the logs and a short summary table (component, dims, g, ranks low/high) every 30-60 minutes,
    so partial progress survives. Record explicitly which components were NOT checked.
+
+## Sweep options (already implemented in sweep_hwv.py)
+Environment variables: `MAXDIM=<N>` skips components whose largest Weyl-module dimension exceeds N (0 = no bound);
+`MINDIM=<M>` skips those with largest dimension <= M (use it for later passes so nothing is recomputed);
+`ORDER=cost` (default) processes components cheapest first; `CHUNK` (default 48) bounds memory; `RESUME=log1:log2`
+skips components already present in those logs. The first log line prints the number of components and the filter,
+the end prints `NOT CHECKED (dimension filter)` with the skipped components and `FOUND: [...]`.
+Example pass 1 on 3 processes:  for k in 0 1 2; do MAXDIM=150 CHUNK=32 nohup python3 sweep_hwv.py 4 10 6,7 5 $k 3 noV > hwv4_d10_max150_s$k.log 2>&1 & done
+Example pass 2:                 MINDIM=150 MAXDIM=300 ... > hwv4_d10_max300_s$k.log
 
 ## Reporting
 Report (a) the list of components checked with their ranks, (b) any `SEPARATES` line with the full ranks of both

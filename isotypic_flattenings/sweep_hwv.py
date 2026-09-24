@@ -16,9 +16,20 @@ for lf in os.environ.get('RESUME', '').split(':'):
 vecs = {r: tuple(rng.integers(0, p, (r, n)) for _ in range(3)) for r in ranks}
 found = []
 T0 = time.time()
-for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n), 3)):
-    g = kronecker(*lam)
-    if g == 0 or li % NSL != SLICE or ('lam=%s' % (lam,)) in DONE: continue
+MAXDIM = int(os.environ.get('MAXDIM', '0'))      # skip components whose largest Weyl dimension exceeds MAXDIM (0 = no bound)
+MINDIM = int(os.environ.get('MINDIM', '0'))      # skip components whose largest Weyl dimension is <= MINDIM (for later passes)
+comps = [(lam, kronecker(*lam)) for lam in itertools.combinations_with_replacement(partitions(d, n), 3)]
+comps = [(lam, g) for lam, g in comps if g > 0]
+if os.environ.get('ORDER', 'cost') == 'cost':   # cheapest first: by largest Weyl dimension, then multiplicity
+    comps.sort(key=lambda x: (max(dim_schur(l, n) for l in x[0]), x[1]))
+print("d=%d: %d components with g>0; MAXDIM=%d MINDIM=%d slice %d/%d" % (d, len(comps), MAXDIM, MINDIM, SLICE, NSL)); sys.stdout.flush()
+skipped = []
+for li, (lam, g) in enumerate(comps):
+    md = max(dim_schur(l, n) for l in lam)
+    if (MAXDIM and md > MAXDIM) or md <= MINDIM:
+        if li % NSL == SLICE: skipped.append(lam)
+        continue
+    if li % NSL != SLICE or ('lam=%s' % (lam,)) in DONE: continue
     t0 = time.time(); res = {}
     for direction in range(3):
         perm = [direction] + [t for t in range(3) if t != direction]
@@ -46,4 +57,5 @@ for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n
     if sep:
         line += "  *** SEPARATES %s" % sep; found.append((lam, sep, {k: res[k] for k in res}))
     print(line); sys.stdout.flush()
+print("NOT CHECKED (dimension filter) in this slice: %d components: %s" % (len(skipped), skipped))
 print("n=%d d=%d ranks=%s total %.0fs FOUND: %s" % (n, d, ranks, time.time() - T0, [(f[0], f[1]) for f in found]))

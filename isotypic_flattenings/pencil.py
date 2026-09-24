@@ -44,10 +44,11 @@ def drop_poly(F1, F2, rho, rng):
     return q1.gcd(q2)
 
 def roots_mod_p(h):
-    fl = sympy.factor_list(h.as_expr(), modulus=p)[1]
+    x = h.gens[0]
+    fl = sympy.factor_list(h.as_expr(), x, modulus=p)[1]
     out = []
     for f, mult in fl:
-        f = sympy.Poly(f, t, modulus=p)
+        f = sympy.Poly(f, x, modulus=p)
         if f.degree() == 1:
             a, b = [int(c) for c in f.all_coeffs()]
             out.append((-b * pow(a, p - 2, p)) % p)

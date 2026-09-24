@@ -15,3 +15,10 @@ specialU.py (natural U: secant-vanishing flag U_k and swap eigenspaces; dim 1 an
 
 C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1),(3,1,1)) with ranks 9 vs 15
 (generic phi gives 12 vs 15); natural-U search reproduces 12 vs 15 on U_1=U_2=M*, U_3 empty there.
+
+## Special-U intersection search (plane.py, codim-2, complete for g=3)
+- C^3 d=6, lam=((4,2),(3,2,1),(3,2,1)), g=3, direction 1: rank-4 drop locus is a T-independent curve of degree 10
+  in P^2; at a rational point of it ranks are 26 (rank 4) vs 27 (rank 5) -- generic functional gives 27/27.
+  => special U on a curve separate where generic ones do not (validation of the method).
+- C^3 d=6, other g>=3 components ((4,1,1),(3,2,1),(3,2,1)) g=4 and ((3,2,1),(3,2,1),(3,2,1)) g=5: no drop locus on a random plane.
+- C^4 d=6 components with g>=3: running (plane4_d6.log).

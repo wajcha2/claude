@@ -31,7 +31,9 @@ echo "-- jobs --"
 while read d M; do
   [ -z "$d" ] && continue; case $d in \#*) continue;; esac
   T=$(tag $d $M); st=""
-  for k in $(seq 0 $((NW-1))); do finished $T $k && st="$st F" || { alive $d $k && st="$st R($(grep -c '^lam=' hwv455_${T}_w$k.log 2>/dev/null))" || st="$st -"; }; done
+  for k in $(seq 0 $((NW-1))); do
+    if finished $T $k; then st="$st F"; elif [ -f hwv455_${T}_w$k.log ] && alive $d $k; then st="$st R($(grep -c '^lam=' hwv455_${T}_w$k.log || true))"; else st="$st -"; fi
+  done
   echo "$T:$st   ($(cat hwv455_${T}_w*.log 2>/dev/null | grep -c '^lam=') lines)"
 done < t455_jobs.txt
 python3 t455_report.py > agents/d10.md

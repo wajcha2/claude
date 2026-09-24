@@ -177,7 +177,9 @@ def flattening_matrix(lam, fillings, vecs, gs):
     return contract(ops, out, path)
 
 def random_gs(rng, n, N1, K):
-    return (rng.integers(0, p, (N1, n, n)), rng.integers(0, p, (K, n, n)), rng.integers(0, p, (K, n, n)))
+    """random evaluation points; n = common dimension or a tuple (n1, n2, n3) of the three factor dimensions."""
+    ns = (n, n, n) if isinstance(n, (int, np.integer)) else tuple(n)
+    return (rng.integers(0, p, (N1, ns[0], ns[0])), rng.integers(0, p, (K, ns[1], ns[1])), rng.integers(0, p, (K, ns[2], ns[2])))
 
 def random_fillings(rng, lam):
     d = sum(lam[0]); cols = [canonical_columns(l) for l in lam]

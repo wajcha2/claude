@@ -7,12 +7,18 @@ rng = np.random.default_rng(int(sys.argv[4]) if len(sys.argv) > 4 else 5)
 SLICE, NSL = (int(sys.argv[5]), int(sys.argv[6])) if len(sys.argv) > 6 else (0, 1)
 NOV = len(sys.argv) > 7 and sys.argv[7] == 'noV'   # skip the U^*(x)S^{l1}V^* stacked flattening (needs g*n1 columns)
 from specialU import chunked_F
+import os
+CHUNK = int(os.environ.get('CHUNK', '48'))
+DONE = set()
+for lf in os.environ.get('RESUME', '').split(':'):
+    if lf and os.path.exists(lf):
+        DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
 vecs = {r: tuple(rng.integers(0, p, (r, n)) for _ in range(3)) for r in ranks}
 found = []
 T0 = time.time()
 for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n), 3)):
     g = kronecker(*lam)
-    if g == 0 or li % NSL != SLICE: continue
+    if g == 0 or li % NSL != SLICE or ('lam=%s' % (lam,)) in DONE: continue
     t0 = time.time(); res = {}
     for direction in range(3):
         perm = [direction] + [t for t in range(3) if t != direction]
@@ -23,11 +29,11 @@ for li, lam in enumerate(itertools.combinations_with_replacement(partitions(d, n
         tries = 0
         while len(fills) < 2 * g + 2 and tries < 60 * g:
             f = random_fillings(rng, lam_p); tries += 1
-            if np.any(chunked_F(lam_p, f, tuple(vecs[ranks[-1]][t] for t in perm), gs)):
+            if np.any(chunked_F(lam_p, f, tuple(vecs[ranks[-1]][t] for t in perm), gs, CHUNK)):
                 fills.append(f)
         coeffs = [int(c) for c in rng.integers(1, p, len(fills))]
         for r in ranks:
-            Fs = [chunked_F(lam_p, f, tuple(vecs[r][t] for t in perm), gs) for f in fills]
+            Fs = [chunked_F(lam_p, f, tuple(vecs[r][t] for t in perm), gs, CHUNK) for f in fills]
             Fgen = sum(c * F for c, F in zip(coeffs, Fs)) % p
             res[(r, direction, 'gen')] = modrank(Fgen)
             if g >= 2:

@@ -25,3 +25,12 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - C^4 d=6, all 5 components with g>=3 (g=3,3,4,4,5), all 3 directions: rank-6 tensors have NO drop locus on a random
   plane in P(K).  For g=3 this is the whole P(K): no functional at all lowers the rank for rank-6 tensors.
   For g=4,5 only special loci of codimension >=3 remain unexplored.
+
+## d=7 and d=8 complete (fast implementation from the d9 agent, hwv_fast/sweep_fast)
+- d=7: 195/195 components, generic functional + full-U stacked, 3 directions: NO separator.
+- d=8: 426/426 components: ONE separator, lam=((6,2),(3,2,2,1),(3,2,2,1)), g=4, dims (360,15,15), direction 1:
+  stacked flattening S^{(6,2)}V^* -> U^* (x) S^{3221}V (x) S^{3221}V with U = M (dim 4): rank 304 on rank-6 vs 309 on rank-7
+  (rank 5: 160, rank 8: 309).  Generic 1-dim U gives 225/225 (full); any generic U of dim >= 2 gives 304/309.
+  Verified with seeds 5, 7, 11, fresh draws and prime 524269 (verify_hit.py), reference implementation agrees.
+  Natural subspaces: all functionals of this component vanish on sigma_3 (U_1=U_2=U_3=M), U_4=0; swap23 acts trivially.
+- d=9 (d9 agent): two separating g=1 components, see agents/d9.md.

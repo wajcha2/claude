@@ -16,11 +16,24 @@ def iso_tensor(lam, fills, coeffs, vecs, gsA, gsB, gsC, chunk=48):
         Y = (Y + int(cf) * chunked_F(lam, f, vecs, (gsA, gsB[idx[:, 0]], gsC[idx[:, 1]]), chunk)) % p
     return Y.reshape(gsA.shape[0], nb, nc)
 
+from math import comb
+import os
+BUDGET = float(os.environ.get('KBUDGET', '3e7'))   # max number of matrix entries
+
+def koszul_dim(nA, nB, nC, pk):
+    """largest m <= nA with binom(m,pk)*nB * binom(m,pk+1)*nC <= BUDGET (m >= 2pk+1)."""
+    m = 2 * pk + 1
+    while m + 1 <= nA and comb(m + 1, pk) * nB * comb(m + 1, pk + 1) * nC <= BUDGET: m += 1
+    return m
+
 def koszul_rank(Y, factor, pk, rng):
-    """Koszul flattening rank after projecting `factor` to dimension 2pk+1."""
-    Y = np.moveaxis(Y, factor, 0); m = 2 * pk + 1
-    M = rng.integers(0, p, (m, Y.shape[0]))
-    Z = np.tensordot(M, Y, axes=([1], [0])) % p              # (m, nB, nC)
+    """Koszul flattening  Lambda^pk A' (x) B^* -> Lambda^{pk+1} A' (x) C, with A' = A (no projection) when the
+    matrix fits BUDGET, else a random quotient of A of the largest dimension that fits.  Returns (m, rank)."""
+    Y = np.moveaxis(Y, factor, 0); nA, nB, nC = Y.shape
+    m = koszul_dim(nA, nB, nC, pk)
+    if m >= nA: Z = Y % p; m = nA
+    else:
+        M = rng.integers(0, p, (m, nA)); Z = np.tensordot(M, Y, axes=([1], [0])) % p
     nB, nC = Z.shape[1], Z.shape[2]
     rows = list(itertools.combinations(range(m), pk)); cols = list(itertools.combinations(range(m), pk + 1))
     K = np.zeros((len(rows) * nB, len(cols) * nC), dtype=np.int64)
@@ -30,7 +43,7 @@ def koszul_rank(Y, factor, pk, rng):
             if len(extra) != 1: continue
             k = extra.pop(); sign = (-1) ** sorted(J).index(k)
             K[i * nB:(i + 1) * nB, j * nC:(j + 1) * nC] = (sign * Z[k]) % p
-    return modrank(K)
+    return (m, modrank(K))
 
 def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
     g = kronecker(*lam); dims = tuple(dim_schur(l, n) for l in lam)
@@ -52,9 +65,9 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
         flat = [modrank(np.moveaxis(Y, f, 0).reshape(Y.shape[f], -1)) for f in range(3)]
         kz = {(f, pk): koszul_rank(Y, f, pk, rng) for f in range(3) for pk in pks}
         res[k] = (flat, kz)
-    sep = [key for key in res['high'][1] if res['low'][1][key] < res['high'][1][key] and res['low2'][1][key] < res['high'][1][key]]
-    return "lam=%s g=%d dims=%s | flat low/high=%s/%s | koszul (factor,p): low=%s high=%s%s" % (
-        lam, g, dims, res['low'][0], res['high'][0], {k: (res['low'][1][k], res['low2'][1][k]) for k in res['low'][1]}, res['high'][1],
+    sep = [key for key in res['high'][1] if res['low'][1][key][1] < res['high'][1][key][1] and res['low2'][1][key][1] < res['high'][1][key][1]]
+    return "lam=%s g=%d dims=%s | flat low/high=%s/%s | koszul (factor,p): low=%s high(m,rank)=%s%s" % (
+        lam, g, dims, res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
         "  *** KOSZUL SEPARATES %s" % sep if sep else "")
 
 if __name__ == "__main__":

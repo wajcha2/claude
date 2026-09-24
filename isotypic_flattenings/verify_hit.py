@@ -4,7 +4,8 @@ tensors of the given ranks (default 5,6,7,8), fresh evaluation points (N1 = n1 +
 K = n1 + 4 pairs on the target side) and fresh independent fillings (g of them; the generic functional is a random
 combination), and print the rank of the flattening S^{l_dir}V^* -> S^{l_i}V (x) S^{l_j}V for every rank.
 Also compares an 8 x 8 block of one flattening matrix with the reference implementation hwv.flattening_matrix
-(entry by entry).  Arithmetic mod `prime` (default 524287; must be < 2^19 for the exact float64 contractions)."""
+(entry by entry).  For g >= 2 also the rank of the stacked flattening over the whole multiplicity space (H).
+Arithmetic mod `prime` (default 524287; must be < 2^19 for the exact float64 contractions)."""
 import sys, time, numpy as np
 lam = eval(sys.argv[1]); dirn = int(sys.argv[2])
 ranks = [int(x) for x in sys.argv[3].split(',')] if len(sys.argv) > 3 else [5, 6, 7, 8]
@@ -48,13 +49,17 @@ for trial in range(trials):
         if F.any() and modrank(np.array(basis + [F[:24, :24].ravel()])) == len(basis) + 1:
             fills.append(f); basis.append(F[:24, :24].ravel())
     coeffs = [int(c) for c in rng.integers(1, p, g)]
-    out = []
+    out, outH = [], []
     for r in ranks:
         Fs = [flat(f, *pre[r]) for f in fills]
         Fg = np.zeros((N1, K), dtype=np.int64)
         for c, F in zip(coeffs, Fs):
             Fg = (Fg + c * F) % p
         out.append('r%d:%d' % (r, modrank(Fg)))
+        if g >= 2:   # full multiplicity space: S^{l}V^* -> M^* (x) target (exact rank of the hstack)
+            outH.append('r%d:%d' % (r, modrank(np.hstack(Fs))))
+    if g >= 2:
+        out.append(' | H (U = M): ' + ' '.join(outH))
     print('trial %d: %s  (%.0fs)' % (trial, ' '.join(out), time.time() - t0)); sys.stdout.flush()
 # reference implementation on an 8 x 8 block (first filling, rank ranks[1] tensor)
 r = ranks[1] if len(ranks) > 1 else ranks[0]

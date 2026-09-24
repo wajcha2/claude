@@ -26,6 +26,8 @@ out = []
 out.append('# d10 agent status (C^4 (x) C^4 (x) C^4, rank 6 vs 7, degree d = 10)')
 out.append('Updated %s. Branch for this agent\'s work: shared `claude/wonderful-fermat-1v76ux` (also mirrored on `claude/tender-hopper-mcnmta`).' % time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime()))
 out.append('Sweep started 2026-09-24 19:09 UTC on 4 cores (memory cgroup 13.4 GiB), 3 processes, `noV`, `CHUNK=32`, seed 5, p = 524287.')
+out.append('**STOPPED 2026-09-24 19:42 UTC at the user\'s request** (a d=9 separator was reported; the d10 agent moved to C^4 (x) C^5 (x) C^5, rank 8 vs 9,')
+out.append('see `agents/d10_455.md`). Restart: `D10_RESUME=1 bash d10_checkin.sh` (RESUME over all hwv4_d10 logs).')
 out.append('')
 out.append('## Running now')
 out.extend(['    ' + l for l in procs] or ['    (no sweep process running)'])

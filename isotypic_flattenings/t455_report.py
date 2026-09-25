@@ -2,17 +2,8 @@
 python3 t455_report.py > agents/d10.md"""
 import glob, re, os, subprocess, itertools, time, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from hwv import dim_schur
-from isoflat import partitions, kronecker
-ns = (4, 5, 5); RANKS = (8, 9)
-def components(d):
-    out = []
-    for l1 in partitions(d, ns[0]):
-        for l2, l3 in itertools.combinations_with_replacement(partitions(d, ns[1]), 2):
-            g = kronecker(l1, l2, l3)
-            if g: out.append(((l1, l2, l3), g))
-    return out
-def dims_of(lam): return tuple(dim_schur(l, ns[t]) for t, l in enumerate(lam))
+from t455_common import components, dims_of, ns
+RANKS = (8, 9)
 jobs = []
 for line in open('t455_jobs.txt'):
     if line.strip() and not line.startswith('#'):

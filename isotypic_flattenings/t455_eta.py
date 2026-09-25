@@ -3,11 +3,7 @@ degree (log-log least squares), predict the rest with the cost proxy of sweep_fa
 import glob, re, itertools, sys, os, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hwv import dim_schur
-from isoflat import partitions, kronecker
-ns = (4, 5, 5)
-def cost(lam, g): return g * sum((dim_schur(l, ns[t]) + 4) ** 2 for t, l in enumerate(lam))
-def comps(d):
-    return [((l1, l2, l3), kronecker(l1, l2, l3)) for l1 in partitions(d, 4) for l2, l3 in itertools.combinations_with_replacement(partitions(d, 5), 2) if kronecker(l1, l2, l3)]
+from t455_common import components as comps, cost, ns
 jobs = [tuple(l.split()) for l in open('t455_jobs.txt') if l.strip() and not l.startswith('#')]
 done = {}
 for lf in glob.glob('hwv455_d*_w*.log'):

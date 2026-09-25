@@ -41,8 +41,8 @@ if ! (cd $SHARED 2>/dev/null && git rev-parse --abbrev-ref HEAD 2>/dev/null | gr
   echo "!!! shared worktree $SHARED missing: cd /home/user/claude && git worktree add /home/user/claude-shared claude/wonderful-fermat-1v76ux"; exit 1; fi
 cd $SHARED && git pull -q --rebase origin claude/wonderful-fermat-1v76ux 2>&1 | tail -2
 mkdir -p agents && cp $MAIN/hwv455_*.log . 2>/dev/null; cp $MAIN/agents/d10.md agents/d10.md; cp $MAIN/agents/from-d10.md agents/from-d10.md 2>/dev/null
-cp $MAIN/t455_checkin.sh $MAIN/t455_runner.sh $MAIN/t455_report.py $MAIN/t455_jobs.txt .; cp $MAIN/t455_runner.log . 2>/dev/null
-git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_jobs.txt 2>/dev/null
+cp $MAIN/t455_checkin.sh $MAIN/t455_runner.sh $MAIN/t455_report.py $MAIN/t455_eta.py $MAIN/t455_common.py $MAIN/t455_jobs.txt .; cp $MAIN/t455_runner.log . 2>/dev/null
+git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt 2>/dev/null
 git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ) ($(cat hwv455_*.log 2>/dev/null | grep -c '^lam=') component lines)" 2>/dev/null && echo "shared: committed" || echo "shared: nothing new"
 git push -q origin claude/wonderful-fermat-1v76ux 2>&1 | tail -1 && echo "shared: pushed $(git rev-parse --short HEAD)"
 LAST=$(cat $MAIN/.d10_last_shared 2>/dev/null || echo c17b6d7); echo "-- shared commits since last check-in ($LAST): [method] ones marked --"
@@ -51,6 +51,6 @@ echo "-- messages to d10 (tail) --"; [ -f agents/to-d10.md ] && tail -12 agents/
 cd $MAIN
 # live logs are marked skip-worktree between check-ins (they grow continuously); clear the flag to commit them, then set it again
 git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --no-skip-worktree
-git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_jobs.txt 2>/dev/null
+git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt 2>/dev/null
 git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ)" 2>/dev/null && git push -q origin claude/tender-hopper-mcnmta 2>&1 | tail -1 && echo "own branch: pushed" || echo "own branch: nothing new"
 git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --skip-worktree

@@ -81,26 +81,42 @@ class Echelon:
 def slice_pm(pm, ys, zs):
     return [{l: A[ys] for l, A in pm[0].items()}, {l: A[zs] for l, A in pm[1].items()}, {l: A[zs] for l, A in pm[2].items()}]
 
-def compute_F(f, vm, pm, path=None, info=None):
+def best_path(ops, out, repeats=128, cheap=False):
+    """flop-optimised RandomGreedy path; if its largest intermediate (exact simulation of execute()) exceeds MEMCAP,
+    the size-minimising dynamic-programming path is tried and kept when smaller.  RandomGreedy is unseeded and
+    occasionally returns a path with an intermediate carrying only word indices (up to r^d elements), which no
+    batch splitting can shrink -- that was the cause of 13 GB OOM kills at d = 9."""
+    path, info = find_path(ops, out, None, 'greedy' if cheap else oe.RandomGreedy(max_repeats=repeats))   # cheap: probes (8 x 16 points)
+    big = hwv_fast.largest_intermediate(ops, out, path)
+    if big > MEMCAP:
+        path2, info2 = find_path(ops, out, None, oe.DynamicProgramming(minimize='size'))
+        big2 = hwv_fast.largest_intermediate(ops, out, path2)
+        if big2 < big:
+            path, info, big = path2, info2, big2
+    return path, info, big
+
+def compute_F(f, vm, pm, path=None, info=None, cheap=False):
     """flattening matrix F[Y, Z]; if the path's largest intermediate exceeds MEMCAP, the evaluation points are
-    split into blocks (first over Z, then over Y) until every intermediate fits."""
+    split into blocks (first over Z, then over Y, down to single points) until every intermediate fits."""
     N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
-    if path is None:
-        ops, out = build_network(f, vm, pm)
-        path, info = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
     ops, out = build_network(f, vm, pm)
-    big = hwv_fast.largest_intermediate(ops, out, path)      # exact simulation of execute() (opt_einsum's estimate can be far off)
-    if big > 4 * max(int(info.largest_intermediate), 1):
-        print("# memory: exact largest intermediate %.2e vs opt_einsum estimate %.2e" % (big, float(info.largest_intermediate)), file=sys.stderr); sys.stderr.flush()
+    if path is None:
+        path, info, big = best_path(ops, out, cheap=cheap)
+    else:
+        big = hwv_fast.largest_intermediate(ops, out, path)      # exact simulation of execute()
+        if big > MEMCAP:
+            path, info, big = best_path(ops, out)
     if big <= MEMCAP:
         return execute(ops, out, path).astype(np.int64)
     yb, zb = N1, K
-    while zb > 8 or yb > 8:
-        if zb > 8: zb = (zb + 1) // 2
+    while zb > 1 or yb > 1:
+        if zb > 1: zb = (zb + 1) // 2
         else: yb = (yb + 1) // 2
         ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
-        pb, ib = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
-        if hwv_fast.largest_intermediate(ops, out, pb) <= MEMCAP: break
+        pb, ib, bb = best_path(ops, out)
+        if bb <= MEMCAP: break
+    if bb > MEMCAP:
+        print("# memory: no path within MEMCAP even for 1x1 blocks (largest intermediate %.2e elements); proceeding" % bb, file=sys.stderr); sys.stderr.flush()
     F = np.zeros((N1, K), dtype=np.int64)
     for y0 in range(0, N1, yb):
         for z0 in range(0, K, zb):
@@ -109,7 +125,7 @@ def compute_F(f, vm, pm, path=None, info=None):
             if (ys.stop - ys.start, zs.stop - zs.start) == (yb, zb):
                 pth = pb
             else:
-                pth = find_path(ops, out, None, oe.RandomGreedy(max_repeats=32))[0]
+                pth = best_path(ops, out, 32)[0]
             F[ys, zs] = execute(ops, out, pth)
     return F
 
@@ -138,7 +154,7 @@ def direction(lam, g, dirn, crng):
         while len(batch) < 2 * (g - len(chosen)) + 4 and tried < maxtry:
             f = random_fillings(crng, lam_p); tried += 1
             ops, out = build_network(f, *prb)
-            v = compute_F(f, *prb).ravel()      # probe through compute_F: good path + exact memory check (a 'greedy' path can need GBs)
+            v = compute_F(f, *prb, cheap=True).ravel()      # probe through compute_F: exact memory check with DP-size fallback; plain greedy path (fast)
             if v.any():
                 batch.append((f, v))
         scored = []

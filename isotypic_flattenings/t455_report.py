@@ -53,6 +53,11 @@ for d in degrees:
     out.append('| %d | %d | %d | %d | %.2f | %.0f |' % (d, len(comps), len(fin), len(hits), sum(secs) / 3600, max(secs) if secs else 0))
 out.append('')
 out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M) for d, M in jobs)))
+try:
+    eta = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 't455_eta.py')], capture_output=True, text=True, timeout=600).stdout.strip().splitlines()
+    out.append(''); out.append('Predicted remaining wall time (power-law fit of seconds vs the cost proxy g*sum(dim_i+4)^2; rough):'); out.extend('* ' + l for l in eta)
+except Exception as e:
+    out.append('(ETA unavailable: %s)' % e)
 hits = [(k, v) for k, v in done.items() if v['sep']]
 out.append('')
 out.append('## Hits (`*** SEPARATES`)')

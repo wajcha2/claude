@@ -40,6 +40,7 @@ NOV = len(sys.argv) > 7 and sys.argv[7] == 'noV'
 MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))
 MAXCOST = float(os.environ.get('MAXCOST', 'inf'))
 MAXDIM = float(os.environ.get('MAXDIM', 'inf'))
+ROWCAP = os.environ.get('ROWCAP', '1') == '1'   # cap the number of sampled rows/columns by the rank bounds (noV only)
 CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%s_d%d' % ('x'.join(map(str, ns)) if len(set(ns)) > 1 else ns[0], d))
 PR1, PR2 = 8, 16                       # probe size (source points x target pairs)
 EXTRA = 8                              # extra columns in the random compression of HN
@@ -103,8 +104,15 @@ def direction(lam, g, dirn, crng):
     perm = [dirn] + [t for t in range(3) if t != dirn]
     lam_p = tuple(lam[t] for t in perm); ns_p = tuple(ns[t] for t in perm)
     n1 = dim_schur(lam_p[0], ns_p[0])
-    N1 = n1 + 4
-    K = (n1 if NOV else min(g * n1, dim_schur(lam_p[1], ns_p[1]) * dim_schur(lam_p[2], ns_p[2]))) + 4
+    n23 = dim_schur(lam_p[1], ns_p[1]) * dim_schur(lam_p[2], ns_p[2])
+    if ROWCAP and NOV:
+        # rank of the generic flattening <= min(n1, n23), of the H-stack <= min(n1, g*n23): sample only that many
+        # generic points (+8) on each side; g*K >= min(n1, g*n23) still holds, so H is computed correctly.
+        N1 = min(n1, g * n23) + 8
+        K = min(n1, n23) + 8
+    else:
+        N1 = n1 + 4
+        K = (n1 if NOV else min(g * n1, n23)) + 4
     gs = random_gs(crng, ns_p, N1, K)
     gp = random_gs(crng, ns_p, PR1, PR2)
     V = {r: tuple(vecs[r][t] for t in perm) for r in ranks}

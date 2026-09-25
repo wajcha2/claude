@@ -10,7 +10,7 @@ for lf in glob.glob('hwv455_d*_w*.log'):
     d = int(re.search(r'hwv455_d(\d+)', lf).group(1))
     for line in open(lf):
         m = re.match(r'lam=(\(.*?\)\)) g=(\d+) .* cost=([\d.e+]+) \(([\d.]+)s\)', line)
-        if m: done[(d, eval(m.group(1)))] = (float(m.group(3)), float(m.group(4)))
+        if m: lam = eval(m.group(1)); done[(d, lam)] = (float(cost(lam, int(m.group(2)))), float(m.group(4)))   # cost recomputed (logged cost= depends on COSTMODE)
 def fit(points):
     n = len(points); mx = sum(x for x, _ in points) / n; my = sum(y for _, y in points) / n
     b = sum((x - mx) * (y - my) for x, y in points) / sum((x - mx) ** 2 for x, _ in points); a = my - b * mx

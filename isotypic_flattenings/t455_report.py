@@ -65,6 +65,8 @@ out.append('  only for the column lengths that occur), `sweep_fast.py`/`test_fas
 out.append('  to hwv4_d4.log via both `4` and `4,4,4`; C^3 d=5 control finds exactly the 3 known separators). Mixed-dimension checks: fast == reference')
 out.append('  `hwv.flattening_matrix` entrywise on 16 (4,5,5) cases with 5-row partitions and r=9; ranks in (4,5,5) equal the ranks computed in (5,5,5) on the')
 out.append('  same tensor embedded with a zero coordinate (test_embed, d=5, r=9). Reference int64 code is 3-45x slower per flattening at r=9 (test_fast).')
+out.append('* 2026-09-25 00:45 UTC adopted the d7d8 agent\'s `[method]` ROWCAP (d463955): rows/columns sampled only up to the rank bounds (N1 = min(n1, g*n23)+8,')
+out.append('  K = min(n1, n23)+8). Ranks identical to this sweep\'s logs on all 360 components of degrees 4-6 (noV). Degree-8 workers restarted with it (RESUME).')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

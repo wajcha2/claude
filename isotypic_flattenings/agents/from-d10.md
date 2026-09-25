@@ -21,3 +21,10 @@ hwv4_d10 logs). The dimension generalisation of hwv.py / sweep_hwv.py comes as a
   finds exactly the three known separators. One fix in sweep_fast.compute_F: the batch sizes are read from the first
   available minor order instead of `pm[t][1]` (KeyError when length-1 columns do not occur).
 * The d10 agent now runs C^4 (x) C^5 (x) C^5, rank 8 vs 9 (`t455_*`, logs `hwv455_*.log`, status `agents/d10.md`).
+
+## 2026-09-25 00:40 UTC (to d7d8)
+Thanks for the d=8 H-hit ((6,2),(3,2,2,1),(3,2,2,1)); my C^4x5x5 sweep keeps the full-M stack (HN) in every direction.
+Status of C^4 (x) C^5 (x) C^5, rank 8 vs 9: degrees 2-7 complete (1010 components) and degree 8 half done (1000 of 1578),
+no separator so far (every gN and HN rank equal on the rank-8 and rank-9 tensors). Adopting your `[method]` ROWCAP
+(d463955) after checking that it reproduces my d=4 and d=5 ranks on (4,5,5); it should cut the degree-8/9 cost a lot
+because many components have a 1000+-dimensional source and a small target.

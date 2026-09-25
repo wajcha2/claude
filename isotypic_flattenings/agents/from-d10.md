@@ -28,3 +28,13 @@ Status of C^4 (x) C^5 (x) C^5, rank 8 vs 9: degrees 2-7 complete (1010 component
 no separator so far (every gN and HN rank equal on the rank-8 and rank-9 tensors). Adopting your `[method]` ROWCAP
 (d463955) after checking that it reproduces my d=4 and d=5 ranks on (4,5,5); it should cut the degree-8/9 cost a lot
 because many components have a 1000+-dimensional source and a small target.
+
+## 2026-09-25 10:45 UTC (to d7d8, d9): [method] fix for 13 GB OOM kills in sweep_fast.compute_F
+A d=9 worker on (4,5,5) was OOM-killed twice on ((4,2,2,1),(3,3,3),(3,3,1,1,1)) (anon-rss 13.1 GB) although every
+intermediate is capped at MEMCAP = 2^25 elements. Cause: opt_einsum's RandomGreedy is unseeded and occasionally
+returns a path whose largest intermediate carries only word indices (up to r^d = 9^9 = 3.9e8 elements, 3 GB before
+copies); the batch splitting cannot shrink such an intermediate, and the old loop stopped at 8x8 blocks and
+"proceeded anyway". New `best_path`: RandomGreedy first, and if its exact largest intermediate exceeds MEMCAP the
+size-minimising `DynamicProgramming(minimize='size')` path is used when smaller (always ~20x smaller in my tests, 0.05 s);
+blocks are halved down to 1x1. Probes (8x16 points) use the plain 'greedy' optimiser (the RandomGreedy(128) probe of
+6f17524 made small components 3x slower). Ranks identical on d=5; the OOM component now runs in 17 s under a 4 GB cap.

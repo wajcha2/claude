@@ -134,24 +134,33 @@ def prepare(vecs, gs, ells=None, lams=None):
 def find_path(ops, out, memcap=MEMCAP, optimize='auto-hq'):
     eq = ','.join(i for i, _ in ops) + '->' + out
     shapes = [A.shape for _, A in ops]
-    path, info = oe.contract_path(eq, *shapes, shapes=True, optimize=optimize, memory_limit=memcap)
+    # no memory_limit: with it opt_einsum returns multi-operand steps whose pairwise execution can be huge;
+    # memory is enforced afterwards by largest_intermediate + batch splitting in flattening_matrix_fast
+    path, info = oe.contract_path(eq, *shapes, shapes=True, optimize=optimize)
     return path, info
 
 def largest_intermediate(ops, out, path):
-    """largest number of elements of any intermediate produced along `path` (opt_einsum convention)."""
-    idx = [i for i, _ in ops]; shapes = [A.shape for _, A in ops]; big = 0
+    """largest number of elements of any intermediate that execute() will allocate along `path`
+    (simulates execute exactly, including the pairwise expansion of multi-operand steps)."""
+    ops = [(i, A.shape) for i, A in ops]; big = 0
+    def sz(idx, dims): 
+        r = 1
+        for c in idx: r *= dims[c]
+        return r
     for step in path:
         step = sorted(step, reverse=True)
-        ia = [idx[k] for k in step]; sh = [shapes[k] for k in step]
-        dims = {}
-        for i, s_ in zip(ia, sh): dims.update(zip(i, s_))
-        for k in step: idx.pop(k); shapes.pop(k)
-        others = set(''.join(idx)) | set(out)
-        keep = ''.join(dict.fromkeys(c for i in ia for c in i if c in others))
-        size = 1
-        for c in keep: size *= dims[c]
-        big = max(big, size)
-        idx.append(keep); shapes.append(tuple(dims[c] for c in keep))
+        taken = [ops.pop(k) for k in step]
+        rest = set(''.join(i for i, _ in ops)) | set(out)
+        while len(taken) > 1:
+            (ia, sa), (ib, sb) = taken.pop(), taken.pop()
+            others = rest | set(''.join(i for i, _ in taken))
+            keep = ''.join(dict.fromkeys(i for i in ia + ib if i in others))
+            dims = dict(zip(ia, sa)); dims.update(zip(ib, sb))
+            big = max(big, sz(keep, dims), sz(ia, dims), sz(ib, dims))
+            taken.append((keep, tuple(dims[c] for c in keep)))
+        ia, sa = taken[0]
+        keep = ''.join(dict.fromkeys(i for i in ia if i in rest))
+        ops.append((keep, tuple(dict(zip(ia, sa))[c] for c in keep)))
     return big
 
 def _slice_pm(pm, t, lo, hi):

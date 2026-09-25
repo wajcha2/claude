@@ -40,3 +40,5 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   separates too (generic 1-dim U: 225/225). Another point (t=37168) lowers all tensors to 84.
 - d=7 natural-U search (specialU4_d7.log): 430 direction cases evaluated, no separation.
 - d=7 natural-U search complete (430 + 155 = 585 direction cases; specialU4_d7.log + specialU4_d7_rest.log): no separation.
+- d=8 hit, plane (codim-2) analysis: timed out (drop-curve degree 146 needs ~66k determinants with the slow modular det);
+  not pursued further since the line method already gives a separating 1-dim U.

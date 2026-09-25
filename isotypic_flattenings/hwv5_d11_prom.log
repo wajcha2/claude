@@ -1,0 +1,20 @@
+# sweep_fast n=5,5,5 d=11 ranks=[9, 10] seed=5 worker 0/1 noV=True p=524287 MEMCAP=8388608 MAXCOST=inf MAXDIM=inf: 6790 components, 0 already done
+lam=((11,), (3, 2, 2, 2, 2), (3, 2, 2, 2, 2)) g=1 dims=(1365, 5, 5)  g1:5/5 g2:5/5 g3:5/5  span=1,1,1 cost=1.43e+03 (9.1s)
+lam=((10, 1), (3, 2, 2, 2, 2), (3, 2, 2, 2, 2)) g=1 dims=(3640, 5, 5)  g1:5/5 g2:5/5 g3:5/5  span=1,1,1 cost=1.43e+03 (14.2s)
+Traceback (most recent call last):
+  File "/home/user/claude/isotypic_flattenings/sweep_fast.py", line 217, in <module>
+    rd, span, tried = direction(lam, g, dirn, crng)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/claude/isotypic_flattenings/sweep_fast.py", line 137, in direction
+    v = execute(ops, out, find_path(ops, out, None, 'greedy')[0]).ravel()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/claude/isotypic_flattenings/hwv_fast.py", line 82, in execute
+    taken.append((keep, pair_contract(ia, A, ib, B, keep)))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/claude/isotypic_flattenings/hwv_fast.py", line 60, in pair_contract
+    R = fmatmul(np.ascontiguousarray(A).reshape(nb, na, nc), np.ascontiguousarray(B).reshape(nb, nc, nbb))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/claude/isotypic_flattenings/hwv_fast.py", line 32, in fmatmul
+    return _fmod(np.matmul(A, B))
+                 ^^^^^^^^^^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 9.54 GiB for an array with shape (160, 800, 10000) and data type float64

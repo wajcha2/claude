@@ -137,11 +137,45 @@ def find_path(ops, out, memcap=MEMCAP, optimize='auto-hq'):
     path, info = oe.contract_path(eq, *shapes, shapes=True, optimize=optimize, memory_limit=memcap)
     return path, info
 
+def largest_intermediate(ops, out, path):
+    """largest number of elements of any intermediate produced along `path` (opt_einsum convention)."""
+    idx = [i for i, _ in ops]; shapes = [A.shape for _, A in ops]; big = 0
+    for step in path:
+        step = sorted(step, reverse=True)
+        ia = [idx[k] for k in step]; sh = [shapes[k] for k in step]
+        dims = {}
+        for i, s_ in zip(ia, sh): dims.update(zip(i, s_))
+        for k in step: idx.pop(k); shapes.pop(k)
+        others = set(''.join(idx)) | set(out)
+        keep = ''.join(dict.fromkeys(c for i in ia for c in i if c in others))
+        size = 1
+        for c in keep: size *= dims[c]
+        big = max(big, size)
+        idx.append(keep); shapes.append(tuple(dims[c] for c in keep))
+    return big
+
+def _slice_pm(pm, t, lo, hi):
+    return [({l: A[lo:hi] for l, A in pm[u].items()} if u == t else pm[u]) for u in range(3)]
+
 def flattening_matrix_fast(lam, fillings, vecs, gs, memcap=MEMCAP, optimize='auto-hq', pre=None, return_info=False):
-    """drop-in for hwv.flattening_matrix (lam is unused except for documentation; fillings carry the shapes)."""
+    """drop-in for hwv.flattening_matrix (lam is unused except for documentation; fillings carry the shapes).
+    If the largest intermediate of the chosen path exceeds `memcap` elements (opt_einsum's memory_limit is only a
+    hint), the row batch or the column batch is halved and the halves are computed recursively."""
     vm, pm = pre if pre is not None else prepare(vecs, gs)
     ops, out = build_network(fillings, vm, pm)
     path, info = find_path(ops, out, memcap, optimize)
+    N1 = next(iter(pm[0].values())).shape[0]; K = next(iter(pm[1].values())).shape[0]
+    if largest_intermediate(ops, out, path) > memcap and max(N1, K) > 1:
+        if N1 >= K:
+            h = N1 // 2
+            F = np.vstack([flattening_matrix_fast(lam, fillings, vecs, gs, memcap, optimize, (vm, _slice_pm(pm, 0, 0, h))),
+                           flattening_matrix_fast(lam, fillings, vecs, gs, memcap, optimize, (vm, _slice_pm(pm, 0, h, N1)))])
+        else:
+            h = K // 2
+            pmA = _slice_pm(_slice_pm(pm, 1, 0, h), 2, 0, h); pmB = _slice_pm(_slice_pm(pm, 1, h, K), 2, h, K)
+            F = np.hstack([flattening_matrix_fast(lam, fillings, vecs, gs, memcap, optimize, (vm, pmA)),
+                           flattening_matrix_fast(lam, fillings, vecs, gs, memcap, optimize, (vm, pmB))])
+        return (F, info) if return_info else F
     F = execute(ops, out, path).astype(np.int64)
     return (F, info) if return_info else F
 

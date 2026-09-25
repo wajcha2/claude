@@ -2,17 +2,8 @@
 python3 t455_report.py > agents/d10.md"""
 import glob, re, os, subprocess, itertools, time, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from hwv import dim_schur
-from isoflat import partitions, kronecker
-ns = (4, 5, 5); RANKS = (8, 9)
-def components(d):
-    out = []
-    for l1 in partitions(d, ns[0]):
-        for l2, l3 in itertools.combinations_with_replacement(partitions(d, ns[1]), 2):
-            g = kronecker(l1, l2, l3)
-            if g: out.append(((l1, l2, l3), g))
-    return out
-def dims_of(lam): return tuple(dim_schur(l, ns[t]) for t, l in enumerate(lam))
+from t455_common import components, dims_of, ns
+RANKS = (8, 9)
 jobs = []
 for line in open('t455_jobs.txt'):
     if line.strip() and not line.startswith('#'):
@@ -53,6 +44,11 @@ for d in degrees:
     out.append('| %d | %d | %d | %d | %.2f | %.0f |' % (d, len(comps), len(fin), len(hits), sum(secs) / 3600, max(secs) if secs else 0))
 out.append('')
 out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M) for d, M in jobs)))
+try:
+    eta = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 't455_eta.py')], capture_output=True, text=True, timeout=600).stdout.strip().splitlines()
+    out.append(''); out.append('Predicted remaining wall time (power-law fit of seconds vs the cost proxy g*sum(dim_i+4)^2; rough):'); out.extend('* ' + l for l in eta)
+except Exception as e:
+    out.append('(ETA unavailable: %s)' % e)
 hits = [(k, v) for k, v in done.items() if v['sep']]
 out.append('')
 out.append('## Hits (`*** SEPARATES`)')

@@ -24,7 +24,8 @@ Env: MEMCAP (max elements of an intermediate, default 2^25; larger contractions 
      MAXCOST / MAXDIM (skip components whose cost proxy / largest Weyl dimension exceeds the bound),
      RESUME=log1:log2 (skip components already present in these logs), CLAIMDIR (default claims_n<n>_d<d>).
 Lines '*** SEPARATES' mark a hit; the last line prints 'FOUND: [...]'."""
-import numpy as np, sys, time, itertools, os
+import numpy as np
+import hwv_fast, sys, time, itertools, os
 import opt_einsum as oe
 from hwv import p, dim_schur, random_fillings, random_gs
 from hwv_fast import prepare, build_network, find_path, execute, matmul_mod
@@ -87,8 +88,11 @@ def compute_F(f, vm, pm, path=None, info=None):
     if path is None:
         ops, out = build_network(f, vm, pm)
         path, info = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
-    if int(info.largest_intermediate) <= MEMCAP:
-        ops, out = build_network(f, vm, pm)
+    ops, out = build_network(f, vm, pm)
+    big = hwv_fast.largest_intermediate(ops, out, path)      # exact simulation of execute() (opt_einsum's estimate can be far off)
+    if big > 4 * max(int(info.largest_intermediate), 1):
+        print("# memory: exact largest intermediate %.2e vs opt_einsum estimate %.2e" % (big, float(info.largest_intermediate)), file=sys.stderr); sys.stderr.flush()
+    if big <= MEMCAP:
         return execute(ops, out, path).astype(np.int64)
     yb, zb = N1, K
     while zb > 8 or yb > 8:
@@ -96,7 +100,7 @@ def compute_F(f, vm, pm, path=None, info=None):
         else: yb = (yb + 1) // 2
         ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
         pb, ib = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
-        if int(ib.largest_intermediate) <= MEMCAP: break
+        if hwv_fast.largest_intermediate(ops, out, pb) <= MEMCAP: break
     F = np.zeros((N1, K), dtype=np.int64)
     for y0 in range(0, N1, yb):
         for z0 in range(0, K, zb):
@@ -134,7 +138,7 @@ def direction(lam, g, dirn, crng):
         while len(batch) < 2 * (g - len(chosen)) + 4 and tried < maxtry:
             f = random_fillings(crng, lam_p); tried += 1
             ops, out = build_network(f, *prb)
-            v = execute(ops, out, find_path(ops, out, None, 'greedy')[0]).ravel()
+            v = compute_F(f, *prb).ravel()      # probe through compute_F: good path + exact memory check (a 'greedy' path can need GBs)
             if v.any():
                 batch.append((f, v))
         scored = []

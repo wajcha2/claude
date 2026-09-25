@@ -50,7 +50,16 @@ def dims_of(lam):
     return tuple(dim_schur(l, ns[t]) for t, l in enumerate(lam))
 
 def cost_proxy(lam, g):
-    return g * sum((x + 4) ** 2 for x in dims_of(lam))
+    """ordering of the components: cheapest first.  COSTMODE=rowcap (default with ROWCAP): g * N1 * K with the
+    row/column caps, i.e. small targets first; otherwise the original g * sum_i (n_i + 4)^2."""
+    dims = dims_of(lam)
+    if ROWCAP and os.environ.get('COSTMODE', 'rowcap') == 'rowcap':
+        tot = 0
+        for t in range(3):
+            n1 = dims[t]; n23 = dims[(t + 1) % 3] * dims[(t + 2) % 3]
+            tot += (min(n1, g * n23) + 8) * (min(n1, n23) + 8)
+        return g * tot
+    return g * sum((x + 4) ** 2 for x in dims)
 
 class Echelon:
     """incremental linear independence test mod p."""

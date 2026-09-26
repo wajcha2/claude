@@ -42,3 +42,5 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - d=7 natural-U search complete (430 + 155 = 585 direction cases; specialU4_d7.log + specialU4_d7_rest.log): no separation.
 - d=8 hit, plane (codim-2) analysis: timed out (drop-curve degree 146 needs ~66k determinants with the slow modular det);
   not pursued further since the line method already gives a separating 1-dim U.
+
+## C^5 (rank 9 vs 10): d=8 promising list complete (33/33, 7087 s): no separator.  Full d=8 sweep (dim<=800): 37 done, none.

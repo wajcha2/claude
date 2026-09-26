@@ -44,3 +44,4 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   not pursued further since the line method already gives a separating 1-dim U.
 
 ## C^5 (rank 9 vs 10): d=8 promising list complete (33/33, 7087 s): no separator.  Full d=8 sweep (dim<=800): 37 done, none.
+- C^5 d=9 promising list complete (49/49, 42663 s): no separator.  d=10: 37/55, d=11: 43/104, d=12: 27/180 so far, none.

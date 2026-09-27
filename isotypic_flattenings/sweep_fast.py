@@ -108,13 +108,30 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
             path, info, big = best_path(ops, out)
     if big <= MEMCAP:
         return execute(ops, out, path).astype(np.int64)
-    yb, zb = N1, K
-    while zb > 1 or yb > 1:
-        if zb > 1: zb = (zb + 1) // 2
-        else: yb = (yb + 1) // 2
-        ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
-        pb, ib, bb = best_path(ops, out)
-        if bb <= MEMCAP: break
+    # Block splitting.  Two halving orders are tried, Z (target pairs) first and Y (source points) first, each down
+    # to the first block shape whose path fits MEMCAP, and the order with the smaller total flop count
+    # (flops per block x number of blocks) is used.  The point-independent parts of the network are recomputed in
+    # every block, so the total cost depends strongly on which side is cut: for ((9,4),(3,3,3,3,1),(3,3,3,3,1)) at
+    # d = 13 (683 x 233 points) Z-first ends at 6 x 1 blocks with 4.2e13 flops, Y-first at 1 x 233 blocks with
+    # 5.7e12.  The result F is the same (exact arithmetic, block-wise assembly).
+    best = None
+    for order in ('Z', 'Y'):
+        yb, zb = N1, K
+        while zb > 1 or yb > 1:
+            if order == 'Z':
+                if zb > 1: zb = (zb + 1) // 2
+                else: yb = (yb + 1) // 2
+            else:
+                if yb > 1: yb = (yb + 1) // 2
+                else: zb = (zb + 1) // 2
+            ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
+            pb, ib, bb = best_path(ops, out)
+            if bb <= MEMCAP: break
+        total = float(ib.opt_cost) * (-(-N1 // yb)) * (-(-K // zb))
+        if best is None or total < best[0]:
+            best = (total, order, yb, zb, pb, ib, bb)
+    total, order, yb, zb, pb, ib, bb = best
+    print("# blocks: %s-first (%d x %d) of %d x %d, %.2e flops, largest intermediate %.2e" % (order, yb, zb, N1, K, total, bb), file=sys.stderr); sys.stderr.flush()
     if bb > MEMCAP:
         print("# memory: no path within MEMCAP even for 1x1 blocks (largest intermediate %.2e elements); proceeding" % bb, file=sys.stderr); sys.stderr.flush()
     F = np.zeros((N1, K), dtype=np.int64)

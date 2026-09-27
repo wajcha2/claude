@@ -23,9 +23,10 @@ for d, M in jobs:
     seen |= {(d, lam) for lam, g in members}
     rest = [(lam, g) for lam, g in members if (d, lam) not in done]
     if not rest: continue
-    # fit on the finished components of this very job if there are enough, else on the 300 most expensive finished ones overall
-    own = [(math.log(done[(d, lam)][0]), math.log(max(done[(d, lam)][1], 0.05))) for lam, g in members if (d, lam) in done and done[(d, lam)][0] > 0]
-    pts = own if len(own) >= 30 else sorted(allpts)[-300:]
+    # fit on the 300 most expensive finished components of the same degree (any job: the cheapest ones are overhead-dominated
+    # and a job's own early points are exactly those), else on the 300 most expensive finished ones overall
+    same = sorted((math.log(c), math.log(max(s, 0.05))) for (dd, lam), (c, s) in done.items() if dd == d and c > 0)
+    pts = same[-300:] if len(same) >= 30 else sorted(allpts)[-300:]
     a, b = fit(pts); pred = lambda c: math.exp(a + b * math.log(c))
     est = sum(pred(cost(lam, g)) for lam, g in rest) / 3 / 3600; total += est
     print("job d=%d MAXDIM=%s: %d of %d components left, predicted %.1f h wall on 3 workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (

@@ -69,6 +69,8 @@ out.append('* 2026-09-25 00:45 UTC adopted the d7d8 agent\'s `[method]` ROWCAP (
 out.append('  K = min(n1, n23)+8). Ranks identical to this sweep\'s logs on all 360 components of degrees 4-6 (noV). Degree-8 workers restarted with it (RESUME).')
 out.append('* 2026-09-27 12:40 UTC adopted the d13 agent\'s `[method]` 49e2a11 (sweep_fast.py: the ONLY filter is applied before the Kronecker coefficients are')
 out.append('  computed; results, indices and claim files unchanged). Not needed by the running pass (no ONLY), taken for future verification runs on single components.')
+out.append('* 2026-09-27 18:40 UTC adopted the d13 agent\'s `[method]` 27b3cfe (sweep_fast.py: when a flattening exceeds MEMCAP, block splitting tries both')
+out.append('  halving orders and takes the cheaper one; exact block-wise assembly, results unchanged). Running workers keep the old code; restarted ones use it.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

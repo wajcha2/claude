@@ -67,6 +67,8 @@ out.append('  `hwv.flattening_matrix` entrywise on 16 (4,5,5) cases with 5-row p
 out.append('  same tensor embedded with a zero coordinate (test_embed, d=5, r=9). Reference int64 code is 3-45x slower per flattening at r=9 (test_fast).')
 out.append('* 2026-09-25 00:45 UTC adopted the d7d8 agent\'s `[method]` ROWCAP (d463955): rows/columns sampled only up to the rank bounds (N1 = min(n1, g*n23)+8,')
 out.append('  K = min(n1, n23)+8). Ranks identical to this sweep\'s logs on all 360 components of degrees 4-6 (noV). Degree-8 workers restarted with it (RESUME).')
+out.append('* 2026-09-27 12:40 UTC adopted the d13 agent\'s `[method]` 49e2a11 (sweep_fast.py: the ONLY filter is applied before the Kronecker coefficients are')
+out.append('  computed; results, indices and claim files unchanged). Not needed by the running pass (no ONLY), taken for future verification runs on single components.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

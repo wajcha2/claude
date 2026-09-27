@@ -71,6 +71,8 @@ out.append('* 2026-09-27 12:40 UTC adopted the d13 agent\'s `[method]` 49e2a11 (
 out.append('  computed; results, indices and claim files unchanged). Not needed by the running pass (no ONLY), taken for future verification runs on single components.')
 out.append('* 2026-09-27 18:40 UTC adopted the d13 agent\'s `[method]` 27b3cfe (sweep_fast.py: when a flattening exceeds MEMCAP, block splitting tries both')
 out.append('  halving orders and takes the cheaper one; exact block-wise assembly, results unchanged). Running workers keep the old code; restarted ones use it.')
+out.append('* 2026-09-27 23:40 UTC adopted `[method]` 0dbe107 (isoflat.py: memoized Murnaghan-Nakayama characters, faster Kronecker enumeration at worker start;')
+out.append('  the Kronecker coefficients of all 2467 components of degrees 6-8 agree with the values computed before the change).')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

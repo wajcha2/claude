@@ -297,3 +297,13 @@ lam=((4, 3, 1, 1), (6, 3), (5, 4)) g=1 dims=(60, 2400, 1470)  g1:60/60 g2:2400/2
 lam=((4, 4, 1), (6, 3), (5, 4)) g=1 dims=(140, 2400, 1470)  g1:140/140 g2:2400/2400 g3:1470/1470  span=1,1,1 cost=8.00e+06 (435.1s)
 lam=((5, 2, 1, 1), (6, 1, 1, 1), (4, 3, 2)) g=5 dims=(84, 560, 1120)  H1:84/84 g1:84/84 H2:560/560 g2:560/560 H3:1120/1120 g3:1120/1120  span=5,5,5 cost=8.02e+06 (238.3s)
 lam=((8, 1), (6, 2, 1), (5, 2, 1, 1)) g=1 dims=(440, 2625, 945)  g1:440/440 g2:2625/2625 g3:945/945  span=1,1,1 cost=8.04e+06 (457.2s)
+# sweep_fast n=4,5,5 d=9 ranks=[8, 9] seed=5 worker 2/3 noV=True p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=inf: 3339 components, 2289 already done
+# blocks: Y-first (111 x 1768) of 1768 x 1768, 7.38e+09 flops, largest intermediate 1.96e+07
+# blocks: Y-first (111 x 1768) of 1768 x 1768, 1.39e+10 flops, largest intermediate 2.94e+07
+# blocks: Y-first (111 x 1768) of 1768 x 1768, 8.47e+09 flops, largest intermediate 1.96e+07
+# blocks: Y-first (111 x 1768) of 1768 x 1768, 1.38e+10 flops, largest intermediate 2.94e+07
+lam=((5, 2, 1, 1), (8, 1), (5, 2, 1, 1)) g=2 dims=(84, 1760, 945)  H1:84/84 g1:84/84 H2:995/995 g2:995/995 H3:945/945 g3:945/945  span=2,2,2 cost=8.08e+06 (191.8s)
+# blocks: Y-first (185 x 1478) of 1478 x 1478, 1.85e+10 flops, largest intermediate 1.75e+07
+# blocks: Y-first (185 x 1478) of 1478 x 1478, 2.45e+10 flops, largest intermediate 2.21e+07
+# blocks: Z-first (2438 x 20) of 2438 x 2438, 6.33e+11 flops, largest intermediate 2.50e+07
+# blocks: Z-first (2438 x 10) of 2438 x 2438, 1.07e+12 flops, largest intermediate 1.78e+07

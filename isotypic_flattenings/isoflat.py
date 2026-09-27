@@ -37,7 +37,10 @@ def dim_schur(lam, nn=None):
             den *= (arm + leg + 1)
     return num // den
 
+from functools import lru_cache
+@lru_cache(maxsize=None)
 def mn_char(lam, mu):
+    mu = tuple(mu)
     lam = tuple(x for x in lam if x > 0)
     if sum(lam) == 0:
         return 1
@@ -54,7 +57,7 @@ def mn_char(lam, mu):
         newbeta = sorted([x for x in beta if x != b] + [nb], reverse=True)
         L = len(newbeta)
         newlam = tuple(newbeta[i] - (L - 1 - i) for i in range(L))
-        total += (-1) ** ht * mn_char(newlam, rest)
+        total += (-1) ** ht * mn_char(newlam, tuple(rest))
     return total
 
 def kronecker(l1, l2, l3):

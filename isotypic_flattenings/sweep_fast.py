@@ -203,8 +203,13 @@ elif ns[1] == ns[2]:        # factors 2 and 3 interchangeable: unordered (l2, l3
     triples = ((l1, l2, l3) for l1 in partitions(d, ns[0]) for l2, l3 in itertools.combinations_with_replacement(partitions(d, ns[1]), 2))
 else:
     triples = itertools.product(*(partitions(d, nt) for nt in ns))
+ONLY = None
+if os.environ.get('ONLY'):        # file with one component per line, e.g. ((8, 2), (3, 2, 2, 2, 1), (3, 2, 2, 2, 1)); others are skipped
+    ONLY = {tuple(tuple(x) for x in eval(l)) for l in open(os.environ['ONLY']) if l.strip()}
 comps = []
 for li, lam in enumerate(triples):
+    if ONLY is not None and tuple(tuple(x) for x in lam) not in ONLY:
+        continue                  # skip the Kronecker coefficient too (2 h for the 32509 triples at n=5, d=13); li unchanged
     g = kronecker(*lam)
     if g:
         comps.append((cost_proxy(lam, g), li, lam, g))
@@ -215,12 +220,7 @@ print("# sweep_fast n=%s d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%
 sys.stdout.flush()
 found, skipped = [], []
 T0 = time.time()
-ONLY = None
-if os.environ.get('ONLY'):        # file with one component per line, e.g. ((8, 2), (3, 2, 2, 2, 1), (3, 2, 2, 2, 1)); others are skipped
-    ONLY = {tuple(tuple(x) for x in eval(l)) for l in open(os.environ['ONLY']) if l.strip()}
 for cost, li, lam, g in comps:
-    if ONLY is not None and tuple(tuple(x) for x in lam) not in ONLY:
-        continue
     if cost > MAXCOST or max(dims_of(lam)) > MAXDIM:
         skipped.append(lam); continue
     if ('lam=%s' % (lam,)) in DONE:

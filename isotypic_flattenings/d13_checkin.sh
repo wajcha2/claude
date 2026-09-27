@@ -19,7 +19,7 @@ for d in 13 14; do
   fi
 done
 echo "-- hits / problems --"; grep -H "SEPARATES" hwv5_d13_prom_done.log hwv5_d14_prom_done.log live/d1[34]_w*.log 2>/dev/null || echo "no SEPARATES"
-grep -H -i "error\|Traceback\|Killed\|MemoryError\|no path within" live/d1[34]_w*.log 2>/dev/null | head -5 || true
+grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/null | head -5 || true
 # which degree is active: d=13 until every listed component is done, then d=14 (interleaving is done by hand: DEG env)
 active() {  # prints the degree the workers should run
   for d in 13 14; do

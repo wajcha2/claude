@@ -49,7 +49,7 @@ PY
     fi
     # drop the dead worker's claim files (components it claimed but did not finish)
     for f in claims5_p$DEG/*; do [ -f "$f" ] && [ "$(cat $f)" = "$k" ] && rm -f "$f"; done
-    MEMCAP=8388608 ONLY=prom5_d$DEG.txt CLAIMDIR=claims5_p$DEG RESUME=hwv5_d${DEG}_prom_done.log \
+    MEMCAP=67108864 ONLY=prom5_d$DEG.txt CLAIMDIR=claims5_p$DEG RESUME=hwv5_d${DEG}_prom_done.log \
       setsid nohup python3 -u sweep_fast.py 5 $DEG 9,10 5 $k $NW noV >> live/d${DEG}_w$k.log 2>&1 < /dev/null &
     echo "*** launched d=$DEG worker $k ($(date -u +%FT%TZ))"
   done

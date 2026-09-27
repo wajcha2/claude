@@ -45,3 +45,9 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ## C^5 (rank 9 vs 10): d=8 promising list complete (33/33, 7087 s): no separator.  Full d=8 sweep (dim<=800): 37 done, none.
 - C^5 d=9 promising list complete (49/49, 42663 s): no separator.  d=10: 37/55, d=11: 43/104, d=12: 27/180 so far, none.
+
+## New directions (2026-09-27)
+- Koszul flattenings of the generic isotypic tensor of the d=8 C^4 separator: equal ranks on rank 6 and 7 (615/615, 1365/1365,
+  1575/1575, 840/840) -- the separation there needs U of dim >= 2, not Koszul.
+- Running: Koszul (large projections, KBUDGET 1e7) + degree-2 isotypic flattenings on all C^4 components, d=5,6,7 (koszul_fast.py, live/koszul4_d*.log).
+- Running: C^5 d=15, 21 components with two-row source and targets (4,3,3,3,2) [dim 24] / (3,3,3,3,3) [det^3] (prom5_d15_tiny.txt).

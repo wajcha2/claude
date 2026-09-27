@@ -26,10 +26,13 @@ def koszul_dim(nA, nB, nC, pk):
     while m + 1 <= nA and comb(m + 1, pk) * nB * comb(m + 1, pk + 1) * nC <= BUDGET: m += 1
     return m
 
-def koszul_rank(Y, factor, pk, rng):
+def koszul_rank(Y, factor, pk, rng, swap=False):
     """Koszul flattening  Lambda^pk A' (x) B^* -> Lambda^{pk+1} A' (x) C, with A' = A (no projection) when the
-    matrix fits BUDGET, else a random quotient of A of the largest dimension that fits.  Returns (m, rank)."""
-    Y = np.moveaxis(Y, factor, 0); nA, nB, nC = Y.shape
+    matrix fits BUDGET, else a random quotient of A of the largest dimension that fits.  Returns (m, rank).
+    swap=True exchanges the roles of the two remaining factors (B <-> C), which is a different map."""
+    Y = np.moveaxis(Y, factor, 0)
+    if swap: Y = np.swapaxes(Y, 1, 2)
+    nA, nB, nC = Y.shape
     m = koszul_dim(nA, nB, nC, pk)
     if m >= nA: Z = Y % p; m = nA
     else:
@@ -63,10 +66,10 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
     for k, v in tens.items():
         Y = iso_tensor(lam, fills, coeffs, v, gsA, gsB, gsC)
         flat = [modrank(np.moveaxis(Y, f, 0).reshape(Y.shape[f], -1)) for f in range(3)]
-        kz = {(f, pk): koszul_rank(Y, f, pk, rng) for f in range(3) for pk in pks}
+        kz = {(f, sw, pk): koszul_rank(Y, f, pk, rng, swap=bool(sw)) for f in range(3) for sw in (0, 1) for pk in pks}
         res[k] = (flat, kz)
     sep = [key for key in res['high'][1] if res['low'][1][key][1] < res['high'][1][key][1] and res['low2'][1][key][1] < res['high'][1][key][1]]
-    return "lam=%s g=%d dims=%s | flat low/high=%s/%s | koszul (factor,p): low=%s high(m,rank)=%s%s" % (
+    return "lam=%s g=%d dims=%s | flat low/high=%s/%s | koszul (factor,swap,p): low=%s high(m,rank)=%s%s" % (
         lam, g, dims, res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
         "  *** KOSZUL SEPARATES %s" % sep if sep else "")
 

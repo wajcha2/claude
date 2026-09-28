@@ -20,40 +20,38 @@ for d in 13 14; do
 done
 echo "-- hits / problems --"; grep -H "SEPARATES" hwv5_d13_prom_done.log hwv5_d14_prom_done.log live/d1[34]_w*.log 2>/dev/null || echo "no SEPARATES"
 grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/null | head -5 || true
-# which degree is active: d=13 until every listed component is done, then d=14 (interleaving is done by hand: DEG env)
-active() {  # prints the degree the workers should run
-  for d in 13 14; do
-    [ -f prom5_d$d.txt ] || continue
-    tot=$(grep -c . prom5_d$d.txt); done=$(cnt hwv5_d${d}_prom_done.log)
-    [ "$done" -lt "$tot" ] && { echo $d; return; }
-  done
-  echo none
-}
-DEG=${DEG:-$(active)}
-echo "-- active degree: $DEG --"
-if [ "$DEG" != none ]; then
-  mkdir -p claims5_p$DEG
-  for k in $(seq 0 $((NW-1))); do
-    if ps -eo args | grep -v grep | grep -q "sweep_fast.py 5 $DEG 9,10 5 $k $NW noV"; then continue; fi
-    # a worker that printed its FOUND line is finished for good (nothing left to claim): do not restart it
-    if [ -f live/d${DEG}_w$k.log ] && tail -1 live/d${DEG}_w$k.log | grep -q "FOUND:"; then
-      # but if new components remain unclaimed (e.g. a claim of a dead worker was removed), restart anyway
-      left=$(python3 - <<PY
+# worker assignment: W13 / W14 list the worker slots (0..NW-1) that run d=13 / d=14 (interleaving since 2026-09-28 04:20 UTC:
+# 3 workers on d=13, 1 on d=14, because the remaining d=13 components take > 6 h each).  A degree whose list is
+# exhausted gets no launches; its slots are then handed to the other degree.
+W13=${W13:-"0 1 2"}; W14=${W14:-"3"}
+left() {  # components of degree $1 not yet in the done-log
+  python3 - <<PY
 import os
-tot={l.strip() for l in open('prom5_d$DEG.txt') if l.strip()}
-done={l.split(' g=')[0][4:].strip() for l in open('hwv5_d${DEG}_prom_done.log')} if os.path.exists('hwv5_d${DEG}_prom_done.log') else set()
+tot={l.strip() for l in open('prom5_d$1.txt') if l.strip()}
+done={l.split(' g=')[0][4:].strip() for l in open('hwv5_d$1_prom_done.log')} if os.path.exists('hwv5_d$1_prom_done.log') else set()
 print(len(tot-done))
 PY
-)
-      [ "$left" = 0 ] && continue
-    fi
+}
+L13=$(left 13); L14=$(left 14)
+[ "$L13" = 0 ] && { W14="$W14 $W13"; W13=""; }
+[ "$L14" = 0 ] && { W13="$W13 $W14"; W14=""; }
+echo "-- left: d=13 $L13, d=14 $L14; slots d=13: [$W13], d=14: [$W14] --"
+launch_deg() {  # degree, worker slots
+  DEG=$1; shift
+  mkdir -p claims5_p$DEG
+  for k in "$@"; do
+    if ps -eo args | grep -v grep | grep -q "sweep_fast.py 5 $DEG 9,10 5 $k $NW noV"; then continue; fi
+    # a worker that printed its FOUND line is finished for good (nothing left to claim): do not restart it
+    if [ -f live/d${DEG}_w$k.log ] && tail -1 live/d${DEG}_w$k.log | grep -q "FOUND:" && [ "$(left $DEG)" = 0 ]; then continue; fi
     # drop the dead worker's claim files (components it claimed but did not finish)
     for f in claims5_p$DEG/*; do [ -f "$f" ] && [ "$(cat $f)" = "$k" ] && rm -f "$f"; done
     MEMCAP=67108864 ONLY=prom5_d$DEG.txt CLAIMDIR=claims5_p$DEG RESUME=hwv5_d${DEG}_prom_done.log \
       setsid nohup python3 -u sweep_fast.py 5 $DEG 9,10 5 $k $NW noV >> live/d${DEG}_w$k.log 2>&1 < /dev/null &
     echo "*** launched d=$DEG worker $k ($(date -u +%FT%TZ))"
   done
-fi
+}
+[ -n "$W13" ] && launch_deg 13 $W13
+[ -n "$W14" ] && launch_deg 14 $W14
 echo "-- progress --"
 for d in 13 14; do [ -f prom5_d$d.txt ] && echo "d=$d: $(cnt hwv5_d${d}_prom_done.log) / $(grep -c . prom5_d$d.txt) components done"; done
 python3 d13_report.py > agents/d13.md 2>/dev/null || echo "report failed"

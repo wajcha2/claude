@@ -9,7 +9,7 @@ P("Updated %s. Session %s. Pushes to the shared branch `claude/wonderful-fermat-
 P("Task: PROMPT_C5_d13.md. Components = the 'promising' lists prom5_d13.txt / prom5_d14.txt (made by make_prom5.py: g > 0,")
 P("l1 with <= 2 rows, l2, l3 with >= 4 rows, dim S^{l1} >= dim S^{l2} dim S^{l3} / 2; make_prom5.py reproduces prom5_d11/d12.txt exactly).")
 P("Tool: `MEMCAP=67108864 ONLY=prom5_d<d>.txt CLAIMDIR=claims5_p<d> sweep_fast.py 5 <d> 9,10 5 <k> 4 noV` (ROWCAP on, seed 5, p = 524287),")
-P("one worker per core (since 2026-09-28 04:13 UTC: 3 on d=13, 1 on d=14, interleaved because the remaining d=13 components take > 6 h each), cheapest components first, logs untracked in live/ and snapshotted into hwv5_d<d>_prom_done.log at every check-in.")
+P("one worker per core, both degrees interleaved cheapest first under a MAXCOST stage (see Cost policy), logs untracked in live/ and snapshotted into hwv5_d<d>_prom_done.log at every check-in.")
 P("Sanity checks passed before the start: `sweep_fast.py 4 4 6,7` full ranks / FOUND: [], and the d=8 C^4 hit reproduces H1:304/309.")
 P("")
 P("## Running now")
@@ -28,6 +28,28 @@ for d in (13, 14):
     hits = [l for l in lines if 'SEPARATES' in l]
     P("| %d | %d | %d | %d | %.2f | %.0f |" % (d, tot, len(lines), len(hits), sum(times) / 3600, max(times) if times else 0))
     tables[d] = (lines, hits, tot)
+P("")
+P("## Cost policy (since 2026-09-28 08:45 UTC) and what remains")
+P("The remaining components of both lists are far more expensive than the finished ones: the flattening matrices have thousands of rows and")
+P("columns (e.g. ((10,3),(4,3,3,3),(3,3,3,3,1)): 4808 x 2408 points, 8e13 flops per flattening, about 60 h per component at the measured")
+P("1.5 GFLOP/s; the two such d=13 components were stopped after 10 h and 8.5 h and will be redone in a later stage).  Components are")
+P("therefore processed cheapest first across BOTH degrees by the sweep's cost proxy g * sum_t N1_t K_t, in MAXCOST stages 1e7, 3e7, 1e8")
+P("(rough rate for big components: 6e-3 s per cost unit, i.e. 1e7 ~ 17 h, 3e7 ~ 50 h, 1e8 ~ 7 days per component).  Bigger components")
+P("are reported here as not checked with their cost.  Remaining components by cost bucket (not in the done-log):")
+P("")
+P("| degree | <= 1e7 | 1e7..3e7 | 3e7..1e8 | 1e8..1e9 | > 1e9 | sum of cost proxies (all remaining) |")
+P("|---|---|---|---|---|---|---|")
+import re as _re
+for d in (13, 14):
+    if not os.path.exists('prom5_d%d_cost.txt' % d): continue
+    done_d = {l.split(' g=')[0][4:].strip() for l in open('hwv5_d%d_prom_done.log' % d) if l.startswith('lam=')} if os.path.exists('hwv5_d%d_prom_done.log' % d) else set()
+    b = [0]*5; tot = 0.0
+    for l in open('prom5_d%d_cost.txt' % d):
+        m = _re.match(r'^(\(.*\)) (\d+) (\d+) (\(.*\))$', l.strip())
+        if not m or m.group(1) in done_d: continue
+        c = float(m.group(3)); tot += c
+        b[0 if c <= 1e7 else 1 if c <= 3e7 else 2 if c <= 1e8 else 3 if c <= 1e9 else 4] += 1
+    P("| %d | %d | %d | %d | %d | %d | %.2e |" % (d, *b, tot))
 P("")
 P("## Hits (`*** SEPARATES`)")
 allhits = [h for d in tables for h in tables[d][1]]

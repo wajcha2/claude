@@ -39,6 +39,7 @@ SEED = int(sys.argv[4]) if len(sys.argv) > 4 else 5
 WORKER, NWORKERS = (int(sys.argv[5]), int(sys.argv[6])) if len(sys.argv) > 6 else (0, 1)
 NOV = len(sys.argv) > 7 and sys.argv[7] == 'noV'
 MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))
+DPMAX = int(os.environ.get('DPMAX', '24'))     # max number of tensors for the DynamicProgramming path fallback
 MAXCOST = float(os.environ.get('MAXCOST', 'inf'))
 MAXDIM = float(os.environ.get('MAXDIM', 'inf'))
 ROWCAP = os.environ.get('ROWCAP', '1') == '1'   # cap the number of sampled rows/columns by the rank bounds (noV only)
@@ -88,7 +89,10 @@ def best_path(ops, out, repeats=128, cheap=False):
     batch splitting can shrink -- that was the cause of 13 GB OOM kills at d = 9."""
     path, info = find_path(ops, out, None, 'greedy' if cheap else oe.RandomGreedy(max_repeats=repeats))   # cheap: probes (8 x 16 points)
     big = hwv_fast.largest_intermediate(ops, out, path)
-    if big > MEMCAP:
+    if big > MEMCAP and len(ops) <= DPMAX:
+        # the DP optimiser's subset table grows exponentially with the number of tensors: 7 GB observed for a d = 14
+        # network (block loop, 2508 x 1 points); above DPMAX tensors the RandomGreedy path is kept (more block
+        # splitting, identical results)
         path2, info2 = find_path(ops, out, None, oe.DynamicProgramming(minimize='size'))
         big2 = hwv_fast.largest_intermediate(ops, out, path2)
         if big2 < big:

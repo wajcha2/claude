@@ -26,7 +26,7 @@ grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/nul
 # component.  prom5_d<d>_cost.txt caches "repr(lam) g cost dims" for every listed component.
 # Worker slots: W13 / W14 list the slots (0..NW-1) for d=13 / d=14; a degree with nothing left under its MC hands its
 # slots to the other degree.
-MC13=${MC13:-3e7}; MC14=${MC14:-3e7}     # stage 2 since 2026-09-28 12:15 UTC (stage 1 = 1e7 exhausted in both degrees)
+MC13=${MC13:-1e8}; MC14=${MC14:-1e8}     # stage 3 since 2026-09-28 23:20 UTC (3e7 stage: the 2.3e7 d=13 component took 2 h, not 60 h, once the DP path fallback was capped)
 W13=${W13:-"0 1"}; W14=${W14:-"2 3"}
 left() {  # degree maxcost -> number of listed components with cost <= maxcost not yet in the done-log
   python3 - <<PY

@@ -5,12 +5,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hwv import dim_schur
 from t455_common import components as comps, cost, ns
 jobs = [tuple(l.split()) for l in open('t455_jobs.txt') if l.strip() and not l.startswith('#')]
-done = {}
+done = {}; times_by_file = {}
 for lf in glob.glob('hwv455_d*_w*.log'):
     d = int(re.search(r'hwv455_d(\d+)', lf).group(1))
     for line in open(lf):
         m = re.match(r'lam=(\(.*?\)\)) g=(\d+) .* cost=([\d.e+]+) \(([\d.]+)s\)', line)
-        if m: lam = eval(m.group(1)); done[(d, lam)] = (float(cost(lam, int(m.group(2)))), float(m.group(4)))   # cost recomputed (logged cost= depends on COSTMODE)
+        if m:
+            lam = eval(m.group(1)); done[(d, lam)] = (float(cost(lam, int(m.group(2)))), float(m.group(4)))   # cost recomputed (logged cost= depends on COSTMODE)
+            times_by_file.setdefault(lf, []).append(float(m.group(4)))
 def fit(points):
     n = len(points); mx = sum(x for x, _ in points) / n; my = sum(y for _, y in points) / n
     b = sum((x - mx) * (y - my) for x, y in points) / sum((x - mx) ** 2 for x, _ in points); a = my - b * mx
@@ -31,4 +33,11 @@ for d, M in jobs:
     est = sum(pred(cost(lam, g)) for lam, g in rest) / 3 / 3600; total += est
     print("job d=%d MAXDIM=%s: %d of %d components left, predicted %.1f h wall on 3 workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (
         d, M, len(rest), len(members), est, math.exp(a), b, len(pts), max(pred(cost(lam, g)) for lam, g in rest) / 3600))
+    # second estimate from the recent rate: mean time of the last 50 finished components of each worker log of this job, times the
+    # number left, on 3 workers; a lower bound when the components are claimed in order of increasing cost
+    tag = 'd%d' % d if M == 'inf' else 'd%d_max%s' % (d, M)
+    recent = sum((times_by_file.get('hwv455_%s_w%d.log' % (tag, w), [])[-50:] for w in range(3)), [])
+    if recent:
+        print("  recent-rate estimate: %d left x mean(last %d) %.0f s / 3 workers = %.1f h (lower bound: the cheapest components go first)" % (
+            len(rest), len(recent), sum(recent) / len(recent), len(rest) * sum(recent) / len(recent) / 3 / 3600))
 print("total predicted wall time for the queue: %.1f h" % total)

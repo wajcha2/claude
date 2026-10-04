@@ -1,0 +1,82 @@
+# d9: checks of K_M2 and of the separating plane, d=8 hit ((6,2),(3,2,2,1),(3,2,2,1)), direction 1 (2026-10-04)
+
+## verify_phiM2.py 524287 101  (reference implementation hwv.flattening_matrix on the 8-term M2; hwv_fast on Strassen's 7 terms)
+prime 524287, seed 101, 4 independent fillings (multiplicity space basis), matrices 364x364
+reference implementation, M2 (8 terms): rank of each F_j(M2): [19, 9, 9, 19]; dim span{F_j(M2)} = 3  (387s)
+fast implementation, M2 via Strassen (7 terms): equal to the reference matrices: True
+dim K_M2 = 1
+random phi: rank F_phi(M2) = 19; ranks on r6a,r6b,r7a,r7b = [225, 225, 225, 225]
+random phi: rank F_phi(M2) = 19; ranks on r6a,r6b,r7a,r7b = [225, 225, 225, 225]
+phi in K_M2: F_phi(M2) is the zero matrix: True; ranks on r6a,r6b,r7a,r7b = [220, 220, 225, 225]
+
+## verify_phiM2.py 524269 202
+prime 524269, seed 202, 4 independent fillings (multiplicity space basis), matrices 364x364
+reference implementation, M2 (8 terms): rank of each F_j(M2): [10, 19, 18, 19]; dim span{F_j(M2)} = 3  (299s)
+fast implementation, M2 via Strassen (7 terms): equal to the reference matrices: True
+dim K_M2 = 1
+random phi: rank F_phi(M2) = 19; ranks on r6a,r6b,r7a,r7b = [225, 225, 225, 225]
+random phi: rank F_phi(M2) = 19; ranks on r6a,r6b,r7a,r7b = [225, 225, 225, 225]
+phi in K_M2: F_phi(M2) is the zero matrix: True; ranks on r6a,r6b,r7a,r7b = [220, 220, 225, 225]
+
+## line_point_M2.py  (d7d8 point t=509492 of hit_d8_special.py, seed-5 filling basis)
+p = 524287; basis of M^* = the 4 fillings of hit_d8_special.py (seed 5); dim K_M2 = 1, K_M2 = <[0, 262143, 1, 0]>
+  filling 0: columns of the (6,2) tableau [[0, 6], [1, 7], [2], [3], [4], [5]] | (3,2,2,1) tableau 2: [[3, 5, 7, 4], [6, 1, 2], [0]] | (3,2,2,1) tableau 3: [[2, 6, 7, 0], [1, 3, 5], [4]]
+  filling 1: columns of the (6,2) tableau [[0, 6], [1, 7], [2], [3], [4], [5]] | (3,2,2,1) tableau 2: [[1, 6, 3, 4], [5, 7, 0], [2]] | (3,2,2,1) tableau 3: [[6, 0, 4, 5], [2, 7, 3], [1]]
+  filling 2: columns of the (6,2) tableau [[0, 6], [1, 7], [2], [3], [4], [5]] | (3,2,2,1) tableau 2: [[6, 5, 3, 2], [7, 4, 1], [0]] | (3,2,2,1) tableau 3: [[0, 7, 3, 2], [1, 6, 5], [4]]
+  filling 3: columns of the (6,2) tableau [[0, 6], [1, 7], [2], [3], [4], [5]] | (3,2,2,1) tableau 2: [[5, 1, 0, 3], [6, 7, 4], [2]] | (3,2,2,1) tableau 3: [[4, 0, 5, 2], [7, 3, 1], [6]]
+t = 509492: phi = [467061, 189857, 384403, 239830]; ranks on low1, low2, high = [220, 220, 225] (published: (220, 220, 225)); rank F_phi(M2) = 19; phi in K_M2: False
+t =  37168: phi = [263737, 352238, 250434, 210327]; ranks on low1, low2, high = [84, 84, 84] (published: (84, 84, 84)); rank F_phi(M2) = 19; phi in K_M2: False
+phi_M2 (spans K_M2): ranks on low1, low2, high = [220, 220, 225]; F_phi(M2) == 0: True
+
+## m2_symmetry.py  (exact character count; is K_M2 != 0 forced by the stabilizer GL2^3 x <tau> of M2?)
+dim W = dim (S^l A (x) S^m B (x) S^m C)^{GL2^3} = 5
+tr(tau | W) = 5  => dim W^+ = 5 , dim W^- = 0
+g = dim M = 4 ; swap of the two [m] factors on M: dim M^+ = 4 , dim M^- = 0
+=> rank of phi -> phi(iso(M2)) <= dim W^+ * [M^- = 0] ... ; lower bound dim K_M2 >= 0
+
+## plane_test_d8.py 3 77  (separating locus in P(M^*), seed-5 basis; profile = ranks on rank-6 low1, low2, low3 and rank-7 high, high2)
+basis flattenings built (29s); profile = ranks on (low1, low2, low3, high, high2)
+phi_M2 = [0, 262143, 1, 0]: profile (220, 220, 220, 225, 225)
+phi_A  = [467061, 189857, 384403, 239830]: profile (220, 220, 220, 225, 225)
+random point of the line <phi_M2, phi_A>: profile (220, 220, 220, 225, 225)
+random point of the line <phi_M2, phi_A>: profile (220, 220, 220, 225, 225)
+random point of the line <phi_M2, phi_A>: profile (220, 220, 220, 225, 225)
+random line 0: drop-poly degree 146, F_p roots [(427101, [523349, 179348, 138224, 496920], (220, 220, 220, 225, 225)), (279341, [27070, 173716, 205964, 291093], (84, 84, 84, 84, 84))]  (171s)
+random line 1: drop-poly degree 146, F_p roots [(234263, [138737, 357800, 208231, 399544], (220, 220, 220, 225, 225)), (384770, [294123, 435334, 119728, 429904], (84, 84, 84, 84, 84))]  (299s)
+random line 2: drop-poly degree 146, F_p roots [(411995, [187800, 453577, 86397, 469264], (220, 220, 220, 225, 225)), (381171, [236705, 486177, 386000, 124325], (84, 84, 84, 84, 84))]  (427s)
+K_M2 generator: [0, 1, 524285, 0] ~ ['0', '1', '-2', '0']
+separating points found: 5, rank of their span in M^* = 3
+  = the plane {phi : phi(m) = 0}, m in M (filling-dual basis) = [0, 1, 262144, 262143] ~ ['0', '1', '1/2', '-1/2']
+rank-84 points found: 3, rank of their span in M^* = 3
+  = the plane {phi : phi(m) = 0}, m in M (filling-dual basis) = [1, 174761, 349525, 436906] ~ ['1', '-4/3', '1/3', '1/6']
+random point of the plane <phi_M2, phi_A, phi_B>: profile (220, 220, 220, 225, 225), rank F(M2) = 19
+random point of the plane <phi_M2, phi_A, phi_B>: profile (220, 220, 220, 225, 225), rank F(M2) = 19
+random point of the plane <phi_M2, phi_A, phi_B>: profile (220, 220, 220, 225, 225), rank F(M2) = 19
+random point of the plane <phi_M2, phi_A, phi_B>: profile (220, 220, 220, 225, 225), rank F(M2) = 19
+
+## plane_stack_d8.py [phi_B]  (hstack rank = 360 - dim common kernel; vstack rank = dim of the sum of the images)
+matrices: rows = 364 source points, columns = 364 target points (rank of one F_phi <= 225)
+phi_M2 + phi_A               hstack ranks (low1, low2, high) = [285, 285, 290], vstack ranks = [220, 220, 225]
+phi_M2 + phi_A + phi_B       hstack ranks (low1, low2, high) = [285, 285, 290], vstack ranks = [220, 220, 225]
+2 random phi                 hstack ranks (low1, low2, high) = [304, 304, 309], vstack ranks = [225, 225, 225]
+3 random phi                 hstack ranks (low1, low2, high) = [304, 304, 309], vstack ranks = [225, 225, 225]
+
+## ks_degen_d8.py  (K_S for degenerations of M2 and for Strassen minus one term)
+M2                                               dim K_S = 1 | basis (0, 1, -2, 0) | contains K_M2: True | random phi in K_S: ranks low1, low2, high = [220, 220, 225]
+M2 compressed: rank-3 map on factor 1            dim K_S = 1 | basis (0, 1, -2, 0) | contains K_M2: True | random phi in K_S: ranks low1, low2, high = [220, 220, 225]
+M2 compressed: rank-3 map on factor 2            dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-3 map on factor 3            dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-3 maps on the factors != 1   dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-3 maps on the factors != 2   dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-3 maps on the factors != 3   dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-3 maps on all factors        dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-2 map on factor 1            dim K_S = 1 | basis (0, 1, -2, 0) | contains K_M2: True | random phi in K_S: ranks low1, low2, high = [220, 220, 225]
+M2 compressed: rank-2 map on factor 2            dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+M2 compressed: rank-2 map on factor 3            dim K_S = 4 | basis (1, 0, 0, 0); (0, 1, 0, 0); (0, 0, 1, 0); (0, 0, 0, 1) | contains K_M2: True
+Strassen M2 minus term 1 (rank 6)                dim K_S = 0
+Strassen M2 minus term 2 (rank 6)                dim K_S = 0
+Strassen M2 minus term 3 (rank 6)                dim K_S = 0
+Strassen M2 minus term 4 (rank 6)                dim K_S = 0
+Strassen M2 minus term 5 (rank 6)                dim K_S = 0
+Strassen M2 minus term 6 (rank 6)                dim K_S = 0
+Strassen M2 minus term 7 (rank 6)                dim K_S = 0

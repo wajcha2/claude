@@ -37,6 +37,20 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
 * C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)) dir 1, rank 6 vs 7: drop points 220 vs 225 (rank 5: 105, rank 8: 225) and
   84/84; both components are HYPERPLANES of P^3; U = the 220-hyperplane (dim 3): H 285 vs 290, V 220 vs 225.
 
+## Results so far (2026-10-04 23:10 UTC; details special/RESULTS.md) -- no separating special U anywhere
+* 4x4x4 rank 6 vs 7 (lowest generic d = 8): d = 5, 6, 7 complete (all g >= 2 components, all directions):
+  lines (+ linear components, recursion), U_k flag / swaps / intersections (H, V, all dims), lines through and inside
+  natural U, plane resultants (codim 2; 94 of 96 g >= 3 directions, the 2 with rho = 224 running as 'planebig'),
+  Grassmannian pencils H_k / V_k.  Tensor-independent drop loci are common at d = 7 (22 of 210 directions on lines:
+  hyperplane arrangements; 12 directions with isolated codim-2 points), but every one lowers rank-6 and rank-7
+  tensors by the same amount.
+* 5x5x5: rank 8 at d = 5 and rank 9 at d = 5, 6: not separated (d = 5: both g = 2 components injective at every
+  target rank, no drop point on P(M^*) = P^1; d = 6: drop points in 3 of 53 directions, equal on rank 9 and 10).
+* 6x6x6 r = 10-13 at d = 5, 6; 7x7x7 r = 12-18, 8x8x8 r = 12-23, 9x9x9 r = 13-29, 10x10x10 r = 13-35 at d = 5:
+  not separated; no tensor-independent drop point at all at the lowest frontier rank (the flattenings stay
+  injective for every functional), natural U and Grassmannian pencils give the generic ranks.
+* Timings / memory: per direction up to 1 h (10x10x10 d = 5, rho = 4950: F 33 min, minpoly 32 min), peak 3.6 GB.
+
 ## Running jobs
 * 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: done (`special/run4.sh`).
 * `special_runner.py special/jobs.txt`: job list in priority order, one process per component, live output in the

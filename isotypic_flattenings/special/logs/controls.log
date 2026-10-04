@@ -1,0 +1,65 @@
+lam=((4, 2), (3, 2, 1), (3, 2, 1)) g=3 dir 1: n1=27 n23=64 N1=35 K=72  ranks [4]
+   generic U: r4 H[27, 27, 27] V[36, 36] r5 H[27, 27, 27] V[45, 45]
+   U_k dims {1: 3, 2: 3, 3: 0}  swaps {'sw23+': 3, 'sw23-': 0}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 27  minpoly deg [19, 19]  gcd deg 2  e1:[26, 26, 26] prof{'4': 26, '5': 27} *SEP* ['r4:26<27'] r-1,r+2:[8, 27] e1:[18, 18, 18] prof{'4': 18, '5': 18}  (0.1s)
+   line1 rho 27  minpoly deg [19, 19]  gcd deg 2  e1:[26, 26, 26] prof{'4': 26, '5': 27} *SEP* ['r4:26<27'] r-1,r+2:[8, 27] e1:[18, 18, 18] prof{'4': 18, '5': 18}  (0.0s)
+   line2 rho 27  minpoly deg [19, 19]  gcd deg 2  e1:[26, 26, 26] prof{'4': 26, '5': 27} *SEP* ['r4:26<27'] r-1,r+2:[8, 27] e1:[18, 18, 18] prof{'4': 18, '5': 18}  (0.0s)
+   line3 rho 27  minpoly deg [19, 19]  gcd deg 2  e1:[18, 18, 18] prof{'4': 18, '5': 18} e1:[26, 26, 26] prof{'4': 26, '5': 27} *SEP* ['r4:26<27'] r-1,r+2:[8, 27]  (0.0s)
+   line4 rho 27  minpoly deg [19, 19]  gcd deg 2  e1:[26, 26, 26] prof{'4': 26, '5': 27} *SEP* ['r4:26<27'] r-1,r+2:[8, 27] e1:[18, 18, 18] prof{'4': 18, '5': 18}  (0.0s)
+   line-span sig[26, 26, 26]    dim  3  r4 H[26, 26, 27] V[26, 36] r5 H[27, 27, 27] V[35, 45]  *** SEPARATES r4:H1 26<27 r4:H2 26<27 r4:V2 26<35
+   line-span sig[18, 18, 18]    dim  3  r4 H[18, 18, 27] V[18, 36] r5 H[18, 18, 27] V[18, 45]
+   line-span all: 10 points span dim 3 (not proper)
+   in[sig[26, 26, 26]]0 rho 26  minpoly deg [2, 2]  gcd deg 2  e1:[8, 8, 8] prof{'4': 8, '5': 8} e1:[18, 18, 18] prof{'4': 18, '5': 27} *SEP* ['r4:18<27'] r-1,r+2:[6, 27]  (0.0s)
+   in[sig[18, 18, 18]]0 rho 18  minpoly deg [2, 2]  gcd deg 2  e1:[8, 8, 8] prof{'4': 8, '5': 8} e1:[10, 10, 10] prof{'4': 10, '5': 10}  (0.0s)
+   done dir 1: ok, 11 cases, 7 hits, wall 0.9s (F 0.1s), peak 51 MB
+lam=((3, 2), (3, 1, 1), (3, 1, 1)) g=2 dir 1: n1=15 n23=36 N1=23 K=38  ranks [4]
+   generic U: r4 H[12, 12] V[15] r5 H[15, 15] V[21]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {'sw23+': 2, 'sw23-': 0}  (0.1s)
+   no natural U with 0 < dim < g
+   line0 rho 12  minpoly deg [5, 5]  gcd deg 2  e1:[9, 9, 9] prof{'4': 9, '5': 15} *SEP* ['r4:9<15'] r-1,r+2:[3, 15] e1:[6, 6, 6] prof{'4': 6, '5': 6}  (0.0s)
+   line1 rho 12  minpoly deg [5, 5]  gcd deg 2  e1:[6, 6, 6] prof{'4': 6, '5': 6} e1:[9, 9, 9] prof{'4': 9, '5': 15} *SEP* ['r4:9<15'] r-1,r+2:[3, 15]  (0.0s)
+   line2 rho 12  minpoly deg [5, 5]  gcd deg 2  e1:[9, 9, 9] prof{'4': 9, '5': 15} *SEP* ['r4:9<15'] r-1,r+2:[3, 15] e1:[6, 6, 6] prof{'4': 6, '5': 6}  (0.0s)
+   line3 rho 12  minpoly deg [5, 5]  gcd deg 2  e1:[9, 9, 9] prof{'4': 9, '5': 15} *SEP* ['r4:9<15'] r-1,r+2:[3, 15] e1:[6, 6, 6] prof{'4': 6, '5': 6}  (0.0s)
+   line-span sig[9, 9, 9]       dim  2  r4 H[9, 12] V[15] r5 H[15, 15] V[21]  *** SEPARATES r4:H1 9<15
+   line-span sig[6, 6, 6]       dim  2  r4 H[6, 12] V[15] r5 H[6, 15] V[21]
+   line-span all: 8 points span dim 2 (not proper)
+   done dir 1: ok, 8 cases, 5 hits, wall 0.5s (F 0.0s), peak 50 MB
+lam=((6, 2), (3, 2, 2, 1), (3, 2, 2, 1)) g=4 dir 1: n1=360 n23=225 N1=368 K=233  ranks [6]
+   generic U: r6 H[225, 304, 304, 304] V[225, 225, 225] r7 H[225, 309, 309, 309] V[225, 225, 225]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 0}  swaps {'sw23+': 4, 'sw23-': 0}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[84, 84, 84] prof{'6': 84, '7': 84} e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225]  (7.5s)
+   line1 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225] e1:[84, 84, 84] prof{'6': 84, '7': 84}  (3.0s)
+   line2 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225] e1:[84, 84, 84] prof{'6': 84, '7': 84}  (3.3s)
+   line3 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[84, 84, 84] prof{'6': 84, '7': 84} e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225]  (3.0s)
+   line4 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225] e1:[84, 84, 84] prof{'6': 84, '7': 84}  (3.1s)
+   line5 rho 225  minpoly deg [81, 81]  gcd deg 2  e1:[220, 220, 220] prof{'6': 220, '7': 225} *SEP* ['r6:220<225'] r-1,r+2:[105, 225] e1:[84, 84, 84] prof{'6': 84, '7': 84}  (3.2s)
+   line-span sig[84, 84, 84]    dim  4  r6 H[84, 99, 99, 304] V[84, 84, 225] r7 H[84, 99, 99, 309] V[84, 84, 225]
+   line-span sig[220, 220, 220] dim  4  r6 H[220, 285, 285, 304] V[220, 220, 225] r7 H[225, 290, 290, 309] V[225, 225, 225]  *** SEPARATES r6:H1 220<225 r6:H2 285<290 r6:H3 285<290 r6:V2 220<225 r6:V3 220<225
+   line-span all: 12 points span dim 4 (not proper)
+   in[sig[84, 84, 84]]0 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[54, 54, 54] prof{'6': 54, '7': 54}  (1.2s)
+   in[sig[84, 84, 84]]1 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.3s)
+   in[sig[84, 84, 84]]2 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.3s)
+   in[sig[84, 84, 84]]3 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[64, 64, 64] prof{'6': 64, '7': 64}  (1.3s)
+   in[sig[84, 84, 84]]4 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[64, 64, 64] prof{'6': 64, '7': 64}  (1.3s)
+   in[sig[84, 84, 84]]-span sig[64, 64, 64] dim  4  r6 H[64, 79, 299, 304] V[64, 225, 225] r7 H[64, 79, 304, 309] V[64, 225, 225]  *** SEPARATES r6:H3 299<304
+   in[sig[84, 84, 84]]-span sig[65, 65, 65] dim  4  r6 H[65, 65, 290, 304] V[65, 225, 225] r7 H[65, 65, 290, 309] V[65, 225, 225]
+   in[sig[84, 84, 84]]-span sig[54, 54, 54] dim  4  r6 H[54, 54, 274, 304] V[54, 225, 225] r7 H[54, 54, 279, 309] V[54, 225, 225]  *** SEPARATES r6:H3 274<279
+   in[sig[84, 84, 84]]-span all dim  4  r6 H[84, 99, 99, 304] V[84, 84, 225] r7 H[84, 99, 99, 309] V[84, 84, 225]
+   in[sig[220, 220, 220]]0 rho 220  minpoly deg [66, 66]  gcd deg 1  e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.6s)
+   in[sig[220, 220, 220]]1 rho 220  minpoly deg [66, 66]  gcd deg 1  e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.7s)
+   in[sig[220, 220, 220]]2 rho 220  minpoly deg [66, 66]  gcd deg 1  e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.8s)
+   in[sig[220, 220, 220]]3 rho 220  minpoly deg [66, 66]  gcd deg 1  e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.8s)
+   in[sig[220, 220, 220]]4 rho 220  minpoly deg [66, 66]  gcd deg 1  e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.7s)
+   in[sig[220, 220, 220]]-span sig[65, 65, 65] dim  4  r6 H[65, 65, 290, 304] V[65, 225, 225] r7 H[65, 65, 290, 309] V[65, 225, 225]
+   in[in[sig[84, 84, 84]]sig[64, 64, 64]]0 rho 64  minpoly deg [17, 17]  gcd deg 2  e1:[34, 34, 34] prof{'6': 34, '7': 34} e1:[45, 45, 45] prof{'6': 45, '7': 45}  (0.7s)
+   in[in[sig[84, 84, 84]]sig[65, 65, 65]]0 rho 65  minpoly deg [2, 2]  gcd deg 2  e1:[20, 20, 20] prof{'6': 20, '7': 20} e1:[45, 45, 45] prof{'6': 45, '7': 45}  (0.7s)
+   in[in[sig[84, 84, 84]]sig[54, 54, 54]]0 rho 54  minpoly deg [2, 2]  gcd deg 2  e1:[20, 20, 20] prof{'6': 20, '7': 20} e1:[34, 34, 34] prof{'6': 34, '7': 34}  (0.5s)
+   in[in[sig[84, 84, 84]]all]0 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[54, 54, 54] prof{'6': 54, '7': 54}  (1.2s)
+   in[in[sig[84, 84, 84]]all]1 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.3s)
+   in[in[sig[84, 84, 84]]all]2 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65}  (1.3s)
+   in[in[sig[84, 84, 84]]all]3 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[54, 54, 54] prof{'6': 54, '7': 54} e1:[64, 64, 64] prof{'6': 64, '7': 64}  (1.3s)
+   in[in[sig[84, 84, 84]]all]4 rho 84  minpoly deg [18, 18]  gcd deg 3  e1:[64, 64, 64] prof{'6': 64, '7': 64} e1:[65, 65, 65] prof{'6': 65, '7': 65} e1:[54, 54, 54] prof{'6': 54, '7': 54}  (1.3s)
+   in[in[sig[220, 220, 220]]sig[65, 65, 65]]0 rho 65  minpoly deg [2, 2]  gcd deg 2  e1:[20, 20, 20] prof{'6': 20, '7': 20} e1:[45, 45, 45] prof{'6': 45, '7': 45}  (0.6s)
+   done dir 1: ok, 34 cases, 9 hits, wall 61.3s (F 7.3s), peak 180 MB

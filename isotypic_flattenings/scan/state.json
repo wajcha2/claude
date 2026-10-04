@@ -1177,9 +1177,10 @@
    ],
    "out": "scan/live/res/n8_d7_s1.jsonl",
    "claims": "scan/live/claims/n8_d7_s1",
-   "status": "running",
+   "status": "done",
    "t_start": 1791096030.078998,
-   "failed": []
+   "failed": [],
+   "t_end": 1791096422.2276464
   },
   "n4_d6_s1": {
    "n": 4,
@@ -1243,9 +1244,10 @@
    ],
    "out": "scan/live/res/n6_d6_s1.jsonl",
    "claims": "scan/live/claims/n6_d6_s1",
-   "status": "running",
+   "status": "done",
    "t_start": 1791096088.9342737,
-   "failed": []
+   "failed": [],
+   "t_end": 1791096319.6489632
   },
   "n4_d7_s1": {
    "n": 4,
@@ -1263,9 +1265,10 @@
    ],
    "out": "scan/live/res/n4_d7_s1.jsonl",
    "claims": "scan/live/claims/n4_d7_s1",
-   "status": "running",
+   "status": "done",
    "t_start": 1791096110.59131,
-   "failed": []
+   "failed": [],
+   "t_end": 1791096389.536016
   },
   "n5_d7_s1": {
    "n": 5,
@@ -1283,8 +1286,104 @@
    ],
    "out": "scan/live/res/n5_d7_s1.jsonl",
    "claims": "scan/live/claims/n5_d7_s1",
-   "status": "running",
+   "status": "cancelled",
    "t_start": 1791096264.8904047,
+   "failed": [],
+   "note": "rank 9 not pursued for n=5"
+  },
+  "n6_d7_s1": {
+   "n": 6,
+   "d": 7,
+   "stage": 1,
+   "need": [
+    10,
+    11,
+    12,
+    13
+   ],
+   "list": "scan/live/jobs/n6_d7_s1.txt",
+   "ncomp": 11,
+   "ncomp_degree": 333,
+   "cap": [
+    0,
+    300000.0
+   ],
+   "out": "scan/live/res/n6_d7_s1.jsonl",
+   "claims": "scan/live/claims/n6_d7_s1",
+   "status": "running",
+   "t_start": 1791096319.6816027,
+   "failed": []
+  },
+  "n4_d8_s1": {
+   "n": 4,
+   "d": 8,
+   "stage": 1,
+   "need": [
+    6
+   ],
+   "list": "scan/live/jobs/n4_d8_s1.txt",
+   "ncomp": 271,
+   "ncomp_degree": 426,
+   "cap": [
+    0,
+    300000.0
+   ],
+   "out": "scan/live/res/n4_d8_s1.jsonl",
+   "claims": "scan/live/claims/n4_d8_s1",
+   "status": "running",
+   "t_start": 1791096389.5804036,
+   "failed": []
+  },
+  "n5_d6_s2": {
+   "n": 5,
+   "d": 6,
+   "stage": 2,
+   "need": [
+    8
+   ],
+   "list": "scan/live/jobs/n5_d6_s2.txt",
+   "ncomp": 30,
+   "ncomp_degree": 113,
+   "cap": [
+    300000.0,
+    3000000.0
+   ],
+   "out": "scan/live/res/n5_d6_s2.jsonl",
+   "claims": "scan/live/claims/n5_d6_s2",
+   "status": "running",
+   "t_start": 1791096418.4503064,
+   "failed": []
+  },
+  "n8_d8_s1": {
+   "n": 8,
+   "d": 8,
+   "stage": 1,
+   "need": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "list": "scan/live/jobs/n8_d8_s1.txt",
+   "ncomp": 2,
+   "ncomp_degree": 995,
+   "cap": [
+    0,
+    300000.0
+   ],
+   "out": "scan/live/res/n8_d8_s1.jsonl",
+   "claims": "scan/live/claims/n8_d8_s1",
+   "status": "running",
+   "t_start": 1791096422.3396263,
    "failed": []
   }
  },
@@ -1298,19 +1397,23 @@
   "4": {
    "rgen": 7,
    "stage": 1,
-   "d": 7,
+   "d": 8,
    "finished": false
   },
   "5": {
    "rgen": 10,
-   "stage": 1,
-   "d": 7,
-   "finished": false
+   "stage": 2,
+   "d": 6,
+   "finished": false,
+   "skip": [
+    9
+   ],
+   "skip_reason": "rank 9 vs 10 needs higher d; handled by the d13 agent at d = 13, 14 (agents/d13.md)"
   },
   "6": {
    "rgen": 14,
    "stage": 1,
-   "d": 6,
+   "d": 7,
    "finished": false
   },
   "7": {
@@ -1322,7 +1425,7 @@
   "8": {
    "rgen": 24,
    "stage": 1,
-   "d": 7,
+   "d": 8,
    "finished": false
   },
   "9": {

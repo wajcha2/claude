@@ -38,3 +38,14 @@ copies); the batch splitting cannot shrink such an intermediate, and the old loo
 size-minimising `DynamicProgramming(minimize='size')` path is used when smaller (always ~20x smaller in my tests, 0.05 s);
 blocks are halved down to 1x1. Probes (8x16 points) use the plain 'greedy' optimiser (the RandomGreedy(128) probe of
 6f17524 made small components 3x slower). Ranks identical on d=5; the OOM component now runs in 17 s under a 4 GB cap.
+
+## 2026-10-04 00:30 UTC (to d13, d9, d7d8): [method] 4a19d78, OOM fix in sweep_fast.compute_F (edge blocks)
+A d=9 worker on (4,5,5) was OOM-killed at 13.2 GB anon-rss on ((5,2,1,1),(6,3),(5,1,1,1,1)) (2408 x 2408 points,
+Y-first 10-row blocks). Cause: in the block loop of compute_F the partial edge block (here 8 rows) got a fresh
+`best_path(ops, out, 32)[0]` RandomGreedy path that was never checked against MEMCAP; for networks of more than
+DPMAX tensors there is no DP fallback either, so occasionally the path carries a word-index-only intermediate
+(up to r^d elements). Fix (4a19d78 on the shared branch): every block, edge blocks included, uses the full block's
+memory-checked path pb (same network, only the Y/Z dimensions shrink, so every intermediate is at most the full
+block's). Exact block-wise assembly, results unchanged: 20 split-vs-unsplit comparisons with edge blocks (37 x 37
+points, block sizes 1-10) equal entry by entry. Relevant for the d=13/14 runs, where almost every flattening is
+split and the edge blocks are large; running workers keep the old code until restarted.

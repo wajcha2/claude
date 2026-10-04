@@ -1,0 +1,86 @@
+# formal_p0.py: exact formal-variable test, d=8 separator ((6,2),(3,2,2,1),(3,2,2,1)), direction 1, U = P0 (2026-10-04)
+
+## setup (integer target points, entries in {-1,0,1}, Gram rank 15 on both sides)
+(see live/formal_p0/setup.npy; rerun: python3 formal_p0.py setup)
+
+## search 524287 (stable sampling)
+[     1s] prime 524287: A-freed P0 flattening with frames, generic (b6, c6): cokernel dim k = 3 (rank 222)
+[    21s]   sections in b6 (c6 fixed) of degree 0: dimension 0  (41 sample points)
+[    22s]   sections in b6 (c6 fixed) of degree 1: dimension 0  (44 sample points)
+[    25s]   sections in b6 (c6 fixed) of degree 2: dimension 4  (50 sample points)
+[    44s]   sections in c6 (b6 fixed) of degree 0: dimension 0  (41 sample points)
+[    46s]   sections in c6 (b6 fixed) of degree 1: dimension 0  (44 sample points)
+[    48s]   sections in c6 (b6 fixed) of degree 2: dimension 4  (50 sample points)
+[    48s] lower bounds: degree >= 2 in b6, >= 2 in c6
+[   126s] joint bidegree (2,2): 100 monomials, 158 sample points (dimension stable), sections: dimension 5  (77s)
+[   126s] MINIMAL JOINT BIDEGREE (2, 2), 5 independent section(s), J = [142, 173, 219]
+
+## solve q 2 2 (12 primes)
+[    83s] prime 524287: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    81s] prime 524269: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    83s] prime 524261: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    81s] prime 524257: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    81s] prime 524243: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    83s] prime 524231: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    80s] prime 524221: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    85s] prime 524219: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    83s] prime 524203: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    82s] prime 524201: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    79s] prime 524197: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+[    83s] prime 524189: bidegree (2,2): 5 sections (stable at 158 sample points), canonical basis pivots [4, 7, 14, 15, 34]; fresh points: F psi = 0 True, rank of the sections at a fresh point 3
+
+## recon
+[     0s] rational reconstruction from 11 primes: 0 failures; agrees with the held-out prime 524287: True
+[     1s] exact sections over Q: 5, primitive integer coefficient vectors, max |coefficient| = 38414995842240 (14 digits)
+
+## vsetup (source points, rigorous spanning of S_0..S_3)
+[   173s] source points: 1700 integer pairs (alpha in {-3..3}^6, beta in {-1,0,1}^6); Gram ranks of the parts S_0..S_3 = [1500, 1560, 1050, 525], dimensions [1500, 1560, 1050, 525]: SPANNING  (173s)
+
+## fullrank (explicit integer rank-7 tensor; exact sections at an explicit point)
+[     2s] explicit integer rank-7 tensor (entries in {-3..3}, seed 77): rank of F_{P0} mod 524287 = 225  => rank over Q >= 225
+[     2s] the 5 exact sections at (b6, c6) = ([2, -1, 3, 1], [1, 3, -2, 2]): rank mod 524287 = 3  => rank over Q >= 3
+
+## verify 0 24 (test)
+[    47s] rows 0-24, prime 524287: F interpolated (45s); psi^T F == 0 mod 524287: True
+[    93s] rows 0-24, prime 524269: F interpolated (46s); psi^T F == 0 mod 524269: True
+[   138s] rows 0-24, prime 524261: F interpolated (45s); psi^T F == 0 mod 524261: True
+[   183s] rows 0-24, prime 524257: F interpolated (44s); psi^T F == 0 mod 524257: True
+[   184s] rows 0-24: exact F by CRT (|F| < 1.0e+22 a priori, prod of 4 primes 7.6e+22), max |coefficient of F| <= 10887553; bound on psi^T F: 9.41e+24
+[   185s] rows 0-24, extra prime 524243: psi^T F == 0: True
+[   185s] rows 0-24: RESULT psi^T F == 0 over Z for all 5 sections: True (primes used 5, product 3.96e+28 > 2*bound 1.88e+25)
+
+## verify block 0
+[   268s] rows 0-425, prime 524287: F interpolated (262s); psi^T F == 0 mod 524287: True
+[   522s] rows 0-425, prime 524269: F interpolated (251s); psi^T F == 0 mod 524269: True
+[   774s] rows 0-425, prime 524261: F interpolated (249s); psi^T F == 0 mod 524261: True
+[  1028s] rows 0-425, prime 524257: F interpolated (251s); psi^T F == 0 mod 524257: True
+[  1039s] rows 0-425: exact F by CRT (|F| < 1.0e+22 a priori, prod of 4 primes 7.6e+22), max |coefficient of F| <= 50331649; bound on psi^T F: 4.35e+25
+[  1053s] rows 0-425, extra prime 524243: psi^T F == 0: True
+[  1053s] rows 0-425: RESULT psi^T F == 0 over Z for all 5 sections: True (primes used 5, product 3.96e+28 > 2*bound 8.70e+25)
+
+## verify block 425
+[   269s] rows 425-850, prime 524287: F interpolated (265s); psi^T F == 0 mod 524287: True
+[   527s] rows 425-850, prime 524269: F interpolated (254s); psi^T F == 0 mod 524269: True
+[   779s] rows 425-850, prime 524261: F interpolated (249s); psi^T F == 0 mod 524261: True
+[  1034s] rows 425-850, prime 524257: F interpolated (252s); psi^T F == 0 mod 524257: True
+[  1045s] rows 425-850: exact F by CRT (|F| < 1.0e+22 a priori, prod of 4 primes 7.6e+22), max |coefficient of F| <= 49811329; bound on psi^T F: 4.31e+25
+[  1059s] rows 425-850, extra prime 524243: psi^T F == 0: True
+[  1059s] rows 425-850: RESULT psi^T F == 0 over Z for all 5 sections: True (primes used 5, product 3.96e+28 > 2*bound 8.61e+25)
+
+## verify block 850
+[   270s] rows 850-1275, prime 524287: F interpolated (265s); psi^T F == 0 mod 524287: True
+[   527s] rows 850-1275, prime 524269: F interpolated (254s); psi^T F == 0 mod 524269: True
+[   782s] rows 850-1275, prime 524261: F interpolated (252s); psi^T F == 0 mod 524261: True
+[  1038s] rows 850-1275, prime 524257: F interpolated (254s); psi^T F == 0 mod 524257: True
+[  1049s] rows 850-1275: exact F by CRT (|F| < 1.0e+22 a priori, prod of 4 primes 7.6e+22), max |coefficient of F| <= 33554433; bound on psi^T F: 2.90e+25
+[  1063s] rows 850-1275, extra prime 524243: psi^T F == 0: True
+[  1063s] rows 850-1275: RESULT psi^T F == 0 over Z for all 5 sections: True (primes used 5, product 3.96e+28 > 2*bound 5.80e+25)
+
+## verify block 1275
+[   269s] rows 1275-1700, prime 524287: F interpolated (265s); psi^T F == 0 mod 524287: True
+[   527s] rows 1275-1700, prime 524269: F interpolated (254s); psi^T F == 0 mod 524269: True
+[   783s] rows 1275-1700, prime 524261: F interpolated (254s); psi^T F == 0 mod 524261: True
+[  1040s] rows 1275-1700, prime 524257: F interpolated (254s); psi^T F == 0 mod 524257: True
+[  1051s] rows 1275-1700: exact F by CRT (|F| < 1.0e+22 a priori, prod of 4 primes 7.6e+22), max |coefficient of F| <= 75497473; bound on psi^T F: 6.53e+25
+[  1064s] rows 1275-1700, extra prime 524243: psi^T F == 0: True
+[  1064s] rows 1275-1700: RESULT psi^T F == 0 over Z for all 5 sections: True (primes used 5, product 3.96e+28 > 2*bound 1.31e+26)

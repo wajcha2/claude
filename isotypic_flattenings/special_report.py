@@ -24,7 +24,24 @@ def load():
             except ValueError:
                 continue
             key = (r['n'], r['d'], tuple(tuple(x) for x in r['lam']), r['t'], tuple(r['r']))
-            recs[key] = r                       # last record wins
+            if key not in recs:
+                recs[key] = r
+                r['methods'] = list(r['methods'])
+                continue
+            q = recs[key]                       # merge runs of other methods (a rerun of the same method replaces)
+            if set(r['methods']) <= set(q['methods']) and set(r['methods']) != set(q['methods']):
+                pass
+            for c in r['cases']:
+                q['cases'].append(c)
+            q['hits'] += r['hits']
+            q['methods'] = sorted(set(q['methods']) | set(r['methods']))
+            q['wall'] = q.get('wall', 0) + r.get('wall', 0)
+            q['rss_peak_mb'] = max(q.get('rss_peak_mb', 0), r.get('rss_peak_mb', 0))
+            for k in ('flag', 'swaps', 'generic', 'n1', 'n23'):
+                if k not in q and k in r:
+                    q[k] = r[k]
+            if r.get('status') != 'ok':
+                q['status'] = r.get('status')
     return recs
 
 
@@ -51,6 +68,18 @@ def summarize(r):
             if f.get('indep'):
                 key = (c['method'].split('[')[0].split('-')[0], f['e'], profstr(f['prof']))
                 kinds[key] = kinds.get(key, 0) + 1
+    planes = [c for c in r['cases'] if c.get('method') == 'plane']
+    for c in planes:
+        if 'skipped' in c:
+            lines.append('plane: %s.' % c['skipped'])
+        else:
+            pl = []
+            for L in c.get('lines', []):
+                for f in L.get('factors', []):
+                    if f.get('indep'):
+                        pl.append('e=%d [%s]' % (f['e'], profstr(f['prof'])))
+            lines.append('plane (rho %d, curve deg %s, common resultant deg %d, factor degs %s): %s.' % (
+                c['rho'], c['curve_deg'], c['gcd_deg'], c.get('factor_degs', []), '; '.join(pl) if pl else 'no isolated point'))
     spans = [c for c in r['cases'] if c.get('method', '').endswith('-span') and 'prof' in c]
     pts = [c for c in r['cases'] if c.get('method', '').endswith('-pts')]
     if nl:
@@ -63,7 +92,7 @@ def summarize(r):
             s += '; linear components: ' + ', '.join(c['U'].split(' ', 1)[0].replace('line-span', 'W') for c in spans)
         if pts:
             s += '; point spans: %d' % len(pts)
-        lines.append(s)
+        lines.insert(0, s + '.')
     return ' '.join(nat), ' '.join(lines), r['hits']
 
 

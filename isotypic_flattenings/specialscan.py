@@ -603,6 +603,151 @@ def generic_baseline(cp, R, rec, rng):
     return runs
 
 
+# ---------------------------------------------------------------- codim-2 drop points on a plane (resultants)
+PLANEMAX = int(os.environ.get('PLANEMAX', '160'))     # largest rho for the plane method (cost ~ rho^5)
+
+
+def interpolate(xs, ys):
+    """fmpz_mod_poly through (xs, ys) (distinct xs) by a subproduct tree (python-flint)."""
+    ctx = flint.fmpz_mod_poly_ctx(p)
+    tree = [[ctx([(-x) % p, 1]) for x in xs]]
+    while len(tree[-1]) > 1:
+        lv = tree[-1]
+        tree.append([lv[i] * lv[i + 1] if i + 1 < len(lv) else lv[i] for i in range(0, len(lv), 2)])
+    M = tree[-1][0]
+    w = M.derivative().multipoint_evaluate([flint.fmpz_mod(x, flint.fmpz_mod_ctx(p)) for x in xs])
+    level = [ctx([int(y) * pow(int(wi), p - 2, p) % p]) for y, wi in zip(ys, w)]
+    for k in range(len(tree) - 1):
+        T = tree[k]
+        level = [level[i] * T[i + 1] + level[i + 1] * T[i] if i + 1 < len(level) else level[i] for i in range(0, len(level), 2)]
+    return level[0]
+
+
+def to_nmod_poly(P):
+    return flint.nmod_poly([int(c) for c in P.coeffs()], p)
+
+
+def plane_resultant(FO, Fb, Fc, rho, rng, log_every=0):
+    """For one tensor: r(v) = lc_u(h)^(2(rho-e)) Res_u(Q_1, Q_2) as an nmod_poly in v, where P_i(u, v) =
+    det(R_i F(O + u (b + v c)) S_i) (two random rho x rho projections), h = the common (drop-curve) factor of degree e
+    on a generic line, Q_i = P_i / h.  Its roots v are the lines through O containing a point where the two
+    projections have a further common zero: the isolated drop points of this tensor (codim 2) and projection-
+    dependent intersection points.  deg r <= rho^2 - e^2 (isobaric weight), so rho^2 - e^2 + 1 exact samples
+    determine it (lines with det(B + v C) = 0 are skipped).  Returns (r, e, nsamples)."""
+    N, K = FO.shape
+    prj = []
+    for i in range(2):
+        Rm = rng.integers(0, p, (rho, N)).astype(np.float64)
+        Sm = rng.integers(0, p, (K, rho)).astype(np.float64)
+        prj.append([to_flint(_mm(_mm(Rm, X), Sm)) for X in (FO, Fb, Fc)])
+
+    def sample(v):
+        Ps = []
+        for A, B, C in prj:
+            Bv = B + C * v
+            dB = Bv.det()
+            if int(dB) == 0:
+                return None
+            Ps.append((-(Bv.solve(A))).charpoly() * int(dB))
+        return Ps
+    # generic curve degree e: minimum gcd degree over a few random lines
+    e = None
+    for _ in range(3):
+        Ps = sample(int(rng.integers(1, p)))
+        if Ps is not None:
+            dg = Ps[0].gcd(Ps[1]).degree()
+            e = dg if e is None else min(e, dg)
+    need = rho * rho - e * e + 1 + 4
+    xs, ys, used = [], [], set()
+    while len(xs) < need:
+        v = int(rng.integers(1, p))
+        if v in used:
+            continue
+        used.add(v)
+        Ps = sample(v)
+        if Ps is None:
+            continue
+        G = Ps[0].gcd(Ps[1])
+        if G.degree() < e:
+            raise RuntimeError('curve degree not generic (%d < %d)' % (G.degree(), e))
+        if G.degree() > e:
+            val = 0
+        else:
+            val = int((Ps[0] // G).resultant(Ps[1] // G))
+        xs.append(v); ys.append(val)
+        if log_every and len(xs) % log_every == 0:
+            log('      plane samples %d / %d' % (len(xs), need))
+    r = to_nmod_poly(interpolate(xs[:-4], ys[:-4]))
+    # check on the 4 extra samples
+    for x, y in zip(xs[-4:], ys[-4:]):
+        if int(r(x)) != y % p:
+            raise RuntimeError('plane resultant: interpolation check failed (degree bound?)')
+    return r, e, len(xs)
+
+
+def run_plane(cp, R, rng, rec, label='plane'):
+    """isolated (codim-2) tensor-independent drop points of rank-r_lo tensors on a random plane of P(M^*)
+    (= all of P(M^*) for g = 3): gcd over two tensors of the plane resultants; every rational root v gives the line
+    through O and the point, analysed by line_points (which re-derives the point and tests it)."""
+    t0 = time.time()
+    g = cp.g
+    rlo = min(R)
+    Ta, Tb = cp.P(rlo), 'D%db' % rlo
+    cp.add_tensor(Tb, rlo)
+    m = min(cp.n1, cp.n23) + 8
+    n1s, ks = min(cp.N1, m), min(cp.K, m)
+    O, b, c = (rng.integers(0, p, g) for _ in range(3))
+    res = {'method': label, 'plane': [O, b, c]}
+    rs = []
+    for X in (Ta, Tb):
+        Fs = cp.F(X)[:, :n1s, :ks]
+        FO, Fb, Fc = combo(Fs, O), combo(Fs, b), combo(Fs, c)
+        rho = rank(np.fmod(FO + 3 * Fb + 5 * Fc, p))
+        res['rho'] = rho
+        if rho > PLANEMAX:
+            res['skipped'] = 'rho %d > PLANEMAX %d' % (rho, PLANEMAX)
+            log('   %s: skipped (rho %d > %d)' % (label, rho, PLANEMAX))
+            rec['cases'].append(res)
+            return
+        r, e, ns = plane_resultant(FO, Fb, Fc, rho, rng, log_every=5000 if rho > 100 else 0)
+        rs.append(r)
+        res.setdefault('curve_deg', []).append(e)
+        res.setdefault('res_deg', []).append(r.degree())
+    G = rs[0].gcd(rs[1])
+    res['gcd_deg'] = G.degree()
+    res['lines'] = []
+    log('   %s rho %d: drop-curve degrees %s, resultant degrees %s, common %d  (%.0fs)'
+        % (label, rho, res['curve_deg'], res['res_deg'], G.degree(), time.time() - t0))
+    if G.degree() > 0:
+        lead, facs = G.factor()
+        res['factor_degs'] = [f.degree() for f, _ in facs]
+        for f, mult in facs:
+            if f.degree() != 1:
+                continue
+            v = (-int(f.coeffs()[0])) % p
+            Q = (b + v * c) % p
+            # roots of the factor lc_u(h)(v) (h = drop curve): Q itself on the curve -- not an isolated point
+            Fs = cp.F(Ta)[:, :n1s, :ks]
+            if rank(combo(Fs, Q)) < rho:
+                res['lines'].append({'v': v, 'note': 'far point on the drop curve (leading-coefficient root)'})
+                continue
+            # the line through O and Q contains the common point(s); second point generic on it
+            out = line_points(cp, O, (Q + int(rng.integers(1, p)) * O) % p, R, rng, '%s-line' % label)
+            pts = out.pop('points')
+            fs = ' '.join('e%d:%s%s%s' % (ff['e'], ff.get('ranks', ff.get('skipped')),
+                                          (' prof%s' % ff['prof']) if 'prof' in ff else ('' if 'skipped' in ff else '(dep)'),
+                                          (' *SEP* %s' % ff['sep']) if ff.get('sep') else '') for ff in out['factors'])
+            log('   %s v=%d: line rho %d gcd deg %d  %s' % (label, v, out['rho'], out['gcd'], fs))
+            out['v'] = v
+            res['lines'].append(out)
+            for ff in out['factors']:
+                if ff.get('sep'):
+                    rec['hits'].append({'method': label, 'U': '%s point (line v=%d) e=%d' % (label, v, ff['e']), 'ranks': ff['ranks'],
+                                        'prof': ff['prof'], 'sep': ff['sep'], 'r-1,r+2': ff['r-1,r+2'], 't': ff.get('t')})
+    res['time'] = round(time.time() - t0, 1)
+    rec['cases'].append(res)
+
+
 # ---------------------------------------------------------------- driver
 def run_component(n, d, lam, R, methods, seed, dirs=None, out=None):
     g = kronecker(*lam)
@@ -687,6 +832,8 @@ def run_direction(cp, R, methods, seed, rec):
                                  extend=None if len(W) == 2 else len(W) + 2)
                 if depth < 2 and len(W) > 2:
                     todo += [(lab + nm2, W2, depth + 1) for nm2, W2 in span_tests(cp, pts2, Rr, rec, rng, lab, amb_basis=W)]
+        if 'plane' in methods and g >= 3:
+            run_plane(cp, Rr, rng, rec)
         if 'pflag' in methods:
             for nm, W in [('U%d' % k, U) for k, U in flag.items()] + list(swaps.items()):
                 if not (0 < len(W) < g):

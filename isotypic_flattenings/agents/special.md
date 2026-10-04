@@ -17,6 +17,14 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   ordered bases [random basis of W, generic completion] -> generic subspaces of W of every dim, W, W + generic;
   one flag-adapted basis.  H and V prefixes over the rank range.
 * `pflag`: lines through a generic point of each natural W and lines inside W.
+* `plane` (g >= 3, rho <= PLANEMAX = 160): isolated (codim-2) tensor-independent drop points on a random plane
+  (all of P(M^*) for g = 3): for lines O + u (b + v c) through a fixed point O, r(v) = lc_u(h)^(2(rho-e))
+  Res_u(P_1/h, P_2/h) (P_i = determinants of two random rho x rho projections, h = drop curve of degree e) has
+  degree <= rho^2 - e^2 (isobaric weight), interpolated from that many exact samples (subproduct tree); the gcd over
+  two tensors gives the lines through common isolated points, which are then analysed by the line method.  Cost
+  ~ rho^5 (rho = 140: ~10 min per tensor).  First test: C^3 d=6 ((4,1,1),(3,2,1),(3,2,1)) g=4 (rank 4 vs 5, a
+  degree already separated generically): a codim-2 drop locus with rank 9 on rank-4 vs 10 on rank-5 tensors
+  (generic 10/10) -- invisible to lines and to the old plane.py (which only found drop curves).
 * Note: specialU.py's swap action was the identity (it permuted filling, tensor and points together, which gives
   back the same functional); here tau acts as Phi_f -> Phi_{f o tau} (fillings exchanged), checked tau^2 = 1 and
   against the S^2 / Lambda^2 multiplicities of the character table.
@@ -30,8 +38,12 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   84/84; both components are HYPERPLANES of P^3; U = the 220-hyperplane (dim 3): H 285 vs 290, V 220 vs 225.
 
 ## Running jobs
-* 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: `special/run4.sh` (4 processes).
+* 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: `special/run4.sh` (done for d = 5, 6; d = 7 finishing).
+* `special_runner.py special/jobs.txt` (job list in order; one process per component; slots in
+  special/live/ncores, time limit special/live/tlimit (default 3 h); log special/runner.log).
 
 ## Restart
-`cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; ./special/run4.sh` (resumes from the
-jsonl files: components/directions with a record for the same methods and ranks are skipped).
+`cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; mkdir -p special/live; echo 4 > special/live/ncores;
+setsid nohup python3 -u special_runner.py special/jobs.txt >> special/runner.log 2>&1 < /dev/null &`
+(components/directions with a record for the same ranks and methods in special/res/n<n>_d<d>*.jsonl are skipped).
+Report: `python3 special_report.py` -> special/RESULTS.md.

@@ -36,7 +36,8 @@ KS = nullspace(np.array([F.ravel() for F in Fb['M2']]).T % p)
 print('p = %d; basis of M^* = the %d fillings of hit_d8_special.py (seed 5); dim K_M2 = %d, K_M2 = <%s>'
       % (p, g, len(KS), [int(x) for x in KS[0]] if len(KS) else None))
 for j, (f, _) in enumerate(fills):
-    print('  filling %d: columns of the (6,2) tableau %s | (3,2,2,1) tableau 2: %s | (3,2,2,1) tableau 3: %s' % (j, f[0], f[1], f[2]))
+    print('  filling %d: columns of the (6,2) tableau %s | (3,2,2,1) tableau 2: %s | (3,2,2,1) tableau 3: %s'
+          % ((j,) + tuple([[int(x) for x in col] for col in t] for t in f)))
 for t in (509492, 37168):
     phi = (ca + t * cb) % p
     print('t = %6d: phi = %s; ranks on low1, low2, high = %s (published: %s); rank F_phi(M2) = %d; phi in K_M2: %s'

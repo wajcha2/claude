@@ -44,7 +44,7 @@ for trial in range(3):
     a, b = rng2.integers(1, p, 2)
     c = (a * phiM2 + b * phiA) % p
     print('random point of the line <phi_M2, phi_A>: profile %s' % (prof(c),)); sys.stdout.flush()
-seps = [phiM2, phiA]
+seps = [phiM2, phiA]; p84 = []
 for L in range(nlines):
     a, b = rng2.integers(1, p, g), rng2.integers(1, p, g)
     F1 = {k: comb(k, a) for k in ('low1', 'low2')}; F2 = {k: comb(k, b) for k in ('low1', 'low2')}
@@ -53,14 +53,31 @@ for L in range(nlines):
     roots = roots_mod_p(hc) if hc.degree() > 0 else []
     out = []
     for t in roots:
-        c = (a + t * b) % p; pr = prof(c); out.append((t, pr))
+        c = (a + t * b) % p; pr = prof(c); out.append((t, [int(x) for x in c], pr))
         if pr[0] < pr[3]: seps.append(c)
+        elif pr[0] == pr[3] < 225: p84.append(c)
     print('random line %d: drop-poly degree %d, F_p roots %s  (%.0fs)' % (L, hc.degree(), out, time.time() - t0)); sys.stdout.flush()
-S = np.array(seps) % p
-print('separating points found: %d, rank of their span in M^* = %d' % (len(seps), modrank(S)))
-if len(seps) >= 3:
-    B = S[:3]
-    print('rank of span{phi_M2, phi_A, phi_B} = %d' % modrank(B))
+def ratrec(a):
+    """rational reconstruction of a mod p (|num|, den <= sqrt(p/2))."""
+    from fractions import Fraction
+    r0, r1, s0, s1 = p, int(a) % p, 0, 1
+    while r1 * r1 * 2 > p:
+        q = r0 // r1; r0, r1, s0, s1 = r1, r0 - q * r1, s1, s0 - q * s1
+    return Fraction(r1, s1) if s1 * s1 * 2 <= p else None
+def show(v):
+    i = next(j for j in range(len(v)) if v[j] % p)
+    w = (v * pow(int(v[i]), p - 2, p)) % p
+    return '%s ~ %s' % ([int(x) for x in w], [str(ratrec(x)) for x in w])
+print('K_M2 generator: %s' % show(phiM2))
+for nm, P in (('separating', seps), ('rank-84', p84)):
+    if not P: continue
+    S = np.array(P) % p; rk = modrank(S)
+    print('%s points found: %d, rank of their span in M^* = %d' % (nm, len(P), rk))
+    if rk == 3:
+        nrm = nullspace(S)[0]
+        print('  = the plane {phi : phi(m) = 0}, m in M (filling-dual basis) = %s' % show(nrm))
+if len(seps) >= 3 and modrank(np.array(seps[:3]) % p) == 3:
+    B = np.array(seps[:3]) % p
     for trial in range(4):
         c = (rng2.integers(1, p, 3) @ B) % p
-        print('random point of the plane <phi_M2, phi_A, phi_B>: profile %s' % (prof(c),)); sys.stdout.flush()
+        print('random point of the plane <phi_M2, phi_A, phi_B>: profile %s, rank F(M2) = %d' % (prof(c), modrank(comb('M2', c)))); sys.stdout.flush()

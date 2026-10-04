@@ -302,7 +302,12 @@ def main():
                 if rc != 0:
                     log('worker %d (%s, pid %d) exited with %s after %.0fs' % (w, name, pid, rc, now - t0))
         alive = set(workers)
-        # time limit, dead workers, job completion
+        # time limit (adjustable at run time: seconds in <SCAN>/tlimit), dead workers, job completion
+        tlimit = TLIMIT
+        try:
+            tlimit = float(open(os.path.join(SCAN, 'tlimit')).read().split()[0])
+        except (OSError, ValueError, IndexError):
+            pass
         for name, job in st['jobs'].items():
             if job['status'] != 'running':
                 continue
@@ -312,7 +317,7 @@ def main():
                 if w is None or w in MARKS or pid not in alive:
                     continue
                 age = now - os.path.getmtime(path)
-                if age > TLIMIT:
+                if age > tlimit:
                     lam = {li: lam for _, li, lam, _ in comp_list(job['n'], job['d'])}.get(int(fn))
                     open(path, 'w').write('timeout %d %.0f\n' % (pid, age))
                     job['timeout'].append([list(map(list, lam)), round(age)])

@@ -17,17 +17,19 @@ ps = subprocess.run("ps -eo pid,etime,rss,pcpu,args | awk '$5==\"python3\" && $7
 P("```\n%s\n```" % (ps or "(no worker running)"))
 P("")
 P("## Progress")
-P("| degree | components in list | checked | hits | sum of times (h) | slowest (s) |")
-P("|---|---|---|---|---|---|")
+P("| degree | components in list | checked | skipped (MAXFLOPS) | hits | sum of times (h) | slowest (s) |")
+P("|---|---|---|---|---|---|---|")
 tables = {}
 for d in (13, 14):
     lst = 'prom5_d%d.txt' % d; log = 'hwv5_d%d_prom_done.log' % d
     tot = sum(1 for l in open(lst) if l.strip()) if os.path.exists(lst) else 0
-    lines = [l.rstrip('\n') for l in open(log) if l.startswith('lam=')] if os.path.exists(log) else []
+    alllines = [l.rstrip('\n') for l in open(log) if l.startswith('lam=')] if os.path.exists(log) else []
+    lines = [l for l in alllines if 'NOT CHECKED' not in l]
+    skipped = [l for l in alllines if 'NOT CHECKED' in l]
     times = [float(m.group(1)) for l in lines for m in [re.search(r'\(([\d.]+)s\)', l)] if m]
     hits = [l for l in lines if 'SEPARATES' in l]
-    P("| %d | %d | %d | %d | %.2f | %.0f |" % (d, tot, len(lines), len(hits), sum(times) / 3600, max(times) if times else 0))
-    tables[d] = (lines, hits, tot)
+    P("| %d | %d | %d | %d | %d | %.2f | %.0f |" % (d, tot, len(lines), len(skipped), len(hits), sum(times) / 3600, max(times) if times else 0))
+    tables[d] = (lines, hits, tot, skipped)
 P("")
 P("## Cost policy (since 2026-09-28 08:45 UTC) and what remains")
 P("The remaining components of both lists are far more expensive than the finished ones: the flattening matrices have thousands of rows and")
@@ -37,6 +39,11 @@ P("therefore processed cheapest first across BOTH degrees by the sweep's cost pr
 P("Update 2026-09-28 23:20 UTC: with the DP path fallback capped, ((10,3),(4,3,3,3),(3,3,3,3,1)) (cost 2.3e7) took 2.0 h instead of the")
 P("60 h estimated from the old block plan, so the stages advance faster (stage 3 = 1e8 since 23:20 UTC).  Bigger components")
 P("are reported here as not checked with their cost.  Remaining components by cost bucket (not in the done-log):")
+P("")
+P("Since 2026-10-04 17:30 UTC a flop cap MAXFLOPS = 1e13 per flattening (path estimate; measured 1.1e9 flop/s in the 1 x K block loops,")
+P("so about 2.5 h per flattening) is also applied: a component above it is recorded as 'NOT CHECKED (MAXFLOPS ...)' with its flop count")
+P("(listed per degree below) and counted neither as checked nor as remaining here.  All four workers had been sitting in flattenings of")
+P("4e13 .. 3e14 flops (10 .. 75 h each) at that time; the cost proxy does not see the contraction cost.")
 P("")
 P("| degree | <= 1e7 | 1e7..3e7 | 3e7..1e8 | 1e8..1e9 | > 1e9 | sum of cost proxies (all remaining) |")
 P("|---|---|---|---|---|---|---|")
@@ -80,7 +87,7 @@ P("```")
 P("Check-in routine every 2 h in this session (create_trigger); a harness Monitor task (30 min, re-armed) keeps the container alive between check-ins.")
 P("")
 for d in (13, 14):
-    lines, hits, tot = tables[d]
+    lines, hits, tot, skipped = tables[d]
     P("## Degree %d: components checked (%d of %d), format of sweep_fast.py (gN generic functional, HN full-M stack; a/b = rank on rank 9 / rank 10)" % (d, len(lines), tot))
     P("```")
     for l in sorted(lines, key=lambda l: float(re.search(r'\(([\d.]+)s\)', l).group(1)) if re.search(r'\(([\d.]+)s\)', l) else 0):
@@ -91,5 +98,11 @@ for d in (13, 14):
         done = {l.split(' g=')[0][4:].strip() for l in lines}
         left = [l.strip() for l in open('prom5_d%d.txt' % d) if l.strip() and l.strip() not in done]
         P("Not yet checked (%d): %s" % (len(left), '; '.join(left) if len(left) <= 60 else '; '.join(left[:60]) + '; ...'))
+    if skipped:
+        P("")
+        P("Skipped by MAXFLOPS (%d; redo with a larger MAXFLOPS after dropping these lines from the done-log):" % len(skipped))
+        P("```")
+        for l in skipped: P(l)
+        P("```")
     P("")
 print('\n'.join(out))

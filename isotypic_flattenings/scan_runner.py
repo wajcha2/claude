@@ -2,16 +2,18 @@
 
 Orchestrates rankscan.py over the formats n x n x n (n in NS) and degrees d = 1..DMAX, see SCAN.md.
 
-For each n the degrees are run in increasing order; job (n, d, stage) covers the components of degree d whose cost
-proxy lies in (CAPS[stage-1], CAPS[stage]] and resolves the ranks NEED = {r < r_gen : no separator of r vs r+1 is
-known in a degree < d}.  After a job, d_min(r) (lowest degree with a separator) is recomputed from all results;
-stage s of n stops after degree d once r_gen - 1 is separated in degree <= d, or at DMAX.  Stage s + 1 then goes
-through the degrees again (up to the current d_min(r_gen - 1)) with the next cost band, so that cheap components of
-all n come first.  Jobs are scheduled on NCORES worker processes, priority (stage, d, n); a job's workers claim its
-components dynamically.  A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every MONITOR s,
-and scan_report.py writes <SCAN>/STATUS.md after every job and every REPORT s.  The state is in <SCAN>/state.json
-(SCAN = scan/live, untracked; scan_autosave.sh copies everything into scan/ and commits); a
-restart continues from the result files (stale claims of dead workers are removed)."""
+Job (n, d, stage) covers the components of degree d whose cost proxy lies in (CAPS[stage-1], CAPS[stage]] and
+resolves the ranks NEED = {r < r_gen : no separator of r vs r+1 is known in a degree < d, r not skipped}.
+Per format the jobs are run in the order (d, stage): degree d is completed in every cost band before degree d + 1
+is started (that is what the lowest separating degree needs); degrees above d_min(target rank) are not run (target
+= r_gen - 1 unless skipped in state.json).  Across formats, workers go to the runnable jobs in the order
+(stage, n): cheap bands first, small formats first.  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
+listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
+are 'deferred': their unclaimed components get a placeholder claim so that no worker takes them, until the format
+reaches that job again.  On a restart, workers that are still running are adopted (not killed).
+A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every MONITOR s, and scan_report.py writes
+<SCAN>/STATUS.md after every job and every REPORT s.  State: <SCAN>/state.json (SCAN = scan/live, untracked;
+scan_autosave.sh copies everything into scan/ and commits)."""
 import os, sys, json, time, subprocess, itertools, signal
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rankscan import generic_rank, components, cost_proxy
@@ -20,11 +22,13 @@ NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
 NCORES = int(os.environ.get('NCORES', '4'))
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
+TLIMIT = float(os.environ.get('TLIMIT', '7200'))
 MONITOR = int(os.environ.get('MONITOR', '300'))
 REPORT = int(os.environ.get('REPORT', '900'))
-SCAN = os.environ.get('SCAN', 'scan/live')        # live files (untracked); scan_autosave.sh snapshots them into scan/
+SCAN = os.environ.get('SCAN', 'scan/live')
 STATE = os.path.join(SCAN, 'state.json')
 WENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
+MARKS = ('failed', 'deferred', 'timeout')       # claim files that are not held by a worker
 
 
 def log(msg):
@@ -59,7 +63,7 @@ _dm_cache = {}
 
 
 def dmin_map(st, n):
-    """r -> lowest degree with a separator, over all finished and running jobs of n (cached until a job changes)."""
+    """r -> lowest degree with a separator, over all jobs of n (cached until a job changes)."""
     if n in _dm_cache:
         return _dm_cache[n]
     dm = {}
@@ -91,8 +95,13 @@ def comp_list(n, d):
     return _comp_cache[(n, d)]
 
 
+_empty = set()          # (n, d, stage) known to have no components in the band
+
+
 def make_job(st, n, d, stage):
     """create job (n, d, stage); returns its name, or None if it has nothing to do."""
+    if (n, d, stage) in _empty:
+        return None
     ns = st['n'][str(n)]
     rgen = ns['rgen']
     dm = dmin_map(st, n)
@@ -105,6 +114,7 @@ def make_job(st, n, d, stage):
     comps = sorted(c for c in comp_list(n, d) if lo < c[0] <= hi)
     total = len(comp_list(n, d))
     if not comps:
+        _empty.add((n, d, stage))
         return None
     os.makedirs(os.path.join(SCAN, 'jobs'), exist_ok=True)
     lst = os.path.join(SCAN, 'jobs', name + '.txt')
@@ -114,7 +124,7 @@ def make_job(st, n, d, stage):
     st['jobs'][name] = {'n': n, 'd': d, 'stage': stage, 'need': need, 'list': lst, 'ncomp': len(comps),
                         'ncomp_degree': total, 'cap': [lo, hi], 'out': os.path.join(SCAN, 'res', name + '.jsonl'),
                         'claims': os.path.join(SCAN, 'claims', name), 'status': 'running',
-                        't_start': time.time(), 'failed': []}
+                        't_start': time.time(), 'failed': [], 'timeout': []}
     os.makedirs(os.path.join(SCAN, 'res'), exist_ok=True)
     os.makedirs(st['jobs'][name]['claims'], exist_ok=True)
     log('job %s created: %d components (cost %.0e..%.0e of %d in degree %d), need=%s' % (name, len(comps), lo, hi, total, d, need))
@@ -122,30 +132,41 @@ def make_job(st, n, d, stage):
 
 
 def advance(st, n):
-    """create the next job of n (possibly skipping empty ones); marks n finished when nothing is left."""
+    """the current job of n: the first job in the order (d, stage) that is running or can be created; marks n
+    finished when there is none."""
     ns = st['n'][str(n)]
-    while not ns['finished']:
-        rgen = ns['rgen']
-        dm = dmin_map(st, n)
-        skip = set(ns.get('skip', []))               # ranks not pursued for this n (state.json, with a reason)
-        target = max(r for r in range(1, rgen) if r not in skip)
-        dtop = min(DMAX, dm.get(target, 99))          # degrees beyond d_min(target rank) are not needed
-        if ns['d'] > dtop:
-            if ns['stage'] + 1 >= len(CAPS):
-                ns['finished'] = True; log('n=%d finished (all stages)' % n); break
-            ns['stage'] += 1; ns['d'] = 1
-            log('n=%d: stage %d (cost band %.0e..%.0e), degrees up to %d' % (n, ns['stage'], CAPS[ns['stage'] - 1], CAPS[ns['stage']], dtop))
-            continue
-        name = 'n%d_d%d_s%d' % (n, ns['d'], ns['stage'])
-        if name in st['jobs']:
-            if st['jobs'][name]['status'] == 'running':
+    if ns['finished']:
+        return None
+    rgen = ns['rgen']
+    dm = dmin_map(st, n)
+    skip = set(ns.get('skip', []))               # ranks not pursued for this n (state.json, with a reason)
+    target = max(r for r in range(1, rgen) if r not in skip)
+    dtop = min(DMAX, dm.get(target, 99))          # degrees beyond d_min(target rank) are not needed
+    for d in range(1, dtop + 1):
+        for s in range(1, len(CAPS)):
+            name = 'n%d_d%d_s%d' % (n, d, s)
+            job = st['jobs'].get(name)
+            if job is not None:
+                if job['status'] == 'running':
+                    if (ns['d'], ns['stage']) != (d, s):
+                        ns['d'], ns['stage'] = d, s
+                    return name
+                continue
+            name = make_job(st, n, d, s)
+            if name is not None:
+                ns['d'], ns['stage'] = d, s
                 return name
-            ns['d'] += 1; continue
-        name = make_job(st, n, ns['d'], ns['stage'])
-        if name is None:
-            ns['d'] += 1; continue
-        return name
+    ns['finished'] = True
+    log('n=%d finished (every degree up to %d in every cost band)' % (n, dtop))
     return None
+
+
+def read_claim(path):
+    try:
+        parts = open(path).read().split()
+        return parts[0], int(parts[1])
+    except (ValueError, IndexError, OSError):
+        return None, None
 
 
 def claimed(job):
@@ -156,23 +177,48 @@ def claimed(job):
 
 
 def pid_alive(pid):
+    """running and not a zombie."""
     try:
-        os.kill(pid, 0)
-        return True
+        with open('/proc/%d/status' % pid) as fh:
+            for l in fh:
+                if l.startswith('State:'):
+                    return 'Z' not in l.split()[1]
+    except OSError:
+        return False
+    return True
+
+
+def is_worker(pid):
+    try:
+        return b'rankscan.py' in open('/proc/%d/cmdline' % pid, 'rb').read()
     except OSError:
         return False
 
 
-def clean_stale_claims(job, alive_pids):
-    """remove claims of dead workers whose component has no result (it will be redone, or marked failed)."""
+def set_deferred(job, on):
+    """on: placeholder claims for all unclaimed components; off: remove them."""
+    lst = [tuple(tuple(x) for x in eval(l)) for l in open(job['list']) if l.strip()]
+    idx = {lam: li for _, li, lam, _ in comp_list(job['n'], job['d'])}
+    k = 0
+    if on:
+        done = results(job['out'])
+        for lam in lst:
+            fn = os.path.join(job['claims'], str(idx[lam]))
+            if lam not in done and not os.path.exists(fn):
+                open(fn, 'w').write('deferred 0\n'); k += 1
+    else:
+        for fn in os.listdir(job['claims']):
+            if read_claim(os.path.join(job['claims'], fn))[0] == 'deferred':
+                os.remove(os.path.join(job['claims'], fn)); k += 1
+    return k
+
+
+def stale_claims(job, alive):
+    """claims of dead workers whose component has no result."""
     dead = []
     for fn in os.listdir(job['claims']):
-        try:
-            w, pid = open(os.path.join(job['claims'], fn)).read().split()[:2]
-            pid = int(pid)
-        except (ValueError, OSError):
-            continue
-        if w != 'failed' and pid not in alive_pids:
+        w, pid = read_claim(os.path.join(job['claims'], fn))
+        if w is not None and w not in MARKS and pid not in alive:
             dead.append((fn, pid))
     if not dead:
         return []
@@ -209,37 +255,72 @@ def cgroup_mem():
         return (0.0, 0.0)
 
 
+def report():
+    subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
+
+
 def main():
     os.makedirs(os.path.join(SCAN, 'logs'), exist_ok=True)
     st = load_state()
     for n in NS:
         st['n'].setdefault(str(n), {'rgen': generic_rank(n), 'stage': 1, 'd': 1, 'finished': False})
-    # restart: drop claims of components without a result (their workers are gone)
-    retry = {}
+    for job in st['jobs'].values():
+        job.setdefault('timeout', [])
+    workers = {}          # pid -> (Popen or None (adopted), job name, worker id, t0)
+    # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
-        if job['status'] == 'running':
-            for fn, lam, pid in clean_stale_claims(job, set()):
+        if job['status'] != 'running':
+            continue
+        for fn in os.listdir(job['claims']):
+            w, pid = read_claim(os.path.join(job['claims'], fn))
+            if w is None or w in MARKS:
+                continue
+            if pid_alive(pid) and is_worker(pid):
+                if pid not in workers:
+                    workers[pid] = (None, name, int(w), os.path.getmtime(os.path.join(job['claims'], fn)))
+                    log('restart: adopted running worker pid %d on %s' % (pid, name))
+            else:
                 os.remove(os.path.join(job['claims'], fn))
-                log('restart: removed stale claim %s %s (pid %d)' % (name, lam, pid))
+                log('restart: removed stale claim %s/%s (pid %d)' % (name, fn, pid))
     save_state(st)
-    workers = {}          # pid -> (Popen, job name, worker id, t0)
+    retry = {}
     wid = itertools.count(int(time.time()) % 100000 * 10)
     last_mon = last_rep = 0
+    changed = True
     while True:
+        now = time.time()
         # reap
         for pid, (pr, name, w, t0) in list(workers.items()):
-            rc = pr.poll()
+            if pr is not None:
+                rc = pr.poll()
+            else:
+                rc = None if pid_alive(pid) else 0
             if rc is not None:
                 del workers[pid]
                 if rc != 0:
-                    log('worker %d (%s, pid %d) exited with %s after %.0fs' % (w, name, pid, rc, time.time() - t0))
+                    log('worker %d (%s, pid %d) exited with %s after %.0fs' % (w, name, pid, rc, now - t0))
         alive = set(workers)
-        # job completion / failures
-        changed = False
+        # time limit, dead workers, job completion
         for name, job in st['jobs'].items():
             if job['status'] != 'running':
                 continue
-            for fn, lam, pid in clean_stale_claims(job, alive):
+            for fn in os.listdir(job['claims']):
+                path = os.path.join(job['claims'], fn)
+                w, pid = read_claim(path)
+                if w is None or w in MARKS or pid not in alive:
+                    continue
+                age = now - os.path.getmtime(path)
+                if age > TLIMIT:
+                    lam = {li: lam for _, li, lam, _ in comp_list(job['n'], job['d'])}.get(int(fn))
+                    open(path, 'w').write('timeout %d %.0f\n' % (pid, age))
+                    job['timeout'].append([list(map(list, lam)), round(age)])
+                    try:
+                        os.kill(pid, signal.SIGTERM)
+                    except OSError:
+                        pass
+                    log('TIMEOUT: %s %s after %.0fs (pid %d stopped; component recorded as not checked)' % (name, lam, age, pid))
+                    changed = True
+            for fn, lam, pid in stale_claims(job, alive):
                 key = name + ':' + fn
                 retry[key] = retry.get(key, 0) + 1
                 os.remove(os.path.join(job['claims'], fn))
@@ -251,26 +332,36 @@ def main():
                     log('worker pid %d died on %s %s: claim removed, will be retried once' % (pid, name, lam))
                 changed = True
             nres = nlines(job['out'])
-            if nres + len(job['failed']) >= job['ncomp']:
+            if nres + len(job['failed']) + len(job['timeout']) >= job['ncomp']:
                 nres = len(results(job['out']))      # distinct components (a redone component may appear twice)
             running = any(nm == name for _, nm, _, _ in workers.values())
-            if nres + len(job['failed']) >= job['ncomp'] and not running:
-                job['status'] = 'done'; job['t_end'] = time.time(); changed = True
+            if nres + len(job['failed']) + len(job['timeout']) >= job['ncomp'] and not running:
+                job['status'] = 'done'; job['t_end'] = now; changed = True
                 _dm_cache.pop(job['n'], None)
                 dm = dmin_map(st, job['n'])
-                log('job %s done: %d results, %d failed, %.0fs; d_min now %s' % (name, nres, len(job['failed']),
-                    job['t_end'] - job['t_start'], dict(sorted(dm.items()))))
+                log('job %s done: %d results, %d failed, %d timeout, %.0fs; d_min now %s' % (name, nres, len(job['failed']),
+                    len(job['timeout']), job['t_end'] - job['t_start'], dict(sorted(dm.items()))))
+        # current job of every format; defer the other running jobs
         if changed:
             _dm_cache.clear()
-            for n in NS:
-                advance(st, n)
+        current = {advance(st, n) for n in NS} - {None}
+        for name, job in st['jobs'].items():
+            if job['status'] != 'running':
+                continue
+            if name in current and job.get('deferred'):
+                k = set_deferred(job, False); job['deferred'] = False
+                log('job %s resumed (%d deferred components released)' % (name, k))
+            elif name not in current and not job.get('deferred'):
+                k = set_deferred(job, True); job['deferred'] = True
+                log('job %s deferred (%d unclaimed components held back until n=%d returns to degree %d)' % (name, k, job['n'], job['d']))
+            elif name not in current and changed:
+                set_deferred(job, True)          # components freed by a dead worker go back to the deferred pile
+        if changed:
             save_state(st)
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
-            last_rep = time.time()
+            report(); last_rep = time.time()
+            changed = False
         # schedule
-        for n in NS:
-            advance(st, n)
-        runnable = sorted((j['stage'], j['d'], j['n'], nm) for nm, j in st['jobs'].items()
+        runnable = sorted((j['stage'], j['n'], j['d'], nm) for nm, j in st['jobs'].items()
                           if j['status'] == 'running' and claimed(j) < j['ncomp'])
         for _, _, _, name in runnable:
             if len(workers) >= NCORES:
@@ -291,7 +382,7 @@ def main():
         save_state(st)
         if all(st['n'][str(n)]['finished'] for n in NS) and not workers:
             log('all formats finished')
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
+            report()
             break
         now = time.time()
         if now - last_mon >= MONITOR:
@@ -303,8 +394,7 @@ def main():
                     open('/proc/loadavg').read().split()[0], len(workers), ws))
             last_mon = now
         if now - last_rep >= REPORT:
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
-            last_rep = now
+            report(); last_rep = now
         time.sleep(3)
 
 

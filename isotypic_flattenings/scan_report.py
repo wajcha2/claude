@@ -59,6 +59,7 @@ def main():
     summary = {}
     detail = []
     cover_rows = []
+    timeouts = []
     for nkey in sorted(st['n'], key=int):
         n = int(nkey); ns = st['n'][nkey]; rgen = ns['rgen']
         R = recs.get(n, [])
@@ -85,6 +86,10 @@ def main():
             running = any(j['status'] == 'running' for j in jd)
             partial = [rec for rec in done if rec['status'] != 'ok']
             failed = sum(len(j['failed']) for j in jd)
+            tmo = [(t[0], t[1]) for j in jd for t in j.get('timeout', [])]
+            failed += len(tmo)
+            for lam_t, sec in tmo:
+                timeouts.append('| %d | %d | %s | %.1f h |' % (n, d, fmt_lam(lam_t), sec / 3600.0))
             cpu = sum(rec['cpu'] for rec in done) / 3600.0
             mw = max([rec['wall'] for rec in done] or [0]); mr = max([rec['rss_peak_mb'] for rec in done] or [0])
             cov[d] = dict(total=len(comps), done=len(done), cap=cap, running=running, partial=len(partial), failed=failed)
@@ -141,9 +146,11 @@ def main():
     lines += ['', '## Coverage, time and memory per (n, d)', '',
               'checked = components with a result (all three directions, every needed rank); remaining = not yet run '
               '(cost proxy above the current band, or job still running); partial = some direction or rank infeasible '
-              '(memory caps) or worker failure.  CPU h = sum over components; wall s / RSS MB = largest single component.', '',
+              '(memory caps), worker failure or time limit.  CPU h = sum over components; wall s / RSS MB = largest single component.', '',
               '| n | d | components (g>0) | checked | cost band reached | remaining | partial/failed | CPU h | max wall s | max RSS MB |',
               '|---|---|---|---|---|---|---|---|---|---|'] + cover_rows
+    if timeouts:
+        lines += ['', '## Components stopped by the time limit (not checked)', '', '| n | d | component | ran for |', '|---|---|---|---|'] + timeouts
     mon = os.path.join(SCAN, 'monitor.log')  # noqa
     if os.path.exists(mon):
         tail = open(mon).read().strip().splitlines()[-3:]

@@ -417,21 +417,12 @@ def natural_orderings(cp, flag, swaps, rng):
 
 
 # ---------------------------------------------------------------- rank-drop points on lines
-KRYLOV = int(os.environ.get('KRYLOV', '1200'))      # rho above which the BLAS Krylov minimal polynomial is used
+KRYLOV = int(os.environ.get('KRYLOV', '2000'))      # rho above which the BLAS Krylov minimal polynomial is used
 
 
-def solve_left(B, A):
-    """B^{-1} A (n x n residues) by Gauss-Jordan of the rows [B | A] (rankscan.RREF, BLAS); None if B is singular."""
-    n = B.shape[0]
-    E = RREF(2 * n)
-    E.add(np.hstack([B, A]))
-    if E.rank < n or any(c >= n for blk in E.blocks for c in blk[2]):
-        return None
-    X = np.empty((n, n))
-    for Bb, m, pv in E.blocks:
-        for i in range(m):
-            X[pv[i]] = Bb[i, n:]
-    return X
+def from_flint(X):
+    """nmod_mat -> float64 residues."""
+    return np.array([int(e) for e in X.entries()], dtype=np.float64).reshape(X.nrows(), X.ncols())
 
 
 def krylov_minpoly(M, rng):
@@ -471,18 +462,14 @@ def drop_minpoly(FA, FB, rho, rng):
         R = rng.integers(0, p, (rho, N)).astype(np.float64)
         S = rng.integers(0, p, (K, rho)).astype(np.float64)
         A2 = _mm(_mm(R, FA), S); B2 = _mm(_mm(R, FB), S)
-        if rho <= KRYLOV:
-            try:
-                X = to_flint(B2).solve(to_flint(A2))
-            except ZeroDivisionError:
-                continue
-            return (-X).minpoly()
-        X = solve_left(B2, A2)
-        if X is None:
+        try:
+            X = to_flint(B2).solve(to_flint(A2))
+        except ZeroDivisionError:
             continue
+        if rho <= KRYLOV:
+            return (-X).minpoly()
         del A2, B2
-        X = np.fmod(p - X, p)
-        return krylov_minpoly(X, rng)
+        return krylov_minpoly(from_flint(-X), rng)
     raise RuntimeError('singular projection')
 
 

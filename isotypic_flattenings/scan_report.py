@@ -91,7 +91,8 @@ def main():
             cover_rows.append('| %d | %d | %d | %d | %s | %d | %d | %.2f | %.0f | %.0f |' % (
                 n, d, len(comps), len(done), '%.0e' % cap if cap else '-', len(comps) - len(done), len(partial) + failed, cpu, mw, mr))
         sep_r = sorted(dmin)
-        not_sep = [r for r in range(1, rgen) if r not in dmin]
+        skipped = [r for r in ns.get('skip', []) if r not in dmin]
+        not_sep = [r for r in range(1, rgen) if r not in dmin and r not in skipped]
         # one-line progress statement
         complete = [d for d in cov if cov[d]['done'] == cov[d]['total'] and not cov[d]['partial'] and not cov[d]['failed']]
         dfull = 0
@@ -111,6 +112,10 @@ def main():
             n, n, n, rgen, dtop, '; '.join(part) or 'nothing run yet', sep_txt or 'nothing')
         if not_sep:
             stmt += ', but NOT r = %s (vs r + 1)' % ranges(not_sep)
+        if skipped:
+            stmt += '; r = %s not pursued (%s)' % (ranges(skipped), ns.get('skip_reason', ''))
+        if not_sep or skipped:
+            pass
         else:
             stmt += ' -- every rank up to r_gen - 1 = %d is separated (max rank reached at d = %d)' % (rgen - 1, dmin[rgen - 1])
         if ns.get('finished'):
@@ -128,6 +133,8 @@ def main():
                 if len(S) > 10:
                     shown += '; ... (+%d more, see summary.json)' % (len(S) - 10)
                 detail.append('| %d vs %d | %d | %d | %s |' % (r, r + 1, dmin[r], len(S), shown))
+            elif r in ns.get('skip', []):
+                detail.append('| %d vs %d | not pursued: %s | 0 | |' % (r, r + 1, ns.get('skip_reason', '')))
             else:
                 detail.append('| %d vs %d | not yet (checked up to d = %d) | 0 | |' % (r, r + 1, dtop))
     lines += detail

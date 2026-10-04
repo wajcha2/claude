@@ -96,7 +96,8 @@ def make_job(st, n, d, stage):
     ns = st['n'][str(n)]
     rgen = ns['rgen']
     dm = dmin_map(st, n)
-    need = [r for r in range(1, rgen) if dm.get(r, 99) >= d]
+    skip = set(ns.get('skip', []))
+    need = [r for r in range(1, rgen) if dm.get(r, 99) >= d and r not in skip]
     name = 'n%d_d%d_s%d' % (n, d, stage)
     if not need:
         return None
@@ -126,7 +127,9 @@ def advance(st, n):
     while not ns['finished']:
         rgen = ns['rgen']
         dm = dmin_map(st, n)
-        dtop = min(DMAX, dm.get(rgen - 1, 99))         # degrees beyond d_min(r_gen - 1) are not needed
+        skip = set(ns.get('skip', []))               # ranks not pursued for this n (state.json, with a reason)
+        target = max(r for r in range(1, rgen) if r not in skip)
+        dtop = min(DMAX, dm.get(target, 99))          # degrees beyond d_min(target rank) are not needed
         if ns['d'] > dtop:
             if ns['stage'] + 1 >= len(CAPS):
                 ns['finished'] = True; log('n=%d finished (all stages)' % n); break
@@ -248,6 +251,8 @@ def main():
                     log('worker pid %d died on %s %s: claim removed, will be retried once' % (pid, name, lam))
                 changed = True
             nres = nlines(job['out'])
+            if nres + len(job['failed']) >= job['ncomp']:
+                nres = len(results(job['out']))      # distinct components (a redone component may appear twice)
             running = any(nm == name for _, nm, _, _ in workers.values())
             if nres + len(job['failed']) >= job['ncomp'] and not running:
                 job['status'] = 'done'; job['t_end'] = time.time(); changed = True

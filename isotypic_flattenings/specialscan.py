@@ -425,38 +425,32 @@ def drop_minpoly(FA, FB, rho, rng):
     raise RuntimeError('singular projection')
 
 
-def line_points(cp, a, b, R, rng, tag):
-    """drop points of rank-r_lo tensors on the line a + t b of P(M^*) (r_lo = min R).  Ta = P(r_lo), Tb derive the
-    tensor-independent points (gcd), Tc checks them; every point that also lowers Tc gets its rank profile over
-    r_lo..r_hi+1 (ends + bisection; D_r is contained in D_{r_lo} when the generic rank is constant on the range).
-    Matrices are sliced to min(n1, n23) + 8 rows/columns (enough for one functional)."""
+def pencil_points(cp, AB, R, rng, tag, size):
+    """tensor-independent drop points of a matrix pencil A(X) + t B(X) (AB(X) -> (A, B) for the tensor named X) for
+    rank-r_lo tensors (r_lo = min R): Ta = P(r_lo) and Tb derive them (gcd of the minimal polynomials of projected
+    pencils), Tc checks them (a true tensor-independent point lowers Tc too); every such point gets its rank profile
+    over r_lo..r_hi+1 (ends + bisection; D_r is contained in D_{r_lo} when the generic rank is constant on the range).
+    Points over F_{p^e} via ext_rank (skipped when e * size > EMAXSIZE)."""
     t0 = time.time()
     rlo, rhi = min(R), max(R)
     Ta, Tb, Tc = cp.P(rlo), 'D%db' % rlo, 'D%dc' % rlo
     cp.add_tensor(Tb, rlo); cp.add_tensor(Tc, rlo)
-    m = min(cp.n1, cp.n23) + 8
-    n1s, ks = min(cp.N1, m), min(cp.K, m)
-
-    def AB(X):
-        Fs = cp.F(X)[:, :n1s, :ks]
-        return combo(Fs, a), combo(Fs, b)
     FAB = {X: AB(X) for X in (Ta, Tb, Tc)}
     tg = int(rng.integers(1, p))
     rho = {X: rank(np.fmod(A + tg * B, p)) for X, (A, B) in FAB.items()}
     if len(set(rho.values())) > 1:
-        log('   WARNING: rank-r tensors differ on the line: %s' % rho)
+        log('   WARNING: rank-r tensors differ on the pencil: %s' % rho)
     polys = [drop_minpoly(FAB[X][0], FAB[X][1], rho[X], rng) for X in (Ta, Tb)]
     tpoly = time.time() - t0
     h = polys[0].gcd(polys[1])
-    out = {'line': tag, 'rho': rho[Ta], 'deg': [polys[0].degree(), polys[1].degree()], 'gcd': h.degree(),
-           'factors': [], 'points': []}
+    out = {'line': tag, 'rho': rho[Ta], 'deg': [polys[0].degree(), polys[1].degree()], 'gcd': h.degree(), 'factors': []}
     if h.degree() > 0:
         lead, facs = h.factor()
         for f, mult in facs:
             e = f.degree()
             coeffs = [int(c) for c in f.coeffs()]
             ent = {'e': e, 'mult': mult}
-            if e * max(n1s, ks) > EMAXSIZE:
+            if e * size > EMAXSIZE:
                 ent['skipped'] = 'extension too large'
                 out['factors'].append(ent); continue
             rk = {X: ext_rank(list(FAB[X]), coeffs) for X in (Ta, Tb, Tc)}
@@ -473,14 +467,58 @@ def line_points(cp, a, b, R, rng, tag):
                 if ent['sep']:
                     ent['r-1,r+2'] = [ext_rank(list(AB(cp.P(rr))), coeffs) if rr >= 1 else None for rr in (rlo - 1, rhi + 2)]
             if e == 1:
-                th = (-coeffs[0]) % p
-                ent['t'] = th
+                ent['t'] = (-coeffs[0]) % p
                 ent['li'] = tag
-                if ent['indep']:
-                    out['points'].append(((a + th * b) % p, ent))
             out['factors'].append(ent)
     out['time'] = [round(tpoly, 1), round(time.time() - t0, 1)]
     return out
+
+
+def line_points(cp, a, b, R, rng, tag):
+    """drop points of one functional on the line a + t b of P(M^*); matrices sliced to min(n1, n23) + 8 rows and
+    columns (enough for one functional).  out['points'] = rational tensor-independent points (vector, entry)."""
+    m = min(cp.n1, cp.n23) + 8
+    n1s, ks = min(cp.N1, m), min(cp.K, m)
+
+    def AB(X):
+        Fs = cp.F(X)[:, :n1s, :ks]
+        return combo(Fs, a), combo(Fs, b)
+    out = pencil_points(cp, AB, R, rng, tag, max(n1s, ks))
+    out['points'] = [((a + ent['t'] * b) % p, ent) for ent in out['factors'] if ent.get('indep') and 't' in ent]
+    return out
+
+
+def run_glines(cp, R, rng, rec, cap=4e7):
+    """drop loci of the stacked flattenings in the Grassmannian: for k = 2..g-1 and H, V a random pencil of k-frames
+    A + t B (k x g) gives the matrix pencil H_A + t H_B (blocks side by side) resp. V_A + t V_B (stacked); its
+    tensor-independent drop points t are special k-dimensional U (basis A + t B)."""
+    g = cp.g
+    for k in range(2, g):
+        for typ in ('H', 'V'):
+            if k * cp.N1 * cp.K > cap:
+                rec['cases'].append({'method': 'gline', 'k': k, 'typ': typ, 'skipped': 'size %d x %d x %d' % (k, cp.N1, cp.K)})
+                log('   gline %s%d: skipped (size)' % (typ, k))
+                continue
+            A0, B0 = rng.integers(0, p, (k, g)), rng.integers(0, p, (k, g))
+
+            def AB(X, A0=A0, B0=B0, typ=typ):
+                Fs = cp.F(X)
+                PA = [combo(Fs, c) for c in A0]
+                PB = [combo(Fs, c) for c in B0]
+                return (np.hstack(PA), np.hstack(PB)) if typ == 'H' else (np.vstack(PA), np.vstack(PB))
+            size = max(cp.N1, k * cp.K) if typ == 'H' else max(k * cp.N1, cp.K)
+            out = pencil_points(cp, AB, R, rng, 'gline-%s%d' % (typ, k), size)
+            out['method'] = 'gline'; out['k'] = k; out['typ'] = typ
+            fs = ' '.join('e%d%s:%s%s%s' % (f['e'], ('^%d' % f['mult']) if f['mult'] > 1 else '', f.get('ranks', f.get('skipped')),
+                                            (' prof%s' % f['prof']) if 'prof' in f else ('' if 'skipped' in f else '(dep)'),
+                                            (' *SEP* %s r-1,r+2:%s' % (f['sep'], f['r-1,r+2'])) if f.get('sep') else '')
+                          for f in out['factors'])
+            log('   gline %s%d rho %d  minpoly deg %s  gcd deg %d  %s  (%.1fs)' % (typ, k, out['rho'], out['deg'], out['gcd'], fs, out['time'][1]))
+            rec['cases'].append(out)
+            for f in out['factors']:
+                if f.get('sep'):
+                    rec['hits'].append({'method': 'gline', 'U': 'Grassmannian pencil %s%d drop point e=%d' % (typ, k, f['e']),
+                                        'ranks': f['ranks'], 'prof': f['prof'], 'sep': f['sep'], 'r-1,r+2': f['r-1,r+2'], 't': f.get('t')})
 
 
 def run_lines(cp, R, nlines, rng, rec, through=None, inside=None, label='line', extend=None):
@@ -733,7 +771,7 @@ def run_plane(cp, R, rng, rec, label='plane'):
                 continue
             # the line through O and Q contains the common point(s); second point generic on it
             out = line_points(cp, O, (Q + int(rng.integers(1, p)) * O) % p, R, rng, '%s-line' % label)
-            pts = out.pop('points')
+            out.pop('points')
             fs = ' '.join('e%d:%s%s%s' % (ff['e'], ff.get('ranks', ff.get('skipped')),
                                           (' prof%s' % ff['prof']) if 'prof' in ff else ('' if 'skipped' in ff else '(dep)'),
                                           (' *SEP* %s' % ff['sep']) if ff.get('sep') else '') for ff in out['factors'])
@@ -834,6 +872,8 @@ def run_direction(cp, R, methods, seed, rec):
                     todo += [(lab + nm2, W2, depth + 1) for nm2, W2 in span_tests(cp, pts2, Rr, rec, rng, lab, amb_basis=W)]
         if 'plane' in methods and g >= 3:
             run_plane(cp, Rr, rng, rec)
+        if 'gline' in methods and g >= 3:
+            run_glines(cp, Rr, rng, rec)
         if 'pflag' in methods:
             for nm, W in [('U%d' % k, U) for k, U in flag.items()] + list(swaps.items()):
                 if not (0 < len(W) < g):

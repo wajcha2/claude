@@ -32,12 +32,26 @@ def run(lam, dirn, kcap=1500, seed=None, verbose=True):
     t0 = time.time()
     tens = {'R6a': rand_tensor(rng, 6), 'R6b': rand_tensor(rng, 6), 'R7': rand_tensor(rng, 7), 'M2': m2_terms('strassen')}
     if os.environ.get('NOR6B') == '1': del tens['R6b']
+    screen = os.environ.get('SCREEN') == '1'
+    if screen: tens = {'R6a': tens['R6a']}
     tens = {k: tuple(v[t] for t in perm) for k, v in tens.items()}
-    fills = choose_fillings(lam_p, g, tens['R7'], rng)
+    fills = choose_fillings(lam_p, g, tens.get('R7', tens['R6a']), rng)
     gs = random_gs(rng, 4, N1, K)
-    F = {k: [(flatlib.flat(f, v, gs) % p).astype(np.int32) for f in fills] for k, v in tens.items()}
+    F = {}
+    for k, v in tens.items():
+        pre = m2lib.prep_all(v, gs)
+        F[k] = [(m2lib.flat_pre(f, pre) % p).astype(np.int32) for f in fills]
     teval = time.time() - t0
     span = {k: frank(np.array([M[:min(N1, 64), :min(K, 64)].ravel() for M in F[k]])) for k in tens}
+    if screen:
+        Vg = rank_cols(np.vstack(F['R6a']), rng); Hg = rank_cols(np.hstack(F['R6a']), rng); r1 = frank(combine(F['R6a'], C0 := rng.integers(0, p, g)))
+        caseA = (r1 == n1 and g * n1 <= n23 and Vg == g * n1)
+        caseB = (r1 == n23 and g * n23 <= n1 and Hg == g * n23)
+        vvalid = K >= min(g * n1, n23) + 8
+        line = 'lam=%s dir%d g=%d n1=%d n23=%d N1=%d K=%d SCREEN g1=%d V%d=%d/%d H%d=%d/%d %s (total %.0fs)' % (lam, dirn + 1, g, n1, n23, N1, K,
+               r1, g, Vg, min(g * n1, n23), g, Hg, min(n1, g * n23), 'EXCL' if (caseA or caseB) else ('NEEDFULL' if vvalid else 'NEEDFULL?'), time.time() - t0)
+        if verbose: print(line); sys.stdout.flush()
+        return {}, set(), line
     C = rng.integers(0, p, (g, g))
     res = {}
     for name in tens:

@@ -76,7 +76,21 @@ dir1 V2 79/79, M2 79; ((5,1,1,1),(4,3,1),(4,3,1)) dir1 V5 174/174, M2 148) are a
 spanned by phi_0 (x) x(T) with the SAME phi_0 for all rank-6 and rank-7 tensors (`m2kappa.py`), so no separation.
 
 ### d = 9 (components with g >= 2; new: rank-6/7 profiles for all k, both stack types)
-(being filled in by the running job; logs m2loci/all_d9_w*.log)
+Full analysis (R6, R7, M2, all k, containment) for the 717 cheapest of the 1560 component-directions
+(`m2loci/all_d9_w*.log`): **no separation at any generic U, no M2 win**; 627 EXCL, 87 DROP, 3 OPEN.  The 3 OPEN cases
+(M2 injective at generic phi, rank-6 V-stack with a kernel) are structural: K(T) = phi_0 (x) W(T) with the SAME phi_0 for
+all rank-6 and rank-7 tensors (`m2kappa.py`, `m2rank1.py`):
+  ((5,2,1,1),(4,3,2),(3,3,3)) dir1 (dim K = 4), ((6,1,1,1),(5,2,1,1),(5,2,1,1)) dir1 (dim K = 20),
+  ((6,1,1,1),(5,2,1,1),(4,3,2)) dir2 (dim K = 4).
+The remaining 843 (larger) component-directions are first screened (`SCREEN=1`: rank-6 tensor only, full V- and H-stack;
+injective V_g resp. surjective H_g excludes every U rigorously), then the failures get the full analysis
+(`m2loci/screen_d9_w*.log`).
+
+### Recurring pattern
+Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed
+linear subspace Lambda of P(M^*)) where F_phi drops for EVERY tensor, rank 7 included (d = 7: plane Lambda, ranks 16;
+d = 8: phi_0 with rank 34 of 35; d = 9: phi_0 with kernels of dim 4 and 20).  Genuine rank-6/7 separations (d = 8: the 8
+components above, d = 9: the two g = 1 components) are of cokernel type, where M2 is capped far below by its GL2^3 bound.
 
 ## 4. Reproduce
 ```

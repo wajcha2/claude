@@ -155,3 +155,51 @@ def prefix_ranks(A, bounds, b=64):
         A = np.fmod(T[rest] - np.fmod(Mr @ Tp, p) + p, p)
     while len(out) < len(bounds): out.append(rank)
     return out
+
+
+# ---------------------------------------------------------------- faster evaluation (same numbers as flatlib.flat)
+# (1) exact reduction mod p by floor-division instead of np.fmod (libm fmod is ~5x slower); values are integers < 2^53
+_INVP = 1.0 / p
+def _fmod_fast(A):
+    if not (isinstance(A, np.ndarray) and A.dtype == np.float64):
+        return np.fmod(A, p)
+    q = np.multiply(A, _INVP); np.floor(q, out=q); q *= p; A -= q
+    np.add(A, p, out=A, where=A < 0)
+    np.subtract(A, p, out=A, where=A >= p)
+    return A
+hwv_fast._fmod = _fmod_fast            # used by hwv_fast.fmatmul / pair_contract / single_reduce (this process only)
+
+import opt_einsum as _oe
+from hwv_fast import prepare as _prepare, build_network as _build, find_path as _find_path, execute as _execute
+_paths2 = {}
+def prep_all(vecs, gs):
+    """minors for all column lengths 1..4 once per tensor (flatlib recomputes them for every filling)."""
+    return _prepare(vecs, gs, ells=[1, 2, 3, 4])
+
+def flat_pre(f, pre, memcap=1 << 24, repeats=12):
+    """flatlib.flat with precomputed minors `pre` = prep_all(vecs, gs); identical matrix."""
+    vm, pm = pre
+    N1 = next(iter(pm[0].values())).shape[0]; K = next(iter(pm[1].values())).shape[0]
+    shp = tuple(vm[0][1].shape[1:2]) + (N1, K)
+    k0 = (tuple(tuple(tuple(int(x) for x in col) for col in cols) for cols in f), shp)
+    def sl(ys, zs):
+        return [{l: A[ys] for l, A in pm[0].items()}, {l: A[zs] for l, A in pm[1].items()}, {l: A[zs] for l, A in pm[2].items()}]
+    if k0 not in _paths2:
+        yb, zb = N1, K
+        while True:
+            ops, out = _build(f, vm, sl(slice(0, yb), slice(0, zb)))
+            path, info = _find_path(ops, out, None, _oe.RandomGreedy(max_repeats=repeats))
+            if int(info.largest_intermediate) <= memcap: break
+            if zb <= 8 and yb <= 8:
+                raise MemoryError('no block split keeps intermediates below memcap')
+            if zb > 8: zb = (zb + 1) // 2
+            else: yb = (yb + 1) // 2
+        _paths2[k0] = (yb, zb, path)
+    yb, zb, path = _paths2[k0]
+    F = np.zeros((N1, K), dtype=np.int64)
+    for y0 in range(0, N1, yb):
+        for z0 in range(0, K, zb):
+            ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
+            ops, out = _build(f, vm, sl(ys, zs))
+            F[ys, zs] = _execute(ops, out, path)
+    return F

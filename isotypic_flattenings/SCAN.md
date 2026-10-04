@@ -1,6 +1,6 @@
 # Rank scan: which tensor ranks do isotypic flattenings separate? (n x n x n, n = 3..10, d = 1..10)
 
-Live results: `scan/STATUS.md` (regenerated every 15 min and after every job), machine-readable `scan/summary.json`,
+Live results: `scan/STATUS.md` (snapshot committed every 30 min; the live copy in the untracked `scan/live/` is regenerated every 15 min and after every job), machine-readable `scan/summary.json`,
 raw per-component records `scan/res/<job>.jsonl`, resources `scan/monitor.log`, runner log `scan/runner.log`.
 
 ## Question
@@ -41,6 +41,6 @@ whose word-minor tensor C(n, ell) r^ell exceeds 2^26 elements cannot be evaluate
 Per component the record holds wall and CPU time and the peak RSS; `scan/monitor.log` has memory, per-worker
 RSS and load every 5 minutes.
 
-Restart after a container loss: `cd isotypic_flattenings; pip install numpy sympy opt_einsum;
-setsid nohup python3 -u scan_runner.py >> scan/runner.log 2>&1 < /dev/null &` (continues from scan/state.json and
+Restart after a container loss: `cd isotypic_flattenings; pip install numpy sympy opt_einsum; mkdir -p scan/live; cp -r scan/state.json scan/res scan/jobs scan/logs scan/runner.log scan/monitor.log scan/live/;
+setsid nohup python3 -u scan_runner.py >> scan/live/runner.log 2>&1 < /dev/null &; setsid nohup ./scan_autosave.sh >> scan/live/autosave.log 2>&1 < /dev/null &` (continues from scan/state.json and
 the result files; components without a result are redone).

@@ -1,10 +1,12 @@
 #!/bin/bash
-# commits and pushes scan/ every PERIOD seconds (default 1800); run with setsid nohup.
+# Every PERIOD seconds (default 1800): regenerate the report, copy the live files of scan/live/ (untracked, written
+# by the runner and the workers) into scan/, commit and push.  `./scan_autosave.sh once` does one snapshot.
 PERIOD=${PERIOD:-1800}
 cd "$(dirname "$0")"
-while true; do
-  sleep "$PERIOD"
-  PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python3 scan_report.py >/dev/null 2>&1
+snapshot() {
+  PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 SCAN=scan/live python3 scan_report.py >/dev/null 2>&1
+  for f in state.json STATUS.md summary.json monitor.log runner.log; do [ -f scan/live/$f ] && cp scan/live/$f scan/$f; done
+  for dn in res jobs logs; do [ -d scan/live/$dn ] && mkdir -p scan/$dn && cp -r scan/live/$dn/. scan/$dn/; done
   cd ..
   if [ ! -e .git/index.lock ]; then
     git add isotypic_flattenings/scan >/dev/null 2>&1
@@ -17,4 +19,6 @@ Claude-Session: https://claude.ai/code/session_01A51D6Z3hiqcCpMJhPW4qv5" && \
     fi
   fi
   cd isotypic_flattenings
-done
+}
+if [ "$1" = "once" ]; then snapshot; exit 0; fi
+while true; do sleep "$PERIOD"; snapshot; done

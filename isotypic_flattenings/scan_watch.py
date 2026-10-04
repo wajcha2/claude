@@ -2,11 +2,11 @@
 changes, finished formats, runner not running.  Polls every 60 s; state in scan/.watch_state.json."""
 import json, os, re, time, subprocess
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-SF = 'scan/.watch_state.json'
+SF = 'scan/live/.watch_state.json'
 s = json.load(open(SF)) if os.path.exists(SF) else {'pos': 0, 'max': {}}
 while True:
     try:
-        lines = open('scan/runner.log').read().splitlines()
+        lines = open('scan/live/runner.log').read().splitlines()
     except OSError:
         lines = []
     for l in lines[s['pos']:]:

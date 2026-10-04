@@ -1,8 +1,9 @@
-"""python3 scan_report.py  ->  scan/STATUS.md and scan/summary.json from scan/state.json and the result files."""
+"""python3 scan_report.py  ->  <SCAN>/STATUS.md and <SCAN>/summary.json from <SCAN>/state.json and the result files
+(SCAN = scan/live by default)."""
 import json, os, time, collections
 from rankscan import generic_rank, components, cost_proxy
 
-SCAN = 'scan'
+SCAN = os.environ.get('SCAN', 'scan/live')
 
 
 def compress(cfgs):
@@ -136,7 +137,7 @@ def main():
               '(memory caps) or worker failure.  CPU h = sum over components; wall s / RSS MB = largest single component.', '',
               '| n | d | components (g>0) | checked | cost band reached | remaining | partial/failed | CPU h | max wall s | max RSS MB |',
               '|---|---|---|---|---|---|---|---|---|---|'] + cover_rows
-    mon = os.path.join(SCAN, 'monitor.log')
+    mon = os.path.join(SCAN, 'monitor.log')  # noqa
     if os.path.exists(mon):
         tail = open(mon).read().strip().splitlines()[-3:]
         lines += ['', '## Last resource samples (scan/monitor.log)', '', '```'] + tail + ['```']

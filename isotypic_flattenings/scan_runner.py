@@ -1,4 +1,4 @@
-"""python3 scan_runner.py            (start with: setsid nohup python3 scan_runner.py >> scan/runner.log 2>&1 &)
+"""python3 scan_runner.py            (start with: setsid nohup python3 -u scan_runner.py >> scan/live/runner.log 2>&1 &)
 
 Orchestrates rankscan.py over the formats n x n x n (n in NS) and degrees d = 1..DMAX, see SCAN.md.
 
@@ -8,8 +8,9 @@ known in a degree < d}.  After a job, d_min(r) (lowest degree with a separator) 
 stage s of n stops after degree d once r_gen - 1 is separated in degree <= d, or at DMAX.  Stage s + 1 then goes
 through the degrees again (up to the current d_min(r_gen - 1)) with the next cost band, so that cheap components of
 all n come first.  Jobs are scheduled on NCORES worker processes, priority (stage, d, n); a job's workers claim its
-components dynamically.  A resource line (memory, per-worker RSS, load) goes to scan/monitor.log every MONITOR s,
-and scan_report.py writes scan/STATUS.md after every job and every REPORT s.  The state is in scan/state.json; a
+components dynamically.  A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every MONITOR s,
+and scan_report.py writes <SCAN>/STATUS.md after every job and every REPORT s.  The state is in <SCAN>/state.json
+(SCAN = scan/live, untracked; scan_autosave.sh copies everything into scan/ and commits); a
 restart continues from the result files (stale claims of dead workers are removed)."""
 import os, sys, json, time, subprocess, itertools, signal
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,7 @@ NCORES = int(os.environ.get('NCORES', '4'))
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 MONITOR = int(os.environ.get('MONITOR', '300'))
 REPORT = int(os.environ.get('REPORT', '900'))
-SCAN = 'scan'
+SCAN = os.environ.get('SCAN', 'scan/live')        # live files (untracked); scan_autosave.sh snapshots them into scan/
 STATE = os.path.join(SCAN, 'state.json')
 WENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
 
@@ -259,7 +260,7 @@ def main():
             for n in NS:
                 advance(st, n)
             save_state(st)
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, **WENV))
+            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
             last_rep = time.time()
         # schedule
         for n in NS:
@@ -285,7 +286,7 @@ def main():
         save_state(st)
         if all(st['n'][str(n)]['finished'] for n in NS) and not workers:
             log('all formats finished')
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, **WENV))
+            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
             break
         now = time.time()
         if now - last_mon >= MONITOR:
@@ -297,7 +298,7 @@ def main():
                     open('/proc/loadavg').read().split()[0], len(workers), ws))
             last_mon = now
         if now - last_rep >= REPORT:
-            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, **WENV))
+            subprocess.run([sys.executable, 'scan_report.py'], env=dict(os.environ, SCAN=SCAN, **WENV))
             last_rep = now
         time.sleep(3)
 

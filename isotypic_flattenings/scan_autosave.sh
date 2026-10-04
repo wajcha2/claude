@@ -15,7 +15,11 @@ snapshot() {
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01A51D6Z3hiqcCpMJhPW4qv5" && \
-      for i in 1 2 3 4; do git push -q origin claude/trusting-bohr-hdnmbv && break; sleep $((2**i)); done
+      for i in 1 2 3 4; do
+        # another agent (special subspaces) pushes to the same branch: rebase onto it first (only its own files)
+        git pull -q --rebase --autostash origin claude/trusting-bohr-hdnmbv && git push -q origin claude/trusting-bohr-hdnmbv && break
+        git rebase --abort >/dev/null 2>&1; sleep $((2**i))
+      done
     fi
   fi
   cd isotypic_flattenings

@@ -311,8 +311,16 @@ def prefix_HV(cp, name, C, H=True, V=True):
 
 
 def ordering_profile(cp, C, R):
-    """{r: [H prefixes, V prefixes]} at tensors 'P<r>' for r in [min R, max R + 1] (ends + bisection)."""
-    return resolve_profile(lambda r: prefix_HV(cp, cp.P(r), C), min(R), max(R) + 1)
+    """{r: [H prefixes, V prefixes]} at tensors 'P<r>' for r in [min R, max R + 1] (ends + bisection).  If every
+    prefix rank is at its upper bound (min(n1, k n23) for H_k, min(k n1, n23) for V_k) at min R, the profile is
+    constant from there on and nothing else is evaluated."""
+    rlo = min(R)
+    P0 = prefix_HV(cp, cp.P(rlo), C)
+    ubH = [min(cp.n1, (k + 1) * cp.n23) for k in range(len(C))]
+    ubV = [min((k + 1) * cp.n1, cp.n23) for k in range(len(C))]
+    if P0[0] == ubH and P0[1] == ubV:
+        return {rlo: P0}
+    return resolve_profile(lambda r: P0 if r == rlo else prefix_HV(cp, cp.P(r), C), rlo, max(R) + 1)
 
 
 def test_orderings(cp, orderings, R, rec, method='flag'):
@@ -435,7 +443,7 @@ def pencil_points(cp, AB, R, rng, tag, size):
     rlo, rhi = min(R), max(R)
     Ta, Tb, Tc = cp.P(rlo), 'D%db' % rlo, 'D%dc' % rlo
     cp.add_tensor(Tb, rlo); cp.add_tensor(Tc, rlo)
-    FAB = {X: AB(X) for X in (Ta, Tb, Tc)}
+    FAB = {X: AB(X) for X in (Ta, Tb)}
     tg = int(rng.integers(1, p))
     rho = {X: rank(np.fmod(A + tg * B, p)) for X, (A, B) in FAB.items()}
     if len(set(rho.values())) > 1:
@@ -445,6 +453,8 @@ def pencil_points(cp, AB, R, rng, tag, size):
     h = polys[0].gcd(polys[1])
     out = {'line': tag, 'rho': rho[Ta], 'deg': [polys[0].degree(), polys[1].degree()], 'gcd': h.degree(), 'factors': []}
     if h.degree() > 0:
+        FAB[Tc] = AB(Tc)                      # third tensor only when there are candidates
+        rho[Tc] = rank(np.fmod(FAB[Tc][0] + tg * FAB[Tc][1], p))
         lead, facs = h.factor()
         for f, mult in facs:
             e = f.degree()
@@ -857,9 +867,11 @@ def run_direction(cp, R, methods, seed, rec):
             rec['cases'].append({'method': 'flag', 'U': None, 'note': 'no natural U with 0 < dim < g'})
             log('   no natural U with 0 < dim < g')
     nlines = int(os.environ.get('NLINES', '2'))
+    if g == 2:
+        nlines = 1          # a line of P(M^*) = P^1 is all of it (any further line, or a line through a point, repeats it)
     for Rr in runs:
         if 'line' in methods:
-            pts = run_lines(cp, Rr, nlines, rng, rec, extend=g + 2)
+            pts = run_lines(cp, Rr, nlines, rng, rec, extend=g + 2 if g >= 3 else None)
             todo = [(nm, W, 1) for nm, W in span_tests(cp, pts, Rr, rec, rng, 'line')]
             while todo:                 # lines inside the linear drop components found (depth <= 2)
                 nm, W, depth = todo.pop(0)
@@ -874,7 +886,7 @@ def run_direction(cp, R, methods, seed, rec):
             run_plane(cp, Rr, rng, rec)
         if 'gline' in methods and g >= 3:
             run_glines(cp, Rr, rng, rec)
-        if 'pflag' in methods:
+        if 'pflag' in methods and g >= 3:
             for nm, W in [('U%d' % k, U) for k, U in flag.items()] + list(swaps.items()):
                 if not (0 < len(W) < g):
                     continue

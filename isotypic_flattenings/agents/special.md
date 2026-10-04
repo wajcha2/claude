@@ -38,12 +38,14 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   84/84; both components are HYPERPLANES of P^3; U = the 220-hyperplane (dim 3): H 285 vs 290, V 220 vs 225.
 
 ## Running jobs
-* 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: `special/run4.sh` (done for d = 5, 6; d = 7 finishing).
-* `special_runner.py special/jobs.txt` (job list in order; one process per component; slots in
-  special/live/ncores, time limit special/live/tlimit (default 3 h); log special/runner.log).
+* 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: done (`special/run4.sh`).
+* `special_runner.py special/jobs.txt`: job list in priority order, one process per component, live output in the
+  untracked special/live (res, logs, runner.log); slots in special/live/ncores (4), time limit special/live/tlimit
+  (default 3 h).  `special/sync.sh` copies special/live into special/res, special/logs, regenerates
+  special/RESULTS.md, commits and pushes.
 
 ## Restart
-`cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; mkdir -p special/live; echo 4 > special/live/ncores;
-setsid nohup python3 -u special_runner.py special/jobs.txt >> special/runner.log 2>&1 < /dev/null &`
-(components/directions with a record for the same ranks and methods in special/res/n<n>_d<d>*.jsonl are skipped).
-Report: `python3 special_report.py` -> special/RESULTS.md.
+`cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; echo 4 > special/live/ncores; ./special/start_runner.sh`
+(if special/live is lost: `mkdir -p special/live/res special/live/logs; cp special/res/*.jsonl special/live/res/` first;
+components/directions with a record for the same ranks and methods in special/live/res are skipped).
+Never kill with a `pkill -f` pattern that also occurs in the killing command line (it kills the shell).

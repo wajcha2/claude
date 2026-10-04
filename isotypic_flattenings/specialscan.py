@@ -773,7 +773,7 @@ def plane_resultant(FO, Fb, Fc, rho, rng, log_every=0):
     return r, e, len(xs)
 
 
-def run_plane(cp, R, rng, rec, label='plane'):
+def run_plane(cp, R, rng, rec, label='plane', rhomin=0, rhomax=None):
     """isolated (codim-2) tensor-independent drop points of rank-r_lo tensors on a random plane of P(M^*)
     (= all of P(M^*) for g = 3): gcd over two tensors of the plane resultants; every rational root v gives the line
     through O and the point, analysed by line_points (which re-derives the point and tests it)."""
@@ -792,9 +792,10 @@ def run_plane(cp, R, rng, rec, label='plane'):
         FO, Fb, Fc = combo(Fs, O), combo(Fs, b), combo(Fs, c)
         rho = rank(np.fmod(FO + 3 * Fb + 5 * Fc, p))
         res['rho'] = rho
-        if rho > PLANEMAX:
-            res['skipped'] = 'rho %d > PLANEMAX %d' % (rho, PLANEMAX)
-            log('   %s: skipped (rho %d > %d)' % (label, rho, PLANEMAX))
+        rmax = PLANEMAX if rhomax is None else rhomax
+        if rho > rmax or rho <= rhomin:
+            res['skipped'] = 'rho %d not in (%d, %d]' % (rho, rhomin, rmax)
+            log('   %s: skipped (rho %d not in (%d, %d])' % (label, rho, rhomin, rmax))
             rec['cases'].append(res)
             return
         r, e, ns = plane_resultant(FO, Fb, Fc, rho, rng, log_every=5000 if rho > 100 else 0)
@@ -924,6 +925,8 @@ def run_direction(cp, R, methods, seed, rec):
                     todo += [(lab + nm2, W2, depth + 1) for nm2, W2 in span_tests(cp, pts2, Rr, rec, rng, lab, amb_basis=W)]
         if 'plane' in methods and g >= 3:
             run_plane(cp, Rr, rng, rec)
+        if 'planebig' in methods and g >= 3:       # the cases skipped by 'plane' (PLANEMAX < rho <= 260)
+            run_plane(cp, Rr, rng, rec, rhomin=PLANEMAX, rhomax=260)
         if 'gline' in methods and g >= 3:
             run_glines(cp, Rr, rng, rec)
         if 'pflag' in methods and g >= 3:

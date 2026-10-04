@@ -58,6 +58,12 @@ def run(lam, dirn, seed=31):
         tr = int(rng.integers(1, p))
         rho = {k: frank((AB[k][0] + tr * AB[k][1]) % p) for k in AB}
         h = m2lines.drop_poly(*AB['R6a'], rho['R6a'], rng)
+        hdeg_a = h.degree()
+        if h.degree() > 0:
+            # keep only roots shared with a second rank-6 tensor (a general rank-6 tensor must drop there too)
+            getF('R6b'); AB['R6b'] = (m2lib.combine(F['R6b'], la), m2lib.combine(F['R6b'], lb))
+            rb = frank((AB['R6b'][0] + tr * AB['R6b'][1]) % p)
+            h = h.gcd(m2lines.drop_poly(*AB['R6b'], rb, rng))
         pts = []
         facs = sympy.factor_list(h.as_expr(), m2lines.X, modulus=p)[1] if h.degree() > 0 else []
         for fq, mult in facs:
@@ -69,6 +75,7 @@ def run(lam, dirn, seed=31):
                 for k in ('R6b', 'M2'):
                     getF(k)
                     if k not in AB: AB[k] = (m2lib.combine(F[k], la), m2lib.combine(F[k], lb))
+                # (R6b is already in AB when h had positive degree)
                 r6b, _ = m2lines.rank_at_root(*AB['R6b'], q); rm, _ = m2lines.rank_at_root(*AB['M2'], q)
                 tag += ',R6b=%d,M2=%d' % (r6b, rm)
                 if max(r6, r6b) < r7: flags.add('SEP?')
@@ -77,7 +84,7 @@ def run(lam, dirn, seed=31):
         r6, r7 = frank(AB['R6a'][1]), frank(AB['R7'][1])
         pts.append('inf:%d/%d' % (r6, r7))
         if r6 < r7: flags.add('SEP?inf')
-        out.append('generic %d/%d deg h %d: %s' % (rho['R6a'], rho['R7'], h.degree(), ' '.join(pts)))
+        out.append('generic %d/%d deg h(R6a) %d common(R6a,R6b) %d: %s' % (rho['R6a'], rho['R7'], hdeg_a, h.degree(), ' '.join(pts)))
     print(head + ' | SUPP=%d | %s | %s' % (s, ' ; '.join(out), ' '.join(sorted(flags)) or '-')); sys.stdout.flush()
 
 if __name__ == '__main__':

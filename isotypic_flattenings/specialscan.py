@@ -417,19 +417,72 @@ def natural_orderings(cp, flag, swaps, rng):
 
 
 # ---------------------------------------------------------------- rank-drop points on lines
+KRYLOV = int(os.environ.get('KRYLOV', '1200'))      # rho above which the BLAS Krylov minimal polynomial is used
+
+
+def solve_left(B, A):
+    """B^{-1} A (n x n residues) by Gauss-Jordan of the rows [B | A] (rankscan.RREF, BLAS); None if B is singular."""
+    n = B.shape[0]
+    E = RREF(2 * n)
+    E.add(np.hstack([B, A]))
+    if E.rank < n or any(c >= n for blk in E.blocks for c in blk[2]):
+        return None
+    X = np.empty((n, n))
+    for Bb, m, pv in E.blocks:
+        for i in range(m):
+            X[pv[i]] = Bb[i, n:]
+    return X
+
+
+def krylov_minpoly(M, rng):
+    """minimal polynomial of a random vector under M (w.h.p. the minimal polynomial of M): the Krylov rows
+    v, Mv, ..., M^n v by doubling with matrix squarings (Keller-Gehrig, BLAS), then the null space of the n x (n+1)
+    matrix of columns M^i v (python-flint): the pivots are 0..k-1, and the null vector of the first free column k is
+    the minimal dependency sum a_i M^i v = 0."""
+    n = M.shape[0]
+    v = rng.integers(0, p, n).astype(np.float64)
+    W = v[None, :]
+    P = np.ascontiguousarray(M.T)
+    while len(W) < n + 1:
+        m = min(len(W), n + 1 - len(W))
+        W = np.vstack([W, _mm(W[:m], P)])
+        if len(W) < n + 1:
+            P = _mm(P, P)
+    del P
+    X, nul = to_flint(W.T).nullspace()
+    del W
+    best = None
+    for j in range(nul):
+        col = [int(X[i, j]) for i in range(n + 1)]
+        top = max(i for i, x in enumerate(col) if x)
+        if best is None or top < best[0]:
+            best = (top, col)
+    top, col = best
+    inv = pow(col[top], p - 2, p)
+    return flint.nmod_poly([(x * inv) % p for x in col[:top + 1]], p)
+
+
 def drop_minpoly(FA, FB, rho, rng):
-    """nmod_poly whose roots contain the t with rank(FA + t FB) < rho (minimal polynomial of -B'^{-1} A')."""
+    """nmod_poly whose roots contain the t with rank(FA + t FB) < rho: the minimal polynomial of -B'^{-1} A'
+    (A' = R FA S, B' = R FB S, random rho x N / K x rho projections; its roots are those of det(A' + t B')).
+    python-flint for rho <= KRYLOV, BLAS Krylov above."""
     N, K = FA.shape
     for attempt in range(3):
         R = rng.integers(0, p, (rho, N)).astype(np.float64)
         S = rng.integers(0, p, (K, rho)).astype(np.float64)
         A2 = _mm(_mm(R, FA), S); B2 = _mm(_mm(R, FB), S)
-        Bf = to_flint(B2)
-        try:
-            X = Bf.solve(to_flint(A2))
-        except ZeroDivisionError:
+        if rho <= KRYLOV:
+            try:
+                X = to_flint(B2).solve(to_flint(A2))
+            except ZeroDivisionError:
+                continue
+            return (-X).minpoly()
+        X = solve_left(B2, A2)
+        if X is None:
             continue
-        return (-X).minpoly()
+        del A2, B2
+        X = np.fmod(p - X, p)
+        return krylov_minpoly(X, rng)
     raise RuntimeError('singular projection')
 
 

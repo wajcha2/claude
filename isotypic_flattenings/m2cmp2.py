@@ -8,7 +8,7 @@ containment tests that decide whether M2 can beat a rank-6 tensor at ANY U:
   incH = rank[H(R6a) ; H(M2)] - rank H(R6a)   (rows = source points;  0  <=>  K'(R6a) <= K'(M2))
   Both need K >= max(V_g(R6a), V_g(M2)) + 8 target points to be valid (else marked '?').
   Verdict: EXCL (incV = 0 or incH = 0, valid) / OPEN.  Env ALLK=1 also computes H_k, V_k for nested generic U_k, k < g."""
-import sys, os, time, numpy as np
+import sys, os, re, time, numpy as np
 import m2lib
 from m2lib import p, dim_schur, kronecker, random_gs, frank, combine, choose_fillings, rand_tensor, m2_terms, compress_cols
 import flatlib
@@ -100,11 +100,11 @@ if __name__ == '__main__':
                 done |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
         for i, j in enumerate(jobs):
             if i % NW != W: continue
-            lam_s, dirn_s = j.rsplit(' ', 1)
-            lam = eval(lam_s); dirn = int(dirn_s)
+            mm = re.match(r'^(\(.*\)) (\d+)(?: (\d+))?$', j)       # 'lam dirn [kcap for this job]'
+            lam = eval(mm.group(1)); dirn = int(mm.group(2)); kc = int(mm.group(3)) if mm.group(3) else kcap
             if ('lam=%s dir%d' % (lam, dirn + 1)) in done: continue
             try:
-                run(lam, dirn, kcap)
+                run(lam, dirn, kc)
             except Exception as e:
                 import traceback; traceback.print_exc()
                 print('lam=%s dir%d ERROR %r' % (lam, dirn + 1, e)); sys.stdout.flush()

@@ -50,3 +50,28 @@ lam=((5, 1, 1), (4, 2, 1), (4, 1, 1, 1)) g=2 dir 3: n1=20 n23=16800 N1=28 K=48  
    generic U: r6 H[20, 20] V[40] r7 H[20, 20] V[40]
    done dir 3: ok, 0 cases, 0 hits, wall 0.4s (F 0.0s), peak 76 MB
 lam=((5, 1, 1), (3, 2, 2), (3, 2, 1, 1)) g=3 dir 1: n1=120 n23=720 N1=128 K=368  ranks [6]
+   generic U: r6 H[120, 120, 120] V[240, 336] r7 H[120, 120, 120] V[240, 336]
+      plane samples 5000 / 14405
+      plane samples 10000 / 14405
+      plane samples 5000 / 14405
+      plane samples 10000 / 14405
+   plane rho 120: drop-curve degrees [0, 0], resultant degrees [14400, 14400], common 576  (312s)
+   plane v=333772: line rho 120 gcd deg 1  e1:[96, 96, 96] prof{'6': 96, '7': 96}
+   done dir 1: ok, 1 cases, 0 hits, wall 323.6s (F 11.8s), peak 445 MB
+lam=((5, 1, 1), (3, 2, 2), (3, 2, 1, 1)) g=3 dir 2: n1=36 n23=2400 N1=44 K=116  ranks [6]
+   generic U: r6 H[36, 36, 36] V[72, 108] r7 H[36, 36, 36] V[72, 108]
+   plane rho 36: drop-curve degrees [0, 0], resultant degrees [1296, 1296], common 0  (1s)
+   done dir 2: ok, 1 cases, 0 hits, wall 2.0s (F 0.1s), peak 97 MB
+lam=((5, 1, 1), (3, 2, 2), (3, 2, 1, 1)) g=3 dir 3: n1=20 n23=4320 N1=28 K=68  ranks [6]
+   generic U: r6 H[20, 20, 20] V[40, 60] r7 H[20, 20, 20] V[40, 60]
+   plane rho 20: drop-curve degrees [0, 0], resultant degrees [400, 400], common 0  (0s)
+   done dir 3: ok, 1 cases, 0 hits, wall 0.7s (F 0.1s), peak 97 MB
+lam=((5, 2), (5, 2), (5, 2)) g=2 dir 1: n1=224 n23=50176 N1=232 K=456  ranks [6]
+   generic U: r6 H[224, 224] V[448] r7 H[224, 224] V[448]
+   done dir 1: ok, 0 cases, 0 hits, wall 3.5s (F 1.2s), peak 132 MB
+lam=((5, 2), (3, 2, 2), (3, 2, 2)) g=2 dir 1: n1=224 n23=1296 N1=232 K=456  ranks [6]
+   generic U: r6 H[224, 224] V[448] r7 H[224, 224] V[448]
+   done dir 1: ok, 0 cases, 0 hits, wall 8.4s (F 6.2s), peak 417 MB
+lam=((5, 2), (3, 2, 2), (3, 2, 2)) g=2 dir 2: n1=36 n23=8064 N1=44 K=80  ranks [6]
+   generic U: r6 H[36, 36] V[72] r7 H[36, 36] V[72]
+   done dir 2: ok, 0 cases, 0 hits, wall 0.4s (F 0.0s), peak 60 MB

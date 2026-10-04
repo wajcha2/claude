@@ -898,7 +898,7 @@ def main():
         if dirs is None:
             # resume: skip directions with a record (same ranks and methods) in any special/res/n<n>_d<d>*.jsonl
             done = set()
-            for f in glob.glob('special/res/n%d_d%d*.jsonl' % (n, d)):
+            for f in glob.glob(os.path.join(os.environ.get('DONEGLOB', 'special/res'), 'n%d_d%d*.jsonl' % (n, d))):
                 for l in open(f):
                     try:
                         rr = json.loads(l)

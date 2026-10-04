@@ -3,9 +3,10 @@
 Runs specialscan.py jobs, one process per component, at most NCORES at a time (read every 10 s from
 special/live/ncores, default 4), in the order of JOBFILE.  JOBFILE lines: `n d R methods...` (all components with
 g >= 2 of degree d, cheapest first by rankscan.cost_proxy) or `n d R methods... :: lam` (one component).
-Output of a job: special/res/n<n>_d<d>_s<slot>.jsonl and special/logs/n<n>_d<d>_s<slot>.log (slot = pool slot, so
-that no two running processes append to one file).  Resume: a component is skipped when every distinct direction
-has a record with the same ranks and methods in some special/res/n<n>_d<d>*.jsonl.  A job running longer than
+Output of a job: special/live/res/n<n>_d<d>_s<slot>.jsonl and special/live/logs/n<n>_d<d>_s<slot>.log (slot = pool
+slot, so that no two running processes append to one file; special/live is not tracked: special/sync.sh copies it
+to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
+record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
 TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'."""
 import os, sys, time, json, glob, subprocess, signal
 import rankscan
@@ -27,7 +28,7 @@ def parse_R(s):
 
 def done_set(n, d):
     out = set()
-    for f in glob.glob('special/res/n%d_d%d*.jsonl' % (n, d)):
+    for f in glob.glob('special/live/res/n%d_d%d*.jsonl' % (n, d)):
         for l in open(f):
             try:
                 r = json.loads(l)
@@ -62,8 +63,8 @@ def expand(jobfile):
 def main():
     jobfile = sys.argv[1]
     os.makedirs(LIVE, exist_ok=True)
-    os.makedirs('special/res', exist_ok=True)
-    os.makedirs('special/logs', exist_ok=True)
+    os.makedirs('special/live/res', exist_ok=True)
+    os.makedirs('special/live/logs', exist_ok=True)
     running = {}            # slot -> (proc, job, t0)
     pending = None
     print('# runner start %s' % time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), flush=True)
@@ -107,8 +108,8 @@ def main():
             slot = min(set(range(16)) - set(running))
             n, d, Rs, methods, lam = job
             env = dict(os.environ, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1',
-                       OUT='special/res/n%d_d%d_s%d.jsonl' % (n, d, slot))
-            logf = open('special/logs/n%d_d%d_s%d.log' % (n, d, slot), 'a')
+                       OUT='special/live/res/n%d_d%d_s%d.jsonl' % (n, d, slot), DONEGLOB='special/live/res')
+            logf = open('special/live/logs/n%d_d%d_s%d.log' % (n, d, slot), 'a')
             proc = subprocess.Popen(['python3', '-u', 'specialscan.py', str(n), str(d), repr(lam), Rs] + list(methods),
                                     stdout=logf, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, env=env,
                                     start_new_session=True)

@@ -27,14 +27,15 @@ def run(lam, dirn, kcap=1500, seed=None, verbose=True):
     g = kronecker(*lam)
     n1 = dim_schur(lam_p[0], 4); n23 = dim_schur(lam_p[1], 4) * dim_schur(lam_p[2], 4)
     N1 = min(n1, g * n23) + 8
-    K = min(g * n1, n23, kcap) + 8
+    memel = float(os.environ.get('MEMEL', '4e7'))          # max g * N1 * K elements per tensor
+    K = max(min(g * n1, n23, kcap, int(memel // (g * N1))), min(n1, n23)) + 8
     t0 = time.time()
     tens = {'R6a': rand_tensor(rng, 6), 'R6b': rand_tensor(rng, 6), 'R7': rand_tensor(rng, 7), 'M2': m2_terms('strassen')}
     if os.environ.get('NOR6B') == '1': del tens['R6b']
     tens = {k: tuple(v[t] for t in perm) for k, v in tens.items()}
     fills = choose_fillings(lam_p, g, tens['R7'], rng)
     gs = random_gs(rng, 4, N1, K)
-    F = {k: [flatlib.flat(f, v, gs) % p for f in fills] for k, v in tens.items()}
+    F = {k: [(flatlib.flat(f, v, gs) % p).astype(np.int32) for f in fills] for k, v in tens.items()}
     teval = time.time() - t0
     span = {k: frank(np.array([M[:min(N1, 64), :min(K, 64)].ravel() for M in F[k]])) for k in tens}
     C = rng.integers(0, p, (g, g))
@@ -63,8 +64,11 @@ def run(lam, dirn, kcap=1500, seed=None, verbose=True):
         valid = K >= max(res[('V', g, 'R6a')], res[('V', g, 'M2')]) + 8
         incV = rank_cols(np.hstack([Vm['R6a'], Vm['M2']]), rng) - res[('V', g, 'R6a')]
         incH = rank_cols(np.vstack([Hm['R6a'], Hm['M2']]), rng) - res[('H', g, 'R6a')]
+        # same kernels for rank 6 and rank 7  =>  identical ranks at every U (no separation, hence no M2 win)
+        sameV = res[('V', g, 'R6a')] == res[('V', g, 'R7')] and rank_cols(np.hstack([Vm['R6a'], Vm['R7']]), rng) == res[('V', g, 'R7')]
+        sameH = res[('H', g, 'R6a')] == res[('H', g, 'R7')] and rank_cols(np.vstack([Hm['R6a'], Hm['R7']]), rng) == res[('H', g, 'R7')]
     else:
-        valid, incV, incH = True, None, None
+        valid, incV, incH, sameV, sameH = True, None, None, None, None
     types = sorted({(t, k) for t, k, _ in res})
     out, flags = [], set()
     for t, k in types:
@@ -75,8 +79,8 @@ def run(lam, dirn, kcap=1500, seed=None, verbose=True):
         if m2 > r6: flags.add('M2WIN'); s += '!!!'
         out.append(s)
     if g >= 2:
-        verdict = ('EXCL' if (incV == 0 or incH == 0) else 'OPEN') + ('' if valid else '?')
-        inc = 'incV=%d incH=%d %s' % (incV, incH, verdict)
+        verdict = ('EXCL' if (incV == 0 or incH == 0) else 'NOSEP' if (sameV or sameH) else 'OPEN') + ('' if valid else '?')
+        inc = 'incV=%d incH=%d sameV=%d sameH=%d %s' % (incV, incH, sameV, sameH, verdict)
     else:
         inc = 'g=1'
     line = 'lam=%s dir%d g=%d n1=%d n23=%d N1=%d K=%d span(%s)=%s | %s | %s | %s (eval %.0fs, total %.0fs)' % (

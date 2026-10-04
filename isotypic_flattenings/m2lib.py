@@ -105,9 +105,9 @@ def Vrank(Gs, rng):
     V = np.vstack(Gs); return frank(compress_cols(V.T, V.shape[1] + 8, rng))
 
 def combine(Fs, c):
-    out = np.zeros_like(Fs[0])
+    out = np.zeros(Fs[0].shape, dtype=np.int64)
     for x, F in zip(c, Fs):
-        out = (out + int(x) * F) % p
+        out = (out + int(x) * F.astype(np.int64)) % p
     return out
 
 

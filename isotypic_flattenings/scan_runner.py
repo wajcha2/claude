@@ -362,11 +362,17 @@ def main():
             save_state(st)
             report(); last_rep = time.time()
             changed = False
-        # schedule
+        # schedule (the worker limit can be changed at run time: an integer in <SCAN>/ncores, e.g. to share the cores
+        # with another agent; running components are never interrupted, the runner just starts fewer new workers)
+        ncores = NCORES
+        try:
+            ncores = max(0, int(open(os.path.join(SCAN, 'ncores')).read().split()[0]))
+        except (OSError, ValueError, IndexError):
+            pass
         runnable = sorted((j['stage'], j['n'], j['d'], nm) for nm, j in st['jobs'].items()
                           if j['status'] == 'running' and not j.get('deferred') and claimed(j) < j['ncomp'])
         for _, _, _, name in runnable:
-            if len(workers) >= NCORES:
+            if len(workers) >= ncores:
                 break
             job = st['jobs'][name]
             nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)

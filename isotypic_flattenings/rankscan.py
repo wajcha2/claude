@@ -119,12 +119,13 @@ def slice_pm(pm, ys, zs):
     return [{l: A[ys] for l, A in pm[0].items()}, {l: A[zs] for l, A in pm[1].items()}, {l: A[zs] for l, A in pm[2].items()}]
 
 
-def best_path(ops, out, repeats=128, cheap=False):
-    """flop-optimised RandomGreedy path; if its largest intermediate exceeds MEMCAP the size-minimising DP path is
-    tried (networks of <= DPMAX tensors) and kept when smaller (sweep_fast.best_path)."""
+def best_path(ops, out, repeats=128, cheap=False, cap=None):
+    """flop-optimised RandomGreedy path; if its largest intermediate exceeds the cap (default MEMCAP) the
+    size-minimising DP path is tried (networks of <= DPMAX tensors) and kept when smaller (sweep_fast.best_path)."""
+    cap = MEMCAP if cap is None else cap
     path, info = find_path(ops, out, None, 'greedy' if cheap else oe.RandomGreedy(max_repeats=repeats))
     big = hwv_fast.largest_intermediate(ops, out, path)
-    if big > MEMCAP and len(ops) <= DPMAX:
+    if big > cap and len(ops) <= DPMAX:
         path2, info2 = find_path(ops, out, None, oe.DynamicProgramming(minimize='size'))
         big2 = hwv_fast.largest_intermediate(ops, out, path2)
         if big2 < big:
@@ -142,13 +143,18 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
     shape fits 4 * MEMCAP."""
     N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
     ops, out = build_network(f, vm, pm)
+    # the word-minor inputs do not depend on the points: when one of them is already larger than MEMCAP (allowed up
+    # to WCAP), splitting the points cannot bring the largest intermediate below it -- it only multiplies the work
+    # (a 7x7x7 probe was cut into 128 blocks of 1 x 1 points, 400 s instead of 3 s).  So the cap is at least the
+    # largest input.
+    cap = max(MEMCAP, max(A.size for _, A in ops))
     if path is None:
-        path, info, big = best_path(ops, out, cheap=cheap)
+        path, info, big = best_path(ops, out, cheap=cheap, cap=cap)
     else:
         big = hwv_fast.largest_intermediate(ops, out, path)
-        if big > MEMCAP:
-            path, info, big = best_path(ops, out)
-    if big <= MEMCAP:
+        if big > cap:
+            path, info, big = best_path(ops, out, cap=cap)
+    if big <= cap:
         return execute(ops, out, path)
     best = None
     for order in ('Z', 'Y'):
@@ -161,14 +167,14 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
                 if yb > 1: yb = (yb + 1) // 2
                 else: zb = (zb + 1) // 2
             ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
-            pb, ib, bb = best_path(ops, out)
-            if bb <= MEMCAP: break
+            pb, ib, bb = best_path(ops, out, cap=cap)
+            if bb <= cap: break
         total = float(ib.opt_cost) * (-(-N1 // yb)) * (-(-K // zb))
         if best is None or total < best[0]:
             best = (total, order, yb, zb, pb, ib, bb)
     total, order, yb, zb, pb, ib, bb = best
-    if bb > 4 * MEMCAP:
-        raise Infeasible('no block path within 4*MEMCAP (largest intermediate %.2e)' % bb)
+    if bb > 4 * cap:
+        raise Infeasible('no block path within 4*cap (largest intermediate %.2e, cap %.2e)' % (bb, cap))
     F = np.zeros((N1, K), dtype=np.float64)
     for y0 in range(0, N1, yb):
         for z0 in range(0, K, zb):

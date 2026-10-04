@@ -35,7 +35,7 @@ wall/CPU time and peak RSS.
 Env: DIRS (comma list of directions 1..3, default: distinct ones), SEED (11), NLINES (2), EMAXSIZE (e * max(N1,K)
      cap for extension-field points, default 6000), OUT (default special/res/n<n>_d<d>.jsonl), PRIME (other prime).
 """
-import os, sys, time, json, itertools, zlib
+import os, sys, time, json, itertools, zlib, collections, glob
 import hwv, isoflat
 if os.environ.get('PRIME'):
     hwv.p = isoflat.p = int(os.environ['PRIME'])          # before hwv_fast / rankscan import p
@@ -475,6 +475,7 @@ def line_points(cp, a, b, R, rng, tag):
             if e == 1:
                 th = (-coeffs[0]) % p
                 ent['t'] = th
+                ent['li'] = tag
                 if ent['indep']:
                     out['points'].append(((a + th * b) % p, ent))
             out['factors'].append(ent)
@@ -512,35 +513,76 @@ def run_lines(cp, R, nlines, rng, rec, through=None, inside=None, label='line', 
     return allpts
 
 
-def span_tests(cp, pts, R, rec, rng, label):
-    """U = span of rational tensor-independent drop points with the same rank signature (one component, if that
-    component is linear) and of all of them, when the span is a proper subspace: prefix ranks H and V of
-    [random basis of the span, generic completion] over the rank range.  Returns the proper spans found."""
-    g = cp.g
-    groups = {}
-    for v, e in pts:
-        groups.setdefault((tuple(e['ranks']), tuple(sorted(e['prof'].items()))), []).append(v)
-    cands = [('sig%s' % list(sig[0]), vs) for sig, vs in groups.items() if len(vs) >= 2]
-    if len(groups) > 1:
-        cands.append(('all', [v for v, _ in pts]))
-    seen, found = [], []
-    for nm, vs in cands:
-        W = rowspace_basis(np.array(vs))
-        if not (0 < len(W) < g) or len(vs) <= len(W):
-            # spans everything, or too few points to tell whether they lie on a proper linear subspace
-            rec['cases'].append({'method': label + '-span', 'group': nm, 'npts': len(vs), 'dim': len(W),
-                                 'note': 'no proper linear span' if len(W) == g else 'too few points'})
-            log('   %s-span %s: %d points span dim %d (%s)' % (label, nm, len(vs), len(W), 'not proper' if len(W) == g else 'too few points'))
+def find_hyperplanes(by_line, amb, cap=4096):
+    """linear drop components seen by random lines of an ambient space of dim `amb`: hyperplanes H (dim amb - 1)
+    that contain one point of every line.  by_line: list (one entry per line) of lists of point vectors.
+    Candidates: one point from each of the first amb - 1 lines (at most `cap` choices), verified on all lines."""
+    lines = [l for l in by_line if l]
+    if amb < 2 or len(lines) < amb:          # need amb - 1 points to define H and >= 1 more line to verify
+        return []
+    found = []
+    choices = itertools.islice(itertools.product(*[range(len(l)) for l in lines[:amb - 1]]), cap)
+    for ch in choices:
+        B = rowspace_basis(np.array([lines[i][c] for i, c in enumerate(ch)]))
+        if len(B) != amb - 1 or any(np.array_equal(B, H) for H, _ in found):
             continue
-        key = W.tobytes()
-        if key in seen:
-            continue
-        seen.append(key)
-        found.append((nm, W))
-        test_orderings(cp, [('%s-span(%d) %s' % (label, len(W), nm), complete_basis(W, g, rng),
-                             'span of %d drop points (dim %d); prefixes > %d = + generic' % (len(vs), len(W), len(W)))], R, rec,
-                       method=label + '-span')
+        members = []
+        for l in lines:
+            inl = [v for v in l if len(rowspace_basis(np.vstack([B, v]))) == len(B)]
+            if not inl:
+                break
+            members += inl
+        else:
+            found.append((B, members))
     return found
+
+
+def span_tests(cp, pts, R, rec, rng, label, amb_basis=None):
+    """k >= 2 from rational tensor-independent drop points, per rank signature (points of one drop component have
+    one signature), in an ambient space A (M^* or a linear component W, basis amb_basis):
+      * linear drop components: hyperplanes of A containing a point of every line (find_hyperplanes): U = H, its
+        generic subspaces and H + generic (ordering [random basis of H, generic completion]); returned, for lines
+        inside H;
+      * the remaining points: U = span of the first k drop points ([p_1, p_2, ..., generic completion]), secant
+        spaces of a non-linear component.
+    H and V prefixes over the rank range."""
+    g = cp.g
+    amb = g if amb_basis is None else len(amb_basis)
+    groups = collections.OrderedDict()
+    for v, e in pts:
+        key = (tuple(e['ranks']), tuple(sorted(e['prof'].items())))
+        groups.setdefault(key, collections.OrderedDict()).setdefault(e['li'], []).append(v)
+    found = []
+    for sig, by_line in groups.items():
+        nm = 'sig%s' % list(sig[0])
+        allv = [v for l in by_line.values() for v in l]
+        hyps = find_hyperplanes(list(by_line.values()), amb)
+        inH = []
+        for H, members in hyps:
+            found.append((nm, H))
+            inH += [m.tobytes() for m in members]
+            test_orderings(cp, [('%s-span(%d) %s' % (label, len(H), nm), complete_basis(H, g, rng),
+                                 'linear drop component: hyperplane through %d drop points (dim %d); prefixes > %d = + generic'
+                                 % (len(members), len(H), len(H)))], R, rec, method=label + '-span')
+        rest = [v for v in allv if v.tobytes() not in inH]
+        if not hyps:
+            rec['cases'].append({'method': label + '-span', 'group': nm, 'npts': len(allv), 'nlines': len(by_line),
+                                 'note': 'no linear component (no hyperplane of the ambient dim %d through a point of every line)' % amb})
+            log('   %s %s: %d points on %d lines, no linear component' % (label, nm, len(allv), len(by_line)))
+        # spans of drop points (secant spaces), independent points in the order found
+        B = np.zeros((0, g), dtype=np.int64)
+        for v in rest:
+            if len(B) < amb - 1 and len(rowspace_basis(np.vstack([B, v]))) > len(B):
+                B = np.vstack([B, v])
+        if len(B) >= 2:
+            test_orderings(cp, [('%s-pts(%d) %s' % (label, len(B), nm), complete_basis_ordered(B, g, rng),
+                                 'prefix k <= %d: span of k drop points' % len(B))], R, rec, method=label + '-pts')
+    return found
+
+
+def complete_basis_ordered(B, g, rng):
+    """[rows of B in order; random vectors] (g x g)."""
+    return np.vstack([B, rng.integers(0, p, (g - len(B), g))]) if len(B) < g else B
 
 
 def generic_baseline(cp, R, rec, rng):
@@ -644,7 +686,7 @@ def run_direction(cp, R, methods, seed, rec):
                 pts2 = run_lines(cp, Rr, 1 if len(W) == 2 else nlines, rng, rec, inside=W, label=lab,
                                  extend=None if len(W) == 2 else len(W) + 2)
                 if depth < 2 and len(W) > 2:
-                    todo += [(lab + nm2, W2, depth + 1) for nm2, W2 in span_tests(cp, pts2, Rr, rec, rng, lab)]
+                    todo += [(lab + nm2, W2, depth + 1) for nm2, W2 in span_tests(cp, pts2, Rr, rec, rng, lab, amb_basis=W)]
         if 'pflag' in methods:
             for nm, W in [('U%d' % k, U) for k, U in flag.items()] + list(swaps.items()):
                 if not (0 < len(W) < g):
@@ -666,6 +708,18 @@ def main():
     out = os.environ.get('OUT', 'special/res/n%d_d%d.jsonl' % (n, d))
     if sys.argv[3] != 'all':
         lam = tuple(tuple(x) for x in eval(sys.argv[3]))
+        if dirs is None:
+            # resume: skip directions with a record (same ranks and methods) in any special/res/n<n>_d<d>*.jsonl
+            done = set()
+            for f in glob.glob('special/res/n%d_d%d*.jsonl' % (n, d)):
+                for l in open(f):
+                    try:
+                        rr = json.loads(l)
+                    except ValueError:
+                        continue
+                    if rr['methods'] == methods and rr['r'] == rlist and tuple(tuple(x) for x in rr['lam']) == lam:
+                        done.add(rr['t'])
+            dirs = [t for t in distinct_dirs(lam) if t not in done]
         run_component(n, d, lam, rlist, methods, seed, dirs, out)
         return
     # all components with g >= 2 (or the list in LIST), cheapest first; WORKER/NWORKERS shard; resume from OUT

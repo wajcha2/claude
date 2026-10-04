@@ -143,11 +143,11 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
         for z0 in range(0, K, zb):
             ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
             ops, out = build_network(f, vm, slice_pm(pm, ys, zs))
-            if (ys.stop - ys.start, zs.stop - zs.start) == (yb, zb):
-                pth = pb
-            else:
-                pth = best_path(ops, out, 32)[0]
-            F[ys, zs] = execute(ops, out, pth)
+            # the full-block path pb is used for the partial edge blocks as well: the network is the same (only the
+            # Y/Z dimensions shrink), so every intermediate is at most the full block's, i.e. <= MEMCAP.  The former
+            # best_path(ops, out, 32)[0] here returned an UNCHECKED RandomGreedy path; for a d = 9 edge block of 8
+            # rows it carried a word-index-only intermediate (r^d elements): 13 GB anon-rss, OOM kill (2026-10-04).
+            F[ys, zs] = execute(ops, out, pb)
     return F
 
 def direction(lam, g, dirn, crng):

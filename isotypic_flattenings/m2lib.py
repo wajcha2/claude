@@ -85,11 +85,12 @@ def compress_cols(M, ncol, rng):
 def choose_fillings(lam_p, g, probe_vecs, rng, npr=(8, 16), maxtry=None):
     """g fillings whose functionals are independent on the probe tensor (evaluated at npr random points)."""
     gp = random_gs(rng, 4, *npr)
+    pre = prep_all(probe_vecs, gp)
     rows, fills = [], []
-    maxtry = maxtry or 60 * g + 100
+    maxtry = maxtry or 300 * g + 500
     for _ in range(maxtry):
         f = random_fillings(rng, lam_p)
-        v = flatlib.flat(f, probe_vecs, gp).ravel() % p
+        v = flat_pre(f, pre).ravel() % p
         if not v.any(): continue
         if frank(np.array(rows + [v])) == len(rows) + 1:
             rows.append(v); fills.append(f)
@@ -189,10 +190,17 @@ def flat_pre(f, pre, memcap=1 << 24, repeats=12):
         while True:
             ops, out = _build(f, vm, sl(slice(0, yb), slice(0, zb)))
             path, info = _find_path(ops, out, None, _oe.RandomGreedy(max_repeats=repeats))
-            if int(info.largest_intermediate) <= memcap: break
-            if zb <= 8 and yb <= 8:
-                raise MemoryError('no block split keeps intermediates below memcap')
-            if zb > 8: zb = (zb + 1) // 2
+            big = int(info.largest_intermediate)
+            if big > memcap and len(ops) <= 24:
+                # size-minimising path (the RandomGreedy path can keep a word-index-only intermediate)
+                p2, i2 = _find_path(ops, out, None, _oe.DynamicProgramming(minimize='size'))
+                if int(i2.largest_intermediate) < big:
+                    path, info, big = p2, i2, int(i2.largest_intermediate)
+            if big <= memcap: break
+            if zb <= 1 and yb <= 1:
+                if big <= 8 * memcap: break           # proceed with a larger intermediate (<= 1 GB) rather than fail
+                raise MemoryError('no block split keeps intermediates below 8*memcap (%d)' % big)
+            if zb > 1: zb = (zb + 1) // 2
             else: yb = (yb + 1) // 2
         _paths2[k0] = (yb, zb, path)
     yb, zb, path = _paths2[k0]

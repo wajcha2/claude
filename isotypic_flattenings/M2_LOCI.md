@@ -4,7 +4,7 @@ Goal: a subspace U of the multiplicity space M^* (dim M = g = Kronecker coeffici
 flattening of a general rank-6 tensor has SMALLER rank than that of M2 (2x2 matrix multiplication).  That would show
 M2 not in sigma_6, i.e. a new proof of border rank(M2) = 7.
 
-Status: **no such U found for d <= 9** (d = 9: see the table below, filled in as the run completes).
+Status: **no such U found** (d <= 9 analysed; d = 10, 11 candidate screen running, see below).
 The reason is structural (GL2^3 symmetry of M2, Section 1), and the computations (Sections 2-4) confirm it.
 
 ## 0. Flattening types and notation
@@ -91,6 +91,20 @@ structural analysis `m2deep.py` (K(T) for R6a, R6b, R7: dimension, M^*-support S
 support S, and all common drop points in P(S) are tensor-independent (equal ranks for R6a, R6b, R7; M2 below), e.g.
 ((6,1,1,1),(5,3,1),(4,3,2)) dir2: S of dim 2, drop points with ranks 300/300/300 (M2 48, 68);
 ((5,2,1,1),(5,2,1,1),(4,2,2,1)) dir1: S of dim 11, drop points 80/80/80 (M2 20).
+
+### d = 10 and d = 11 (user request: skip the rest of d = 8; d = 9 structural follow-up paused at 20 of 313)
+Candidates = the component-directions where the GL2^3 bound lets M2 reach full rank, for a single phi or for a source-limited
+V_k (k n1 <= n23): d = 10: 1424 (all), d = 11: the cheapest 2658 of 2958 (the 300 most expensive, ~35 h, run last;
+`m2loci/jobs_d1011_main.txt`, `m2loci/jobs_d11_tail.txt`).  Everywhere else M2 is capped below the generic rank and cannot beat
+rank 6 at a separating locus.  Screen (`SCREEN=1`, injective full V-stack of a rank-6 tensor => every U excluded), then
+`m2deep2.py` on the failures (kernels of R6a and R7; R6b and M2 only at points where rank 6 < rank 7).
+Snapshot 2026-10-04 18:00 UTC (logs `m2loci/snap/`, live in `live/`):
+| d | screened | EXCL (all U) | to follow-up |
+|---|---|---|---|
+| 10 | 609 / 1424 | 598 | 11 |
+| 11 | 874 / 2658 | 827 | 47 |
+The follow-up cases so far are small (n1 = 10 or 20) with V-stacks losing 4-10 dimensions, the same shape as the
+tensor-independent phi_0 kernels at d = 7-9.
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

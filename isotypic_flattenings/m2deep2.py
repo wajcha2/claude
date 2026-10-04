@@ -83,9 +83,14 @@ def run(lam, dirn, seed=31):
 if __name__ == '__main__':
     jobs = [l.strip() for l in open(sys.argv[2]) if l.strip()]
     W, NW = (int(sys.argv[3]), int(sys.argv[4])) if len(sys.argv) > 4 else (0, 1)
+    done = set()
+    for lf in os.environ.get('RESUME', '').split(':'):
+        if lf and os.path.exists(lf):
+            done |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=') and 'ERROR' not in l}
     for i, j in enumerate(jobs):
         if i % NW != W: continue
         mm = re.match(r'^(\(.*\)) (\d+)', j)
+        if 'lam=%s dir%d' % (eval(mm.group(1)), int(mm.group(2)) + 1) in done: continue
         try:
             run(eval(mm.group(1)), int(mm.group(2)))
         except Exception as e:

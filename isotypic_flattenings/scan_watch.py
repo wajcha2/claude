@@ -18,7 +18,7 @@ while True:
             if mx > s['max'].get(n, 0):
                 s['max'][n] = mx
                 print('n=%s: max separated rank now %d (vs %d) at d=%d (job %s)' % (n, mx, mx + 1, dm[mx], l.split()[3]), flush=True)
-        elif re.search(r'FAILED|exited with|Traceback|finished|: stage', l):
+        elif re.search(r'FAILED|TIMEOUT|Traceback|finished|deferred|resumed', l):
             print(l, flush=True)
     s['pos'] = len(lines)
     json.dump(s, open(SF, 'w'))

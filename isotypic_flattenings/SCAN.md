@@ -31,13 +31,17 @@ For each component lam = (l1, l2, l3) of degree d (Kronecker coefficient g > 0) 
   ((8,1),(3,3,3),(3,3,2,1)) 396/400.
 
 ## Scheduling (`scan_runner.py`)
-Jobs (n, d, stage) are run degree by degree for each n; stage s contains the components whose cost proxy
-g * sum_dir N1 K lies in the band (CAPS[s-1], CAPS[s]], CAPS = 3e5, 3e6, 3e7, 3e8, 3e9, so cheap components of all
-formats are done first; later stages revisit the lower degrees with the more expensive components.  A job resolves
-only the ranks not yet separated in a lower degree.  4 worker processes, one BLAS thread each.  Limits: an
-intermediate of the contraction is capped at MEMCAP = 2^25 elements (larger ones are split into blocks); a rank r
-whose word-minor tensor C(n, ell) r^ell exceeds 2^26 elements cannot be evaluated and is reported as unknown
-(this is what limits large n and long columns).
+Jobs (n, d, stage): stage s holds the components of degree d whose cost proxy g * sum_dir N1 K lies in the band
+(CAPS[s-1], CAPS[s]], CAPS = 3e5, 3e6, 3e7, 3e8, 3e9.  For each format, degree d is completed in every band before
+degree d + 1 starts (the lowest separating degree needs all of degree d), and degrees above the lowest degree that
+separates the target rank (r_gen - 1, or lower if a rank is skipped) are not run.  A job resolves only the ranks
+not yet separated in a lower degree.  4 worker processes (one BLAS thread each) take the runnable jobs in the order
+(band, n): cheap bands first, small formats first.  A component running longer than 2 h is stopped and listed as
+not checked (time limit) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
+Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).
+Limits: an intermediate of the contraction is capped at max(MEMCAP = 2^25, largest input) elements (larger ones
+are split into blocks of evaluation points); a rank r whose word-minor tensor C(n, ell) r^ell exceeds 2^26 elements
+cannot be evaluated and is reported as unknown (this is what limits large n and long columns).
 Per component the record holds wall and CPU time and the peak RSS; `scan/monitor.log` has memory, per-worker
 RSS and load every 5 minutes.
 

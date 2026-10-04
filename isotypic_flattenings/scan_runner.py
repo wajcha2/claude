@@ -176,6 +176,33 @@ def claimed(job):
         return 0
 
 
+_done_cache, _list_cache = {}, {}
+
+
+def open_components(job):
+    """number of listed components with neither a claim nor a result (a job is runnable iff > 0; counting claim
+    files alone kept starting workers that found nothing to do when a finished component had lost its claim)."""
+    key = job['list']
+    if key not in _list_cache:
+        idx = {lam: li for _, li, lam, _ in comp_list(job['n'], job['d'])}
+        _list_cache[key] = {idx[tuple(tuple(x) for x in eval(l))] for l in open(job['list']) if l.strip()}
+    lis = _list_cache[key]
+    try:
+        mt = os.path.getmtime(job['out'])
+    except FileNotFoundError:
+        mt = None
+    c = _done_cache.get(job['out'])
+    if c is None or c[0] != mt:
+        idx = {lam: li for _, li, lam, _ in comp_list(job['n'], job['d'])}
+        c = (mt, {idx[lam] for lam in results(job['out']) if lam in idx} if mt else set())
+        _done_cache[job['out']] = c
+    try:
+        cl = {int(fn) for fn in os.listdir(job['claims']) if fn.isdigit()}
+    except FileNotFoundError:
+        cl = set()
+    return len(lis - cl - c[1])
+
+
 def pid_alive(pid):
     """running and not a zombie."""
     try:
@@ -375,13 +402,13 @@ def main():
         except (OSError, ValueError, IndexError):
             pass
         runnable = sorted((j['stage'], j['n'], j['d'], nm) for nm, j in st['jobs'].items()
-                          if j['status'] == 'running' and not j.get('deferred') and claimed(j) < j['ncomp'])
+                          if j['status'] == 'running' and not j.get('deferred') and open_components(j) > 0)
         for _, _, _, name in runnable:
             if len(workers) >= ncores:
                 break
             job = st['jobs'][name]
             nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
-            if nw >= job['ncomp'] - claimed(job):
+            if nw >= open_components(job):
                 continue
             w = next(wid)
             env = dict(os.environ, **WENV)

@@ -82,9 +82,15 @@ Full analysis (R6, R7, M2, all k, containment) for the 717 cheapest of the 1560 
 all rank-6 and rank-7 tensors (`m2kappa.py`, `m2rank1.py`):
   ((5,2,1,1),(4,3,2),(3,3,3)) dir1 (dim K = 4), ((6,1,1,1),(5,2,1,1),(5,2,1,1)) dir1 (dim K = 20),
   ((6,1,1,1),(5,2,1,1),(4,3,2)) dir2 (dim K = 4).
-The remaining 843 (larger) component-directions are first screened (`SCREEN=1`: rank-6 tensor only, full V- and H-stack;
-injective V_g resp. surjective H_g excludes every U rigorously), then the failures get the full analysis
-(`m2loci/screen_d9_w*.log`).
+The 87 DROP + 3 OPEN cases: exact pencils / 1-2 random lines each (`m2loci/lines_d9a.log`, 157 lines): 31 lines meet common
+rank-6 drop points, all tensor-independent (rank 6 = rank 7 there, M2 <= rank 6), no separation, no win.
+The remaining 843 (larger) component-directions were screened (`SCREEN=1`: rank-6 tensor only, full V- and H-stack;
+injective V_g resp. surjective H_g excludes every U rigorously; `m2loci/screen_d9_w*.log`): **530 EXCL**, 313 need the
+structural analysis `m2deep.py` (K(T) for R6a, R6b, R7: dimension, M^*-support S, exact pencils inside P(S);
+`m2loci/deep_d9_w*.log`, running).  In every case analysed so far the three kernels have the same dimension and the same
+support S, and all common drop points in P(S) are tensor-independent (equal ranks for R6a, R6b, R7; M2 below), e.g.
+((6,1,1,1),(5,3,1),(4,3,2)) dir2: S of dim 2, drop points with ranks 300/300/300 (M2 48, 68);
+((5,2,1,1),(5,2,1,1),(4,2,2,1)) dir1: S of dim 11, drop points 80/80/80 (M2 20).
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

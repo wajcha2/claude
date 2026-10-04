@@ -22,6 +22,8 @@ source side, K = n_N + 4 random pairs (g'.v, g''.v) on the target side, or g*n_N
    the two tensors are drawn from `seed` alone, so they are the same for all workers and all runs with this seed.
 Env: MEMCAP (max elements of an intermediate, default 2^25; larger contractions are split into blocks),
      MAXCOST / MAXDIM (skip components whose cost proxy / largest Weyl dimension exceeds the bound),
+     MAXFLOPS (a component one of whose flattenings needs more than this many flops, by the path estimate, is left
+       with a line 'lam=... NOT CHECKED (MAXFLOPS ...)' instead of a result; the claim is kept),
      RESUME=log1:log2 (skip components already present in these logs), CLAIMDIR (default claims_n<n>_d<d>).
 Lines '*** SEPARATES' mark a hit; the last line prints 'FOUND: [...]'."""
 import numpy as np
@@ -42,6 +44,10 @@ MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))
 DPMAX = int(os.environ.get('DPMAX', '24'))     # max number of tensors for the DynamicProgramming path fallback
 MAXCOST = float(os.environ.get('MAXCOST', 'inf'))
 MAXDIM = float(os.environ.get('MAXDIM', 'inf'))
+MAXFLOPS = float(os.environ.get('MAXFLOPS', 'inf'))
+
+class TooExpensive(Exception):
+    """raised by compute_F before any work when the estimated flop count of one flattening exceeds MAXFLOPS"""
 ROWCAP = os.environ.get('ROWCAP', '1') == '1'   # cap the number of sampled rows/columns by the rank bounds (noV only)
 CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%s_d%d' % ('x'.join(map(str, ns)) if len(set(ns)) > 1 else ns[0], d))
 PR1, PR2 = 8, 16                       # probe size (source points x target pairs)
@@ -111,6 +117,8 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
         if big > MEMCAP:
             path, info, big = best_path(ops, out)
     if big <= MEMCAP:
+        if info is not None and float(info.opt_cost) > MAXFLOPS:
+            raise TooExpensive(float(info.opt_cost))
         return execute(ops, out, path).astype(np.int64)
     # Block splitting.  Two halving orders are tried, Z (target pairs) first and Y (source points) first, each down
     # to the first block shape whose path fits MEMCAP, and the order with the smaller total flop count
@@ -136,6 +144,8 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
             best = (total, order, yb, zb, pb, ib, bb)
     total, order, yb, zb, pb, ib, bb = best
     print("# blocks: %s-first (%d x %d) of %d x %d, %.2e flops, largest intermediate %.2e" % (order, yb, zb, N1, K, total, bb), file=sys.stderr); sys.stderr.flush()
+    if total > MAXFLOPS:
+        raise TooExpensive(total)
     if bb > MEMCAP:
         print("# memory: no path within MEMCAP even for 1x1 blocks (largest intermediate %.2e elements); proceeding" % bb, file=sys.stderr); sys.stderr.flush()
     F = np.zeros((N1, K), dtype=np.int64)
@@ -236,8 +246,8 @@ for li, lam in enumerate(triples):
         comps.append((cost_proxy(lam, g), li, lam, g))
 comps.sort()
 os.makedirs(CLAIMDIR, exist_ok=True)
-print("# sweep_fast n=%s d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%d MAXCOST=%s MAXDIM=%s: %d components, %d already done"
-      % (','.join(map(str, ns)), d, ranks, SEED, WORKER, NWORKERS, NOV, p, MEMCAP, MAXCOST, MAXDIM, len(comps), len(DONE)))
+print("# sweep_fast n=%s d=%d ranks=%s seed=%d worker %d/%d noV=%s p=%d MEMCAP=%d MAXCOST=%s MAXDIM=%s MAXFLOPS=%s: %d components, %d already done"
+      % (','.join(map(str, ns)), d, ranks, SEED, WORKER, NWORKERS, NOV, p, MEMCAP, MAXCOST, MAXDIM, MAXFLOPS, len(comps), len(DONE)))
 sys.stdout.flush()
 found, skipped = [], []
 T0 = time.time()
@@ -254,9 +264,16 @@ for cost, li, lam, g in comps:
     t0 = time.time()
     crng = np.random.default_rng([SEED, li])
     res, spans = {}, []
-    for dirn in range(3):
-        rd, span, tried = direction(lam, g, dirn, crng)
-        res.update(rd); spans.append(span)
+    try:
+        for dirn in range(3):
+            rd, span, tried = direction(lam, g, dirn, crng)
+            res.update(rd); spans.append(span)
+    except TooExpensive as e:
+        # recorded with the 'lam=' prefix so that RESUME skips it in later runs of this stage; a later stage with a
+        # larger MAXFLOPS drops these lines from its RESUME log (grep -v 'NOT CHECKED') and recomputes them
+        print("lam=%s g=%d dims=%s  NOT CHECKED (MAXFLOPS %.1e): one flattening needs %.2e flops  cost=%.2e (%.1fs)"
+              % (lam, g, dims_of(lam), MAXFLOPS, e.args[0], cost, time.time() - t0)); sys.stdout.flush()
+        skipped.append(lam); continue
     keys = sorted(res)
     sep = [k for k in keys if res[k][0] < res[k][-1]]
     summary = ' '.join('%s%d:%s' % (k[1][0], k[0] + 1, '/'.join(str(x) for x in res[k])) for k in keys)
@@ -265,5 +282,5 @@ for cost, li, lam, g in comps:
     if sep:
         line += "  *** SEPARATES %s" % sep; found.append((lam, sep))
     print(line); sys.stdout.flush()
-print("NOT CHECKED (MAXCOST/MAXDIM filter): %d components: %s" % (len(skipped), skipped))
+print("NOT CHECKED (MAXCOST/MAXDIM/MAXFLOPS filter): %d components: %s" % (len(skipped), skipped))
 print("n=%s d=%d ranks=%s worker %d total %.0fs FOUND: %s" % (','.join(map(str, ns)), d, ranks, WORKER, time.time() - T0, found))

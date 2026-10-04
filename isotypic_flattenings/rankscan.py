@@ -217,32 +217,53 @@ def _sub(A, B):
 
 class RREF:
     """reduced row echelon basis of a growing set of vectors of length N over F_p (float64 residues).
-    add(X) adds the rows of X and returns the new rank; cost is dominated by BLAS products."""
+    add(X) adds the rows of X and returns the new rank; cost is dominated by BLAS products.
+    The basis is kept in blocks of at most BLK rows that are updated in place, so the memory is the basis itself
+    plus one block-sized temporary (the former single array was re-allocated on every growth and every update made
+    two full-size temporaries: 4.8 GB peaks for V-stacks with vectors of length 12608)."""
     CH = 128
+    BLK = 1024
 
     def __init__(self, N):
         self.N = N
-        self.B = np.zeros((0, N))
-        self.piv = np.zeros(0, dtype=np.int64)
+        self.blocks = []          # [array (BLK x N), rows used, pivot columns (list)]
+        self._rank = 0
 
     @property
     def rank(self):
-        return len(self.piv)
+        return self._rank
+
+    @property
+    def B(self):
+        return np.vstack([b[0][:b[1]] for b in self.blocks]) if self.blocks else np.zeros((0, self.N))
+
+    @property
+    def piv(self):
+        return np.array([c for b in self.blocks for c in b[2]], dtype=np.int64)
 
     def add(self, X):
         for s in range(0, X.shape[0], self.CH):
-            if self.rank == self.N:
+            if self._rank == self.N:
                 break
             Y = np.array(X[s:s + self.CH], dtype=np.float64)
-            if self.rank:
-                Y = _sub(Y, _mm(Y[:, self.piv], self.B))
+            for Bb, m, pv in self.blocks:            # RREF: reducing block by block = reducing by the whole basis
+                Y = _sub(Y, _mm(Y[:, pv], Bb[:m]))
             R, newpiv = self._gauss_jordan(Y)
-            if len(newpiv):
-                if self.rank:
-                    self.B = _sub(self.B, _mm(self.B[:, newpiv], R))
-                self.B = np.vstack([self.B, R])
-                self.piv = np.concatenate([self.piv, newpiv])
-        return self.rank
+            if not len(newpiv):
+                continue
+            for blk in self.blocks:                  # eliminate the new pivot columns from the old rows, in place
+                Bb, m = blk[0], blk[1]
+                U = _mm(Bb[:m][:, newpiv], R)
+                Bb[:m] -= U
+                np.add(Bb[:m], p, out=Bb[:m], where=Bb[:m] < 0)
+                del U
+            for row, c in zip(R, newpiv):            # append the new rows
+                if not self.blocks or self.blocks[-1][1] == self.blocks[-1][0].shape[0]:
+                    self.blocks.append([np.empty((min(self.BLK, self.N), self.N)), 0, []])
+                blk = self.blocks[-1]
+                blk[0][blk[1]] = row; blk[1] += 1; blk[2].append(int(c))
+            self._rank += len(newpiv)
+        return self._rank
 
     @staticmethod
     def _gauss_jordan(Y):

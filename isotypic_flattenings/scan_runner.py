@@ -28,7 +28,7 @@ REPORT = int(os.environ.get('REPORT', '900'))
 SCAN = os.environ.get('SCAN', 'scan/live')
 STATE = os.path.join(SCAN, 'state.json')
 WENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
-MARKS = ('failed', 'deferred', 'timeout')       # claim files that are not held by a worker
+MARKS = ('failed', 'deferred', 'timeout', 'done')       # claim files that are not held by a worker ('done': restored claim of a finished component)
 
 
 def log(msg):
@@ -271,6 +271,8 @@ def main():
     for name, job in st['jobs'].items():
         if job['status'] != 'running':
             continue
+        done = results(job['out'])
+        comps = {li: lam for _, li, lam, _ in comp_list(job['n'], job['d'])}
         for fn in os.listdir(job['claims']):
             w, pid = read_claim(os.path.join(job['claims'], fn))
             if w is None or w in MARKS:
@@ -279,7 +281,7 @@ def main():
                 if pid not in workers:
                     workers[pid] = (None, name, int(w), os.path.getmtime(os.path.join(job['claims'], fn)))
                     log('restart: adopted running worker pid %d on %s' % (pid, name))
-            else:
+            elif comps.get(int(fn)) not in done:      # claims of finished components stay (they count as claimed)
                 os.remove(os.path.join(job['claims'], fn))
                 log('restart: removed stale claim %s/%s (pid %d)' % (name, fn, pid))
     save_state(st)
@@ -362,7 +364,7 @@ def main():
             changed = False
         # schedule
         runnable = sorted((j['stage'], j['n'], j['d'], nm) for nm, j in st['jobs'].items()
-                          if j['status'] == 'running' and claimed(j) < j['ncomp'])
+                          if j['status'] == 'running' and not j.get('deferred') and claimed(j) < j['ncomp'])
         for _, _, _, name in runnable:
             if len(workers) >= NCORES:
                 break

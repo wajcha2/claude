@@ -44,6 +44,7 @@ WCAP = int(os.environ.get('WCAP', str(1 << 26)))
 DPMAX = int(os.environ.get('DPMAX', '24'))
 VSTACK = os.environ.get('VSTACK', '1') == '1'
 PR1 = 8
+ENDS = float(os.environ.get('ENDS', '16'))   # resolve(): ends-first when size(top rank) <= ENDS * size(lowest rank)
 EXTRA = 8
 
 
@@ -413,7 +414,12 @@ def resolve(D, need, rlo, rmax_feasible):
     get(rlo)
     if D.saturated(prof[rlo]):
         sat_from = rlo
+    elif hi > rlo and word_minor_size(D.lam_p, D.n, hi) <= ENDS * word_minor_size(D.lam_p, D.n, rlo):
+        # the top rank costs about as much as the lowest: evaluate both ends first (equal ends settle the whole
+        # interval with 2 evaluations; a doubling search needed 4 for 6x6x6, ranks 10..14), bisect if they differ
+        get(hi); pts.append(hi)
     else:
+        # the top rank is much more expensive (large n): doubling steps from rlo, stop at saturation
         step, a = 1, rlo
         while a < hi:
             b = min(a + step, hi)

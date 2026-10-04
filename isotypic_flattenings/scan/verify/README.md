@@ -9,5 +9,8 @@
 | 4x4x4 | 8 | ((4,2,2),(4,2,1,1),(3,3,1,1)) | 6 | 84, 45, 20 | 1V6 only (k <= 5: 420/420) | 6 vs 7: 460 / 462 | same |
 | 4x4x4 | 8 | ((5,3),(5,1,1,1),(4,2,1,1)) | 3 | 280, 35, 45 | 1V2-3 (k = 1: 265/265) | 6 vs 7: 483 / 485 | same |
 | 4x4x4 | 8 | ((5,3),(4,2,1,1),(3,3,1,1)) | 4 | 280, 45, 20 | 1V3-4 (k <= 2: equal) | 6 vs 7: 654 / 656 | same |
+| 4x4x4 | 8 | ((5,3),(4,2,1,1),(4,2,1,1)) | 6 | 280, 45, 45 | 1V4-6 (k <= 3: equal) | 6 vs 7: 953 / 955 (k = 4), 970 / 974 (k = 5, 6) | seeds 7, 11 (p = 524287), 13 (p = 524269); n4_d8_more.log |
 
 All V-type separators are new: the earlier sweeps used `noV` (no V-stacks), so V-type separators were never computed.
+
+4x4x4 is complete up to d = 8: all 195 components of d = 7 (every k, H and V) give no separator of rank 6 vs 7; all 426 components of d = 8 checked, exactly the 8 above separate.

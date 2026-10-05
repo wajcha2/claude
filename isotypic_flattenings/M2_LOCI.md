@@ -103,16 +103,17 @@ Snapshot 2026-10-05 13:25 UTC (logs `m2loci/snap/`, live in `live/`; chunks of <
 |---|---|---|---|
 | 10 | 1264 / 1424 | 1161 | 103 |
 | 11 | 2271 / 2658 | 2101 | 170 |
-Follow-up (`m2deep2.py`, kernels of R6a and R7; R6b and M2 only where rank 6 < rank 7), snapshot 2026-10-05 15:50 UTC:
-238 of the 273 follow-up cases done (cheapest first), **none separating, no M2 win**:
+Follow-up (`m2deep2.py`, kernels of R6a and R7; R6b and M2 only where rank 6 < rank 7), snapshot 2026-10-05 19:20 UTC:
+272 of the 273 follow-up cases done, **none separating, no M2 win**:
 | d | STRUCT (same phi_0 for all tensors) | common support S of dim >= 2, exact pencils in P(S) |
 |---|---|---|
-| 10 | 42 | 37 |
-| 11 | 46 | 113 |
+| 10 | 48 | 54 |
+| 11 | 55 | 115 |
 In the S cases, every drop point common to both rank-6 tensors has rank 6 = rank 7 (e.g. ((8,1,1,1),(5,4,1,1),(5,4,1,1)) dir1:
 points with 100/100 and 20/20; ((5,4,1),(5,3,1,1),(4,4,1,1)) dir2: 90/90; ((5,2,2,1),(5,2,2,1),(4,3,3)) dir1: 64/64); the points
 where only R6a drops are not shared by R6b (gcd of the two drop polynomials = 1).
-Not yet done: 35 follow-ups (most expensive), 160 (d = 10) + 387 (d = 11) candidates to screen, the d = 11 tail (300).
+Not yet done: 1 follow-up (((6,2,1,1),(6,2,1,1),(6,2,1,1)) dir3, the most expensive), 160 (d = 10) + 387 (d = 11) candidates to
+screen, the d = 11 tail (300).
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

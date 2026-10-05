@@ -40,8 +40,10 @@ P("Update 2026-09-28 23:20 UTC: with the DP path fallback capped, ((10,3),(4,3,3
 P("60 h estimated from the old block plan, so the stages advance faster (stage 3 = 1e8 since 23:20 UTC).  Bigger components")
 P("are reported here as not checked with their cost.  Remaining components by cost bucket (not in the done-log):")
 P("")
-P("Since 2026-10-04 17:30 UTC a flop cap MAXFLOPS = 1e13 per flattening (path estimate; measured 1.1e9 flop/s in the 1 x K block loops,")
-P("so about 2.5 h per flattening) is also applied: a component above it is recorded as 'NOT CHECKED (MAXFLOPS ...)' with its flop count")
+stage = open('maxflops_stage').read().strip() if os.path.exists('maxflops_stage') else '1e13'
+P("Since 2026-10-04 17:30 UTC a flop cap MAXFLOPS per flattening (path estimate; measured 1.1e9 flop/s in the 1 x K block loops, so 1e13 is")
+P("about 2.5 h per flattening) is also applied, in stages 1e13 then 3e13 (current stage: %s, file maxflops_stage; the check-in advances the" % stage)
+P("stage once both lists are exhausted and redoes the components skipped under the lower cap): a component above the cap is recorded as 'NOT CHECKED (MAXFLOPS ...)' with its flop count")
 P("(listed per degree below) and counted neither as checked nor as remaining here.  All four workers had been sitting in flattenings of")
 P("4e13 .. 3e14 flops (10 .. 75 h each) at that time; the cost proxy does not see the contraction cost.")
 P("")

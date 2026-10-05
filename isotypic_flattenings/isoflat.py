@@ -75,7 +75,7 @@ def kronecker(l1, l2, l3):
 # ---------- modular linear algebra ----------
 def modrank(M):
     """rank of integer matrix M over F_p (M values reduced mod p)."""
-    A = np.array(M, dtype=np.int64) % p
+    A = np.array(M, dtype=np.int64); A %= p      # in place: '% p' on the copy doubled the peak (one more full-size array)
     if A.size == 0:
         return 0
     rows, cols = A.shape
@@ -93,7 +93,13 @@ def modrank(M):
         others = np.nonzero(A[:, c])[0]
         others = others[others != r]
         if others.size:
-            A[others] = (A[others] - np.outer(A[others, c], A[r])) % p
+            # row update in chunks of at most ~8M elements: the one-shot update A[others] - outer(...) % p built three
+            # full-size temporaries (3 x the matrix) on top of A, i.e. ~3 GB extra for the 9458 x 9466 H stacks at
+            # n=5, d=14, which OOM-killed a worker at 5.2 GB RSS (2026-10-05); the arithmetic is unchanged.
+            step = max(1, (1 << 23) // cols); row = A[r]
+            for s in range(0, others.size, step):
+                idx = others[s:s + step]
+                A[idx] = (A[idx] - np.outer(A[idx, c], row)) % p
         r += 1
     return r
 

@@ -176,7 +176,20 @@ def claimed(job):
         return 0
 
 
-_done_cache, _list_cache = {}, {}
+_done_cache, _list_cache, _lam_cache = {}, {}, {}
+
+
+def done_lams(job):
+    """set of components with a result (cached until the result file changes)."""
+    try:
+        mt = os.path.getmtime(job['out'])
+    except FileNotFoundError:
+        return set()
+    c = _lam_cache.get(job['out'])
+    if c is None or c[0] != mt:
+        c = (mt, set(results(job['out'])))
+        _lam_cache[job['out']] = c
+    return c[1]
 
 
 def open_components(job):
@@ -338,14 +351,26 @@ def main():
         for name, job in st['jobs'].items():
             if job['status'] != 'running':
                 continue
+            # Only a worker's CURRENT component counts: its newest claim, and only if that component has no result
+            # yet.  (Claim files of finished components stay, and the old check measured them: all nine 'timeouts'
+            # before 2026-10-05 03:40 were components that had finished long before -- the worker was killed in the
+            # middle of another component.)
+            newest = {}
             for fn in os.listdir(job['claims']):
                 path = os.path.join(job['claims'], fn)
                 w, pid = read_claim(path)
                 if w is None or w in MARKS or pid not in alive:
                     continue
-                age = now - os.path.getmtime(path)
-                if age > tlimit:
-                    lam = {li: lam for _, li, lam, _ in comp_list(job['n'], job['d'])}.get(int(fn))
+                mt = os.path.getmtime(path)
+                if pid not in newest or mt > newest[pid][0]:
+                    newest[pid] = (mt, fn, path)
+            if newest:
+                done_now = done_lams(job)
+                comps_idx = {li: lam for _, li, lam, _ in comp_list(job['n'], job['d'])}
+            for pid, (mt, fn, path) in newest.items():
+                age = now - mt
+                if age > tlimit and comps_idx.get(int(fn)) not in done_now:
+                    lam = comps_idx.get(int(fn))
                     open(path, 'w').write('timeout %d %.0f\n' % (pid, age))
                     job['timeout'].append([list(map(list, lam)), round(age)])
                     try:

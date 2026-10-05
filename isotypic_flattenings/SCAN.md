@@ -57,6 +57,23 @@ log scan/wedge_frontier.log): 8x8x8 rank 12 vs 13 at d = 6 (742 / 784), 9x9x9 ra
 components with a (1^d) partition at those degrees are rerun with WCAP = 2^28 as extra jobs (n10_d5_x1, n8_d6_x1:
 one worker at a time over all extra jobs, ~5 GB each).
 
+## One-row components ((d), mu, mu): closed-form fast path (`onerow_family.py`, used by rankscan.py since 2026-10-05 03:40)
+A component with a one-row partition has g = 1 and is ((d), mu, mu).  At alpha^d the isotypic tensor is the S^mu-part
+of T(alpha)^{(x)d}, T(alpha) = B^T diag(A alpha) C, and its value at (g' v_mu) (x) (g'' v_mu) is the highest-weight
+matrix coefficient prod_{columns j of mu} Delta_{mu'_j}(g'^T T(alpha) g'') (leading principal minors).  rankscan.py
+evaluates these components this way (env ONEROW=1, default; record field dirs[].method = 'onerow'): O(n^3) per entry,
+no word-minor tensor.  Validated: 122 stored (component, direction, rank) values (scan/onerow_check.log) and a rerun of
+65 components of n = 4..6 jobs with identical ranks and separations (140 values).  Example: the 7x7x7 d = 7
+components ((7),(2,2,1,1,1),(2,2,1,1,1)) and ((7),(2,2,2,1),(2,2,2,1)) at ranks 12, 13 take 80 s each (saturated,
+no separation of rank 12; scan/onerow_frontier.log).
+
+## Correction (2026-10-05): no component ever reached the time limit
+Up to 2026-10-05 03:40 the runner's time-limit check measured every claim file of a live worker, including the
+claims of components that worker had finished hours before; all nine 'TIMEOUT' lines in the runner log were such
+finished components (each has a result), and each stop killed the worker in the middle of its current component,
+which was then redone.  Fixed: only a worker's newest claim without a result is timed.  The false entries were
+removed from state.json.
+
 Restart after a container loss: `cd isotypic_flattenings; pip install numpy sympy opt_einsum; mkdir -p scan/live; cp -r scan/state.json scan/res scan/jobs scan/logs scan/runner.log scan/monitor.log scan/live/;
 setsid nohup python3 -u scan_runner.py >> scan/live/runner.log 2>&1 < /dev/null &; setsid nohup ./scan_autosave.sh >> scan/live/autosave.log 2>&1 < /dev/null &` (continues from scan/state.json and
 the result files; components without a result are redone).

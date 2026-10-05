@@ -46,6 +46,7 @@ VSTACK = os.environ.get('VSTACK', '1') == '1'
 PR1 = 8
 ENDS = float(os.environ.get('ENDS', '16'))   # resolve(): ends-first when size(top rank) <= ENDS * size(lowest rank)
 EXTRA = 8
+ONEROW = os.environ.get('ONEROW', '1') == '1'   # closed-form fast path for components ((d), mu, mu)
 
 
 def generic_rank(n):
@@ -416,6 +417,38 @@ class Direction:
         return all(h >= u for h, u in zip(P['H'], self.ubH)) and (not VSTACK or all(v >= u for v, u in zip(P['V'], self.ubV)))
 
 
+class OnerowDirection:
+    """fast path for the components ((d), mu, mu) (g = 1): the flattening entries are products of leading minors of
+    g'^T T(alpha) g'' (onerow_family.py, validated against this file's evaluator on 122 values); same interface as
+    Direction (profile, saturated), direction t = 0 (source S^d) or t = 1 (source S^mu), same random tensors."""
+    def __init__(self, n, lam, t, crng, vecs):
+        from onerow_family import flat_rank
+        self.flat_rank = flat_rank
+        self.n, self.t, self.crng, self.vecs = n, t, crng, vecs
+        self.mu = tuple(lam[1]); d = sum(self.mu)
+        nd, nm = comb(n + d - 1, d), dim_schur(self.mu, n)
+        self.n1, self.n23 = (nd, nm * nm) if t == 0 else (nm, nd * nm)
+        self.N1 = self.K = min(self.n1, self.n23) + EXTRA
+        self.span, self.tried = 1, 0
+        self.ubH = self.ubV = [min(self.n1, self.n23)]
+        self.lam_p = (lam[t],) + tuple(lam[u] for u in range(3) if u != t)
+        self.times = {}
+
+    def profile(self, r):
+        t0 = time.time()
+        A, B, C = self.vecs[r]
+        rk, _ = self.flat_rank(self.n, self.mu, A, B, C, 1 if self.t == 0 else 2, self.crng)
+        self.times[r] = (round(time.time() - t0, 2), 0.0)
+        return {'H': [rk], 'V': [rk]}
+
+    def saturated(self, P):
+        return P['H'][0] >= self.ubH[0]
+
+
+def is_onerow(lam):
+    return len(lam[0]) == 1 and tuple(lam[1]) == tuple(lam[2])
+
+
 def resolve(D, need, rlo, rmax_feasible):
     """evaluate D.profile at few ranks; returns (profiles {r: P}, sep {r: [config strings]}, unknown [r],
     saturated_from r or None)."""
@@ -553,19 +586,20 @@ def main():
         status = 'ok'
         for t in distinct_dirs(lam):
             perm_lam = tuple(lam[u] for u in [t] + [u for u in range(3) if u != t])
-            rmax = max([r for r in range(1, rgen + 1) if word_minor_size(perm_lam, n, r) <= WCAP] or [0])
+            onerow = ONEROW and is_onerow(lam)
+            rmax = rgen if onerow else max([r for r in range(1, rgen + 1) if word_minor_size(perm_lam, n, r) <= WCAP] or [0])
             if rmax < max(rlo, 1):
                 rec['dirs'].append({'t': t, 'status': 'infeasible', 'rmax': rmax})
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
                 continue
             try:
-                D = Direction(n, lam, g, t, crng, vecs, min(rmax, rgen))
+                D = OnerowDirection(n, lam, t, crng, vecs) if onerow else Direction(n, lam, g, t, crng, vecs, min(rmax, rgen))
                 prof, sep, unknown, sat = resolve(D, need, rlo, min(rmax, rgen))
             except (Infeasible, MemoryError) as e:
                 rec['dirs'].append({'t': t, 'status': 'infeasible', 'why': str(e)[:200]})
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
                 continue
-            rec['dirs'].append({'t': t, 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K, 'span': D.span,
+            rec['dirs'].append({'t': t, 'method': 'onerow' if onerow else 'network', 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K, 'span': D.span,
                                 'tried': D.tried, 'rmax': rmax, 'sat_from': sat,
                                 'prof': {str(r): P for r, P in sorted(prof.items())},
                                 'times': {str(r): v for r, v in sorted(D.times.items())}})

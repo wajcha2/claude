@@ -1,6 +1,6 @@
 # Isotypic-flattening rank scan (n x n x n): status
 
-Updated 2026-10-05 20:50 UTC.  For each format and rank r: the lowest degree d in which some isotypic flattening has smaller rank on a random rank-r tensor than on a random rank-(r+1) tensor, and all components that do it in that degree.  Configurations: `1H1` = direction 1 (source S^{l1}V^*), one generic functional (dim U = 1); `1H2-4` = stacked flattening S^{l1}V^* -> U^* (x) S^{l2}V (x) S^{l3}V for a generic U of dim 2..4; `1V3` = U (x) S^{l1}V^* -> S^{l2}V (x) S^{l3}V, dim U = 3.  Partitions are written without commas, e.g. (62,3221,3221).  Method and code: SCAN.md, rankscan.py.
+Updated 2026-10-05 21:21 UTC.  For each format and rank r: the lowest degree d in which some isotypic flattening has smaller rank on a random rank-r tensor than on a random rank-(r+1) tensor, and all components that do it in that degree.  Configurations: `1H1` = direction 1 (source S^{l1}V^*), one generic functional (dim U = 1); `1H2-4` = stacked flattening S^{l1}V^* -> U^* (x) S^{l2}V (x) S^{l3}V for a generic U of dim 2..4; `1V3` = U (x) S^{l1}V^* -> S^{l2}V (x) S^{l3}V, dim U = 3.  Partitions are written without commas, e.g. (62,3221,3221).  Method and code: SCAN.md, rankscan.py.
 
 * **3x3x3** (generic rank 5): with d up to 5 [d <= 5 complete] separated r = 1-2 at d = 1; r = 3 at d = 2; r = 4 at d = 5 -- every rank up to r_gen - 1 = 4 is separated (max rank reached at d = 5).  Finished.
 * **4x4x4** (generic rank 7): with d up to 8 [d <= 8 complete] separated r = 1-3 at d = 1; r = 4 at d = 2; r = 5 at d = 3; r = 6 at d = 8 -- every rank up to r_gen - 1 = 6 is separated (max rank reached at d = 8).  Finished.
@@ -8,7 +8,7 @@ Updated 2026-10-05 20:50 UTC.  For each format and rank r: the lowest degree d i
 * **6x6x6** (generic rank 14): with d up to 8 [d <= 6 complete for r = 10; d = 7: 330 of 333 components (running); d = 8: 30 of 926 components (running)] separated r = 1-5 at d = 1; r = 6 at d = 2; r = 7 at d = 3; r = 8 at d = 4; r = 9 at d = 5, but NOT r = 10-13 (vs r + 1)
 * **7x7x7** (generic rank 19): with d up to 7 [d <= 6 complete for r = 12; d = 7: 151 of 341 components (running)] separated r = 1-6 at d = 1; r = 7 at d = 2; r = 8 at d = 3; r = 9 at d = 4; r = 10-11 at d = 5, but NOT r = 12-18 (vs r + 1)
 * **8x8x8** (generic rank 24): with d up to 9 [d <= 5 complete for r = 13; d = 6: 114 of 119 components (running); d = 7: 1 of 341 components; d = 8: 2 of 995 components; d = 9: 4 of 2665 components] separated r = 1-7 at d = 1; r = 8 at d = 2; r = 9 at d = 3; r = 10 at d = 4; r = 11 at d = 5; r = 12 at d = 6, but NOT r = 13-23 (vs r + 1)
-* **9x9x9** (generic rank 30): with d up to 10 [d <= 5 complete for r = 14; d = 6: 36 of 119 components (running); d = 8: 1 of 995 components; d = 9: 2 of 2681 components; d = 10: 4 of 7374 components] separated r = 1-8 at d = 1; r = 9 at d = 2; r = 10 at d = 3; r = 11 at d = 4; r = 12 at d = 5; r = 13 at d = 6, but NOT r = 14-29 (vs r + 1)
+* **9x9x9** (generic rank 30): with d up to 10 [d <= 5 complete for r = 14; d = 6: 37 of 119 components (running); d = 8: 1 of 995 components; d = 9: 2 of 2681 components; d = 10: 4 of 7374 components] separated r = 1-8 at d = 1; r = 9 at d = 2; r = 10 at d = 3; r = 11 at d = 4; r = 12 at d = 5; r = 13 at d = 6, but NOT r = 14-29 (vs r + 1)
 * **10x10x10** (generic rank 36): with d up to 10 [d <= 4 complete for r = 15; d = 5: 40 of 40 components; d = 6: 3 of 119 components (running); d = 9: 1 of 2681 components; d = 10: 2 of 7396 components] separated r = 1-9 at d = 1; r = 10 at d = 2; r = 11 at d = 3; r = 12 at d = 4; r = 13 at d = 5; r = 14 at d = 6, but NOT r = 15-35 (vs r + 1)
 
 ## 3x3x3 (generic rank 5)
@@ -244,7 +244,7 @@ checked = components with a result (all three directions, every needed rank); re
 | 9 | 3 | 5 | 5 | 3e+05 | 0 | 0 | 0.00 | 1 | 123 |
 | 9 | 4 | 15 | 15 | 3e+06 | 0 | 0 | 0.08 | 179 | 2138 |
 | 9 | 5 | 40 | 40 | 3e+08 | 0 | 0 | 1.49 | 546 | 2170 |
-| 9 | 6 | 119 | 36 | 3e+08 | 83 | 3 | 13.71 | 13319 | 3251 |
+| 9 | 6 | 119 | 37 | 3e+08 | 82 | 3 | 14.27 | 13319 | 3251 |
 | 9 | 7 | 341 | 0 | - | 341 | 0 | 0.00 | 0 | 0 |
 | 9 | 8 | 995 | 1 | 3e+05 | 994 | 1 | 0.00 | 0 | 34 |
 | 9 | 9 | 2681 | 2 | 3e+05 | 2679 | 2 | 0.00 | 0 | 35 |
@@ -263,7 +263,7 @@ checked = components with a result (all three directions, every needed rank); re
 ## Last resource samples (scan/monitor.log)
 
 ```
-2026-10-05T20:37:59Z avail=12198MB cgroup=3186MB cgroup_peak=10572MB load=4.11 workers=4 n9_d6_s4:416:1040MB:40397s n7_d7_s4:9795:992MB:4461s n7_d7_s4:10055:655MB:3017s n7_d7_s4:10662:470MB:727s
-2026-10-05T20:43:01Z avail=11670MB cgroup=3857MB cgroup_peak=10572MB load=4.20 workers=4 n9_d6_s4:416:1330MB:40699s n7_d7_s4:9795:1128MB:4763s n7_d7_s4:10055:758MB:3318s n7_d7_s4:10662:608MB:1029s
-2026-10-05T20:48:03Z avail=11026MB cgroup=4463MB cgroup_peak=10572MB load=4.01 workers=4 n9_d6_s4:416:1348MB:41001s n7_d7_s4:9795:1092MB:5065s n7_d7_s4:10055:915MB:3620s n7_d7_s4:10662:1075MB:1330s
+2026-10-05T21:08:10Z avail=10134MB cgroup=5526MB cgroup_peak=10572MB load=4.09 workers=4 n9_d6_s4:416:1975MB:42208s n7_d7_s4:9795:1813MB:6272s n7_d7_s4:10055:1136MB:4827s n7_d7_s4:10914:570MB:1080s
+2026-10-05T21:13:12Z avail=10880MB cgroup=4710MB cgroup_peak=10572MB load=4.12 workers=4 n9_d6_s4:416:1532MB:42510s n7_d7_s4:9795:1322MB:6574s n7_d7_s4:10055:1201MB:5129s n7_d7_s4:10914:622MB:1382s
+2026-10-05T21:18:14Z avail=11585MB cgroup=4017MB cgroup_peak=10572MB load=4.09 workers=4 n9_d6_s4:416:950MB:42812s n7_d7_s4:9795:1182MB:6875s n7_d7_s4:10055:1201MB:5431s n7_d7_s4:10914:654MB:1684s
 ```

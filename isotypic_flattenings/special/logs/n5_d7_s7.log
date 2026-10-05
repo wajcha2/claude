@@ -96,3 +96,48 @@ lam=((4, 2, 1), (3, 2, 2), (3, 2, 1, 1)) g=5 dir 3: n1=175 n23=147000 N1=183 K=8
 lam=((4, 2, 1), (4, 2, 1), (3, 2, 1, 1)) g=8 dir 1: n1=700 n23=122500 N1=708 K=5608  ranks [9]
    generic U: r9 H[700, 700, 700, 700, 700, 700, 700, 700] V[1400, 2100, 2800, 3500, 4200, 4900, 5600]
    U_k dims {1: 8, 2: 8, 3: 8, 4: 0}  swaps {'sw12+': 3, 'sw12-': 5}  (0.9s)
+   sw12+                        r9 H[700, 700, 700, 700, 700, 700, 700, 700] V[1400, 2100, 2800, 3500, 4200, 4900, 5600]
+   sw12-                        r9 H[700, 700, 700, 700, 700, 700, 700, 700] V[1400, 2100, 2800, 3500, 4200, 4900, 5600]
+   line0 rho 700  minpoly deg [700, 700]  gcd deg 0    (180.2s)
+   line1 rho 700  minpoly deg [700, 700]  gcd deg 0    (3.3s)
+   gline H2 rho 700  minpoly deg [700, 700]  gcd deg 0    (47.0s)
+   gline V2 rho 1400  minpoly deg [1400, 1400]  gcd deg 0    (56.3s)
+   gline H3 rho 700  minpoly deg [700, 700]  gcd deg 0    (74.1s)
+   gline V3 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (97.1s)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   gline H5: skipped (size)
+   gline V5: skipped (size)
+   gline H6: skipped (size)
+   gline V6: skipped (size)
+   gline H7: skipped (size)
+   gline V7: skipped (size)
+   thru-sw12+0 rho 700  minpoly deg [700, 700]  gcd deg 0    (3.4s)
+   in-sw12+0 rho 700  minpoly deg [700, 700]  gcd deg 0    (3.4s)
+   thru-sw12-0 rho 700  minpoly deg [700, 700]  gcd deg 0    (3.3s)
+   in-sw12-0 rho 700  minpoly deg [700, 700]  gcd deg 0    (3.4s)
+   done dir 1: ok, 20 cases, 0 hits, wall 870.2s (F 364.4s), peak 1292 MB
+lam=((4, 2, 1), (4, 2, 1), (3, 2, 1, 1)) g=8 dir 3: n1=175 n23=490000 N1=183 K=1408  ranks [9]
+   generic U: r9 H[175, 175, 175, 175, 175, 175, 175, 175] V[350, 525, 700, 875, 1050, 1225, 1400]
+   U_k dims {1: 8, 2: 8, 3: 8, 4: 0}  swaps {'sw23+': 3, 'sw23-': 5}  (0.7s)
+   sw23+                        r9 H[175, 175, 175, 175, 175, 175, 175, 175] V[350, 525, 700, 875, 1050, 1225, 1400]
+   sw23-                        r9 H[175, 175, 175, 175, 175, 175, 175, 175] V[350, 525, 700, 875, 1050, 1225, 1400]
+   line0 rho 175  minpoly deg [175, 175]  gcd deg 0    (6.5s)
+   line1 rho 175  minpoly deg [175, 175]  gcd deg 0    (0.2s)
+   gline H2 rho 175  minpoly deg [175, 175]  gcd deg 0    (2.4s)
+   gline V2 rho 350  minpoly deg [350, 350]  gcd deg 0    (2.8s)
+   gline H3 rho 175  minpoly deg [175, 175]  gcd deg 0    (3.7s)
+   gline V3 rho 525  minpoly deg [525, 525]  gcd deg 0    (4.5s)
+   gline H4 rho 175  minpoly deg [175, 175]  gcd deg 0    (5.1s)
+   gline V4 rho 700  minpoly deg [700, 700]  gcd deg 0    (6.2s)
+   gline H5 rho 175  minpoly deg [175, 175]  gcd deg 0    (6.4s)
+   gline V5 rho 875  minpoly deg [875, 875]  gcd deg 0    (8.6s)
+   gline H6 rho 175  minpoly deg [175, 175]  gcd deg 0    (7.4s)
+   gline V6 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (10.6s)
+   gline H7 rho 175  minpoly deg [175, 175]  gcd deg 0    (8.7s)
+   gline V7 rho 1225  minpoly deg [1225, 1225]  gcd deg 0    (14.1s)
+   thru-sw23+0 rho 175  minpoly deg [175, 175]  gcd deg 0    (0.2s)
+   in-sw23+0 rho 175  minpoly deg [175, 175]  gcd deg 0    (0.1s)
+   thru-sw23-0 rho 175  minpoly deg [175, 175]  gcd deg 0    (0.2s)
+   in-sw23-0 rho 175  minpoly deg [175, 175]  gcd deg 0    (0.2s)
+   done dir 3: ok, 20 cases, 0 hits, wall 107.5s (F 14.4s), peak 676 MB

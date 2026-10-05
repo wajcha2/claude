@@ -48,3 +48,18 @@ lam=((4, 1, 1), (3, 2, 1), (3, 2, 1)) g=4 dir 1: n1=2100 n23=5531904 N1=2108 K=8
    U3                           r12 H[2100, 2100, 2100, 2100] V[4200, 6300, 8400]
    sw23+                        r12 H[2100, 2100, 2100, 2100] V[4200, 6300, 8400]
    sw23-                        r12 H[2100, 2100, 2100, 2100] V[4200, 6300, 8400]
+   line0 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (888.6s)
+   line1 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (46.6s)
+   gline H2 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (261.3s)
+   gline V2 rho 4200  minpoly deg [4200, 4200]  gcd deg 0    (393.0s)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   thru-U30 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (44.8s)
+   in-U30 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (45.2s)
+   thru-sw23+0 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (46.5s)
+   thru-sw23-0 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (46.0s)
+   in-sw23-0 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (45.3s)
+   done dir 1: ok, 14 cases, 0 hits, wall 3358.1s (F 1661.0s), peak 4126 MB
+lam=((4, 1, 1), (3, 2, 1), (3, 2, 1)) g=4 dir 2: n1=2352 n23=4939200 N1=2360 K=9416  ranks [12, 13, 14, 15, 16, 17, 18]
+   generic U: r12 H[2352, 2352, 2352, 2352] V[4704, 7056, 9408]
+   U_k dims {1: 4, 2: 4, 3: 2, 4: 0}  swaps {'sw13+': 1, 'sw13-': 3}  (0.6s)

@@ -128,6 +128,8 @@ def main():
                  'line, in = line inside a linear drop component, thru = line through a natural point), e = degree of the point\'s '
                  'field F_{p^e}, multiplicity over all lines, [rank profile r:rank].  W(k) = linear drop component of '
                  'dimension k (tested as U with H and V prefixes).\n\n')
+        if os.path.exists('special/SUMMARY.md'):
+            fh.write(open('special/SUMMARY.md').read() + '\n')
         fh.write('## Coverage\n\n| format | d | ranks | components | directions | directions with hits | wall |\n|---|---|---|---|---|---|---|\n')
         for (n, d, R), c in sorted(cov.items()):
             fh.write('| %dx%dx%d | %d | %s | %d | %d | %d | %.0f s |\n' % (n, n, n, d, '%d-%d' % (R[0], R[-1]) if len(R) > 1 else R[0],

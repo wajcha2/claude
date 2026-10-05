@@ -568,15 +568,20 @@ def main():
     print('# rankscan n=%d d=%d r_gen=%d need=%s rlo=%d seed=%d worker %d/%d VSTACK=%s MEMCAP=%d WCAP=%d: %d components in list'
           % (n, d, rgen, need, rlo, SEED, WORKER, NWORKERS, VSTACK, MEMCAP, WCAP, len(order)), flush=True)
     T0 = time.time()
+    MAXCOMP = int(os.environ.get('MAXCOMP', '0'))      # > 0: exit after that many components (the runner sets 1, so
+    ncomp_done = 0                                      # that it can re-apply its job priorities after every component)
     for lam in order:
         li, g = allc[lam]
         if lam in done:
             continue
+        if MAXCOMP and ncomp_done >= MAXCOMP:
+            break
         try:
             fd = os.open(os.path.join(CLAIMDIR, str(li)), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
             os.write(fd, ('%d %d\n' % (WORKER, os.getpid())).encode()); os.close(fd)
         except FileExistsError:
             continue
+        ncomp_done += 1
         reset_peak_rss()
         t0, c0 = time.time(), time.process_time()
         crng = np.random.default_rng([SEED, n, d, li])

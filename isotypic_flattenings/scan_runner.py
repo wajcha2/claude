@@ -442,7 +442,7 @@ def main():
             w = next(wid)
             env = dict(os.environ, **WENV)
             env.update({'NEED': ','.join(map(str, job['need'])), 'LIST': job['list'], 'OUT': job['out'],
-                        'CLAIMDIR': job['claims'], 'RESUME': job['out'], 'WORKER': str(w)})
+                        'CLAIMDIR': job['claims'], 'RESUME': job['out'], 'WORKER': str(w), 'MAXCOMP': '1'})
             env.update(job.get('env', {}))           # per-job settings (extra jobs)
             lf = open(os.path.join(SCAN, 'logs', '%s.log' % name), 'a')
             pr = subprocess.Popen([sys.executable, '-u', 'rankscan.py', str(job['n']), str(job['d'])], env=env,

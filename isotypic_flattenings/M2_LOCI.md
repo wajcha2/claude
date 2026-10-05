@@ -98,22 +98,23 @@ V_k (k n1 <= n23): d = 10: 1424 (all), d = 11: the cheapest 2658 of 2958 (the 30
 `m2loci/jobs_d1011_main.txt`, `m2loci/jobs_d11_tail.txt`).  Everywhere else M2 is capped below the generic rank and cannot beat
 rank 6 at a separating locus.  Screen (`SCREEN=1`, injective full V-stack of a rank-6 tensor => every U excluded), then
 `m2deep2.py` on the failures (kernels of R6a and R7; R6b and M2 only at points where rank 6 < rank 7).
-Snapshot 2026-10-05 13:25 UTC (logs `m2loci/snap/`, live in `live/`; chunks of <= 2 h, resumable):
+Screen snapshot 2026-10-05 22:20 UTC (logs `m2loci/snap/`, live in `live/`; chunks of <= 2 h, resumable):
 | d | screened | EXCL (all U) | to follow-up |
 |---|---|---|---|
-| 10 | 1264 / 1424 | 1161 | 103 |
-| 11 | 2271 / 2658 | 2101 | 170 |
-Follow-up (`m2deep2.py`, kernels of R6a and R7; R6b and M2 only where rank 6 < rank 7), snapshot 2026-10-05 19:20 UTC:
-272 of the 273 follow-up cases done, **none separating, no M2 win**:
+| 10 | 1307 / 1424 | 1175 | 132 |
+| 11 | 2404 / 2658 | 2200 | 204 |
+Follow-up (`m2deep2.py`, kernels of R6a and R7; R6b and M2 only where rank 6 < rank 7): **all 273 screen failures known on
+2026-10-05 13:50 UTC are done, none separating, no M2 win**:
 | d | STRUCT (same phi_0 for all tensors) | common support S of dim >= 2, exact pencils in P(S) |
 |---|---|---|
 | 10 | 48 | 54 |
-| 11 | 55 | 115 |
+| 11 | 55 | 116 |
 In the S cases, every drop point common to both rank-6 tensors has rank 6 = rank 7 (e.g. ((8,1,1,1),(5,4,1,1),(5,4,1,1)) dir1:
 points with 100/100 and 20/20; ((5,4,1),(5,3,1,1),(4,4,1,1)) dir2: 90/90; ((5,2,2,1),(5,2,2,1),(4,3,3)) dir1: 64/64); the points
-where only R6a drops are not shared by R6b (gcd of the two drop polynomials = 1).
-Not yet done: 1 follow-up (((6,2,1,1),(6,2,1,1),(6,2,1,1)) dir3, the most expensive), 160 (d = 10) + 387 (d = 11) candidates to
-screen, the d = 11 tail (300).
+where only R6a drops are not shared by R6b (gcd of the two drop polynomials = 1).  The largest case,
+((6,2,1,1),(6,2,1,1),(6,2,1,1)) dir3 (g = 18, dim K = 146 for R6a and R7, support of dim 3), has no rank-6 drop points in P(S).
+Not yet done: follow-ups of the 63 screen failures found since then, 117 (d = 10) + 254 (d = 11) candidates to screen, the
+d = 11 tail (300).
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

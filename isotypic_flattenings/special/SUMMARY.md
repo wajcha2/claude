@@ -11,7 +11,7 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 |---|---|---|---|---|
 | 4x4x4 | 6 vs 7 (generic: lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, linear components + recursion, U_k flag / swaps / intersections (H, V, all dims), lines through / inside natural U; plane resultants (codim 2) and Grassmannian pencils for all g >= 3 | not separated |
 | 5x5x5 | 8 vs 9 (generic: d = 6) | 5 | all (g = 2: complete) | not separated |
-| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7 | line, flag, pflag, gline | not separated |
+| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7 (d = 8 queued) | line, flag, pflag, gline | not separated |
 | 6x6x6 | 10..13 | 5, 6 | line, flag, pflag, gline | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
 | 8x8x8 | 12..23 | 5 | line, flag, pflag | not separated |

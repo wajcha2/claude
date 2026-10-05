@@ -8,7 +8,7 @@ stage_screen() {   # $1 jobs, $2 tag
 }
 stage_deep() {     # $1 tag
   needfull "live/screen_$1_w*.log" live/needfull_$1.txt
-  for w in 0 1 2 3; do RESUME=live/deep2_$1_w$w.log python3 m2deep2.py LIST live/needfull_$1.txt $w 4 >> live/deep2_$1_w$w.log 2>&1 & done; wait
+  for w in 0 1 2 3; do RESUME=live/deep2_$1_w$w.log:live/deep2_sample_w0.log:live/deep2_sample_w1.log:live/deep2_sample_w2.log:live/deep2_sample_w3.log python3 m2deep2.py LIST live/needfull_$1.txt $w 4 >> live/deep2_$1_w$w.log 2>&1 & done; wait
 }
 stage_screen m2loci/jobs_d1011_main.txt d1011; echo "screen main done $(date -u +%H:%M)"
 stage_deep d1011;                               echo "deep main done $(date -u +%H:%M)"

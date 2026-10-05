@@ -98,16 +98,17 @@ V_k (k n1 <= n23): d = 10: 1424 (all), d = 11: the cheapest 2658 of 2958 (the 30
 `m2loci/jobs_d1011_main.txt`, `m2loci/jobs_d11_tail.txt`).  Everywhere else M2 is capped below the generic rank and cannot beat
 rank 6 at a separating locus.  Screen (`SCREEN=1`, injective full V-stack of a rank-6 tensor => every U excluded), then
 `m2deep2.py` on the failures (kernels of R6a and R7; R6b and M2 only at points where rank 6 < rank 7).
-Snapshot 2026-10-04 20:00 UTC (logs `m2loci/snap/`, live in `live/`; the 2-h background chunk was stopped at its time limit):
+Snapshot 2026-10-05 13:25 UTC (logs `m2loci/snap/`, live in `live/`; chunks of <= 2 h, resumable):
 | d | screened | EXCL (all U) | to follow-up |
 |---|---|---|---|
-| 10 | 1077 / 1424 | 1021 | 56 |
-| 11 | 1881 / 2658 | 1732 | 149 |
+| 10 | 1264 / 1424 | 1161 | 103 |
+| 11 | 2271 / 2658 | 2101 | 170 |
 Follow-up (`m2deep2.py`) on the 40 cheapest of the 205 follow-up cases: 23 STRUCT (K(R6) = K-structure of R7 at one fixed
 phi_0, no U separates); 17 with a common kernel support S of dim 2-7 in M^*, all checked by exact pencils inside P(S): every
 common rank-6 drop point has rank 6 = rank 7 (e.g. ((4,2,2,2),(3,3,2,2),(3,3,2,2)) dir1, S of dim 7, ranks 10/10); points where
 R6a alone drops (9 vs 10) are not shared by R6b (gcd of the two drop polynomials = 1), so they are tensor-specific.
-No separation, no M2 win.  Not yet done: 347 (d = 10) + 777 (d = 11) candidates to screen, 165 follow-ups, the d = 11 tail (300).
+No separation, no M2 win.  Not yet done: 160 (d = 10) + 387 (d = 11) candidates to screen (the expensive end, 100-300 s
+each), 233 follow-ups, the d = 11 tail (300).
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

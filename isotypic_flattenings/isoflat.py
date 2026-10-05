@@ -75,7 +75,7 @@ def kronecker(l1, l2, l3):
 # ---------- modular linear algebra ----------
 def modrank(M):
     """rank of integer matrix M over F_p (M values reduced mod p)."""
-    A = np.array(M, dtype=np.int64) % p
+    A = np.array(M, dtype=np.int64); A %= p      # in place: '% p' on the copy doubled the peak (one more full-size array)
     if A.size == 0:
         return 0
     rows, cols = A.shape

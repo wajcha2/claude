@@ -55,8 +55,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
 * 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: done (`special/run4.sh`).
 * `special_runner.py special/jobs.txt`: job list in priority order, one process per component, live output in the
   untracked special/live (res, logs, runner.log); slots in special/live/ncores (4), time limit special/live/tlimit
-  (default 3 h).  `special/sync.sh` copies special/live into special/res, special/logs, regenerates
-  special/RESULTS.md, commits and pushes.
+  (default 3 h); memory guard: at most special/live/maxbig (2) jobs with max(N1, K) > 6000 or g N1 K > 5e7 at once,
+  launches only while MemAvailable >= special/live/minfree (5000 MB); a restarted runner adopts the specialscan.py
+  processes still running (counted as slots, not relaunched).  `special/sync.sh` copies special/live into
+  special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart
 `cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; echo 4 > special/live/ncores; ./special/start_runner.sh`

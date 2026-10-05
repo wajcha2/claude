@@ -538,7 +538,7 @@ def line_points(cp, a, b, R, rng, tag):
     return out
 
 
-def run_glines(cp, R, rng, rec, cap=4e7):
+def run_glines(cp, R, rng, rec, cap=1.5e7):
     """drop loci of the stacked flattenings in the Grassmannian: for k = 2..g-1 and H, V a random pencil of k-frames
     A + t B (k x g) gives the matrix pencil H_A + t H_B (blocks side by side) resp. V_A + t V_B (stacked); its
     tensor-independent drop points t are special k-dimensional U (basis A + t B)."""

@@ -7,7 +7,10 @@ Output of a job: special/live/res/n<n>_d<d>_s<slot>.jsonl and special/live/logs/
 slot, so that no two running processes append to one file; special/live is not tracked: special/sync.sh copies it
 to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
 record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
-TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'."""
+TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'.
+Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
+g N1 K > 5e7 run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
+special/live/minfree MB (default 5000) or nothing runs."""
 import os, sys, time, json, glob, subprocess, signal
 import rankscan
 from rankscan import distinct_dirs, cost_proxy
@@ -35,6 +38,48 @@ def done_set(n, d):
             except ValueError:
                 continue
             out.add((tuple(tuple(x) for x in r['lam']), r['t'], tuple(r['r']), tuple(r['methods'])))
+    return out
+
+
+def mem_available_mb():
+    try:
+        for l in open('/proc/meminfo'):
+            if l.startswith('MemAvailable'):
+                return int(l.split()[1]) // 1024
+    except OSError:
+        pass
+    return 10 ** 9
+
+
+def is_big(n, lam):
+    """a job that can need several GB: some direction with max(N1, K) > 6000 or g N1 K > 5e7 (rankscan sampling)."""
+    from hwv import dim_schur
+    from isoflat import kronecker
+    g = kronecker(*lam)
+    dims = [dim_schur(l, n) for l in lam]
+    for t in distinct_dirs(lam):
+        n1 = dims[t]; n23 = dims[(t + 1) % 3] * dims[(t + 2) % 3]
+        N1, K = min(n1, g * n23) + 8, min(g * n1, n23) + 8
+        if max(N1, K) > 6000 or g * N1 * K > 5e7:
+            return True
+    return False
+
+
+def external_jobs(own_pids):
+    """jobs of specialscan.py processes not started by this runner (e.g. left by a restarted runner)."""
+    out = set()
+    for d in os.listdir('/proc'):
+        if not d.isdigit() or int(d) in own_pids:
+            continue
+        try:
+            a = open('/proc/%s/cmdline' % d, 'rb').read().decode().split('\0')
+        except OSError:
+            continue
+        if len(a) > 6 and a[1] == '-u' and a[2] == 'specialscan.py':
+            try:
+                out.add((int(a[3]), int(a[4]), a[6], tuple(x for x in a[7:] if x), tuple(tuple(x) for x in eval(a[5]))))
+            except Exception:
+                pass
     return out
 
 
@@ -66,6 +111,8 @@ def main():
     os.makedirs('special/live/res', exist_ok=True)
     os.makedirs('special/live/logs', exist_ok=True)
     running = {}            # slot -> (proc, job, t0)
+    # slots (output file suffixes) of this runner; above the ones of jobs left by a previous runner
+    slot0 = 4 if external_jobs(set()) else 0
     pending = None
     print('# runner start %s' % time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), flush=True)
     while True:
@@ -73,7 +120,8 @@ def main():
         jobs = expand(jobfile)
         cache = {}
         todo = []
-        active = set(j for _, j, _ in running.values())
+        ext = external_jobs({proc.pid for proc, _, _ in running.values()})
+        active = set(j for _, j, _ in running.values()) | ext
         for job in jobs:
             n, d, Rs, methods, lam = job
             if job in active:
@@ -103,9 +151,17 @@ def main():
                 del running[slot]
         # launch
         todo = [j for j in todo if j not in set(jj for _, jj, _ in running.values())]
-        while todo and len(running) < ncores:
-            job = todo.pop(0)
-            slot = min(set(range(16)) - set(running))
+        nbig = sum(1 for j in active if is_big(j[0], j[4]))
+        while todo and len(running) + len(ext) < ncores:
+            # memory guard: at most MAXBIG jobs that can need several GB, and >= MINFREE MB available
+            if running and mem_available_mb() < read_int(os.path.join(LIVE, 'minfree'), 5000):
+                break
+            k = next((i for i, j in enumerate(todo) if not is_big(j[0], j[4]) or nbig < read_int(os.path.join(LIVE, 'maxbig'), 2)), None)
+            if k is None:
+                break
+            job = todo.pop(k)
+            nbig += is_big(job[0], job[4])
+            slot = min(set(range(slot0, slot0 + 16)) - set(running))
             n, d, Rs, methods, lam = job
             env = dict(os.environ, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1',
                        OUT='special/live/res/n%d_d%d_s%d.jsonl' % (n, d, slot), DONEGLOB='special/live/res')
@@ -115,7 +171,7 @@ def main():
                                     start_new_session=True)
             running[slot] = (proc, job, time.time())
             print('%s start slot %d  %s' % (time.strftime('%H:%M:%S'), slot, job), flush=True)
-        if not running and not todo:
+        if not running and not todo and not ext:
             print('# runner: nothing left %s' % time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), flush=True)
             break
         time.sleep(10)

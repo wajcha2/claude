@@ -382,6 +382,8 @@ def main():
         for name, job in st['jobs'].items():
             if job['status'] != 'running':
                 continue
+            if job.get('extra'):
+                continue                             # hand-made reruns (own env, e.g. a larger WCAP): never deferred
             if name in current and job.get('deferred'):
                 k = set_deferred(job, False); job['deferred'] = False
                 log('job %s resumed (%d deferred components released)' % (name, k))
@@ -408,12 +410,15 @@ def main():
                 break
             job = st['jobs'][name]
             nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
-            if nw >= open_components(job):
+            if nw >= open_components(job) or nw >= job.get('maxworkers', NCORES):
                 continue
+            if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
+                continue                             # extra jobs use much memory: one worker at a time over all of them
             w = next(wid)
             env = dict(os.environ, **WENV)
             env.update({'NEED': ','.join(map(str, job['need'])), 'LIST': job['list'], 'OUT': job['out'],
                         'CLAIMDIR': job['claims'], 'RESUME': job['out'], 'WORKER': str(w)})
+            env.update(job.get('env', {}))           # per-job settings (extra jobs)
             lf = open(os.path.join(SCAN, 'logs', '%s.log' % name), 'a')
             pr = subprocess.Popen([sys.executable, '-u', 'rankscan.py', str(job['n']), str(job['d'])], env=env,
                                   stdout=lf, stderr=subprocess.STDOUT, start_new_session=True)

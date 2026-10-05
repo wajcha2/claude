@@ -46,6 +46,17 @@ cannot be evaluated and is reported as unknown (this is what limits large n and 
 Per component the record holds wall and CPU time and the peak RSS; `scan/monitor.log` has memory, per-worker
 RSS and load every 5 minutes.
 
+## Beyond the word-minor limit: the family ((d),(1^d),(1^d)) (`wedge_family.py`)
+For this component (g = 1) every word with a repeated letter dies, and the isotypic tensor of
+T = sum a_i (x) b_i (x) c_i is d! sum_{|S| = d} a_S (x) wedge b_S (x) wedge c_S.  Its flattening ranks are computed
+exactly from C(r,d) x C(n,d) minors and products of linear forms -- no r^d tensor -- validated against rankscan.py on
+five cases (3x3x3 d=2, 4x4x4 d=3, 6x6x6 d=4, 7x7x7 d=5, 10x10x10 d=3: identical ranks).  It resolved three
+frontier ranks that rankscan.py could not evaluate (word-minor tensor above WCAP; records in scan/res/n*_w1.jsonl,
+log scan/wedge_frontier.log): 8x8x8 rank 12 vs 13 at d = 6 (742 / 784), 9x9x9 rank 13 vs 14 at d = 6 (1716 / 3003),
+10x10x10 rank 13 vs 14 at d = 5 (1287 / 2002), direction 1 (S^d V^* -> wedge^d V (x) wedge^d V).  The other
+components with a (1^d) partition at those degrees are rerun with WCAP = 2^28 as extra jobs (n10_d5_x1, n8_d6_x1:
+one worker at a time over all extra jobs, ~5 GB each).
+
 Restart after a container loss: `cd isotypic_flattenings; pip install numpy sympy opt_einsum; mkdir -p scan/live; cp -r scan/state.json scan/res scan/jobs scan/logs scan/runner.log scan/monitor.log scan/live/;
 setsid nohup python3 -u scan_runner.py >> scan/live/runner.log 2>&1 < /dev/null &; setsid nohup ./scan_autosave.sh >> scan/live/autosave.log 2>&1 < /dev/null &` (continues from scan/state.json and
 the result files; components without a result are redone).

@@ -49,6 +49,26 @@ def main():
                     continue
                 rec['job'] = name
                 recs[job['n']].append(rec)
+    # a component can have several records (a rerun with other limits, e.g. a larger WCAP): merge them -- a rank is
+    # unknown only if no record resolved it (resolved = need minus unknown), separations are united
+    for n in list(recs):
+        merged = {}
+        for rec in recs[n]:
+            key = (rec['d'], tuple(tuple(x) for x in rec['lam']))
+            m = merged.get(key)
+            if m is None:
+                m = dict(rec); m['sep'] = {k: list(v) for k, v in rec['sep'].items()}
+                m['_need'] = set(rec['need']); m['_res'] = set(rec['need']) - set(rec['unknown'])
+                m['dirs'] = list(rec['dirs']); merged[key] = m
+                continue
+            for k, v in rec['sep'].items():
+                m['sep'].setdefault(k, []).extend(c for c in v if c not in m['sep'].get(k, []))
+            m['_need'] |= set(rec['need']); m['_res'] |= set(rec['need']) - set(rec['unknown'])
+            m['cpu'] += rec['cpu']; m['wall'] = max(m['wall'], rec['wall']); m['rss_peak_mb'] = max(m['rss_peak_mb'], rec['rss_peak_mb'])
+        for m in merged.values():
+            m['unknown'] = sorted(m['_need'] - m['_res'])
+            m['status'] = 'ok' if not m['unknown'] else 'partial'
+        recs[n] = list(merged.values())
     lines = ['# Isotypic-flattening rank scan (n x n x n): status', '',
              'Updated %s.  For each format and rank r: the lowest degree d in which some isotypic flattening has smaller rank on a '
              'random rank-r tensor than on a random rank-(r+1) tensor, and all components that do it in that degree.  '
@@ -99,13 +119,21 @@ def main():
         skipped = [r for r in ns.get('skip', []) if r not in dmin]
         not_sep = [r for r in range(1, rgen) if r not in dmin and r not in skipped]
         # one-line progress statement
-        complete = [d for d in cov if cov[d]['done'] == cov[d]['total'] and not cov[d]['partial'] and not cov[d]['failed']]
+        skipped0 = set(ns.get('skip', []))
+        open0 = [r for r in range(1, rgen) if r not in dmin and r not in skipped0]
+        r0 = min(open0) if open0 else None
+        def complete_for(d):
+            if r0 is None:
+                return cov[d]['done'] == cov[d]['total'] and not cov[d]['failed']
+            ok = [rec for rec in R if rec['d'] == d and r0 not in rec['unknown']]
+            return len(ok) == cov[d]['total'] and not cov[d]['failed']
+        complete = [d for d in cov if complete_for(d)]
         dfull = 0
         while dfull + 1 in complete:
             dfull += 1
         reached = [d for d in cov if cov[d]['done']]
         dtop = max(reached or [0])
-        part = ['d <= %d complete' % dfull] if dfull else []
+        part = ['d <= %d complete%s' % (dfull, ' for r = %d' % r0 if r0 else '')] if dfull else []
         for d in sorted(cov):
             if d > dfull and cov[d]['done']:
                 part.append('d = %d: %d of %d components%s' % (d, cov[d]['done'], cov[d]['total'], ' (running)' if cov[d]['running'] else ''))

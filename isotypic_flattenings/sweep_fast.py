@@ -200,26 +200,44 @@ def direction(lam, g, dirn, crng):
                     ops, out = build_network(f, *pre[rhi])
                     path, info = find_path(ops, out, None, oe.RandomGreedy(max_repeats=128))
                 chosen.append((f, path, info))
-    Fs = {r: [compute_F(f, *pre[r], path, info) for f, path, info in chosen] for r in ranks}
-    for F in Fs[rhi]:
-        assert F.any(), 'accepted filling gives a zero flattening'
     coeffs = [int(c) for c in crng.integers(1, p, len(chosen))]
     res = {}
     R = None
+    # Memory (2026-10-05): the flattenings are computed and consumed one rank at a time (compute_F draws no random
+    # numbers, so the random stream is unchanged), and the compression H @ R of the g-fold stack is accumulated block
+    # by block in float64 with R kept once as float64, instead of materialising the int64 stack, its float64 copy and an
+    # int64 R plus its float64 copy at the same time.  For g = 4, N1 = 9458, K = 3158 (d = 14) that was > 5 GB per worker
+    # (a worker was OOM-killed with four of them); the results are identical (exact arithmetic).
     for r in ranks:
+        Fs_r = [compute_F(f, *pre[r], path, info) for f, path, info in chosen]
+        if r == rhi:
+            for F in Fs_r:
+                assert F.any(), 'accepted filling gives a zero flattening'
         Fgen = np.zeros((N1, K), dtype=np.int64)
-        for c, F in zip(coeffs, Fs[r]):
+        for c, F in zip(coeffs, Fs_r):
             Fgen = (Fgen + c * F) % p
         res[(dirn, 'gen')] = res.get((dirn, 'gen'), ()) + (modrank(Fgen),)
+        del Fgen
         if g >= 2:
-            H = np.hstack(Fs[r])
-            if H.shape[1] > N1 + EXTRA:
+            if g * K > N1 + EXTRA:
                 if R is None:
-                    R = crng.integers(0, p, (H.shape[1], N1 + EXTRA))
-                H = matmul_mod(H[None], R[None])[0]
+                    R = crng.integers(0, p, (g * K, N1 + EXTRA)).astype(np.float64)
+                H = None
+                for j, F in enumerate(Fs_r):
+                    C = hwv_fast.fmatmul((F % p).astype(np.float64)[None], R[None, j * K:(j + 1) * K])[0]
+                    if H is None:
+                        H = C
+                    else:
+                        np.add(H, C, out=H); np.fmod(H, p, out=H)
+                    del C
+                H = H.astype(np.int64)
+            else:
+                H = np.hstack(Fs_r)
             res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H),)
+            del H
             if not NOV:
-                res[(dirn, 'Vstack')] = res.get((dirn, 'Vstack'), ()) + (modrank(np.vstack(Fs[r])),)
+                res[(dirn, 'Vstack')] = res.get((dirn, 'Vstack'), ()) + (modrank(np.vstack(Fs_r)),)
+        del Fs_r
     return res, len(chosen), tried
 
 rng = np.random.default_rng(SEED)

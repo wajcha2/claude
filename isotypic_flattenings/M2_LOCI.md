@@ -103,12 +103,16 @@ Snapshot 2026-10-05 13:25 UTC (logs `m2loci/snap/`, live in `live/`; chunks of <
 |---|---|---|---|
 | 10 | 1264 / 1424 | 1161 | 103 |
 | 11 | 2271 / 2658 | 2101 | 170 |
-Follow-up (`m2deep2.py`) on the 40 cheapest of the 205 follow-up cases: 23 STRUCT (K(R6) = K-structure of R7 at one fixed
-phi_0, no U separates); 17 with a common kernel support S of dim 2-7 in M^*, all checked by exact pencils inside P(S): every
-common rank-6 drop point has rank 6 = rank 7 (e.g. ((4,2,2,2),(3,3,2,2),(3,3,2,2)) dir1, S of dim 7, ranks 10/10); points where
-R6a alone drops (9 vs 10) are not shared by R6b (gcd of the two drop polynomials = 1), so they are tensor-specific.
-No separation, no M2 win.  Not yet done: 160 (d = 10) + 387 (d = 11) candidates to screen (the expensive end, 100-300 s
-each), 233 follow-ups, the d = 11 tail (300).
+Follow-up (`m2deep2.py`, kernels of R6a and R7; R6b and M2 only where rank 6 < rank 7), snapshot 2026-10-05 15:50 UTC:
+238 of the 273 follow-up cases done (cheapest first), **none separating, no M2 win**:
+| d | STRUCT (same phi_0 for all tensors) | common support S of dim >= 2, exact pencils in P(S) |
+|---|---|---|
+| 10 | 42 | 37 |
+| 11 | 46 | 113 |
+In the S cases, every drop point common to both rank-6 tensors has rank 6 = rank 7 (e.g. ((8,1,1,1),(5,4,1,1),(5,4,1,1)) dir1:
+points with 100/100 and 20/20; ((5,4,1),(5,3,1,1),(4,4,1,1)) dir2: 90/90; ((5,2,2,1),(5,2,2,1),(4,3,3)) dir1: 64/64); the points
+where only R6a drops are not shared by R6b (gcd of the two drop polynomials = 1).
+Not yet done: 35 follow-ups (most expensive), 160 (d = 10) + 387 (d = 11) candidates to screen, the d = 11 tail (300).
 
 ### Recurring pattern
 Every rank-6 deficiency found in a flattening where M2 could compete is tensor-independent: a fixed phi_0 (or a fixed

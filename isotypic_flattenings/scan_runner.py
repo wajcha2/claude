@@ -251,7 +251,7 @@ def eval_phase_mb(st, n, d):
 def est_peak_mb(st, n, d, lam, g, extra=False):
     """estimated peak RSS of a worker on component lam (MB): two phases -- evaluation (flattenings + word minors and
     contraction blocks, eval_phase_mb) and elimination (flattenings + phi + eliminations) -- of its largest
-    direction, + 300 MB.  Checked against the 2363 recorded components: no peak above its estimate (one-row
+    direction, + 800 MB (300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB).  Checked against the recorded components: no peak above its estimate (one-row
     components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
     if is_onerow(lam):
         return 3584.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
@@ -259,7 +259,7 @@ def est_peak_mb(st, n, d, lam, g, extra=False):
     if key not in _est_cache:
         _est_cache[key] = mat_parts(n, lam, g)
     B = eval_phase_mb(st, n, d)
-    return max(fs + max(B, m) for fs, m in _est_cache[key]) + 300 + (4096 if extra else 0)
+    return max(fs + max(B, m) for fs, m in _est_cache[key]) + 800 + (4096 if extra else 0)
 
 
 def next_component(job, exclude=()):

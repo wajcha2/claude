@@ -96,7 +96,7 @@ P("* 2026-10-06 `[method]` isoflat.modrank: blocked Gaussian elimination in exac
 P("  columns, LAPACK getrf style, rank-deficient columns skipped); the old int64 row elimination is kept as modrank_ref.  It took 8 h per")
 P("  rank on the 9458 x 9466 compressed stacks at d = 14 (two workers sat in it for 5 and 8 h), longer than the flattenings; now minutes")
 P("  (3000 x 3000 rank 1500: 174 s -> 24 s).  Verified: 133 randomized cases against modrank_ref (all shapes, ranks, panel widths), C^4")
-P("  d=6 full sweep identical, C^4 d=8 hit reproduced.  All four workers were restarted on it at 01:35 UTC (their partial components redone).")
+P("  d=6 full sweep identical, C^4 d=8 hit reproduced.  All four workers were restarted on it at 00:58 UTC (their partial components redone).")
 P("")
 P("## Restart (fresh container, from the pushed files alone)")
 P("```")

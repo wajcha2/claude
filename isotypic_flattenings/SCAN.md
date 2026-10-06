@@ -35,8 +35,11 @@ Jobs (n, d, stage): stage s holds the components of degree d whose cost proxy g 
 (CAPS[s-1], CAPS[s]], CAPS = 3e5, 3e6, 3e7, 3e8, 3e9.  For each format, degree d is completed in every band before
 degree d + 1 starts (the lowest separating degree needs all of degree d), and degrees above the lowest degree that
 separates the target rank (r_gen - 1, or lower if a rank is skipped) are not run.  A job resolves only the ranks
-not yet separated in a lower degree.  4 worker processes (one BLAS thread each) take the runnable jobs in the order
-(band, n): cheap bands first, small formats first.  A component running longer than the time limit is stopped and listed as
+not yet separated in a lower degree.  4 worker processes (one BLAS thread each) take the runnable jobs: up to 2026-10-06 18:30 in the order
+(band, n) (cheap bands first, small formats first); since then by fair share -- a free slot goes to the format with
+the fewest running workers, ties to the format with the fewest unchecked components left in its current degree (the
+old order let the 3-4.5 h components of 7x7x7 d = 7 hold every slot while 6x6x6 d = 7 and 8x8x8 d = 6 waited with
+3 and 5 components left).  A component running longer than the time limit is stopped and listed as
 not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).

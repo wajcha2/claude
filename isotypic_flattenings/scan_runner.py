@@ -14,7 +14,7 @@ reaches that job again.  On a restart, workers that are still running are adopte
 A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every MONITOR s, and scan_report.py writes
 <SCAN>/STATUS.md after every job and every REPORT s.  State: <SCAN>/state.json (SCAN = scan/live, untracked;
 scan_autosave.sh copies everything into scan/ and commits)."""
-import os, sys, json, time, subprocess, itertools, signal
+import os, sys, json, time, subprocess, itertools, signal, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rankscan import generic_rank, components, cost_proxy
 
@@ -190,6 +190,15 @@ def done_lams(job):
         c = (mt, set(results(job['out'])))
         _lam_cache[job['out']] = c
     return c[1]
+
+
+def left_in_degree(st, n, d):
+    """components of degree d of format n without a result in any of its band jobs (extra jobs not counted)."""
+    done = set()
+    for j in st['jobs'].values():
+        if j['n'] == n and j['d'] == d and not j.get('extra'):
+            done |= done_lams(j)
+    return len(comp_list(n, d)) - len(done)
 
 
 def open_components(job):
@@ -428,17 +437,29 @@ def main():
             ncores = max(0, int(open(os.path.join(SCAN, 'ncores')).read().split()[0]))
         except (OSError, ValueError, IndexError):
             pass
-        runnable = sorted((j['stage'], j['n'], j['d'], nm) for nm, j in st['jobs'].items()
-                          if j['status'] == 'running' and not j.get('deferred') and open_components(j) > 0)
-        for _, _, _, name in runnable:
-            if len(workers) >= ncores:
+        runnable = [nm for nm, j in st['jobs'].items()
+                    if j['status'] == 'running' and not j.get('deferred') and open_components(j) > 0]
+        # fair share (since 2026-10-06 18:45): a free slot goes to the format with the fewest running workers, ties to
+        # the format with the fewest unchecked components left in its current degree (finishing a degree settles the
+        # lowest separating degree); extra jobs (stage 0) first.  The old order (band, n) let one format's long
+        # components hold every slot while other formats waited for days with a few components left in a degree.
+        while len(workers) < ncores:
+            per_n = collections.Counter(st['jobs'][nm]['n'] for _, nm, _, _ in workers.values())
+            best = None
+            for name in runnable:
+                job = st['jobs'][name]
+                nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
+                if nw >= open_components(job) or nw >= job.get('maxworkers', NCORES):
+                    continue
+                if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
+                    continue                         # extra jobs use much memory: one worker at a time over all of them
+                key = (job['stage'] > 0, per_n[job['n']], left_in_degree(st, job['n'], job['d']), job['n'], job['d'])
+                if best is None or key < best[0]:
+                    best = (key, name)
+            if best is None:
                 break
+            name = best[1]
             job = st['jobs'][name]
-            nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
-            if nw >= open_components(job) or nw >= job.get('maxworkers', NCORES):
-                continue
-            if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
-                continue                             # extra jobs use much memory: one worker at a time over all of them
             w = next(wid)
             env = dict(os.environ, **WENV)
             env.update({'NEED': ','.join(map(str, job['need'])), 'LIST': job['list'], 'OUT': job['out'],

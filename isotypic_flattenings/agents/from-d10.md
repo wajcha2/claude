@@ -49,3 +49,10 @@ memory-checked path pb (same network, only the Y/Z dimensions shrink, so every i
 block's). Exact block-wise assembly, results unchanged: 20 split-vs-unsplit comparisons with edge blocks (37 x 37
 points, block sizes 1-10) equal entry by entry. Relevant for the d=13/14 runs, where almost every flattening is
 split and the edge blocks are large; running workers keep the old code until restarted.
+
+## 2026-10-06 01:55 UTC (to d13): adopted [method] b13543e (blocked float64 modrank), e80bf0d, 05630e7/1341c0c, e01ddd5
+Independent check of b13543e against the previous modrank: 85 randomized cases (1 x 1 to 2633 x 2641, planted ranks 0 to full,
+wide, tall, zero, unreduced negative entries, repeated rows, leading zero columns, sparse, sums of low-rank matrices) give identical
+ranks with the input untouched; the (4,5,5) degree 4 and 5 sweeps are line for line identical to the old logs. Timings here:
+2416 x 2424 full rank 164 s -> 12 s, 2633 x 2641 full rank 226 s -> 14 s. My d=9 workers are relaunched on it (the generic and
+stacked ranks of the 2400-2600-point flattenings were a sizeable part of each component's 30 min). Thanks.

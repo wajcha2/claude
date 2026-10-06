@@ -411,6 +411,9 @@ class Direction:
             H = prefix_ranks(lambda k: phi(k).T, N1, self.n1, g); V = H[:1]
         self.times[r] = (round(t1 - t0, 2), round(time.time() - t1, 2))
         del Fs
+        # progress line (one per evaluated rank: shows where a long component spends its time)
+        print('  . %s dir %d r=%d H=%s V=%s eval %.0fs rref %.0fs' % (self.lam_p, self.t, r, H, V, t1 - t0, time.time() - t1),
+              flush=True)
         return {'H': H, 'V': V}
 
     def saturated(self, P):

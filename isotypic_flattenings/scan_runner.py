@@ -6,8 +6,11 @@ Job (n, d, stage) covers the components of degree d whose cost proxy lies in (CA
 resolves the ranks NEED = {r < r_gen : no separator of r vs r+1 is known in a degree < d, r not skipped}.
 Per format the jobs are run in the order (d, stage): degree d is completed in every cost band before degree d + 1
 is started (that is what the lowest separating degree needs); degrees above d_min(target rank) are not run (target
-= r_gen - 1 unless skipped in state.json).  Across formats, workers go to the runnable jobs in the order
-(stage, n): cheap bands first, small formats first.  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
+= r_gen - 1 unless skipped in state.json).  Across formats, a free worker slot goes to the format with the fewest
+running workers, ties to the one with the fewest unchecked components left in its current degree (fair share; before
+2026-10-06 18:30: the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
+will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
+started until enough memory is free (the next component waits, it is not skipped).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
 are 'deferred': their unclaimed components get a placeholder claim so that no worker takes them, until the format
 reaches that job again.  On a restart, workers that are still running are adopted (not killed).
@@ -16,13 +19,15 @@ A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every 
 scan_autosave.sh copies everything into scan/ and commits)."""
 import os, sys, json, time, subprocess, itertools, signal, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rankscan import generic_rank, components, cost_proxy
+from rankscan import generic_rank, components, cost_proxy, is_onerow
+from hwv import dim_schur
 
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
 NCORES = int(os.environ.get('NCORES', '4'))
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
+MEMBUDGET = float(os.environ.get('MEMBUDGET', '15000'))     # MB for the workers (container: 16 GB, no swap)
 MONITOR = int(os.environ.get('MONITOR', '300'))
 REPORT = int(os.environ.get('REPORT', '900'))
 SCAN = os.environ.get('SCAN', 'scan/live')
@@ -201,6 +206,98 @@ def left_in_degree(st, n, d):
     return len(comp_list(n, d)) - len(done)
 
 
+_est_cache, _calib = {}, {}
+
+
+def mat_parts(n, lam, g):
+    """per direction: (MB of the g evaluated flattenings N1 x K (float32 above 2^26 entries), MB of the combination
+    phi and the H and V eliminations: 8 (N1 K + N1^2 + K^2))."""
+    out = []
+    for t in range(3):
+        a = lam[t]; b, c = [lam[u] for u in range(3) if u != t]
+        n1 = dim_schur(a, n); n23 = dim_schur(b, n) * dim_schur(c, n)
+        N1 = min(n1, g * n23) + 8; K = min(g * n1, n23) + 8
+        el = g * N1 * K
+        out.append((el * (8 if el <= (1 << 26) else 4) / 2.0 ** 20, 8.0 * (N1 * K + N1 * N1 + K * K) / 2.0 ** 20))
+    return out
+
+
+def eval_phase_mb(st, n, d):
+    """memory of the evaluation phase beyond the flattenings (word minors, contraction blocks), calibrated on the
+    recorded peaks of degree d of format n: max over its network components of peak RSS - flattenings (an upper
+    bound, since it also absorbs elimination-dominated peaks), + 512 MB margin; 4 GB until 5 records exist (the largest
+    excess over all 2363 records of 2026-10-06 was 3.8 GB).  Refreshed every 15 min."""
+    c = _calib.get((n, d))
+    if c is not None and time.time() - c[0] < 900:
+        return c[1]
+    vals = []
+    for j in st['jobs'].values():
+        if j['n'] != n or j['d'] != d or j.get('extra') or not os.path.exists(j['out']):
+            continue
+        for l in open(j['out']):
+            try:
+                r = json.loads(l)
+            except ValueError:
+                continue
+            if any(x.get('method') == 'onerow' for x in r['dirs']):
+                continue
+            lam = tuple(tuple(x) for x in r['lam'])
+            vals.append(r['rss_peak_mb'] - max(fs for fs, _ in mat_parts(n, lam, r['g'])))
+    v = max(vals) + 512 if len(vals) >= 5 else 4096.0
+    _calib[(n, d)] = (time.time(), v)
+    return v
+
+
+def est_peak_mb(st, n, d, lam, g, extra=False):
+    """estimated peak RSS of a worker on component lam (MB): two phases -- evaluation (flattenings + word minors and
+    contraction blocks, eval_phase_mb) and elimination (flattenings + phi + eliminations) -- of its largest
+    direction, + 300 MB.  Checked against the 2363 recorded components: no peak above its estimate (one-row
+    components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
+    if is_onerow(lam):
+        return 3584.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
+    key = (n, lam, g)
+    if key not in _est_cache:
+        _est_cache[key] = mat_parts(n, lam, g)
+    B = eval_phase_mb(st, n, d)
+    return max(fs + max(B, m) for fs, m in _est_cache[key]) + 300 + (4096 if extra else 0)
+
+
+def next_component(job, exclude=()):
+    """the component a new worker of this job takes: the first listed one with neither a claim nor a result
+    (rankscan.py's order), skipping the indices in exclude (predicted for workers that have not claimed yet)."""
+    idx = {lam: (li, g) for _, li, lam, g in comp_list(job['n'], job['d'])}
+    done = done_lams(job)
+    try:
+        cl = {int(fn) for fn in os.listdir(job['claims']) if fn.isdigit()}
+    except FileNotFoundError:
+        cl = set()
+    for l in open(job['list']):
+        if not l.strip():
+            continue
+        lam = tuple(tuple(x) for x in eval(l))
+        li, g = idx[lam]
+        if lam in done or li in cl or li in exclude:
+            continue
+        return li, lam, g
+    return None
+
+
+def worker_component(job, pid):
+    """index of the newest claim held by pid in this job (None before the worker has claimed)."""
+    best = None
+    try:
+        for fn in os.listdir(job['claims']):
+            path = os.path.join(job['claims'], fn)
+            w, p = read_claim(path)
+            if p == pid and w not in MARKS:
+                mt = os.path.getmtime(path)
+                if best is None or mt > best[0]:
+                    best = (mt, int(fn))
+    except FileNotFoundError:
+        pass
+    return None if best is None else best[1]
+
+
 def open_components(job):
     """number of listed components with neither a claim nor a result (a job is runnable iff > 0; counting claim
     files alone kept starting workers that found nothing to do when a finished component had lost its claim)."""
@@ -316,6 +413,8 @@ def main():
     for job in st['jobs'].values():
         job.setdefault('timeout', [])
     workers = {}          # pid -> (Popen or None (adopted), job name, worker id, t0)
+    predicted = {}        # pid -> (component index, est. peak MB) until the worker's claim appears
+    mem_wait = None
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
         if job['status'] != 'running':
@@ -460,6 +559,33 @@ def main():
                 break
             name = best[1]
             job = st['jobs'][name]
+            # memory admission: estimated peaks of the running components (predicted ones for workers that have not
+            # claimed yet) plus the next component of this job must fit the budget; else wait (nothing is skipped)
+            budget = MEMBUDGET
+            try:
+                budget = float(open(os.path.join(SCAN, 'membudget')).read().split()[0])
+            except (OSError, ValueError, IndexError):
+                pass
+            used = 0.0
+            for pid, (_, nm, _, _) in workers.items():
+                jb = st['jobs'][nm]
+                li = worker_component(jb, pid)
+                if li is not None:
+                    predicted.pop(pid, None)
+                    lam_g = {i: (lm, gg) for _, i, lm, gg in comp_list(jb['n'], jb['d'])}[li]
+                    used += est_peak_mb(st, jb['n'], jb['d'], lam_g[0], lam_g[1], bool(jb.get('extra')))
+                elif pid in predicted:
+                    used += predicted[pid][1]
+            excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
+            nc = next_component(job, excl)
+            need_mb = est_peak_mb(st, job['n'], job['d'], nc[1], nc[2], bool(job.get('extra'))) if nc else 0.0
+            if workers and used + need_mb > budget:
+                if mem_wait != (name, nc and nc[0]):
+                    mem_wait = (name, nc and nc[0])
+                    log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting for a worker to finish'
+                        % (name, nc and nc[1], need_mb / 1024, used / 1024, budget / 1024))
+                break
+            mem_wait = None
             w = next(wid)
             env = dict(os.environ, **WENV)
             env.update({'NEED': ','.join(map(str, job['need'])), 'LIST': job['list'], 'OUT': job['out'],
@@ -469,7 +595,9 @@ def main():
             pr = subprocess.Popen([sys.executable, '-u', 'rankscan.py', str(job['n']), str(job['d'])], env=env,
                                   stdout=lf, stderr=subprocess.STDOUT, start_new_session=True)
             workers[pr.pid] = (pr, name, w, time.time())
-            log('started worker %d on %s (pid %d)' % (w, name, pr.pid))
+            if nc:
+                predicted[pr.pid] = (nc[0], need_mb)
+            log('started worker %d on %s (pid %d)%s' % (w, name, pr.pid, ', est. peak %.1f GB' % (need_mb / 1024) if nc else ''))
         save_state(st)
         if all(st['n'][str(n)]['finished'] for n in NS) and not workers:
             log('all formats finished')

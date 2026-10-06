@@ -39,7 +39,15 @@ not yet separated in a lower degree.  4 worker processes (one BLAS thread each) 
 (band, n) (cheap bands first, small formats first); since then by fair share -- a free slot goes to the format with
 the fewest running workers, ties to the format with the fewest unchecked components left in its current degree (the
 old order let the 3-4.5 h components of 7x7x7 d = 7 hold every slot while 6x6x6 d = 7 and 8x8x8 d = 6 waited with
-3 and 5 components left).  A component running longer than the time limit is stopped and listed as
+3 and 5 components left). Memory admission (since 2026-10-06 23:07): a worker is started only if the estimated peak memory of the
+component it will take plus that of the running components fits 15 GB (the container has 16 GB, no swap;
+adjustable in scan/live/membudget).  Estimate per component: two phases of its largest direction -- evaluation
+(g flattenings N1 x K + word minors and contraction blocks, calibrated per (n, d) on the recorded peaks) and
+elimination (flattenings + combination + eliminations 8 (N1 K + N1^2 + K^2) bytes) -- checked against all 2376 recorded
+peaks (none above its estimate).  Trigger: the 8x8x8 d = 6 component ((3,2,1),(3,2,1),(3,1,1,1)) (g = 4, V
+elimination 21512^2) and the 6x6x6 d = 7 component ((4,2,1)^3) (g = 9) need ~7 GB each; ((3,2,1)^3) on 8x8x8 (g = 5)
+~9 GB.  A component that does not fit waits (it is not skipped); the two youngest workers were stopped at 23:07
+(their components are redone).  A component running longer than the time limit is stopped and listed as
 not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).

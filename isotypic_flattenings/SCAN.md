@@ -37,7 +37,7 @@ degree d + 1 starts (the lowest separating degree needs all of degree d), and de
 separates the target rank (r_gen - 1, or lower if a rank is skipped) are not run.  A job resolves only the ranks
 not yet separated in a lower degree.  4 worker processes (one BLAS thread each) take the runnable jobs in the order
 (band, n): cheap bands first, small formats first.  A component running longer than the time limit is stopped and listed as
-not checked (time limit; 4 h since 2026-10-04 17:00, adjustable at run time in scan/live/tlimit, the worker limit in
+not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).
 Limits: an intermediate of the contraction is capped at max(MEMCAP = 2^25, largest input) elements (larger ones

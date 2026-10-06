@@ -73,9 +73,10 @@ def kronecker(l1, l2, l3):
     return tot // factorial(d)
 
 # ---------- modular linear algebra ----------
-def modrank(M):
-    """rank of integer matrix M over F_p (M values reduced mod p)."""
-    A = np.array(M, dtype=np.int64); A %= p      # in place: '% p' on the copy doubled the peak (one more full-size array)
+def modrank_ref(M):
+    """rank of integer matrix M over F_p by plain row elimination in int64 (reference implementation, O(rank * n * m)
+    numpy passes with int64 '%': hours for the 9458 x 9466 compressed stacks of the n=5, d=14 sweep)."""
+    A = np.array(M, dtype=np.int64); A %= p
     if A.size == 0:
         return 0
     rows, cols = A.shape
@@ -93,14 +94,78 @@ def modrank(M):
         others = np.nonzero(A[:, c])[0]
         others = others[others != r]
         if others.size:
-            # row update in chunks of at most ~8M elements: the one-shot update A[others] - outer(...) % p built three
-            # full-size temporaries (3 x the matrix) on top of A, i.e. ~3 GB extra for the 9458 x 9466 H stacks at
-            # n=5, d=14, which OOM-killed a worker at 5.2 GB RSS (2026-10-05); the arithmetic is unchanged.
             step = max(1, (1 << 23) // cols); row = A[r]
             for s in range(0, others.size, step):
                 idx = others[s:s + step]
                 A[idx] = (A[idx] - np.outer(A[idx, c], row)) % p
         r += 1
+    return r
+
+MODRANK_BLOCK = 256       # panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul)
+
+def modrank(M, block=MODRANK_BLOCK):
+    """rank of integer matrix M over F_p (M values reduced mod p; M is not modified).
+
+    Blocked right-looking Gaussian elimination with row pivoting (LAPACK getrf style) in exact float64 arithmetic:
+    the columns are processed in panels of `block` columns; within a panel the elimination is unblocked (multipliers
+    stored in place, panel columns without a pivot are skipped, so rank deficiency is handled), then the trailing
+    columns get the accumulated update U12 = L11^-1 A12 (forward substitution with the unit lower triangular block of
+    multipliers) and A22 -= L21 @ U12 as a BLAS matmul in float64.  All entries are kept in [0, p); every product
+    a * b < p^2 < 2^38 and every matmul sum has at most `block` <= 2^15 terms (< 2^53), so float64 is exact, and
+    np.mod of integer-valued float64 is exact.  2026-10-06: the int64 row elimination (modrank_ref) took 8 h for the
+    9458 x 9466 compressed stacks of the n=5, d=14 sweep, longer than the flattenings themselves; this takes minutes.
+    Verified against modrank_ref on random, rank-deficient, structured and tiny matrices and on the C^4 sweeps."""
+    assert block <= (1 << 15)
+    Mi = np.asarray(M)
+    if Mi.size == 0:
+        return 0
+    if Mi.ndim != 2:
+        Mi = np.atleast_2d(Mi)
+    n, m = Mi.shape
+    A = np.empty((n, m), dtype=np.float64)
+    rstep = max(1, (1 << 23) // m)
+    for i0 in range(0, n, rstep):                      # chunked conversion: one full-size copy, not two
+        A[i0:i0 + rstep] = Mi[i0:i0 + rstep].astype(np.int64) % p
+    r = 0
+    for c0 in range(0, m, block):
+        if r == n:
+            break
+        c1 = min(m, c0 + block)
+        piv_cols = []
+        k = 0                                            # pivots found in this panel: pivot rows r .. r+k-1
+        for c in range(c0, c1):
+            nz = np.flatnonzero(A[r + k:, c])
+            if nz.size == 0:
+                continue                                 # no pivot in this column
+            i = r + k + nz[0]
+            if i != r + k:
+                A[[r + k, i]] = A[[i, r + k]]            # whole rows: trailing columns and stored multipliers too
+            inv = float(pow(int(A[r + k, c]), p - 2, p))
+            below = A[r + k + 1:, c]
+            if below.size:
+                np.mod(below * inv, p, out=below)        # multipliers l = a * inv mod p, stored in place
+                rest = A[r + k + 1:, c + 1:c1]
+                if rest.size:
+                    rest -= np.outer(below, A[r + k, c + 1:c1])
+                    np.mod(rest, p, out=rest)
+            piv_cols.append(c); k += 1
+            if r + k == n:
+                break
+        if k == 0:
+            continue
+        if c1 < m:
+            L = A[r:, piv_cols]                           # (n - r) x k, unit lower triangular on top (diagonal = pivots, unused)
+            U12 = A[r:r + k, c1:]
+            for j in range(k - 1):                       # U12 = L11^-1 A12 (forward substitution)
+                U12[j + 1:] -= np.outer(L[j + 1:k, j], U12[j])
+                np.mod(U12[j + 1:], p, out=U12[j + 1:])
+            L21 = L[k:]
+            tstep = max(1, (1 << 23) // max(1, m - c1))  # bounded temporaries for the product
+            for i0 in range(0, L21.shape[0], tstep):
+                T = A[r + k + i0:r + k + i0 + tstep, c1:]
+                T -= L21[i0:i0 + tstep] @ U12
+                np.mod(T, p, out=T)
+        r += k
     return r
 
 def independent_rows(M):

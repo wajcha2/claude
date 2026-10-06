@@ -224,13 +224,13 @@ def mat_parts(n, lam, g):
 
 def eval_phase_mb(st, n, d):
     """memory of the evaluation phase beyond the flattenings (word minors, contraction blocks), calibrated on the
-    recorded peaks of degree d of format n: max over its network components of peak RSS - flattenings (an upper
-    bound, since it also absorbs elimination-dominated peaks), + 512 MB margin; 4 GB until 5 records exist (the largest
-    excess over all 2363 records of 2026-10-06 was 3.8 GB).  Refreshed every 15 min."""
+    recorded peaks of degree d of format n: max of peak RSS - flattenings over its network components whose peak the
+    elimination phase does not explain (peak > flattenings + eliminations + 1 GB), + 512 MB margin; 4 GB while fewer
+    than 5 records exist or none is evaluation-dominated.  Refreshed every 15 min."""
     c = _calib.get((n, d))
     if c is not None and time.time() - c[0] < 900:
         return c[1]
-    vals = []
+    vals, nrec_elim = [], [0]
     for j in st['jobs'].values():
         if j['n'] != n or j['d'] != d or j.get('extra') or not os.path.exists(j['out']):
             continue
@@ -242,8 +242,12 @@ def eval_phase_mb(st, n, d):
             if any(x.get('method') == 'onerow' for x in r['dirs']):
                 continue
             lam = tuple(tuple(x) for x in r['lam'])
-            vals.append(r['rss_peak_mb'] - max(fs for fs, _ in mat_parts(n, lam, r['g'])))
-    v = max(vals) + 512 if len(vals) >= 5 else 4096.0
+            P = mat_parts(n, lam, r['g'])
+            if r['rss_peak_mb'] > max(fs + m for fs, m in P) + 1024:      # peak not explained by the elimination
+                vals.append(r['rss_peak_mb'] - max(fs for fs, _ in P))
+            else:
+                nrec_elim[0] += 1
+    v = max(vals) + 512 if (vals and len(vals) + nrec_elim[0] >= 5) else 4096.0
     _calib[(n, d)] = (time.time(), v)
     return v
 

@@ -36,8 +36,8 @@ def is_colwedge(lam):
     return colwedge_roles(lam) is not None
 
 
-def entries(lam, roles, vecs, pts, chunk_pairs, rows, cols):
-    """F[y, z] for the aligned point sets: pts[f] = (P_f, n, m_f) random matrices for factor f; rows/cols say which
+def entry_blocks(lam, roles, vecs, pts, chunk_pairs, rows, cols):
+    """yields (ys, F[ys, :]) blocks of rows for the aligned point sets: pts[f] = (P_f, n, m_f) random matrices for factor f; rows/cols say which
     factor is indexed by y (one factor) and by z (the other two).  vecs[f] = (r, n) tensor factors."""
     u, v, w = roles
     lu = tuple(lam[u]); d = sum(lu)
@@ -46,7 +46,6 @@ def entries(lam, roles, vecs, pts, chunk_pairs, rows, cols):
     # projections <vec_i, g_k> for every point: (P_f, r, m_f), residues
     proj = {f: np.einsum('ri,pik->prk', vecs[f], pts[f]) % p for f in range(3)}
     Y = proj[rows].shape[0]; Z = proj[cols[0]].shape[0]
-    F = np.zeros((Y, Z), dtype=np.int64)
     step = max(1, chunk_pairs // Z)
     for y0 in range(0, Y, step):
         ys = np.arange(y0, min(Y, y0 + step))
@@ -57,8 +56,7 @@ def entries(lam, roles, vecs, pts, chunk_pairs, rows, cols):
         ga = proj[w][idx[w]]                                                  # (P, r, d)  <c_i, g'''_k>
         ab = (al * be) % p
         G = np.fmod(np.matmul(np.transpose(ab, (0, 2, 1)).astype(np.float64), ga.astype(np.float64)), p).astype(np.int64)
-        F[ys] = leading_minors(G, [d])[d].reshape(len(ys), Z)
-    return F
+        yield ys, leading_minors(G, [d])[d].reshape(len(ys), Z)
 
 
 def flat_rank(n, lam, vecs, t, rng, chunk_pairs=200000):
@@ -79,9 +77,12 @@ def flat_rank(n, lam, vecs, t, rng, chunk_pairs=200000):
     for f in others:
         pts[f] = rng.integers(0, p, (K, n, m[f]))
     vv = [np.asarray(x, dtype=np.int64) % p for x in vecs]
-    F = entries(lam, roles, vv, pts, chunk_pairs, t, others)
-    E = RREF(F.shape[1])
-    return E.add(F.astype(np.float64)), min(n1, n23)
+    E = RREF(K)                     # rows go straight into the incremental echelon form: the N1 x K matrix is never stored
+    for ys, blk in entry_blocks(lam, roles, vv, pts, chunk_pairs, t, others):
+        E.add(blk.astype(np.float64))
+        if E.rank >= min(n1, n23):
+            break                   # at the bound: the remaining rows cannot raise the rank
+    return E.rank, min(n1, n23)
 
 
 if __name__ == '__main__':

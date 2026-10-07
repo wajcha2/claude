@@ -358,3 +358,23 @@ lam=((5, 1, 1, 1), (4, 1, 1, 1, 1), (4, 1, 1, 1, 1)) g=1 dims=[1575, 315, 315] o
 # worker 568929 done, 119s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 568930/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 70 components in list
   . ((2, 2, 2, 1, 1), (4, 2, 1, 1), (2, 2, 1, 1, 1, 1)) dir 1 r=10 H=[105] V=[105] eval 5s rref 0s
+  . ((5, 1, 1, 1), (4, 1, 1, 1, 1), (3, 1, 1, 1, 1, 1)) dir 0 r=10 H=[1575] V=[1575] eval 243s rref 11s
+  . ((4, 1, 1, 1, 1), (5, 1, 1, 1), (3, 1, 1, 1, 1, 1)) dir 1 r=10 H=[315] V=[315] eval 8s rref 0s
+  . ((3, 1, 1, 1, 1, 1), (5, 1, 1, 1), (4, 1, 1, 1, 1)) dir 2 r=10 H=[21] V=[21] eval 0s rref 0s
+lam=((5, 1, 1, 1), (4, 1, 1, 1, 1), (3, 1, 1, 1, 1, 1)) g=1 dims=[1575, 315, 21] ok  wall=384.0s rss=1009MB
+# worker 568930 done, 384s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 568931/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 70 components in list
+  . ((2, 2, 1, 1, 1, 1), (4, 2, 1, 1), (2, 2, 2, 1, 1)) dir 2 r=10 H=[15] V=[15] eval 0s rref 0s
+lam=((4, 2, 1, 1), (2, 2, 2, 1, 1), (2, 2, 1, 1, 1, 1)) g=1 dims=[2430, 105, 15] ok  wall=1701.8s rss=984MB
+# worker 568925 done, 1702s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 568932/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 70 components in list
+  . ((5, 1, 1, 1), (3, 2, 1, 1, 1), (2, 2, 2, 2)) dir 0 r=10 H=[1575] V=[1575] eval 96s rref 11s
+  . ((3, 2, 1, 1, 1), (5, 1, 1, 1), (2, 2, 2, 2)) dir 1 r=10 H=[384] V=[384] eval 2s rref 1s
+  . ((5, 1, 1, 1), (4, 1, 1, 1, 1), (2, 2, 2, 2)) dir 0 r=10 H=[1575] V=[1575] eval 275s rref 11s
+  . ((2, 2, 2, 2), (5, 1, 1, 1), (3, 2, 1, 1, 1)) dir 2 r=10 H=[105] V=[105] eval 1s rref 0s
+lam=((5, 1, 1, 1), (3, 2, 1, 1, 1), (2, 2, 2, 2)) g=1 dims=[1575, 384, 105] ok  wall=248.1s rss=749MB
+# worker 568932 done, 248s
+  . ((4, 1, 1, 1, 1), (5, 1, 1, 1), (2, 2, 2, 2)) dir 1 r=10 H=[315] V=[315] eval 2s rref 0s
+  . ((2, 2, 2, 2), (5, 1, 1, 1), (4, 1, 1, 1, 1)) dir 2 r=10 H=[105] V=[105] eval 1s rref 0s
+lam=((5, 1, 1, 1), (4, 1, 1, 1, 1), (2, 2, 2, 2)) g=1 dims=[1575, 315, 105] ok  wall=313.8s rss=760MB
+# worker 568931 done, 314s

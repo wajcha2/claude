@@ -504,23 +504,30 @@ def drop_minpoly(FA, FB, rho, rng):
 
 def pencil_points(cp, AB, R, rng, tag, size):
     """tensor-independent drop points of a matrix pencil A(X) + t B(X) (AB(X) -> (A, B) for the tensor named X) for
-    rank-r_lo tensors (r_lo = min R): Ta = P(r_lo) and Tb derive them (gcd of the minimal polynomials of projected
-    pencils), Tc checks them (a true tensor-independent point lowers Tc too); every such point gets its rank profile
+    rank-r_lo tensors (r_lo = min R): Ta = P(r_lo) (two projections) and, only if Ta has drop points, Tb derive them
+    (gcd of the minimal polynomials of projected pencils), Tc checks them (a true tensor-independent point lowers Tc too); every such point gets its rank profile
     over r_lo..r_hi+1 (ends + bisection; D_r is contained in D_{r_lo} when the generic rank is constant on the range).
     Points over F_{p^e} via ext_rank (skipped when e * size > EMAXSIZE)."""
     t0 = time.time()
     rlo, rhi = min(R), max(R)
     Ta, Tb, Tc = cp.P(rlo), 'D%db' % rlo, 'D%dc' % rlo
     cp.add_tensor(Tb, rlo); cp.add_tensor(Tc, rlo)
-    FAB = {X: AB(X) for X in (Ta, Tb)}
+    FAB = {Ta: AB(Ta)}
     tg = int(rng.integers(1, p))
-    rho = {X: rank(np.fmod(A + tg * B, p)) for X, (A, B) in FAB.items()}
-    if len(set(rho.values())) > 1:
-        log('   WARNING: rank-r tensors differ on the pencil: %s' % rho)
-    polys = [drop_minpoly(FAB[X][0], FAB[X][1], rho[X], rng) for X in (Ta, Tb)]
-    tpoly = time.time() - t0
+    rho = {Ta: rank(np.fmod(FAB[Ta][0] + tg * FAB[Ta][1], p))}
+    # drop points of Ta alone: gcd over two projections (projection-dependent roots differ).  If there are none,
+    # there is no tensor-independent one either, and the second tensor (a costly evaluation) is not needed.
+    polys = [drop_minpoly(FAB[Ta][0], FAB[Ta][1], rho[Ta], rng) for _ in range(2)]
     h = polys[0].gcd(polys[1])
-    out = {'line': tag, 'rho': rho[Ta], 'deg': [polys[0].degree(), polys[1].degree()], 'gcd': h.degree(), 'factors': []}
+    if h.degree() > 0:
+        FAB[Tb] = AB(Tb)
+        rho[Tb] = rank(np.fmod(FAB[Tb][0] + tg * FAB[Tb][1], p))
+        if rho[Tb] != rho[Ta]:
+            log('   WARNING: rank-r tensors differ on the pencil: %s' % rho)
+        polys.append(drop_minpoly(FAB[Tb][0], FAB[Tb][1], rho[Tb], rng))
+        h = h.gcd(polys[2])
+    tpoly = time.time() - t0
+    out = {'line': tag, 'rho': rho[Ta], 'deg': [q.degree() for q in polys], 'gcd': h.degree(), 'factors': []}
     if h.degree() > 0:
         FAB[Tc] = AB(Tc)                      # third tensor only when there are candidates
         rho[Tc] = rank(np.fmod(FAB[Tc][0] + tg * FAB[Tc][1], p))

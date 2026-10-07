@@ -7,8 +7,9 @@ resolves the ranks NEED = {r < r_gen : no separator of r vs r+1 is known in a de
 Per format the jobs are run in the order (d, stage): degree d is completed in every cost band before degree d + 1
 is started (that is what the lowest separating degree needs); degrees above d_min(target rank) are not run (target
 = r_gen - 1 unless skipped in state.json).  Across formats, a free worker slot goes to the format with the fewest
-running workers, ties to the one with the fewest unchecked components left in its current degree (fair share; before
-2026-10-06 18:30: the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
+running workers, then to a format with <= 10 unchecked components left in its current degree, then round robin (the
+format whose last worker start is oldest; fair share since 2026-10-06 18:30, round robin since 2026-10-07 07:10; before:
+the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
 will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
 started until enough memory is free (the next component waits, it is not skipped).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
@@ -419,6 +420,15 @@ def main():
     workers = {}          # pid -> (Popen or None (adopted), job name, worker id, t0)
     predicted = {}        # pid -> (component index, est. peak MB) until the worker's claim appears
     backfill = set()      # pids started while a larger component waited for memory
+    last_start = collections.defaultdict(float)   # n -> time of its last worker start (round robin)
+    try:                  # seed the round robin from the log (a restart must not reset it)
+        import calendar, re
+        for l in open(os.path.join(SCAN, 'runner.log')).readlines()[-3000:]:
+            mm = re.match(r'(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) started worker \d+ on n(\d+)_', l)
+            if mm:
+                last_start[int(mm.group(2))] = calendar.timegm(time.strptime(mm.group(1), '%Y-%m-%d %H:%M:%S'))
+    except OSError:
+        pass
     mem_wait = None
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
@@ -573,7 +583,10 @@ def main():
                     continue
                 if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
                     continue                         # extra jobs use much memory: one worker at a time over all of them
-                cands.append(((job['stage'] > 0, per_n[job['n']], left_in_degree(st, job['n'], job['d']), job['n'], job['d']), name))
+                left = left_in_degree(st, job['n'], job['d'])
+                # fewest running workers first; then degrees with <= 10 components left (finishing a degree settles a
+                # lowest separating degree); then round robin (the format that started a worker longest ago)
+                cands.append(((job['stage'] > 0, per_n[job['n']], left > 10, last_start[job['n']], left, job['n'], job['d']), name))
             if not cands:
                 break
             cands.sort()
@@ -618,6 +631,7 @@ def main():
             pr = subprocess.Popen([sys.executable, '-u', 'rankscan.py', str(job['n']), str(job['d'])], env=env,
                                   stdout=lf, stderr=subprocess.STDOUT, start_new_session=True)
             workers[pr.pid] = (pr, name, w, time.time())
+            last_start[job['n']] = time.time()
             if nc:
                 predicted[pr.pid] = (nc[0], need_mb)
             if is_bf:

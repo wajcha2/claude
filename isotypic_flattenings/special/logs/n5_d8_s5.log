@@ -335,3 +335,61 @@ lam=((5, 3), (3, 3, 1, 1), (2, 2, 2, 1, 1)) g=2 dir 3: n1=10 n23=264600 N1=18 K=
    no natural U with 0 < dim < g
    line0 rho 10  minpoly deg [10, 10]  gcd deg 0    (0.0s)
    done dir 3: ok, 2 cases, 0 hits, wall 1.7s (F 0.0s), peak 320 MB
+lam=((6, 1, 1), (3, 2, 1, 1, 1), (3, 2, 1, 1, 1)) g=4 dir 1: n1=945 n23=1600 N1=953 K=1608  ranks [9]
+   generic U: r9 H[385, 425, 425, 425] V[685, 685, 685] r10 H[385, 425, 425, 425] V[685, 685, 685]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 4, 5: 2, 6: 0}  swaps {'sw23+': 1, 'sw23-': 3}  (1.1s)
+   U5                           r9 H[375, 375, 425, 425] V[675, 685, 685] r10 H[375, 375, 425, 425] V[675, 685, 685]
+   sw23+                        r9 H[40, 425, 425, 425] V[385, 685, 685] r10 H[40, 425, 425, 425] V[385, 685, 685]
+   sw23-                        r9 H[385, 385, 385, 425] V[685, 685, 685] r10 H[385, 385, 385, 425] V[685, 685, 685]
+   line0 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[375, 375, 375] prof{'9': 375, '10': 375} e1:[350, 350, 350] prof{'9': 350, '10': 350}  (64.5s)
+   line1 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[350, 350, 350] prof{'9': 350, '10': 350} e1:[375, 375, 375] prof{'9': 375, '10': 375}  (17.6s)
+   line2 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[350, 350, 350] prof{'9': 350, '10': 350} e1:[375, 375, 375] prof{'9': 375, '10': 375}  (16.8s)
+   line3 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[375, 375, 375] prof{'9': 375, '10': 375} e1:[350, 350, 350] prof{'9': 350, '10': 350}  (18.0s)
+   line4 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[350, 350, 350] prof{'9': 350, '10': 350} e1:[375, 375, 375] prof{'9': 375, '10': 375}  (17.0s)
+   line5 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[375, 375, 375] prof{'9': 375, '10': 375} e1:[350, 350, 350] prof{'9': 350, '10': 350}  (17.3s)
+   line-span(3) sig[375, 375, 375] r9 H[375, 415, 415, 425] V[675, 675, 685] r10 H[375, 415, 415, 425] V[675, 675, 685]
+   line-span(3) sig[350, 350, 350] r9 H[350, 390, 390, 425] V[350, 350, 685] r10 H[350, 390, 390, 425] V[350, 350, 685]
+   in[sig[375, 375, 375]]0 rho 375  minpoly deg [341, 341, 341]  gcd deg 1  e1:[340, 340, 340] prof{'9': 340, '10': 340}  (13.2s)
+   in[sig[375, 375, 375]]1 rho 375  minpoly deg [341, 341, 341]  gcd deg 1  e1:[340, 340, 340] prof{'9': 340, '10': 340}  (13.3s)
+   in[sig[375, 375, 375]]2 rho 375  minpoly deg [341, 341, 341]  gcd deg 1  e1:[340, 340, 340] prof{'9': 340, '10': 340}  (13.4s)
+   in[sig[375, 375, 375]]3 rho 375  minpoly deg [341, 341, 341]  gcd deg 1  e1:[340, 340, 340] prof{'9': 340, '10': 340}  (12.8s)
+   in[sig[375, 375, 375]]4 rho 375  minpoly deg [341, 341, 341]  gcd deg 1  e1:[340, 340, 340] prof{'9': 340, '10': 340}  (12.7s)
+   in[sig[375, 375, 375]]-span(2) sig[340, 340, 340] r9 H[340, 380, 425, 425] V[340, 685, 685] r10 H[340, 380, 425, 425] V[340, 685, 685]
+   in[sig[350, 350, 350]]0 rho 350  minpoly deg [42, 42, 42]  gcd deg 2  e1:[50, 50, 50] prof{'9': 50, '10': 50} e1:[340, 340, 340] prof{'9': 340, '10': 340}  (11.3s)
+   in[sig[350, 350, 350]]1 rho 350  minpoly deg [42, 42, 42]  gcd deg 2  e1:[340, 340, 340] prof{'9': 340, '10': 340} e1:[50, 50, 50] prof{'9': 50, '10': 50}  (10.9s)
+   in[sig[350, 350, 350]]2 rho 350  minpoly deg [42, 42, 42]  gcd deg 2  e1:[50, 50, 50] prof{'9': 50, '10': 50} e1:[340, 340, 340] prof{'9': 340, '10': 340}  (11.4s)
+   in[sig[350, 350, 350]]3 rho 350  minpoly deg [42, 42, 42]  gcd deg 2  e1:[340, 340, 340] prof{'9': 340, '10': 340} e1:[50, 50, 50] prof{'9': 50, '10': 50}  (12.1s)
+   in[sig[350, 350, 350]]4 rho 350  minpoly deg [42, 42, 42]  gcd deg 2  e1:[50, 50, 50] prof{'9': 50, '10': 50} e1:[340, 340, 340] prof{'9': 340, '10': 340}  (11.3s)
+   in[sig[350, 350, 350]]-span(2) sig[50, 50, 50] r9 H[50, 50, 425, 425] V[50, 385, 685] r10 H[50, 50, 425, 425] V[50, 385, 685]
+   in[sig[350, 350, 350]]-span(2) sig[340, 340, 340] r9 H[340, 380, 425, 425] V[340, 685, 685] r10 H[340, 380, 425, 425] V[340, 685, 685]
+   in[in[sig[375, 375, 375]]sig[340, 340, 340]]0 rho 340  minpoly deg [41, 41, 41]  gcd deg 1  e1:[40, 40, 40] prof{'9': 40, '10': 40}  (6.5s)
+   in[in[sig[350, 350, 350]]sig[50, 50, 50]]0 rho 50  minpoly deg [2, 2, 2]  gcd deg 2  e1:[40, 40, 40] prof{'9': 40, '10': 40} e1:[10, 10, 10] prof{'9': 10, '10': 10}  (1.8s)
+   in[in[sig[350, 350, 350]]sig[340, 340, 340]]0 rho 340  minpoly deg [41, 41, 41]  gcd deg 1  e1:[40, 40, 40] prof{'9': 40, '10': 40}  (6.4s)
+   gline H2 rho 425  minpoly deg [347, 347, 347]  gcd deg 2  e2:extension too large  (22.0s)
+   gline V2 rho 685  minpoly deg [87, 87, 87]  gcd deg 2  e1:[385, 385, 385] prof{'9': 385, '10': 385} e1:[385, 385, 385] prof{'9': 385, '10': 385}  (60.9s)
+   gline H3 rho 425  minpoly deg [425, 425]  gcd deg 0    (7.6s)
+   gline V3 rho 685  minpoly deg [685, 685]  gcd deg 0    (9.6s)
+   thru-U50 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[375, 375, 375] prof{'9': 375, '10': 375} e1:[350, 350, 350] prof{'9': 350, '10': 350}  (18.1s)
+   in-U50 rho 375  minpoly deg [302, 302, 302]  gcd deg 2  e1:[340, 340, 340] prof{'9': 340, '10': 340} e1:[335, 335, 335] prof{'9': 335, '10': 335}  (17.1s)
+   thru-sw23+0 rho 385  minpoly deg [41, 41, 41]  gcd deg 1  e1:[40, 40, 40] prof{'9': 40, '10': 40}  (8.9s)
+   thru-sw23-0 rho 385  minpoly deg [342, 342, 342]  gcd deg 2  e1:[350, 350, 350] prof{'9': 350, '10': 350} e1:[375, 375, 375] prof{'9': 375, '10': 375}  (18.3s)
+   in-sw23-0 rho 385  minpoly deg [303, 303, 303]  gcd deg 3  e1:[345, 345, 345] prof{'9': 345, '10': 345} e1:[375, 375, 375] prof{'9': 375, '10': 375} e1:[350, 350, 350] prof{'9': 350, '10': 350}  (21.0s)
+   done dir 1: ok, 36 cases, 0 hits, wall 612.5s (F 96.7s), peak 807 MB
+lam=((6, 1, 1), (3, 2, 1, 1, 1), (3, 2, 1, 1, 1)) g=4 dir 2: n1=40 n23=37800 N1=48 K=168  ranks [9]
+   generic U: r9 H[40, 40, 40, 40] V[80, 120, 160]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 4, 5: 2, 6: 0}  swaps {'sw13+': 1, 'sw13-': 3}  (1.3s)
+   U5                           r9 H[40, 40, 40, 40] V[80, 120, 160]
+   sw13+                        r9 H[40, 40, 40, 40] V[80, 120, 160]
+   sw13-                        r9 H[40, 40, 40, 40] V[80, 120, 160]
+   line0 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   line1 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   gline H2 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   gline V2 rho 80  minpoly deg [80, 80]  gcd deg 0    (0.0s)
+   gline H3 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   gline V3 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.1s)
+   thru-U50 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   in-U50 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   thru-sw13+0 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   thru-sw13-0 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   in-sw13-0 rho 40  minpoly deg [40, 40]  gcd deg 0    (0.0s)
+   done dir 2: ok, 14 cases, 0 hits, wall 2.7s (F 0.2s), peak 120 MB

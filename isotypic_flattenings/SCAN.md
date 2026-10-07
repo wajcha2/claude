@@ -79,6 +79,14 @@ no word-minor tensor.  Validated: 122 stored (component, direction, rank) values
 components ((7),(2,2,1,1,1),(2,2,1,1,1)) and ((7),(2,2,2,1),(2,2,2,1)) at ranks 12, 13 take 80 s each (saturated,
 no separation of rank 12; scan/onerow_frontier.log).
 
+## Saturation certificates in the report (2026-10-07)
+A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
+rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks
+as resolved even when the record was run for fewer ranks: the WCAP reruns n8_d6_x1 (asked only for r = 12; all five
+components saturated at r = 12) complete 8x8x8 d = 6 for r = 13, and the wedge records n10_d5_w1/w2 (((5),(1^5),(1^5))
+at its bounds 2002 and 252 from r = 14) complete 10x10x10 d = 5 for r = 15.  For records without a stored 'sat_from'
+(closed-form families) the saturation rank is read off the profile and the matrix dimensions.
+
 ## Correction (2026-10-05): no component ever reached the time limit
 Up to 2026-10-05 03:40 the runner's time-limit check measured every claim file of a live worker, including the
 claims of components that worker had finished hours before; all nine 'TIMEOUT' lines in the runner log were such

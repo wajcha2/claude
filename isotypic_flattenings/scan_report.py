@@ -2,8 +2,31 @@
 (SCAN = scan/live by default)."""
 import json, os, time, collections
 from rankscan import generic_rank, components, cost_proxy
+from hwv import dim_schur
 
 SCAN = os.environ.get('SCAN', 'scan/live')
+
+
+def dir_sat(n, lam, x):
+    """rank from which direction x of a record is at its bounds (H_k = min(n1, k n23), V_k = min(k n1, n23)): the stored
+    'sat_from', else (records of the closed-form families, wedge_family.py) the smallest evaluated rank whose profile
+    is at the bounds; None if not saturated or not evaluated."""
+    if x.get('sat_from') is not None:
+        return x['sat_from']
+    if x.get('status') == 'infeasible' or not x.get('prof') or x.get('t') is None:
+        return None
+    t = x['t']
+    n1 = dim_schur(tuple(lam[t]), n)
+    n23 = 1
+    for u in range(3):
+        if u != t:
+            n23 *= dim_schur(tuple(lam[u]), n)
+    for r in sorted(x['prof'], key=int):
+        P = x['prof'][r]
+        if all(h == min(n1, (k + 1) * n23) for k, h in enumerate(P['H'])) and \
+           all(v == min((k + 1) * n1, n23) for k, v in enumerate(P['V'])):
+            return int(r)
+    return None
 
 
 def compress(cfgs):
@@ -56,16 +79,26 @@ def main():
         for rec in recs[n]:
             key = (rec['d'], tuple(tuple(x) for x in rec['lam']))
             m = merged.get(key)
+            sats = [dir_sat(n, rec['lam'], x) for x in rec['dirs']]
+            rsat = max(sats) if sats and all(v is not None for v in sats) else None   # every direction at its bound
             if m is None:
                 m = dict(rec); m['sep'] = {k: list(v) for k, v in rec['sep'].items()}
                 m['_need'] = set(rec['need']); m['_res'] = set(rec['need']) - set(rec['unknown'])
+                m['_sat'] = rsat
                 m['dirs'] = list(rec['dirs']); merged[key] = m
                 continue
+            if rsat is not None and (m['_sat'] is None or rsat < m['_sat']):
+                m['_sat'] = rsat
             for k, v in rec['sep'].items():
                 m['sep'].setdefault(k, []).extend(c for c in v if c not in m['sep'].get(k, []))
             m['_need'] |= set(rec['need']); m['_res'] |= set(rec['need']) - set(rec['unknown'])
             m['cpu'] += rec['cpu']; m['wall'] = max(m['wall'], rec['wall']); m['rss_peak_mb'] = max(m['rss_peak_mb'], rec['rss_peak_mb'])
         for m in merged.values():
+            # saturation certificate: if a record has every direction at its rank bound from rank s on, the flattening
+            # ranks are equal for all r >= s, so no rank r >= s is separated by this component -- resolved even when that
+            # record was run for fewer ranks (e.g. the WCAP reruns n*_x1 asked only for the then-frontier rank)
+            if m.get('_sat') is not None:
+                m['_res'] |= {r for r in m['_need'] if r >= m['_sat']}
             m['unknown'] = sorted(m['_need'] - m['_res'])
             m['status'] = 'ok' if not m['unknown'] else 'partial'
         recs[n] = list(merged.values())

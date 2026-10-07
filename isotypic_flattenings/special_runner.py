@@ -1,7 +1,7 @@
 """python3 special_runner.py JOBFILE       (background: setsid nohup python3 -u special_runner.py special/jobs.txt >> special/runner.log 2>&1 &)
 
 Runs specialscan.py jobs, one process per component, at most NCORES at a time (read every 10 s from
-special/live/ncores, default 4), in the order of JOBFILE.  JOBFILE lines: `n d R methods...` (all components with
+special/live/ncores, default 4), in the order of JOBFILE.  JOBFILE lines: `[KEY=VALUE ...] n d R methods...` (all components with
 g >= 2 of degree d, cheapest first by rankscan.cost_proxy) or `n d R methods... :: lam` (one component).
 Output of a job: special/live/res/n<n>_d<d>_s<slot>.jsonl and special/live/logs/n<n>_d<d>_s<slot>.log (slot = pool
 slot, so that no two running processes append to one file; special/live is not tracked: special/sync.sh copies it
@@ -84,7 +84,7 @@ def external_jobs(own_pids):
 
 
 def expand(jobfile):
-    jobs = []
+    jobs, seen = [], set()
     for line in open(jobfile):
         line = line.split('#')[0].strip()
         if not line:
@@ -95,14 +95,27 @@ def expand(jobfile):
         else:
             head, lams = line, None
         f = head.split()
+        env = {}
+        while f and '=' in f[0]:                 # leading KEY=VALUE tokens: environment of these jobs
+            k, v = f.pop(0).split('=', 1)
+            env[k] = v
         n, d, Rs, methods = int(f[0]), int(f[1]), f[2], f[3:]
         if lams is None:
             comps = [(lam, g) for _, lam, g in rankscan.components(n, d) if g >= 2]
             comps.sort(key=lambda c: cost_proxy(n, c[0], c[1]))
             lams = [lam for lam, _ in comps]
         for lam in lams:
-            jobs.append((n, d, Rs, tuple(methods), lam))
+            job = (n, d, Rs, tuple(methods), lam)
+            if job in seen:
+                continue
+            seen.add(job)
+            jobs.append(job)
+            if env and job not in JOBENV:        # the first line that names a job decides its environment
+                JOBENV[job] = env
     return jobs
+
+
+JOBENV = {}
 
 
 def main():
@@ -163,7 +176,8 @@ def main():
             nbig += is_big(job[0], job[4])
             slot = min(set(range(slot0, slot0 + 16)) - set(running))
             n, d, Rs, methods, lam = job
-            env = dict(os.environ, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1',
+            env = dict(os.environ, **JOBENV.get(job, {}))
+            env = dict(env, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1',
                        OUT='special/live/res/n%d_d%d_s%d.jsonl' % (n, d, slot), DONEGLOB='special/live/res')
             logf = open('special/live/logs/n%d_d%d_s%d.log' % (n, d, slot), 'a')
             proc = subprocess.Popen(['python3', '-u', 'specialscan.py', str(n), str(d), repr(lam), Rs] + list(methods),

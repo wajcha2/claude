@@ -164,7 +164,7 @@ def main():
                 del running[slot]
         # launch
         todo = [j for j in todo if j not in set(jj for _, jj, _ in running.values())]
-        nbig = sum(1 for j in active if is_big(j[0], j[4]))
+        nbig = sum(1 for j in [jj for _, jj, _ in running.values()] + list(ext) if is_big(j[0], j[4]))   # after reaping
         while todo and len(running) + len(ext) < ncores:
             # memory guard: at most MAXBIG jobs that can need several GB, and >= MINFREE MB available
             if running and mem_available_mb() < read_int(os.path.join(LIVE, 'minfree'), 5000):

@@ -65,4 +65,6 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
 `cd isotypic_flattenings; pip install numpy sympy opt_einsum python-flint; echo 4 > special/live/ncores; ./special/start_runner.sh`
 (if special/live is lost: `mkdir -p special/live/res special/live/logs; cp special/res/*.jsonl special/live/res/` first;
 components/directions with a record for the same ranks and methods in special/live/res are skipped).
+Filling-matrix evaluations longer than 60 s are checkpointed in special/live/fcache (deterministic in the seed;
+removed when the direction is done), so a container restart only loses the work since the last evaluation.
 Never kill with a `pkill -f` pattern that also occurs in the killing command line (it kills the shell).

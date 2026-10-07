@@ -50,6 +50,8 @@ from isoflat import kronecker
 p = rankscan.p
 EMAXSIZE = int(os.environ.get('EMAXSIZE', '6000'))
 CACHE = int(os.environ.get('CACHE', '5'))
+FCACHE = os.environ.get('FCACHE', 'special/live/fcache')     # checkpoints of long filling-matrix evaluations
+FCACHE_MIN = float(os.environ.get('FCACHE_MIN', '60'))
 PRB = 8                       # probe grid: PRB source points x PRB^2 target pairs
 
 
@@ -198,21 +200,44 @@ class Comp:
     def vm_of(self, V, lam_p):
         return [{L: minors_of_vectors(V[u], L) for L in col_lengths(lam_p[u])} for u in range(3)]
 
+    def fcache_path(self, name):
+        lam = '_'.join(''.join(str(x) for x in l) for l in self.lam)
+        return os.path.join(FCACHE, 'n%d_%s_t%d_s%d_p%d_%s.npy' % (self.n, lam, self.t, self.seed, p, name))
+
     def F(self, name):
-        """(g, N1, K) array of the filling matrices at tensor `name` (computed once)."""
+        """(g, N1, K) array of the filling matrices at tensor `name` (computed once; evaluations longer than
+        FCACHE_MIN seconds are checkpointed in FCACHE, so that a restarted job does not redo them -- everything is
+        deterministic in the seed -- and removed when the direction is finished, see clear_fcache)."""
         if name not in self.cache:
             t0 = time.time()
-            vm = self.D.vm(name)
             g, N1, K = self.g, self.N1, self.K
-            Fs = np.empty((g, N1, K), dtype=np.float64 if g * N1 * K <= (1 << 24) else np.float32)
-            for i, fl in enumerate(self.D.fillings):
-                Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
+            path = self.fcache_path(name)
+            Fs = None
+            if os.path.exists(path):
+                try:
+                    Fs = np.load(path)
+                    assert Fs.shape == (g, N1, K)
+                except Exception:
+                    Fs = None
+            if Fs is None:
+                vm = self.D.vm(name)
+                Fs = np.empty((g, N1, K), dtype=np.float64 if g * N1 * K <= (1 << 24) else np.float32)
+                for i, fl in enumerate(self.D.fillings):
+                    Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
+                if time.time() - t0 > FCACHE_MIN:
+                    os.makedirs(FCACHE, exist_ok=True)
+                    np.save(path + '.tmp.npy', Fs)
+                    os.replace(path + '.tmp.npy', path)
             # keep at most CACHE tensors (the oldest is dropped; memory g N1 K per tensor)
             while len(self.cache) >= CACHE:
                 self.cache.pop(next(iter(self.cache)))
             self.cache[name] = Fs
             self.ftime = getattr(self, 'ftime', 0.0) + time.time() - t0
         return self.cache[name]
+
+    def clear_fcache(self):
+        for f in glob.glob(self.fcache_path('*')):
+            os.remove(f)
 
     def drop(self, name):
         self.cache.pop(name, None)
@@ -868,6 +893,8 @@ def run_component(n, d, lam, R, methods, seed, dirs=None, out=None):
                     rec['status'] = 'failed: %s' % str(e)[:200]
                     log('   FAILED: %s' % e)
                 rec['ftime'] = round(getattr(cp, 'ftime', 0.0), 1)
+                if rec['status'] == 'ok':
+                    cp.clear_fcache()
                 del cp
         rec['wall'] = round(time.time() - T0, 1)
         rec['cpu'] = round(time.process_time() - C0, 1)

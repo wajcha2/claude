@@ -46,8 +46,9 @@ adjustable in scan/live/membudget).  Estimate per component: two phases of its l
 elimination (flattenings + combination + eliminations 8 (N1 K + N1^2 + K^2) bytes) -- checked against all 2376 recorded
 peaks (none above its estimate).  Trigger: the 8x8x8 d = 6 component ((3,2,1),(3,2,1),(3,1,1,1)) (g = 4, V
 elimination 21512^2) and the 6x6x6 d = 7 component ((4,2,1)^3) (g = 9) need ~7 GB each; ((3,2,1)^3) on 8x8x8 (g = 5)
-~9 GB.  A component that does not fit waits (it is not skipped); the two youngest workers were stopped at 23:07
-(their components are redone).  A component running longer than the time limit is stopped and listed as
+~10 GB.  A component that does not fit waits (it is not skipped); the two youngest workers were stopped at 23:07
+(their components are redone).  While a component waits, later jobs may backfill only as long as the backfilled
+components together leave room for it (it fits as soon as the other running components finish; since 2026-10-07 01:42).  A component running longer than the time limit is stopped and listed as
 not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).

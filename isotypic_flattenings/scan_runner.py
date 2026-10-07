@@ -418,6 +418,7 @@ def main():
         job.setdefault('timeout', [])
     workers = {}          # pid -> (Popen or None (adopted), job name, worker id, t0)
     predicted = {}        # pid -> (component index, est. peak MB) until the worker's claim appears
+    backfill = set()      # pids started while a larger component waited for memory
     mem_wait = None
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
@@ -451,6 +452,7 @@ def main():
                 rc = None if pid_alive(pid) else 0
             if rc is not None:
                 del workers[pid]
+                backfill.discard(pid); predicted.pop(pid, None)
                 if rc != 0:
                     log('worker %d (%s, pid %d) exited with %s after %.0fs' % (w, name, pid, rc, now - t0))
         alive = set(workers)
@@ -546,9 +548,24 @@ def main():
         # the format with the fewest unchecked components left in its current degree (finishing a degree settles the
         # lowest separating degree); extra jobs (stage 0) first.  The old order (band, n) let one format's long
         # components hold every slot while other formats waited for days with a few components left in a degree.
+        budget = MEMBUDGET
+        try:
+            budget = float(open(os.path.join(SCAN, 'membudget')).read().split()[0])
+        except (OSError, ValueError, IndexError):
+            pass
+
+        def running_est(pid):
+            """estimated peak of a running worker's component (predicted until its claim appears)."""
+            jb = st['jobs'][workers[pid][1]]
+            li = worker_component(jb, pid)
+            if li is None:
+                return predicted.get(pid, (None, 0.0))[1]
+            predicted.pop(pid, None)
+            lm, gg = {i: (l_, g_) for _, i, l_, g_ in comp_list(jb['n'], jb['d'])}[li]
+            return est_peak_mb(st, jb['n'], jb['d'], lm, gg, bool(jb.get('extra')))
         while len(workers) < ncores:
             per_n = collections.Counter(st['jobs'][nm]['n'] for _, nm, _, _ in workers.values())
-            best = None
+            cands = []
             for name in runnable:
                 job = st['jobs'][name]
                 nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
@@ -556,40 +573,42 @@ def main():
                     continue
                 if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
                     continue                         # extra jobs use much memory: one worker at a time over all of them
-                key = (job['stage'] > 0, per_n[job['n']], left_in_degree(st, job['n'], job['d']), job['n'], job['d'])
-                if best is None or key < best[0]:
-                    best = (key, name)
-            if best is None:
+                cands.append(((job['stage'] > 0, per_n[job['n']], left_in_degree(st, job['n'], job['d']), job['n'], job['d']), name))
+            if not cands:
                 break
-            name = best[1]
+            cands.sort()
+            # memory admission: the estimated peaks of the running components plus that of the next component of the
+            # job must fit the budget.  If the first job in line does not fit, it waits (nothing is skipped) and later
+            # jobs may backfill, but only as long as the backfilled components together leave room for the waiting one
+            # (so it fits once the other running components finish: no starvation).
+            ests = {pid: running_est(pid) for pid in workers}
+            used = sum(ests.values())
+            bf_used = sum(v for pid, v in ests.items() if pid in backfill)
+            reserve, pick = None, None
+            for _, name in cands:
+                job = st['jobs'][name]
+                excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
+                nc = next_component(job, excl)
+                need_mb = est_peak_mb(st, job['n'], job['d'], nc[1], nc[2], bool(job.get('extra'))) if nc else 0.0
+                if reserve is None:
+                    if not workers or used + need_mb <= budget:
+                        pick = (name, nc, need_mb, False)
+                        break
+                    reserve = need_mb
+                    if mem_wait != (name, nc and nc[0]):
+                        mem_wait = (name, nc and nc[0])
+                        log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
+                            % (name, nc and nc[1], need_mb / 1024, used / 1024, budget / 1024, max(0.0, budget - need_mb) / 1024))
+                    continue
+                if used + need_mb <= budget and bf_used + need_mb + reserve <= budget:
+                    pick = (name, nc, need_mb, True)
+                    break
+            if pick is None:
+                break
+            name, nc, need_mb, is_bf = pick
+            if not is_bf:
+                mem_wait = None
             job = st['jobs'][name]
-            # memory admission: estimated peaks of the running components (predicted ones for workers that have not
-            # claimed yet) plus the next component of this job must fit the budget; else wait (nothing is skipped)
-            budget = MEMBUDGET
-            try:
-                budget = float(open(os.path.join(SCAN, 'membudget')).read().split()[0])
-            except (OSError, ValueError, IndexError):
-                pass
-            used = 0.0
-            for pid, (_, nm, _, _) in workers.items():
-                jb = st['jobs'][nm]
-                li = worker_component(jb, pid)
-                if li is not None:
-                    predicted.pop(pid, None)
-                    lam_g = {i: (lm, gg) for _, i, lm, gg in comp_list(jb['n'], jb['d'])}[li]
-                    used += est_peak_mb(st, jb['n'], jb['d'], lam_g[0], lam_g[1], bool(jb.get('extra')))
-                elif pid in predicted:
-                    used += predicted[pid][1]
-            excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
-            nc = next_component(job, excl)
-            need_mb = est_peak_mb(st, job['n'], job['d'], nc[1], nc[2], bool(job.get('extra'))) if nc else 0.0
-            if workers and used + need_mb > budget:
-                if mem_wait != (name, nc and nc[0]):
-                    mem_wait = (name, nc and nc[0])
-                    log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting for a worker to finish'
-                        % (name, nc and nc[1], need_mb / 1024, used / 1024, budget / 1024))
-                break
-            mem_wait = None
             w = next(wid)
             env = dict(os.environ, **WENV)
             env.update({'NEED': ','.join(map(str, job['need'])), 'LIST': job['list'], 'OUT': job['out'],
@@ -601,7 +620,10 @@ def main():
             workers[pr.pid] = (pr, name, w, time.time())
             if nc:
                 predicted[pr.pid] = (nc[0], need_mb)
-            log('started worker %d on %s (pid %d)%s' % (w, name, pr.pid, ', est. peak %.1f GB' % (need_mb / 1024) if nc else ''))
+            if is_bf:
+                backfill.add(pr.pid)
+            log('started worker %d on %s (pid %d)%s%s' % (w, name, pr.pid, ', est. peak %.1f GB' % (need_mb / 1024) if nc else '',
+                                                         ' (backfill)' if is_bf else ''))
         save_state(st)
         if all(st['n'][str(n)]['finished'] for n in NS) and not workers:
             log('all formats finished')

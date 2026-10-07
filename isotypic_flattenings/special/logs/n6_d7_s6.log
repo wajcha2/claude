@@ -38,3 +38,19 @@ lam=((5, 1, 1), (4, 1, 1, 1), (3, 2, 1, 1)) g=2 dir 1: n1=1800 n23=604800 N1=180
    generic U: r10 H[1800, 1800] V[3600]
    U_k dims {1: 2, 2: 2, 3: 2, 4: 1, 5: 0}  swaps {}  (0.2s)
    U4                           r10 H[1800, 1800] V[3600]
+lam=((5, 2), (3, 3, 1), (3, 3, 1)) g=2 dir 1: n1=2520 n23=1382976 N1=2528 K=5048  ranks [10, 11, 12, 13]
+   generic U: r10 H[2520, 2520] V[5040]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {'sw23+': 2, 'sw23-': 0}  (0.1s)
+   no natural U with 0 < dim < g
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (293.0s)
+   done dir 1: ok, 2 cases, 0 hits, wall 597.4s (F 442.7s), peak 1285 MB
+lam=((5, 2), (3, 3, 1), (3, 3, 1)) g=2 dir 2: n1=1176 n23=2963520 N1=1184 K=2360  ranks [10, 11, 12, 13]
+   generic U: r10 H[1176, 1176] V[2352]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {'sw13+': 2, 'sw13-': 0}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (55.3s)
+   done dir 2: ok, 2 cases, 0 hits, wall 111.0s (F 82.8s), peak 540 MB
+lam=((4, 2, 1), (3, 3, 1), (2, 2, 1, 1, 1)) g=2 dir 1: n1=2520 n23=98784 N1=2528 K=5048  ranks [10, 11, 12, 13]
+   generic U: r10 H[2520, 2520] V[5040]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g

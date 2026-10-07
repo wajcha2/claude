@@ -8,7 +8,7 @@ slot, so that no two running processes append to one file; special/live is not t
 to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
 record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
 TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'.
-EXCLUSIVE=1 jobs run alone (the queue is drained when one comes first).  Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
+EXCLUSIVE=1 jobs run without any other big job (no new big job starts once one is the highest-priority job left).  Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
 g N1 K > 5e7 run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
 special/live/minfree MB (default 5000) or nothing runs."""
 import os, sys, time, json, glob, subprocess, signal
@@ -170,23 +170,24 @@ def main():
                 del running[slot]
         # launch
         todo = [j for j in todo if j not in set(jj for _, jj, _ in running.values())]
-        nbig = sum(1 for j in [jj for _, jj, _ in running.values()] + list(ext) if is_big(j[0], j[4]))   # after reaping
         while todo and len(running) + len(ext) < ncores:
             # memory guard: at most MAXBIG jobs that can need several GB, and >= MINFREE MB available
             if running and mem_available_mb() < read_int(os.path.join(LIVE, 'minfree'), 5000):
                 break
-            # EXCLUSIVE jobs (huge memory) run alone: nothing starts while one runs; when one is the first runnable
-            # job, the others are drained first
-            if any(JOBENV.get(j, {}).get('EXCLUSIVE') for j in [jj for _, jj, _ in running.values()] + list(ext)):
-                break
-            k = next((i for i, j in enumerate(todo) if JOBENV.get(j, {}).get('EXCLUSIVE') or not is_big(j[0], j[4])
-                      or nbig < read_int(os.path.join(LIVE, 'maxbig'), 2)), None)
+            # EXCLUSIVE jobs (huge memory) run without any other big job: one starts when no big job runs; while it
+            # is the highest-priority job left, no new big job starts; small jobs always fill free slots
+            cur = [jj for _, jj, _ in running.values()] + list(ext)
+            excl = lambda j: bool(JOBENV.get(j, {}).get('EXCLUSIVE'))
+            big = lambda j: excl(j) or is_big(j[0], j[4])
+            nbig = sum(1 for j in cur if big(j))
+            reserve = bool(todo) and excl(todo[0])
+            maxbig = read_int(os.path.join(LIVE, 'maxbig'), 2)
+            k = next((i for i, j in enumerate(todo)
+                      if (excl(j) and nbig == 0) or
+                         (not excl(j) and (not big(j) or (nbig < maxbig and not reserve and not any(excl(c) for c in cur))))), None)
             if k is None:
                 break
-            if JOBENV.get(todo[k], {}).get('EXCLUSIVE') and (running or ext):
-                break
             job = todo.pop(k)
-            nbig += is_big(job[0], job[4])
             slot = min(set(range(slot0, slot0 + 16)) - set(running))
             n, d, Rs, methods, lam = job
             env = dict(os.environ, **JOBENV.get(job, {}))

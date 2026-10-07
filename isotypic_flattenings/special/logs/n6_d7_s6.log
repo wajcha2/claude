@@ -246,3 +246,35 @@ lam=((4, 2, 1), (3, 2, 2), (3, 2, 2)) g=3 dir 1: n1=2520 n23=705600 N1=2528 K=75
    U3                           r10 H[2520, 2520, 2520] V[5040, 7560]
    sw23+                        r10 H[2520, 2520, 2520] V[5040, 7560]
    U3^sw23+                     r10 H[2520, 2520, 2520] V[5040, 7560]
+   sw23-                        r10 H[2520, 2520, 2520] V[5040, 7560]
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (75.9s)
+   line1 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (74.4s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   thru-U30 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (75.3s)
+   in-U30 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (72.5s)
+   thru-sw23+0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (72.2s)
+   in-sw23+0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (73.8s)
+   thru-sw23-0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (76.1s)
+   done dir 1: ok, 13 cases, 0 hits, wall 1889.1s (F 449.2s), peak 1209 MB
+lam=((4, 2, 1), (3, 2, 2), (3, 2, 2)) g=3 dir 2: n1=840 n23=2116800 N1=848 K=2528  ranks [10, 11, 12, 13]
+   generic U: r10 H[840, 840, 840] V[1680, 2520]
+   U_k dims {1: 3, 2: 3, 3: 2, 4: 0}  swaps {'sw13+': 2, 'sw13-': 1}  (0.5s)
+   U3                           r10 H[840, 840, 840] V[1680, 2520]
+   sw13+                        r10 H[840, 840, 840] V[1680, 2520]
+   U3^sw13+                     r10 H[840, 840, 840] V[1680, 2520]
+   sw13-                        r10 H[840, 840, 840] V[1680, 2520]
+   line0 rho 840  minpoly deg [840, 840]  gcd deg 0    (4.5s)
+   line1 rho 840  minpoly deg [840, 840]  gcd deg 0    (4.6s)
+   gline H2 rho 840  minpoly deg [840, 840]  gcd deg 0    (18.0s)
+   gline V2 rho 1680  minpoly deg [1680, 1680]  gcd deg 0    (36.6s)
+   thru-U30 rho 840  minpoly deg [840, 840]  gcd deg 0    (4.6s)
+   in-U30 rho 840  minpoly deg [840, 840]  gcd deg 0    (5.2s)
+   thru-sw13+0 rho 840  minpoly deg [840, 840]  gcd deg 0    (4.9s)
+   in-sw13+0 rho 840  minpoly deg [840, 840]  gcd deg 0    (5.1s)
+   thru-sw13-0 rho 840  minpoly deg [840, 840]  gcd deg 0    (5.0s)
+   done dir 2: ok, 13 cases, 0 hits, wall 212.6s (F 38.9s), peak 801 MB
+lam=((4, 2, 1), (3, 3, 1), (3, 3, 1)) g=3 dir 1: n1=2520 n23=1382976 N1=2528 K=7568  ranks [10, 11, 12, 13]
+   generic U: r10 H[2520, 2520, 2520] V[5040, 7560]
+   U_k dims {1: 3, 2: 3, 3: 1, 4: 0}  swaps {'sw23+': 2, 'sw23-': 1}  (0.4s)
+   U3                           r10 H[2520, 2520, 2520] V[5040, 7560]

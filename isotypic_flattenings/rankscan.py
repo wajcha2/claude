@@ -47,6 +47,8 @@ PR1 = 8
 ENDS = float(os.environ.get('ENDS', '16'))   # resolve(): ends-first when size(top rank) <= ENDS * size(lowest rank)
 EXTRA = 8
 ONEROW = os.environ.get('ONEROW', '1') == '1'   # closed-form fast path for components ((d), mu, mu)
+SATPROBE = int(os.environ.get('SATPROBE', '1'))           # probe the highest feasible rank when the needed ranks are not
+SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))   # ... and at most this many below the lowest needed rank
 
 
 def generic_rank(n):
@@ -597,6 +599,24 @@ def main():
             onerow = ONEROW and is_onerow(lam)
             rmax = rgen if onerow else max([r for r in range(1, rgen + 1) if word_minor_size(perm_lam, n, r) <= WCAP] or [0])
             if rmax < max(rlo, 1):
+                # the needed ranks are beyond the word-minor limit; probe the highest feasible rank rmax instead: if
+                # the flattening is already at its bounds there, it stays there for every r >= rmax (rank is monotone
+                # in r), so this direction separates none of the needed ranks (env SATPROBE=0 disables)
+                if SATPROBE and rmax >= max(2, rlo - SATPROBE_GAP):
+                    try:
+                        D = Direction(n, lam, g, t, crng, vecs, rmax)
+                        P = D.profile(rmax)
+                        if D.saturated(P):
+                            rec['dirs'].append({'t': t, 'method': 'network', 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K,
+                                                'span': D.span, 'tried': D.tried, 'rmax': rmax, 'sat_from': rmax,
+                                                'probe': True, 'prof': {str(rmax): P},
+                                                'times': {str(r): v for r, v in sorted(D.times.items())}})
+                            continue
+                        rec['dirs'].append({'t': t, 'status': 'infeasible', 'rmax': rmax, 'probe_prof': {str(rmax): P}})
+                        rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
+                        continue
+                    except Exception:            # any trouble in the probe: fall back to 'infeasible' (unknown)
+                        pass
                 rec['dirs'].append({'t': t, 'status': 'infeasible', 'rmax': rmax})
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
                 continue

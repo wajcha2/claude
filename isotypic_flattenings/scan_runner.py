@@ -20,7 +20,7 @@ A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every 
 scan_autosave.sh copies everything into scan/ and commits)."""
 import os, sys, json, time, subprocess, itertools, signal, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rankscan import generic_rank, components, cost_proxy, is_onerow
+from rankscan import generic_rank, components, cost_proxy, is_onerow, word_minor_size
 from hwv import dim_schur
 
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
@@ -253,13 +253,17 @@ def eval_phase_mb(st, n, d):
     return v
 
 
-def est_peak_mb(st, n, d, lam, g, extra=False):
+def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     """estimated peak RSS of a worker on component lam (MB): two phases -- evaluation (flattenings + word minors and
     contraction blocks, eval_phase_mb) and elimination (flattenings + phi + eliminations) -- of its largest
     direction, + 800 MB (300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB).  Checked against the recorded components: no peak above its estimate (one-row
     components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
     if is_onerow(lam):
-        return 3584.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
+        return 3584.0
+    if job is not None:            # rankscan.py skips the component at once (word-minor tensor above WCAP at the lowest rank)
+        wcap = int(job.get('env', {}).get('WCAP', 1 << 26))
+        if word_minor_size(lam, n, min(job['need'])) > wcap:
+            return 300.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
     key = (n, lam, g)
     if key not in _est_cache:
         _est_cache[key] = mat_parts(n, lam, g)
@@ -564,6 +568,12 @@ def main():
         except (OSError, ValueError, IndexError):
             pass
 
+        extramax = 1
+        try:
+            extramax = int(open(os.path.join(SCAN, 'extramax')).read().split()[0])
+        except (OSError, ValueError, IndexError):
+            pass
+
         def running_est(pid):
             """estimated peak of a running worker's component (predicted until its claim appears)."""
             jb = st['jobs'][workers[pid][1]]
@@ -572,7 +582,7 @@ def main():
                 return predicted.get(pid, (None, 0.0))[1]
             predicted.pop(pid, None)
             lm, gg = {i: (l_, g_) for _, i, l_, g_ in comp_list(jb['n'], jb['d'])}[li]
-            return est_peak_mb(st, jb['n'], jb['d'], lm, gg, bool(jb.get('extra')))
+            return est_peak_mb(st, jb['n'], jb['d'], lm, gg, bool(jb.get('extra')), jb)
         while len(workers) < ncores:
             per_n = collections.Counter(st['jobs'][nm]['n'] for _, nm, _, _ in workers.values())
             cands = []
@@ -581,8 +591,8 @@ def main():
                 nw = sum(1 for _, nm, _, _ in workers.values() if nm == name)
                 if nw >= open_components(job) or nw >= job.get('maxworkers', NCORES):
                     continue
-                if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= 1:
-                    continue                         # extra jobs use much memory: one worker at a time over all of them
+                if job.get('extra') and sum(1 for _, nm, _, _ in workers.values() if st['jobs'][nm].get('extra')) >= extramax:
+                    continue                         # extra jobs: at most <SCAN>/extramax workers at a time (default 1)
                 left = left_in_degree(st, job['n'], job['d'])
                 # fewest running workers first; then degrees with <= 10 components left (finishing a degree settles a
                 # lowest separating degree); then round robin (the format that started a worker longest ago)
@@ -602,7 +612,7 @@ def main():
                 job = st['jobs'][name]
                 excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
                 nc = next_component(job, excl)
-                need_mb = est_peak_mb(st, job['n'], job['d'], nc[1], nc[2], bool(job.get('extra'))) if nc else 0.0
+                need_mb = est_peak_mb(st, job['n'], job['d'], nc[1], nc[2], bool(job.get('extra')), job) if nc else 0.0
                 if reserve is None:
                     if not workers or used + need_mb <= budget:
                         pick = (name, nc, need_mb, False)

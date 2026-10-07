@@ -37,7 +37,9 @@ degree d + 1 starts (the lowest separating degree needs all of degree d), and de
 separates the target rank (r_gen - 1, or lower if a rank is skipped) are not run.  A job resolves only the ranks
 not yet separated in a lower degree.  4 worker processes (one BLAS thread each) take the runnable jobs: up to 2026-10-06 18:30 in the order
 (band, n) (cheap bands first, small formats first); since then by fair share -- a free slot goes to the format with
-the fewest running workers, ties to the format with the fewest unchecked components left in its current degree (the
+the fewest running workers, ties to the format with the fewest unchecked components left in its current degree (since
+2026-10-07 07:08: ties to a degree with <= 10 components left, else round robin by the oldest last worker start -- the
+fewest-left rule let 9x9x9 and 7x7x7 win every tie and starved 10x10x10 d = 6 and 8x8x8 d = 7 for hours) (the
 old order let the 3-4.5 h components of 7x7x7 d = 7 hold every slot while 6x6x6 d = 7 and 8x8x8 d = 6 waited with
 3 and 5 components left). Memory admission (since 2026-10-06 23:07): a worker is started only if the estimated peak memory of the
 component it will take plus that of the running components fits 15 GB (the container has 16 GB, no swap;

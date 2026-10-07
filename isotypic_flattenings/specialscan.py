@@ -926,7 +926,7 @@ def run_direction(cp, R, methods, seed, rec):
     # cache size from memory: at most ~1.2 GB of filling matrices
     global CACHE
     per = g * cp.N1 * cp.K * (8 if g * cp.N1 * cp.K <= (1 << 24) else 4)
-    CACHE = max(3, min(int(os.environ.get('CACHE', '6')), int(1.2e9 // per)))
+    CACHE = max(int(os.environ.get('CACHEMIN', '3')), min(int(os.environ.get('CACHE', '6')), int(1.2e9 // per)))
     rec.update({'n1': cp.n1, 'n23': cp.n23, 'N1': cp.N1, 'K': cp.K})
     log('lam=%s g=%d dir %d: n1=%d n23=%d N1=%d K=%d  ranks %s' % (lam, g, t + 1, cp.n1, cp.n23, cp.N1, cp.K, R))
     runs = generic_baseline(cp, R, rec, rng)

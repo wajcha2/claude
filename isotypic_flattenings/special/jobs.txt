@@ -27,5 +27,7 @@
 # MEMCAP: larger intermediates for components whose blocked contraction is dominated by tiny blocks
 MEMCAP=134217728 8 6 12-23 line flag pflag gline :: ((4, 2), (2, 2, 1, 1), (2, 2, 1, 1))
 8 6 12-23 line flag pflag gline
+# 6x6x6 d=7 ((4,2,1)^3): g = 9, K = 22688, ~10 GB (OOM-killed next to other jobs): alone, 2 cached tensors
+EXCLUSIVE=1 CACHEMIN=2 CACHE=2 6 7 10-13 line flag pflag gline :: ((4, 2, 1), (4, 2, 1), (4, 2, 1))
 # 5x5x5 rank 9 at d = 8 (cheap check for the d13 agent; lowest priority)
 5 8 9 line flag pflag gline

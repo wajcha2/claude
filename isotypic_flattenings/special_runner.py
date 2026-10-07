@@ -8,7 +8,7 @@ slot, so that no two running processes append to one file; special/live is not t
 to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
 record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
 TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'.
-Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
+EXCLUSIVE=1 jobs run alone (the queue is drained when one comes first).  Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
 g N1 K > 5e7 run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
 special/live/minfree MB (default 5000) or nothing runs."""
 import os, sys, time, json, glob, subprocess, signal
@@ -84,7 +84,9 @@ def external_jobs(own_pids):
 
 
 def expand(jobfile):
-    jobs, seen = [], set()
+    """jobs in priority order.  A job named by a '::' line takes that line's position and environment; general lines
+    skip it."""
+    entries = []
     for line in open(jobfile):
         line = line.split('#')[0].strip()
         if not line:
@@ -99,18 +101,22 @@ def expand(jobfile):
         while f and '=' in f[0]:                 # leading KEY=VALUE tokens: environment of these jobs
             k, v = f.pop(0).split('=', 1)
             env[k] = v
-        n, d, Rs, methods = int(f[0]), int(f[1]), f[2], f[3:]
-        if lams is None:
+        entries.append((env, int(f[0]), int(f[1]), f[2], tuple(f[3:]), lams))
+    specific = {(n, d, Rs, m, lams[0]) for env, n, d, Rs, m, lams in entries if lams is not None}
+    jobs, seen = [], set()
+    for env, n, d, Rs, methods, lams in entries:
+        general = lams is None
+        if general:
             comps = [(lam, g) for _, lam, g in rankscan.components(n, d) if g >= 2]
             comps.sort(key=lambda c: cost_proxy(n, c[0], c[1]))
             lams = [lam for lam, _ in comps]
         for lam in lams:
-            job = (n, d, Rs, tuple(methods), lam)
-            if job in seen:
+            job = (n, d, Rs, methods, lam)
+            if job in seen or (general and job in specific):
                 continue
             seen.add(job)
             jobs.append(job)
-            if env and job not in JOBENV:        # the first line that names a job decides its environment
+            if env:
                 JOBENV[job] = env
     return jobs
 
@@ -169,8 +175,15 @@ def main():
             # memory guard: at most MAXBIG jobs that can need several GB, and >= MINFREE MB available
             if running and mem_available_mb() < read_int(os.path.join(LIVE, 'minfree'), 5000):
                 break
-            k = next((i for i, j in enumerate(todo) if not is_big(j[0], j[4]) or nbig < read_int(os.path.join(LIVE, 'maxbig'), 2)), None)
+            # EXCLUSIVE jobs (huge memory) run alone: nothing starts while one runs; when one is the first runnable
+            # job, the others are drained first
+            if any(JOBENV.get(j, {}).get('EXCLUSIVE') for j in [jj for _, jj, _ in running.values()] + list(ext)):
+                break
+            k = next((i for i, j in enumerate(todo) if JOBENV.get(j, {}).get('EXCLUSIVE') or not is_big(j[0], j[4])
+                      or nbig < read_int(os.path.join(LIVE, 'maxbig'), 2)), None)
             if k is None:
+                break
+            if JOBENV.get(todo[k], {}).get('EXCLUSIVE') and (running or ext):
                 break
             job = todo.pop(k)
             nbig += is_big(job[0], job[4])

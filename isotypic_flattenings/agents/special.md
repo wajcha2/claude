@@ -58,7 +58,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   (default 3 h; 12 h since 2026-10-07 06:30, 8 h on 2026-10-06 after 8x8x8 d=6 ((4,2),(2,2,1,1),(2,2,1,1)) timed out: one F evaluation
   there takes ~1 h); memory guard: at most special/live/maxbig (2) jobs with max(N1, K) > 6000 or g N1 K > 5e7 at once,
   launches only while MemAvailable >= special/live/minfree (5000 MB); a restarted runner adopts the specialscan.py
-  processes still running (counted as slots, not relaunched).  `special/sync.sh` copies special/live into
+  processes still running (counted as slots, not relaunched).  Job lines may start with KEY=VALUE environment
+  tokens (MEMCAP, CACHE, CACHEMIN, ...); EXCLUSIVE=1 jobs run alone (the queue is drained when one comes first).
+  2026-10-07 18:31: 6x6x6 d=7 ((4,2,1)^3) (g = 9, K = 22688: 2 GB per cached tensor + 4 GB V_9 elimination) was
+  OOM-killed next to another big job; it now runs alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

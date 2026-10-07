@@ -184,3 +184,30 @@ lam=((5, 1, 1), (4, 2, 1), (3, 2, 2)) g=2 dir 3: n1=840 n23=4536000 N1=848 K=168
    U3                           r10 H[840, 840] V[1680]
    line0 rho 840  minpoly deg [840, 840]  gcd deg 0    (4.2s)
    done dir 3: ok, 2 cases, 0 hits, wall 29.5s (F 10.1s), peak 491 MB
+lam=((4, 2, 1), (4, 2, 1), (3, 1, 1, 1, 1)) g=3 dir 1: n1=2520 n23=302400 N1=2528 K=7568  ranks [10, 11, 12, 13]
+   generic U: r10 H[2520, 2520, 2520] V[5040, 7560]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {'sw12+': 2, 'sw12-': 1}  (6.6s)
+   sw12+                        r10 H[2520, 2520, 2520] V[5040, 7560]
+   sw12-                        r10 H[2520, 2520, 2520] V[5040, 7560]
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (74.7s)
+   line1 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (73.7s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   thru-sw12+0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (72.2s)
+   in-sw12+0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (73.5s)
+   thru-sw12-0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (73.1s)
+   done dir 1: ok, 9 cases, 0 hits, wall 1638.0s (F 733.2s), peak 1186 MB
+lam=((4, 2, 1), (4, 2, 1), (3, 1, 1, 1, 1)) g=3 dir 3: n1=120 n23=6350400 N1=128 K=368  ranks [10, 11, 12, 13]
+   generic U: r10 H[120, 120, 120] V[240, 360]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {'sw23+': 2, 'sw23-': 1}  (5.3s)
+   sw23+                        r10 H[120, 120, 120] V[240, 360]
+   sw23-                        r10 H[120, 120, 120] V[240, 360]
+   line0 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.0s)
+   line1 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.0s)
+   gline H2 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.3s)
+   gline V2 rho 240  minpoly deg [240, 240]  gcd deg 0    (0.3s)
+   thru-sw23+0 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.0s)
+   in-sw23+0 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.1s)
+   thru-sw23-0 rho 120  minpoly deg [120, 120]  gcd deg 0    (0.0s)
+   done dir 3: ok, 9 cases, 0 hits, wall 10.4s (F 1.4s), peak 485 MB
+lam=((4, 3), (3, 2, 1, 1), (3, 2, 1, 1)) g=4 dir 1: n1=1764 n23=705600 N1=1772 K=7064  ranks [10, 11, 12, 13]

@@ -59,7 +59,7 @@ Grassmannian pencils of the largest stacks (size cap; 18 pencils in 7x7x7 d = 6)
 | 5x5x5 | 7 | 9 | 121 | 307 | 0 | 21693 s |
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
-| 6x6x6 | 7 | 10-13 | 56 | 139 | 0 | 53761 s |
+| 6x6x6 | 7 | 10-13 | 56 | 141 | 0 | 53842 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -851,6 +851,8 @@ None so far.
 | 6x6x6 | 7 | (421,4111,22111) | 2 | 2 | 720, 211680 | 10-13 | 10:720 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 94 s / 827 MB |
 | 6x6x6 | 7 | (421,4111,22111) | 2 | 3 | 84, 1814400 | 10-13 | 10:84 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 4 s / 327 MB |
 | 6x6x6 | 7 | (421,4111,31111) | 2 | 1 | 2520, 86400 | 10-13 | 10:2520 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 820 s / 1278 MB |
+| 6x6x6 | 7 | (421,4111,31111) | 2 | 2 | 720, 302400 | 10-13 | 10:720 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 78 s / 830 MB |
+| 6x6x6 | 7 | (421,4111,31111) | 2 | 3 | 120, 1814400 | 10-13 | 10:120 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 2 s / 221 MB |
 | 6x6x6 | 7 | (421,4111,4111) | 2 | 1 | 2520, 518400 | 10-13 | 10:2520 | U1=2 U2=2 U3=2 U4=1 U5=0 ; sw23+=1 sw23-=1 tested U4, sw23+ | 1 lines: no tensor-independent drop point. | none | 726 s / 1278 MB |
 | 6x6x6 | 7 | (421,4111,4111) | 2 | 2 | 720, 1814400 | 10-13 | 10:720 | U1=2 U2=2 U3=2 U4=1 U5=0 ; sw13+=1 sw13-=1 tested U4, sw13+ | 1 lines: no tensor-independent drop point. | none | 32 s / 658 MB |
 | 6x6x6 | 7 | (43,3211,22111) | 2 | 1 | 1764, 70560 | 10-13 | 10:1764 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 412 s / 1129 MB |

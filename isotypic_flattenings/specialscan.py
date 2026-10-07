@@ -212,22 +212,26 @@ class Comp:
             t0 = time.time()
             g, N1, K = self.g, self.N1, self.K
             path = self.fcache_path(name)
-            Fs = None
-            if os.path.exists(path):
-                try:
-                    Fs = np.load(path)
-                    assert Fs.shape == (g, N1, K)
-                except Exception:
-                    Fs = None
-            if Fs is None:
-                vm = self.D.vm(name)
-                Fs = np.empty((g, N1, K), dtype=np.float64 if g * N1 * K <= (1 << 24) else np.float32)
-                for i, fl in enumerate(self.D.fillings):
-                    Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
-                if time.time() - t0 > FCACHE_MIN:
+            Fs = np.empty((g, N1, K), dtype=np.float64 if g * N1 * K <= (1 << 24) else np.float32)
+            vm = None
+            for i, fl in enumerate(self.D.fillings):
+                pi = path[:-4] + '_f%d.npy' % i          # one checkpoint per filling
+                if os.path.exists(pi):
+                    try:
+                        Fi = np.load(pi)
+                        assert Fi.shape == (N1, K)
+                        Fs[i] = Fi
+                        continue
+                    except Exception:
+                        pass
+                t1 = time.time()
+                if vm is None:
+                    vm = self.D.vm(name)
+                Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
+                if time.time() - t1 > FCACHE_MIN:
                     os.makedirs(FCACHE, exist_ok=True)
-                    np.save(path + '.tmp.npy', Fs)
-                    os.replace(path + '.tmp.npy', path)
+                    np.save(pi[:-4] + '.tmp.npy', Fs[i])
+                    os.replace(pi[:-4] + '.tmp.npy', pi)
             # keep at most CACHE tensors (the oldest is dropped; memory g N1 K per tensor)
             while len(self.cache) >= CACHE:
                 self.cache.pop(next(iter(self.cache)))
@@ -236,7 +240,7 @@ class Comp:
         return self.cache[name]
 
     def clear_fcache(self):
-        for f in glob.glob(self.fcache_path('*')):
+        for f in glob.glob(self.fcache_path('*')[:-4] + '*.npy'):
             os.remove(f)
 
     def drop(self, name):

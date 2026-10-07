@@ -22,6 +22,7 @@ import os, sys, json, time, subprocess, itertools, signal, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rankscan import generic_rank, components, cost_proxy, is_onerow, word_minor_size
 from hwv import dim_schur
+from colwedge_family import is_colwedge
 
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
@@ -260,6 +261,10 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
     if is_onerow(lam):
         return 3584.0
+    if is_colwedge(lam):                 # closed form (colwedge_family.py): the N1 x K matrix twice + chunk arrays
+        dims = [dim_schur(tuple(l), n) for l in lam]
+        m = max(min(x, dims[0] * dims[1] * dims[2] // x) + 8 for x in dims)
+        return 16.0 * m * m / 2 ** 20 + 1536.0
     if job is not None:            # rankscan.py skips the component at once (word-minor tensor above WCAP at the lowest rank)
         wcap = int(job.get('env', {}).get('WCAP', 1 << 26))
         if word_minor_size(lam, n, min(job['need'])) > wcap:

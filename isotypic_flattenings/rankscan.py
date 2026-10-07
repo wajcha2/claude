@@ -47,6 +47,7 @@ PR1 = 8
 ENDS = float(os.environ.get('ENDS', '16'))   # resolve(): ends-first when size(top rank) <= ENDS * size(lowest rank)
 EXTRA = 8
 ONEROW = os.environ.get('ONEROW', '1') == '1'   # closed-form fast path for components ((d), mu, mu)
+COLWEDGE = os.environ.get('COLWEDGE', '1') == '1'   # closed-form fast path for components (lam, lam^T, (1^d))
 SATPROBE = int(os.environ.get('SATPROBE', '1'))           # probe the highest feasible rank when the needed ranks are not
 SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))   # ... and at most this many below the lowest needed rank
 
@@ -450,6 +451,40 @@ class OnerowDirection:
         return P['H'][0] >= self.ubH[0]
 
 
+class ColwedgeDirection:
+    """fast path for the components (lam, lam^T, (1^d)) (g = 1): every flattening entry is one d x d determinant
+    (Cauchy-Binet over the d-subsets of the rank-one terms, colwedge_family.py; validated against this file's network
+    evaluator on identical tensors, scan/colwedge_check.log).  No word-minor tensor, so no WCAP limit.  Same interface
+    as Direction; t indexes lam as given."""
+    def __init__(self, n, lam, t, crng, vecs):
+        from colwedge_family import flat_rank
+        self.flat_rank = flat_rank
+        self.n, self.t, self.crng, self.vecs, self.lam = n, t, crng, vecs, lam
+        dims = [dim_schur(tuple(l), n) for l in lam]
+        self.n1 = dims[t]
+        self.n23 = dims[0] * dims[1] * dims[2] // dims[t]
+        self.N1 = self.K = min(self.n1, self.n23) + EXTRA
+        self.span, self.tried = 1, 0
+        self.ubH = self.ubV = [min(self.n1, self.n23)]
+        self.lam_p = (lam[t],) + tuple(lam[u] for u in range(3) if u != t)
+        self.times = {}
+
+    def profile(self, r):
+        t0 = time.time()
+        rk, _ = self.flat_rank(self.n, self.lam, list(self.vecs[r]), self.t, self.crng)
+        self.times[r] = (round(time.time() - t0, 2), 0.0)
+        print('  . %s dir %d r=%d H=[%d] colwedge %.0fs' % (self.lam_p, self.t, r, rk, time.time() - t0), flush=True)
+        return {'H': [rk], 'V': [rk]}
+
+    def saturated(self, P):
+        return P['H'][0] >= self.ubH[0]
+
+
+def colwedge_ok(lam):
+    from colwedge_family import is_colwedge
+    return is_colwedge(lam)
+
+
 def is_onerow(lam):
     return len(lam[0]) == 1 and tuple(lam[1]) == tuple(lam[2])
 
@@ -597,7 +632,8 @@ def main():
         for t in distinct_dirs(lam):
             perm_lam = tuple(lam[u] for u in [t] + [u for u in range(3) if u != t])
             onerow = ONEROW and is_onerow(lam)
-            rmax = rgen if onerow else max([r for r in range(1, rgen + 1) if word_minor_size(perm_lam, n, r) <= WCAP] or [0])
+            colw = not onerow and COLWEDGE and colwedge_ok(lam)
+            rmax = rgen if (onerow or colw) else max([r for r in range(1, rgen + 1) if word_minor_size(perm_lam, n, r) <= WCAP] or [0])
             if rmax < max(rlo, 1):
                 # the needed ranks are beyond the word-minor limit; probe the highest feasible rank rmax instead: if
                 # the flattening is already at its bounds there, it stays there for every r >= rmax (rank is monotone
@@ -621,13 +657,14 @@ def main():
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
                 continue
             try:
-                D = OnerowDirection(n, lam, t, crng, vecs) if onerow else Direction(n, lam, g, t, crng, vecs, min(rmax, rgen))
+                D = OnerowDirection(n, lam, t, crng, vecs) if onerow else \
+                    ColwedgeDirection(n, lam, t, crng, vecs) if colw else Direction(n, lam, g, t, crng, vecs, min(rmax, rgen))
                 prof, sep, unknown, sat = resolve(D, need, rlo, min(rmax, rgen))
             except (Infeasible, MemoryError) as e:
                 rec['dirs'].append({'t': t, 'status': 'infeasible', 'why': str(e)[:200]})
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
                 continue
-            rec['dirs'].append({'t': t, 'method': 'onerow' if onerow else 'network', 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K, 'span': D.span,
+            rec['dirs'].append({'t': t, 'method': 'onerow' if onerow else 'colwedge' if colw else 'network', 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K, 'span': D.span,
                                 'tried': D.tried, 'rmax': rmax, 'sat_from': sat,
                                 'prof': {str(r): P for r, P in sorted(prof.items())},
                                 'times': {str(r): v for r, v in sorted(D.times.items())}})

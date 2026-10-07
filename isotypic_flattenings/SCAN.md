@@ -81,6 +81,25 @@ no word-minor tensor.  Validated: 122 stored (component, direction, rank) values
 components ((7),(2,2,1,1,1),(2,2,1,1,1)) and ((7),(2,2,2,1),(2,2,2,1)) at ranks 12, 13 take 80 s each (saturated,
 no separation of rank 12; scan/onerow_frontier.log).
 
+## Components (lam, lam^T, (1^d)): one determinant per entry (`colwedge_family.py`, used by rankscan.py since 2026-10-07 14:40)
+A one-column partition (1^d) forces g = delta(mu, lam^T), so these components are (lam, lam^T, (1^d)).  Antisymmetrising
+the (1^d) factor leaves X_T = sum_{|S| = d} wedge_{i in S}(a_i (x) b_i) (x) wedge_{i in S} c_i, the highest weight vector of
+S^lam A (x) S^{lam^T} B inside wedge^d(A (x) B) is wedge_{boxes x} e_{row x} (x) f_{col x}, and Cauchy-Binet turns the sum over S
+into one d x d determinant: F(g', g'', g''') = det(sum_i <a_i, g'_{row x}> <b_i, g''_{col x}> <c_i, g'''_k>)_{x in lam, k <= d}.
+Cost O(r d^2) per entry and no word-minor tensor -- rankscan.py's evaluator needs C(n, d) r^d entries for the column, which
+is above any WCAP for the frontier (8x8x8 d = 7 at r = 13: 8 * 13^7 = 5e8).  Validated against the network evaluator on
+IDENTICAL tensors (n = 4..7, d = 4..6, all three directions, ranks d .. r_gen, including ranks below the bound):
+scan/colwedge_check.log, no mismatch.  Example: 8x8x8 ((6,1),(2,1^5),(1^7)) at r = 13 in 60 s (all directions at their
+bounds 1728, 216, 8), previously not evaluable.
+
+## Frontier components above the word-minor limit: reruns n8_d7_x1, n9_d6_x1, n10_d6_x1 (2026-10-07)
+At the frontier ranks, 42 of the 341 components of 8x8x8 d = 7 (r = 13), 25 of 119 of 9x9x9 d = 6 (r = 14) and 25 of
+119 of 10x10x10 d = 6 (r = 15) have a word-minor tensor above WCAP = 2^26 and were recorded as unknown.  Of these, 7, 5
+and 5 are (lam, lam^T, (1^d)) (closed form above), the other 35, 20, 20 fit WCAP = 2^28; the extra jobs n*_x1 rerun them
+(closed-form ones first).  Without them those degrees cannot be reported complete.  In addition rankscan.py now probes
+the highest feasible rank when the needed ranks are above the limit (SATPROBE, at most 4 below): a direction at its
+bounds there separates no larger rank.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

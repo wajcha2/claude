@@ -265,10 +265,13 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
         dims = [dim_schur(tuple(l), n) for l in lam]   # float64) + chunk arrays (the first version stored the matrix
         m = max(min(x, dims[0] * dims[1] * dims[2] // x) + 8 for x in dims)   # three times: peaks 24 m^2 + 0.3 GB)
         return 10.0 * m * m / 2 ** 20 + 1536.0
-    if job is not None:            # rankscan.py skips the component at once (word-minor tensor above WCAP at the lowest rank)
-        wcap = int(job.get('env', {}).get('WCAP', 1 << 26))
-        if word_minor_size(lam, n, min(job['need'])) > wcap:
-            return 300.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
+    if job is not None:            # word-minor tensor above WCAP at the lowest needed rank rlo: rankscan.py either probes
+        wcap = int(job.get('env', {}).get('WCAP', 1 << 26))   # the highest feasible rank (SATPROBE, if >= rlo - 4: a normal
+        rlo = min(job['need'])                                 # evaluation, normal estimate) or skips the component at once
+        if word_minor_size(lam, n, rlo) > wcap:
+            rmax = max([r for r in range(1, rlo) if word_minor_size(lam, n, r) <= wcap] or [0])
+            if rmax < max(2, rlo - 4):
+                return 300.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
     key = (n, lam, g)
     if key not in _est_cache:
         _est_cache[key] = mat_parts(n, lam, g)

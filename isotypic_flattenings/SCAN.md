@@ -42,7 +42,7 @@ the fewest running workers, ties to the format with the fewest unchecked compone
 fewest-left rule let 9x9x9 and 7x7x7 win every tie and starved 10x10x10 d = 6 and 8x8x8 d = 7 for hours) (the
 old order let the 3-4.5 h components of 7x7x7 d = 7 hold every slot while 6x6x6 d = 7 and 8x8x8 d = 6 waited with
 3 and 5 components left). Memory admission (since 2026-10-06 23:07): a worker is started only if the estimated peak memory of the
-component it will take plus that of the running components fits 15 GB (the container has 16 GB, no swap;
+component it will take plus that of the running components fits 15 GB (15.3 GB since 2026-10-08 02:20; the container has 16 GB, no swap;
 adjustable in scan/live/membudget).  Estimate per component: two phases of its largest direction -- evaluation
 (g flattenings N1 x K + word minors and contraction blocks, calibrated per (n, d) on the recorded peaks) and
 elimination (flattenings + combination + eliminations 8 (N1 K + N1^2 + K^2) bytes) -- checked against all 2376 recorded

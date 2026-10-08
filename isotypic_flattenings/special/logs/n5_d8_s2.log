@@ -204,3 +204,41 @@ lam=((5, 3), (5, 1, 1, 1), (4, 2, 1, 1)) g=3 dir 3: n1=450 n23=396900 N1=458 K=1
    gline H2 rho 450  minpoly deg [450, 450]  gcd deg 0    (3.8s)
    gline V2 rho 900  minpoly deg [900, 900]  gcd deg 0    (5.8s)
    done dir 3: ok, 5 cases, 0 hits, wall 25.7s (F 9.9s), peak 616 MB
+lam=((5, 2, 1), (3, 3, 2), (3, 3, 2)) g=3 dir 1: n1=1440 n23=99225 N1=1448 K=4328  ranks [9]
+   generic U: r9 H[1440, 1440, 1440] V[2880, 4320]
+   U_k dims {1: 3, 2: 3, 3: 2, 4: 0}  swaps {'sw23+': 2, 'sw23-': 1}  (0.4s)
+   U3                           r9 H[1440, 1440, 1440] V[2880, 4320]
+   sw23+                        r9 H[1440, 1440, 1440] V[2880, 4320]
+   U3^sw23+                     r9 H[1440, 1440, 1440] V[2880, 4320]
+   sw23-                        r9 H[1440, 1440, 1440] V[2880, 4320]
+   line0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (17.5s)
+   line1 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (17.8s)
+   gline H2 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (58.8s)
+   gline V2 rho 2880  minpoly deg [2880, 2880]  gcd deg 0    (118.5s)
+   thru-U30 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (15.3s)
+   in-U30 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (16.1s)
+   thru-sw23+0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (17.3s)
+   in-sw23+0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (17.0s)
+   thru-sw23-0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (15.5s)
+   done dir 1: ok, 13 cases, 0 hits, wall 857.9s (F 305.3s), peak 1456 MB
+lam=((5, 2, 1), (3, 3, 2), (3, 3, 2)) g=3 dir 2: n1=315 n23=453600 N1=323 K=953  ranks [9]
+   generic U: r9 H[315, 315, 315] V[630, 945]
+   U_k dims {1: 3, 2: 3, 3: 2, 4: 0}  swaps {'sw13+': 2, 'sw13-': 1}  (0.4s)
+   U3                           r9 H[315, 315, 315] V[630, 945]
+   sw13+                        r9 H[315, 315, 315] V[630, 945]
+   U3^sw13+                     r9 H[315, 315, 315] V[630, 945]
+   sw13-                        r9 H[315, 315, 315] V[630, 945]
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.5s)
+   line1 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   gline H2 rho 315  minpoly deg [315, 315]  gcd deg 0    (2.4s)
+   gline V2 rho 630  minpoly deg [630, 630]  gcd deg 0    (2.9s)
+   thru-U30 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   in-U30 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   thru-sw13+0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.5s)
+   in-sw13+0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.5s)
+   thru-sw13-0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   done dir 2: ok, 13 cases, 0 hits, wall 24.6s (F 5.0s), peak 698 MB
+lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 1, 1, 1)) g=3 dir 1: n1=1440 n23=12600 N1=1448 K=4328  ranks [9]
+   generic U: r9 H[1440, 1440, 1440] V[2400, 2400] r10 H[1440, 1440, 1440] V[2400, 2400]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g

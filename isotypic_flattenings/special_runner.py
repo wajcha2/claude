@@ -8,8 +8,8 @@ slot, so that no two running processes append to one file; special/live is not t
 to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
 record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
 TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'.
-EXCLUSIVE=1 jobs run without any other big job (no new big job starts once one is the highest-priority job left).  Memory guard: at most special/live/maxbig (default 2) jobs with some direction of max(N1, K) > 6000 or
-g N1 K > 5e7 run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
+EXCLUSIVE=1 jobs run without any other big job (no new big job starts once one is the highest-priority job left).  Memory guard: at most special/live/maxbig (default 2) jobs with an estimated peak above special/live/biggb GB
+(default 3; mem_estimate_gb) run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
 special/live/minfree MB (default 5000) or nothing runs."""
 import os, sys, time, json, glob, subprocess, signal
 import rankscan
@@ -51,18 +51,24 @@ def mem_available_mb():
     return 10 ** 9
 
 
-def is_big(n, lam):
-    """a job that can need several GB: some direction with max(N1, K) > 6000 or g N1 K > 5e7 (rankscan sampling)."""
+def mem_estimate_gb(n, lam):
+    """rough peak memory of a specialscan job (rankscan sampling): 3 cached filling tensors (float32), the V_g
+    elimination basis (K x K float64) and a few N1 x K float64 working matrices, max over directions."""
     from hwv import dim_schur
     from isoflat import kronecker
     g = kronecker(*lam)
     dims = [dim_schur(l, n) for l in lam]
+    m = 0
     for t in distinct_dirs(lam):
         n1 = dims[t]; n23 = dims[(t + 1) % 3] * dims[(t + 2) % 3]
         N1, K = min(n1, g * n23) + 8, min(g * n1, n23) + 8
-        if max(N1, K) > 6000 or g * N1 * K > 5e7:
-            return True
-    return False
+        m = max(m, 3 * g * N1 * K * 4 + K * K * 8 + 4 * N1 * K * 8)
+    return m / 1e9
+
+
+def is_big(n, lam):
+    """a job that may need several GB (estimate above special/live/biggb, default 3 GB)."""
+    return mem_estimate_gb(n, lam) > read_int(os.path.join(LIVE, 'biggb'), 3)
 
 
 def external_jobs(own_pids):

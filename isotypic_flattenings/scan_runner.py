@@ -232,7 +232,7 @@ def eval_phase_mb(st, n, d):
     c = _calib.get((n, d))
     if c is not None and time.time() - c[0] < 900:
         return c[1]
-    vals, nrec_elim = [], [0]
+    vals, allv, nrec_elim = [], [], [0]
     for j in st['jobs'].values():
         if j['n'] != n or j['d'] != d or j.get('extra') or not os.path.exists(j['out']):
             continue
@@ -241,15 +241,21 @@ def eval_phase_mb(st, n, d):
                 r = json.loads(l)
             except ValueError:
                 continue
-            if any(x.get('method') == 'onerow' for x in r['dirs']):
+            if any(x.get('method') in ('onerow', 'colwedge') or x.get('status') == 'infeasible' for x in r['dirs']):
                 continue
             lam = tuple(tuple(x) for x in r['lam'])
             P = mat_parts(n, lam, r['g'])
+            allv.append(r['rss_peak_mb'] - max(fs for fs, _ in P))
             if r['rss_peak_mb'] > max(fs + m for fs, m in P) + 1024:      # peak not explained by the elimination
-                vals.append(r['rss_peak_mb'] - max(fs for fs, _ in P))
+                vals.append(allv[-1])
             else:
                 nrec_elim[0] += 1
-    v = max(vals) + 512 if (vals and len(vals) + nrec_elim[0] >= 5) else 4096.0
+    if vals and len(vals) + nrec_elim[0] >= 5:
+        v = max(vals) + 512
+    elif len(allv) >= 5:            # no evaluation-dominated peak: the evaluation phase stays below every peak - flattenings
+        v = max(allv) + 512
+    else:
+        v = 4096.0
     _calib[(n, d)] = (time.time(), v)
     return v
 

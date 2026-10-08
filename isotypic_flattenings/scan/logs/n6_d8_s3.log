@@ -520,3 +520,23 @@ lam=((3, 3, 2), (3, 2, 1, 1, 1), (2, 2, 2, 1, 1)) g=2 dims=[1470, 384, 105] ok  
 lam=((4, 4), (4, 4), (4, 2, 2)) g=1 dims=[1764, 1764, 2520] ok  wall=155.6s rss=636MB
 # worker 386277 done, 156s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 386278/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 4), (4, 2, 2), (2, 2, 1, 1, 1, 1)) dir 0 r=10 H=[1239] V=[1239] eval 142s rref 11s
+  . ((4, 4), (4, 2, 2), (2, 2, 1, 1, 1, 1)) dir 0 r=14 H=[1239] V=[1239] eval 608s rref 11s
+  . ((4, 2, 2), (4, 4), (2, 2, 1, 1, 1, 1)) dir 1 r=10 H=[2520] V=[2520] eval 143s rref 28s
+  . ((2, 2, 1, 1, 1, 1), (4, 4), (4, 2, 2)) dir 2 r=10 H=[15] V=[15] eval 0s rref 0s
+lam=((4, 4), (4, 2, 2), (2, 2, 1, 1, 1, 1)) g=1 dims=[1764, 2520, 15] ok  wall=989.6s rss=785MB
+# worker 386278 done, 990s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 386279/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 4), (4, 2, 2), (2, 2, 2, 2)) dir 0 r=10 H=[1764] V=[1764] eval 235s rref 14s
+  . ((4, 2, 2), (4, 4), (2, 2, 2, 2)) dir 1 r=10 H=[2520] V=[2520] eval 95s rref 29s
+  . ((2, 2, 2, 2), (4, 4), (4, 2, 2)) dir 2 r=10 H=[105] V=[105] eval 0s rref 0s
+lam=((4, 4), (4, 2, 2), (2, 2, 2, 2)) g=1 dims=[1764, 2520, 105] ok  wall=380.9s rss=647MB
+# worker 386279 done, 381s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 386281/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 4), (4, 2, 2), (4, 1, 1, 1, 1)) dir 0 r=10 H=[1764] V=[1764] eval 253s rref 14s
+  . ((4, 2, 2), (4, 4), (4, 1, 1, 1, 1)) dir 1 r=10 H=[2520] V=[2520] eval 105s rref 28s
+  . ((4, 1, 1, 1, 1), (4, 4), (4, 2, 2)) dir 2 r=10 H=[315] V=[315] eval 1s rref 0s
+lam=((4, 4), (4, 2, 2), (4, 1, 1, 1, 1)) g=1 dims=[1764, 2520, 315] ok  wall=406.8s rss=693MB
+# worker 386281 done, 407s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 386282/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 4), (4, 2, 2), (3, 2, 1, 1, 1)) dir 0 r=10 H=[1764] V=[1764] eval 49s rref 14s

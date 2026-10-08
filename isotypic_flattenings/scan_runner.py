@@ -315,6 +315,51 @@ def worker_component(job, pid):
     return None if best is None else best[1]
 
 
+def refresh_extra_lists(st):
+    """rerun jobs with 'r0' and 'dropped_not_yet_run' (components not tried by a normal job when the rerun list was made):
+    a component whose normal record now exists is added to the rerun list only if that record leaves r0 unresolved
+    (not at the rank bounds from some rank <= r0, and r0 not resolved); a done job with new components is reopened."""
+    from scan_report import dir_sat
+    changed = False
+    for name, j in st['jobs'].items():
+        if not j.get('extra') or 'r0' not in j or not j.get('dropped_not_yet_run'):
+            continue
+        n, d, r0 = j['n'], j['d'], j['r0']
+        normal = {}
+        for jj in st['jobs'].values():
+            if jj['n'] == n and jj['d'] == d and not jj.get('extra') and os.path.exists(jj['out']):
+                for l in open(jj['out']):
+                    try:
+                        r = json.loads(l)
+                    except ValueError:
+                        continue
+                    normal[tuple(tuple(x) for x in r['lam'])] = r
+        add, still = [], []
+        for rep in j['dropped_not_yet_run']:
+            lam = tuple(tuple(x) for x in eval(rep))
+            r = normal.get(lam)
+            if r is None:
+                still.append(rep)
+                continue
+            sats = [dir_sat(n, r['lam'], x) for x in r['dirs']]
+            sat = max(sats) if sats and all(v is not None for v in sats) else None
+            if not ((sat is not None and sat <= r0) or r0 in set(r['need']) - set(r['unknown'])):
+                add.append(lam)
+        if len(still) != len(j['dropped_not_yet_run']):
+            if add:
+                with open(j['list'], 'a') as fh:
+                    fh.write(''.join(repr(l) + '\n' for l in add))
+                j['ncomp'] += len(add)
+                _list_cache.pop(j['list'], None)
+                if j['status'] == 'done':
+                    j['status'] = 'running'
+            log('rerun list %s: %d component(s) tried by normal jobs, %d added (r = %d unresolved), %d not tried yet'
+                % (name, len(j['dropped_not_yet_run']) - len(still), len(add), r0, len(still)))
+            j['dropped_not_yet_run'] = still
+            changed = True
+    return changed
+
+
 def open_components(job):
     """number of listed components with neither a claim nor a result (a job is runnable iff > 0; counting claim
     files alone kept starting workers that found nothing to do when a finished component had lost its claim)."""
@@ -671,6 +716,11 @@ def main():
                     open('/proc/loadavg').read().split()[0], len(workers), ws))
             last_mon = now
         if now - last_rep >= REPORT:
+            try:
+                if refresh_extra_lists(st):
+                    save_state(st)
+            except Exception as e:                       # never let the bookkeeping stop the runner
+                log('refresh_extra_lists failed: %r' % (e,))
             report(); last_rep = now
         time.sleep(3)
 

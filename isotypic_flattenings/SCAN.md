@@ -96,7 +96,12 @@ bounds 1728, 216, 8), previously not evaluable.
 At the frontier ranks, 42 of the 341 components of 8x8x8 d = 7 (r = 13), 25 of 119 of 9x9x9 d = 6 (r = 14) and 25 of
 119 of 10x10x10 d = 6 (r = 15) have a word-minor tensor above WCAP = 2^26 and were recorded as unknown.  Of these, 7, 5
 and 5 are (lam, lam^T, (1^d)) (closed form above), the other 35, 20, 20 fit WCAP = 2^28; the extra jobs n*_x1 rerun them
-(closed-form ones first).  Without them those degrees cannot be reported complete.  In addition rankscan.py now probes
+(closed-form ones first).  Without them those degrees cannot be reported complete.  Correction (2026-10-08 05:50):
+the lists were made from the word-minor size at the frontier rank alone, but the normal jobs start one rank lower
+(r = 13 for 9x9x9) where most of these components fit and were already at their rank bounds, which settles every
+larger rank; 17 of the 25 9x9x9 reruns were redundant (about 7 worker-hours, including one 5.4 h component).  The
+lists now hold only components a normal job left unresolved at the frontier rank; components not yet tried by a
+normal job are added by the runner (refresh every 15 min) only if their normal record leaves that rank open.  In addition rankscan.py now probes
 the highest feasible rank when the needed ranks are above the limit (SATPROBE, at most 4 below): a direction at its
 bounds there separates no larger rank.
 

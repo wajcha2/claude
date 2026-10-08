@@ -1274,3 +1274,29 @@ lam=((5, 3), (3, 2, 2, 1), (2, 2, 2, 2)) g=1 dims=[4410, 1050, 105] ok  wall=186
 # worker 488279 done, 1861s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488284/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
   . ((3, 3, 2), (3, 3, 2), (3, 2, 1, 1, 1)) dir 0 r=10 H=[1470, 1470, 1470] V=[1470, 2940, 4410] eval 275s rref 52s
+  . ((3, 2, 1, 1, 1), (3, 3, 2), (3, 3, 2)) dir 2 r=10 H=[384, 384, 384] V=[384, 768, 1152] eval 286s rref 3s
+lam=((3, 3, 2), (3, 3, 2), (3, 2, 1, 1, 1)) g=3 dims=[1470, 1470, 384] ok  wall=655.8s rss=858MB
+# worker 488284 done, 656s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488285/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((6, 1, 1), (5, 1, 1, 1), (4, 2, 2)) dir 0 r=10 H=[3465] V=[3465] eval 102s rref 54s
+  . ((5, 1, 1, 1), (6, 1, 1), (4, 2, 2)) dir 1 r=10 H=[1575] V=[1575] eval 22s rref 11s
+  . ((4, 2, 2), (6, 1, 1), (5, 1, 1, 1)) dir 2 r=10 H=[2520] V=[2520] eval 19s rref 29s
+lam=((6, 1, 1), (5, 1, 1, 1), (4, 2, 2)) g=1 dims=[3465, 1575, 2520] ok  wall=238.0s rss=607MB
+# worker 488285 done, 238s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488286/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 3, 1), (3, 3, 1, 1), (2, 2, 2, 2)) dir 0 r=10 H=[4410] V=[4410] eval 1038s rref 92s
+  . ((3, 3, 1, 1), (4, 3, 1), (2, 2, 2, 2)) dir 1 r=10 H=[1176] V=[1176] eval 14s rref 6s
+  . ((2, 2, 2, 2), (4, 3, 1), (3, 3, 1, 1)) dir 2 r=10 H=[105] V=[105] eval 1s rref 0s
+lam=((4, 3, 1), (3, 3, 1, 1), (2, 2, 2, 2)) g=1 dims=[4410, 1176, 105] ok  wall=1181.1s rss=732MB
+# worker 488283 done, 1181s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488287/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((6, 1, 1), (4, 4), (4, 2, 1, 1)) dir 0 r=10 H=[3465] V=[3465] eval 98s rref 54s
+  . ((4, 4), (6, 1, 1), (4, 2, 1, 1)) dir 1 r=10 H=[1764] V=[1764] eval 11s rref 14s
+  . ((4, 2, 1, 1), (6, 1, 1), (4, 4)) dir 2 r=10 H=[2430] V=[2430] eval 9s rref 27s
+lam=((6, 1, 1), (4, 4), (4, 2, 1, 1)) g=1 dims=[3465, 1764, 2430] ok  wall=213.7s rss=551MB
+# worker 488287 done, 214s
+  . ((5, 3), (4, 1, 1, 1, 1), (3, 3, 1, 1)) dir 0 r=10 H=[4410] V=[4410] eval 636s rref 90s
+  . ((4, 1, 1, 1, 1), (5, 3), (3, 3, 1, 1)) dir 1 r=10 H=[315] V=[315] eval 1s rref 0s
+  . ((3, 3, 1, 1), (5, 3), (4, 1, 1, 1, 1)) dir 2 r=10 H=[1176] V=[1176] eval 12s rref 6s
+lam=((5, 3), (4, 1, 1, 1, 1), (3, 3, 1, 1)) g=1 dims=[4410, 315, 1176] ok  wall=752.6s rss=744MB
+# worker 488286 done, 753s

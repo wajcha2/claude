@@ -55,7 +55,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
 * 4x4x4 rank 6 vs 7, d = 5, 6, 7, methods line flag pflag: done (`special/run4.sh`).
 * `special_runner.py special/jobs.txt`: job list in priority order, one process per component, live output in the
   untracked special/live (res, logs, runner.log); slots in special/live/ncores (4), time limit special/live/tlimit
-  (default 3 h; 12 h since 2026-10-07 06:30, 8 h on 2026-10-06 after 8x8x8 d=6 ((4,2),(2,2,1,1),(2,2,1,1)) timed out: one F evaluation
+  (default 3 h; 24 h since 2026-10-08 09:15 (8x8x8 d=6 ((3,2,1)^3): ~1 h per V_5 elimination with K = 26888), 12 h since 2026-10-07 06:30, 8 h on 2026-10-06 after 8x8x8 d=6 ((4,2),(2,2,1,1),(2,2,1,1)) timed out: one F evaluation
   there takes ~1 h); memory guard: at most special/live/maxbig (2) jobs with max(N1, K) > 6000 or g N1 K > 5e7 at once,
   launches only while MemAvailable >= special/live/minfree (5000 MB); a restarted runner adopts the specialscan.py
   processes still running (counted as slots, not relaunched).  Job lines may start with KEY=VALUE environment

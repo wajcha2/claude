@@ -282,7 +282,9 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     if key not in _est_cache:
         _est_cache[key] = mat_parts(n, lam, g)
     B = eval_phase_mb(st, n, d)
-    return max(fs + max(B, m) for fs, m in _est_cache[key]) + 800 + (4096 if extra else 0)
+    # elimination phase: + 1.2 GB over the matrices (largest recorded excess 0.77 GB: 9x9x9 ((3,2,1),(3,2,1),(2,1^4)) 9218 MB);
+    # evaluation phase: B (calibrated, includes its own margin) + 0.8 GB
+    return max(max(fs + B, fs + m + 400) for fs, m in _est_cache[key]) + 800 + (4096 if extra else 0)
 
 
 def next_component(job, exclude=()):

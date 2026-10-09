@@ -14,7 +14,7 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 | 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7 (d = 8 queued) | line, flag, pflag, gline | not separated |
 | 6x6x6 | 10..13 | 5, 6, 7 (d = 7: 309 of 310 directions; ((4,2,1)^3) queued, needs ~10 GB alone) | line, flag, pflag, gline (190 of 392 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
-| 8x8x8 | 12..23 | 5 (d = 6 running) | line, flag, pflag | not separated |
+| 8x8x8 | 12..23 | 5, 6 (d = 6: 51 of 53 directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, queued for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
 | 9x9x9 | 13..29 | 5 | line, flag, pflag | not separated |
 | 10x10x10 | 13..35 | 5 | line, flag, pflag | not separated |
 

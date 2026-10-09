@@ -1374,3 +1374,25 @@ lam=((5, 3), (3, 3, 2), (2, 2, 1, 1, 1, 1)) g=1 dims=[4410, 1470, 15] ok  wall=8
   . ((5, 1, 1, 1), (4, 3, 1), (2, 2, 2, 1, 1)) dir 0 r=10 H=[1575] V=[1575] eval 316s rref 10s
   . ((5, 3), (5, 1, 1, 1), (4, 1, 1, 1, 1)) dir 0 r=10 H=[4410] V=[4410] eval 366s rref 88s
   . ((5, 1, 1, 1), (5, 3), (4, 1, 1, 1, 1)) dir 1 r=10 H=[1575] V=[1575] eval 12s rref 10s
+  . ((4, 1, 1, 1, 1), (5, 3), (5, 1, 1, 1)) dir 2 r=10 H=[315] V=[315] eval 0s rref 0s
+lam=((5, 3), (5, 1, 1, 1), (4, 1, 1, 1, 1)) g=1 dims=[4410, 1575, 315] ok  wall=492.2s rss=727MB
+# worker 488306 done, 492s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488307/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 3, 1), (5, 1, 1, 1), (2, 2, 2, 1, 1)) dir 1 r=10 H=[4410] V=[4410] eval 557s rref 89s
+  . ((2, 2, 2, 1, 1), (5, 1, 1, 1), (4, 3, 1)) dir 2 r=10 H=[105] V=[105] eval 0s rref 0s
+lam=((5, 1, 1, 1), (4, 3, 1), (2, 2, 2, 1, 1)) g=1 dims=[1575, 4410, 105] ok  wall=989.6s rss=765MB
+# worker 488305 done, 990s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488308/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((6, 2), (4, 1, 1, 1, 1), (2, 2, 1, 1, 1, 1)) dir 0 r=10 H=[525] V=[525] eval 417s rref 16s
+  . ((5, 3), (5, 1, 1, 1), (3, 2, 1, 1, 1)) dir 0 r=10 H=[4410] V=[4410] eval 1018s rref 90s
+  . ((5, 1, 1, 1), (5, 3), (3, 2, 1, 1, 1)) dir 1 r=10 H=[1575] V=[1575] eval 13s rref 10s
+  . ((3, 2, 1, 1, 1), (5, 3), (5, 1, 1, 1)) dir 2 r=10 H=[384] V=[384] eval 1s rref 1s
+lam=((5, 3), (5, 1, 1, 1), (3, 2, 1, 1, 1)) g=1 dims=[4410, 1575, 384] ok  wall=1139.8s rss=753MB
+# worker 488307 done, 1140s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488309/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((5, 3), (5, 3), (4, 4)) dir 0 r=10 H=[4410] V=[4410] eval 55s rref 90s
+  . ((4, 4), (5, 3), (5, 3)) dir 2 r=10 H=[1764] V=[1764] eval 9s rref 13s
+lam=((5, 3), (5, 3), (4, 4)) g=1 dims=[4410, 4410, 1764] ok  wall=168.1s rss=723MB
+# worker 488309 done, 168s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 488310/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 311 components in list
+  . ((4, 4), (4, 3, 1), (2, 2, 2, 1, 1)) dir 0 r=10 H=[1764] V=[1764] eval 153s rref 13s

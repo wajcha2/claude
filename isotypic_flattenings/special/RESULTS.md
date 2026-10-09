@@ -57,7 +57,7 @@ Grassmannian pencils of the largest stacks (size cap; 18 pencils in 7x7x7 d = 6)
 | 5x5x5 | 5 | 8-9 | 2 | 4 | 0 | 14 s |
 | 5x5x5 | 6 | 9 | 24 | 53 | 0 | 1196 s |
 | 5x5x5 | 7 | 9 | 121 | 307 | 0 | 21693 s |
-| 5x5x5 | 8 | 9 | 333 | 882 | 0 | 237911 s |
+| 5x5x5 | 8 | 9 | 334 | 885 | 0 | 251948 s |
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 121 | 309 | 0 | 199426 s |
@@ -1215,6 +1215,9 @@ None so far.
 | 5x5x5 | 8 | (521,41111,32111) | 5 | 1 | 1440, 1400 | 9 | 9:540, 10:540 | U1=5 U2=5 U3=5 U4=5 U5=2 U6=0 tested U5 | 10 lines: gline e=2 x1 [9:780, 10:780]; gline e=2 x1 [9:880, 10:880]; in e=1 x1 [9:340, 10:340]; in e=1 x1 [9:240, 10:240]. | none | 730 s / 1080 MB |
 | 5x5x5 | 8 | (521,41111,32111) | 5 | 2 | 35, 57600 | 9 | 9:35 | U1=5 U2=5 U3=5 U4=5 U5=2 U6=0 tested U5 | 10 lines: no tensor-independent drop point. | none | 3 s / 210 MB |
 | 5x5x5 | 8 | (521,41111,32111) | 5 | 3 | 40, 50400 | 9 | 9:40 | U1=5 U2=5 U3=5 U4=5 U5=2 U6=0 tested U5 | 10 lines: no tensor-independent drop point. | none | 3 s / 325 MB |
+| 5x5x5 | 8 | (521,41111,3221) | 4 | 1 | 1440, 6125 | 9 | 9:1440, 10:1440 | U1=4 U2=4 U3=4 U4=4 U5=0 no natural U with 0 < dim < g | 15 lines: line e=1 x6 [9:1200, 10:1200]; in e=1 x5 [9:990, 10:990]; in e=1 x5 [9:1115, 10:1115]; in e=1 x8 [9:960, 10:960]; in e=1 x5 [9:1190, 10:1190]; in e=1 x3 [9:240, 10:240]; linear components: W(3), in[sig[1200,, in[sig[1200,, in[sig[1200,, in[sig[1200,. | none | 14028 s / 1419 MB |
+| 5x5x5 | 8 | (521,41111,3221) | 4 | 2 | 35, 252000 | 9 | 9:35 | U1=4 U2=4 U3=4 U4=4 U5=0 no natural U with 0 < dim < g | 6 lines: no tensor-independent drop point. | none | 2 s / 286 MB |
+| 5x5x5 | 8 | (521,41111,3221) | 4 | 3 | 175, 50400 | 9 | 9:175 | U1=4 U2=4 U3=4 U4=4 U5=0 no natural U with 0 < dim < g | 6 lines: no tensor-independent drop point. | none | 8 s / 574 MB |
 | 5x5x5 | 8 | (521,41111,3311) | 3 | 1 | 1440, 7350 | 9 | 9:1440, 10:1440 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 8 lines: line e=1 x5 [9:960, 10:960]; linear components: W(2). | none | 12086 s / 1380 MB |
 | 5x5x5 | 8 | (521,41111,3311) | 3 | 2 | 35, 302400 | 9 | 9:35 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 4 lines: no tensor-independent drop point. | none | 2 s / 350 MB |
 | 5x5x5 | 8 | (521,41111,3311) | 3 | 3 | 210, 50400 | 9 | 9:210 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 4 lines: no tensor-independent drop point. | none | 8 s / 490 MB |

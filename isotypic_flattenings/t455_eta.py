@@ -19,9 +19,11 @@ def fit(points):
     return a, b
 allpts = [(math.log(c), math.log(max(s, 0.05))) for (c, s) in done.values() if c > 0]
 total = 0; seen = set()
-for d, M in jobs:
-    d = int(d); Mf = float('inf') if M == 'inf' else float(M)
-    members = [(lam, g) for lam, g in comps(d) if (d, lam) not in seen and max(dim_schur(l, ns[t]) for t, l in enumerate(lam)) <= Mf]
+for job in jobs:
+    d, M = int(job[0]), job[1]; O = job[2] if len(job) > 2 else ''; Mf = float('inf') if M == 'inf' else float(M)
+    only = {tuple(tuple(x) for x in eval(l)) for l in open('only455_%s.txt' % O) if l.strip()} if O else None   # optional ONLY list of the job
+    members = [(lam, g) for lam, g in comps(d) if (d, lam) not in seen and max(dim_schur(l, ns[t]) for t, l in enumerate(lam)) <= Mf
+               and (only is None or tuple(tuple(x) for x in lam) in only)]
     seen |= {(d, lam) for lam, g in members}
     rest = [(lam, g) for lam, g in members if (d, lam) not in done]
     if not rest: continue
@@ -31,11 +33,11 @@ for d, M in jobs:
     pts = same[-300:] if len(same) >= 30 else sorted(allpts)[-300:]
     a, b = fit(pts); pred = lambda c: math.exp(a + b * math.log(c))
     est = sum(pred(cost(lam, g)) for lam, g in rest) / 3 / 3600; total += est
-    print("job d=%d MAXDIM=%s: %d of %d components left, predicted %.1f h wall on 3 workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (
-        d, M, len(rest), len(members), est, math.exp(a), b, len(pts), max(pred(cost(lam, g)) for lam, g in rest) / 3600))
+    print("job d=%d MAXDIM=%s%s: %d of %d components left, predicted %.1f h wall on 3 workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (
+        d, M, ' ONLY=%s' % O if O else '', len(rest), len(members), est, math.exp(a), b, len(pts), max(pred(cost(lam, g)) for lam, g in rest) / 3600))
     # second estimate from the recent rate: mean time of the last 50 finished components of each worker log of this job, times the
     # number left, on 3 workers; a lower bound when the components are claimed in order of increasing cost
-    tag = 'd%d' % d if M == 'inf' else 'd%d_max%s' % (d, M)
+    tag = ('d%d' % d if M == 'inf' else 'd%d_max%s' % (d, M)) + ('_%s' % O if O else '')
     recent = sum((times_by_file.get('hwv455_%s_w%d.log' % (tag, w), [])[-50:] for w in range(3)), [])
     if recent:
         print("  recent-rate estimate: %d left x mean(last %d) %.0f s / 3 workers = %.1f h (lower bound: the cheapest components go first)" % (

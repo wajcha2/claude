@@ -7,8 +7,8 @@ RANKS = (8, 9)
 jobs = []
 for line in open('t455_jobs.txt'):
     if line.strip() and not line.startswith('#'):
-        d, M = line.split(); jobs.append((int(d), M))
-degrees = sorted({d for d, _ in jobs})
+        f = line.split(); jobs.append((int(f[0]), f[1], f[2] if len(f) > 2 else ''))   # d, MAXDIM, optional ONLY name (only455_<name>.txt)
+degrees = sorted({j[0] for j in jobs})
 done = {}   # (d, lam) -> dict
 logs = sorted(glob.glob('hwv455_*.log'))
 finished_logs = {lf for lf in logs if os.path.getsize(lf) and open(lf).read().rstrip('\n').split('\n')[-1].startswith('n=4,5,5 d=') and 'FOUND:' in open(lf).read().rstrip('\n').split('\n')[-1]}
@@ -43,7 +43,7 @@ for d in degrees:
     hits = [lam for lam in fin if done[(d, lam)]['sep']]
     out.append('| %d | %d | %d | %d | %.2f | %.0f |' % (d, len(comps), len(fin), len(hits), sum(secs) / 3600, max(secs) if secs else 0))
 out.append('')
-out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M) for d, M in jobs)))
+out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M, ' ONLY=only455_%s.txt' % O if O else '') for d, M, O in jobs)))
 try:
     eta = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 't455_eta.py')], capture_output=True, text=True, timeout=600).stdout.strip().splitlines()
     out.append(''); out.append('Predicted remaining wall time (power-law fit of seconds vs the cost proxy g*sum(dim_i+4)^2; rough):'); out.extend('* ' + l for l in eta)
@@ -112,6 +112,13 @@ out.append('  was lost except 4.5 days of compute. 2026-10-10 21:37 UTC: `t455_c
 out.append('  RESUME (3113 of 3339 components already done, 226 left, ETA 15-33 h). Shared `[method]` 124bcd0 (g1_covariant_test.py, closed-form covariant')
 out.append('  test for the C^4^3 d=8 hit) reviewed: a standalone script, not part of the sweep code, nothing to adopt. Queue extended with capped d=10')
 out.append('  passes `10 400`, `10 1000` so compute does not idle after d=9; an uncapped `10 inf` pass is left for the user to decide.')
+out.append('* 2026-10-11 07:50 UTC: strategy decision by the user (option 1 of the summary): no blind uncapped d=10 pass (estimated 2-3 months on 3 cores).')
+out.append('  Instead a targeted ONLY job: the 474 d=10 components with a C^5 factor of adjoint type (3,2,2,2,1) = sl(5) (x) det^2 (file only455_adj.txt),')
+out.append('  the analogue of the C^4^3 d=8 separator ((6,2),(3,2,2,1),(3,2,2,1)) whose target is sl(B) (x) sl(C); 23 of them have both C^5 factors adjoint,')
+out.append('  dims (<= 770, 24, 24), g = 1..18. Job lines now take an optional third field: `<d> <MAXDIM> <name>` restricts the job to only455_<name>.txt')
+out.append('  (runner, check-in, report and ETA scripts extended; tag d<d>[_max<M>]_<name>, claims455_<tag>, logs hwv455_<tag>_w<k>.log). Queue after d=9:')
+out.append('  `10 3000 adj` (406 comps, est. 50 core-h), `10 400`, `10 1000` (capped passes, est. 55 core-h), `10 inf adj` (68 comps with a factor of')
+out.append('  dimension 3000-4725, est. 80 core-h, uncertain). Estimates from the d=9 seconds per unit of g by dimension bucket, not from the power-law fit.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

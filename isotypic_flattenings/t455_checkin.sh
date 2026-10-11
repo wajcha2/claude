@@ -6,14 +6,14 @@ SHARED=${SHARED:-/home/user/claude-shared/isotypic_flattenings}
 NW=3                                   # workers (cores minus one)
 cd $MAIN
 export PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
-tag() { [ "$2" = inf ] && echo "d$1" || echo "d$1_max$2"; }
+tag() { local t; if [ "$2" = inf ]; then t=d$1; else t=d$1_max$2; fi; [ -n "$3" ] && t=${t}_$3; echo $t; }
 alive() { ps -eo args | grep -v grep | grep -q "sweep_fast.py 4,5,5 $1 8,9 5 $2 $NW noV"; }
 finished() { [ -f hwv455_$1_w$2.log ] && tail -1 hwv455_$1_w$2.log | grep -q "^n=4,5,5 d=.* FOUND:"; }
-launch() {  # d maxdim worker
-  T=$(tag $1 $2); CD=claims455_$T; mkdir -p $CD
+launch() {  # d maxdim worker [name]
+  T=$(tag $1 $2 $4); CD=claims455_$T; mkdir -p $CD; O=""; [ -n "$4" ] && O=$MAIN/only455_$4.txt
   for f in $CD/*; do [ -f "$f" ] && [ "$(cat $f)" = "$3" ] && rm -f "$f"; done      # drop the dead worker's claims
   ALL=$(ls hwv455_d$1*.log 2>/dev/null | tr '\n' ':')
-  RESUME=$ALL MAXDIM=$2 CLAIMDIR=$CD setsid nohup python3 sweep_fast.py 4,5,5 $1 8,9 5 $3 $NW noV >> hwv455_${T}_w$3.log 2>&1 < /dev/null &
+  RESUME=$ALL MAXDIM=$2 CLAIMDIR=$CD ONLY=$O setsid nohup python3 sweep_fast.py 4,5,5 $1 8,9 5 $3 $NW noV >> hwv455_${T}_w$3.log 2>&1 < /dev/null &
   echo "*** launched $T worker $3 -> hwv455_${T}_w$3.log ($(date -u +%FT%TZ))"
 }
 echo "== $(date -u +'%Y-%m-%d %H:%M:%S UTC') =="
@@ -28,9 +28,9 @@ if ps -eo args | grep -v grep | grep -q "bash t455_runner.sh"; then echo "runner
   else echo "runner not running -> starting it"; setsid nohup bash t455_runner.sh >> t455_runner.log 2>&1 < /dev/null & sleep 3; fi; fi
 tail -4 t455_runner.log 2>/dev/null
 echo "-- jobs --"
-while read d M; do
+while read d M O; do
   [ -z "$d" ] && continue; case $d in \#*) continue;; esac
-  T=$(tag $d $M); st=""
+  T=$(tag $d $M $O); st=""
   for k in $(seq 0 $((NW-1))); do
     if finished $T $k; then st="$st F"; elif [ -f hwv455_${T}_w$k.log ] && alive $d $k; then st="$st R($(grep -c '^lam=' hwv455_${T}_w$k.log || true))"; else st="$st -"; fi
   done
@@ -43,8 +43,8 @@ if ! (cd $SHARED 2>/dev/null && git rev-parse --abbrev-ref HEAD 2>/dev/null | gr
   echo "!!! shared worktree $SHARED missing: cd /home/user/claude && git worktree add /home/user/claude-shared claude/wonderful-fermat-1v76ux"; exit 1; fi
 cd $SHARED && git pull -q --rebase origin claude/wonderful-fermat-1v76ux 2>&1 | tail -2
 mkdir -p agents && cp $MAIN/hwv455_*.log . 2>/dev/null; cp $MAIN/agents/d10.md agents/d10.md; cp $MAIN/agents/from-d10.md agents/from-d10.md 2>/dev/null
-cp $MAIN/t455_checkin.sh $MAIN/t455_runner.sh $MAIN/t455_report.py $MAIN/t455_eta.py $MAIN/t455_common.py $MAIN/t455_jobs.txt .; cp $MAIN/t455_runner.log . 2>/dev/null
-git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt 2>/dev/null
+cp $MAIN/t455_checkin.sh $MAIN/t455_runner.sh $MAIN/t455_report.py $MAIN/t455_eta.py $MAIN/t455_common.py $MAIN/t455_jobs.txt .; cp $MAIN/t455_runner.log $MAIN/only455_*.txt . 2>/dev/null
+git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt only455_*.txt 2>/dev/null
 git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ) ($(cat hwv455_*.log 2>/dev/null | grep -c '^lam=') component lines)" 2>/dev/null && echo "shared: committed" || echo "shared: nothing new"
 push_retry claude/wonderful-fermat-1v76ux && echo "shared: pushed $(git rev-parse --short HEAD)" || echo "!!! shared: PUSH FAILED (retry at the next check-in)"
 LAST=$(cat $MAIN/.d10_last_shared 2>/dev/null || echo c17b6d7); echo "-- shared commits since last check-in ($LAST): [method] ones marked --"
@@ -53,7 +53,7 @@ echo "-- messages to d10 (tail) --"; [ -f agents/to-d10.md ] && tail -12 agents/
 cd $MAIN
 # live logs are marked skip-worktree between check-ins (they grow continuously); clear the flag to commit them, then set it again
 git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --no-skip-worktree
-git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt 2>/dev/null
+git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt only455_*.txt 2>/dev/null
 if git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ)" 2>/dev/null || [ -n "$(git log origin/claude/tender-hopper-mcnmta..HEAD --oneline 2>/dev/null)" ]; then
   push_retry claude/tender-hopper-mcnmta && echo "own branch: pushed" || echo "!!! own branch: PUSH FAILED (retry at the next check-in)"
 else echo "own branch: nothing new"; fi

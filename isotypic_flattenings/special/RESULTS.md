@@ -59,7 +59,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 5x5x5 | 5 | 8-9 | 2 | 4 | 0 | 14 s |
 | 5x5x5 | 6 | 9 | 24 | 53 | 0 | 1196 s |
 | 5x5x5 | 7 | 9 | 121 | 307 | 0 | 21693 s |
-| 5x5x5 | 8 | 9 | 362 | 958 | 0 | 317941 s |
+| 5x5x5 | 8 | 9 | 363 | 960 | 0 | 319393 s |
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 256979 s |
@@ -1622,6 +1622,8 @@ None so far.
 | 5x5x5 | 8 | (62,431,422) | 2 | 1 | 1500, 588000 | 9 | 9:1500 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 87 s / 1030 MB |
 | 5x5x5 | 8 | (62,431,422) | 2 | 2 | 1050, 840000 | 9 | 9:1050 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 27 s / 476 MB |
 | 5x5x5 | 8 | (62,431,422) | 2 | 3 | 560, 1575000 | 9 | 9:560 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 10 s / 740 MB |
+| 5x5x5 | 8 | (62,431,431) | 4 | 1 | 1500, 1102500 | 9 | 9:1500 | U1=4 U2=4 U3=0 ; sw23+=4 sw23-=0 no natural U with 0 < dim < g | 2 lines: no tensor-independent drop point. | none | 665 s / 664 MB |
+| 5x5x5 | 8 | (62,431,431) | 4 | 2 | 1050, 1575000 | 9 | 9:1050 | U1=4 U2=4 U3=0 ; sw13+=4 sw13-=0 no natural U with 0 < dim < g | 6 lines: no tensor-independent drop point. | none | 788 s / 1696 MB |
 | 5x5x5 | 8 | (62,5111,4211) | 2 | 1 | 1500, 141750 | 9 | 9:1500 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 162 s / 643 MB |
 | 5x5x5 | 8 | (62,5111,4211) | 2 | 2 | 315, 675000 | 9 | 9:315 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 5 s / 513 MB |
 | 5x5x5 | 8 | (62,5111,4211) | 2 | 3 | 450, 472500 | 9 | 9:450 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 6 s / 467 MB |

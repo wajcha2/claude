@@ -38,14 +38,17 @@ while read d M O; do
 done < t455_jobs.txt
 python3 t455_report.py > agents/d10.md
 # push with retries (2, 4, 8, 16 s back-off) and the real exit status (a pipe into tail hid failures before)
-push_retry() { local i; for i in 1 2 3 4 5; do git push -q origin "$1" 2>&1 | tail -1; [ ${PIPESTATUS[0]} -eq 0 ] && return 0; [ $i -lt 5 ] && sleep $((2**i)); done; return 1; }
+push_retry() { local i; for i in 1 2 3 4 5; do git push -q origin "$1" 2>&1 | tail -1; [ ${PIPESTATUS[0]} -eq 0 ] && return 0; [ $i -lt 5 ] && { sleep $((2**i)); git pull -q --rebase --autostash origin "$1" 2>&1 | tail -1; }; done; return 1; }
+# commit attribution footer: read from the git-excluded file .d10_commit_footer next to this script (recreate it from the session's attribution
+# lines after a fresh clone); no footer if it is missing
+FOOT=(); [ -s $MAIN/.d10_commit_footer ] && FOOT=(-m "$(cat $MAIN/.d10_commit_footer)")
 if ! (cd $SHARED 2>/dev/null && git rev-parse --abbrev-ref HEAD 2>/dev/null | grep -q wonderful-fermat); then
   echo "!!! shared worktree $SHARED missing: cd /home/user/claude && git worktree add /home/user/claude-shared claude/wonderful-fermat-1v76ux"; exit 1; fi
 cd $SHARED && git pull -q --rebase origin claude/wonderful-fermat-1v76ux 2>&1 | tail -2
 mkdir -p agents && cp $MAIN/hwv455_*.log . 2>/dev/null; cp $MAIN/agents/d10.md agents/d10.md; cp $MAIN/agents/from-d10.md agents/from-d10.md 2>/dev/null
 cp $MAIN/t455_checkin.sh $MAIN/t455_runner.sh $MAIN/t455_report.py $MAIN/t455_eta.py $MAIN/t455_common.py $MAIN/t455_jobs.txt .; cp $MAIN/t455_runner.log $MAIN/only455_*.txt . 2>/dev/null
 git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt only455_*.txt 2>/dev/null
-git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ) ($(cat hwv455_*.log 2>/dev/null | grep -c '^lam=') component lines)" 2>/dev/null && echo "shared: committed" || echo "shared: nothing new"
+git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ) ($(cat hwv455_*.log 2>/dev/null | grep -c '^lam=') component lines)" "${FOOT[@]}" 2>/dev/null && echo "shared: committed" || echo "shared: nothing new"
 push_retry claude/wonderful-fermat-1v76ux && echo "shared: pushed $(git rev-parse --short HEAD)" || echo "!!! shared: PUSH FAILED (retry at the next check-in)"
 LAST=$(cat $MAIN/.d10_last_shared 2>/dev/null || echo c17b6d7); echo "-- shared commits since last check-in ($LAST): [method] ones marked --"
 git log --format='%h %s' $LAST..HEAD | grep -v '^[0-9a-f]* d10' | sed 's/^\([0-9a-f]* \[method\]\)/*** \1/' || true; git rev-parse --short HEAD > $MAIN/.d10_last_shared
@@ -54,7 +57,7 @@ cd $MAIN
 # live logs are marked skip-worktree between check-ins (they grow continuously); clear the flag to commit them, then set it again
 git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --no-skip-worktree
 git add hwv455_*.log t455_runner.log agents/d10.md agents/from-d10.md t455_checkin.sh t455_runner.sh t455_report.py t455_eta.py t455_common.py t455_jobs.txt only455_*.txt 2>/dev/null
-if git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ)" 2>/dev/null || [ -n "$(git log origin/claude/tender-hopper-mcnmta..HEAD --oneline 2>/dev/null)" ]; then
+if git commit -q -m "d10 agent: C^4x5x5 status + logs $(date -u +%FT%H:%MZ)" "${FOOT[@]}" 2>/dev/null || [ -n "$(git log origin/claude/tender-hopper-mcnmta..HEAD --oneline 2>/dev/null)" ]; then
   push_retry claude/tender-hopper-mcnmta && echo "own branch: pushed" || echo "!!! own branch: PUSH FAILED (retry at the next check-in)"
 else echo "own branch: nothing new"; fi
 git ls-files hwv455_*.log t455_runner.log | xargs -r git update-index --skip-worktree

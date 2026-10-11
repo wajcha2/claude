@@ -49,6 +49,12 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
 * 6x6x6 r = 10-13 at d = 5, 6; 7x7x7 r = 12-18, 8x8x8 r = 12-23, 9x9x9 r = 13-29, 10x10x10 r = 13-35 at d = 5:
   not separated; no tensor-independent drop point at all at the lowest frontier rank (the flattenings stay
   injective for every functional), natural U and Grassmannian pencils give the generic ranks.
+* 2026-10-11 23:06 UTC: 6x6x6 d = 7 complete (122 components, 310 directions): not separated; tensor-independent
+  drop points in 4 directions, equal at r = 10 and 14.  Last component ((4,2,1)^3) (g = 9, K = 22688): 16 h wall,
+  peak 6.7 GB (13 natural-U orderings at ~45 min each, V_9 elimination; lines ~100 s each, Grassmannian pencils
+  skipped by the size cap).  5x5x5 rank 9 d = 8: 958 of 1090 directions, not separated (drop points in 83
+  directions, equal on 9 and 10).  7x7x7 d = 5, 6, 8x8x8 d = 5, 6 (except ((3,2,1),(3,2,1),(2,1,1,1,1)), running
+  for 12..15), 9x9x9, 10x10x10 d = 5: not separated.
 * Timings / memory: per direction up to 1 h (10x10x10 d = 5, rho = 4950: F 33 min, minpoly 32 min), peak 3.6 GB.
 
 ## Running jobs
@@ -61,7 +67,9 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   processes still running (counted as slots, not relaunched).  Job lines may start with KEY=VALUE environment
   tokens (MEMCAP, CACHE, CACHEMIN, ...); EXCLUSIVE=1 jobs run alone (the queue is drained when one comes first).
   2026-10-07 18:31: 6x6x6 d=7 ((4,2,1)^3) (g = 9, K = 22688: 2 GB per cached tensor + 4 GB V_9 elimination) was
-  OOM-killed next to another big job; it now runs alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2).  `special/sync.sh` copies special/live into
+  OOM-killed next to another big job; it ran alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2) and
+  finished 2026-10-11 22:58 (16 h).  Now (ncores 3, maxbig 2): 8x8x8 d=6 ((3,2,1),(3,2,1),(2,1,1,1,1)) 12..15,
+  rest of 5x5x5 d = 8 rank 9, then 5x5x5 d = 9 rank 9 (word minors) if it fits.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

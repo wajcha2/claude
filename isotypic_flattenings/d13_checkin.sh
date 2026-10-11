@@ -19,7 +19,7 @@ grep -h "oom_kill" /sys/fs/cgroup/memory.events 2>/dev/null || true
 # lists are exhausted under MC and the current cap, the stage advances to the next value of STAGES (3e13 asked for on
 # 2026-10-05): the skip lines of the lower caps are dropped from the snapshot (so RESUME recomputes those components,
 # cheapest first by the cost proxy), all claims are released and the workers are relaunched with the new cap.
-STAGES="1e13 3e13"
+STAGES="1e13 3e13 6e13"     # 6e13 and MAXCOST 3e8 asked for on 2026-10-11 (option 2: ~110 more components, ~11 days on 4 cores)
 MAXFLOPS=${MAXFLOPS:-$(cat maxflops_stage 2>/dev/null || echo 1e13)}
 next_stage() { local prev=""; for s in $STAGES; do [ -n "$prev" ] && [ "$prev" = "$1" ] && { echo $s; return; }; prev=$s; done; }
 stage_filter() {  # stdin -> stdout without the 'NOT CHECKED (MAXFLOPS <cap>)' lines whose cap is below the current stage
@@ -48,8 +48,8 @@ grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/nul
 # component.  prom5_d<d>_cost.txt caches "repr(lam) g cost dims" for every listed component.
 # Worker slots: W13 / W14 list the slots (0..NW-1) for d=13 / d=14; a degree with nothing left under its MC hands its
 # slots to the other degree.
-MC13=${MC13:-1e8}; MC14=${MC14:-1e8}     # stage 3 since 2026-09-28 23:20 UTC (3e7 stage: the 2.3e7 d=13 component took 2 h, not 60 h, once the DP path fallback was capped)
-W13=${W13:-"0"}; W14=${W14:-"1 2 3"}   # 2026-10-10: one d=13 component left (worker 0), the other three slots on d=14
+MC13=${MC13:-3e8}; MC14=${MC14:-3e8}     # stage 4 = 3e8 since 2026-10-11 07:30 UTC (user: option 2);   # stage 3 since 2026-09-28 23:20 UTC (3e7 stage: the 2.3e7 d=13 component took 2 h, not 60 h, once the DP path fallback was capped)
+W13=${W13:-"0 1"}; W14=${W14:-"2 3"}   # 2026-10-11: stage 4 has 76 d=13 and 48 d=14 components
 left() {  # degree maxcost -> number of listed components with cost <= maxcost not yet in the done-log
   python3 - <<PY
 import os, re

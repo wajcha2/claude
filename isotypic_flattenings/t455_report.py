@@ -24,7 +24,7 @@ procs = [l for l in ps.splitlines() if 'sweep_fast.py 4,5,5' in l and 'grep' not
 out = []
 out.append('# d10 agent status: C^4 (x) C^5 (x) C^5, rank 8 vs rank 9 (isotypic flattenings, all degrees in the job queue)')
 out.append('Updated %s. Work is pushed to the shared branch `claude/wonderful-fermat-1v76ux` (mirror `claude/tender-hopper-mcnmta`).' % time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime()))
-out.append('Setting: T in C^4 (x) C^5 (x) C^5 (generic rank 9, sigma_8 of codimension 3). "Separates" = smaller flattening rank on a random rank-8')
+out.append('Setting: T in C^4 (x) C^5 (x) C^5 (generic rank 9, sigma_8 of codimension 4). "Separates" = smaller flattening rank on a random rank-8')
 out.append('tensor than on a random rank-9 tensor. Tool: `sweep_fast.py 4,5,5 d 8,9 5 <k> 3 noV` (d9 agent\'s Cauchy-Binet / float64-BLAS evaluator,')
 out.append('generalised to different factor dimensions; exact mod p = 524287; components = (l1; {l2,l3}) unordered in the two C^5 factors, all with')
 out.append('Kronecker coefficient g > 0; three flattening directions; gN = generic functional, HN = full multiplicity space stacked). 3 workers, seed 5.')

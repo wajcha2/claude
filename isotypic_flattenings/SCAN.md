@@ -51,7 +51,7 @@ elimination 21512^2) and the 6x6x6 d = 7 component ((4,2,1)^3) (g = 9) need ~7 G
 ~10 GB.  A component that does not fit waits (it is not skipped); the two youngest workers were stopped at 23:07
 (their components are redone).  While a component waits, later jobs may backfill only as long as the backfilled
 components together leave room for it (it fits as soon as the other running components finish; since 2026-10-07 01:42).  A component running longer than the time limit is stopped and listed as
-not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), adjustable at run time in scan/live/tlimit, the worker limit in
+not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), 30 h since 2026-10-11 13:05 (10x10x10 ((5,1),(2,1^4),(2,1^4)) probed at r = 12 needs ~20 h: its 15023 x 15023 matrix is evaluated in 60092 blocks of one column), adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).
 Limits: an intermediate of the contraction is capped at max(MEMCAP = 2^25, largest input) elements (larger ones

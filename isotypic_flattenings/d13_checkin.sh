@@ -97,7 +97,7 @@ cd .. && for f in hwv5_d13_prom_done.log hwv5_d14_prom_done.log maxflops_stage a
 if ! git diff --cached --quiet; then
   git commit -q -m "d13 agent: C^5 rank 9 vs 10 d=13/14 status + logs $(date -u +%FT%H:%MZ) (d13 $(cnt isotypic_flattenings/hwv5_d13_prom_done.log), d14 $(cnt isotypic_flattenings/hwv5_d14_prom_done.log) components)
 
-Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01Xqa6zjM98kkSHbEmfYGvTt"
   for i in 1 2 3 4; do git pull -q --rebase --autostash origin claude/wonderful-fermat-1v76ux && git push -q -u origin claude/wonderful-fermat-1v76ux && { echo "pushed"; break; }; sleep $((2**i)); done
 else echo "nothing to commit"; fi

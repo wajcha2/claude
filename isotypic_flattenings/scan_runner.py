@@ -684,7 +684,9 @@ def main():
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
                             % (name, nc and nc[1], need_mb / 1024, used / 1024, budget / 1024, max(0.0, budget - need_mb) / 1024))
                     continue
-                if used + need_mb <= budget and bf_used + need_mb + reserve <= budget:
+                # backfill: fits now, and leaves room for the waiting component once the others finish -- or is a
+                # cheap component (cost band <= 3, minutes) that delays the waiting one by at most its own run time
+                if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or job['stage'] <= 3):
                     pick = (name, nc, need_mb, True)
                     break
             if pick is None:

@@ -69,7 +69,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   2026-10-07 18:31: 6x6x6 d=7 ((4,2,1)^3) (g = 9, K = 22688: 2 GB per cached tensor + 4 GB V_9 elimination) was
   OOM-killed next to another big job; it ran alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2) and
   finished 2026-10-11 22:58 (16 h).  Now (ncores 3, maxbig 2): 8x8x8 d=6 ((3,2,1),(3,2,1),(2,1,1,1,1)) 12..15,
-  rest of 5x5x5 d = 8 rank 9, then 5x5x5 d = 9 rank 9 (word minors) if it fits.  `special/sync.sh` copies special/live into
+  rest of 5x5x5 d = 8 rank 9 (the last jobs of special/jobs.txt).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

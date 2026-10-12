@@ -668,7 +668,7 @@ def main():
             ests = {pid: running_est(pid) for pid in workers}
             used = sum(ests.values())
             bf_used = sum(v for pid, v in ests.items() if pid in backfill)
-            reserve, pick = None, None
+            reserve, pick, reserve_extra = None, None, False
             for _, name in cands:
                 job = st['jobs'][name]
                 excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
@@ -679,6 +679,7 @@ def main():
                         pick = (name, nc, need_mb, False)
                         break
                     reserve = need_mb
+                    reserve_extra = bool(job.get('extra'))
                     if mem_wait != (name, nc and nc[0]):
                         mem_wait = (name, nc and nc[0])
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
@@ -686,8 +687,10 @@ def main():
                     continue
                 # backfill: fits now, and leaves room for the waiting component once the others finish -- or is cheap
                 # (cost band <= 3: minutes) or small (<= 4 GB), so it delays the waiting one by at most its own run time
-                if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or job['stage'] <= 3
-                                                 or need_mb <= 4096):
+                # (no exceptions while the waiting component belongs to an extra job: such a rerun needs most of the budget
+                #  and would otherwise wait for ever behind a stream of small components)
+                if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or
+                                                 (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))):
                     pick = (name, nc, need_mb, True)
                     break
             if pick is None:

@@ -11,7 +11,8 @@ running workers, then to a format with <= 10 unchecked components left in its cu
 format whose last worker start is oldest; fair share since 2026-10-06 18:30, round robin since 2026-10-07 07:10; before:
 the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
 will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
-started until enough memory is free (the next component waits, it is not skipped).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
+started until enough memory is free (the next component waits, it is not skipped; cheap or small components may
+backfill past it for at most BFWAIT s, <SCAN>/bfwait overrides, then only backfills that leave room for it).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
 are 'deferred': their unclaimed components get a placeholder claim so that no worker takes them, until the format
 reaches that job again.  On a restart, workers that are still running are adopted (not killed).
@@ -27,6 +28,7 @@ from colwedge_family import is_colwedge
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
 NCORES = int(os.environ.get('NCORES', '4'))
+BFWAIT = float(os.environ.get('BFWAIT', '3600'))   # s a waiting component lets cheap/small components backfill past it
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
 MEMBUDGET = float(os.environ.get('MEMBUDGET', '15000'))     # MB for the workers (container: 16 GB, no swap)
@@ -486,15 +488,25 @@ def main():
     predicted = {}        # pid -> (component index, est. peak MB) until the worker's claim appears
     backfill = set()      # pids started while a larger component waited for memory
     last_start = collections.defaultdict(float)   # n -> time of its last worker start (round robin)
-    try:                  # seed the round robin from the log (a restart must not reset it)
+    bf_log, wait_t = set(), None
+    try:                  # seed the round robin, the backfill set and the memory wait from the log (a restart must not reset them)
         import calendar, re
         for l in open(os.path.join(SCAN, 'runner.log')).readlines()[-3000:]:
-            mm = re.match(r'(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) started worker \d+ on n(\d+)_', l)
+            mm = re.match(r'(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) started worker \d+ on n(\d+)_\S+ \(pid (\d+)\)', l)
             if mm:
                 last_start[int(mm.group(2))] = calendar.timegm(time.strptime(mm.group(1), '%Y-%m-%d %H:%M:%S'))
+                if l.rstrip().endswith('(backfill)'):
+                    bf_log.add(int(mm.group(3)))
+                else:
+                    wait_t = None
+            mw = re.match(r'(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) memory: .* waiting', l)
+            if mw and wait_t is None:
+                wait_t = calendar.timegm(time.strptime(mw.group(1), '%Y-%m-%d %H:%M:%S'))
     except OSError:
         pass
     mem_wait = None
+    mem_wait_strict = False
+    mem_wait_t0 = wait_t  # since when a component has been waiting for memory (bounds the cheap/small backfill exception)
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
         if job['status'] != 'running':
@@ -512,6 +524,7 @@ def main():
             elif comps.get(int(fn)) not in done:      # claims of finished components stay (they count as claimed)
                 os.remove(os.path.join(job['claims'], fn))
                 log('restart: removed stale claim %s/%s (pid %d)' % (name, fn, pid))
+    backfill |= {pid for pid in workers if pid in bf_log}
     save_state(st)
     retry = {}
     wid = itertools.count(int(time.time()) % 100000 * 10)
@@ -635,6 +648,12 @@ def main():
         except (OSError, ValueError, IndexError):
             pass
 
+        bfwait = BFWAIT
+        try:
+            bfwait = float(open(os.path.join(SCAN, 'bfwait')).read().split()[0])
+        except (OSError, ValueError, IndexError):
+            pass
+
         def running_est(pid):
             """estimated peak of a running worker's component (predicted until its claim appears)."""
             jb = st['jobs'][workers[pid][1]]
@@ -680,6 +699,13 @@ def main():
                         break
                     reserve = need_mb
                     reserve_extra = bool(job.get('extra'))
+                    if mem_wait_t0 is None:
+                        mem_wait_t0 = time.time()
+                    grace = time.time() - mem_wait_t0 < bfwait
+                    if not grace and not mem_wait_strict:
+                        mem_wait_strict = True
+                        log('memory: %s has waited %.0f min: no more cheap/small backfill exceptions until it starts'
+                            % (name, (time.time() - mem_wait_t0) / 60))
                     if mem_wait != (name, nc and nc[0]):
                         mem_wait = (name, nc and nc[0])
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
@@ -688,16 +714,20 @@ def main():
                 # backfill: fits now, and leaves room for the waiting component once the others finish -- or is cheap
                 # (cost band <= 3: minutes) or small (<= 4 GB), so it delays the waiting one by at most its own run time
                 # (no exceptions while the waiting component belongs to an extra job: such a rerun needs most of the budget
-                #  and would otherwise wait for ever behind a stream of small components)
+                #  and would otherwise wait for ever behind a stream of small components; and none after it has waited
+                #  BFWAIT s, since 2026-10-12: a 7.4 GB component waited behind an endless stream of small ones -- a freed
+                #  slot was refilled at once, so the running estimates never dropped below budget - 7.4 GB)
                 if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or
-                                                 (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))):
+                                                 (not reserve_extra and grace and (job['stage'] <= 3 or need_mb <= 4096))):
                     pick = (name, nc, need_mb, True)
                     break
+            if reserve is None:
+                mem_wait_t0, mem_wait_strict = None, False
             if pick is None:
                 break
             name, nc, need_mb, is_bf = pick
             if not is_bf:
-                mem_wait = None
+                mem_wait, mem_wait_t0, mem_wait_strict = None, None, False
             job = st['jobs'][name]
             w = next(wid)
             env = dict(os.environ, **WENV)

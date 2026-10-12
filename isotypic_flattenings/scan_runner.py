@@ -13,7 +13,7 @@ the order (stage, n)).  A worker is started only if the estimated peak memory of
 will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
 started until enough memory is free (the next component waits, it is not skipped; cheap or small components may
 backfill past it, but once only backfilled components keep it out, for at most BFWAIT s more (<SCAN>/bfwait
-overrides); after that only backfills that leave room for it).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
+overrides); after that nothing backfills until it starts).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
 are 'deferred': their unclaimed components get a placeholder claim so that no worker takes them, until the format
 reaches that job again.  On a restart, workers that are still running are adopted (not killed).
@@ -710,8 +710,8 @@ def main():
                         grace = time.time() - mem_wait_t0 < bfwait
                         if not grace and not mem_wait_strict:
                             mem_wait_strict = True
-                            log('memory: %s has been kept out by backfilled components for %.0f min: no more cheap/small '
-                                'backfill exceptions until it starts' % (name, (time.time() - mem_wait_t0) / 60))
+                            log('memory: %s has been kept out by backfilled components for %.0f min: no more backfills '
+                                'until it starts' % (name, (time.time() - mem_wait_t0) / 60))
                     if mem_wait != (name, nc and nc[0]):
                         mem_wait = (name, nc and nc[0])
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
@@ -725,8 +725,11 @@ def main():
                 #  slot was refilled at once, so the running estimates never dropped below budget - 7.4 GB.  The clock runs
                 #  only while the non-backfilled components alone would leave room for it (since 15:52; before, a
                 #  waiting component blocked by a long non-backfilled one left cores idle for hours to no effect))
-                if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or
-                                                 (not reserve_extra and grace and (job['stage'] <= 3 or need_mb <= 4096))):
+                # once only backfilled components keep it out and the exception has expired, nothing more backfills:
+                # the reservation rule alone (room once the non-backfilled ones finish) would let a stream of small
+                # components keep it out for as long as a long non-backfilled component runs (since 19:25)
+                if used + need_mb <= budget and grace and (bf_used + need_mb + reserve <= budget or
+                                                           (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))):
                     pick = (name, nc, need_mb, True)
                     break
             if reserve is None:

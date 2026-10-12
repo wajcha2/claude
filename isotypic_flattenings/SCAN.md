@@ -58,7 +58,10 @@ one out (since 15:52; before, the clock ran from the start of the wait, so a com
 non-backfilled one left cores idle to no effect): the 10x10x10 d = 6 component ((5,1),(2,2,1,1),(2,2,1,1))
 (~7.4 GB) waited behind a stream of small 6x6x6 d = 8 components -- every freed slot was refilled at once, so the
 running estimates never dropped below budget - 7.4 GB; it started 1 h 45 min after it began to wait, 11 min after
-the exceptions ended.  A restarted runner re-reads the backfill set and the wait start from runner.log.  A component running longer than the time limit is stopped and listed as
+the exceptions ended.  When the clock has run out, nothing backfills at all until the waiting component starts
+(since 19:25; the reservation rule alone, room once the non-backfilled components finish, still let small
+components in while a long non-backfilled one ran).  A restarted runner re-reads the backfill set and the wait start
+from runner.log.  A component running longer than the time limit is stopped and listed as
 not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), 30 h since 2026-10-11 13:05 (10x10x10 ((5,1),(2,1^4),(2,1^4)) probed at r = 12 needs ~20 h: its 15023 x 15023 matrix is evaluated in 60092 blocks of one column), adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).

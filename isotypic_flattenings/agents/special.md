@@ -69,7 +69,8 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   OOM-killed next to another big job; it ran alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2) and
   finished 2026-10-11 22:58 (16 h).  8x8x8 d=6 ((3,2,1),(3,2,1),(2,1,1,1,1)) 12..15 done 2026-10-12 00:25
   (87 min, peak 4.7 GB): 8x8x8 d = 6 complete.  Now (ncores 4): the rest of 5x5x5 d = 8 rank 9 (50 components,
-  126 directions on 2026-10-12 00:40; the last jobs of special/jobs.txt).  `special/sync.sh` copies special/live into
+  126 directions on 2026-10-12 00:40; the last jobs of special/jobs.txt).  2026-10-12 18:16: 13 components left,
+  all with mem_estimate_gb > 3 (actual peaks so far 60-75 % of the estimate), maxbig raised to 3.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

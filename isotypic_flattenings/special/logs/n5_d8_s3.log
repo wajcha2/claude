@@ -838,3 +838,37 @@ lam=((5, 2, 1), (5, 2, 1), (4, 2, 2)) g=6 dir 1: n1=1440 n23=806400 N1=1448 K=86
    U_k dims {1: 6, 2: 6, 3: 3, 4: 0}  swaps {'sw12+': 5, 'sw12-': 1}  (1.6s)
    U3                           r9 H[1440, 1440, 1440, 1440, 1440, 1440] V[2880, 4320, 5760, 7200, 8640]
    sw12+                        r9 H[1440, 1440, 1440, 1440, 1440, 1440] V[2880, 4320, 5760, 7200, 8640]
+   U3^sw12+                     r9 H[1440, 1440, 1440, 1440, 1440, 1440] V[2880, 4320, 5760, 7200, 8640]
+   sw12-                        r9 H[1440, 1440, 1440, 1440, 1440, 1440] V[2880, 4320, 5760, 7200, 8640]
+   line0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (31.1s)
+   line1 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (32.4s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   gline H5: skipped (size)
+   gline V5: skipped (size)
+   thru-U30 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (33.2s)
+   in-U30 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (32.1s)
+   thru-sw12+0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (30.9s)
+   in-sw12+0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (34.0s)
+   thru-sw12-0 rho 1440  minpoly deg [1440, 1440]  gcd deg 0    (32.9s)
+   done dir 1: ok, 19 cases, 0 hits, wall 7016.3s (F 4559.8s), peak 1172 MB
+lam=((5, 2, 1), (5, 2, 1), (4, 2, 2)) g=6 dir 3: n1=560 n23=2073600 N1=568 K=3368  ranks [9]
+   generic U: r9 H[560, 560, 560, 560, 560, 560] V[1120, 1680, 2240, 2800, 3360]
+   U_k dims {1: 6, 2: 6, 3: 3, 4: 0}  swaps {'sw23+': 5, 'sw23-': 1}  (1.1s)
+   U3                           r9 H[560, 560, 560, 560, 560, 560] V[1120, 1680, 2240, 2800, 3360]
+   sw23+                        r9 H[560, 560, 560, 560, 560, 560] V[1120, 1680, 2240, 2800, 3360]
+   U3^sw23+                     r9 H[560, 560, 560, 560, 560, 560] V[1120, 1680, 2240, 2800, 3360]
+   sw23-                        r9 H[560, 560, 560, 560, 560, 560] V[1120, 1680, 2240, 2800, 3360]
+   line0 rho 560  minpoly deg [560, 560]  gcd deg 0    (3.0s)
+   line1 rho 560  minpoly deg [560, 560]  gcd deg 0    (2.6s)
+   gline H2 rho 560  minpoly deg [560, 560]  gcd deg 0    (24.9s)
+   gline V2 rho 1120  minpoly deg [1120, 1120]  gcd deg 0    (33.1s)
+   gline H3 rho 560  minpoly deg [560, 560]  gcd deg 0    (38.8s)
+   gline V3 rho 1680  minpoly deg [1680, 1680]  gcd deg 0    (69.4s)
+   gline H4 rho 560  minpoly deg [560, 560]  gcd deg 0    (50.7s)
+   gline V4 rho 2240  minpoly deg [2240, 2240]  gcd deg 0    (105.6s)
+   gline H5 rho 560  minpoly deg [560, 560]  gcd deg 0    (62.1s)

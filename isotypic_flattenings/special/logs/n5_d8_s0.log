@@ -313,3 +313,34 @@ lam=((5, 2, 1), (4, 3, 1), (3, 3, 2)) g=5 dir 1: n1=1440 n23=330750 N1=1448 K=72
 lam=((5, 2, 1), (4, 3, 1), (3, 3, 2)) g=5 dir 2: n1=1050 n23=453600 N1=1058 K=5258  ranks [9]
    generic U: r9 H[1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250]
    U_k dims {1: 5, 2: 5, 3: 3, 4: 0}  swaps {}  (0.5s)
+   U3                           r9 H[1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250]
+   line0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.5s)
+   line1 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.6s)
+   gline H2 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (85.5s)
+   gline V2 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (125.5s)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   thru-U30 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.1s)
+   in-U30 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.7s)
+   done dir 2: ok, 11 cases, 0 hits, wall 1103.7s (F 527.5s), peak 1522 MB
+lam=((5, 2, 1), (4, 3, 1), (3, 3, 2)) g=5 dir 3: n1=315 n23=1512000 N1=323 K=1583  ranks [9]
+   generic U: r9 H[315, 315, 315, 315, 315] V[630, 945, 1260, 1575]
+   U_k dims {1: 5, 2: 5, 3: 3, 4: 0}  swaps {}  (0.5s)
+   U3                           r9 H[315, 315, 315, 315, 315] V[630, 945, 1260, 1575]
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.7s)
+   line1 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.9s)
+   gline H2 rho 315  minpoly deg [315, 315]  gcd deg 0    (6.1s)
+   gline V2 rho 630  minpoly deg [630, 630]  gcd deg 0    (7.9s)
+   gline H3 rho 315  minpoly deg [315, 315]  gcd deg 0    (9.5s)
+   gline V3 rho 945  minpoly deg [945, 945]  gcd deg 0    (14.6s)
+   gline H4 rho 315  minpoly deg [315, 315]  gcd deg 0    (13.4s)
+   gline V4 rho 1260  minpoly deg [1260, 1260]  gcd deg 0    (25.3s)
+   thru-U30 rho 315  minpoly deg [315, 315]  gcd deg 0    (1.0s)
+   in-U30 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.8s)
+   done dir 3: ok, 11 cases, 0 hits, wall 134.0s (F 32.0s), peak 605 MB
+lam=((5, 3), (5, 2, 1), (5, 2, 1)) g=5 dir 1: n1=1260 n23=2073600 N1=1268 K=6308  ranks [9]
+   generic U: r9 H[1260, 1260, 1260, 1260, 1260] V[2520, 3780, 5040, 6300]
+   U_k dims {1: 5, 2: 5, 3: 0}  swaps {'sw23+': 4, 'sw23-': 1}  (0.7s)
+   sw23+                        r9 H[1260, 1260, 1260, 1260, 1260] V[2520, 3780, 5040, 6300]

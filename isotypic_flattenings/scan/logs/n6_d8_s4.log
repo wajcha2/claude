@@ -464,3 +464,21 @@ lam=((4, 2, 2), (3, 3, 2), (3, 3, 1, 1)) g=2 dims=[2520, 1470, 1176] ok  wall=80
 lam=((5, 2, 1), (4, 2, 2), (2, 2, 1, 1, 1, 1)) g=1 dims=[5760, 2520, 15] ok  wall=6205.6s rss=1180MB
 # worker 728645 done, 6206s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728650/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((4, 4), (4, 2, 1, 1), (3, 2, 2, 1)) dir 0 r=10 H=[1764, 1764] V=[1764, 3528] eval 712s rref 41s
+  . ((4, 2, 1, 1), (4, 4), (3, 2, 2, 1)) dir 1 r=10 H=[2430, 2430] V=[2430, 4860] eval 161s rref 84s
+  . ((3, 2, 2, 1), (4, 4), (4, 2, 1, 1)) dir 2 r=10 H=[1050, 1050] V=[1050, 2100] eval 18s rref 14s
+lam=((4, 4), (4, 2, 1, 1), (3, 2, 2, 1)) g=2 dims=[1764, 2430, 1050] ok  wall=1035.2s rss=1102MB
+# worker 728650 done, 1035s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728651/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((5, 3), (4, 4), (4, 3, 1)) dir 0 r=10 H=[4410] V=[4410] eval 452s rref 102s
+  . ((4, 4), (5, 3), (4, 3, 1)) dir 1 r=10 H=[1764] V=[1764] eval 12s rref 16s
+  . ((6, 1, 1), (3, 2, 1, 1, 1), (2, 2, 1, 1, 1, 1)) dir 0 r=14 H=[1059, 1059] V=[1059, 1260] eval 1860s rref 45s
+  . ((4, 3, 1), (5, 3), (4, 4)) dir 2 r=10 H=[4410] V=[4410] eval 83s rref 107s
+lam=((5, 3), (4, 4), (4, 3, 1)) g=1 dims=[4410, 1764, 4410] ok  wall=773.6s rss=752MB
+# worker 728651 done, 774s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728652/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((3, 2, 1, 1, 1), (6, 1, 1), (2, 2, 1, 1, 1, 1)) dir 1 r=10 H=[384, 384] V=[384, 768] eval 12s rref 2s
+  . ((2, 2, 1, 1, 1, 1), (6, 1, 1), (3, 2, 1, 1, 1)) dir 2 r=10 H=[15, 15] V=[15, 30] eval 0s rref 0s
+lam=((6, 1, 1), (3, 2, 1, 1, 1), (2, 2, 1, 1, 1, 1)) g=2 dims=[3465, 384, 15] ok  wall=2837.9s rss=1203MB
+# worker 728649 done, 2838s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728653/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list

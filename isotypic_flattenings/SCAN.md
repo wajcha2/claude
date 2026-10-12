@@ -52,11 +52,13 @@ elimination 21512^2) and the 6x6x6 d = 7 component ((4,2,1)^3) (g = 9) need ~7 G
 (their components are redone).  While a component waits, later jobs may backfill only as long as the backfilled
 components together leave room for it (it fits as soon as the other running components finish; since 2026-10-07 01:42).
 Exception (to keep cores busy behind a long waiting component): cheap (cost band <= 3) or small (<= 4 GB) components
-may backfill regardless, but not past a waiting extra-job component and, since 2026-10-12 13:48, only during the
-first hour of a wait (scan/live/bfwait, seconds): the 10x10x10 d = 6 component ((5,1),(2,2,1,1),(2,2,1,1)) (~7.4 GB)
-waited behind a stream of small 6x6x6 d = 8 components -- every freed slot was refilled at once, so the running
-estimates never dropped below budget - 7.4 GB.  A restarted runner re-reads the backfill set and the wait start from
-runner.log.  A component running longer than the time limit is stopped and listed as
+may backfill regardless, but not past a waiting extra-job component and, since 2026-10-12 13:48, not for more than
+BFWAIT s (scan/live/bfwait; 1 h, 30 min since 15:52) of the time in which only backfilled components keep the waiting
+one out (since 15:52; before, the clock ran from the start of the wait, so a component blocked by a long
+non-backfilled one left cores idle to no effect): the 10x10x10 d = 6 component ((5,1),(2,2,1,1),(2,2,1,1))
+(~7.4 GB) waited behind a stream of small 6x6x6 d = 8 components -- every freed slot was refilled at once, so the
+running estimates never dropped below budget - 7.4 GB; it started 1 h 45 min after it began to wait, 11 min after
+the exceptions ended.  A restarted runner re-reads the backfill set and the wait start from runner.log.  A component running longer than the time limit is stopped and listed as
 not checked (time limit; 4 h since 2026-10-04 17:00, 8 h since 2026-10-06 17:30 when the 7x7x7 d = 7 components reached 3.4 h, 16 h since 2026-10-06 20:05 (two of them past 5 h, CPU-bound, steady memory), 30 h since 2026-10-11 13:05 (10x10x10 ((5,1),(2,1^4),(2,1^4)) probed at r = 12 needs ~20 h: its 15023 x 15023 matrix is evaluated in 60092 blocks of one column), adjustable at run time in scan/live/tlimit, the worker limit in
 scan/live/ncores) -- the cost proxy counts matrix entries only and underestimates large n, d by up to 1e5.
 Skipped ranks: 5x5x5 rank 9 vs 10 (left to the d13 agent, needs d >= 13).

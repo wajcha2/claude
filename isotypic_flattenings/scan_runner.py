@@ -12,7 +12,8 @@ format whose last worker start is oldest; fair share since 2026-10-06 18:30, rou
 the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
 will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
 started until enough memory is free (the next component waits, it is not skipped; cheap or small components may
-backfill past it for at most BFWAIT s, <SCAN>/bfwait overrides, then only backfills that leave room for it).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
+backfill past it, but once only backfilled components keep it out, for at most BFWAIT s more (<SCAN>/bfwait
+overrides); after that only backfills that leave room for it).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
 are 'deferred': their unclaimed components get a placeholder claim so that no worker takes them, until the format
 reaches that job again.  On a restart, workers that are still running are adopted (not killed).
@@ -28,7 +29,7 @@ from colwedge_family import is_colwedge
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
 NCORES = int(os.environ.get('NCORES', '4'))
-BFWAIT = float(os.environ.get('BFWAIT', '3600'))   # s a waiting component lets cheap/small components backfill past it
+BFWAIT = float(os.environ.get('BFWAIT', '1800'))   # s a waiting component lets cheap/small components backfill past it
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
 MEMBUDGET = float(os.environ.get('MEMBUDGET', '15000'))     # MB for the workers (container: 16 GB, no swap)
@@ -506,7 +507,7 @@ def main():
         pass
     mem_wait = None
     mem_wait_strict = False
-    mem_wait_t0 = wait_t  # since when a component has been waiting for memory (bounds the cheap/small backfill exception)
+    mem_wait_t0 = wait_t  # since when only backfilled components keep the waiting one out (bounds the backfill exception)
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
         if job['status'] != 'running':
@@ -699,13 +700,18 @@ def main():
                         break
                     reserve = need_mb
                     reserve_extra = bool(job.get('extra'))
-                    if mem_wait_t0 is None:
-                        mem_wait_t0 = time.time()
-                    grace = time.time() - mem_wait_t0 < bfwait
-                    if not grace and not mem_wait_strict:
-                        mem_wait_strict = True
-                        log('memory: %s has waited %.0f min: no more cheap/small backfill exceptions until it starts'
-                            % (name, (time.time() - mem_wait_t0) / 60))
+                    if used - bf_used + need_mb > budget:
+                        # blocked by components that were not backfilled: backfills cannot delay it yet, keep cores busy
+                        mem_wait_t0, mem_wait_strict, grace = None, False, True
+                    else:
+                        # only backfilled components keep it out: the exception ends BFWAIT s from now
+                        if mem_wait_t0 is None:
+                            mem_wait_t0 = time.time()
+                        grace = time.time() - mem_wait_t0 < bfwait
+                        if not grace and not mem_wait_strict:
+                            mem_wait_strict = True
+                            log('memory: %s has been kept out by backfilled components for %.0f min: no more cheap/small '
+                                'backfill exceptions until it starts' % (name, (time.time() - mem_wait_t0) / 60))
                     if mem_wait != (name, nc and nc[0]):
                         mem_wait = (name, nc and nc[0])
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
@@ -716,7 +722,9 @@ def main():
                 # (no exceptions while the waiting component belongs to an extra job: such a rerun needs most of the budget
                 #  and would otherwise wait for ever behind a stream of small components; and none after it has waited
                 #  BFWAIT s, since 2026-10-12: a 7.4 GB component waited behind an endless stream of small ones -- a freed
-                #  slot was refilled at once, so the running estimates never dropped below budget - 7.4 GB)
+                #  slot was refilled at once, so the running estimates never dropped below budget - 7.4 GB.  The clock runs
+                #  only while the non-backfilled components alone would leave room for it (since 15:52; before, a
+                #  waiting component blocked by a long non-backfilled one left cores idle for hours to no effect))
                 if used + need_mb <= budget and (bf_used + need_mb + reserve <= budget or
                                                  (not reserve_extra and grace and (job['stage'] <= 3 or need_mb <= 4096))):
                     pick = (name, nc, need_mb, True)

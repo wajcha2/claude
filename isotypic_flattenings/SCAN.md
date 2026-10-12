@@ -105,6 +105,16 @@ normal job are added by the runner (refresh every 15 min) only if their normal r
 the highest feasible rank when the needed ranks are above the limit (SATPROBE, at most 4 below): a direction at its
 bounds there separates no larger rank.
 
+## Open candidate: 10x10x10 d = 6, ((5,1),(2,1^4),(2,1^4)) (2026-10-12)
+The only frontier component so far that is NOT at its rank bounds where it could be evaluated: its normal run (rank 14
+is above WCAP = 2^26, so SATPROBE evaluated r = 12; 18.4 h) gave direction 0 (S^{(5,1)}V^* -> S^{(2,1^4)}V (x) S^{(2,1^4)}V)
+rank 6996 of 15015 at r = 12; direction 1 is at its bound 2310.  So this component may separate 15 vs 16 at d = 6 (the
+10x10x10 frontier) -- or not.  Deciding it needs direction 0 at r = 15 and 16 (WCAP 2^28; word-minor tensor 2.6e8 at
+r = 16): the 15023 x 15023 evaluation is split into ~30000 blocks of ~10 s, about 90 h per rank on one core.  The rerun
+was stopped after 5 min and the component taken off the queue (state.json: jobs.n10_d6_x1.open_candidates); options:
+parallelise the block loop over all cores (~1 day per rank with the machine to itself), or a closed form for this
+hook-shaped component.  Until then 10x10x10 d = 6 is not complete for r = 15.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

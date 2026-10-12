@@ -53,8 +53,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   drop points in 4 directions, equal at r = 10 and 14.  Last component ((4,2,1)^3) (g = 9, K = 22688): 16 h wall,
   peak 6.7 GB (13 natural-U orderings at ~45 min each, V_9 elimination; lines ~100 s each, Grassmannian pencils
   skipped by the size cap).  5x5x5 rank 9 d = 8: 958 of 1090 directions, not separated (drop points in 83
-  directions, equal on 9 and 10).  7x7x7 d = 5, 6, 8x8x8 d = 5, 6 (except ((3,2,1),(3,2,1),(2,1,1,1,1)), running
-  for 12..15), 9x9x9, 10x10x10 d = 5: not separated.
+  directions, equal on 9 and 10).  7x7x7 d = 5, 6, 8x8x8 d = 5, 6, 9x9x9, 10x10x10 d = 5: not separated.
 * Timings / memory: per direction up to 1 h (10x10x10 d = 5, rho = 4950: F 33 min, minpoly 32 min), peak 3.6 GB.
 
 ## Running jobs
@@ -68,8 +67,9 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   tokens (MEMCAP, CACHE, CACHEMIN, ...); EXCLUSIVE=1 jobs run alone (the queue is drained when one comes first).
   2026-10-07 18:31: 6x6x6 d=7 ((4,2,1)^3) (g = 9, K = 22688: 2 GB per cached tensor + 4 GB V_9 elimination) was
   OOM-killed next to another big job; it ran alone with 2 cached tensors (EXCLUSIVE=1 CACHEMIN=2 CACHE=2) and
-  finished 2026-10-11 22:58 (16 h).  Now (ncores 3, maxbig 2): 8x8x8 d=6 ((3,2,1),(3,2,1),(2,1,1,1,1)) 12..15,
-  rest of 5x5x5 d = 8 rank 9 (the last jobs of special/jobs.txt).  `special/sync.sh` copies special/live into
+  finished 2026-10-11 22:58 (16 h).  8x8x8 d=6 ((3,2,1),(3,2,1),(2,1,1,1,1)) 12..15 done 2026-10-12 00:25
+  (87 min, peak 4.7 GB): 8x8x8 d = 6 complete.  Now (ncores 4): the rest of 5x5x5 d = 8 rank 9 (50 components,
+  126 directions on 2026-10-12 00:40; the last jobs of special/jobs.txt).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

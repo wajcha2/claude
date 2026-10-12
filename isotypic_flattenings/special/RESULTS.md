@@ -18,7 +18,7 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 | 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (958 of 1090 directions) | line, flag, pflag, gline | not separated |
 | 6x6x6 | 10..13 | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
-| 8x8x8 | 12..23 | 5, 6 (d = 6: 51 of 53 directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, queued for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
+| 8x8x8 | 12..23 | 5, 6 (all g >= 2 components, all directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, checked for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
 | 9x9x9 | 13..29 | 5 | line, flag, pflag | not separated |
 | 10x10x10 | 13..35 | 5 | line, flag, pflag | not separated |
 
@@ -45,8 +45,8 @@ coefficient is <= 1 (no choice of U).  So the lowest separating degrees of the s
 
 **Not covered:** codim >= 2 loci for g >= 4 beyond random planes (codim 2) and lines through natural points;
 Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7, 18 of 30 in 7x7x7 d = 6, 28 of
-30 in 8x8x8 d = 6); 8x8x8 d = 6 ((3,2,1),(3,2,1),(2,1,1,1,1)) (running); 6x6x6 d >= 8, 7x7x7 d >= 7,
-8x8x8..10x10x10 d >= 6.
+30 in 8x8x8 d = 6); 8x8x8 d = 6 ((3,2,1),(3,2,1),(2,1,1,1,1)) at ranks 16..23 (beyond its word minors);
+6x6x6 d >= 8, 7x7x7 d >= 7, 8x8x8 d >= 7, 9x9x9, 10x10x10 d >= 6.
 
 
 ## Coverage

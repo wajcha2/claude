@@ -314,3 +314,10 @@ lam=((5, 2, 1), (5, 1, 1, 1), (3, 1, 1, 1, 1, 1)) g=1 dims=[5760, 1575, 21] ok  
 lam=((5, 2, 1), (5, 1, 1, 1), (2, 2, 2, 1, 1)) g=1 dims=[5760, 1575, 105] ok  wall=684.5s rss=1168MB
 # worker 728622 done, 684s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728624/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((5, 1, 1, 1), (3, 3, 1, 1), (3, 2, 1, 1, 1)) dir 0 r=10 H=[1575, 1575, 1575] V=[1575, 3150, 4725] eval 2256s rref 63s
+  . ((3, 3, 1, 1), (5, 1, 1, 1), (3, 2, 1, 1, 1)) dir 1 r=10 H=[1176, 1176, 1176] V=[1176, 2352, 3528] eval 143s rref 34s
+  . ((3, 2, 1, 1, 1), (5, 1, 1, 1), (3, 3, 1, 1)) dir 2 r=10 H=[384, 384, 384] V=[384, 768, 1152] eval 15s rref 3s
+lam=((5, 1, 1, 1), (3, 3, 1, 1), (3, 2, 1, 1, 1)) g=3 dims=[1575, 1176, 384] ok  wall=2548.5s rss=766MB
+# worker 728623 done, 2549s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 728625/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((7, 1), (7, 1), (6, 2)) dir 0 r=10 H=[3465] V=[3465] eval 14s rref 59s

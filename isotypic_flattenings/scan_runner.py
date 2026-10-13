@@ -11,7 +11,7 @@ running workers, then to a format with <= 10 unchecked components left in its cu
 format whose last worker start is oldest; fair share since 2026-10-06 18:30, round robin since 2026-10-07 07:10; before:
 the order (stage, n)).  A worker is started only if the estimated peak memory of the component it
 will take plus that of the running components fits MEMBUDGET MB (<SCAN>/membudget overrides); otherwise no worker is
-started until enough memory is free (the next component waits, it is not skipped; cheap or small components may
+started until enough memory is free (formats listed in <SCAN>/pause start no workers; the next component waits, it is not skipped; cheap or small components may
 backfill past it, but once only backfilled components keep it out, for at most BFWAIT s more (<SCAN>/bfwait
 overrides); after that nothing backfills until it starts).  A component running longer than TLIMIT seconds is stopped and recorded as 'timeout' (not checked,
 listed in the report).  Running jobs that are not the current job of their format (after a change of the ordering)
@@ -506,6 +506,7 @@ def main():
     except OSError:
         pass
     mem_wait = None
+    paused = set()
     mem_wait_strict = False
     mem_wait_t0 = wait_t  # since when only backfilled components keep the waiting one out (bounds the backfill exception)
     # restart: adopt workers that are still running, drop claims of the dead ones
@@ -631,8 +632,18 @@ def main():
             ncores = max(0, int(open(os.path.join(SCAN, 'ncores')).read().split()[0]))
         except (OSError, ValueError, IndexError):
             pass
+        # paused formats (<SCAN>/pause: n values; since 2026-10-13 09:30, 10x10x10 at the user's request -- smaller
+        # formats first): no new workers; running ones finish, their components stay in the job
+        try:
+            paused_now = {int(x) for x in open(os.path.join(SCAN, 'pause')).read().replace(',', ' ').split()}
+        except (OSError, ValueError):
+            paused_now = set()
+        if paused_now != paused:
+            log('paused formats: %s' % (sorted(paused_now) or 'none'))
+            paused = paused_now
         runnable = [nm for nm, j in st['jobs'].items()
-                    if j['status'] == 'running' and not j.get('deferred') and open_components(j) > 0]
+                    if j['status'] == 'running' and not j.get('deferred') and open_components(j) > 0
+                    and j['n'] not in paused]
         # fair share (since 2026-10-06 18:45): a free slot goes to the format with the fewest running workers, ties to
         # the format with the fewest unchecked components left in its current degree (finishing a degree settles the
         # lowest separating degree); extra jobs (stage 0) first.  The old order (band, n) let one format's long

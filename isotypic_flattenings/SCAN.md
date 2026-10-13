@@ -126,6 +126,14 @@ was stopped after 5 min and the component taken off the queue (state.json: jobs.
 parallelise the block loop over all cores (~1 day per rank with the machine to itself), or a closed form for this
 hook-shaped component.  Until then 10x10x10 d = 6 is not complete for r = 15.
 
+## 10x10x10 paused (2026-10-13 09:23 UTC, at the user's request: smaller formats first)
+scan/live/pause lists the paused formats (now: 10); the runner starts no worker for them.  The running 10x10x10 d = 6
+component ((5,1),(2,2,1,1),(2,1^4)) was stopped after 11.6 h (SATPROBE at r = 12 -- like the open candidate it has
+a five-row hook factor, so its direction 0 would most likely end below its bound and need the same ~90 h per rank
+reruns); its claim was released, so it is redone when 10x10x10 resumes.  Its 7.6 GB reservation had kept the 9.4 GB
+9x9x9 d = 6 components waiting.  The open candidate stays open.  10x10x10 state when paused: d <= 5 complete for
+r = 15, d = 6: 24 of 119 components of band 4 (29 of 119 overall) checked, none separating.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

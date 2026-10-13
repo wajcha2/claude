@@ -11,16 +11,23 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 |---|---|---|---|---|
 | 4x4x4 | 6 vs 7 (generic: lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, linear components + recursion, U_k flag / swaps / intersections (H, V, all dims), lines through / inside natural U; plane resultants (codim 2) and Grassmannian pencils for all g >= 3 | not separated |
 | 5x5x5 | 8 vs 9 (generic: d = 6) | 5 | all (g = 2: complete) | not separated |
-| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (958 of 1090 directions) | line, flag, pflag, gline | not separated |
-| 6x6x6 | 10..13 | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
+| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (1081 of 1090 directions) | line, flag, pflag, gline | not separated |
+| 6x6x6 | 10..13 (generic, scan 2026-10-13: rank 10 lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
 | 8x8x8 | 12..23 | 5, 6 (all g >= 2 components, all directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, checked for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
 | 9x9x9 | 13..29 | 5 | line, flag, pflag | not separated |
 | 10x10x10 | 13..35 | 5 | line, flag, pflag | not separated |
 
-Degrees "below the lowest separating degree" with g >= 2 exist only for 4x4x4 (rank 6: d = 5, 6, 7) and 5x5x5
-(rank 8: d = 5); for 6x6x6..10x10x10 the ranks n+1.. are separated at d = 3, 4, 5, below which every Kronecker
-coefficient is <= 1 (no choice of U).  So the lowest separating degrees of the scan stand for special U as well.
+Degrees "below the lowest separating degree" with g >= 2: 4x4x4 rank 6 (d = 5, 6, 7), 5x5x5 rank 8 (d = 5) and,
+since the scan found 6x6x6 rank 10 vs 11 first at d = 8 (agents/to-all-Vstacks.md), 6x6x6 rank 10 (d = 5, 6, 7):
+special U separate none of them, so these lowest separating degrees of the scan stand for special U as well.  (For
+6x6x6..10x10x10 the ranks n+1.. are separated at d = 3, 4, 5, below which every Kronecker coefficient is <= 1.)
+
+**Generic H- and V-stacks (U = generic subspace of every dim k = 1..g, including U = M).**  Every direction above
+has the generic-U profile (H_k and V_k ranks for all k at the target ranks; special/res/*.jsonl, key 'generic'):
+none separates (0 of 2199 directions on 2026-10-13 08:30), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1081 of
+1090 directions; 1309 of them saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
+rank 9), where the other sweeps ran without V-stacks (agents/to-all-Vstacks.md).
 
 **What the special loci look like.**
 * Tensor-independent rank-drop loci of one functional exist in many components (4x4x4 d = 7: 22 of 210 directions

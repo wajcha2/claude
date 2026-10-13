@@ -15,16 +15,23 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 |---|---|---|---|---|
 | 4x4x4 | 6 vs 7 (generic: lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, linear components + recursion, U_k flag / swaps / intersections (H, V, all dims), lines through / inside natural U; plane resultants (codim 2) and Grassmannian pencils for all g >= 3 | not separated |
 | 5x5x5 | 8 vs 9 (generic: d = 6) | 5 | all (g = 2: complete) | not separated |
-| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (958 of 1090 directions) | line, flag, pflag, gline | not separated |
-| 6x6x6 | 10..13 | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
+| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (1081 of 1090 directions) | line, flag, pflag, gline | not separated |
+| 6x6x6 | 10..13 (generic, scan 2026-10-13: rank 10 lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
 | 8x8x8 | 12..23 | 5, 6 (all g >= 2 components, all directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, checked for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
 | 9x9x9 | 13..29 | 5 | line, flag, pflag | not separated |
 | 10x10x10 | 13..35 | 5 | line, flag, pflag | not separated |
 
-Degrees "below the lowest separating degree" with g >= 2 exist only for 4x4x4 (rank 6: d = 5, 6, 7) and 5x5x5
-(rank 8: d = 5); for 6x6x6..10x10x10 the ranks n+1.. are separated at d = 3, 4, 5, below which every Kronecker
-coefficient is <= 1 (no choice of U).  So the lowest separating degrees of the scan stand for special U as well.
+Degrees "below the lowest separating degree" with g >= 2: 4x4x4 rank 6 (d = 5, 6, 7), 5x5x5 rank 8 (d = 5) and,
+since the scan found 6x6x6 rank 10 vs 11 first at d = 8 (agents/to-all-Vstacks.md), 6x6x6 rank 10 (d = 5, 6, 7):
+special U separate none of them, so these lowest separating degrees of the scan stand for special U as well.  (For
+6x6x6..10x10x10 the ranks n+1.. are separated at d = 3, 4, 5, below which every Kronecker coefficient is <= 1.)
+
+**Generic H- and V-stacks (U = generic subspace of every dim k = 1..g, including U = M).**  Every direction above
+has the generic-U profile (H_k and V_k ranks for all k at the target ranks; special/res/*.jsonl, key 'generic'):
+none separates (0 of 2199 directions on 2026-10-13 08:30), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1081 of
+1090 directions; 1309 of them saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
+rank 9), where the other sweeps ran without V-stacks (agents/to-all-Vstacks.md).
 
 **What the special loci look like.**
 * Tensor-independent rank-drop loci of one functional exist in many components (4x4x4 d = 7: 22 of 210 directions
@@ -59,7 +66,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 5x5x5 | 5 | 8-9 | 2 | 4 | 0 | 14 s |
 | 5x5x5 | 6 | 9 | 24 | 53 | 0 | 1196 s |
 | 5x5x5 | 7 | 9 | 121 | 307 | 0 | 21693 s |
-| 5x5x5 | 8 | 9 | 411 | 1079 | 0 | 689130 s |
+| 5x5x5 | 8 | 9 | 412 | 1081 | 0 | 704198 s |
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 256979 s |
@@ -1376,10 +1383,12 @@ None so far.
 | 5x5x5 | 8 | (521,431,41111) | 3 | 1 | 1440, 36750 | 9 | 9:1440 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 4 lines: no tensor-independent drop point. | none | 448 s / 1433 MB |
 | 5x5x5 | 8 | (521,431,41111) | 3 | 2 | 1050, 50400 | 9 | 9:1050 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 4 lines: no tensor-independent drop point. | none | 183 s / 822 MB |
 | 5x5x5 | 8 | (521,431,41111) | 3 | 3 | 35, 1512000 | 9 | 9:35 | U1=3 U2=3 U3=3 U4=3 U5=0 no natural U with 0 < dim < g | 4 lines: no tensor-independent drop point. | none | 1 s / 158 MB |
+| 5x5x5 | 8 | (521,431,4211) | 10 | 1 | 1440, 472500 | 9 | 9:1440 | U1=10 U2=10 U3=10 U4=0 no natural U with 0 < dim < g | 2 lines: no tensor-independent drop point. | none | 10196 s / 2824 MB |
 | 5x5x5 | 8 | (521,431,422) | 7 | 1 | 1440, 588000 | 9 | 9:1440 | U1=7 U2=7 U3=4 U4=0 tested U3 | 4 lines: no tensor-independent drop point. | none | 6274 s / 1500 MB |
 | 5x5x5 | 8 | (521,431,422) | 7 | 2 | 1050, 806400 | 9 | 9:1050 | U1=7 U2=7 U3=4 U4=0 tested U3 | 4 lines: no tensor-independent drop point. | none | 2258 s / 885 MB |
 | 5x5x5 | 8 | (521,431,422) | 7 | 3 | 560, 1512000 | 9 | 9:560 | U1=7 U2=7 U3=4 U4=0 tested U3 | 14 lines: no tensor-independent drop point. | none | 1334 s / 1819 MB |
 | 5x5x5 | 8 | (521,431,431) | 9 | 1 | 1440, 1102500 | 9 | 9:1440 | U1=9 U2=9 U3=4 U4=0 ; sw23+=5 sw23-=4 tested U3, sw23+, U3^sw23+, sw23-, U3^sw23- | 8 lines: no tensor-independent drop point. | none | 13124 s / 2346 MB |
+| 5x5x5 | 8 | (521,431,431) | 9 | 2 | 1050, 1512000 | 9 | 9:1050 | U1=9 U2=9 U3=4 U4=0 ; sw13+=5 sw13-=4 tested U3, sw13+, U3^sw13+, sw13-, U3^sw13- | 8 lines: no tensor-independent drop point. | none | 4872 s / 1319 MB |
 | 5x5x5 | 8 | (521,44,4211) | 2 | 1 | 1440, 220500 | 9 | 9:1440 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 104 s / 613 MB |
 | 5x5x5 | 8 | (521,44,4211) | 2 | 2 | 490, 648000 | 9 | 9:490 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 24 s / 630 MB |
 | 5x5x5 | 8 | (521,44,4211) | 2 | 3 | 450, 705600 | 9 | 9:450 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 7 s / 418 MB |

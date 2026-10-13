@@ -596,3 +596,30 @@ lam=((5, 2, 1), (4, 3, 1), (4, 3, 1)) g=9 dir 2: n1=1050 n23=1512000 N1=1058 K=9
    U_k dims {1: 9, 2: 9, 3: 4, 4: 0}  swaps {'sw13+': 5, 'sw13-': 4}  (2.1s)
    U3                           r9 H[1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350, 8400, 9450]
    sw13+                        r9 H[1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350, 8400, 9450]
+   U3^sw13+                     r9 H[1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350, 8400, 9450]
+   sw13-                        r9 H[1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350, 8400, 9450]
+   U3^sw13-                     r9 H[1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350, 8400, 9450]
+   line0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (16.6s)
+   line1 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (15.6s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   gline H5: skipped (size)
+   gline V5: skipped (size)
+   gline H6: skipped (size)
+   gline V6: skipped (size)
+   gline H7: skipped (size)
+   gline V7: skipped (size)
+   gline H8: skipped (size)
+   gline V8: skipped (size)
+   thru-U30 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (15.0s)
+   in-U30 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (16.1s)
+   thru-sw13+0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (13.2s)
+   in-sw13+0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.9s)
+   thru-sw13-0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (16.9s)
+   in-sw13-0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (14.8s)
+   done dir 2: ok, 27 cases, 0 hits, wall 4872.1s (F 1483.1s), peak 1319 MB
+lam=((5, 2, 1), (4, 2, 1, 1), (4, 2, 1, 1)) g=13 dir 1: n1=1440 n23=202500 N1=1448 K=18728  ranks [9]

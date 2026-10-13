@@ -9,9 +9,14 @@ import koszul, schur2
 n = int(sys.argv[1]); d = int(sys.argv[2]); rl, rh = [int(x) for x in sys.argv[3].split(',')]
 maxprod = float(sys.argv[4]) if len(sys.argv) > 4 else 3e6
 rng = np.random.default_rng(61)
+DONE = set()
+for lf in os.environ.get('RESUME', '').split(':'):
+    if lf and os.path.exists(lf):
+        DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
 for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     g = kronecker(*lam)
     if g == 0: continue
+    if ('lam=%s' % (lam,)) in DONE: continue
     dims = tuple(dim_schur(l, n) for l in lam)
     if np.prod([x + 2 for x in dims]) > maxprod:
         print("lam=%s dims=%s SKIPPED (size)" % (lam, dims)); sys.stdout.flush(); continue

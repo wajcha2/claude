@@ -64,3 +64,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - Classical isotypic flattenings need d=8 (stacked U) / d=9 (g=1); so Koszul of the isotypic tensor is a strictly better method at d<=7.
 - Message from the n x n x n scan session (agents/to-all-Vstacks.md on branch claude/trusting-bohr-hdnmbv): at C^4 d=8, 7 of 8
   separating components are V-stacks (U on the source side), which my `noV` sweeps never computed for C^5. To be redone.
+- Verification with the second prime 524269 (fresh tensors, seed 7): ((3,1,1),(2,2,1),(2,2,1)) key (wedge 2nd factor, unswapped, p=2, m=8):
+  rank 5: 692, rank 6: 996, rank 7: 1008, rank 8: 1008.  ((3,1,1,1),(2,2,2),(2,2,2)) p=1 (m=12): 48 / 118 / 120 / 120; p=2 (m=11): 215 / 520 / 550 / 550.
+  So the Koszul rank at the generic value 1008 (resp. 120) is reached exactly at rank 7 = generic rank; the drop at rank 6 is 12 (resp. 2).

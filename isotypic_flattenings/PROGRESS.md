@@ -51,3 +51,16 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   1575/1575, 840/840) -- the separation there needs U of dim >= 2, not Koszul.
 - Running: Koszul (large projections, KBUDGET 1e7) + degree-2 isotypic flattenings on all C^4 components, d=5,6,7 (koszul_fast.py, live/koszul4_d*.log).
 - Running: C^5 d=15, 21 components with two-row source and targets (4,3,3,3,2) [dim 24] / (3,3,3,3,3) [det^3] (prom5_d15_tiny.txt).
+
+## 2026-10-13: Koszul flattenings of the isotypic tensor separate rank 6 from 7 in (C^4)^{(x)3} already at d = 5 and 6
+(koszul_fast.py, KBUDGET 2e6, exact mod p, reproduced with seeds 61/101/202; see koszul4_d5_done.log, koszul4_d6_done.log)
+- d=5, lam=((3,1,1),(2,2,1),(2,2,1)), g=1, dims (36,20,20): Koszul flattening with wedged factor = S^{221}V (2nd or 3rd module),
+  other two factors in the order (S^{311}V, S^{221}V), p=2, random quotient to dim 8: rank 996 (rank-6 tensors) vs 1008 (rank 7).
+  p=1 (m=17) and the swapped order do not separate; classical flattenings 36/20/20 on both.
+  (This is the same component that separates rank 4 from 5 in C^3 by a classical flattening.)
+- d=6, lam=((3,1,1,1),(2,2,2),(2,2,2)), g=1, dims (10,10,10) [S^2V(x)det, Lambda^2V^*(x)det^2 ...]: wedged factor = 2nd or 3rd
+  module, unswapped, no projection (full factor + 2 overcomplete coordinates): p=1: 118 vs 120, p=2: 520 vs 550.
+- Koszul pass coverage: d=5 36 components, d=6 all 92, d=7 113/195 (worker died at the container restart), no other hit.
+- Classical isotypic flattenings need d=8 (stacked U) / d=9 (g=1); so Koszul of the isotypic tensor is a strictly better method at d<=7.
+- Message from the n x n x n scan session (agents/to-all-Vstacks.md on branch claude/trusting-bohr-hdnmbv): at C^4 d=8, 7 of 8
+  separating components are V-stacks (U on the source side), which my `noV` sweeps never computed for C^5. To be redone.

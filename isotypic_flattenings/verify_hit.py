@@ -22,6 +22,7 @@ from hwv import dim_schur, random_fillings, random_gs, flattening_matrix
 from hwv_fast import prepare, build_network, find_path, execute
 from isoflat import kronecker, modrank
 import opt_einsum as oe
+import flatlib          # memory-safe evaluation (block splitting, address-space cap MEMLIMIT_GB)
 
 n = 4
 perm = [dirn] + [t for t in range(3) if t != dirn]
@@ -43,19 +44,19 @@ for trial in range(trials):
     t0 = time.time()
     vecs = {r: tuple(rng.integers(0, p, (r, n)) for _ in range(3)) for r in ranks}
     gs = random_gs(rng, n, N1, K)
-    pre = {r: prepare(tuple(vecs[r][t] for t in perm), gs) for r in ranks}
+    vp_ = {r: tuple(vecs[r][t] for t in perm) for r in ranks}
     hi = ranks[-1]
     # g fillings with independent flattenings on the highest-rank tensor
     fills, basis = [], []
     while len(fills) < g:
         f = random_fillings(rng, lam_p)
-        F = flat(f, *pre[hi])
+        F = flatlib.flat(f, vp_[hi], gs) % p
         if F.any() and modrank(np.array(basis + [F[:24, :24].ravel()])) == len(basis) + 1:
             fills.append(f); basis.append(F[:24, :24].ravel())
     coeffs = [int(c) for c in rng.integers(1, p, g)]
     out, outH, outV = [], [], []
     for r in ranks:
-        Fs = [flat(f, *pre[r]) for f in fills]
+        Fs = [flatlib.flat(f, vp_[r], gs) % p for f in fills]
         Fg = np.zeros((N1, K), dtype=np.int64)
         for c, F in zip(coeffs, Fs):
             Fg = (Fg + c * F) % p

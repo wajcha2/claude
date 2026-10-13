@@ -821,3 +821,105 @@ lam=((5, 2), (6, 1), (5, 2)) g=1 dims=(224, 720, 840)  g1:224/224 g2:720/720 g3:
 lam=((5, 2), (5, 1, 1), (5, 1, 1)) g=2 dims=(224, 540, 540)  H1:224/224 V1:448/448 g1:224/224 H2:540/540 V2:1080/1080 g2:540/540 H3:540/540 V3:1080/1080 g3:540/540  span=2,2,2 cost=1.31e+06 (32.4s)
 # blocks: Z-first (704 x 702) of 704 x 1404, 1.28e+09 flops, largest intermediate 1.98e+07
 # blocks: Z-first (704 x 702) of 704 x 1404, 3.80e+09 flops, largest intermediate 3.16e+07
+# blocks: Z-first (704 x 702) of 704 x 1404, 1.48e+09 flops, largest intermediate 2.22e+07
+# blocks: Z-first (704 x 351) of 704 x 1404, 4.88e+09 flops, largest intermediate 2.00e+07
+lam=((5, 2), (4, 2, 1), (3, 3, 1)) g=2 dims=(224, 700, 315)  H1:224/224 V1:448/448 g1:224/224 H2:700/700 V2:1400/1400 g2:700/700 H3:315/315 V3:630/630 g3:315/315  span=2,2,2 cost=1.32e+06 (43.7s)
+# blocks: Z-first (544 x 1082) of 544 x 2164, 1.48e+09 flops, largest intermediate 2.35e+07
+# blocks: Y-first (68 x 2164) of 544 x 2164, 5.78e+09 flops, largest intermediate 2.35e+07
+# blocks: Y-first (136 x 2164) of 544 x 2164, 9.84e+10 flops, largest intermediate 2.35e+07
+# blocks: Z-first (544 x 541) of 544 x 2164, 1.87e+10 flops, largest intermediate 1.88e+07
+# blocks: Y-first (272 x 2164) of 544 x 2164, 1.70e+09 flops, largest intermediate 2.65e+07
+# blocks: Y-first (68 x 2164) of 544 x 2164, 6.79e+09 flops, largest intermediate 2.65e+07
+# blocks: Z-first (544 x 541) of 544 x 2164, 1.57e+11 flops, largest intermediate 2.65e+07
+# blocks: Z-first (544 x 541) of 544 x 2164, 2.70e+10 flops, largest intermediate 2.38e+07
+lam=((3, 2, 1, 1), (5, 1, 1), (3, 2, 1, 1)) g=4 dims=(20, 540, 175)  H1:20/20 V1:80/80 g1:20/20 H2:540/540 V2:1330/1330 g2:540/540 H3:175/175 V3:700/700 g3:175/175  span=4,4,4 cost=1.34e+06 (112.8s)
+# blocks: Z-first (844 x 402) of 844 x 804, 2.68e+09 flops, largest intermediate 2.17e+07
+# blocks: Z-first (844 x 402) of 844 x 804, 3.84e+09 flops, largest intermediate 2.17e+07
+# blocks: Z-first (844 x 402) of 844 x 804, 7.59e+09 flops, largest intermediate 2.75e+07
+# blocks: Z-first (844 x 402) of 844 x 804, 5.76e+09 flops, largest intermediate 2.75e+07
+lam=((3, 2, 1, 1), (5, 2), (2, 2, 2, 1)) g=2 dims=(20, 840, 40)  H1:20/20 V1:40/40 g1:20/20 H2:840/840 V2:800/800 g2:800/800 H3:40/40 V3:80/80 g3:40/40  span=2,2,2 cost=1.38e+06 (31.0s)
+# blocks: Z-first (564 x 561) of 564 x 2244, 4.71e+09 flops, largest intermediate 2.02e+07
+# blocks: Y-first (141 x 2244) of 564 x 2244, 5.84e+09 flops, largest intermediate 2.02e+07
+# blocks: Y-first (282 x 2244) of 564 x 2244, 5.34e+10 flops, largest intermediate 2.53e+07
+# blocks: Z-first (564 x 561) of 564 x 2244, 7.26e+09 flops, largest intermediate 2.02e+07
+# blocks: Z-first (564 x 561) of 564 x 2244, 6.03e+09 flops, largest intermediate 2.56e+07
+# blocks: Y-first (141 x 2244) of 564 x 2244, 7.38e+09 flops, largest intermediate 2.56e+07
+# blocks: Y-first (282 x 2244) of 564 x 2244, 8.50e+10 flops, largest intermediate 2.85e+07
+# blocks: Y-first (141 x 2244) of 564 x 2244, 1.03e+10 flops, largest intermediate 2.56e+07
+lam=((3, 2, 1, 1), (4, 3), (3, 2, 1, 1)) g=4 dims=(20, 560, 175)  H1:20/20 V1:80/80 g1:20/20 H2:560/560 V2:1845/1845 g2:560/560 H3:175/175 V3:700/700 g3:175/175  span=4,4,4 cost=1.43e+06 (95.5s)
+# blocks: Y-first (422 x 844) of 844 x 844, 1.17e+09 flops, largest intermediate 1.60e+07
+# blocks: Z-first (844 x 422) of 844 x 844, 2.11e+09 flops, largest intermediate 2.28e+07
+# blocks: Y-first (422 x 844) of 844 x 844, 2.03e+09 flops, largest intermediate 2.88e+07
+lam=((4, 1, 1, 1), (5, 2), (5, 2)) g=1 dims=(20, 840, 840)  g1:20/20 g2:840/840 g3:840/840  span=1,1,1 cost=1.44e+06 (20.3s)
+# blocks: Z-first (844 x 422) of 844 x 844, 1.32e+09 flops, largest intermediate 1.60e+07
+# blocks: Z-first (844 x 422) of 844 x 844, 1.14e+09 flops, largest intermediate 1.78e+07
+# blocks: Z-first (844 x 422) of 844 x 844, 1.32e+09 flops, largest intermediate 1.60e+07
+lam=((3, 2, 2), (5, 2), (5, 2)) g=1 dims=(36, 840, 840)  g1:36/36 g2:840/840 g3:840/840  span=1,1,1 cost=1.44e+06 (15.5s)
+lam=((3, 3, 1), (5, 2), (5, 2)) g=1 dims=(60, 840, 840)  g1:60/60 g2:840/840 g3:840/840  span=1,1,1 cost=1.44e+06 (12.7s)
+lam=((7,), (5, 2), (5, 2)) g=1 dims=(120, 840, 840)  g1:120/120 g2:840/840 g3:840/840  span=1,1,1 cost=1.45e+06 (8.3s)
+lam=((5, 1, 1), (5, 2), (5, 2)) g=1 dims=(120, 840, 840)  g1:120/120 g2:840/840 g3:840/840  span=1,1,1 cost=1.45e+06 (10.9s)
+lam=((4, 3), (5, 2), (5, 2)) g=1 dims=(140, 840, 840)  g1:140/140 g2:840/840 g3:840/840  span=1,1,1 cost=1.46e+06 (9.9s)
+lam=((6, 1), (5, 2), (5, 2)) g=1 dims=(216, 840, 840)  g1:216/216 g2:840/840 g3:840/840  span=1,1,1 cost=1.49e+06 (9.4s)
+# blocks: Y-first (53 x 1684) of 844 x 1684, 5.28e+09 flops, largest intermediate 1.43e+07
+# blocks: Y-first (27 x 1684) of 844 x 1684, 8.03e+09 flops, largest intermediate 1.82e+07
+# blocks: Y-first (106 x 1684) of 844 x 1684, 4.01e+09 flops, largest intermediate 1.79e+07
+# blocks: Y-first (27 x 1684) of 844 x 1684, 8.47e+09 flops, largest intermediate 2.27e+07
+lam=((4, 1, 1, 1), (5, 2), (4, 1, 1, 1)) g=2 dims=(20, 840, 160)  H1:20/20 V1:40/40 g1:20/20 H2:840/840 V2:1015/1015 g2:840/840 H3:160/160 V3:320/320 g3:160/160  span=2,2,2 cost=1.50e+06 (72.7s)
+# blocks: Z-first (844 x 842) of 844 x 1684, 6.08e+10 flops, largest intermediate 2.84e+07
+# blocks: Y-first (106 x 1684) of 844 x 1684, 6.27e+09 flops, largest intermediate 2.68e+07
+# blocks: Z-first (844 x 842) of 844 x 1684, 9.65e+10 flops, largest intermediate 3.20e+07
+# blocks: Y-first (106 x 1684) of 844 x 1684, 7.63e+09 flops, largest intermediate 2.68e+07
+lam=((3, 2, 1, 1), (5, 2), (4, 1, 1, 1)) g=2 dims=(20, 840, 160)  H1:20/20 V1:40/40 g1:20/20 H2:840/840 V2:1040/1040 g2:840/840 H3:160/160 V3:320/320 g3:160/160  span=2,2,2 cost=1.50e+06 (79.3s)
+# blocks: Y-first (211 x 1684) of 844 x 1684, 2.90e+09 flops, largest intermediate 2.84e+07
+# blocks: Z-first (844 x 106) of 844 x 1684, 2.97e+11 flops, largest intermediate 1.79e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 2.99e+09 flops, largest intermediate 2.84e+07
+# blocks: Z-first (844 x 106) of 844 x 1684, 4.74e+11 flops, largest intermediate 2.77e+07
+lam=((4, 1, 1, 1), (5, 2), (3, 2, 1, 1)) g=2 dims=(20, 840, 175)  H1:20/20 V1:40/40 g1:20/20 H2:840/840 V2:1040/1040 g2:840/840 H3:175/175 V3:350/350 g3:175/175  span=2,2,2 cost=1.51e+06 (106.5s)
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.07e+10 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.23e+10 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 2.62e+10 flops, largest intermediate 2.88e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.59e+10 flops, largest intermediate 2.88e+07
+lam=((3, 2, 2), (5, 2), (3, 2, 1, 1)) g=2 dims=(36, 840, 175)  H1:36/36 V1:72/72 g1:36/36 H2:840/840 V2:1680/1680 g2:840/840 H3:175/175 V3:350/350 g3:175/175  span=2,2,2 cost=1.51e+06 (80.1s)
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.14e+10 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.23e+10 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.46e+10 flops, largest intermediate 2.88e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.57e+10 flops, largest intermediate 2.88e+07
+lam=((3, 3, 1), (5, 2), (3, 2, 1, 1)) g=2 dims=(60, 840, 175)  H1:60/60 V1:120/120 g1:60/60 H2:840/840 V2:1680/1680 g2:840/840 H3:175/175 V3:350/350 g3:175/175  span=2,2,2 cost=1.51e+06 (67.0s)
+# blocks: Z-first (844 x 842) of 844 x 1684, 3.14e+09 flops, largest intermediate 2.84e+07
+# blocks: Y-first (422 x 1684) of 844 x 1684, 5.98e+10 flops, largest intermediate 2.84e+07
+# blocks: Z-first (844 x 842) of 844 x 1684, 3.53e+09 flops, largest intermediate 3.20e+07
+# blocks: Y-first (422 x 1684) of 844 x 1684, 9.52e+10 flops, largest intermediate 3.20e+07
+lam=((3, 2, 1, 1), (5, 2), (3, 2, 2)) g=2 dims=(20, 840, 210)  H1:20/20 V1:40/40 g1:20/20 H2:840/840 V2:1680/1680 g2:840/840 H3:210/210 V3:420/420 g3:210/210  span=2,2,2 cost=1.53e+06 (50.1s)
+# blocks: Y-first (211 x 1684) of 844 x 1684, 6.06e+09 flops, largest intermediate 2.27e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 1.25e+10 flops, largest intermediate 2.27e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 7.78e+09 flops, largest intermediate 2.88e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 1.47e+10 flops, largest intermediate 2.88e+07
+lam=((3, 2, 2), (5, 2), (3, 2, 2)) g=2 dims=(36, 840, 210)  H1:36/36 V1:72/72 g1:36/36 H2:840/840 V2:1680/1680 g2:840/840 H3:210/210 V3:420/420 g3:210/210  span=2,2,2 cost=1.54e+06 (72.3s)
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.04e+10 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 106) of 844 x 1684, 9.57e+09 flops, largest intermediate 2.24e+07
+# blocks: Z-first (844 x 421) of 844 x 1684, 1.46e+10 flops, largest intermediate 2.88e+07
+# blocks: Z-first (844 x 106) of 844 x 1684, 1.01e+10 flops, largest intermediate 2.24e+07
+lam=((4, 2, 1), (5, 2), (4, 1, 1, 1)) g=2 dims=(140, 840, 160)  H1:140/140 V1:280/280 g1:140/140 H2:840/840 V2:1680/1680 g2:840/840 H3:160/160 V3:320/320 g3:160/160  span=2,2,2 cost=1.54e+06 (65.6s)
+# blocks: Z-first (704 x 702) of 704 x 1404, 7.91e+09 flops, largest intermediate 3.16e+07
+# blocks: Z-first (704 x 702) of 704 x 1404, 7.98e+09 flops, largest intermediate 3.16e+07
+# blocks: Y-first (352 x 1404) of 704 x 1404, 2.40e+09 flops, largest intermediate 3.16e+07
+# blocks: Z-first (704 x 351) of 704 x 1404, 1.02e+10 flops, largest intermediate 2.00e+07
+lam=((4, 2, 1), (4, 2, 1), (2, 2, 1, 1, 1)) g=3 dims=(140, 700, 10)  H1:140/140 V1:420/420 g1:140/140 H2:700/700 V2:990/990 g2:700/700 H3:10/10 V3:30/30 g3:10/10  span=3,3,3 cost=1.57e+06 (82.8s)
+# blocks: Y-first (352 x 2104) of 704 x 2104, 3.74e+10 flops, largest intermediate 1.78e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 1.91e+10 flops, largest intermediate 2.96e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 1.45e+10 flops, largest intermediate 2.37e+07
+# blocks: Y-first (352 x 2104) of 704 x 2104, 5.34e+10 flops, largest intermediate 1.78e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 2.13e+10 flops, largest intermediate 3.00e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 1.55e+10 flops, largest intermediate 3.00e+07
+lam=((4, 2, 1), (4, 2, 1), (3, 1, 1, 1, 1)) g=3 dims=(140, 700, 15)  H1:140/140 V1:420/420 g1:140/140 H2:700/700 V2:1090/1090 g2:700/700 H3:15/15 V3:45/45 g3:15/15  span=3,3,3 cost=1.57e+06 (127.4s)
+# blocks: Z-first (704 x 526) of 704 x 2104, 2.02e+10 flops, largest intermediate 2.96e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 1.17e+10 flops, largest intermediate 2.37e+07
+# blocks: Y-first (44 x 2104) of 704 x 2104, 7.14e+10 flops, largest intermediate 2.22e+07
+# blocks: Y-first (176 x 2104) of 704 x 2104, 2.50e+10 flops, largest intermediate 3.00e+07
+# blocks: Z-first (704 x 526) of 704 x 2104, 1.54e+10 flops, largest intermediate 3.00e+07
+# blocks: Z-first (704 x 132) of 704 x 2104, 7.81e+10 flops, largest intermediate 2.23e+07
+lam=((4, 2, 1), (4, 2, 1), (2, 2, 2, 1)) g=3 dims=(140, 700, 40)  H1:140/140 V1:420/420 g1:140/140 H2:700/700 V2:2100/2100 g2:700/700 H3:40/40 V3:120/120 g3:40/40  span=3,3,3 cost=1.58e+06 (129.4s)
+# blocks: Z-first (844 x 842) of 844 x 1684, 4.81e+10 flops, largest intermediate 2.84e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 8.56e+09 flops, largest intermediate 2.27e+07
+# blocks: Z-first (844 x 842) of 844 x 1684, 7.65e+10 flops, largest intermediate 3.20e+07
+# blocks: Y-first (211 x 1684) of 844 x 1684, 1.15e+10 flops, largest intermediate 2.88e+07

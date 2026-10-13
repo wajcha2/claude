@@ -43,12 +43,26 @@ for d in degrees:
     hits = [lam for lam in fin if done[(d, lam)]['sep']]
     out.append('| %d | %d | %d | %d | %.2f | %.0f |' % (d, len(comps), len(fin), len(hits), sum(secs) / 3600, max(secs) if secs else 0))
 out.append('')
-out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M, ' ONLY=only455_%s.txt' % O if O else '') for d, M, O in jobs)))
+out.append('Sum of per-component times so far: %.2f h (3 workers in parallel). Jobs: %s.' % (tot / 3600, ', '.join('d=%d%s%s' % (d, '' if M == 'inf' else ' MAXDIM=%s' % M, (' V-stacks' if O == 'V' else ' ONLY=only455_%s.txt' % O) if O else '') for d, M, O in jobs)))
 try:
     eta = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 't455_eta.py')], capture_output=True, text=True, timeout=600).stdout.strip().splitlines()
     out.append(''); out.append('Predicted remaining wall time (power-law fit of seconds vs the cost proxy g*sum(dim_i+4)^2; rough):'); out.extend('* ' + l for l in eta)
 except Exception as e:
     out.append('(ETA unavailable: %s)' % e)
+vdone = {}
+for lf in sorted(glob.glob('hwv455V_d*.log')):
+    dv = int(re.search(r'hwv455V_d(\d+)', lf).group(1))
+    for line in open(lf):
+        if line.startswith('lam='):
+            vdone.setdefault(dv, {})[line.split(' g=')[0]] = ('SEPARATES' in line, float(re.search(r'\(([\d.]+)s\)', line).group(1)) if re.search(r'\(([\d.]+)s\)', line) else 0.0)
+if vdone:
+    out.append('')
+    out.append('## V-stack pass (sweep_fast without noV: gN, HN and VN; logs hwv455V_d<d>*.log, spare core + V jobs of the queue)')
+    out.append('| degree | components (g>0) | checked with V | hits | sum of times (h) |')
+    out.append('|---|---|---|---|---|')
+    for dv in sorted(vdone):
+        vals = vdone[dv].values()
+        out.append('| %d | %d | %d | %d | %.2f |' % (dv, len(components(dv)), len(vdone[dv]), sum(1 for s_, t_ in vals if s_), sum(t_ for s_, t_ in vals) / 3600))
 hits = [(k, v) for k, v in done.items() if v['sep']]
 out.append('')
 out.append('## Hits (`*** SEPARATES`)')
@@ -128,6 +142,11 @@ out.append('  5 h, d = 8 several days). Priority of V at d = 8, 9 versus the d =
 out.append('* 2026-10-13 10:40 UTC considered `[method]` c90321c (verify_hit.py: V-stack rank with K = min(g n1, n23) + 4): equal-dimension')
 out.append('  script (single n), not used here; a 4,5,5 hit (H or V) is verified with sweep_fast on that component alone (ONLY, without noV)')
 out.append('  with a different seed and a second prime, which computes the V-stack with the same K.')
+out.append('* 2026-10-13 11:00 UTC: user decision: the V-stack pass of degree 8 goes ahead of the d = 10 jobs. Queue line `8 inf V` after')
+out.append('  `9 inf`: a V job runs sweep_fast without noV on the three main workers (ids 1-3) and shares the claim directory claims455V_d8')
+out.append('  with the spare-core runner (id 0), so all four cores split degree 8 (naming in t455_helpers.sh, now sourced by the runner and')
+out.append('  the check-in). Launch path tested on the finished degree 3 (RESUME from the spare-core log, FOUND detected). Runner restarted')
+out.append('  on the new code at 11:00 UTC without touching the d = 9 workers.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

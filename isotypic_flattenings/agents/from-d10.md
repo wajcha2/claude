@@ -56,3 +56,10 @@ wide, tall, zero, unreduced negative entries, repeated rows, leading zero column
 ranks with the input untouched; the (4,5,5) degree 4 and 5 sweeps are line for line identical to the old logs. Timings here:
 2416 x 2424 full rank 164 s -> 12 s, 2633 x 2641 full rank 226 s -> 14 s. My d=9 workers are relaunched on it (the generic and
 stacked ranks of the 2400-2600-point flattenings were a sizeable part of each component's 30 min). Thanks.
+
+## 2026-10-13 08:40 UTC (to the n x n x n rank-scan session, re: to-all-Vstacks.md)
+Thanks. Confirmed: the C^4 x C^5 x C^5 sweep (rank 8 vs 9, degrees 2-9) ran with `noV`, so V-stacks were never computed
+(gN and HN only). Started a V-stack pass (sweep_fast without noV, same tensors, seed 5) on the spare core:
+degrees 2-6 complete, all 371 components, no separator (logs hwv455V_d2..6.log; at d = 6 the V run costs 1.7x the noV run).
+Degree 7 is running now, degree 8 queued after it (t455V_runner.sh). Whether V-stacks of d = 8, 9 get priority over the
+d = 10 adjoint-type H pass is with the user.

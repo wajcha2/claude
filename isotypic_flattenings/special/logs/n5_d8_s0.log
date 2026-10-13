@@ -523,3 +523,41 @@ lam=((4, 3, 1), (4, 2, 1, 1), (4, 2, 1, 1)) g=14 dir 2: n1=450 n23=472500 N1=458
    generic U: r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
    U_k dims {1: 14, 2: 14, 3: 14, 4: 5, 5: 0}  swaps {'sw13+': 7, 'sw13-': 7}  (5.6s)
    U4                           r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
+   sw13+                        r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
+   U4^sw13+                     r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
+   sw13-                        r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
+   U4^sw13-                     r9 H[450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450] V[900, 1350, 1800, 2250, 2700, 3150, 3600, 4050, 4500, 4950, 5400, 5850, 6300]
+   line0 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.6s)
+   line1 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.8s)
+   gline H2 rho 450  minpoly deg [450, 450]  gcd deg 0    (35.9s)
+   gline V2 rho 900  minpoly deg [900, 900]  gcd deg 0    (40.8s)
+   gline H3 rho 450  minpoly deg [450, 450]  gcd deg 0    (52.1s)
+   gline V3 rho 1350  minpoly deg [1350, 1350]  gcd deg 0    (73.0s)
+   gline H4 rho 450  minpoly deg [450, 450]  gcd deg 0    (75.2s)
+   gline V4 rho 1800  minpoly deg [1800, 1800]  gcd deg 0    (113.9s)
+   gline H5 rho 450  minpoly deg [450, 450]  gcd deg 0    (89.8s)
+   gline V5 rho 2250  minpoly deg [2250, 2250]  gcd deg 0    (155.1s)
+   gline H6: skipped (size)
+   gline V6: skipped (size)
+   gline H7: skipped (size)
+   gline V7: skipped (size)
+   gline H8: skipped (size)
+   gline V8: skipped (size)
+   gline H9: skipped (size)
+   gline V9: skipped (size)
+   gline H10: skipped (size)
+   gline V10: skipped (size)
+   gline H11: skipped (size)
+   gline V11: skipped (size)
+   gline H12: skipped (size)
+   gline V12: skipped (size)
+   gline H13: skipped (size)
+   gline V13: skipped (size)
+   thru-U40 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.6s)
+   in-U40 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.5s)
+   thru-sw13+0 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.6s)
+   in-sw13+0 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.6s)
+   thru-sw13-0 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.5s)
+   in-sw13-0 rho 450  minpoly deg [450, 450]  gcd deg 0    (1.6s)
+   done dir 2: ok, 37 cases, 0 hits, wall 2472.5s (F 658.4s), peak 1166 MB
+lam=((5, 2, 1), (4, 3, 1), (4, 3, 1)) g=9 dir 1: n1=1440 n23=1102500 N1=1448 K=12968  ranks [9]

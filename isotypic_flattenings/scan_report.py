@@ -7,6 +7,14 @@ from hwv import dim_schur
 SCAN = os.environ.get('SCAN', 'scan/live')
 
 
+def paused_formats():
+    """formats listed in <SCAN>/pause (the runner starts no workers for them)."""
+    try:
+        return {int(x) for x in open(os.path.join(SCAN, 'pause')).read().replace(',', ' ').split()}
+    except (OSError, ValueError):
+        return set()
+
+
 def dir_sat(n, lam, x):
     """rank from which direction x of a record is at its bounds (H_k = min(n1, k n23), V_k = min(k n1, n23)): the stored
     'sat_from', else (records of the closed-form families, wedge_family.py) the smallest evaluated rank whose profile
@@ -169,7 +177,9 @@ def main():
         part = ['d <= %d complete%s' % (dfull, ' for r = %d' % r0 if r0 else '')] if dfull else []
         for d in sorted(cov):
             if d > dfull and cov[d]['done']:
-                part.append('d = %d: %d of %d components%s' % (d, cov[d]['done'], cov[d]['total'], ' (running)' if cov[d]['running'] else ''))
+                part.append('d = %d: %d of %d components%s' % (d, cov[d]['done'], cov[d]['total'],
+                                                                (' (paused)' if n in paused_formats() else ' (running)')
+                                                                if cov[d]['running'] else ''))
         bydeg = collections.defaultdict(list)
         for r in sep_r:
             bydeg[dmin[r]].append(r)

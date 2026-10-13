@@ -21,6 +21,10 @@ allpts = [(math.log(c), math.log(max(s, 0.05))) for (c, s) in done.values() if c
 total = 0; seen = set()
 for job in jobs:
     d, M = int(job[0]), job[1]; O = job[2] if len(job) > 2 else ''; Mf = float('inf') if M == 'inf' else float(M)
+    if O == 'V':   # V-stack pass (sweep_fast without noV): progress from the V logs, no time fit
+        vdone = set(l.split(' g=')[0] for lf in glob.glob('hwv455V_d%d.log' % d) + glob.glob('hwv455V_d%d_w*.log' % d) for l in open(lf) if l.startswith('lam='))
+        print('job d=%d V-stack pass: %d of %d components done (logs hwv455V_d%d*.log; time not predicted)' % (d, len(vdone), len(comps(d)), d))
+        continue
     only = {tuple(tuple(x) for x in eval(l)) for l in open('only455_%s.txt' % O) if l.strip()} if O else None   # optional ONLY list of the job
     members = [(lam, g) for lam, g in comps(d) if (d, lam) not in seen and max(dim_schur(l, ns[t]) for t, l in enumerate(lam)) <= Mf
                and (only is None or tuple(tuple(x) for x in lam) in only)]

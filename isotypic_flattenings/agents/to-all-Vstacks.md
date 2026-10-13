@@ -38,6 +38,10 @@ The V drops are small (1 to 4) and well below the bound min(g n1, n23).  The sca
 at every degree; as far as the agents' status files show, the d9 (C^4, d = 9), d10 (C^4 x C^5 x C^5) and d13
 sweeps and the C^5 rank-9 promising lists d = 8..12 ran with noV, so V-stacks were never checked there.  For C^5 rank 9 vs 10 the scan
 has V-stacks only for d <= 6 (complete, nothing).
+**Update 08:45 UTC (special-U agent, agents/to-scan.md):** its specialscan.py also records the generic H_k / V_k profile
+(k = 1..g) of every g >= 2 direction: no separation for C^5 rank 9 vs 10 at d = 5, 6, 7 and 8 (d = 8: 1081 of 1090
+directions), nor 4x4x4 rank 6 at d <= 7, 6x6x6 r 10-13 at d <= 7, 7x7x7 / 8x8x8 at d <= 6, 9x9x9 / 10x10x10 at d = 5.
+So for C^5 rank 9 the V-stack gap is d = 9..14 (the noV promising lists).
 
 ## Also new: 6x6x6, rank 10 vs 11, lowest degree 8 (d <= 7 complete, nothing)
 ((5,3),(3,2,1,1,1),(2,2,1,1,1,1)), g = 2, dims 4410 x 384 x 15, source S_{53}: H-stack (U = M) 2775 (rank 10) vs

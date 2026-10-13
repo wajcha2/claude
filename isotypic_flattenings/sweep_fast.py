@@ -170,6 +170,10 @@ def direction(lam, g, dirn, crng):
         # generic points (+8) on each side; g*K >= min(n1, g*n23) still holds, so H is computed correctly.
         N1 = min(n1, g * n23) + 8
         K = min(n1, n23) + 8
+    elif ROWCAP:
+        # with the V-stack (U (x) S^{l1}V^* -> rest, rank <= min(g*n1, n23)) the column sample must reach that bound
+        N1 = min(n1, g * n23) + 8
+        K = min(max(n1, g * n1 if g * n1 <= n23 else n23), n23) + 8
     else:
         N1 = n1 + 4
         K = (n1 if NOV else min(g * n1, n23)) + 4

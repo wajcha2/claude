@@ -4,7 +4,9 @@ tensors of the given ranks (default 5,6,7,8), fresh evaluation points (N1 = n1 +
 K = n1 + 4 pairs on the target side) and fresh independent fillings (g of them; the generic functional is a random
 combination), and print the rank of the flattening S^{l_dir}V^* -> S^{l_i}V (x) S^{l_j}V for every rank.
 Also compares an 8 x 8 block of one flattening matrix with the reference implementation hwv.flattening_matrix
-(entry by entry).  For g >= 2 also the rank of the stacked flattening over the whole multiplicity space (H).
+(entry by entry).  For g >= 2 also the ranks of the stacked flattenings over the whole multiplicity space: H (U = M on the
+target side, S^{l}V^* -> M^* (x) target) and V (U = M on the source side, M (x) S^{l}V^* -> target); then
+K = min(g n1, n23) + 4 target points, so that the V-stack rank (<= min(g n1, n23)) is not capped by the sampling.
 Arithmetic mod `prime` (default 524287; must be < 2^19 for the exact float64 contractions)."""
 import sys, time, numpy as np
 lam = eval(sys.argv[1]); dirn = int(sys.argv[2])
@@ -25,7 +27,9 @@ n = 4
 perm = [dirn] + [t for t in range(3) if t != dirn]
 lam_p = tuple(lam[t] for t in perm)
 g = kronecker(*lam)
-n1 = dim_schur(lam_p[0], n); N1 = K = n1 + 4
+n1 = dim_schur(lam_p[0], n); N1 = n1 + 4
+n23 = dim_schur(lam_p[1], n) * dim_schur(lam_p[2], n)
+K = min(g * n1, n23) + 4 if g >= 2 else n1 + 4
 print('lam=%s direction %d: S^%s V^* -> S^%s V (x) S^%s V, dims %s, g=%d, prime %d' % (
     lam, dirn + 1, lam_p[0], lam_p[1], lam_p[2], tuple(dim_schur(l, n) for l in lam_p), g, q)); sys.stdout.flush()
 
@@ -49,7 +53,7 @@ for trial in range(trials):
         if F.any() and modrank(np.array(basis + [F[:24, :24].ravel()])) == len(basis) + 1:
             fills.append(f); basis.append(F[:24, :24].ravel())
     coeffs = [int(c) for c in rng.integers(1, p, g)]
-    out, outH = [], []
+    out, outH, outV = [], [], []
     for r in ranks:
         Fs = [flat(f, *pre[r]) for f in fills]
         Fg = np.zeros((N1, K), dtype=np.int64)
@@ -58,8 +62,9 @@ for trial in range(trials):
         out.append('r%d:%d' % (r, modrank(Fg)))
         if g >= 2:   # full multiplicity space: S^{l}V^* -> M^* (x) target (exact rank of the hstack)
             outH.append('r%d:%d' % (r, modrank(np.hstack(Fs))))
+            outV.append('r%d:%d' % (r, modrank(np.vstack(Fs))))
     if g >= 2:
-        out.append(' | H (U = M): ' + ' '.join(outH))
+        out.append(' | H (U = M): ' + ' '.join(outH) + ' | V (U = M): ' + ' '.join(outV))
     print('trial %d: %s  (%.0fs)' % (trial, ' '.join(out), time.time() - t0)); sys.stdout.flush()
 # reference implementation on an 8 x 8 block (first filling, rank ranks[1] tensor)
 r = ranks[1] if len(ranks) > 1 else ranks[0]

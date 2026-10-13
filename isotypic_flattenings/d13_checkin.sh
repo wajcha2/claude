@@ -40,6 +40,8 @@ snapshot() {
   done
 }
 snapshot
+# V-stack runs (since 2026-10-13, user: "try V-stack"): live/v5_d<d>_w*.log -> hwv5_d<d>_V_done.log
+for f in live/v5_d*_w0.log; do [ -f "$f" ] || continue; d=$(basename $f | sed -E "s/v5_d([0-9]+)_w0.log/\1/"); cat hwv5_d${d}_V_done.log live/v5_d${d}_w*.log 2>/dev/null | grep "^lam=" | sort -u > hwv5_d${d}_V_done.tmp; mv hwv5_d${d}_V_done.tmp hwv5_d${d}_V_done.log; echo "V d=$d: $(grep -c "^lam=" hwv5_d${d}_V_done.log) components done, hits: $(grep -c SEPARATES hwv5_d${d}_V_done.log)"; done
 echo "-- hits / problems --"; grep -H "SEPARATES" hwv5_d13_prom_done.log hwv5_d14_prom_done.log live/d1[34]_w*.log 2>/dev/null || echo "no SEPARATES"
 grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/null | head -5 || true
 # Cost policy (since 2026-09-28 08:45 UTC): components of both degrees are processed cheapest first by the sweep's cost proxy
@@ -93,7 +95,8 @@ launch_deg() {  # degree maxcost worker-slots...
 echo "-- progress --"
 for d in 13 14; do [ -f prom5_d$d.txt ] && echo "d=$d: $(cnt hwv5_d${d}_prom_done.log) / $(grep -c . prom5_d$d.txt) components done, $(skp hwv5_d${d}_prom_done.log) skipped by MAXFLOPS"; done
 python3 d13_report.py > agents/d13.md 2>/dev/null || echo "report failed"
-cd .. && for f in hwv5_d13_prom_done.log hwv5_d14_prom_done.log maxflops_stage agents/d13.md agents/to-d7d8.md prom5_d13.txt prom5_d14.txt d13_checkin.sh d13_report.py make_prom5.py; do [ -f isotypic_flattenings/$f ] && git add isotypic_flattenings/$f; done
+cd .. && for f in hwv5_d13_prom_done.log hwv5_d14_prom_done.log maxflops_stage agents/from-d13.md agents/d13.md agents/to-d7d8.md prom5_d13.txt prom5_d14.txt d13_checkin.sh d13_report.py make_prom5.py; do [ -f isotypic_flattenings/$f ] && git add isotypic_flattenings/$f; done
+git add isotypic_flattenings/hwv5_d*_V_done.log 2>/dev/null || true
 if ! git diff --cached --quiet; then
   git commit -q -m "d13 agent: C^5 rank 9 vs 10 d=13/14 status + logs $(date -u +%FT%H:%MZ) (d13 $(cnt isotypic_flattenings/hwv5_d13_prom_done.log), d14 $(cnt isotypic_flattenings/hwv5_d14_prom_done.log) components)
 

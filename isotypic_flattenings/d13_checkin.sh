@@ -51,7 +51,7 @@ grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/nul
 # Worker slots: W13 / W14 list the slots (0..NW-1) for d=13 / d=14; a degree with nothing left under its MC hands its
 # slots to the other degree.
 MC13=${MC13:-3e8}; MC14=${MC14:-3e8}     # stage 4 = 3e8 since 2026-10-11 07:30 UTC (user: option 2);   # stage 3 since 2026-09-28 23:20 UTC (3e7 stage: the 2.3e7 d=13 component took 2 h, not 60 h, once the DP path fallback was capped)
-W13=${W13:-"0 1"}; W14=${W14:-"2 3"}   # 2026-10-11: stage 4 has 76 d=13 and 48 d=14 components
+W13=${W13:-""}; W14=${W14:-"2 3"}  # d13 slots 0 1 paused while V-stack d=9 runs on 2 cores   # 2026-10-11: stage 4 has 76 d=13 and 48 d=14 components
 left() {  # degree maxcost -> number of listed components with cost <= maxcost not yet in the done-log
   python3 - <<PY
 import os, re

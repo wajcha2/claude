@@ -6,7 +6,9 @@ C^4 (x) C^4 (x) C^4 given by rank-one decompositions, compared with random tenso
   M2g     a random GL4 x GL4 x GL4 translate of M2 (same rank by equivariance)
   unit4   sum_{i<4} e_i (x) e_i (x) e_i  (rank 4)
   randR   random tensor of rank R (e.g. rand6, rand7)
-Env: PRIME (default 524287, must be < 2^19), SEED (default 2024).
+Env: PRIME (default 524287, must be < 2^19), SEED (default 2024),
+     STACK=V: also the V-stack over the whole multiplicity space, M (x) S^{l_dir}V^* -> target (and the H-stack), with
+     K = min(g n1, n23) + 4 target points and the memory-safe evaluator flatlib.
 A flattening rank above the maximum over sigma_6 proves that the tensor is not in sigma_6 (border rank >= 7)."""
 import sys, os, numpy as np
 import opt_einsum as oe
@@ -54,11 +56,20 @@ if 'M2' in T and 'M2S' in T:
 perm = [dirn] + [t for t in range(3) if t != dirn]
 lam_p = tuple(lam[t] for t in perm); g = kronecker(*lam)
 n1 = dim_schur(lam_p[0], n); N1 = K = n1 + 4
+VSTACK = os.environ.get('STACK', '') == 'V' and g >= 2
+if VSTACK:
+    K = min(g * n1, dim_schur(lam_p[1], n) * dim_schur(lam_p[2], n)) + 4
+    import flatlib
 gs = random_gs(rng, n, N1, K)
-pre = {nm: prepare(tuple(T[nm][t] for t in perm), gs) for nm in names}
-def flat(f, vm, pm):
-    ops, out = build_network(f, vm, pm)
-    return execute(ops, out, find_path(ops, out, None, oe.RandomGreedy(max_repeats=64))[0]).astype(np.int64)
+if VSTACK:
+    pre = {nm: (tuple(T[nm][t] for t in perm),) for nm in names}
+    def flat(f, vp):
+        return flatlib.flat(f, vp, gs) % p
+else:
+    pre = {nm: prepare(tuple(T[nm][t] for t in perm), gs) for nm in names}
+    def flat(f, vm, pm):
+        ops, out = build_network(f, vm, pm)
+        return execute(ops, out, find_path(ops, out, None, oe.RandomGreedy(max_repeats=64))[0]).astype(np.int64)
 ref = names[-1] if 'rand7' not in names else 'rand7'
 fills, basis = [], []
 while len(fills) < g:
@@ -68,8 +79,13 @@ while len(fills) < g:
 coeffs = [int(c) for c in rng.integers(1, p, g)]
 res = []
 for nm in names:
+    Fs = [flat(f, *pre[nm]) for f in fills]
     Fg = np.zeros((N1, K), dtype=np.int64)
-    for c, f in zip(coeffs, fills):
-        Fg = (Fg + c * flat(f, *pre[nm])) % p
-    res.append('%s:%d' % (nm, modrank(Fg)))
-    print('lam=%s direction %d (dims %s): %s' % (lam, dirn + 1, tuple(dim_schur(l, n) for l in lam_p), ' '.join(res))); sys.stdout.flush()
+    for c, F in zip(coeffs, Fs):
+        Fg = (Fg + c * F) % p
+    if VSTACK:
+        res.append('%s: gen %d H %d V %d' % (nm, modrank(Fg), modrank(np.hstack(Fs)), modrank(np.vstack(Fs))))
+    else:
+        res.append('%s:%d' % (nm, modrank(Fg)))
+    del Fs
+    print('lam=%s direction %d (dims %s, g=%d, p=%d): %s' % (lam, dirn + 1, tuple(dim_schur(l, n) for l in lam_p), g, p, ' | '.join(res) if VSTACK else ' '.join(res))); sys.stdout.flush()

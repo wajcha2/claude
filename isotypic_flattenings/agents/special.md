@@ -81,7 +81,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   rank 10: 18205; seed 202 / p 524269 rank 10: 18205.  Cause: the rank-9 tensor's filling matrices came from two
   processes (11 checkpoints of 2026-10-13, 2 evaluated 2026-10-18) that had chosen different fillings --
   rankscan.Direction's choice depends on PYTHONHASHSEED -- and checkpoint f11 duplicated f10 (12 x 1440 = 17280).
-* Fix (commit [method] 40b1f61): specialscan.py / specialverify.py run with PYTHONHASHSEED=0 (re-exec; the runner
+* Fix (commit [method] 0d13080): specialscan.py / specialverify.py run with PYTHONHASHSEED=0 (re-exec; the runner
   sets it) and the checkpoint name contains a CRC of the chosen fillings.  9 earlier directions that may have
   resumed from another process's checkpoints (started more than once since checkpoints exist, 2026-10-07, F time
   > 60 s) are superseded (special/superseded.jsonl) and rerun: 5x5x5 d=8 ((5,2,1),(3,3,1,1),(2,2,2,1,1)),

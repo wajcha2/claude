@@ -197,7 +197,7 @@ def main():
             slot = min(set(range(slot0, slot0 + 16)) - set(running))
             n, d, Rs, methods, lam = job
             env = dict(os.environ, **JOBENV.get(job, {}))
-            env = dict(env, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1',
+            env = dict(env, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', PYTHONHASHSEED='0',
                        OUT='special/live/res/n%d_d%d_s%d.jsonl' % (n, d, slot), DONEGLOB='special/live/res')
             logf = open('special/live/logs/n%d_d%d_s%d.log' % (n, d, slot), 'a')
             proc = subprocess.Popen(['python3', '-u', 'specialscan.py', str(n), str(d), repr(lam), Rs] + list(methods),

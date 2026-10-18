@@ -36,6 +36,12 @@ Env: DIRS (comma list of directions 1..3, default: distinct ones), SEED (11), NL
      cap for extension-field points, default 6000), OUT (default special/res/n<n>_d<d>.jsonl), PRIME (other prime).
 """
 import os, sys, time, json, itertools, zlib, collections, glob
+# rankscan.Direction chooses the fillings by contraction cost (opt_einsum paths), and that choice depends on the
+# set iteration order of strings, i.e. on PYTHONHASHSEED: two processes of one component may pick different
+# fillings.  Run with a fixed hash seed (re-exec), so that every process of a component picks the same ones.
+if __name__ == '__main__' and os.environ.get('PYTHONHASHSEED') != '0':
+    os.environ['PYTHONHASHSEED'] = '0'
+    os.execv(sys.executable, [sys.executable] + sys.orig_argv[1:])
 import hwv, isoflat
 if os.environ.get('PRIME'):
     hwv.p = isoflat.p = int(os.environ['PRIME'])          # before hwv_fast / rankscan import p
@@ -181,6 +187,8 @@ class Comp:
         assert D.span == self.g, 'fillings span only %d of g = %d' % (D.span, self.g)
         self.lam_p, self.perm = D.lam_p, D.perm
         self.n1, self.n23, self.N1, self.K = D.n1, D.n23, D.N1, D.K
+        # fingerprint of the chosen fillings: checkpoints of another choice are never loaded
+        self.fdig = zlib.crc32(repr([fl[0] for fl in D.fillings]).encode())
         self.cache = {}
         # probe grid for U_k and swaps: points G[u] (PRB each), pairs (b, c) in PRB x PRB
         G = random_gs(self.crng, n, PRB, PRB)
@@ -202,7 +210,7 @@ class Comp:
 
     def fcache_path(self, name):
         lam = '_'.join(''.join(str(x) for x in l) for l in self.lam)
-        return os.path.join(FCACHE, 'n%d_%s_t%d_s%d_p%d_%s.npy' % (self.n, lam, self.t, self.seed, p, name))
+        return os.path.join(FCACHE, 'n%d_%s_t%d_s%d_p%d_h%08x_%s.npy' % (self.n, lam, self.t, self.seed, p, self.fdig, name))
 
     def F(self, name):
         """(g, N1, K) array of the filling matrices at tensor `name` (computed once; evaluations longer than

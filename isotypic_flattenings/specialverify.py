@@ -10,6 +10,9 @@ The running ranks after each filling are printed and the result is appended as o
 (default special/verify.jsonl).  Each F_i is checkpointed in FCACHE (removed at the end), so a restarted run
 resumes.  Memory: the V basis (rank x K float64) plus one F_i."""
 import os, sys, time, json
+if os.environ.get('PYTHONHASHSEED') != '0':           # same fillings in every process (see specialscan.py)
+    os.environ['PYTHONHASHSEED'] = '0'
+    os.execv(sys.executable, [sys.executable] + sys.orig_argv[1:])
 import specialscan as S
 import numpy as np
 

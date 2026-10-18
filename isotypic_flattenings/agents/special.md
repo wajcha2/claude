@@ -72,7 +72,9 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   126 directions on 2026-10-12 00:40; the last jobs of special/jobs.txt).  2026-10-12 18:16: 13 components left,
   all with mem_estimate_gb > 3 (actual peaks so far 60-75 % of the estimate), maxbig raised to 3 (19:47: 4).
   2026-10-13 06:25: tlimit 36 h (((5,2,1),(3,2,2,1),(3,2,2,1)) dir 1: g = 9, K = 12968, 20-80 min per filling
-  evaluation with 4 jobs running).  `special/sync.sh` copies special/live into
+  evaluation with 4 jobs running); it finished 2026-10-13 12:52 (18 h, peak 2.9 GB, no hit).  The container was then
+  reclaimed (the 30-min check-ins lapsed); restarted 2026-10-18 07:11 for the last component,
+  ((5,2,1),(4,2,1,1),(4,2,1,1)) (2 directions; dir 1 filling evaluations checkpointed in special/live/fcache).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

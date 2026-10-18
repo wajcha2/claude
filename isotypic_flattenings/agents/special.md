@@ -74,7 +74,12 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   2026-10-13 06:25: tlimit 36 h (((5,2,1),(3,2,2,1),(3,2,2,1)) dir 1: g = 9, K = 12968, 20-80 min per filling
   evaluation with 4 jobs running); it finished 2026-10-13 12:52 (18 h, peak 2.9 GB, no hit).  The container was then
   reclaimed (the 30-min check-ins lapsed); restarted 2026-10-18 07:11 for the last component,
-  ((5,2,1),(4,2,1,1),(4,2,1,1)) (2 directions; dir 1 filling evaluations checkpointed in special/live/fcache).  `special/sync.sh` copies special/live into
+  ((5,2,1),(4,2,1,1),(4,2,1,1)) (2 directions; dir 1 filling evaluations checkpointed in special/live/fcache).
+  2026-10-18 12:15: CANDIDATE (generic, not special U): this component, dir 1 (source S_521, g = 13, n1 = 1440,
+  n23 = 202500), generic V-stack with U = M: 17280 on a rank-9 tensor vs 18205 on a rank-10 tensor (bound 18720);
+  V12 = 17280 on both.  Being verified with fresh tensors (specialverify.py; seeds 101 / p 524287 and 202 /
+  p 524269, ranks 9 and 10; logs special/live/verify/).  The runner and this job are stopped meanwhile (restart:
+  ./special/start_runner.sh; its F checkpoints for P9, P10 are kept).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

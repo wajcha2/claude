@@ -29,6 +29,7 @@ from colwedge_family import is_colwedge
 NS = [int(x) for x in os.environ.get('NS', '3,4,5,6,7,8,9,10').split(',')]
 DMAX = int(os.environ.get('DMAX', '10'))
 NCORES = int(os.environ.get('NCORES', '4'))
+LONGRUN = float(os.environ.get('LONGRUN', '14400'))  # s: a blocking backfill running longer counts as long (see launch)
 BFWAIT = float(os.environ.get('BFWAIT', '1800'))   # s a waiting component lets cheap/small components backfill past it
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
@@ -752,9 +753,15 @@ def main():
                 # idle 1.5 h behind a 3.4 h 8x8x8 backfill although a 2.3 GB 6x6x6 component fit beside the waiting 4 GB one.)
                 late_bf = sum(v for pid, v in ests.items() if pid in backfill and pid not in strict_set)
                 fits_beside = (used - bf_used) + late_bf + need_mb + reserve <= budget
+                # ... and while every backfill that still keeps it out has run > LONGRUN (4 h), cheap/small components
+                # may backfill again: they delay it by at most their own run time once the long one finishes (since
+                # 2026-10-18 19:19: a core idled behind a 10 h 8x8x8 hook component that the waiting 9x9x9 one needs gone)
+                blockers = [pid for pid in strict_set if pid in workers]
+                long_block = bool(blockers) and all(now - workers[pid][3] > LONGRUN for pid in blockers)
                 if used + need_mb <= budget and ((grace and (bf_used + need_mb + reserve <= budget or
                                                              (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))))
-                                                 or (not grace and fits_beside)):
+                                                 or (not grace and (fits_beside or (long_block and not reserve_extra and
+                                                                                    (job['stage'] <= 3 or need_mb <= 4096))))):
                     pick = (name, nc, need_mb, True)
                     break
             if reserve is None:

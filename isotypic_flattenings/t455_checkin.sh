@@ -26,13 +26,14 @@ for f in hwv455V_d*.log; do [ -f "$f" ] && echo "$f: $(grep -c '^lam=' $f) lines
 echo "-- jobs --"
 while read d M O; do
   [ -z "$d" ] && continue; case $d in \#*) continue;; esac
-  T=$(tag $d $M $O); st=""
+  T=$(tag $d $M $O); st=""; NW=$(jobnw $d $M "$O")
   for k in $(seq 0 $((NW-1))); do
     L=$(logf $d $M "$O" $k)
     if finished $d $M "$O" $k; then st="$st F"; elif [ -f $L ] && alive $d $M "$O" $k; then st="$st R($(grep -c '^lam=' $L || true))"; else st="$st -"; fi
   done
   echo "$T:$st   ($(cat $(joblogs $d $M "$O") /dev/null 2>/dev/null | grep -c '^lam=') lines)"
 done < t455_jobs.txt
+NW=3
 python3 t455_report.py > agents/d10.md
 # push with retries (2, 4, 8, 16 s back-off) and the real exit status (a pipe into tail hid failures before)
 push_retry() { local i; for i in 1 2 3 4 5; do git push -q origin "$1" 2>&1 | tail -1; [ ${PIPESTATUS[0]} -eq 0 ] && return 0; [ $i -lt 5 ] && { sleep $((2**i)); git pull -q --rebase --autostash origin "$1" 2>&1 | tail -1; }; done; return 1; }

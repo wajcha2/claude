@@ -36,14 +36,15 @@ for job in jobs:
     same = sorted((math.log(c), math.log(max(s, 0.05))) for (dd, lam), (c, s) in done.items() if dd == d and c > 0)
     pts = same[-300:] if len(same) >= 30 else sorted(allpts)[-300:]
     a, b = fit(pts); pred = lambda c: math.exp(a + b * math.log(c))
-    est = sum(pred(cost(lam, g)) for lam, g in rest) / 3 / 3600; total += est
-    print("job d=%d MAXDIM=%s%s: %d of %d components left, predicted %.1f h wall on 3 workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (
-        d, M, ' ONLY=%s' % O if O else '', len(rest), len(members), est, math.exp(a), b, len(pts), max(pred(cost(lam, g)) for lam, g in rest) / 3600))
+    nw = 4 if d >= 10 else 3      # workers of the job (jobnw in t455_helpers.sh)
+    est = sum(pred(cost(lam, g)) for lam, g in rest) / nw / 3600; total += est
+    print("job d=%d MAXDIM=%s%s: %d of %d components left, predicted %.1f h wall on %d workers (fit secs=%.3g*cost^%.2f on %d comps); largest single %.2f h" % (
+        d, M, ' ONLY=%s' % O if O else '', len(rest), len(members), est, nw, math.exp(a), b, len(pts), max(pred(cost(lam, g)) for lam, g in rest) / 3600))
     # second estimate from the recent rate: mean time of the last 50 finished components of each worker log of this job, times the
     # number left, on 3 workers; a lower bound when the components are claimed in order of increasing cost
     tag = ('d%d' % d if M == 'inf' else 'd%d_max%s' % (d, M)) + ('_%s' % O if O else '')
-    recent = sum((times_by_file.get('hwv455_%s_w%d.log' % (tag, w), [])[-50:] for w in range(3)), [])
+    recent = sum((times_by_file.get('hwv455_%s_w%d.log' % (tag, w), [])[-50:] for w in range(nw)), [])
     if recent:
-        print("  recent-rate estimate: %d left x mean(last %d) %.0f s / 3 workers = %.1f h (lower bound: the cheapest components go first)" % (
-            len(rest), len(recent), sum(recent) / len(recent), len(rest) * sum(recent) / len(recent) / 3 / 3600))
+        print("  recent-rate estimate: %d left x mean(last %d) %.0f s / %d workers = %.1f h (lower bound: the cheapest components go first)" % (
+            len(rest), len(recent), sum(recent) / len(recent), nw, len(rest) * sum(recent) / len(recent) / nw / 3600))
 print("total predicted wall time for the queue: %.1f h" % total)

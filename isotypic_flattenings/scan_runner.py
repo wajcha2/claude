@@ -32,6 +32,7 @@ NCORES = int(os.environ.get('NCORES', '4'))
 BFWAIT = float(os.environ.get('BFWAIT', '1800'))   # s a waiting component lets cheap/small components backfill past it
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
+EVALMARGIN = float(os.environ.get('EVALMARGIN', '0'))       # MB over the calibrated evaluation phase (see est_peak_mb)
 MEMBUDGET = float(os.environ.get('MEMBUDGET', '15000'))     # MB for the workers (container: 16 GB, no swap)
 MONITOR = int(os.environ.get('MONITOR', '300'))
 REPORT = int(os.environ.get('REPORT', '900'))
@@ -265,8 +266,9 @@ def eval_phase_mb(st, n, d):
 
 def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     """estimated peak RSS of a worker on component lam (MB): two phases -- evaluation (flattenings + word minors and
-    contraction blocks, eval_phase_mb) and elimination (flattenings + phi + eliminations) -- of its largest
-    direction, + 800 MB (300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB).  Checked against the recorded components: no peak above its estimate (one-row
+    contraction blocks, eval_phase_mb, which carries its own 512 MB margin) and elimination (flattenings + phi +
+    eliminations, + 800 MB: 300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB) -- of its largest
+    direction.  Checked against the recorded components: no peak above its estimate (one-row
     components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
     if is_onerow(lam):
         return 3584.0
@@ -286,8 +288,11 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
         _est_cache[key] = mat_parts(n, lam, g)
     B = eval_phase_mb(st, n, d)
     # elimination phase: + 1.2 GB over the matrices (largest recorded excess 0.77 GB: 9x9x9 ((3,2,1),(3,2,1),(2,1^4)) 9218 MB);
-    # evaluation phase: B (calibrated, includes its own margin) + 0.8 GB
-    return max(max(fs + B, fs + m + 400) for fs, m in _est_cache[key]) + 800 + (4096 if extra else 0)
+    # evaluation phase: B (calibrated on the recorded peaks, + 512 MB) + EVALMARGIN (0 since 2026-10-18 07:43; it was 800
+    # as well, so the evaluation estimates carried 1.3 GB over the largest recorded excess: 6x6x6 d = 8 peaks <= 1.4 GB
+    # were estimated at 2.8-3.0 GB and kept cores idle next to the 9.4 GB 9x9x9 components; without it every one of the
+    # 2661 recorded network peaks is still >= 0.2 GB below its estimate)
+    return max(max(fs + B + EVALMARGIN, fs + m + 400 + 800) for fs, m in _est_cache[key]) + (4096 if extra else 0)
 
 
 def next_component(job, exclude=()):

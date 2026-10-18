@@ -29,6 +29,14 @@ none separates (0 of 2199 directions on 2026-10-13 08:30), e.g. 5x5x5 rank 9 vs 
 1090 directions; 1309 of them saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
 rank 9), where the other sweeps ran without V-stacks (agents/to-all-Vstacks.md).
 
+**A false alarm (2026-10-18), and a fix.**  5x5x5 d = 8 ((5,2,1),(4,2,1,1),(4,2,1,1)) dir 1 showed a generic
+V-stack (U = M) of 17280 on a rank-9 vs 18205 on a rank-10 tensor -- it would have been a first separation of
+rank 9 vs 10 -- but fresh tensors give 18205 at rank 9 as well (seeds 101 and 202, p = 524287 and 524269).  The
+rank-9 tensor had been evaluated by two processes that chose different fillings (rankscan.Direction's choice
+depends on PYTHONHASHSEED); a duplicated filling matrix capped the stack at 12 x 1440.  Now every process uses
+PYTHONHASHSEED = 0 and checkpoints are keyed by the fillings; the 9 earlier directions that may have mixed two
+processes are being rerun (agents/special.md); the outcome column below stands for all other directions.
+
 **What the special loci look like.**
 * Tensor-independent rank-drop loci of one functional exist in many components (4x4x4 d = 7: 22 of 210 directions
   on random lines, isolated codim-2 points in 12 of 87 g >= 3 directions; 5x5x5 rank 9: a few directions at d = 6,

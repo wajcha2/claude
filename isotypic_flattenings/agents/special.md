@@ -75,11 +75,20 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   evaluation with 4 jobs running); it finished 2026-10-13 12:52 (18 h, peak 2.9 GB, no hit).  The container was then
   reclaimed (the 30-min check-ins lapsed); restarted 2026-10-18 07:11 for the last component,
   ((5,2,1),(4,2,1,1),(4,2,1,1)) (2 directions; dir 1 filling evaluations checkpointed in special/live/fcache).
-  2026-10-18 12:15: CANDIDATE (generic, not special U): this component, dir 1 (source S_521, g = 13, n1 = 1440,
-  n23 = 202500), generic V-stack with U = M: 17280 on a rank-9 tensor vs 18205 on a rank-10 tensor (bound 18720);
-  V12 = 17280 on both.  Being verified with fresh tensors (specialverify.py; seeds 101 / p 524287 and 202 /
-  p 524269, ranks 9 and 10; logs special/live/verify/).  The runner and this job are stopped meanwhile (restart:
-  ./special/start_runner.sh; its F checkpoints for P9, P10 are kept).  `special/sync.sh` copies special/live into
+  2026-10-18 12:15: candidate (generic, not special U): this component, dir 1 (source S_521, g = 13, n1 = 1440,
+  n23 = 202500), generic V-stack with U = M: 17280 on a rank-9 tensor vs 18205 on a rank-10 tensor (bound 18720).
+  REFUTED 15:30 by fresh tensors (specialverify.py, each tensor in one process): seed 101 / p 524287 rank 9: 18205,
+  rank 10: 18205; seed 202 / p 524269 rank 10: 18205.  Cause: the rank-9 tensor's filling matrices came from two
+  processes (11 checkpoints of 2026-10-13, 2 evaluated 2026-10-18) that had chosen different fillings --
+  rankscan.Direction's choice depends on PYTHONHASHSEED -- and checkpoint f11 duplicated f10 (12 x 1440 = 17280).
+* Fix (commit [method] 40b1f61): specialscan.py / specialverify.py run with PYTHONHASHSEED=0 (re-exec; the runner
+  sets it) and the checkpoint name contains a CRC of the chosen fillings.  9 earlier directions that may have
+  resumed from another process's checkpoints (started more than once since checkpoints exist, 2026-10-07, F time
+  > 60 s) are superseded (special/superseded.jsonl) and rerun: 5x5x5 d=8 ((5,2,1),(3,3,1,1),(2,2,2,1,1)),
+  ((5,2,1),(4,2,2),(3,3,2)), ((6,1,1),(4,2,1,1),(3,2,2,1)) dir 1; 6x6x6 d=7 ((4,2,1),(3,1,1,1,1),(3,1,1,1,1)),
+  ((4,2,1)^3), ((5,2),(3,1,1,1,1),(3,1,1,1,1)) dir 1; 8x8x8 d=6 ((4,2),(2,2,1,1),(2,2,1,1)),
+  ((4,2),(3,1,1,1),(3,1,1,1)) dir 1, ((4,2),(4,1,1),(3,2,1)) dir 3.  Runs started before 2026-10-07 had no
+  checkpoints; a direction evaluated in one process is consistent (the fillings only differ between processes).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

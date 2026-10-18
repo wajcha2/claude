@@ -1,6 +1,6 @@
 #!/bin/bash
 # t455_runner.sh: runs the jobs of t455_jobs.txt ("<d> <MAXDIM> [<name>]", see t455_helpers.sh) one after another, NW workers
-# each; started once, detached:
+# each (NW = 3, or 4 from d = 10 on: jobnw in t455_helpers.sh); started once, detached:
 #   setsid nohup bash t455_runner.sh >> t455_runner.log 2>&1 < /dev/null &
 # Finished jobs (all worker logs end with a FOUND line) are skipped; dead workers are restarted (at most 5 times each).
 MAIN=$(cd "$(dirname "$0")" && pwd); cd $MAIN
@@ -12,6 +12,7 @@ while true; do
   JOB=""
   while read d M O; do
     [ -z "$d" ] && continue; case $d in \#*) continue;; esac
+    NW=$(jobnw $d $M "$O")
     ALLFIN=1
     for k in $(seq 0 $((NW-1))); do finished $d $M "$O" $k || ALLFIN=0; done
     [ $ALLFIN = 0 ] && { JOB="$d $M $O"; break; }

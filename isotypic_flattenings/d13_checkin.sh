@@ -92,10 +92,20 @@ launch_deg() {  # degree maxcost worker-slots...
 # current component is finished, then it claims the next one under ITS bound); stale big claims are dropped by hand.
 [ -n "$W13" ] && launch_deg 13 $MC13 $W13
 [ -n "$W14" ] && launch_deg 14 $MC14 $W14
+# V-stack workers (with V, no MAXCOST): degree from file vstack_deg, list promV5_d<d>.txt, slots VW of NV
+if [ -s vstack_deg ]; then VD=$(cat vstack_deg); VW=${VW:-"0 1"}; NV=${NV:-2}; mkdir -p claims5_v$VD
+  for k in $VW; do
+    if ps -eo args | grep -v grep | grep -q "sweep_fast.py 5 $VD 9,10 5 $k $NV$"; then continue; fi
+    for f in claims5_v$VD/*; do [ -f "$f" ] && [ "$(cat $f)" = "$k" ] && ! grep -qF "lam=$(python3 -c "import itertools; from isoflat import partitions; print(repr(list(itertools.combinations_with_replacement(partitions($VD,5),3))[$(basename $f)]))") " hwv5_d${VD}_V_done.log && rm -f "$f"; done
+    MEMCAP=67108864 MAXFLOPS=$MAXFLOPS ONLY=promV5_d$VD.txt CLAIMDIR=claims5_v$VD RESUME=hwv5_d${VD}_V_done.log \
+      setsid nohup python3 -u sweep_fast.py 5 $VD 9,10 5 $k $NV >> live/v5_d${VD}_w$k.log 2>&1 < /dev/null &
+    echo "*** launched V d=$VD worker $k MAXFLOPS=$MAXFLOPS ($(date -u +%FT%TZ))"
+  done
+fi
 echo "-- progress --"
 for d in 13 14; do [ -f prom5_d$d.txt ] && echo "d=$d: $(cnt hwv5_d${d}_prom_done.log) / $(grep -c . prom5_d$d.txt) components done, $(skp hwv5_d${d}_prom_done.log) skipped by MAXFLOPS"; done
 python3 d13_report.py > agents/d13.md 2>/dev/null || echo "report failed"
-cd .. && for f in hwv5_d13_prom_done.log hwv5_d14_prom_done.log maxflops_stage agents/from-d13.md agents/d13.md agents/to-d7d8.md prom5_d13.txt prom5_d14.txt d13_checkin.sh d13_report.py make_prom5.py; do [ -f isotypic_flattenings/$f ] && git add isotypic_flattenings/$f; done
+cd .. && for f in hwv5_d13_prom_done.log hwv5_d14_prom_done.log maxflops_stage agents/from-d13.md agents/d13.md agents/to-d7d8.md prom5_d13.txt prom5_d14.txt d13_checkin.sh d13_report.py make_prom5.py vstack_deg; do [ -f isotypic_flattenings/$f ] && git add isotypic_flattenings/$f; done
 git add isotypic_flattenings/hwv5_d*_V_done.log 2>/dev/null || true
 if ! git diff --cached --quiet; then
   git commit -q -m "d13 agent: C^5 rank 9 vs 10 d=13/14 status + logs $(date -u +%FT%H:%MZ) (d13 $(cnt isotypic_flattenings/hwv5_d13_prom_done.log), d14 $(cnt isotypic_flattenings/hwv5_d14_prom_done.log) components)

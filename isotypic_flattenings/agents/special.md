@@ -78,7 +78,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   2026-10-18 12:15: candidate (generic, not special U): this component, dir 1 (source S_521, g = 13, n1 = 1440,
   n23 = 202500), generic V-stack with U = M: 17280 on a rank-9 tensor vs 18205 on a rank-10 tensor (bound 18720).
   REFUTED 15:30 by fresh tensors (specialverify.py, each tensor in one process): seed 101 / p 524287 rank 9: 18205,
-  rank 10: 18205; seed 202 / p 524269 rank 10: 18205.  Cause: the rank-9 tensor's filling matrices came from two
+  rank 10: 18205; seed 202 / p 524269 rank 9: 18205, rank 10: 18205 (special/verify.jsonl).  Cause: the rank-9 tensor's filling matrices came from two
   processes (11 checkpoints of 2026-10-13, 2 evaluated 2026-10-18) that had chosen different fillings --
   rankscan.Direction's choice depends on PYTHONHASHSEED -- and checkpoint f11 duplicated f10 (12 x 1440 = 17280).
 * Fix (commit [method] 0d13080): specialscan.py / specialverify.py run with PYTHONHASHSEED=0 (re-exec; the runner

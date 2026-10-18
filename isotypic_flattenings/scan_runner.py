@@ -513,6 +513,7 @@ def main():
     mem_wait = None
     paused = set()
     mem_wait_strict = False
+    strict_set = set()    # backfills running when the exception expired (only they may still keep the waiting one out)
     mem_wait_t0 = wait_t  # since when only backfilled components keep the waiting one out (bounds the backfill exception)
     # restart: adopt workers that are still running, drop claims of the dead ones
     for name, job in st['jobs'].items():
@@ -726,8 +727,9 @@ def main():
                         grace = time.time() - mem_wait_t0 < bfwait
                         if not grace and not mem_wait_strict:
                             mem_wait_strict = True
-                            log('memory: %s has been kept out by backfilled components for %.0f min: no more backfills '
-                                'until it starts' % (name, (time.time() - mem_wait_t0) / 60))
+                            strict_set = {pid for pid in workers if pid in backfill}     # the backfills keeping it out now
+                            log('memory: %s has been kept out by backfilled components for %.0f min: from now on only '
+                                'backfills that fit beside it once those finish' % (name, (time.time() - mem_wait_t0) / 60))
                     if mem_wait != (name, nc and nc[0]):
                         mem_wait = (name, nc and nc[0])
                         log('memory: %s %s needs ~%.1f GB, running components ~%.1f GB of %.1f GB: waiting (backfill up to %.1f GB)'
@@ -743,9 +745,16 @@ def main():
                 #  waiting component blocked by a long non-backfilled one left cores idle for hours to no effect))
                 # once only backfilled components keep it out and the exception has expired, nothing more backfills:
                 # the reservation rule alone (room once the non-backfilled ones finish) would let a stream of small
-                # components keep it out for as long as a long non-backfilled component runs (since 19:25)
-                if used + need_mb <= budget and grace and (bf_used + need_mb + reserve <= budget or
-                                                           (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))):
+                # components keep it out for as long as a long non-backfilled component runs (since 19:25).  Since
+                # 2026-10-18 12:46 a backfill is still admitted then if the waiting component fits beside it (and beside
+                # the non-backfilled ones and the backfills admitted this way) as soon as the backfills that kept it out
+                # when the exception expired have finished: it starts no later than without that backfill.  (A core sat
+                # idle 1.5 h behind a 3.4 h 8x8x8 backfill although a 2.3 GB 6x6x6 component fit beside the waiting 4 GB one.)
+                late_bf = sum(v for pid, v in ests.items() if pid in backfill and pid not in strict_set)
+                fits_beside = (used - bf_used) + late_bf + need_mb + reserve <= budget
+                if used + need_mb <= budget and ((grace and (bf_used + need_mb + reserve <= budget or
+                                                             (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))))
+                                                 or (not grace and fits_beside)):
                     pick = (name, nc, need_mb, True)
                     break
             if reserve is None:

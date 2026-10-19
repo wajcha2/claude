@@ -88,7 +88,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   ((5,2,1),(4,2,2),(3,3,2)), ((6,1,1),(4,2,1,1),(3,2,2,1)) dir 1; 6x6x6 d=7 ((4,2,1),(3,1,1,1,1),(3,1,1,1,1)),
   ((4,2,1)^3), ((5,2),(3,1,1,1,1),(3,1,1,1,1)) dir 1; 8x8x8 d=6 ((4,2),(2,2,1,1),(2,2,1,1)),
   ((4,2),(3,1,1,1),(3,1,1,1)) dir 1, ((4,2),(4,1,1),(3,2,1)) dir 3.  Runs started before 2026-10-07 had no
-  checkpoints; a direction evaluated in one process is consistent (the fillings only differ between processes).  `special/sync.sh` copies special/live into
+  checkpoints; a direction evaluated in one process is consistent (the fillings only differ between processes).
+  2026-10-19 01:45: container restarted again; runner restarted 01:47 (checkpoints keyed by the fillings,
+  PYTHONHASHSEED=0: the two remaining jobs, 5x5x5 d=8 ((5,2,1),(4,2,1,1),(4,2,1,1)) and 6x6x6 d=7 ((4,2,1)^3)
+  rerun, resume consistently).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

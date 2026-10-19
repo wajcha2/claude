@@ -270,7 +270,7 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     contraction blocks, eval_phase_mb, which carries its own 512 MB margin) and elimination (flattenings + phi +
     eliminations, + 800 MB: 300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB) -- of its largest
     direction.  Checked against the recorded components: no peak above its estimate (one-row
-    components, closed form: 3.5 GB; extra jobs with WCAP 2^28: + 4 GB)."""
+    components, closed form: 3.5 GB; extra jobs with a larger WCAP: + extra_mb)."""
     if is_onerow(lam):
         return 3584.0
     if is_colwedge(lam):                 # closed form (colwedge_family.py): rows stream into the echelon form (<= m x m
@@ -293,7 +293,18 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
     # as well, so the evaluation estimates carried 1.3 GB over the largest recorded excess: 6x6x6 d = 8 peaks <= 1.4 GB
     # were estimated at 2.8-3.0 GB and kept cores idle next to the 9.4 GB 9x9x9 components; without it every one of the
     # 2661 recorded network peaks is still >= 0.2 GB below its estimate)
-    return max(max(fs + B + EVALMARGIN, fs + m + 400 + 800) for fs, m in _est_cache[key]) + (4096 if extra else 0)
+    return max(max(fs + B + EVALMARGIN, fs + m + 400 + 800) for fs, m in _est_cache[key]) + (extra_mb(n, lam, job) if extra else 0)
+
+
+def extra_mb(n, lam, job):
+    """what a rerun with a larger WCAP adds (MB): its largest word-minor tensor (int64, at the highest needed rank it can
+    evaluate) + 1 GB.  Since 2026-10-19 11:29 (before: a flat 4 GB, which kept a core idle next to the 7.9 GB estimate of
+    the 8x8x8 hook rerun); every recorded rerun peak is >= 0.4 GB below it (the flat 4 GB: >= 1.6 GB)."""
+    if job is None:
+        return 4096.0
+    wcap = int(job.get('env', {}).get('WCAP', 1 << 26))
+    rmax = max([x for x in range(1, max(job['need']) + 1) if word_minor_size(lam, n, x) <= wcap] or [0])
+    return 8.0 * word_minor_size(lam, n, rmax) / 2 ** 20 + 1024
 
 
 def next_component(job, exclude=()):

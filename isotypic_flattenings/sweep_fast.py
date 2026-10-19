@@ -27,7 +27,7 @@ Env: MEMCAP (max elements of an intermediate, default 2^25; larger contractions 
      RESUME=log1:log2 (skip components already present in these logs), CLAIMDIR (default claims_n<n>_d<d>).
 Lines '*** SEPARATES' mark a hit; the last line prints 'FOUND: [...]'."""
 import numpy as np
-import hwv_fast, sys, time, itertools, os, ast
+import hwv_fast, sys, time, itertools, os, ast, fcntl
 import opt_einsum as oe
 from hwv import p, dim_schur, random_fillings, random_gs
 from hwv_fast import prepare, build_network, find_path, execute, matmul_mod
@@ -52,6 +52,14 @@ ROWCAP = os.environ.get('ROWCAP', '1') == '1'   # cap the number of sampled rows
 CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%s_d%d' % ('x'.join(map(str, ns)) if len(set(ns)) > 1 else ns[0], d))
 PR1, PR2 = 8, 16                       # probe size (source points x target pairs)
 EXTRA = 8                              # extra columns in the random compression of HN
+# Memory of the V-stack pass (2026-10-19): with V-stacks a direction held the g flattenings (S = g*N1*K*8 bytes), the H
+# compression matrix R (about S), np.vstack (S) and modrank's float64 copy (S), up to ~4S = 11 GB for the C^4x5x5 d=8
+# components with a 1440-dimensional factor; a worker was OOM-killed with four running.  VONLY=1 skips the H-stack
+# in V mode (gN and HN of the same components come from the noV pass), the g flattenings are freed before modrank, and
+# with VLOCK_GB > 0 a V-stack larger than that is stacked and ranked by one worker at a time (flock on
+# CLAIMDIR/.vstack.lock), so a worker peaks at ~2S and the waiting ones hold S.  Defaults keep the old behaviour.
+VONLY = os.environ.get('VONLY', '0') == '1'
+VLOCK_GB = float(os.environ.get('VLOCK_GB', '0'))
 rlo, rhi = ranks[0], ranks[-1]
 
 def dims_of(lam):
@@ -222,7 +230,7 @@ def direction(lam, g, dirn, crng):
             Fgen = (Fgen + c * F) % p
         res[(dirn, 'gen')] = res.get((dirn, 'gen'), ()) + (modrank(Fgen),)
         del Fgen
-        if g >= 2:
+        if g >= 2 and not (VONLY and not NOV):
             if g * K > N1 + EXTRA:
                 if R is None:
                     R = crng.integers(0, p, (g * K, N1 + EXTRA)).astype(np.float64)
@@ -239,8 +247,19 @@ def direction(lam, g, dirn, crng):
                 H = np.hstack(Fs_r)
             res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H),)
             del H
-            if not NOV:
-                res[(dirn, 'Vstack')] = res.get((dirn, 'Vstack'), ()) + (modrank(np.vstack(Fs_r)),)
+        if g >= 2 and not NOV:
+            lock = None
+            if VLOCK_GB > 0 and g * N1 * K * 8 > VLOCK_GB * 1e9:
+                lock = open(os.path.join(CLAIMDIR, '.vstack.lock'), 'w')
+                fcntl.flock(lock, fcntl.LOCK_EX)
+            try:
+                F = None
+                Vs = np.vstack(Fs_r); Fs_r.clear()          # free the g blocks before the rank (peak 2S, not 3S)
+                res[(dirn, 'Vstack')] = res.get((dirn, 'Vstack'), ()) + (modrank(Vs),)
+                del Vs
+            finally:
+                if lock is not None:
+                    fcntl.flock(lock, fcntl.LOCK_UN); lock.close()
         del Fs_r
     return res, len(chosen), tried
 

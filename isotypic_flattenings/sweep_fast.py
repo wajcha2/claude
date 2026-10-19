@@ -27,7 +27,7 @@ Env: MEMCAP (max elements of an intermediate, default 2^25; larger contractions 
      RESUME=log1:log2 (skip components already present in these logs), CLAIMDIR (default claims_n<n>_d<d>).
 Lines '*** SEPARATES' mark a hit; the last line prints 'FOUND: [...]'."""
 import numpy as np
-import hwv_fast, sys, time, itertools, os
+import hwv_fast, sys, time, itertools, os, ast
 import opt_einsum as oe
 from hwv import p, dim_schur, random_fillings, random_gs
 from hwv_fast import prepare, build_network, find_path, execute, matmul_mod
@@ -247,9 +247,26 @@ def direction(lam, g, dirn, crng):
 rng = np.random.default_rng(SEED)
 vecs = {r: tuple(rng.integers(0, p, (r, ns[t])) for t in range(3)) for r in ranks}
 DONE = set()
+# per-direction checkpoints (2026-10-19): after each finished direction a component writes a line
+#   '#partial <lam> next=<dirn> res=<dict> spans=<list> secs=<float> state=<rng state>'
+# (no 'lam=' in it, so nothing that counts or skips finished components sees it).  A restarted run takes the latest
+# checkpoint of an unfinished component from the RESUME logs, restores the random generator state and continues with
+# the next direction, so its result line is identical to that of an uninterrupted run (a container restart used to
+# lose the whole component, up to several hours).
+PARTIAL = {}
 for lf in os.environ.get('RESUME', '').split(':'):
     if lf and os.path.exists(lf):
-        DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
+        for l in open(lf):
+            if l.startswith('lam='):
+                DONE.add(l.split(' g=')[0])
+            elif l.startswith('#partial '):
+                key, rest = l[len('#partial '):].split(' next=', 1)
+                nxt, rest = rest.split(' res=', 1)
+                rs, rest = rest.split(' spans=', 1)
+                sp, rest = rest.split(' secs=', 1)
+                secs, st = rest.split(' state=', 1)
+                if int(nxt) > PARTIAL.get(key, (0,))[0]:
+                    PARTIAL[key] = (int(nxt), ast.literal_eval(rs), ast.literal_eval(sp), float(secs), ast.literal_eval(st))
 if ns[0] == ns[1] == ns[2]:
     triples = itertools.combinations_with_replacement(partitions(d, ns[0]), 3)
 elif ns[1] == ns[2]:        # factors 2 and 3 interchangeable: unordered (l2, l3)
@@ -285,11 +302,20 @@ for cost, li, lam, g in comps:
         continue
     t0 = time.time()
     crng = np.random.default_rng([SEED, li])
-    res, spans = {}, []
+    res, spans, start, prev = {}, [], 0, 0.0
+    if str(lam) in PARTIAL:
+        start, res, spans, prev, st = PARTIAL[str(lam)]
+        crng.bit_generator.state = st
+        print('# resuming %s at direction %d (checkpoint after %.1fs)' % (lam, start, prev)); sys.stdout.flush()
+    t0 -= prev
     try:
-        for dirn in range(3):
+        for dirn in range(start, 3):
             rd, span, tried = direction(lam, g, dirn, crng)
             res.update(rd); spans.append(span)
+            if dirn < 2:
+                print('#partial %s next=%d res=%r spans=%r secs=%.1f state=%r' % (lam, dirn + 1, {k: tuple(int(x) for x in v) for k, v in res.items()},
+                                                                             [int(x) for x in spans], time.time() - t0,
+                                                                             crng.bit_generator.state)); sys.stdout.flush()
     except TooExpensive as e:
         # recorded with the 'lam=' prefix so that RESUME skips it in later runs of this stage; a later stage with a
         # larger MAXFLOPS drops these lines from its RESUME log (grep -v 'NOT CHECKED') and recomputes them

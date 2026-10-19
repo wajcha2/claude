@@ -2175,3 +2175,21 @@ lam=((5, 2, 1), (5, 2, 1), (4, 2, 1, 1)) g=9 dims=(256, 1440, 450)  H1:256/256 V
 # blocks: Z-first (454 x 2252) of 454 x 4504, 4.01e+09 flops, largest intermediate 2.56e+07
 # blocks: Z-first (454 x 2252) of 454 x 4504, 3.36e+10 flops, largest intermediate 2.56e+07
 # blocks: Z-first (454 x 563) of 454 x 4504, 7.47e+10 flops, largest intermediate 3.20e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 2.34e+10 flops, largest intermediate 1.85e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 1.99e+10 flops, largest intermediate 2.07e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 1.27e+10 flops, largest intermediate 3.20e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 1.17e+10 flops, largest intermediate 3.20e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 8.12e+10 flops, largest intermediate 3.20e+07
+# blocks: Z-first (454 x 563) of 454 x 4504, 1.55e+10 flops, largest intermediate 2.07e+07
+lam=((3, 2, 2, 1), (5, 2, 1), (4, 2, 1, 1)) g=10 dims=(15, 1440, 450)  H1:15/15 V1:150/150 g1:15/15 H2:1440/1440 V2:5935/5935 g2:1440/1440 H3:450/450 V3:4275/4275 g3:450/450  span=10,10,10 cost=2.31e+07 (10581.2s)
+# sweep_fast n=4,5,5 d=8 ranks=[8, 9] seed=5 worker 1/4 noV=False p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=inf MAXFLOPS=inf: 1578 components, 1566 already done
+#partial ((4, 2, 1, 1), (4, 3, 1), (4, 3, 1)) next=1 res={(0, 'gen'): (45, 45), (0, 'Vstack'): (495, 495)} spans=[11] secs=19.0 state={'bit_generator': 'PCG64', 'state': {'state': 111482123982768512143927272151574513114, 'inc': 346142311261400297547135857538015179}, 'has_uint32': 0, 'uinteger': 2429702546}
+# blocks: Z-first (1054 x 362) of 1054 x 11554, 6.31e+10 flops, largest intermediate 2.44e+07
+# blocks: Z-first (1054 x 362) of 1054 x 11554, 1.15e+11 flops, largest intermediate 2.44e+07
+# blocks: Z-first (1054 x 181) of 1054 x 11554, 4.08e+10 flops, largest intermediate 1.91e+07
+# blocks: Z-first (1054 x 181) of 1054 x 11554, 5.24e+10 flops, largest intermediate 1.91e+07
+# blocks: Z-first (1054 x 362) of 1054 x 11554, 1.64e+11 flops, largest intermediate 3.05e+07
+# blocks: Z-first (1054 x 362) of 1054 x 11554, 1.43e+11 flops, largest intermediate 2.44e+07
+# blocks: Y-first (5 x 11554) of 1054 x 11554, 6.68e+11 flops, largest intermediate 2.31e+07
+# blocks: Y-first (33 x 11554) of 1054 x 11554, 9.01e+10 flops, largest intermediate 2.44e+07
+# blocks: Z-first (1054 x 46) of 1054 x 11554, 2.38e+11 flops, largest intermediate 1.94e+07

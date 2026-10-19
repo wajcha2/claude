@@ -93,7 +93,7 @@ launch_deg() {  # degree maxcost worker-slots...
 [ -n "$W13" ] && launch_deg 13 $MC13 $W13
 [ -n "$W14" ] && launch_deg 14 $MC14 $W14
 # V-stack workers (with V, no MAXCOST; MEMCAP halved since 2026-10-19: two OOM kills with 4 workers near the ~13.5 GB cgroup limit): degree from file vstack_deg, list promV5_d<d>.txt, slots VW of NV
-vleft() { python3 -c "import sys; d=set(l.split(' g=')[0][4:] for l in open('hwv5_d$1_V_done.log') if l.startswith('lam=')); print(sum(1 for l in open('promV5_d$1.txt') if l.strip() and l.strip() not in d))" 2>/dev/null || grep -c . promV5_d$1.txt; }
+vleft() { python3 -c "import sys; d=set(l.split(' g=')[0][4:] for l in open('hwv5_d$1_V_done.log') if l.startswith('lam=')); import os; d|=set(l.split('  ')[0] for l in open('deferred_oom.txt')) if os.path.exists('deferred_oom.txt') else set(); print(sum(1 for l in open('promV5_d$1.txt') if l.strip() and l.strip() not in d))" 2>/dev/null || grep -c . promV5_d$1.txt; }
 # when the current V degree is exhausted, move on to the next degree that has a promV5 list (user 2026-10-18: d=10 after d=9)
 if [ -s vstack_deg ]; then VD=$(cat vstack_deg)
   if [ -f promV5_d$((VD+1)).txt ] && [ "$(vleft $VD)" = 0 ]; then echo "*** V d=$VD exhausted, switching to d=$((VD+1))"; VD=$((VD+1)); echo $VD > vstack_deg; fi

@@ -94,7 +94,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   rerun, resume consistently).
   2026-10-19 07:43: 5x5x5 d=8 rank 9 complete (1090 of 1090 directions, rerun included): not separated; the last
   component ((5,2,1),(4,2,1,1),(4,2,1,1)) dir 1 (clean, one process): generic V13 18205 at rank 9 and 10 (5.5 h,
-  peak 5.8 GB).  Remaining: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun.  `special/sync.sh` copies special/live into
+  peak 5.8 GB).  Remaining: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun.
+  2026-10-19 12:34: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun done (10.8 h, not separated); all 9 superseded directions
+  rerun with the same outcome.  ALL JOBS OF special/jobs.txt DONE (runner: nothing left); no hit outside the
+  positive controls (special/res/controls.jsonl), no generic H_k / V_k separation in 2208 directions.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

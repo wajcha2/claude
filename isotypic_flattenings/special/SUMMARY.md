@@ -3,7 +3,7 @@
 **Question** (PROMPT_specialU.md): do *special* subspaces U of the multiplicity space separate tensor ranks that
 generic U do not -- in a degree below the scan's lowest separating degree, or at ranks the scan has not separated?
 
-**Answer so far: no.**  No special U separates a target rank in any case checked (hits: none).  Positive controls
+**Answer: no** (all planned runs complete, 2026-10-19).  No special U separates a target rank in any case checked (hits: none).  Positive controls
 reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) dir 1, rank 4 vs 5: drop point 26 vs
 27 (generic 27/27); C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)) dir 1, rank 6 vs 7: drop point 220 vs 225 (generic 225/225).
 
@@ -25,7 +25,7 @@ special U separate none of them, so these lowest separating degrees of the scan 
 
 **Generic H- and V-stacks (U = generic subspace of every dim k = 1..g, including U = M).**  Every direction above
 has the generic-U profile (H_k and V_k ranks for all k at the target ranks; special/res/*.jsonl, key 'generic'):
-none separates (0 of 2207 directions on 2026-10-19 08:00), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1090
+none separates (0 of 2208 directions), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1090
 directions, all of them; 1315 saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
 rank 9), where the other sweeps ran without V-stacks (agents/to-all-Vstacks.md).
 
@@ -34,8 +34,9 @@ V-stack (U = M) of 17280 on a rank-9 vs 18205 on a rank-10 tensor -- it would ha
 rank 9 vs 10 -- but fresh tensors give 18205 at rank 9 as well (seeds 101 and 202, p = 524287 and 524269).  The
 rank-9 tensor had been evaluated by two processes that chose different fillings (rankscan.Direction's choice
 depends on PYTHONHASHSEED); a duplicated filling matrix capped the stack at 12 x 1440.  Now every process uses
-PYTHONHASHSEED = 0 and checkpoints are keyed by the fillings; the 9 earlier directions that may have mixed two
-processes are being rerun (agents/special.md); the outcome column below stands for all other directions.
+PYTHONHASHSEED = 0 and checkpoints are keyed by the fillings.  The 9 earlier directions that may have mixed two
+processes were rerun from scratch (2026-10-18/19; old records in special/superseded.jsonl): same outcome, not
+separated.  The clean run of the component itself gives 18205 at rank 9 and 10.
 
 **What the special loci look like.**
 * Tensor-independent rank-drop loci of one functional exist in many components (4x4x4 d = 7: 22 of 210 directions

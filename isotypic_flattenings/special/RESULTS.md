@@ -15,7 +15,7 @@ reproduced first (special/logs/controls.log): C^3 d=6 ((4,2),(3,2,1),(3,2,1)) di
 |---|---|---|---|---|
 | 4x4x4 | 6 vs 7 (generic: lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, linear components + recursion, U_k flag / swaps / intersections (H, V, all dims), lines through / inside natural U; plane resultants (codim 2) and Grassmannian pencils for all g >= 3 | not separated |
 | 5x5x5 | 8 vs 9 (generic: d = 6) | 5 | all (g = 2: complete) | not separated |
-| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7; 8 running (1081 of 1090 directions) | line, flag, pflag, gline | not separated |
+| 5x5x5 | 9 vs 10 (d13 agent) | 5, 6, 7, 8 (all g >= 2 components, all directions; d = 8: 1090) | line, flag, pflag, gline | not separated |
 | 6x6x6 | 10..13 (generic, scan 2026-10-13: rank 10 lowest d = 8) | 5, 6, 7 (all g >= 2 components, all directions) | line, flag, pflag, gline (204 of 406 d = 7 Grassmannian pencils skipped by the size cap) | not separated |
 | 7x7x7 | 12..18 | 5, 6 | line, flag, pflag, gline | not separated |
 | 8x8x8 | 12..23 | 5, 6 (all g >= 2 components, all directions; ((3,2,1),(3,2,1),(2,1,1,1,1)): word minors allow ranks <= 16 only, checked for 12..15) | line, flag, pflag, gline (28 of 30 d = 6 Grassmannian pencils skipped by the size cap) | not separated |
@@ -29,8 +29,8 @@ special U separate none of them, so these lowest separating degrees of the scan 
 
 **Generic H- and V-stacks (U = generic subspace of every dim k = 1..g, including U = M).**  Every direction above
 has the generic-U profile (H_k and V_k ranks for all k at the target ranks; special/res/*.jsonl, key 'generic'):
-none separates (0 of 2199 directions on 2026-10-13 08:30), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1081 of
-1090 directions; 1309 of them saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
+none separates (0 of 2207 directions on 2026-10-19 08:00), e.g. 5x5x5 rank 9 vs 10 at d = 6, 7, 8 (53 + 307 + 1090
+directions, all of them; 1315 saturated: every H_k and V_k already at its bound min(n1, k n23), min(k n1, n23) at
 rank 9), where the other sweeps ran without V-stacks (agents/to-all-Vstacks.md).
 
 **A false alarm (2026-10-18), and a fix.**  5x5x5 d = 8 ((5,2,1),(4,2,1,1),(4,2,1,1)) dir 1 showed a generic

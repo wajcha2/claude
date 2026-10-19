@@ -91,7 +91,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   checkpoints; a direction evaluated in one process is consistent (the fillings only differ between processes).
   2026-10-19 01:45: container restarted again; runner restarted 01:47 (checkpoints keyed by the fillings,
   PYTHONHASHSEED=0: the two remaining jobs, 5x5x5 d=8 ((5,2,1),(4,2,1,1),(4,2,1,1)) and 6x6x6 d=7 ((4,2,1)^3)
-  rerun, resume consistently).  `special/sync.sh` copies special/live into
+  rerun, resume consistently).
+  2026-10-19 07:43: 5x5x5 d=8 rank 9 complete (1090 of 1090 directions, rerun included): not separated; the last
+  component ((5,2,1),(4,2,1,1),(4,2,1,1)) dir 1 (clean, one process): generic V13 18205 at rank 9 and 10 (5.5 h,
+  peak 5.8 GB).  Remaining: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

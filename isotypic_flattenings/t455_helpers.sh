@@ -20,6 +20,6 @@ launch() {  # d M O k
   else CD=claims455_$(tag $d $M $O); [ -n "$O" ] && OF=$MAIN/only455_$O.txt; ALL=$(ls hwv455_d$d*.log 2>/dev/null | tr '\n' ':'); fi
   mkdir -p $CD
   for f in $CD/*; do [ -f "$f" ] && [ "$(cat $f)" = "$W" ] && rm -f "$f"; done      # drop the dead worker's claims
-  RESUME=$ALL MAXDIM=$M CLAIMDIR=$CD ONLY=$OF setsid nohup python3 sweep_fast.py 4,5,5 $d 8,9 5 $W $NWA $FLAG >> $L 2>&1 < /dev/null &
+  VONLY=1 VLOCK_GB=1 RESUME=$ALL MAXDIM=$M CLAIMDIR=$CD ONLY=$OF setsid nohup python3 sweep_fast.py 4,5,5 $d 8,9 5 $W $NWA $FLAG >> $L 2>&1 < /dev/null &
   echo "runner: launched $(tag $d $M $O) worker $W -> $L ($(date -u +%FT%TZ))"
 }

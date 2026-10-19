@@ -14,7 +14,7 @@ for d in ${VDEGREES:-7 8}; do
   if tail -1 $L 2>/dev/null | grep -q "^n=4,5,5 d=.* FOUND:"; then continue; fi
   mkdir -p $CD; for f in $CD/*; do [ -f "$f" ] && [ "$(cat $f)" = "0" ] && rm -f "$f"; done
   echo "Vrunner: d=$d start ($(date -u +%FT%TZ))"
-  RESUME=$(ls hwv455V_d$d*.log 2>/dev/null | tr '\n' ':') CLAIMDIR=$CD python3 sweep_fast.py 4,5,5 $d 8,9 5 0 4 >> $L 2>&1
+  VONLY=1 VLOCK_GB=1 RESUME=$(ls hwv455V_d$d*.log 2>/dev/null | tr '\n' ':') CLAIMDIR=$CD python3 sweep_fast.py 4,5,5 $d 8,9 5 0 4 >> $L 2>&1
   echo "Vrunner: d=$d exit $? ($(date -u +%FT%TZ))"
 done
 echo "Vrunner: all V degrees done ($(date -u +%FT%TZ))"

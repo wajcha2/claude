@@ -1,8 +1,9 @@
+"""python3 test_ckpt.py <empty dir>   checkpoint/resume of rankscan.compute_F: interrupt a block evaluation, resume, compare."""
 import os, sys, shutil, numpy as np
 CK = sys.argv[1]
 shutil.rmtree(CK, ignore_errors=True)
 os.environ.update(MEMCAP=str(2 ** 12), CKPT=CK, CKPT_EVERY='0', OPENBLAS_NUM_THREADS='1')
-sys.path.insert(0, '/home/user/claude/isotypic_flattenings')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rankscan as R
 from hwv import p
 n, d, SEED = 4, 6, 5

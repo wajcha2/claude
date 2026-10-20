@@ -154,10 +154,16 @@ def _ckpt_load(path):
         return None
 
 
-def _ckpt_save(path, F, yb, zb, nxt):
-    """atomically (rename) write the matrix and the position of the block loop."""
+def _plain(f):
+    """a filling as plain nested lists of ints (JSON, and a repr that does not depend on numpy's int types)."""
+    return json.loads(json.dumps(f, default=int))
+
+
+def _ckpt_save(path, F, yb, zb, nxt, f=None):
+    """atomically (rename) write the matrix, the position of the block loop and the filling it belongs to."""
     np.save(path + '.tmp.npy', F)
-    json.dump({'yb': yb, 'zb': zb, 'next': nxt, 't': time.time()}, open(path + '.tmp.json', 'w'))
+    json.dump({'yb': yb, 'zb': zb, 'next': nxt, 't': time.time(), 'filling': _plain(f) if f is not None else None},
+              open(path + '.tmp.json', 'w'))
     os.replace(path + '.tmp.npy', path + '.npy')
     os.replace(path + '.tmp.json', path + '.json')
 
@@ -221,10 +227,10 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
         ops, out = build_network(f, vm, slice_pm(pm, ys, zs))
         F[ys, zs] = execute(ops, out, pb)
         if ckpt and time.time() - last > CKPT_EVERY and idx + 1 < nblocks:
-            _ckpt_save(ckpt, F, yb, zb, idx + 1)
+            _ckpt_save(ckpt, F, yb, zb, idx + 1, f)
             last = time.time()
     if ckpt and os.path.exists(ckpt + '.json'):   # a long evaluation (it was checkpointed): keep the finished matrix
-        _ckpt_save(ckpt, F, yb, zb, nblocks)       # until the profile is done (a later filling may still be cut)
+        _ckpt_save(ckpt, F, yb, zb, nblocks, f)    # until the profile is done (a later filling may still be cut)
     return F
 
 
@@ -425,6 +431,8 @@ class Direction:
         g, N1, K = self.span, self.N1, self.K
         big = g * N1 * K
         Fs = np.empty((g, N1, K), dtype=np.float64 if big <= (1 << 26) else np.float32)
+        if CKPT and g == 1:
+            self.adopt_ckpt_filling(r)
         cks = [self.ckpt_name(r, i) for i in range(g)] if CKPT else [None] * g
         for i, fl in enumerate(self.fillings):
             Fs[i] = compute_F(fl[0], vm, self.pm, fl[1], fl[2], ckpt=cks[i])
@@ -464,18 +472,44 @@ class Direction:
               flush=True)
         return {'H': H, 'V': V}
 
-    def ckpt_name(self, r, i):
-        """checkpoint prefix for filling i at rank r: a hash of everything the matrix depends on (points, tensor,
-        filling, prime, sizes), so a checkpoint is only ever resumed by the identical computation."""
+    def ckpt_base(self, r, i):
+        """checkpoint prefix of filling slot i at rank r without the filling: a hash of the evaluation points, the
+        rank-r tensor, the prime and the sizes."""
         import hashlib
         h = hashlib.sha1()
-        h.update(repr((self.n, self.lam_p, self.t, r, i, self.N1, self.K, p, self.fillings[i][0])).encode())
+        h.update(repr((self.n, self.lam_p, self.t, r, i, self.N1, self.K, p)).encode())
         for a in self.gs:
             h.update(np.ascontiguousarray(a).tobytes())
         for a in self.vecs[r]:
             h.update(np.ascontiguousarray(a).tobytes())
         os.makedirs(CKPT, exist_ok=True)
         return os.path.join(CKPT, 'n%d_t%d_r%d_f%d_%s' % (self.n, self.t, r, i, h.hexdigest()[:16]))
+
+    def ckpt_name(self, r, i):
+        """checkpoint prefix: ckpt_base + a hash of the filling, so a checkpoint is only ever resumed by the
+        identical computation."""
+        import hashlib
+        fh = hashlib.sha1(json.dumps(_plain(self.fillings[i][0])).encode()).hexdigest()[:8]
+        return self.ckpt_base(r, i) + '_' + fh
+
+    def adopt_ckpt_filling(self, r):
+        """g = 1: every filling with a nonzero highest weight vector gives the same flattening up to a nonzero
+        scalar, so the rank does not depend on which one is used.  The choice among candidates goes through a
+        path-cost ranking whose ties depend on the process (string hashing), so a restarted worker may pick another
+        filling than the one a checkpoint was written with (2026-10-20: the 8x8x8 hook rerun lost 13 h that way).
+        If a checkpoint of this slot exists with another filling, use that filling (the furthest one)."""
+        import glob
+        best = None
+        for jf in glob.glob(self.ckpt_base(r, 0) + '_*.json'):
+            try:
+                meta = json.load(open(jf))
+            except (OSError, ValueError):
+                continue
+            if meta.get('filling') is not None and (best is None or meta.get('next', 0) > best[0]):
+                best = (meta.get('next', 0), meta['filling'])
+        if best is not None and _plain(self.fillings[0][0]) != best[1]:
+            self.fillings[0] = [best[1], None, None]     # path searched again by compute_F
+            print('  . adopted the filling of an existing checkpoint (block %d)' % best[0], flush=True)
 
     def saturated(self, P):
         return all(h >= u for h, u in zip(P['H'], self.ubH)) and (not VSTACK or all(v >= u for v, u in zip(P['V'], self.ubV)))

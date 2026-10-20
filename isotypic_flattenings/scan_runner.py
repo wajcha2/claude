@@ -39,7 +39,8 @@ MONITOR = int(os.environ.get('MONITOR', '300'))
 REPORT = int(os.environ.get('REPORT', '900'))
 SCAN = os.environ.get('SCAN', 'scan/live')
 STATE = os.path.join(SCAN, 'state.json')
-WENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
+WENV = {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1', 'PYTHONDONTWRITEBYTECODE': '1',
+        'PYTHONHASHSEED': '0'}   # reproducible path-search tie-breaking, hence filling choice (checkpoints)
 WENV['CKPT'] = os.path.join(SCAN, 'ckpt')   # rankscan.py checkpoints long block evaluations here (since 2026-10-20: a
                                             # container restart had cost the 8x8x8 hook rerun 24.7 h of work)
 MARKS = ('failed', 'deferred', 'timeout', 'done')       # claim files that are not held by a worker ('done': restored claim of a finished component)

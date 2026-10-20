@@ -144,6 +144,7 @@ resumes it; the saved block shape is reused (the path search is randomised); a f
 rank profile of that rank is done, then all its checkpoints are deleted.  Test (test_ckpt.py, 4x4x4 d = 6,
 MEMCAP 2^12, 88 blocks): interrupted at block 6, resumed, matrix identical to the uninterrupted one; the profile with
 checkpoints equals the one without.  Workers started before 2026-10-20 00:46 run without checkpoints.
+Fix 2026-10-20 19:38: the first real resume failed.  The filling (highest weight vector) is chosen among random candidates by a path-cost ranking whose ties depend on Python's per-process string hashing, so the restarted 8x8x8 hook rerun picked candidate 4 instead of 6 and found no checkpoint (13 h of work at block 15069 of 41216 would have been redone).  Now (a) a checkpoint stores its filling and is named <points/tensor hash>_<filling hash>; (b) for g = 1 -- every filling with a nonzero vector gives the same flattening up to a nonzero scalar, so the rank does not depend on it -- a worker adopts the filling of an existing checkpoint of the same slot (rankscan.Direction.adopt_ckpt_filling); (c) workers run with PYTHONHASHSEED=0, so the choice is reproducible (for g >= 2 too).  The old checkpoint's filling was identified by replaying the candidate draws (candidate 6) and the file moved to the new scheme.  test_ckpt.py also tests (b).
 
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at

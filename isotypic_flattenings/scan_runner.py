@@ -525,6 +525,7 @@ def main():
     except OSError:
         pass
     mem_wait = None
+    skip_logged = {}      # job -> component logged as skipped for the reservation
     paused = set()
     mem_wait_strict = False
     strict_set = set()    # backfills running when the exception expired (only they may still keep the waiting one out)
@@ -729,6 +730,16 @@ def main():
                     if not workers or used + need_mb <= budget:
                         pick = (name, nc, need_mb, False)
                         break
+                    # cannot start before a long-running (> LONGRUN) non-backfilled component finishes, whatever else
+                    # runs: it holds no reservation, the next job in line does (since 2026-10-20 09:19: the 9.4 GB 9x9x9
+                    # component, blocked by the > 1 day 8x8x8 hook rerun, kept the 4.8 GB 7x7x7 ones from ever fitting)
+                    long_nb = sum(v for pid, v in ests.items() if pid not in backfill and now - workers[pid][3] > LONGRUN)
+                    if long_nb + need_mb > budget:
+                        if skip_logged.get(name) != nc[0]:
+                            skip_logged[name] = nc[0]
+                            log('memory: %s %s (~%.1f GB) cannot start before a long-running component finishes: '
+                                'the next job in line holds the reservation' % (name, nc[1], need_mb / 1024))
+                        continue
                     reserve = need_mb
                     reserve_extra = bool(job.get('extra'))
                     blocked_nb = used - bf_used + need_mb > budget

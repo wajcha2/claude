@@ -7,7 +7,8 @@ idle=0
 while true; do
   sleep 300
   n=$(ps -eo args | awk '$1=="python3" && $3=="sweep_fast.py"' | wc -l)
-  if [ "$n" -lt "${NWANT:-3}" ]; then
+  want=${NWANT:-$([ "$(cat vstack_deg 2>/dev/null)" = 9 ] && echo 2 || echo 3)}   # d=14 paused while V d=9 runs
+  if [ "$n" -lt "$want" ]; then
     echo "keepalive: $n workers alive at $(date -u +%FT%TZ), running the check-in"
     out=$(bash d13_checkin.sh 4 2>&1)
     echo "$out" | grep -E "left under|launched|pushed|nothing"

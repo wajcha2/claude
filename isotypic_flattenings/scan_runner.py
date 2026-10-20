@@ -719,7 +719,7 @@ def main():
             ests = {pid: running_est(pid) for pid in workers}
             used = sum(ests.values())
             bf_used = sum(v for pid, v in ests.items() if pid in backfill)
-            reserve, pick, reserve_extra = None, None, False
+            reserve, pick, reserve_extra, blocked_nb = None, None, False, False
             for _, name in cands:
                 job = st['jobs'][name]
                 excl = {li for pid, (li, _) in predicted.items() if pid in workers and workers[pid][1] == name}
@@ -731,7 +731,8 @@ def main():
                         break
                     reserve = need_mb
                     reserve_extra = bool(job.get('extra'))
-                    if used - bf_used + need_mb > budget:
+                    blocked_nb = used - bf_used + need_mb > budget
+                    if blocked_nb:
                         # blocked by components that were not backfilled: backfills cannot delay it yet, keep cores busy
                         mem_wait_t0, mem_wait_strict, grace = None, False, True
                     else:
@@ -771,8 +772,12 @@ def main():
                 # 2026-10-18 19:19: a core idled behind a 10 h 8x8x8 hook component that the waiting 9x9x9 one needs gone)
                 blockers = [pid for pid in strict_set if pid in workers]
                 long_block = bool(blockers) and all(now - workers[pid][3] > LONGRUN for pid in blockers)
+                # (while non-backfilled components block it, any size may backfill -- since 2026-10-20 07:47: the 4.8 GB
+                #  7x7x7 components were starved behind the 9.4 GB 9x9x9 one, which could not start before the 8x8x8
+                #  hook rerun ends in > 1 day anyway; the 30 min clock then bounds the delay once they are gone)
                 if used + need_mb <= budget and ((grace and (bf_used + need_mb + reserve <= budget or
-                                                             (not reserve_extra and (job['stage'] <= 3 or need_mb <= 4096))))
+                                                             (not reserve_extra and (blocked_nb or job['stage'] <= 3 or
+                                                                                     need_mb <= 4096))))
                                                  or (not grace and (fits_beside or (long_block and not reserve_extra and
                                                                                     (job['stage'] <= 3 or need_mb <= 4096))))):
                     pick = (name, nc, need_mb, True)

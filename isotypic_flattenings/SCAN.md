@@ -52,7 +52,7 @@ elimination 21512^2) and the 6x6x6 d = 7 component ((4,2,1)^3) (g = 9) need ~7 G
 (their components are redone).  While a component waits, later jobs may backfill only as long as the backfilled
 components together leave room for it (it fits as soon as the other running components finish; since 2026-10-07 01:42).
 Exception (to keep cores busy behind a long waiting component): cheap (cost band <= 3) or small (<= 4 GB) components
-may backfill regardless, but not past a waiting extra-job component and, since 2026-10-12 13:48, not for more than
+-- and, since 2026-10-20 07:47, components of any size while non-backfilled components alone keep the waiting one out (the 4.8 GB 7x7x7 d = 7 components were starved behind the 9.4 GB 9x9x9 one, which could not start before the 8x8x8 hook rerun ends anyway) -- may backfill regardless, but not past a waiting extra-job component and, since 2026-10-12 13:48, not for more than
 BFWAIT s (scan/live/bfwait; 1 h, 30 min since 15:52) of the time in which only backfilled components keep the waiting
 one out (since 15:52; before, the clock ran from the start of the wait, so a component blocked by a long
 non-backfilled one left cores idle to no effect): the 10x10x10 d = 6 component ((5,1),(2,2,1,1),(2,2,1,1))

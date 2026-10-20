@@ -49,7 +49,9 @@ EXTRA = 8
 ONEROW = os.environ.get('ONEROW', '1') == '1'   # closed-form fast path for components ((d), mu, mu)
 COLWEDGE = os.environ.get('COLWEDGE', '1') == '1'   # closed-form fast path for components (lam, lam^T, (1^d))
 SATPROBE = int(os.environ.get('SATPROBE', '1'))           # probe the highest feasible rank when the needed ranks are not
-SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))   # ... and at most this many below the lowest needed rank
+SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))
+CKPT = os.environ.get('CKPT', '')                         # checkpoint directory for long block evaluations ('' = off)
+CKPT_EVERY = float(os.environ.get('CKPT_EVERY', '1800'))  # s between checkpoints of a block evaluation   # ... and at most this many below the lowest needed rank
 
 
 def generic_rank(n):
@@ -142,10 +144,29 @@ class Infeasible(Exception):
     pass
 
 
-def compute_F(f, vm, pm, path=None, info=None, cheap=False):
+def _ckpt_load(path):
+    """(F, yb, zb, next block) from a checkpoint of compute_F's block loop, or None."""
+    try:
+        meta = json.load(open(path + '.json'))
+        F = np.load(path + '.npy')
+        return F, meta['yb'], meta['zb'], meta['next']
+    except (OSError, ValueError, KeyError):
+        return None
+
+
+def _ckpt_save(path, F, yb, zb, nxt):
+    """atomically (rename) write the matrix and the position of the block loop."""
+    np.save(path + '.tmp.npy', F)
+    json.dump({'yb': yb, 'zb': zb, 'next': nxt, 't': time.time()}, open(path + '.tmp.json', 'w'))
+    os.replace(path + '.tmp.npy', path + '.npy')
+    os.replace(path + '.tmp.json', path + '.json')
+
+
+def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
     """flattening matrix F[Y, Z] (sweep_fast.compute_F: block splitting when an intermediate exceeds MEMCAP, both
     halving orders tried, the full block's checked path reused for edge blocks).  Raises Infeasible if no block
-    shape fits 4 * MEMCAP."""
+    shape fits 4 * MEMCAP.  ckpt: file prefix; the block loop then saves F and its position every CKPT_EVERY s
+    and resumes from such a checkpoint (same block shape; the caller makes the prefix unique for its inputs)."""
     N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
     ops, out = build_network(f, vm, pm)
     # the word-minor inputs do not depend on the points: when one of them is already larger than MEMCAP (allowed up
@@ -180,12 +201,30 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
     total, order, yb, zb, pb, ib, bb = best
     if bb > 4 * cap:
         raise Infeasible('no block path within 4*cap (largest intermediate %.2e, cap %.2e)' % (bb, cap))
-    F = np.zeros((N1, K), dtype=np.float64)
-    for y0 in range(0, N1, yb):
-        for z0 in range(0, K, zb):
-            ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
-            ops, out = build_network(f, vm, slice_pm(pm, ys, zs))
-            F[ys, zs] = execute(ops, out, pb)
+    st = _ckpt_load(ckpt) if ckpt else None
+    if st is not None and st[0].shape == (N1, K):
+        F, yb_s, zb_s, start = st
+        if (yb_s, zb_s) != (yb, zb):          # the path search is randomised: resume with the saved block shape
+            yb, zb = yb_s, zb_s
+            ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
+            pb, ib, bb = best_path(ops, out, cap=cap)
+        print('  . resumed block evaluation at block %d of %d (%s)' % (start, (-(-N1 // yb)) * (-(-K // zb)),
+                                                                        os.path.basename(ckpt)), flush=True)
+    else:
+        F, start = np.zeros((N1, K), dtype=np.float64), 0
+    nbz = -(-K // zb)
+    nblocks = (-(-N1 // yb)) * nbz
+    last = time.time()
+    for idx in range(start, nblocks):         # row-major over (Y blocks, Z blocks), as before
+        y0, z0 = (idx // nbz) * yb, (idx % nbz) * zb
+        ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
+        ops, out = build_network(f, vm, slice_pm(pm, ys, zs))
+        F[ys, zs] = execute(ops, out, pb)
+        if ckpt and time.time() - last > CKPT_EVERY and idx + 1 < nblocks:
+            _ckpt_save(ckpt, F, yb, zb, idx + 1)
+            last = time.time()
+    if ckpt and os.path.exists(ckpt + '.json'):   # a long evaluation (it was checkpointed): keep the finished matrix
+        _ckpt_save(ckpt, F, yb, zb, nblocks)       # until the profile is done (a later filling may still be cut)
     return F
 
 
@@ -338,6 +377,7 @@ class Direction:
         self.vecs = vecs
         self.crng = crng
         gs = random_gs(crng, n, self.N1, self.K)
+        self.gs = gs
         self.pm = [{L: minors_of_points(gs[u], L) for L in col_lengths(self.lam_p[u])} for u in range(3)]
         self.rprobe = rmax_feasible
         self.choose_fillings()
@@ -385,8 +425,9 @@ class Direction:
         g, N1, K = self.span, self.N1, self.K
         big = g * N1 * K
         Fs = np.empty((g, N1, K), dtype=np.float64 if big <= (1 << 26) else np.float32)
+        cks = [self.ckpt_name(r, i) for i in range(g)] if CKPT else [None] * g
         for i, fl in enumerate(self.fillings):
-            Fs[i] = compute_F(fl[0], vm, self.pm, fl[1], fl[2])
+            Fs[i] = compute_F(fl[0], vm, self.pm, fl[1], fl[2], ckpt=cks[i])
         t1 = time.time()
         cache = {}
 
@@ -414,10 +455,27 @@ class Direction:
             H = prefix_ranks(lambda k: phi(k).T, N1, self.n1, g); V = H[:1]
         self.times[r] = (round(t1 - t0, 2), round(time.time() - t1, 2))
         del Fs
+        for c in cks:                         # the profile is done: its checkpoints are no longer needed
+            for ext in ('.npy', '.json'):
+                if c and os.path.exists(c + ext):
+                    os.remove(c + ext)
         # progress line (one per evaluated rank: shows where a long component spends its time)
         print('  . %s dir %d r=%d H=%s V=%s eval %.0fs rref %.0fs' % (self.lam_p, self.t, r, H, V, t1 - t0, time.time() - t1),
               flush=True)
         return {'H': H, 'V': V}
+
+    def ckpt_name(self, r, i):
+        """checkpoint prefix for filling i at rank r: a hash of everything the matrix depends on (points, tensor,
+        filling, prime, sizes), so a checkpoint is only ever resumed by the identical computation."""
+        import hashlib
+        h = hashlib.sha1()
+        h.update(repr((self.n, self.lam_p, self.t, r, i, self.N1, self.K, p, self.fillings[i][0])).encode())
+        for a in self.gs:
+            h.update(np.ascontiguousarray(a).tobytes())
+        for a in self.vecs[r]:
+            h.update(np.ascontiguousarray(a).tobytes())
+        os.makedirs(CKPT, exist_ok=True)
+        return os.path.join(CKPT, 'n%d_t%d_r%d_f%d_%s' % (self.n, self.t, r, i, h.hexdigest()[:16]))
 
     def saturated(self, P):
         return all(h >= u for h, u in zip(P['H'], self.ubH)) and (not VSTACK or all(v >= u for v, u in zip(P['V'], self.ubV)))

@@ -134,6 +134,17 @@ reruns); its claim was released, so it is redone when 10x10x10 resumes.  Its 7.6
 9x9x9 d = 6 components waiting.  The open candidate stays open.  10x10x10 state when paused: d <= 5 complete for
 r = 15, d = 6: 24 of 119 components of band 4 (29 of 119 overall) checked, none separating.
 
+## Checkpoints of long block evaluations (2026-10-20)
+Container restarts kill every worker (2026-10-13 12:45 to 10-18 07:10; 10-18 23:52; 10-20 00:35), and the 8x8x8 d = 7
+rerun of ((6,1),(2,1^5),(2,1^5)) (ranks 13, 14 with WCAP 2^28) lost 1.5 h and then 24.7 h of work.  rankscan.py now
+saves the block loop of compute_F (the matrix so far and the next block) every CKPT_EVERY = 1800 s to <CKPT>/
+(scan/live/ckpt, set by the runner; untracked) and resumes from it.  The file name is a hash of everything the matrix
+depends on (evaluation points, the rank-r tensor, the filling, prime, sizes), so only the identical computation
+resumes it; the saved block shape is reused (the path search is randomised); a finished matrix is kept until the
+rank profile of that rank is done, then all its checkpoints are deleted.  Test (test_ckpt.py, 4x4x4 d = 6,
+MEMCAP 2^12, 88 blocks): interrupted at block 6, resumed, matrix identical to the uninterrupted one; the profile with
+checkpoints equals the one without.  Workers started before 2026-10-20 00:46 run without checkpoints.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

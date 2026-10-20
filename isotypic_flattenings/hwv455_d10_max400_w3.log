@@ -618,3 +618,13 @@ lam=((5, 5), (4, 3, 1, 1, 1), (4, 3, 1, 1, 1)) g=4 dims=(196, 175, 175)  H1:196/
 # blocks: Z-first (183 x 92) of 183 x 183, 5.59e+09 flops, largest intermediate 2.72e+07
 #partial ((6, 2, 1, 1), (3, 3, 3, 1), (3, 3, 3, 1)) next=2 res={(0, 'gen'): (140, 140), (0, 'Hstack'): (140, 140), (1, 'gen'): (175, 175), (1, 'Hstack'): (175, 175)} spans=[5, 5] secs=31.0 state={'bit_generator': 'PCG64', 'state': {'state': 11545935262167460813745266149737851186, 'inc': 209176850105784196514289745280618227453}, 'has_uint32': 1, 'uinteger': 2529970118}
 lam=((6, 2, 1, 1), (3, 3, 3, 1), (3, 3, 3, 1)) g=5 dims=(140, 175, 175)  H1:140/140 g1:140/140 H2:175/175 g2:175/175 H3:175/175 g3:175/175  span=5,5,5 cost=4.44e+05 (49.1s)
+#partial ((5, 2, 2, 1), (3, 3, 3, 1), (3, 3, 2, 2)) next=1 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70)} spans=[8] secs=26.8 state={'bit_generator': 'PCG64', 'state': {'state': 154310543899497112072900315971067705524, 'inc': 150996807543113574396230941049485956159}, 'has_uint32': 0, 'uinteger': 566810934}
+# blocks: Z-first (183 x 92) of 183 x 183, 8.80e+09 flops, largest intermediate 3.01e+07
+# blocks: Z-first (183 x 92) of 183 x 183, 8.70e+09 flops, largest intermediate 2.72e+07
+# blocks: Z-first (183 x 92) of 183 x 183, 1.46e+10 flops, largest intermediate 3.02e+07
+# blocks: Z-first (183 x 46) of 183 x 183, 1.75e+10 flops, largest intermediate 2.72e+07
+#partial ((5, 2, 2, 1), (3, 3, 3, 1), (3, 3, 2, 2)) next=2 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70), (1, 'gen'): (175, 175), (1, 'Hstack'): (175, 175)} spans=[8, 8] secs=91.6 state={'bit_generator': 'PCG64', 'state': {'state': 21981767309426231357695570850786737807, 'inc': 150996807543113574396230941049485956159}, 'has_uint32': 0, 'uinteger': 4148960507}
+# blocks: Y-first (2 x 16) of 8 x 16, 1.59e+09 flops, largest intermediate 1.70e+07
+# blocks: Z-first (134 x 67) of 134 x 134, 5.04e+09 flops, largest intermediate 1.98e+07
+# blocks: Z-first (134 x 67) of 134 x 134, 4.64e+09 flops, largest intermediate 1.98e+07
+lam=((5, 2, 2, 1), (3, 3, 3, 1), (3, 3, 2, 2)) g=8 dims=(70, 175, 126)  H1:70/70 g1:70/70 H2:175/175 g2:175/175 H3:126/126 g3:126/126  span=8,8,8 cost=4.60e+05 (126.4s)

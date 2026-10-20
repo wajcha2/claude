@@ -1,2 +1,9 @@
 # sweep_fast n=4,5,5 d=10 ranks=[8, 9] seed=5 worker 0/4 noV=True p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=400.0 MAXFLOPS=inf: 7244 components, 725 already done
 #partial ((4, 4, 1, 1), (4, 2, 2, 2), (4, 2, 2, 2)) next=1 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50)} spans=[5] secs=10.4 state={'bit_generator': 'PCG64', 'state': {'state': 338292226525176144576156470318277138500, 'inc': 88721696624471383104124470994717896889}, 'has_uint32': 0, 'uinteger': 4197815578}
+# blocks: Y-first (13 x 208) of 208 x 208, 1.31e+11 flops, largest intermediate 1.77e+07
+#partial ((4, 4, 1, 1), (4, 2, 2, 2), (4, 2, 2, 2)) next=2 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50), (1, 'gen'): (200, 200), (1, 'Hstack'): (200, 200)} spans=[5, 5] secs=52.1 state={'bit_generator': 'PCG64', 'state': {'state': 68041273160943847680157936159434312753, 'inc': 88721696624471383104124470994717896889}, 'has_uint32': 1, 'uinteger': 1590898698}
+# blocks: Z-first (208 x 104) of 208 x 208, 1.65e+10 flops, largest intermediate 3.07e+07
+lam=((4, 4, 1, 1), (4, 2, 2, 2), (4, 2, 2, 2)) g=5 dims=(50, 200, 200)  H1:50/50 g1:50/50 H2:200/200 g2:200/200 H3:200/200 g3:200/200  span=5,5,5 cost=4.49e+05 (71.7s)
+#partial ((4, 2, 2, 2), (4, 2, 2, 2), (3, 3, 3, 1)) next=1 res={(0, 'gen'): (10, 10), (0, 'Hstack'): (10, 10)} spans=[6] secs=8.4 state={'bit_generator': 'PCG64', 'state': {'state': 138742981747504488311029455116390647741, 'inc': 109601904138663287403472702189871118933}, 'has_uint32': 1, 'uinteger': 2760036797}
+#partial ((4, 2, 2, 2), (4, 2, 2, 2), (3, 3, 3, 1)) next=2 res={(0, 'gen'): (10, 10), (0, 'Hstack'): (10, 10), (1, 'gen'): (200, 200), (1, 'Hstack'): (200, 200)} spans=[6, 6] secs=40.3 state={'bit_generator': 'PCG64', 'state': {'state': 330389645395955762073053572151310329546, 'inc': 109601904138663287403472702189871118933}, 'has_uint32': 0, 'uinteger': 4143300013}
+# blocks: Z-first (183 x 92) of 183 x 183, 1.57e+10 flops, largest intermediate 2.72e+07

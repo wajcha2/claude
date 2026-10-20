@@ -1177,3 +1177,19 @@ lam=((5, 3), (3, 3, 2), (3, 2, 1, 1, 1)) g=2 dims=[4410, 1470, 384] ok  wall=446
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 571621/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 571623/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
   . ((5, 1, 1, 1), (5, 1, 1, 1), (4, 3, 1)) dir 0 r=10 H=[1575, 1575] V=[1575, 3150] eval 77s rref 28s
+  . ((5, 3), (5, 1, 1, 1), (5, 1, 1, 1)) dir 0 r=10 H=[4410, 4410] V=[4410, 8820] eval 935s rref 265s
+  . ((5, 1, 1, 1), (5, 3), (5, 1, 1, 1)) dir 1 r=10 H=[1575, 1575] V=[1575, 3150] eval 29s rref 28s
+lam=((5, 3), (5, 1, 1, 1), (5, 1, 1, 1)) g=2 dims=[4410, 1575, 1575] ok  wall=1259.7s rss=1556MB
+# worker 571621 done, 1260s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 571624/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((4, 3, 1), (5, 1, 1, 1), (5, 1, 1, 1)) dir 2 r=10 H=[4410, 4410] V=[4410, 8820] eval 1021s rref 260s
+lam=((5, 1, 1, 1), (5, 1, 1, 1), (4, 3, 1)) g=2 dims=[1575, 1575, 4410] ok  wall=1389.7s rss=1562MB
+# worker 571623 done, 1390s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 571625/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((5, 1, 1, 1), (4, 3, 1), (4, 1, 1, 1, 1)) dir 0 r=10 H=[1575, 1575] V=[1575, 3150] eval 248s rref 27s
+  . ((4, 3, 1), (5, 1, 1, 1), (4, 1, 1, 1, 1)) dir 1 r=10 H=[4410, 4410] V=[4410, 8820] eval 826s rref 257s
+  . ((4, 1, 1, 1, 1), (5, 1, 1, 1), (4, 3, 1)) dir 2 r=10 H=[315, 315] V=[315, 630] eval 3s rref 1s
+lam=((5, 1, 1, 1), (4, 3, 1), (4, 1, 1, 1, 1)) g=2 dims=[1575, 4410, 315] ok  wall=1374.3s rss=1564MB
+# worker 571624 done, 1374s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 571626/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((5, 1, 1, 1), (4, 2, 2), (3, 2, 2, 1)) dir 0 r=10 H=[1575, 1575, 1575] V=[1575, 3150, 4725] eval 1123s rref 58s

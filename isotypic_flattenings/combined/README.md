@@ -82,14 +82,34 @@ rank-3 / 4 / 5 tensors).  Also with a shared Y = C^2 on the target side (family 
 d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits besides the three known components,
 `logs/c3_d5_r45.log`, e.g. target (221, 221), sources {221, 5}: 6 vs 9 while the single blocks give 3/3 and 6/6.)
 
-### C^4 (rank 6 vs 7: isotypic flattenings first at d = 8, Koszul of the isotypic tensor at d = 5)
+### C^4 (rank 6 vs 7: isotypic flattenings first at d = 8, Koszul of the isotypic tensor at d = 5; combined: d = 6)
 * d = 2, 3 (ranks 4..7): no new separation; the lowest degrees of 4 vs 5 (d = 2) and 5 vs 6 (d = 3) are not lowered
   (`logs/c4_d2_r4567.log`, `logs/c4_d3_r4567.log`).
 * d = 4: nothing for 6 vs 7 (families A, B with aux 1, 2, 3 and E; `logs/c4_d4_r67.log`).
 * d = 6, family E (all reshaped (k, l), k, l >= 2, of the 99 components with g >= 2): nothing (`logs/c4_d6_r67_E.log`).
 * d = 5: nothing (families A, B with aux 1, 2, 3 and E; greedy 4 runs per lattice; 1522 s; `logs/c4_d5_r67.log`).
   So at d = 5 the Koszul flattening of the isotypic tensor (koszul4_d5_done.log) separates and these do not.
-* d = 6 (A, B): running (`logs/c4_d6_r67_{A,B}.log`).
+* **d = 6: rank 6 vs 7 SEPARATED** (isotypic flattenings: first at d = 8), family B (`logs/c4_d6_r67_B.log`; A still running):
+  target S^{321}B ⊗ S^{222}C (dim 64 · 10 = 640; S^{222}C^4 = S^2C^* ⊗ det^2), sources λ ∈ {51, 42, 411} (all g = 1,
+  dims 140, 126, 70) with the Kronecker spaces on the source side, i.e. the (140 + 126 + 70) × 640 matrix
+  S^{51}A^* ⊕ S^{42}A^* ⊕ S^{411}A^* → S^{321}B ⊗ S^{222}C (entries of degree 6 in T):
+
+  | sources | rank 5 | rank 6 | rank 7 | rank 8 |
+  |---|---|---|---|---|
+  | 51 | 110 | 140 | 140 | 140 |
+  | 42 | 116 | 126 | 126 | 126 |
+  | 411 | 70 | 70 | 70 | 70 |
+  | 42 + 51 | 176 | 256 | 256 | 256 |
+  | 411 + 51 | 150 | 204 | 204 | 204 |
+  | 411 + 42 | 181 | 196 | 196 | 196 |
+  | **411 + 42 + 51** | 196 | **316** | **320** | 320 |
+  | all six sources (321 with g = 2 at full level) | 220 | 400 | 400 | 400 |
+  | all six, generic functional on M_321 | 220 | 396 | 400 | 400 |
+
+  The drop is 4 = codim σ_6, and no proper sub-sum of {51, 42, 411} separates.  So the 317 × 317 minors (degree 1902 in T)
+  vanish on σ_6 and not on a general tensor.  Verified: seeds 5, 11, 23 (p = 524287) and 31, 47 (p = 524269), lattice
+  dimensions and directly assembled block matrix agree every time; sampling exact by the bounds of `Context.exact`.
+  Supersets that add 3111, 2211 or 321 (generic functional) also separate (e.g. all with 321 at level 1: 396 vs 400).
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
 * d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).

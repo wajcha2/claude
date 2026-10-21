@@ -1,5 +1,6 @@
 # job queue for the C^4 (x) C^5 (x) C^5 sweep (rank 8 vs 9): one line per job "<d> <MAXDIM> [<name>]", processed in order;
 # a name restricts the job to the components listed in only455_<name>.txt (adj = C^5 factor of adjoint type (3,2,2,2,1));
+# (c1e7 = the d = 10 components outside the other d = 10 jobs with ROWCAP cost proxy g*sum(min(n1,g*n23)+8)(min(n1,n23)+8) <= 1e7)
 # the name V makes it a V-stack pass (sweep_fast without noV), shared with the spare-core runner t455V_runner.sh (t455_helpers.sh)
 2 inf
 3 inf
@@ -17,3 +18,4 @@
 10 400
 10 1000
 10 inf adj
+10 inf c1e7

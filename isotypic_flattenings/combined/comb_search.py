@@ -1,6 +1,6 @@
 """comb_search.py -- search for COMBINED isotypic flattenings that separate rank r_low from rank r_high.
 
-usage: python3 comb_search.py n d r_low,r_high [options]
+usage: python3 comb_search.py n d r_1,r_2[,r_3..] [options]   (separations r_i vs r_{i+1})
   --fam A,B,E        families (default A,B):
        A  fixed source lam, sum over targets (mu, nu); Kronecker spaces on the target side (aux = 1, levels l = 1, g),
           or with --aux k >= 2 on the source side via a shared X = C^k (generic Psi_j: X -> M_j^*)
@@ -14,7 +14,7 @@ usage: python3 comb_search.py n d r_low,r_high [options]
   --only-lam "lam;lam"  restrict family A to these sources;  --only-mn "mu|nu;..."  restrict family B
   --emax E           family E: skip (k, l) whose sampled matrix has more than E entries (default 4e7)
 Every subset S tested is a flattening; '*** SEPARATES' marks dim on rank r_low < dim on rank r_high (exact = the
-sample sizes guarantee the exact rank).  Rank r_low <= rank r_high always (semicontinuity), so only strict drops print.
+sample sizes guarantee the exact rank).  Ranks are nondecreasing in r (semicontinuity); every consecutive pair of the rank list is checked.
 Per lattice a summary line: members, number of subsets tested, singles/all/natural values, max drop."""
 import sys, os, time, itertools, argparse
 import numpy as np
@@ -45,9 +45,10 @@ NHITS = {}                 # lattice -> [new hits, hits containing a separating 
 MAXPRINT = 20
 SEEN = set()               # subsets already reported
 
-def report(fam, S, dims, how):
-    """print a separating S if it is NEW: no summand of S separates on its own (other hits are only counted)."""
-    fk = (fam.kind, fam.key, fam.aux)
+def report(fam, S, dims, how, pair):
+    """print a separating S if it is NEW: no summand of S separates the same rank pair on its own (other hits are
+    only counted).  pair = index i: ranks[i] vs ranks[i+1]."""
+    fk = (fam.kind, fam.key, fam.aux, pair)
     skey = fk + tuple(sorted(map(repr, S)))
     if skey in SEEN:
         return
@@ -64,8 +65,9 @@ def report(fam, S, dims, how):
     ex = fam.exact(S)
     head = 'fam%s%s %s=%s' % (fam.kind, '' if fam.aux == 1 else '(aux=%d)' % fam.aux, 'lam' if fam.kind == 'A' else 'mn',
                               fmt(fam.key) if fam.kind == 'A' else '%s|%s' % (fmt(fam.key[0]), fmt(fam.key[1])))
-    line = '*** SEPARATES%s %s %s %s ranks %s exact=%s (%s)' % ('' if len(S) == 1 else ' NEW', head, fam.describe(S),
-                                                                  '/'.join(map(str, dims)), '/'.join(map(str, ranks)), ex, how)
+    line = '*** SEPARATES%s r%d<r%d %s %s %s ranks %s exact=%s (%s)' % ('' if len(S) == 1 else ' NEW', ranks[pair], ranks[pair + 1],
+                                                                          head, fam.describe(S), '/'.join(map(str, dims)),
+                                                                          '/'.join(map(str, ranks)), ex, how)
     print(line); sys.stdout.flush()
     FOUND.append(line)
 
@@ -92,11 +94,12 @@ def search(fam, rng):
         if not S:
             return None
         dims = fam.dims(S); tested[0] += 1
-        drop = dims[-1] - dims[0]
+        drop = dims[-1] - dims[-2]          # the top pair (r_last - 1 vs r_last) drives the greedy search
         if drop > best[0]:
             best[:] = [drop, S, dims]
-        if drop > 0:
-            report(fam, S, dims, how)
+        for i in range(len(dims) - 1):
+            if dims[i] < dims[i + 1]:
+                report(fam, S, dims, how, i)
         return dims
     singles = {}
     for x in members:
@@ -133,7 +136,7 @@ def search(fam, rng):
             scores = []
             for y in rest:
                 dims = test(S + [y], 'greedy')
-                scores.append((dims[-1] - dims[0], rng.random(), y))
+                scores.append((dims[-1] - dims[-2], rng.random(), y))
             scores.sort(key=lambda t: (-t[0], t[1]))
             S.append(scores[0][2]); rest.remove(scores[0][2])
     return tested[0], best, singles, named
@@ -143,7 +146,7 @@ def summary(fam, tested, best, singles, named, secs):
     nv = ' '.join('%s:%s' % (k, '/'.join(map(str, v))) for k, v in named.items() if v is not None)
     head = 'fam%s%s %s=%s' % (fam.kind, '' if fam.aux == 1 else '(aux=%d)' % fam.aux, 'lam' if fam.kind == 'A' else 'mn',
                               fmt(fam.key) if fam.kind == 'A' else '%s|%s' % (fmt(fam.key[0]), fmt(fam.key[1])))
-    cnt = NHITS.get((fam.kind, fam.key, fam.aux), [0, 0])
+    cnt = [sum(v[i] for k, v in NHITS.items() if k[:3] == (fam.kind, fam.key, fam.aux)) for i in (0, 1)]
     print('%s members=%d size=%d tested=%d maxdrop=%d%s new_hits=%d hits_with_separating_single=%d  singles: %s  named: %s  (%.1fs)'
           % (head, len(fam.members), fam.size, tested, best[0],
              '' if not best[0] else ' at %s %s' % (fam.describe(best[1]), '/'.join(map(str, best[2]))), cnt[0], cnt[1], sv, nv, secs))
@@ -193,13 +196,16 @@ if 'E' in fams:
                     out.append('%dx%d:skip' % (k, l)); continue
                 dims, ex = ctx.block_rank([(lam, k)], [(mn, l)])
                 out.append('%dx%d:%s%s' % (k, l, '/'.join(map(str, dims)), '' if ex else '(inexact)'))
-                if dims[0] < dims[-1]:
-                    line = '*** SEPARATES famE %s g=%d k=%d l=%d %s ranks %s exact=%s' % (tri, g, k, l, '/'.join(map(str, dims)), '/'.join(map(str, ranks)), ex)
-                    print(line); FOUND.append(line)
+                for i in range(len(dims) - 1):
+                    if dims[i] < dims[i + 1]:
+                        line = '*** SEPARATES r%d<r%d famE %s g=%d k=%d l=%d %s ranks %s exact=%s' % (ranks[i], ranks[i + 1], tri, g, k, l, '/'.join(map(str, dims)), '/'.join(map(str, ranks)), ex)
+                        print(line); FOUND.append(line)
         print('famE %s g=%d dims=(%d,%d) %s (%.1fs)' % (tri, g, ctx.n1(lam), ctx.n23(mn), ' '.join(out), time.time() - t0))
         sys.stdout.flush()
         ctx.drop([tri])
-nnew = sum(v[0] for v in NHITS.values()); nold = sum(v[1] for v in NHITS.values())
-print('n=%s d=%d ranks=%s total %.0fs: separating singles %d, NEW combined hits %d (printed: first %d per lattice), hits containing a separating single %d'
-      % (args.n, args.d, ranks, time.time() - T0, len(SEPSINGLE), nnew - len(SEPSINGLE), MAXPRINT, nold))
+for i in range(len(ranks) - 1):
+    nnew = sum(v[0] for k, v in NHITS.items() if k[3] == i); nold = sum(v[1] for k, v in NHITS.items() if k[3] == i)
+    nsing = sum(1 for s in SEPSINGLE if s[3] == i)
+    print('n=%s d=%d rank %d vs %d total %.0fs: separating singles %d, NEW combined hits %d (printed: first %d per lattice), hits containing a separating single %d'
+          % (args.n, args.d, ranks[i], ranks[i + 1], time.time() - T0, nsing, nnew - nsing, MAXPRINT, nold))
 print('FOUND (printed lines): %d' % len(FOUND))

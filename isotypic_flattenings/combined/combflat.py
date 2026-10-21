@@ -261,7 +261,8 @@ class Context:
         t0 = time.time()
         F = np.stack([eval_F(f, self.vm(r), self.pm(tri)) for f in self.basis(tri)]).astype(np.uint32)
         if fn:
-            np.save(fn + '.tmp.npy', F); os.replace(fn + '.tmp.npy', fn)
+            tmp = '%s.%d.tmp.npy' % (fn, os.getpid())          # process-unique: parallel workers may share the cache
+            np.save(tmp, F); os.replace(tmp, fn)
         if self.verbose and time.time() - t0 > 30:
             print('#   flats %s r=%d %s %.0fs' % (tri, r, F.shape, time.time() - t0), file=sys.stderr); sys.stderr.flush()
         self._F[key] = F

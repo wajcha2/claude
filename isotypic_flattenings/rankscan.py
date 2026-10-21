@@ -49,9 +49,10 @@ EXTRA = 8
 ONEROW = os.environ.get('ONEROW', '1') == '1'   # closed-form fast path for components ((d), mu, mu)
 COLWEDGE = os.environ.get('COLWEDGE', '1') == '1'   # closed-form fast path for components (lam, lam^T, (1^d))
 SATPROBE = int(os.environ.get('SATPROBE', '1'))           # probe the highest feasible rank when the needed ranks are not
-SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))
+SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))    # ... and at most this many below the lowest needed rank
 CKPT = os.environ.get('CKPT', '')                         # checkpoint directory for long block evaluations ('' = off)
-CKPT_EVERY = float(os.environ.get('CKPT_EVERY', '1800'))  # s between checkpoints of a block evaluation   # ... and at most this many below the lowest needed rank
+CKPT_EVERY = float(os.environ.get('CKPT_EVERY', '1800'))  # s between checkpoints of a block evaluation
+CUT = os.environ.get('CUT', '1') == '1'                    # resolve(): adjacent ends decided on a leading block of F
 
 
 def generic_rank(n):
@@ -391,6 +392,8 @@ class Direction:
         self.ubH = [min(self.n1, k * self.n23) for k in range(1, self.span + 1)]
         self.ubV = [min(k * self.n1, self.n23) for k in range(1, self.span + 1)]
         self.times = {}
+        self.cuts = {}                # r -> cut of a profile evaluated on the leading cut x cut block only
+        self.prof_files = []          # cached profile results to delete once the component is written
 
     def vm(self, r):
         V = tuple(self.vecs[r][u] for u in self.perm)
@@ -424,18 +427,40 @@ class Direction:
         self.span = len(chosen)
         self.tried = tried
 
-    def profile(self, r):
-        """{'H': [rank H_k], 'V': [rank V_k]} at the random rank-r tensor."""
+    def profile(self, r, cut=None):
+        """{'H': [rank H_k], 'V': [rank V_k]} at the random rank-r tensor.  cut (g = 1): evaluate only the leading
+        cut x cut block of F (the first cut random points on each side); its rank is min(cut, rank F) with the same
+        probability argument as the EXTRA margin, so with cut = rank at r - 1 + EXTRA it decides whether the rank
+        exceeds that one (resolve(): adjacent end points), at (cut / N1)^2 of the cost."""
+        pc = self.prof_cache_name(r, cut) if CKPT else None
+        if pc and os.path.exists(pc):
+            try:
+                rec = json.load(open(pc))
+                self.times[r] = tuple(rec['times'])
+                if cut:
+                    self.cuts[r] = cut
+                self.prof_files.append(pc)
+                print('  . %s dir %d r=%d H=%s V=%s (finished earlier, %s)' % (self.lam_p, self.t, r, rec['H'], rec['V'],
+                                                                                os.path.basename(pc)), flush=True)
+                return {'H': rec['H'], 'V': rec['V']}
+            except (OSError, ValueError, KeyError):
+                pass
         t0 = time.time()
         vm = self.vm(r)
         g, N1, K = self.span, self.N1, self.K
+        pm = self.pm
+        if cut:
+            assert g == 1 and cut < min(N1, K)
+            N1 = K = cut
+            pm = slice_pm(self.pm, slice(0, cut), slice(0, cut))
+            self.cuts[r] = cut
         big = g * N1 * K
         Fs = np.empty((g, N1, K), dtype=np.float64 if big <= (1 << 26) else np.float32)
         if CKPT and g == 1:
             self.adopt_ckpt_filling(r)
-        cks = [self.ckpt_name(r, i) for i in range(g)] if CKPT else [None] * g
+        cks = [self.ckpt_name(r, i) + ('_c%d' % cut if cut else '') for i in range(g)] if CKPT else [None] * g
         for i, fl in enumerate(self.fillings):
-            Fs[i] = compute_F(fl[0], vm, self.pm, fl[1], fl[2], ckpt=cks[i])
+            Fs[i] = compute_F(fl[0], vm, pm, fl[1], fl[2], ckpt=cks[i])
         t1 = time.time()
         cache = {}
 
@@ -463,14 +488,28 @@ class Direction:
             H = prefix_ranks(lambda k: phi(k).T, N1, self.n1, g); V = H[:1]
         self.times[r] = (round(t1 - t0, 2), round(time.time() - t1, 2))
         del Fs
-        for c in cks:                         # the profile is done: its checkpoints are no longer needed
+        if pc:                                # keep the result until the component is written (a restarted worker
+            tmp = pc + '.tmp'                 # would otherwise evaluate this rank again: 28 h for the 8x8x8 hook)
+            json.dump({'H': H, 'V': V, 'times': self.times[r], 'cut': cut, 't': time.time()}, open(tmp, 'w'))
+            os.replace(tmp, pc)
+            self.prof_files.append(pc)
+        stale = [self.ckpt_name(r, i) for i in range(g)] if CKPT and cut else []   # a full-size block loop of this
+        for c in cks + stale:                 # rank cut short; the profile is done: its checkpoints are no longer needed
             for ext in ('.npy', '.json'):
                 if c and os.path.exists(c + ext):
                     os.remove(c + ext)
         # progress line (one per evaluated rank: shows where a long component spends its time)
-        print('  . %s dir %d r=%d H=%s V=%s eval %.0fs rref %.0fs' % (self.lam_p, self.t, r, H, V, t1 - t0, time.time() - t1),
+        print('  . %s dir %d r=%d H=%s V=%s eval %.0fs rref %.0fs%s' % (self.lam_p, self.t, r, H, V, t1 - t0, time.time() - t1,
+              ' (leading %dx%d block of %dx%d: rank capped at %d)' % (cut, cut, self.N1, self.K, cut) if cut else ''),
               flush=True)
         return {'H': H, 'V': V}
+
+    def prof_cache_name(self, r, cut=None):
+        """file of a finished profile(r) (kept until the component's record is written).  g > 1: the ranks of the
+        stacked flattenings depend on the chosen fillings, so their hash is part of the name."""
+        import hashlib
+        fh = '' if self.span == 1 else '_' + hashlib.sha1(json.dumps(_plain([f[0] for f in self.fillings])).encode()).hexdigest()[:8]
+        return self.ckpt_base(r, 0) + '_prof' + fh + ('_c%d' % cut if cut else '') + '.json'
 
     def ckpt_base(self, r, i):
         """checkpoint prefix of filling slot i at rank r without the filling: a hash of the evaluation points, the
@@ -586,9 +625,9 @@ def resolve(D, need, rlo, rmax_feasible):
     saturated_from r or None)."""
     prof = {}
 
-    def get(r):
+    def get(r, cut=None):
         if r not in prof:
-            prof[r] = D.profile(r)
+            prof[r] = D.profile(r, cut) if cut else D.profile(r)
         return prof[r]
     need = sorted(x for x in need if x >= rlo)
     if not need:
@@ -602,8 +641,14 @@ def resolve(D, need, rlo, rmax_feasible):
         sat_from = rlo
     elif hi > rlo and word_minor_size(D.lam_p, D.n, hi) <= ENDS * word_minor_size(D.lam_p, D.n, rlo):
         # the top rank costs about as much as the lowest: evaluate both ends first (equal ends settle the whole
-        # interval with 2 evaluations; a doubling search needed 4 for 6x6x6, ranks 10..14), bisect if they differ
-        get(hi); pts.append(hi)
+        # interval with 2 evaluations; a doubling search needed 4 for 6x6x6, ranks 10..14), bisect if they differ.
+        # Adjacent ends (hi = rlo + 1, g = 1): only "rank at hi > rank at rlo?" is asked, which the leading
+        # (rank at rlo + EXTRA)-square block of F answers (2026-10-21: the 8x8x8 hook rerun, 6216^2 of 10304^2)
+        cut = None
+        if CUT and hi == rlo + 1 and isinstance(D, Direction) and D.span == 1:
+            c = max(prof[rlo]['H'] + prof[rlo]['V']) + EXTRA
+            cut = c if c < min(D.N1, D.K) else None
+        get(hi, cut); pts.append(hi)
     else:
         # the top rank is much more expensive (large n): doubling steps from rlo, stop at saturation
         step, a = 1, rlo
@@ -721,6 +766,7 @@ def main():
         rec = {'n': n, 'd': d, 'lam': lam, 'g': g, 'dims': dims, 'need': need, 'rlo': rlo, 'seed': SEED,
                'cost': cost_proxy(n, lam, g), 'dirs': [], 'sep': {}, 'unknown': [], 'worker': WORKER}
         status = 'ok'
+        pfiles = []                     # cached profiles (Direction.prof_files) of this component
         for t in distinct_dirs(lam):
             perm_lam = tuple(lam[u] for u in [t] + [u for u in range(3) if u != t])
             onerow = ONEROW and is_onerow(lam)
@@ -734,6 +780,7 @@ def main():
                     try:
                         D = Direction(n, lam, g, t, crng, vecs, rmax)
                         P = D.profile(rmax)
+                        pfiles += D.prof_files
                         if D.saturated(P):
                             rec['dirs'].append({'t': t, 'method': 'network', 'n1': D.n1, 'n23': D.n23, 'N1': D.N1, 'K': D.K,
                                                 'span': D.span, 'tried': D.tried, 'rmax': rmax, 'sat_from': rmax,
@@ -752,6 +799,7 @@ def main():
                 D = OnerowDirection(n, lam, t, crng, vecs) if onerow else \
                     ColwedgeDirection(n, lam, t, crng, vecs) if colw else Direction(n, lam, g, t, crng, vecs, min(rmax, rgen))
                 prof, sep, unknown, sat = resolve(D, need, rlo, min(rmax, rgen))
+                pfiles += getattr(D, 'prof_files', [])
             except (Infeasible, MemoryError) as e:
                 rec['dirs'].append({'t': t, 'status': 'infeasible', 'why': str(e)[:200]})
                 rec['unknown'] = sorted(set(rec['unknown']) | set(need)); status = 'partial'
@@ -760,6 +808,8 @@ def main():
                                 'tried': D.tried, 'rmax': rmax, 'sat_from': sat,
                                 'prof': {str(r): P for r, P in sorted(prof.items())},
                                 'times': {str(r): v for r, v in sorted(D.times.items())}})
+            if getattr(D, 'cuts', None):       # ranks evaluated on a leading block only: min(cut, rank) there
+                rec['dirs'][-1]['cut'] = {str(r): c for r, c in sorted(D.cuts.items())}
             for x, cfg in sep.items():
                 rec['sep'].setdefault(str(x), []).extend('%d%s' % (t + 1, c) for c in cfg)
             rec['unknown'] = sorted(set(rec['unknown']) | set(unknown))
@@ -772,6 +822,9 @@ def main():
         rec['ts'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         with open(OUT, 'a') as fh:
             fh.write(json.dumps(rec) + '\n')
+        for pf in pfiles:
+            if os.path.exists(pf):
+                os.remove(pf)
         sepstr = ' '.join('r%s:%s' % (x, ','.join(c)) for x, c in sorted(rec['sep'].items(), key=lambda kv: int(kv[0])))
         prof_str = ' | '.join('d%d %s' % (D_['t'] + 1, ' '.join('r%s:%s/%s' % (r, P['H'], P['V'][1:] if len(P['V']) > 1 else '')
                                                                for r, P in D_.get('prof', {}).items()))

@@ -146,6 +146,30 @@ MEMCAP 2^12, 88 blocks): interrupted at block 6, resumed, matrix identical to th
 checkpoints equals the one without.  Workers started before 2026-10-20 00:46 run without checkpoints.
 Fix 2026-10-20 19:38: the first real resume failed.  The filling (highest weight vector) is chosen among random candidates by a path-cost ranking whose ties depend on Python's per-process string hashing, so the restarted 8x8x8 hook rerun picked candidate 4 instead of 6 and found no checkpoint (13 h of work at block 15069 of 41216 would have been redone).  Now (a) a checkpoint stores its filling and is named <points/tensor hash>_<filling hash>; (b) for g = 1 -- every filling with a nonzero vector gives the same flattening up to a nonzero scalar, so the rank does not depend on it -- a worker adopts the filling of an existing checkpoint of the same slot (rankscan.Direction.adopt_ckpt_filling); (c) workers run with PYTHONHASHSEED=0, so the choice is reproducible (for g >= 2 too).  The old checkpoint's filling was identified by replaying the candidate draws (candidate 6) and the file moved to the new scheme.  test_ckpt.py also tests (b).
 
+## Finished ranks kept; adjacent ends decided on a leading block (2026-10-21 20:12)
+The 8x8x8 hook rerun finished rank 13 at 19:52 (direction 0, source S^{61}: H1 = V1 = 6208 on the random rank-13
+tensor, bound min(n1, n23) = 10296, so not saturated; the SATPROBE of the normal run had given 3359 at r = 11).  Two
+gaps showed: (1) a finished profile(r) was not stored -- the matrix checkpoints are deleted once the rank is known, so
+a restart during rank 14 would have evaluated rank 13 again (~28 h); (2) rank 14 is the last feasible rank under
+WCAP 2^28 (word minors 2.1e8 at r = 14, 3.2e8 at r = 15), so resolve() evaluates only r = 13 and r = 14 and asks only
+whether the rank at 14 exceeds 6208.  Changes in rankscan.py:
+* Direction.profile writes each finished profile to <CKPT>/<points/tensor hash>_prof[_<fillings hash> if g > 1]
+  [_c<cut>].json and returns it when the file exists; main() deletes these files once the component's record is
+  written.
+* resolve(), ends-first branch with adjacent ends (hi = rlo + 1) and g = 1: rank at hi is evaluated on the leading
+  cut x cut block of F only (the first cut random evaluation points on each side), cut = rank at rlo + EXTRA.  Its rank
+  is min(cut, rank F) -- the same argument as the EXTRA margin of the full N1 x K evaluation (generic points of the
+  orbit of highest weight vectors, which spans the representation) -- so it is > rank at rlo exactly when the rank at
+  hi is, at (cut / N1)^2 of the cost: 6216^2 / 10304^2 = 36 % for the hook.  The record gets 'cut': {r: cut}; the
+  profile value there is min(cut, rank).  Env CUT=0 disables.  Checkpoints of a cut evaluation carry _c<cut>.
+* test_cut.py: every adjacent pair of three g = 1 directions (4x4x4 d = 3, 5x5x5 d = 5, 6; MEMCAP 2^12, block mode)
+  gives leading-block rank = min(cut, full rank) and the same decision (pairs with and without a rank increase);
+  a cached profile is reused by a new Direction without any evaluation; resolve() with adjacent ends gives the same
+  separations with and without the cut.  test_ckpt.py still passes.
+The rank-13 result was written to its cache file from the worker's progress line (the reconstructed checkpoint hash
+matched the worker's, n8_t0_r13_f0_34ad6c5b243bd45b); the worker (pid 462, 20 min into rank 14, no checkpoint yet)
+was stopped and the runner restarted the component (worker 445078) with the new code.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

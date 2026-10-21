@@ -129,16 +129,14 @@ def search(fam, rng):
         k = int(rng.integers(2, m + 1))
         idx = rng.choice(m, k, replace=False)
         test([(members[i], int(rng.choice(fam.levels[members[i]]))) for i in idx], 'random')
-    for _ in range(args.greedy):
-        # greedy: grow S one member (full level) at a time, keeping the largest drop (ties: random)
-        S, rest = [], list(full)
-        while rest:
-            scores = []
-            for y in rest:
-                dims = test(S + [y], 'greedy')
-                scores.append((dims[-1] - dims[-2], rng.random(), y))
-            scores.sort(key=lambda t: (-t[0], t[1]))
-            S.append(scores[0][2]); rest.remove(scores[0][2])
+    for gi in range(args.greedy):
+        # greedy: grow S one member at a time (full levels; every second run level 1), keeping the largest drop of the
+        # top rank pair (ties: random); incremental RREF, hits re-checked with fam.dims
+        cands = full if gi % 2 == 0 else one
+        for S, dims in fam.greedy([], cands, rng, lambda dm: dm[-1] - dm[-2]):
+            tested[0] += 1
+            if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)) or dims[-1] - dims[-2] > best[0]:
+                test(S, 'greedy')
     return tested[0], best, singles, named
 
 def summary(fam, tested, best, singles, named, secs):

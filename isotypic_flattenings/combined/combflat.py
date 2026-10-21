@@ -73,6 +73,35 @@ def combine(Psi, Fs):
         out = (out + int(c) * F.astype(np.int64)) % p
     return out
 
+def rref(M):
+    """reduced row echelon form of M mod p: (R, pivots), R the nonzero rows (float64 holding residues; every update
+    a - c*b with a, b, c < p stays < p^2 < 2^53, so the arithmetic is exact)."""
+    A = (np.asarray(M) % p).astype(np.float64)
+    rows, cols = A.shape
+    piv, r = [], 0
+    for c in range(cols):
+        if r == rows:
+            break
+        nz = np.flatnonzero(A[r:, c])
+        if nz.size == 0:
+            continue
+        i = r + nz[0]
+        if i != r:
+            A[[r, i]] = A[[i, r]]
+        A[r] = np.mod(A[r] * float(pow(int(A[r, c]), p - 2, p)), p)
+        col = A[:, c].copy(); col[r] = 0
+        nzr = np.flatnonzero(col)
+        if nzr.size:
+            A[nzr] = np.mod(A[nzr] - np.outer(col[nzr], A[r]), p)
+        piv.append(c); r += 1
+    return A[:r], piv
+
+def reduce_rows(V, R, piv):
+    """V (rows) modulo the row space of the RREF basis (R, piv): V - V[:, piv] R, exact mod p."""
+    if not piv:
+        return np.asarray(V, dtype=np.float64) % p
+    return np.mod(np.asarray(V, dtype=np.float64) - mulmod(np.asarray(V)[:, piv], R).astype(np.float64), p)
+
 class Echelon:
     """incremental linear independence test mod p (as in sweep_fast.py)."""
     def __init__(self):
@@ -371,6 +400,7 @@ class LatticeFamily:
             self.size = min(self.ambient, bound + EXTRA)
         self.mats = {r: {} for r in ctx.ranks}
         self._dims = {}
+        self.R = None
         self.build()
 
     def build(self):
@@ -406,17 +436,69 @@ class LatticeFamily:
                         self.mats[r][(m, lev)] = acc.astype(np.uint32)
 
     def dims(self, S):
-        """S: iterable of (member, level).  Returns (dim on rank r_1, ..., dim on rank r_last)."""
+        """S: iterable of (member, level).  Returns (dim on rank r_1, ..., dim on rank r_last).
+        The sum has dim <= h = sum of the single dims (when known), so only the first c = h + EXTRA columns of the
+        compressed matrices are summed (they are random combinations already) and the rows are compressed by the
+        first c rows of a fixed random matrix: an exact c x c rank instead of size x size, except with probability
+        < p^-EXTRA per subset."""
         key = tuple(sorted(S, key=repr))
         if key not in self._dims:
+            h = 0
+            for s in key:
+                d1 = self._dims.get((s,))
+                if d1 is None:
+                    h = self.size; break
+                h += max(d1)
+            c = min(self.size, h + EXTRA)
+            if c < self.size and self.R is None:
+                self.R = np.random.default_rng([self.ctx.seed, 18, self.ctx.dirn, self.tag, self.aux, len(self.members)]).integers(0, p, (self.size, self.size))
             out = []
             for r in self.ctx.ranks:
-                M = np.zeros((self.size, self.size), dtype=np.int64)
+                M = np.zeros((self.size, c), dtype=np.int64)
                 for s in key:
-                    M += self.mats[r][s]
-                out.append(modrank(M % p))
+                    M += self.mats[r][s][:, :c]
+                M %= p
+                if c < self.size:
+                    M = mulmod(self.R[:c], M)
+                out.append(modrank(M))
             self._dims[key] = tuple(out)
         return self._dims[key]
+
+    def basis_rows(self, r, s):
+        """RREF basis (rows in F_p^size) of the subspace of (member, level) s for the rank-r tensor (cached)."""
+        if not hasattr(self, '_basis'):
+            self._basis = {}
+        if (r, s) not in self._basis:
+            self._basis[(r, s)] = rref(self.mats[r][s].T)[0]
+        return self._basis[(r, s)]
+
+    def greedy(self, start, candidates, rng, score):
+        """grow S from `start` by one candidate at a time, maximising score(dims) (ties: random); incremental
+        (RREF basis of the current sum per rank, candidates reduced modulo it).  Returns the chain [(S, dims)]."""
+        ranks = self.ctx.ranks
+        cur = {r: (np.zeros((0, self.size)), []) for r in ranks}
+        S = []
+        for s in start:
+            for r in ranks:
+                cur[r] = rref(np.vstack([cur[r][0], self.basis_rows(r, s)]))
+            S.append(s)
+        chain, rest = [], [c for c in candidates if c not in S]
+        while rest:
+            best = None
+            for c in rest:
+                red = {r: reduce_rows(self.basis_rows(r, c), *cur[r]) for r in ranks}
+                dims = tuple(len(cur[r][1]) + (modrank(red[r]) if red[r].size else 0) for r in ranks)
+                key = (score(dims), rng.random())
+                if best is None or key > best[0]:
+                    best = (key, c, red, dims)
+            _, c, red, dims = best
+            for r in ranks:
+                if red[r].size:
+                    cur[r] = rref(np.vstack([cur[r][0], red[r]]))
+            S.append(c); rest.remove(c)
+            assert tuple(len(cur[r][1]) for r in ranks) == dims
+            chain.append((list(S), dims))
+        return chain
 
     def exact(self, S):
         """sample sizes guarantee the exact dimension of the sum over S (Context.exact of the block matrix)."""

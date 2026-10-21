@@ -67,14 +67,30 @@ Family B, target S^{211}B ⊗ S^{211}C (≅ B⊗C ⊗ det_B ⊗ det_C, dimension
 | all four (4, 31, 22, 211) | 0 | 0 | 3 | 9 | 9 | 9 |
 
 So the 7×7 minors of the (6 + 15) × 9 matrix S^{22}A^* ⊕ S^{31}A^* → S^{211}B ⊗ S^{211}C (entries of degree 4 in T)
-vanish on σ_4 and not on a general tensor.  Verified with two seeds and by the brute force (ranks 3 / 6 / 9 on random
+vanish on σ_4 and not on a general tensor.
+
+**Matrix form.** With E = T_A(A^*) = ⟨X_1, X_2, X_3⟩ ⊂ Mat_3 the slices, S^{211}B ⊗ S^{211}C ≅ Mat_3 (up to det twists) and
+the degree-4 covariant (X, Y) ↦ X·adj(Y)·X has A-type S²⊗S² = S⁴ ⊕ S³¹ ⊕ S²² (no S²¹¹).  Numerically (4 seeds, ranks 1–6):
+
+    dim span{ X adj(Y) X : X, Y ∈ E } = 0, 0, 3, 6, 9, 9      (rank of T = 1, 2, 3, 4, 5, 6)
+
+exactly the profile of the combined flattening; for comparison span{X adj(Y) Z} = 9 already on σ_4 (it also contains the
+S²¹¹ part), and span{X adj(Y) Z − Z adj(Y) X} = 3 on σ_4 and in general (Strassen's commutator, whose determinant gives
+the degree-9 equation).  So: the linear map S²A^* ⊗ S²A^* → Mat_3, (α, β) ↦ T(α) adj(T(β)) T(α) (polarized) has
+rank ≤ 6 on σ_4 and 9 on a general tensor.  Verified with two seeds and by the brute force (ranks 3 / 6 / 9 on random
 rank-3 / 4 / 5 tensors).  Also with a shared Y = C^2 on the target side (family D): all four sources give 12 vs 15.
 d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits besides the three known components,
 `logs/c3_d5_r45.log`, e.g. target (221, 221), sources {221, 5}: 6 vs 9 while the single blocks give 3/3 and 6/6.)
 
-### C^4, rank 6 vs 7
-* d = 4: nothing (families A, B with aux 1, 2, 3 and E; `logs/c4_d4_r67.log`).
-* d = 5, 6: see the logs `logs/c4_d5_r67.log`, `logs/c4_d6_r67_{A,B,E}.log` (running at the time of writing).
+### C^4 (rank 6 vs 7: isotypic flattenings first at d = 8, Koszul of the isotypic tensor at d = 5)
+* d = 2, 3 (ranks 4..7): no new separation; the lowest degrees of 4 vs 5 (d = 2) and 5 vs 6 (d = 3) are not lowered
+  (`logs/c4_d2_r4567.log`, `logs/c4_d3_r4567.log`).
+* d = 4: nothing for 6 vs 7 (families A, B with aux 1, 2, 3 and E; `logs/c4_d4_r67.log`).
+* d = 6, family E (all reshaped (k, l), k, l >= 2, of the 99 components with g >= 2): nothing (`logs/c4_d6_r67_E.log`).
+* d = 5 (A, B, E) and d = 6 (A, B): running (`logs/c4_d5_r67.log`, `logs/c4_d6_r67_{A,B}.log`).
+
+### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
+* d = 4, 5: running (`logs/c5_d4_r78910.log`, `logs/c5_d5_r78910.log`).
 
 ## Usage
 ```

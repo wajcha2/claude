@@ -89,7 +89,8 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
 * d = 6, family E (all reshaped (k, l), k, l >= 2, of the 99 components with g >= 2): nothing (`logs/c4_d6_r67_E.log`).
 * d = 5: nothing (families A, B with aux 1, 2, 3 and E; greedy 4 runs per lattice; 1522 s; `logs/c4_d5_r67.log`).
   So at d = 5 the Koszul flattening of the isotypic tensor (koszul4_d5_done.log) separates and these do not.
-* **d = 6: rank 6 vs 7 SEPARATED** (isotypic flattenings: first at d = 8), family B (`logs/c4_d6_r67_B.log`; A still running):
+* **d = 6: rank 6 vs 7 SEPARATED** (isotypic flattenings: first at d = 8), family B (`logs/c4_d6_r67_B.log`, still running over
+  the remaining targets; family A complete with no separation, `logs/c4_d6_r67_A.log`):
   target S^{321}B ⊗ S^{222}C (dim 64 · 10 = 640; S^{222}C^4 = S^2C^* ⊗ det^2), sources λ ∈ {51, 42, 411} (all g = 1,
   dims 140, 126, 70) with the Kronecker spaces on the source side, i.e. the (140 + 126 + 70) × 640 matrix
   S^{51}A^* ⊕ S^{42}A^* ⊕ S^{411}A^* → S^{321}B ⊗ S^{222}C (entries of degree 6 in T):
@@ -110,6 +111,7 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
   vanish on σ_6 and not on a general tensor.  Verified: seeds 5, 11, 23 (p = 524287) and 31, 47 (p = 524269), lattice
   dimensions and directly assembled block matrix agree every time; sampling exact by the bounds of `Context.exact`.
   Supersets that add 3111, 2211 or 321 (generic functional) also separate (e.g. all with 321 at level 1: 396 vs 400).
+  The mirror target S^{222}B ⊗ S^{321}C gives the same numbers (B <-> C symmetry), as it must.
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
 * d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).

@@ -87,10 +87,13 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
   (`logs/c4_d2_r4567.log`, `logs/c4_d3_r4567.log`).
 * d = 4: nothing for 6 vs 7 (families A, B with aux 1, 2, 3 and E; `logs/c4_d4_r67.log`).
 * d = 6, family E (all reshaped (k, l), k, l >= 2, of the 99 components with g >= 2): nothing (`logs/c4_d6_r67_E.log`).
-* d = 5 (A, B, E) and d = 6 (A, B): running (`logs/c4_d5_r67.log`, `logs/c4_d6_r67_{A,B}.log`).
+* d = 5: nothing (families A, B with aux 1, 2, 3 and E; greedy 4 runs per lattice; 1522 s; `logs/c4_d5_r67.log`).
+  So at d = 5 the Koszul flattening of the isotypic tensor (koszul4_d5_done.log) separates and these do not.
+* d = 6 (A, B): running (`logs/c4_d6_r67_{A,B}.log`).
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
-* d = 4, 5: running (`logs/c5_d4_r78910.log`, `logs/c5_d5_r78910.log`).
+* d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).
+* d = 5: running (`logs/c5_d5_r78910.log`).
 
 ## Usage
 ```

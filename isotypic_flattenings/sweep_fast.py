@@ -210,13 +210,44 @@ def direction(lam, g, dirn, crng):
                 chosen.append((f, path, info))
     coeffs = [int(c) for c in crng.integers(1, p, len(chosen))]
     res = {}
-    R = None
+    R = Rst = None
     # Memory (2026-10-05): the flattenings are computed and consumed one rank at a time (compute_F draws no random
     # numbers, so the random stream is unchanged), and the compression H @ R of the g-fold stack is accumulated block
     # by block in float64 with R kept once as float64, instead of materialising the int64 stack, its float64 copy and an
     # int64 R plus its float64 copy at the same time.  For g = 4, N1 = 9458, K = 3158 (d = 14) that was > 5 GB per worker
     # (a worker was OOM-killed with four of them); the results are identical (exact arithmetic).
     for r in ranks:
+        if NOV and g >= 2 and g * K > N1 + EXTRA:
+            # Memory (2026-10-21): in noV mode nothing needs all g flattenings at once, so each one is folded into the
+            # generic combination and into the compressed H-stack as soon as it is computed, and R is drawn block by
+            # block (block j = rows j*K..(j+1)*K of the old R; the second rank replays the blocks from the saved
+            # generator state).  The random numbers, the generator state afterwards and all results are identical to
+            # the stacked code above (checked); peak ~6 (n1+4)^2 doubles instead of ~2g (n1+4)^2 (7.9 GB for g = 20,
+            # n1 = 4725 in the d = 10 adjoint-type pass, OOM with four such workers).
+            if Rst is None:
+                Rst, Rgen = crng.bit_generator.state, crng
+            else:
+                Rgen = np.random.Generator(type(crng.bit_generator)()); Rgen.bit_generator.state = Rst
+            Fgen, H = np.zeros((N1, K), dtype=np.int64), None
+            for c, (f, path, info) in zip(coeffs, chosen):
+                F = compute_F(f, *pre[r], path, info)
+                if r == rhi:
+                    assert F.any(), 'accepted filling gives a zero flattening'
+                Fgen = (Fgen + c * F) % p
+                Rj = Rgen.integers(0, p, (K, N1 + EXTRA)).astype(np.float64)
+                C = hwv_fast.fmatmul((F % p).astype(np.float64)[None], Rj[None])[0]
+                del F, Rj
+                if H is None:
+                    H = C
+                else:
+                    np.add(H, C, out=H); np.fmod(H, p, out=H)
+                del C
+            res[(dirn, 'gen')] = res.get((dirn, 'gen'), ()) + (modrank(Fgen),)
+            del Fgen
+            H = H.astype(np.int64)
+            res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H),)
+            del H
+            continue
         Fs_r = [compute_F(f, *pre[r], path, info) for f, path, info in chosen]
         if r == rhi:
             for F in Fs_r:

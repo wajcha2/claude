@@ -222,8 +222,8 @@ def direction(lam, g, dirn, crng):
             # generic combination and into the compressed H-stack as soon as it is computed, and R is drawn block by
             # block (block j = rows j*K..(j+1)*K of the old R; the second rank replays the blocks from the saved
             # generator state).  The random numbers, the generator state afterwards and all results are identical to
-            # the stacked code above (checked); peak ~6 (n1+4)^2 doubles instead of ~2g (n1+4)^2 (7.9 GB for g = 20,
-            # n1 = 4725 in the d = 10 adjoint-type pass, OOM with four such workers).
+            # the stacked code above (checked); peak ~7 N1*K doubles instead of ~2g N1*K (with ROWCAP's N1, K: 3.05 ->
+            # 1.25 GB for the largest remaining C^4x5x5 d = 10 adjoint-type component, 9.7 -> 5.0 GB for the four largest).
             if Rst is None:
                 Rst, Rgen = crng.bit_generator.state, crng
             else:

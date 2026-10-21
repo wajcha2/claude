@@ -1,6 +1,6 @@
 # Isotypic-flattening rank scan (n x n x n): status
 
-Updated 2026-10-21 14:35 UTC.  For each format and rank r: the lowest degree d in which some isotypic flattening has smaller rank on a random rank-r tensor than on a random rank-(r+1) tensor, and all components that do it in that degree.  Configurations: `1H1` = direction 1 (source S^{l1}V^*), one generic functional (dim U = 1); `1H2-4` = stacked flattening S^{l1}V^* -> U^* (x) S^{l2}V (x) S^{l3}V for a generic U of dim 2..4; `1V3` = U (x) S^{l1}V^* -> S^{l2}V (x) S^{l3}V, dim U = 3.  Partitions are written without commas, e.g. (62,3221,3221).  Method and code: SCAN.md, rankscan.py.
+Updated 2026-10-21 15:05 UTC.  For each format and rank r: the lowest degree d in which some isotypic flattening has smaller rank on a random rank-r tensor than on a random rank-(r+1) tensor, and all components that do it in that degree.  Configurations: `1H1` = direction 1 (source S^{l1}V^*), one generic functional (dim U = 1); `1H2-4` = stacked flattening S^{l1}V^* -> U^* (x) S^{l2}V (x) S^{l3}V for a generic U of dim 2..4; `1V3` = U (x) S^{l1}V^* -> S^{l2}V (x) S^{l3}V, dim U = 3.  Partitions are written without commas, e.g. (62,3221,3221).  Method and code: SCAN.md, rankscan.py.
 
 * **3x3x3** (generic rank 5): with d up to 5 [d <= 5 complete] separated r = 1-2 at d = 1; r = 3 at d = 2; r = 4 at d = 5 -- every rank up to r_gen - 1 = 4 is separated (max rank reached at d = 5).  Finished.
 * **4x4x4** (generic rank 7): with d up to 8 [d <= 8 complete] separated r = 1-3 at d = 1; r = 4 at d = 2; r = 5 at d = 3; r = 6 at d = 8 -- every rank up to r_gen - 1 = 6 is separated (max rank reached at d = 8).  Finished.
@@ -263,7 +263,7 @@ checked = components with a result (all three directions, every needed rank); re
 ## Last resource samples (scan/monitor.log)
 
 ```
-2026-10-21T14:22:15Z avail=9607MB cgroup=6877MB cgroup_peak=12606MB load=3.12 workers=3 n8_d7_x1:462:3789MB:48026s n7_d7_s5:12291:1417MB:1299s n6_d8_s4:12514:737MB:700s
-2026-10-21T14:27:17Z avail=9925MB cgroup=6435MB cgroup_peak=12606MB load=3.10 workers=3 n8_d7_x1:462:3725MB:48328s n7_d7_s5:12291:1375MB:1601s n6_d8_s4:12514:406MB:1002s
-2026-10-21T14:32:18Z avail=10287MB cgroup=6078MB cgroup_peak=12606MB load=3.06 workers=3 n8_d7_x1:462:3121MB:48630s n7_d7_s5:12291:1622MB:1902s n6_d8_s4:12514:408MB:1304s
+2026-10-21T14:52:23Z avail=8602MB cgroup=7760MB cgroup_peak=12606MB load=3.07 workers=3 n8_d7_x1:462:4313MB:49834s n7_d7_s5:12291:1672MB:3107s n6_d8_s4:12514:847MB:2509s
+2026-10-21T14:57:24Z avail=9581MB cgroup=6882MB cgroup_peak=12606MB load=3.03 workers=3 n8_d7_x1:462:3081MB:50135s n7_d7_s5:12291:2011MB:3408s n6_d8_s4:12514:863MB:2810s
+2026-10-21T15:02:25Z avail=8392MB cgroup=8089MB cgroup_peak=12606MB load=3.03 workers=3 n8_d7_x1:462:3078MB:50437s n7_d7_s5:12291:2435MB:3710s n6_d8_s4:12514:1644MB:3111s
 ```

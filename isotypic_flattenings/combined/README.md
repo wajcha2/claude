@@ -93,7 +93,18 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
 * d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).
-* d = 5: running (`logs/c5_d5_r78910.log`).
+* d = 5: running (`logs/c5_d5_r78910.log`).  First NEW combined hit, rank 7 vs 8 (the same degree where isotypic
+  flattenings first separate 7 vs 8, via ((4,1),(2,1,1,1),(2,1,1,1))): family A, source S^{32}A^* (dim 175), targets
+  Λ^5B ⊗ S^{221}C and S^{221}B ⊗ Λ^5C (dim 75 each, all g = 1):
+
+  | | rank 5 | 6 | 7 | 8 | 9 |
+  |---|---|---|---|---|---|
+  | (1^5, 221) alone | 5 | 30 | 75 | 75 | 75 |
+  | (221, 1^5) alone | 5 | 30 | 75 | 75 | 75 |
+  | **sum** | 5 | 30 | **105** | **150** | 150 |
+
+  Each single target is already of full rank 75 on rank-7 tensors; their column spaces in S^{32}A meet in 45 dimensions
+  on rank 7 and in 0 on rank 8.  Seeds 5, 11, 23, lattice and directly assembled block matrix agree.
 
 ## Usage
 ```

@@ -1,11 +1,10 @@
 # combined flattenings: 4x5x5 rank 8 vs 9, 5x5x5 rank 9 vs 10 (priority order; re-read by comb_jobs.py every cycle)
 # targeted family B: sources lam with lam_1 >= d - 3, lam != (d) (the C^4 d=6 separators use (d-1,1), (d-2,2), (d-2,1,1))
+# (4x5x5 d=8 targeted jobs dropped 2026-10-22: run by the project thread, branch claude/project-thread-uj02nh)
 pat_455_d7_dir0 | 4,5,5 7 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 5000
 pat_555_d7      | 5 7 9,10 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 5000
 pat_455_d7_dir1 | 4,5,5 7 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 5000
-pat_455_d8_dir0 | 4,5,5 8 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 4000
 pat_555_d8      | 5 8 9,10 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 4000
-pat_455_d8_dir1 | 4,5,5 8 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 4000
 # exhaustive / partial family B (running or done)
 p455_d5_dir0 | 4,5,5 5 8,9 --dir 0 --fam A,B,E --aux 1,2 --exhaust 14 --nrand 1000 --greedy 2
 p555_d6_B    | 5 6 9,10 --fam B --aux 1,2 --exhaust 14 --bmax 4000

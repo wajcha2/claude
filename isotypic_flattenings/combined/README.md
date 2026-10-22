@@ -127,6 +127,10 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
 
   Each single target is already of full rank 75 on rank-7 tensors; their column spaces in S^{32}A meet in 45 dimensions
   on rank 7 and in 0 on rank 8.  Seeds 5, 11, 23, lattice and directly assembled block matrix agree.
+  Second one (family B): target S^{2111}B ⊗ S^{2111}C (dim 24 · 24 = 576), sources {32, 5} (dims 175, 126): 232 vs 252
+  (singles 175/175 and 77/77; ranks 6..9: 96, 232, 252, 252; seeds 5 and 11).  Both are at d = 5, the isotypic degree
+  of 7 vs 8, so they do not lower it.  (The run was restarted after a container restart with `--resume`; second part in
+  `logs/c5_d5_r78910_part2.log`.)
 
 ## Usage
 ```

@@ -12,11 +12,12 @@ usage: python3 comb_search.py n d r_1,r_2[,r_3..] [options]   (separations r_i v
   --greedy N         greedy runs per lattice (default 2);  --bmax S: skip B lattices whose compressed size exceeds S
   --seed s (default 5: the tensors of sweep_fast.py with the same seed and rank list), --cache DIR (default live/cache)
   --only-lam "lam;lam"  restrict family A to these sources;  --only-mn "mu|nu;..."  restrict family B
+  --resume L1:L2     skip lattices / components already summarised in these logs (after a restart)
   --emax E           family E: skip (k, l) whose sampled matrix has more than E entries (default 4e7)
 Every subset S tested is a flattening; '*** SEPARATES' marks dim on rank r_low < dim on rank r_high (exact = the
 sample sizes guarantee the exact rank).  Ranks are nondecreasing in r (semicontinuity); every consecutive pair of the rank list is checked.
 Per lattice a summary line: members, number of subsets tested, singles/all/natural values, max drop."""
-import sys, os, time, itertools, argparse
+import sys, os, re, time, itertools, argparse
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from combflat import Context, LatticeFamily, fmt, p
@@ -30,6 +31,7 @@ ap.add_argument('--bmax', type=int, default=2500); ap.add_argument('--emax', typ
 ap.add_argument('--seed', type=int, default=5)
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
+ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
 args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
@@ -150,6 +152,20 @@ def summary(fam, tested, best, singles, named, secs):
              '' if not best[0] else ' at %s %s' % (fam.describe(best[1]), '/'.join(map(str, best[2]))), cnt[0], cnt[1], sv, nv, secs))
     sys.stdout.flush()
 
+# --resume: lattices and family-E components that already have a summary (or SKIPPED) line in an earlier log of the
+# same command are skipped (a container restart kills the run); the final totals then count this run's hits only
+DONE = set()
+for lf in args.resume.split(':'):
+    if lf and os.path.exists(lf):
+        for l in open(lf):
+            m = re.match(r'fam([AB])(?:\(aux=(\d+)\))? (?:lam|mn)=(\S+) (?:members=|aux=(\d+) SKIPPED)', l)
+            if m:
+                DONE.add((m.group(1), int(m.group(2) or m.group(4) or 1), m.group(3)))
+            elif l.startswith('famE '):
+                DONE.add(('E', l[5:].split(' g=')[0]))
+if DONE:
+    print('# resume: %d lattices / components already done' % len(DONE)); sys.stdout.flush()
+
 T0 = time.time()
 if 'A' in fams:
     only = [tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s) for s in args.only_lam.split(';') if s]
@@ -157,6 +173,8 @@ if 'A' in fams:
         if only and lam not in only:
             continue
         for aux in auxes:
+            if ('A', aux, fmt(lam)) in DONE:
+                continue
             t0 = time.time()
             fam = LatticeFamily(ctx, 'A', lam, aux=aux, levels='ends')
             res = search(fam, np.random.default_rng([args.seed, 21, aux] + list(lam)))
@@ -171,6 +189,8 @@ if 'B' in fams:
         if only and mn not in only:
             continue
         for aux in auxes:
+            if ('B', aux, '%s|%s' % (fmt(mn[0]), fmt(mn[1]))) in DONE:
+                continue
             t0 = time.time()
             nmem = sum(1 for lam in ctx.sources if (lam,) + mn in ctx.g)
             bound = min(aux * (ctx.K[mn] - 8), ctx.capB[mn])
@@ -184,7 +204,7 @@ if 'B' in fams:
 if 'E' in fams:
     for tri in sorted(ctx.g, key=lambda t: ctx.g[t] * ctx.N1[t[0]] * ctx.K[t[1:]]):
         g = ctx.g[tri]
-        if g < 2:
+        if g < 2 or ('E', str(tri)) in DONE:
             continue
         lam, mn = tri[0], tri[1:]
         t0 = time.time(); out = []

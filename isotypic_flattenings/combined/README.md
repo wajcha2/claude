@@ -112,6 +112,23 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
   dimensions and directly assembled block matrix agree every time; sampling exact by the bounds of `Context.exact`.
   Supersets that add 3111, 2211 or 321 (generic functional) also separate (e.g. all with 321 at level 1: 396 vs 400).
   The mirror target S^{222}B ⊗ S^{321}C gives the same numbers (B <-> C symmetry), as it must.
+  **Second target, same sources**: S^{411}B ⊗ S^{321}C (dim 70 · 64 = 4480), sources 51 (g = 1), 42 (g = 2), 411 (g = 2) with
+  the full Kronecker spaces on the source side ((140 + 2·126 + 2·70) × 4480 matrix):
+
+  | sources | rank 5 | rank 6 | rank 7 | rank 8 |
+  |---|---|---|---|---|
+  | 51 | 110 | 140 | 140 | 140 |
+  | 42 | 242 | 252 | 252 | 252 |
+  | 411 | 140 | 140 | 140 | 140 |
+  | 42 + 51 | 302 | 382 | 382 | 382 |
+  | 411 + 51 | 220 | 274 | 274 | 274 |
+  | 411 + 42 | 377 | 392 | 392 | 392 |
+  | **411 + 42 + 51** | 392 | **512** | **516** | 516 |
+
+  Verified with seeds 5, 11 (p = 524287) and 47 (p = 524269), lattice = assembled block matrix (k_i = g_i).
+  **Pattern:** in both separators the sources are exactly {51, 42, 411}, the partitions of 6 with first row 4 or 5, i.e.
+  the components of S^4A ⊗ A ⊗ A other than S^6 -- the A-types of a second-order polarization T^{(x)4} · S · S'.
+  (At C^3, d = 4 the separating A-types {22, 31} ⊂ S^2A ⊗ S^2A, from X adj(Y) X, look similar.)
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
 * d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).

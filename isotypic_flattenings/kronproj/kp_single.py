@@ -63,6 +63,7 @@ for lf in args.resume.split(':'):
 print('# kp_single n=%s d=%d ranks=%s seed=%d dir=%d mode=%s gmin=%d p=%d worker %d/%d: %d components, %d already done'
       % (args.n, args.d, ranks, args.seed, args.dir, args.mode, args.gmin, p, args.worker, args.nworkers, len(comps), len(DONE)))
 sys.stdout.flush()
+FOUND = []
 T0 = time.time()
 for i, tri in enumerate(comps):
     N1, K = sizes(tri); g = ctx.g[tri]

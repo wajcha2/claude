@@ -29,6 +29,9 @@ ap.add_argument('--nrand', type=int, default=300); ap.add_argument('--pairs', ty
 ap.add_argument('--triples', type=int, default=1500); ap.add_argument('--greedy', type=int, default=2)
 ap.add_argument('--bmax', type=int, default=2500); ap.add_argument('--emax', type=float, default=4e7)
 ap.add_argument('--seed', type=int, default=5)
+ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); needed for unequal formats such as 4,5,5')
+ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
+ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
@@ -36,9 +39,9 @@ args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
 fams = args.fam.split(','); auxes = [int(x) for x in args.aux.split(',')]
-ctx = Context(ns, args.d, ranks, seed=args.seed, cache=args.cache, auxmax=max(auxes))
-print('# comb_search n=%s d=%d ranks=%s seed=%d fam=%s aux=%s p=%d: %d sources, %d targets, %d ordered components'
-      % (args.n, args.d, ranks, args.seed, args.fam, auxes, p, len(ctx.sources), len(ctx.targets), len(ctx.g)))
+ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes))
+print('# comb_search n=%s d=%d ranks=%s seed=%d dir=%d fam=%s aux=%s exhaust=%d p=%d: %d sources, %d targets, %d ordered components'
+      % (args.n, args.d, ranks, args.seed, args.dir, args.fam, auxes, args.exhaust, p, len(ctx.sources), len(ctx.targets), len(ctx.g)))
 sys.stdout.flush()
 FOUND = []
 
@@ -109,6 +112,21 @@ def search(fam, rng):
             singles[(x, lev)] = test([(x, lev)], 'single')
     if m == 1:
         return tested[0], best, singles, {}
+    if m <= args.exhaust:
+        # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)
+        named = {}
+        for lev in ('full', 1):
+            def cb(S, dims, lev=lev):
+                tested[0] += 1
+                drop = dims[-1] - dims[-2]
+                if drop > best[0]:
+                    best[:] = [drop, list(S), dims]
+                if len(S) == m:
+                    named['all' if lev == 'full' else 'all:1'] = dims
+                if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)):
+                    test(S, 'exhaustive')            # re-checked by a direct rank, then reported
+            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None)
+        return tested[0], best, singles, named
     named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
     for x in members:
         test([y for y in full if y[0] != x], 'all-but-one')

@@ -465,11 +465,13 @@ class LatticeFamily:
         return self._dims[key]
 
     def basis_rows(self, r, s):
-        """RREF basis (rows in F_p^size) of the subspace of (member, level) s for the rank-r tensor (cached)."""
+        """RREF basis (rows in F_p^size) of the subspace of (member, level) s for the rank-r tensor (cached): the column
+        space of the compressed matrix for family A, its ROW space for family B (sum over sources)."""
         if not hasattr(self, '_basis'):
             self._basis = {}
         if (r, s) not in self._basis:
-            self._basis[(r, s)] = rref(self.mats[r][s].T)[0]
+            M = self.mats[r][s]
+            self._basis[(r, s)] = rref(M.T if self.kind == 'A' else M)[0]
         return self._basis[(r, s)]
 
     def greedy(self, start, candidates, rng, score):
@@ -499,6 +501,44 @@ class LatticeFamily:
             assert tuple(len(cur[r][1]) for r in ranks) == dims
             chain.append((list(S), dims))
         return chain
+
+    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None):
+        """every nonempty subset of the members, each at level `level` ('full' = g_m, or an int, capped at the
+        member's top level), by a depth-first walk that keeps one RREF basis per rank and adds one member at a time
+        (reduce its basis modulo the current one, then back-substitute): 2^m - 1 incremental additions instead of
+        2^m rank computations.  maxsize: only subsets with at most that many members.  callback(S, dims) is called
+        for every subset; returns the number of subsets."""
+        ms = self.members
+        if len(ms) > maxmembers:
+            raise ValueError('%d members > maxmembers %d' % (len(ms), maxmembers))
+        sel = [(m, max(self.levels[m]) if level == 'full' else min(level, max(self.levels[m]))) for m in ms]
+        sel = [s if s[1] in self.levels[s[0]] else (s[0], max(l for l in self.levels[s[0]] if l <= s[1])) for s in sel]
+        ranks = self.ctx.ranks
+        count = [0]
+        def add(R, piv, V):
+            red = reduce_rows(V, R, piv)
+            if not red.size or not red.any():
+                return R, piv
+            Rn, pn = rref(red)
+            if not pn:
+                return R, piv
+            if piv:
+                R = np.mod(R - mulmod(R[:, pn], Rn).astype(np.float64), p)      # clear the new pivot columns
+            R2 = np.vstack([R, Rn]); p2 = piv + pn
+            order = np.argsort(p2)
+            return R2[order], [p2[i] for i in order]
+        def dfs(i, cur, S):
+            if maxsize is not None and len(S) >= maxsize:
+                return
+            for j in range(i, len(sel)):
+                nxt = {r: add(*cur[r], self.basis_rows(r, sel[j])) for r in ranks}
+                S2 = S + [sel[j]]
+                count[0] += 1
+                if callback:
+                    callback(S2, tuple(len(nxt[r][1]) for r in ranks))
+                dfs(j + 1, nxt, S2)
+        dfs(0, {r: (np.zeros((0, self.size)), []) for r in ranks}, [])
+        return count[0]
 
     def exact(self, S):
         """sample sizes guarantee the exact dimension of the sum over S (Context.exact of the block matrix)."""

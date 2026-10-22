@@ -169,6 +169,12 @@ whether the rank at 14 exceeds 6208.  Changes in rankscan.py:
 The rank-13 result was written to its cache file from the worker's progress line (the reconstructed checkpoint hash
 matched the worker's, n8_t0_r13_f0_34ad6c5b243bd45b); the worker (pid 462, 20 min into rank 14, no checkpoint yet)
 was stopped and the runner restarted the component (worker 445078) with the new code.
+Result (2026-10-22 06:48): rank 14 on the leading 6216 x 6216 block = 6208 = rank 13, so ((6,1),(2,1^5),(2,1^5))
+does not separate 13 vs 14 (record: sep {}, unknown 14..23, 'cut': {14: 6216}).  The rank stands at 6208 for
+r = 13, 14, far below the bound 10296: most likely its generic value (then nothing >= 13 is separated by it; r >= 15
+is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container restart of 01:20 resumed it from the
+01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
+7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at

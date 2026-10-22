@@ -1472,3 +1472,12 @@ lam=((4, 2, 1, 1), (3, 3, 2), (3, 3, 2)) g=4 dims=[2430, 1470, 1470] ok  wall=19
 lam=((6, 1, 1), (4, 3, 1), (3, 2, 2, 1)) g=2 dims=[3465, 4410, 1050] ok  wall=2588.1s rss=1562MB
 # worker 445082 done, 2588s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 445083/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((6, 2), (4, 2, 1, 1), (3, 3, 2)) dir 0 r=10 H=[4950, 4950] V=[4950, 9900] eval 2989s rref 287s
+  . ((4, 2, 1, 1), (6, 2), (3, 3, 2)) dir 1 r=10 H=[2430, 2430] V=[2430, 4860] eval 133s rref 54s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 321881/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((6, 2), (4, 2, 1, 1), (3, 3, 2)) dir 0 r=10 H=[4950, 4950] V=[4950, 9900] (finished earlier, n6_t0_r10_f0_a37b9819175eade3_prof_931dcc44.json)
+  . ((4, 2, 1, 1), (6, 2), (3, 3, 2)) dir 1 r=10 H=[2430, 2430] V=[2430, 4860] (finished earlier, n6_t1_r10_f0_b251bc0e284296ce_prof_c63636be.json)
+  . ((3, 3, 2), (6, 2), (4, 2, 1, 1)) dir 2 r=10 H=[1470, 1470] V=[1470, 2940] eval 61s rref 25s
+lam=((6, 2), (4, 2, 1, 1), (3, 3, 2)) g=2 dims=[4950, 2430, 1470] ok  wall=88.1s rss=756MB
+# worker 321881 done, 88s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 321883/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list

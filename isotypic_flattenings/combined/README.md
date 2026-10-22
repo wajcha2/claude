@@ -115,7 +115,8 @@ d = 3: nothing.  (Log `logs/c3_d4_r45.log`; at d = 5 many more combined hits bes
 
 ### C^5 (ranks 7..10: isotypic 7 vs 8 at d = 5, 8 vs 9 at d = 6, 9 vs 10 not below d = 13 on the promising lists)
 * d = 4: nothing for 7 vs 8, 8 vs 9, 9 vs 10 (A, B with aux 1, 2, 3 and E; `logs/c5_d4_r78910.log`).
-* d = 5: running (`logs/c5_d5_r78910.log`).  First NEW combined hit, rank 7 vs 8 (the same degree where isotypic
+* d = 5 COMPLETE (families A, B with aux 1, 2 and E; `logs/c5_d5_r78910.log` + `_part2..4` after container restarts):
+  no separation of 8 vs 9 or 9 vs 10, single or combined.  NEW combined hits for rank 7 vs 8 (the same degree where isotypic
   flattenings first separate 7 vs 8, via ((4,1),(2,1,1,1),(2,1,1,1))): family A, source S^{32}A^* (dim 175), targets
   Λ^5B ⊗ S^{221}C and S^{221}B ⊗ Λ^5C (dim 75 each, all g = 1):
 

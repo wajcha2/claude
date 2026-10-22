@@ -176,6 +176,25 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## 6x6x6, rank 10 vs 11 at d = 8: the two separators, rechecked (2026-10-22)
+Components ((5,3),(3,2,1,1,1),nu) with nu = (2,2,1,1,1,1) (dims 4410 x 384 x 15) and nu = (3,1,1,1,1,1) (4410 x 384 x
+21), g = 2 for both (found 2026-10-12 and 2026-10-18; d <= 7 has no separator of 10 vs 11).  Direction 1 (source
+S^{53}V^*): F_u : S^{53}V^* -> S^{32111}V (x) S^nu V for u in the 2-dim multiplicity space M; the separating
+configuration is H2 = [F_u1 | F_u2] : S^{53}V^* -> M^* (x) S^{32111}V (x) S^nu V (U = M), 4410 x 2 n23.  Directions
+2 and 3 (sources of dim 384 and 15 / 21) are at their bounds from r = 10 on.  Ranks (H1 = V1, H2, V2):
+| r | 9 | 10 | 11 | 12 | 14 = r_gen |
+|---|---|---|---|---|---|
+| H1 | 2322 | 2700 | 2700 | 2700 | 2700 |
+| H2 | 2517 | **2775** | **2835** | 2835 | 2835 |
+| V2 | 2598 | 2880 | 2880 | 2880 | 2880 |
+(bounds: H 4410, V2 min(8820, n23) = 5760 / 8064).  Both components have the same numbers in every entry.  r = 10, 11,
+12, 14 from the scan (seed 5); recheck_sep.py with seeds 6 and 7 (other random tensors, evaluation points,
+fillings and generic U; logs scan/recheck_n6_d8_A.log, _B.log, 7 to 20 min per rank) reproduces r = 10, 11 exactly
+for both components and gives r = 9.  So H2 reaches its generic value 2835 at r = 11 and separates exactly 10 vs 11;
+one functional (H1) separates 9 vs 10 but not 10 vs 11, and V2 is constant from r = 10 on.  S^{221111} = det (x)
+Lambda^2 and S^{311111} = det (x) S^2, which differ only in the C-factor after the determinant twist, and the profiles
+coincide; whether that has a structural reason is open.
+
 ## Saturation certificates in the report (2026-10-07)
 A component whose every direction is at its rank bounds (H_k = min(n1, k n23), V_k = min(k n1, n23) for all k) at
 rank s has equal flattening ranks for all r >= s, so it separates no rank >= s.  scan_report.py now counts these ranks

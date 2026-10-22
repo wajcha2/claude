@@ -187,6 +187,8 @@ out.append('  MAXDIM, but their ROWCAP cost varies over 6 orders of magnitude (f
 out.append('  finished d = 10 components): rowcap <= 1e6: 132 components (~1 core-h); <= 1e7: 1160 (~120 core-h); <= 3e7: 2777 (~730);')
 out.append('  <= 1.25e8 (largest finished): 4610 (~2800); all: ~5800 core-h, single components up to ~18 h. Queued "10 inf c1e7" (ONLY list')
 out.append('  only455_c1e7.txt, cheapest first) after the adjoint-type pass; approved by the user 19:07 UTC (further caps need their decision).')
+out.append('* 2026-10-22 ~03:40 UTC: container restart (uptime 0); runner relaunched 03:43 by the check-in, the four in-flight d10_adj')
+out.append('  components resumed from their direction-1 checkpoints (the expensive direction 2 of each, up to ~1 h, was recomputed).')
 out.append('  Random numbers, generator state and results identical: d = 5 (82 components), d = 7 and d = 8 (12 components with g = 3..10')
 out.append('  each) reproduce the production lines exactly. d10_max1000 workers keep the old code; the d10_adj workers use the new one.')
 out.append('')

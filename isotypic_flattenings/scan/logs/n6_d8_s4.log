@@ -1513,3 +1513,8 @@ lam=((5, 2, 1), (4, 1, 1, 1, 1), (4, 1, 1, 1, 1)) g=2 dims=[5760, 315, 315] ok  
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 321897/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 747632/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
   . resumed block evaluation at block 1364 of 2884 (n6_t0_r10_f1_c6e0a5dd8543fed5_26580473)
+  . ((5, 2, 1), (4, 1, 1, 1, 1), (2, 2, 2, 1, 1)) dir 0 r=10 H=[5760, 5760] V=[5760, 11520] eval 4584s rref 457s
+  . ((4, 1, 1, 1, 1), (5, 2, 1), (2, 2, 2, 1, 1)) dir 1 r=10 H=[315, 315] V=[315, 630] eval 15s rref 1s
+  . ((2, 2, 2, 1, 1), (5, 2, 1), (4, 1, 1, 1, 1)) dir 2 r=10 H=[105, 105] V=[105, 210] eval 3s rref 0s
+lam=((5, 2, 1), (4, 1, 1, 1, 1), (2, 2, 2, 1, 1)) g=2 dims=[5760, 315, 105] ok  wall=5095.9s rss=2508MB
+# worker 747632 done, 5096s

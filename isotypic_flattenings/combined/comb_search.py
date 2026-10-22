@@ -91,7 +91,8 @@ def report(fam, S, dims, how, pair):
     FOUND.append(line)
 
 def natural_groups(fam):
-    """named member subsets: family A by mu, by nu, diagonal; family B by number of rows and by first row."""
+    """named member subsets: family A by mu, by nu, diagonal, transposed pairs {(mu, nu), (nu, mu)} (the C^5 d=5 family-A
+    hit for 7 vs 8 is such a pair); family B by number of rows and by first row."""
     G = {}
     for m in fam.members:
         if fam.kind == 'A':
@@ -99,6 +100,8 @@ def natural_groups(fam):
             G.setdefault('mu=%s' % fmt(mu), []).append(m); G.setdefault('nu=%s' % fmt(nu), []).append(m)
             G.setdefault('diag' if mu == nu else 'offdiag', []).append(m)
             G.setdefault('rows(mu)+rows(nu)=%d' % (len(mu) + len(nu)), []).append(m)
+            if mu < nu and (nu, mu) in fam.members:
+                G['T(%s,%s)' % (fmt(mu), fmt(nu))] = [m, (nu, mu)]
         else:
             G.setdefault('rows=%d' % len(m), []).append(m); G.setdefault('row1=%d' % m[0], []).append(m)
     return {k: v for k, v in G.items() if 1 < len(v) < len(fam.members)}

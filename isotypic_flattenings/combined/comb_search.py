@@ -1,0 +1,275 @@
+"""comb_search.py -- search for COMBINED isotypic flattenings that separate rank r_low from rank r_high.
+
+usage: python3 comb_search.py n d r_1,r_2[,r_3..] [options]   (separations r_i vs r_{i+1})
+  --fam A,B,E        families (default A,B):
+       A  fixed source lam, sum over targets (mu, nu); Kronecker spaces on the target side (aux = 1, levels l = 1, g),
+          or with --aux k >= 2 on the source side via a shared X = C^k (generic Psi_j: X -> M_j^*)
+       B  fixed target (mu, nu), sum over sources lam; Kronecker spaces on the source side (aux = 1, levels k = 1, g),
+          or with --aux l >= 2 on the target side via a shared Y = C^l
+       E  single component, generic Psi in M^* (x) X^* (x) Y with dim X, dim Y >= 2 ('reshaped'; g >= 2)
+  --aux 1,2          aux dimensions for A and B (default 1)
+  --nrand N          random subsets per lattice (default 300);  --pairs N / --triples N: caps (default 3000 / 1500)
+  --greedy N         greedy runs per lattice (default 2);  --bmax S: skip B lattices whose compressed size exceeds S
+  --seed s (default 5: the tensors of sweep_fast.py with the same seed and rank list), --cache DIR (default live/cache)
+  --only-lam "lam;lam"  restrict family A to these sources;  --only-mn "mu|nu;..."  restrict family B
+  --resume L1:L2     skip lattices / components already summarised in these logs (after a restart)
+  --emax E           family E: skip (k, l) whose sampled matrix has more than E entries (default 4e7)
+Every subset S tested is a flattening; '*** SEPARATES' marks dim on rank r_low < dim on rank r_high (exact = the
+sample sizes guarantee the exact rank).  Ranks are nondecreasing in r (semicontinuity); every consecutive pair of the rank list is checked.
+Per lattice a summary line: members, number of subsets tested, singles/all/natural values, max drop."""
+import sys, os, re, time, itertools, argparse
+import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from combflat import Context, LatticeFamily, fmt, p
+
+ap = argparse.ArgumentParser()
+ap.add_argument('n'); ap.add_argument('d', type=int); ap.add_argument('ranks')
+ap.add_argument('--fam', default='A,B'); ap.add_argument('--aux', default='1')
+ap.add_argument('--nrand', type=int, default=300); ap.add_argument('--pairs', type=int, default=3000)
+ap.add_argument('--triples', type=int, default=1500); ap.add_argument('--greedy', type=int, default=2)
+ap.add_argument('--bmax', type=int, default=2500); ap.add_argument('--emax', type=float, default=4e7)
+ap.add_argument('--seed', type=int, default=5)
+ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); needed for unequal formats such as 4,5,5')
+ap.add_argument('--sources', default='', help='restrict to these source partitions, e.g. "61;52;511", or "pattern:K" = all lam with lam_1 >= d - K except (d)')
+ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
+ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
+ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
+ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
+ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
+ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
+args = ap.parse_args()
+ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
+ranks = [int(x) for x in args.ranks.split(',')]
+fams = args.fam.split(','); auxes = [int(x) for x in args.aux.split(',')]
+def parse_lam(s):
+    return tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s)
+only_sources = None
+if args.sources.startswith('pattern:'):
+    kk = int(args.sources.split(':')[1])
+    from combflat import partitions as _parts
+    _src_n = ns[args.dir]
+    only_sources = [l for l in _parts(args.d, _src_n) if l[0] >= args.d - kk and l != (args.d,)]
+elif args.sources:
+    only_sources = [parse_lam(s) for s in args.sources.split(';') if s]
+ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes), only_sources=only_sources)
+if only_sources is not None:
+    print('# restricted to sources %s' % only_sources)
+print('# comb_search n=%s d=%d ranks=%s seed=%d dir=%d fam=%s aux=%s exhaust=%d p=%d: %d sources, %d targets, %d ordered components'
+      % (args.n, args.d, ranks, args.seed, args.dir, args.fam, auxes, args.exhaust, p, len(ctx.sources), len(ctx.targets), len(ctx.g)))
+sys.stdout.flush()
+FOUND = []
+
+SEPSINGLE = set()          # (family, member, level) whose single block already separates
+NHITS = {}                 # lattice -> [new hits, hits containing a separating single]
+MAXPRINT = 20
+SEEN = set()               # subsets already reported
+
+def report(fam, S, dims, how, pair):
+    """print a separating S if it is NEW: no summand of S separates the same rank pair on its own (other hits are
+    only counted).  pair = index i: ranks[i] vs ranks[i+1]."""
+    fk = (fam.kind, fam.key, fam.aux, pair)
+    skey = fk + tuple(sorted(map(repr, S)))
+    if skey in SEEN:
+        return
+    SEEN.add(skey)
+    cnt = NHITS.setdefault(fk, [0, 0])
+    if len(S) == 1:
+        SEPSINGLE.add(fk + tuple(S[0]))
+    elif any(fk + tuple(s) in SEPSINGLE for s in S):
+        cnt[1] += 1
+        return
+    cnt[0] += 1
+    if len(S) > 1 and cnt[0] > MAXPRINT:
+        return
+    ex = fam.exact(S)
+    head = 'fam%s%s %s=%s' % (fam.kind, '' if fam.aux == 1 else '(aux=%d)' % fam.aux, 'lam' if fam.kind == 'A' else 'mn',
+                              fmt(fam.key) if fam.kind == 'A' else '%s|%s' % (fmt(fam.key[0]), fmt(fam.key[1])))
+    line = '*** SEPARATES%s r%d<r%d %s %s %s ranks %s exact=%s (%s)' % ('' if len(S) == 1 else ' NEW', ranks[pair], ranks[pair + 1],
+                                                                          head, fam.describe(S), '/'.join(map(str, dims)),
+                                                                          '/'.join(map(str, ranks)), ex, how)
+    print(line); sys.stdout.flush()
+    FOUND.append(line)
+
+def natural_groups(fam):
+    """named member subsets: family A by mu, by nu, diagonal; family B by number of rows and by first row."""
+    G = {}
+    for m in fam.members:
+        if fam.kind == 'A':
+            mu, nu = m
+            G.setdefault('mu=%s' % fmt(mu), []).append(m); G.setdefault('nu=%s' % fmt(nu), []).append(m)
+            G.setdefault('diag' if mu == nu else 'offdiag', []).append(m)
+            G.setdefault('rows(mu)+rows(nu)=%d' % (len(mu) + len(nu)), []).append(m)
+        else:
+            G.setdefault('rows=%d' % len(m), []).append(m); G.setdefault('row1=%d' % m[0], []).append(m)
+    return {k: v for k, v in G.items() if 1 < len(v) < len(fam.members)}
+
+def search(fam, rng):
+    members = fam.members; m = len(members)
+    full = [fam.full(x) for x in members]
+    one = [(x, 1) for x in members]
+    tested, best = [0], [0, None, None]
+    def test(S, how):
+        S = list(S)
+        if not S:
+            return None
+        dims = fam.dims(S); tested[0] += 1
+        drop = dims[-1] - dims[-2]          # the top pair (r_last - 1 vs r_last) drives the greedy search
+        if drop > best[0]:
+            best[:] = [drop, S, dims]
+        for i in range(len(dims) - 1):
+            if dims[i] < dims[i + 1]:
+                report(fam, S, dims, how, i)
+        return dims
+    singles = {}
+    for x in members:
+        for lev in fam.levels[x]:
+            singles[(x, lev)] = test([(x, lev)], 'single')
+    if m == 1:
+        return tested[0], best, singles, {}
+    if m <= args.allsub:
+        # every nonempty subset with every combination of the members' levels (1 and g: mixed levels included), each by
+        # a direct rank (fam.dims, blocked modrank) -- for small lattices this is much faster than the RREF walk
+        named = {}
+        for S in itertools.product(*[[None] + [(x, lev) for lev in fam.levels[x]] for x in members]):
+            S = [s for s in S if s is not None]
+            if len(S) < 2:
+                continue
+            dims = test(S, 'allsub')
+            if len(S) == m and all(lev == max(fam.levels[x]) for x, lev in S):
+                named['all'] = dims
+            if len(S) == m and all(lev == 1 for x, lev in S):
+                named['all:1'] = dims
+        return tested[0], best, singles, named
+    if m <= args.exhaust:
+        # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)
+        named = {}
+        for lev in ('full', 1):
+            def cb(S, dims, lev=lev):
+                tested[0] += 1
+                drop = dims[-1] - dims[-2]
+                if drop > best[0]:
+                    best[:] = [drop, list(S), dims]
+                if len(S) == m:
+                    named['all' if lev == 'full' else 'all:1'] = dims
+                if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)):
+                    test(S, 'exhaustive')            # re-checked by a direct rank, then reported
+            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None)
+        return tested[0], best, singles, named
+    named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
+    for x in members:
+        test([y for y in full if y[0] != x], 'all-but-one')
+    for name, grp in natural_groups(fam).items():
+        named[name] = test([fam.full(x) for x in grp], name)
+        test([(x, 1) for x in grp], name + ':1')
+    pairs = list(itertools.combinations(full, 2))
+    if len(pairs) > args.pairs:
+        pairs = [pairs[i] for i in rng.choice(len(pairs), args.pairs, replace=False)]
+    for S in pairs:
+        test(S, 'pair')
+    if m >= 3:
+        if m * (m - 1) * (m - 2) // 6 <= args.triples:
+            trip = list(itertools.combinations(full, 3))
+        else:
+            trip = [tuple(full[i] for i in rng.choice(m, 3, replace=False)) for _ in range(args.triples)]
+        for S in trip:
+            test(S, 'triple')
+    for _ in range(args.nrand):
+        k = int(rng.integers(2, m + 1))
+        idx = rng.choice(m, k, replace=False)
+        test([(members[i], int(rng.choice(fam.levels[members[i]]))) for i in idx], 'random')
+    for gi in range(args.greedy):
+        # greedy: grow S one member at a time (full levels; every second run level 1), keeping the largest drop of the
+        # top rank pair (ties: random); incremental RREF, hits re-checked with fam.dims
+        cands = full if gi % 2 == 0 else one
+        for S, dims in fam.greedy([], cands, rng, lambda dm: dm[-1] - dm[-2]):
+            tested[0] += 1
+            if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)) or dims[-1] - dims[-2] > best[0]:
+                test(S, 'greedy')
+    return tested[0], best, singles, named
+
+def summary(fam, tested, best, singles, named, secs):
+    sv = ' '.join('%s:%s' % (fam.describe([s])[1:-1], '/'.join(map(str, v))) for s, v in singles.items())
+    nv = ' '.join('%s:%s' % (k, '/'.join(map(str, v))) for k, v in named.items() if v is not None)
+    head = 'fam%s%s %s=%s' % (fam.kind, '' if fam.aux == 1 else '(aux=%d)' % fam.aux, 'lam' if fam.kind == 'A' else 'mn',
+                              fmt(fam.key) if fam.kind == 'A' else '%s|%s' % (fmt(fam.key[0]), fmt(fam.key[1])))
+    cnt = [sum(v[i] for k, v in NHITS.items() if k[:3] == (fam.kind, fam.key, fam.aux)) for i in (0, 1)]
+    print('%s members=%d size=%d tested=%d maxdrop=%d%s new_hits=%d hits_with_separating_single=%d  singles: %s  named: %s  (%.1fs)'
+          % (head, len(fam.members), fam.size, tested, best[0],
+             '' if not best[0] else ' at %s %s' % (fam.describe(best[1]), '/'.join(map(str, best[2]))), cnt[0], cnt[1], sv, nv, secs))
+    sys.stdout.flush()
+
+# --resume: lattices and family-E components that already have a summary (or SKIPPED) line in an earlier log of the
+# same command are skipped (a container restart kills the run); the final totals then count this run's hits only
+DONE = set()
+for lf in args.resume.split(':'):
+    if lf and os.path.exists(lf):
+        for l in open(lf):
+            m = re.match(r'fam([AB])(?:\(aux=(\d+)\))? (?:lam|mn)=(\S+) (?:members=|aux=(\d+) SKIPPED)', l)
+            if m:
+                DONE.add((m.group(1), int(m.group(2) or m.group(4) or 1), m.group(3)))
+            elif l.startswith('famE '):
+                DONE.add(('E', l[5:].split(' g=')[0]))
+if DONE:
+    print('# resume: %d lattices / components already done' % len(DONE)); sys.stdout.flush()
+
+T0 = time.time()
+if 'A' in fams:
+    only = [tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s) for s in args.only_lam.split(';') if s]
+    for lam in sorted(ctx.sources, key=lambda l: ctx.n1(l)):
+        if only and lam not in only:
+            continue
+        for aux in auxes:
+            if ('A', aux, fmt(lam)) in DONE:
+                continue
+            t0 = time.time()
+            fam = LatticeFamily(ctx, 'A', lam, aux=aux, levels='ends')
+            res = search(fam, np.random.default_rng([args.seed, 21, aux] + list(lam)))
+            summary(fam, *res, time.time() - t0)
+        ctx.drop()
+if 'B' in fams:
+    def parse_mn(s):
+        a, b = s.split('|')
+        return tuple(tuple(int(c) for c in x) for x in (a, b))
+    only = [parse_mn(s) for s in args.only_mn.split(';') if s]
+    for mn in sorted(ctx.targets, key=lambda mn: ctx.K[mn]):
+        if only and mn not in only:
+            continue
+        for aux in auxes:
+            if ('B', aux, '%s|%s' % (fmt(mn[0]), fmt(mn[1]))) in DONE:
+                continue
+            t0 = time.time()
+            nmem = sum(1 for lam in ctx.sources if (lam,) + mn in ctx.g)
+            bound = min(aux * (ctx.K[mn] - 8), ctx.capB[mn])
+            if bound + 8 > args.bmax:
+                print('famB mn=%s|%s aux=%d SKIPPED (compressed size %d > bmax %d; %d sources)' % (fmt(mn[0]), fmt(mn[1]), aux, bound + 8, args.bmax, nmem))
+                continue
+            fam = LatticeFamily(ctx, 'B', mn, aux=aux, levels='ends')
+            res = search(fam, np.random.default_rng([args.seed, 22, aux] + list(mn[0]) + [0] + list(mn[1])))
+            summary(fam, *res, time.time() - t0)
+        ctx.drop()
+if 'E' in fams:
+    for tri in sorted(ctx.g, key=lambda t: ctx.g[t] * ctx.N1[t[0]] * ctx.K[t[1:]]):
+        g = ctx.g[tri]
+        if g < 2 or ('E', str(tri)) in DONE:
+            continue
+        lam, mn = tri[0], tri[1:]
+        t0 = time.time(); out = []
+        for k in range(2, g + 1):
+            for l in range(2, g + 1):
+                if k * ctx.N1[lam] * l * ctx.K[mn] > args.emax:
+                    out.append('%dx%d:skip' % (k, l)); continue
+                dims, ex = ctx.block_rank([(lam, k)], [(mn, l)])
+                out.append('%dx%d:%s%s' % (k, l, '/'.join(map(str, dims)), '' if ex else '(inexact)'))
+                for i in range(len(dims) - 1):
+                    if dims[i] < dims[i + 1]:
+                        line = '*** SEPARATES r%d<r%d famE %s g=%d k=%d l=%d %s ranks %s exact=%s' % (ranks[i], ranks[i + 1], tri, g, k, l, '/'.join(map(str, dims)), '/'.join(map(str, ranks)), ex)
+                        print(line); FOUND.append(line)
+        print('famE %s g=%d dims=(%d,%d) %s (%.1fs)' % (tri, g, ctx.n1(lam), ctx.n23(mn), ' '.join(out), time.time() - t0))
+        sys.stdout.flush()
+        ctx.drop([tri])
+for i in range(len(ranks) - 1):
+    nnew = sum(v[0] for k, v in NHITS.items() if k[3] == i); nold = sum(v[1] for k, v in NHITS.items() if k[3] == i)
+    nsing = sum(1 for s in SEPSINGLE if s[3] == i)
+    print('n=%s d=%d rank %d vs %d total %.0fs: separating singles %d, NEW combined hits %d (printed: first %d per lattice), hits containing a separating single %d'
+          % (args.n, args.d, ranks[i], ranks[i + 1], time.time() - T0, nsing, nnew - nsing, MAXPRINT, nold))
+print('FOUND (printed lines): %d' % len(FOUND))

@@ -1,0 +1,13 @@
+# degree 9, combined isotypic flattenings: 4x5x5 rank 8 vs 9, 5x5x5 rank 9 vs 10 (priority order; re-read by d9_jobs.py
+# every cycle).  Code: ../combined/comb_search.py (branch claude/tender-ride-7mz2gl).  dir 0 = C^4 factor as source,
+# dir 1 = a C^5 factor (dir 2 = dir 1 with the two C^5 factors swapped); 5x5x5 is symmetric (one direction).
+# First pass: sources lam_1 >= 7, i.e. (8,1), (7,2), (7,1,1) ('pattern:2'; the C^3 d=4 and C^4 d=6 separators have
+# sources (d-1,1), (d-2,2), (d-2,1,1)).  --allsub 3: every subset of every lattice (<= 3 members) with every combination
+# of the levels 1 and g, each by a direct rank.
+# family B: fixed target (mu, nu), sum over sources, Kronecker spaces on the source side (aux 1) or through a shared
+#           Y = C^2 on the target side (aux 2, 'family D');  family A: fixed source, sums over targets (aux 1: Kronecker
+#           spaces on the target side; aux 2: shared X = C^2 on the source side, 'family C');  family E: reshaped singles.
+d9_455_dir0_B  | 4,5,5 9 8,9 --dir 0 --fam B --aux 1,2 --allsub 3 --sources pattern:2 --bmax 6000
+d9_455_dir1_B  | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmax 6000
+d9_555_B       | 5 9 9,10 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmax 6000
+d9_455_dir0_AE | 4,5,5 9 8,9 --dir 0 --fam A,E --aux 1,2 --sources pattern:2 --nrand 500 --greedy 2

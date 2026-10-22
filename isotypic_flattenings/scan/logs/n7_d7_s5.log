@@ -80,3 +80,8 @@ lam=((5, 2), (4, 2, 1), (3, 2, 2)) g=2 dims=[6468, 7350, 2646] ok  wall=3376.2s 
 # worker 321888 done, 3376s
 # rankscan n=7 d=7 r_gen=19 need=[12, 13, 14, 15, 16, 17, 18] rlo=12 seed=5 worker 321890/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 47 components in list
   . ((5, 2), (4, 2, 1), (3, 3, 1)) dir 0 r=12 H=[6468, 6468] V=[6468, 12936] eval 1110s rref 648s
+  . ((4, 2, 1), (5, 2), (3, 3, 1)) dir 1 r=12 H=[7350, 7350] V=[7350, 14700] eval 1113s rref 934s
+  . ((3, 3, 1), (5, 2), (4, 2, 1)) dir 2 r=12 H=[3528, 3528] V=[3528, 7056] eval 401s rref 175s
+lam=((5, 2), (4, 2, 1), (3, 3, 1)) g=2 dims=[6468, 7350, 3528] ok  wall=4383.2s rss=3990MB
+# worker 321890 done, 4383s
+# rankscan n=7 d=7 r_gen=19 need=[12, 13, 14, 15, 16, 17, 18] rlo=12 seed=5 worker 321892/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 47 components in list

@@ -35,13 +35,16 @@ for l in sys.stdin:
 # of lower MAXFLOPS stages dropped)
 snapshot() {
   for d in 13 14; do
-    cat hwv5_d${d}_prom_done.log live/d${d}_w*.log 2>/dev/null | grep '^lam=' | stage_filter | sort -u > hwv5_d${d}_prom_done.tmp
+    cat hwv5_d${d}_prom_done.log live/d${d}_w*.log 2>/dev/null | grep -E '^(lam=|#partial )' | stage_filter | sort -u > hwv5_d${d}_prom_done.tmp
     mv hwv5_d${d}_prom_done.tmp hwv5_d${d}_prom_done.log
   done
 }
 snapshot
+# Checkpoints (2026-10-22): the done-logs also keep sweep_fast's '#partial' per-direction checkpoint lines (they have no
+# 'lam=' prefix, so no count sees them); RESUME passes them back, so a restarted worker resumes a component at the next
+# direction.  noV workers also write in-direction checkpoints every CKPT_SECS (default 1800 s) under CLAIMDIR/ckpt.
 # V-stack runs (since 2026-10-13, user: "try V-stack"): live/v5_d<d>_w*.log -> hwv5_d<d>_V_done.log
-for f in live/v5_d*_w0.log; do [ -f "$f" ] || continue; d=$(basename $f | sed -E "s/v5_d([0-9]+)_w0.log/\1/"); cat hwv5_d${d}_V_done.log live/v5_d${d}_w*.log 2>/dev/null | grep "^lam=" | sort -u > hwv5_d${d}_V_done.tmp; mv hwv5_d${d}_V_done.tmp hwv5_d${d}_V_done.log; echo "V d=$d: $(grep -c "^lam=" hwv5_d${d}_V_done.log) components done, hits: $(grep -c SEPARATES hwv5_d${d}_V_done.log)"; done
+for f in live/v5_d*_w0.log; do [ -f "$f" ] || continue; d=$(basename $f | sed -E "s/v5_d([0-9]+)_w0.log/\1/"); cat hwv5_d${d}_V_done.log live/v5_d${d}_w*.log 2>/dev/null | grep -E "^(lam=|#partial )" | sort -u > hwv5_d${d}_V_done.tmp; mv hwv5_d${d}_V_done.tmp hwv5_d${d}_V_done.log; echo "V d=$d: $(grep -c "^lam=" hwv5_d${d}_V_done.log) components done, hits: $(grep -c SEPARATES hwv5_d${d}_V_done.log)"; done
 echo "-- hits / problems --"; grep -H "SEPARATES" hwv5_d13_prom_done.log hwv5_d14_prom_done.log live/d1[34]_w*.log 2>/dev/null || echo "no SEPARATES"
 grep -H -i "error\|Traceback\|Killed\|MemoryError" live/d1[34]_w*.log 2>/dev/null | head -5 || true
 # Cost policy (since 2026-09-28 08:45 UTC): components of both degrees are processed cheapest first by the sweep's cost proxy
@@ -83,7 +86,7 @@ launch_deg() {  # degree maxcost worker-slots...
     if ps -eo args | grep -v grep | grep -q "sweep_fast.py 5 1[34] 9,10 5 $k $NW noV"; then continue; fi   # slot busy (either degree)
     # drop the dead worker's claim files (components it claimed but did not finish)
     for f in claims5_p$DEG/*; do [ -f "$f" ] && [ "$(cat $f)" = "$k" ] && rm -f "$f"; done
-    MEMCAP=67108864 MAXCOST=$MC MAXFLOPS=$MAXFLOPS ONLY=prom5_d$DEG.txt CLAIMDIR=claims5_p$DEG RESUME=hwv5_d${DEG}_prom_done.log \
+    CKPT_SECS=${CKPT_SECS:-1800} MEMCAP=67108864 MAXCOST=$MC MAXFLOPS=$MAXFLOPS ONLY=prom5_d$DEG.txt CLAIMDIR=claims5_p$DEG RESUME=hwv5_d${DEG}_prom_done.log \
       setsid nohup python3 -u sweep_fast.py 5 $DEG 9,10 5 $k $NW noV >> live/d${DEG}_w$k.log 2>&1 < /dev/null &
     echo "*** launched d=$DEG worker $k MAXCOST=$MC MAXFLOPS=$MAXFLOPS ($(date -u +%FT%TZ))"
   done

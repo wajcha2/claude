@@ -60,6 +60,11 @@ EXTRA = 8                              # extra columns in the random compression
 # CLAIMDIR/.vstack.lock), so a worker peaks at ~2S and the waiting ones hold S.  Defaults keep the old behaviour.
 VONLY = os.environ.get('VONLY', '0') == '1'
 VLOCK_GB = float(os.environ.get('VLOCK_GB', '0'))
+# Restarts (2026-10-22): with CKPT_SECS > 0 the noV streaming path below saves the partial sums of a direction (Fgen, H,
+# the generator states and the rank results so far) every CKPT_SECS seconds to CLAIMDIR/ckpt/<component>_s<seed>_d<dirn>.npz,
+# and a relaunch that resumes this direction (from its '#partial' line) continues after the last folded flattening.  The
+# filling choice before the loop is deterministic, so results are identical.  0 (default) = off.
+CKPT_SECS = float(os.environ.get('CKPT_SECS', '0'))
 rlo, rhi = ranks[0], ranks[-1]
 
 def dims_of(lam):
@@ -215,12 +220,22 @@ def direction(lam, g, dirn, crng):
     coeffs = [int(c) for c in crng.integers(1, p, len(chosen))]
     res = {}
     R = Rst = None
+    ck = ckf = None
+    if NOV and g >= 2 and g * K > N1 + EXTRA and CKPT_SECS > 0:
+        ckf = os.path.join(CLAIMDIR, 'ckpt', '%s_s%d_d%d.npz' % ('_'.join('-'.join(map(str, l)) for l in lam), SEED, dirn))
+        if os.path.exists(ckf):
+            with np.load(ckf) as z:
+                ck = {k: int(z[k]) for k in ('ri', 'j')}
+                ck.update({k: z[k] for k in ('Fgen', 'H')})
+                ck.update({k: ast.literal_eval(str(z[k])) for k in ('rst', 'rgen', 'crng', 'res')})
+            print('# resuming %s direction %d at rank %d after filling %d (checkpoint file)' % (lam, dirn, ck['ri'], ck['j'])); sys.stdout.flush()
+        tck = time.time()
     # Memory (2026-10-05): the flattenings are computed and consumed one rank at a time (compute_F draws no random
     # numbers, so the random stream is unchanged), and the compression H @ R of the g-fold stack is accumulated block
     # by block in float64 with R kept once as float64, instead of materialising the int64 stack, its float64 copy and an
     # int64 R plus its float64 copy at the same time.  For g = 4, N1 = 9458, K = 3158 (d = 14) that was > 5 GB per worker
     # (a worker was OOM-killed with four of them); the results are identical (exact arithmetic).
-    for r in ranks:
+    for ri, r in enumerate(ranks):
         if NOV and g >= 2 and g * K > N1 + EXTRA:
             # Memory (2026-10-21): in noV mode nothing needs all g flattenings at once, so each one is folded into the
             # generic combination and into the compressed H-stack as soon as it is computed, and R is drawn block by
@@ -228,12 +243,22 @@ def direction(lam, g, dirn, crng):
             # generator state).  The random numbers, the generator state afterwards and all results are identical to
             # the stacked code above (checked); peak ~7 N1*K doubles instead of ~2g N1*K (with ROWCAP's N1, K: 3.05 ->
             # 1.25 GB for the largest remaining C^4x5x5 d = 10 adjoint-type component, 9.7 -> 5.0 GB for the four largest).
+            if ck is not None and ri < ck['ri']:
+                continue                                    # this rank's results come with the checkpoint
             if Rst is None:
                 Rst, Rgen = crng.bit_generator.state, crng
             else:
                 Rgen = np.random.Generator(type(crng.bit_generator)()); Rgen.bit_generator.state = Rst
-            Fgen, H = np.zeros((N1, K), dtype=np.int64), None
-            for c, (f, path, info) in zip(coeffs, chosen):
+            Fgen, H, j0 = np.zeros((N1, K), dtype=np.int64), None, 0
+            if ck is not None:                              # resume rank ck['ri'] after filling ck['j']
+                res.update(ck['res']); Rst = ck['rst']; crng.bit_generator.state = ck['crng']
+                if ri > 0:
+                    Rgen = np.random.Generator(type(crng.bit_generator)())
+                Rgen.bit_generator.state = ck['rgen']
+                Fgen, H, j0, ck = ck['Fgen'], ck['H'], ck['j'] + 1, None
+            for j, (c, (f, path, info)) in enumerate(zip(coeffs, chosen)):
+                if j < j0:
+                    continue
                 F = compute_F(f, *pre[r], path, info)
                 if r == rhi:
                     assert F.any(), 'accepted filling gives a zero flattening'
@@ -246,6 +271,11 @@ def direction(lam, g, dirn, crng):
                 else:
                     np.add(H, C, out=H); np.fmod(H, p, out=H)
                 del C
+                if ckf is not None and j < len(chosen) - 1 and time.time() - tck > CKPT_SECS:
+                    os.makedirs(os.path.dirname(ckf), exist_ok=True)
+                    np.savez(ckf + '.tmp.npz', ri=ri, j=j, Fgen=Fgen, H=H, rst=repr(Rst), rgen=repr(Rgen.bit_generator.state),
+                             crng=repr(crng.bit_generator.state), res=repr(res))
+                    os.replace(ckf + '.tmp.npz', ckf); tck = time.time()
             res[(dirn, 'gen')] = res.get((dirn, 'gen'), ()) + (modrank(Fgen),)
             del Fgen
             H = H.astype(np.int64)
@@ -292,6 +322,8 @@ def direction(lam, g, dirn, crng):
                 if lock is not None:
                     fcntl.flock(lock, fcntl.LOCK_UN); lock.close()
         del Fs_r
+    if ckf is not None and os.path.exists(ckf):
+        os.remove(ckf)
     return res, len(chosen), tried
 
 rng = np.random.default_rng(SEED)

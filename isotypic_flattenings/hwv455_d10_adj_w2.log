@@ -164,3 +164,7 @@ lam=((5, 4, 1), (6, 3, 1), (3, 2, 2, 2, 1)) g=3 dims=(384, 4725, 24)  H1:384/384
 # blocks: Y-first (74 x 3032) of 4733 x 3032, 3.90e+11 flops, largest intermediate 2.69e+07
 # blocks: Y-first (3 x 3032) of 4733 x 3032, 5.46e+11 flops, largest intermediate 2.18e+07
 # blocks: Y-first (3 x 3032) of 4733 x 3032, 5.79e+11 flops, largest intermediate 2.18e+07
+#partial ((5, 3, 1, 1), (6, 3, 1), (3, 2, 2, 2, 1)) next=2 res={(0, 'gen'): (126, 126), (0, 'Hstack'): (126, 126), (1, 'gen'): (3024, 3024), (1, 'Hstack'): (4725, 4725)} spans=[9, 9] secs=6475.7 state={'bit_generator': 'PCG64', 'state': {'state': 208477230033560819843253851929732606721, 'inc': 7311875875902737777865356913320653139}, 'has_uint32': 0, 'uinteger': 3064853070}
+lam=((5, 3, 1, 1), (6, 3, 1), (3, 2, 2, 2, 1)) g=9 dims=(126, 4725, 24)  H1:126/126 g1:126/126 H2:4725/4725 g2:3024/3024 H3:24/24 g3:24/24  span=9,9,9 cost=1.29e+08 (6479.2s)
+NOT CHECKED (MAXCOST/MAXDIM/MAXFLOPS filter): 0 components: []
+n=4,5,5 d=10 ranks=[8, 9] worker 2 total 6464s FOUND: []

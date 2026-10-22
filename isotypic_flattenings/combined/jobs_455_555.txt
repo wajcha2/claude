@@ -1,11 +1,13 @@
-# combined flattenings: 4x5x5 rank 8 vs 9, 5x5x5 rank 9 vs 10 (priority order)
+# combined flattenings: 4x5x5 rank 8 vs 9, 5x5x5 rank 9 vs 10 (priority order: family B first; families A, E last)
 p455_d5_dir0 | 4,5,5 5 8,9 --dir 0 --fam A,B,E --aux 1,2 --exhaust 14 --nrand 1000 --greedy 2
-p455_d5_dir1 | 4,5,5 5 8,9 --dir 1 --fam A,B,E --aux 1,2 --exhaust 14 --nrand 1000 --greedy 2
 p555_d6_B    | 5 6 9,10 --fam B --aux 1,2 --exhaust 14 --bmax 4000
-p455_d6_dir0 | 4,5,5 6 8,9 --dir 0 --fam B,E,A --aux 1,2 --exhaust 14 --nrand 1000 --greedy 2
 p455_d6_dir1 | 4,5,5 6 8,9 --dir 1 --fam B --aux 1,2 --exhaust 14 --bmax 4000
+p455_d5_dir1_B | 4,5,5 5 8,9 --dir 1 --fam B --aux 1,2 --exhaust 14
+p455_d6_dir0_B | 4,5,5 6 8,9 --dir 0 --fam B --aux 1,2 --exhaust 14
 p455_d7_dir0 | 4,5,5 7 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 4 --bmax 3000
 p555_d7_B    | 5 7 9,10 --fam B --aux 1 --exhaust 14 --maxsub 4 --bmax 2000
 p455_d7_dir1 | 4,5,5 7 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsub 4 --bmax 2000
+p455_d5_dir1 | 4,5,5 5 8,9 --dir 1 --fam A,E --aux 1,2 --nrand 1000 --greedy 2
+p455_d6_dir0 | 4,5,5 6 8,9 --dir 0 --fam E,A --aux 1,2 --nrand 1000 --greedy 2
 p555_d6_AE   | 5 6 9,10 --fam E,A --aux 1 --nrand 500 --greedy 1
 p455_d6_dir1_AE | 4,5,5 6 8,9 --dir 1 --fam E,A --aux 1 --nrand 500 --greedy 1

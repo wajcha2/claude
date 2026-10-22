@@ -93,3 +93,16 @@ lam=((4, 3, 2, 1), (7, 2, 1), (3, 2, 2, 2, 1)) g=10 dims=(64, 4400, 24)  H1:64/6
 # blocks: Y-first (3 x 3032) of 4733 x 3032, 7.20e+11 flops, largest intermediate 2.62e+07
 # blocks: Y-first (3 x 3032) of 4733 x 3032, 5.53e+11 flops, largest intermediate 2.62e+07
 # blocks: Y-first (3 x 3032) of 4733 x 3032, 5.88e+11 flops, largest intermediate 2.18e+07
+# blocks: Y-first (3 x 3032) of 4733 x 3032, 1.10e+12 flops, largest intermediate 2.18e+07
+#partial ((4, 4, 2), (6, 3, 1), (3, 2, 2, 2, 1)) next=2 res={(0, 'gen'): (126, 126), (0, 'Hstack'): (126, 126), (1, 'gen'): (3024, 3024), (1, 'Hstack'): (4725, 4725)} spans=[5, 5] secs=8179.8 state={'bit_generator': 'PCG64', 'state': {'state': 153761269303575255266729787654563762094, 'inc': 204322140762530883957154441778267329899}, 'has_uint32': 0, 'uinteger': 3677757183}
+lam=((4, 4, 2), (6, 3, 1), (3, 2, 2, 2, 1)) g=5 dims=(126, 4725, 24)  H1:126/126 g1:126/126 H2:4725/4725 g2:3024/3024 H3:24/24 g3:24/24  span=5,5,5 cost=7.18e+07 (8182.7s)
+# blocks: Z-first (134 x 67) of 134 x 134, 4.63e+08 flops, largest intermediate 3.96e+06
+#partial ((5, 3, 1, 1), (6, 3, 1), (3, 2, 2, 2, 1)) next=1 res={(0, 'gen'): (126, 126), (0, 'Hstack'): (126, 126)} spans=[9] secs=15.4 state={'bit_generator': 'PCG64', 'state': {'state': 81839519668969148561033629146055797698, 'inc': 7311875875902737777865356913320653139}, 'has_uint32': 1, 'uinteger': 1048494880}
+# blocks: Y-first (19 x 3032) of 4733 x 3032, 1.73e+11 flops, largest intermediate 2.77e+07
+# blocks: Y-first (74 x 3032) of 4733 x 3032, 2.60e+11 flops, largest intermediate 2.69e+07
+# blocks: Y-first (37 x 3032) of 4733 x 3032, 1.44e+11 flops, largest intermediate 2.87e+07
+# blocks: Y-first (74 x 3032) of 4733 x 3032, 2.43e+11 flops, largest intermediate 2.69e+07
+# blocks: Y-first (10 x 3032) of 4733 x 3032, 2.09e+11 flops, largest intermediate 2.18e+07
+# blocks: Y-first (74 x 3032) of 4733 x 3032, 2.87e+11 flops, largest intermediate 2.69e+07
+# blocks: Y-first (3 x 3032) of 4733 x 3032, 5.29e+11 flops, largest intermediate 2.18e+07
+# blocks: Y-first (3 x 3032) of 4733 x 3032, 5.45e+11 flops, largest intermediate 2.18e+07

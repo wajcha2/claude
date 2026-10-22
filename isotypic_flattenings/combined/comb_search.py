@@ -32,6 +32,7 @@ ap.add_argument('--seed', type=int, default=5)
 ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); needed for unequal formats such as 4,5,5')
 ap.add_argument('--sources', default='', help='restrict to these source partitions, e.g. "61;52;511", or "pattern:K" = all lam with lam_1 >= d - K except (d)')
 ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
+ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust); from the degree-9 combined session')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
@@ -125,6 +126,21 @@ def search(fam, rng):
             singles[(x, lev)] = test([(x, lev)], 'single')
     if m == 1:
         return tested[0], best, singles, {}
+    if m <= args.allsub:
+        # every nonempty subset with every combination of the members' levels (1 and g: mixed levels included), each by
+        # a direct rank (fam.dims, blocked modrank) -- for small lattices of large size this is much faster than the
+        # RREF walk (python-loop rref in basis_rows); adopted from the degree-9 combined session (claude/charming-heisenberg-f66sy8)
+        named = {}
+        for S in itertools.product(*[[None] + [(x, lev) for lev in fam.levels[x]] for x in members]):
+            S = [s for s in S if s is not None]
+            if len(S) < 2:
+                continue
+            dims = test(S, 'allsub')
+            if len(S) == m and all(lev == max(fam.levels[x]) for x, lev in S):
+                named['all'] = dims
+            if len(S) == m and all(lev == 1 for x, lev in S):
+                named['all:1'] = dims
+        return tested[0], best, singles, named
     if m <= args.exhaust:
         # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)
         named = {}

@@ -176,7 +176,8 @@ class Context:
     """tensors, components, shared sample points, filling bases and (disk-cached) flattening matrices for one
     format, degree, rank list and direction (source factor `dirn`, targets = the other two factors in order)."""
 
-    def __init__(self, ns, d, ranks, seed=5, dirn=0, cache=None, ncap=None, kcap=None, auxmax=1, verbose=True):
+    def __init__(self, ns, d, ranks, seed=5, dirn=0, cache=None, ncap=None, kcap=None, auxmax=1, verbose=True,
+                 only_sources=None):
         ns = (ns,) * 3 if isinstance(ns, (int, np.integer)) else tuple(ns)
         self.d, self.ranks, self.seed, self.dirn, self.verbose = d, list(ranks), seed, dirn, verbose
         rng = np.random.default_rng(seed)
@@ -187,8 +188,13 @@ class Context:
         self.rlo, self.rhi = self.ranks[0], self.ranks[-1]
         self.parts = [partitions(d, self.ns[t]) for t in range(3)]
         self.pidx = [{lam: i for i, lam in enumerate(P)} for P in self.parts]
+        # only_sources: keep only components whose source partition is in this list; the sample sizes (capB, K) are
+        # then computed for these sources only, which makes targeted searches (e.g. a fixed set of sources) cheaper
+        self.only_sources = None if only_sources is None else [tuple(l) for l in only_sources]
         self.g = {}
         for tri in itertools.product(*self.parts):
+            if self.only_sources is not None and tri[0] not in self.only_sources:
+                continue
             g = kronecker(*tri)
             if g:
                 self.g[tri] = g
@@ -209,6 +215,8 @@ class Context:
         self.K = {mn: int(min(self.n23(mn), max(self.capB[mn], auxmax * n1max[mn]), self.kcap)) + EXTRA for mn in self.targets}
         tag = 'n%s_d%d_s%d_dir%d_r%s_nc%s_kc%s_ax%d' % ('-'.join(map(str, ns)), d, seed, dirn, '-'.join(map(str, self.ranks)),
                                                        self.ncap, self.kcap, auxmax)
+        if self.only_sources is not None:
+            tag += '_src' + hashlib.md5(repr(sorted(self.only_sources)).encode()).hexdigest()[:8]
         self.cache = None if cache is None else os.path.join(cache, tag)
         if self.cache:
             os.makedirs(self.cache, exist_ok=True)

@@ -30,6 +30,7 @@ ap.add_argument('--triples', type=int, default=1500); ap.add_argument('--greedy'
 ap.add_argument('--bmax', type=int, default=2500); ap.add_argument('--emax', type=float, default=4e7)
 ap.add_argument('--seed', type=int, default=5)
 ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); needed for unequal formats such as 4,5,5')
+ap.add_argument('--sources', default='', help='restrict to these source partitions, e.g. "61;52;511", or "pattern:K" = all lam with lam_1 >= d - K except (d)')
 ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
@@ -39,7 +40,19 @@ args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
 fams = args.fam.split(','); auxes = [int(x) for x in args.aux.split(',')]
-ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes))
+def parse_lam(s):
+    return tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s)
+only_sources = None
+if args.sources.startswith('pattern:'):
+    kk = int(args.sources.split(':')[1])
+    from combflat import partitions as _parts
+    _src_n = ns[args.dir]
+    only_sources = [l for l in _parts(args.d, _src_n) if l[0] >= args.d - kk and l != (args.d,)]
+elif args.sources:
+    only_sources = [parse_lam(s) for s in args.sources.split(';') if s]
+ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes), only_sources=only_sources)
+if only_sources is not None:
+    print('# restricted to sources %s' % only_sources)
 print('# comb_search n=%s d=%d ranks=%s seed=%d dir=%d fam=%s aux=%s exhaust=%d p=%d: %d sources, %d targets, %d ordered components'
       % (args.n, args.d, ranks, args.seed, args.dir, args.fam, auxes, args.exhaust, p, len(ctx.sources), len(ctx.targets), len(ctx.g)))
 sys.stdout.flush()

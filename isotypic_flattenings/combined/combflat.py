@@ -97,10 +97,10 @@ def rref(M):
     return A[:r], piv
 
 def reduce_rows(V, R, piv):
-    """V (rows) modulo the row space of the RREF basis (R, piv): V - V[:, piv] R, exact mod p."""
+    """V (rows) modulo the row space of the RREF basis (R, piv): V - V[:, piv] R, exact mod p (V, R may be float32)."""
     if not piv:
         return np.asarray(V, dtype=np.float64) % p
-    return np.mod(np.asarray(V, dtype=np.float64) - mulmod(np.asarray(V)[:, piv], R).astype(np.float64), p)
+    return np.mod(np.asarray(V, dtype=np.float64) - mulmod(np.asarray(V, dtype=np.float64)[:, piv], R).astype(np.float64), p)
 
 class Echelon:
     """incremental linear independence test mod p (as in sweep_fast.py)."""
@@ -471,7 +471,9 @@ class LatticeFamily:
             self._basis = {}
         if (r, s) not in self._basis:
             M = self.mats[r][s]
-            self._basis[(r, s)] = rref(M.T if self.kind == 'A' else M)[0]
+            # stored as float32: residues < p < 2^24 are exact, half the memory of float64 (the exhaustive enumeration of
+            # large family-B lattices held several GB of bases per worker)
+            self._basis[(r, s)] = rref(M.T if self.kind == 'A' else M)[0].astype(np.float32)
         return self._basis[(r, s)]
 
     def greedy(self, start, candidates, rng, score):
@@ -524,7 +526,7 @@ class LatticeFamily:
                 return R, piv
             if piv:
                 R = np.mod(R - mulmod(R[:, pn], Rn).astype(np.float64), p)      # clear the new pivot columns
-            R2 = np.vstack([R, Rn]); p2 = piv + pn
+            R2 = np.vstack([R, Rn]).astype(np.float32); p2 = piv + pn       # float32: exact for residues < 2^24
             order = np.argsort(p2)
             return R2[order], [p2[i] for i in order]
         def dfs(i, cur, S):

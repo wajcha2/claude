@@ -38,7 +38,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir0_B | B: fixed target, sum over sources; Kronecker spaces on the source side (aux 1) or through a shared Y = C^2 on the target side (aux 2, "family D") | 304 targets, compressed size <= 4708 |
 | d9_455_dir1_B | B, aux 1 | 164 of 242 targets (compressed size <= 6000) |
 | d9_555_B | B, aux 1 | 198 of 304 targets (compressed size <= 6000) |
-| d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs (lattices (7,1,1) aux 1, 2: all pairs, --pairs 25000; at aux 2 that took ~5 h per source, too slow for (8,1), (7,2)) |
+| d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs and one greedy run ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0
 about 6 core-hours, dir 1 and 555 with size <= 6000 about 15 and 18 core-hours; all targets of dir 1 / 555 would be

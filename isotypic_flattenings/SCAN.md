@@ -176,7 +176,7 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
-## hwv_fast.py / isoflat.py from the sweep_fast speed-up (adopted 2026-10-23 ~14:50)
+## hwv_fast.py / isoflat.py from the sweep_fast speed-up (adopted 2026-10-23 14:32)
 hwv_fast.py and isoflat.py taken unchanged from commit 6590942 (branch claude/project-thread-ttahoa-sweepfast,
 SPEEDUP_sweep_fast.md): pair_contract_fast (views instead of copies, loops of 2-D dot, broadcast products, einsum for
 small sums; exact as before), execute drops operand references early, blocked modrank (panel 64), and the

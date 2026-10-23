@@ -97,7 +97,14 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   peak 5.8 GB).  Remaining: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun.
   2026-10-19 12:34: 6x6x6 d=7 ((4,2,1)^3) dir 1 rerun done (10.8 h, not separated); all 9 superseded directions
   rerun with the same outcome.  ALL JOBS OF special/jobs.txt DONE (runner: nothing left); no hit outside the
-  positive controls (special/res/controls.jsonl), no generic H_k / V_k separation in 2208 directions.  `special/sync.sh` copies special/live into
+  positive controls (special/res/controls.jsonl), no generic H_k / V_k separation in 2208 directions.
+* 2026-10-23 12:28 (user request): 6x6x6 d = 8, ranks 11..13 (rank 10 is separated generically at d = 8 by the
+  scan), `6 8 11-13 line flag pflag gline` in special/jobs.txt: 495 components with g >= 2, 1315 directions,
+  cheapest first (rankscan.cost_proxy).  184 directions (145 components; g n1 up to 17 x 5760) have V-stacks too
+  large for this machine (K x K elimination, K = min(g n1, n23) + 8: up to 126 GB): they run H-only (VBUDGET = 6 GB,
+  record 'vstack': false; H-stacks, single-functional lines, natural U with H prefixes, H Grassmannian pencils).
+  ncores 4, maxbig 2, tlimit 36 h.  Expected: the cheaper half (the 246 components the scan has done took ~200
+  core-hours there) about a week; the expensive half considerably longer.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

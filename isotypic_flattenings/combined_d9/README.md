@@ -17,6 +17,15 @@ resumable runner, logs in `logs/jobs/`, cache in `live/cache/`), `jobs_d9.txt` (
 
 ## Changes to the shared library
 
+**Fast low-memory `combflat.py`** (2026-10-23 18:00 UTC, from branch `claude/project-thread-ttahoa`, commit e3b58d6: filling
+pool + DP contraction paths, blocked rref, thin lattices with reused contraction blocks; see `../combined/SWITCH.md`,
+`GUIDE.md`, `GUIDE_MEMORY.md`), with this thread's two edits ported onto it (`dims` early exit at `rankcap`,
+`enumerate(members=)`).  The disk cache stays valid (bit-identical flattenings).  Checks: `test_comb.py quick` 0 failures
+(`logs/test_quick_fastcombflat.log`); C^5 d=5 family A 105/150; C^4 d=6 family B 196/316/320 and 392/512/516; d=9
+lattices re-run with the job arguments and compared with the logs: 455 dir 0 54|54 (aux 1, 2), 455 dir 1 3321|33111
+(3 members, 17 subsets), 5x5x5 42111|22221: summary lines identical; peak memory 125-160 MB per process (old workers
+1-5 GB).  Family-B workers restarted at 18:03 UTC; the family-A worker after its (7,2) lattice.
+
 `isoflat.MODRANK_BLOCK` = 32 instead of 256 (2026-10-23, suggested by the user): same ranks (200 small / degenerate matrices
 against `modrank_ref`, block 32 = block 256 on full and rank-deficient matrices of size 576..3000), 4x faster at n = 576..1100
 (the family-A lattices), 2x at n = 2500..3000; `test_comb.py quick` 0 failures (`logs/test_quick_modrank32.log`).  Family-B

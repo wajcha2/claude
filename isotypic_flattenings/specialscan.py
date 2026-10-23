@@ -58,6 +58,7 @@ EMAXSIZE = int(os.environ.get('EMAXSIZE', '6000'))
 CACHE = int(os.environ.get('CACHE', '5'))
 FCACHE = os.environ.get('FCACHE', 'special/live/fcache')     # checkpoints of long filling-matrix evaluations
 FCACHE_MIN = float(os.environ.get('FCACHE_MIN', '60'))
+EVALBASIS = os.environ.get('EVALBASIS', '1') == '1'           # rankscan's cheaper evaluation basis (0 = old fillings)
 PRB = 8                       # probe grid: PRB source points x PRB^2 target pairs
 
 
@@ -223,8 +224,18 @@ class Comp:
             path = self.fcache_path(name)
             Fs = np.empty((g, N1, K), dtype=np.float64 if g * N1 * K <= (1 << 24) else np.float32)
             vm = None
-            for i, fl in enumerate(self.D.fillings):
-                pi = path[:-4] + '_f%d.npy' % i          # one checkpoint per filling
+            # rankscan (2026-10-23): a cheaper evaluation basis E = A F of the same functionals when the fillings are
+            # expensive to contract; F = A^-1 E restores the matrices exactly.  Deterministic, so its checkpoints
+            # (tagged by E) resume; it is chosen only when some matrix still has to be evaluated.
+            fills, eb, tag = self.D.fillings, None, ''
+            if EVALBASIS and not all(os.path.exists(path[:-4] + '_f%d.npy' % i) for i in range(g)):
+                vm = self.D.vm(name)
+                eb = self.D.eval_basis(len(self.vecs[name][0]), vm, self.D.pm)
+                if eb is not None:
+                    fills = eb[0]
+                    tag = '_E%08x' % zlib.crc32(repr([fl[0] for fl in fills]).encode())
+            for i, fl in enumerate(fills):
+                pi = path[:-4] + tag + '_f%d.npy' % i    # one checkpoint per filling
                 if os.path.exists(pi):
                     try:
                         Fi = np.load(pi)
@@ -236,11 +247,18 @@ class Comp:
                 t1 = time.time()
                 if vm is None:
                     vm = self.D.vm(name)
-                Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
+                if Fs.dtype == np.float32:
+                    compute_F(fl[0], vm, self.D.pm, fl[1], fl[2], dest=Fs[i])     # (no float64 copy)
+                else:
+                    Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
                 if time.time() - t1 > FCACHE_MIN:
                     os.makedirs(FCACHE, exist_ok=True)
                     np.save(pi[:-4] + '.tmp.npy', Fs[i])
                     os.replace(pi[:-4] + '.tmp.npy', pi)
+            if eb is not None:
+                self.D.to_old_basis(Fs, eb[1])
+                if self.D.fillings is not fills:
+                    log('   %s: evaluation basis (cheaper fillings, mapped back exactly)' % name)
             # keep at most CACHE tensors (the oldest is dropped; memory g N1 K per tensor)
             while len(self.cache) >= CACHE:
                 self.cache.pop(next(iter(self.cache)))

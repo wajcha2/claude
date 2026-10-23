@@ -187,6 +187,7 @@ class Comp:
         assert D.span == self.g, 'fillings span only %d of g = %d' % (D.span, self.g)
         self.lam_p, self.perm = D.lam_p, D.perm
         self.n1, self.n23, self.N1, self.K = D.n1, D.n23, D.N1, D.K
+        self.vstack = rankscan.VSTACK          # K = min(g n1, n23) + 8 (V-stacks) or min(n1, n23) + 8 (H only)
         # fingerprint of the chosen fillings: checkpoints of another choice are never loaded
         self.fdig = zlib.crc32(repr([fl[0] for fl in D.fillings]).encode())
         self.cache = {}
@@ -330,6 +331,7 @@ def fmt_prof(prof):
 
 def prefix_HV(cp, name, C, H=True, V=True):
     """prefix ranks [H, V] for the ordered basis C (m x g) at tensor `name`."""
+    V = V and cp.vstack
     Fs = cp.F(name)
     EH, EV = RREF(cp.N1), RREF(cp.K)
     hs, vs = [], []
@@ -354,7 +356,7 @@ def ordering_profile(cp, C, R):
     rlo = min(R)
     P0 = prefix_HV(cp, cp.P(rlo), C)
     ubH = [min(cp.n1, (k + 1) * cp.n23) for k in range(len(C))]
-    ubV = [min((k + 1) * cp.n1, cp.n23) for k in range(len(C))]
+    ubV = [min((k + 1) * cp.n1, cp.n23) for k in range(len(C))] if cp.vstack else []
     if P0[0] == ubH and P0[1] == ubV:
         return {rlo: P0}
     return resolve_profile(lambda r: P0 if r == rlo else prefix_HV(cp, cp.P(r), C), rlo, max(R) + 1)
@@ -588,7 +590,7 @@ def run_glines(cp, R, rng, rec, cap=1.5e7):
     tensor-independent drop points t are special k-dimensional U (basis A + t B)."""
     g = cp.g
     for k in range(2, g):
-        for typ in ('H', 'V'):
+        for typ in (('H', 'V') if cp.vstack else ('H',)):
             if k * cp.N1 * cp.K > cap:
                 rec['cases'].append({'method': 'gline', 'k': k, 'typ': typ, 'skipped': 'size %d x %d x %d' % (k, cp.N1, cp.K)})
                 log('   gline %s%d: skipped (size)' % (typ, k))
@@ -882,6 +884,19 @@ def run_plane(cp, R, rng, rec, label='plane', rhomin=0, rhomax=None):
 
 
 # ---------------------------------------------------------------- driver
+VBUDGET = float(os.environ.get('VBUDGET', '6'))
+
+
+def vstack_gb(n, lam, g, t, vstack=True):
+    """rough peak (GB) of a direction: 3 cached filling tensors (float32), the K x K elimination basis and a few
+    N1 x K float64 working matrices; K = min(g n1, n23) + 8 with V-stacks, min(n1, n23) + 8 without."""
+    lp = [lam[u] for u in [t] + [u for u in range(3) if u != t]]
+    n1, n23 = dim_schur(lp[0], n), dim_schur(lp[1], n) * dim_schur(lp[2], n)
+    N1 = min(n1, g * n23) + 8
+    K = (min(g * n1, n23) if vstack else min(n1, n23)) + 8
+    return (3 * g * N1 * K * 4 + K * K * 8 + 4 * N1 * K * 8) / 1e9
+
+
 def run_component(n, d, lam, R, methods, seed, dirs=None, out=None):
     g = kronecker(*lam)
     rgen = generic_rank(n)
@@ -898,6 +913,13 @@ def run_component(n, d, lam, R, methods, seed, dirs=None, out=None):
             rec['status'] = 'infeasible'
         else:
             rprobe = max([x for x in range(1, rgen + 1) if word_minor_size(perm_lam, n, x) <= rankscan.WCAP])
+            # V-stacks need K = min(g n1, n23) sample columns and a K x K elimination; when that does not fit VBUDGET
+            # (GB, estimate as special_runner.mem_estimate_gb), the direction runs with H-stacks only (K = min(n1, n23))
+            rankscan.VSTACK = vstack_gb(n, lam, g, t) <= VBUDGET
+            rec['vstack'] = rankscan.VSTACK
+            if not rankscan.VSTACK:
+                log('lam=%s dir %d: V-stacks need ~%.0f GB > VBUDGET %.0f GB: H-stacks, lines and natural U only' % (
+                    lam, t + 1, vstack_gb(n, lam, g, t), VBUDGET))
             try:
                 cp = Comp(n, lam, t, seed, rprobe)
             except (AssertionError, Infeasible, MemoryError) as e:

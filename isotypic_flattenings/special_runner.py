@@ -58,11 +58,16 @@ def mem_estimate_gb(n, lam):
     from isoflat import kronecker
     g = kronecker(*lam)
     dims = [dim_schur(l, n) for l in lam]
+    vbudget = float(os.environ.get('VBUDGET', '6')) * 1e9
     m = 0
     for t in distinct_dirs(lam):
         n1 = dims[t]; n23 = dims[(t + 1) % 3] * dims[(t + 2) % 3]
-        N1, K = min(n1, g * n23) + 8, min(g * n1, n23) + 8
-        m = max(m, 3 * g * N1 * K * 4 + K * K * 8 + 4 * N1 * K * 8)
+        N1 = min(n1, g * n23) + 8
+        for K in (min(g * n1, n23) + 8, min(n1, n23) + 8):   # with V-stacks; H only (specialscan.VBUDGET)
+            est = 3 * g * N1 * K * 4 + K * K * 8 + 4 * N1 * K * 8
+            if est <= vbudget or K == min(n1, n23) + 8:
+                break
+        m = max(m, est)
     return m / 1e9
 
 

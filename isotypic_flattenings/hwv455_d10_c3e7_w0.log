@@ -1,3 +1,8 @@
 # sweep_fast n=4,5,5 d=10 ranks=[8, 9] seed=5 worker 0/4 noV=True p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=inf MAXFLOPS=inf: 1614 components, 3082 already done
 #partial ((6, 2, 1, 1), (6, 4), (3, 3, 2, 1, 1)) next=1 res={(0, 'gen'): (140, 140)} spans=[1] secs=2.8 state={'bit_generator': 'PCG64', 'state': {'state': 24371763383271525017392586272017148508, 'inc': 287269295632848815754696872583403532105}, 'has_uint32': 0, 'uinteger': 3696181888}
 # blocks: Y-first (7 x 3158) of 3158 x 3158, 1.30e+12 flops, largest intermediate 2.12e+07
+# blocks: Y-first (13 x 3158) of 3158 x 3158, 6.14e+11 flops, largest intermediate 2.99e+07
+#partial ((6, 2, 1, 1), (6, 4), (3, 3, 2, 1, 1)) next=2 res={(0, 'gen'): (140, 140), (1, 'gen'): (694, 694)} spans=[1, 1] secs=808.1 state={'bit_generator': 'PCG64', 'state': {'state': 282559672124046973968899729389243813595, 'inc': 287269295632848815754696872583403532105}, 'has_uint32': 0, 'uinteger': 36908088}
+lam=((6, 2, 1, 1), (6, 4), (3, 3, 2, 1, 1)) g=1 dims=(140, 3150, 75)  g1:140/140 g2:694/694 g3:75/75  span=1,1,1 cost=1.00e+07 (809.3s)
+#partial ((6, 2, 1, 1), (6, 4), (3, 3, 2, 2)) next=1 res={(0, 'gen'): (140, 140)} spans=[1] secs=1.5 state={'bit_generator': 'PCG64', 'state': {'state': 115728855634119202467150810478096560345, 'inc': 173026859057425895858604802073491553027}, 'has_uint32': 1, 'uinteger': 2894913360}
+# blocks: Y-first (4 x 3158) of 3158 x 3158, 3.69e+11 flops, largest intermediate 2.02e+07

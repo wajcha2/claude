@@ -142,6 +142,16 @@ def search(fam, rng):
         one = [(x, 1) for x in members]
         if m <= 1:
             return tested[0], best, singles, {}
+    if fam.aux == 1:
+        # direct-sum certificate (from the kronproj session, claude/zealous-mendel-i9qpdu): with aux 1 every level-l
+        # subspace of a member lies in its full-level subspace.  If on rank r_i the full sum is DIRECT (its dim is the sum
+        # of the full single dims) and every single (member, level) has equal dims on r_i and r_{i+1}, then every S has
+        # dim_i(S) = sum of its single dims = sum of the r_{i+1} single dims >= dim_{i+1}(S): no S separates r_i from
+        # r_{i+1}, and the lattice is done after one rank.
+        dall = test(full, 'all')
+        if all(dall[i] == sum(singles[s][i] for s in full) and
+               all(v[i] == v[i + 1] for (x, lev), v in singles.items() if x in members) for i in range(len(ranks) - 1)):
+            return tested[0], best, singles, {'all': dall, 'direct-sum-certified': (1,)}
     if m <= args.allsub:
         # every nonempty subset with every combination of the members' levels (1 and g: mixed levels included), each by
         # a direct rank (fam.dims, blocked modrank) -- for small lattices of large size this is much faster than the

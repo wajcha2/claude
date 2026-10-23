@@ -67,6 +67,23 @@ and `comb_jobs.py` runs it every 10 minutes.
 
 ## Results
 
+### 4x5x5 rank 8 vs 9, 5x5x5 rank 9 vs 10 (job file `jobs_455_555.txt`, logs `logs/jobs_snapshot/`): no separation so far
+Finished, every lattice complete (no `SKIPPED`), no single or combined flattening separates:
+
+| job | format, d | families | lattices | time |
+|---|---|---|---|---|
+| p455_d5_dir0 | 4x5x5, d = 5, source on C^4 | A, B, E; aux 1, 2; `--exhaust 14` + random/greedy | 12 A, 94 B, 6 E | 962 s |
+| p455_d5_dir1_B | 4x5x5, d = 5, source on C^5 | B; aux 1, 2; all subsets (`--exhaust 14`) | 84 | 1753 s |
+| p455_d6_dir0_B | 4x5x5, d = 6, source on C^4 | B; aux 1, 2; all subsets | 196 | 5851 s |
+| pat_455_d7_dir0 | 4x5x5, d = 7, source on C^4 | B, aux 1; sources λ_1 ≥ d - 3 (pattern of the C^4 d = 6 separators); all subsets with mixed levels | 152 | 3461 s |
+| p555_d6_B | 5x5x5, d = 6 | B; aux 1, 2; all subsets | 200 (9 by the direct-sum certificate) | 12064 s |
+
+Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: pattern jobs
+4x5x5 d = 7 (source on C^5), 5x5x5 d = 7 and d = 8 (`--bmax 10000`: the largest targets, d = 7 sizes 12948 and 16308,
+d = 8 sizes > 10000, are skipped and listed as `SKIPPED`), all-source family B at 4x5x5 d = 6 (C^5 side), d = 7 and
+5x5x5 d = 7 (subsets of at most 4 sources), families A and E at d = 5, 6.  4x5x5 d = 8 and all d = 9 run in other
+threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
+
 ### C^3, rank 4 vs 5: separated at d = 4 (isotypic flattenings: d = 5)
 Family B, target S^{211}B ⊗ S^{211}C (≅ B⊗C ⊗ det_B ⊗ det_C, dimension 9), sources λ ∈ {22, 31} (all g = 1):
 

@@ -1,11 +1,15 @@
 | job | lattices / components done | saturated at the lower rank | skipped (size > bmax) | separations | finished | time (s) |
 |---|---|---|---|---|---|---|
-| d9_455_dir0_B | 420 | 173 | 0 | 0 | no | 13715 |
-| d9_455_dir1_B | 79 | 50 | 0 | 0 | no | 12486 |
-| d9_555_B | 76 | 59 | 0 | 0 | no | 13818 |
+| d9_455_dir0_B | 443 | 185 | 0 | 0 | no | 17256 |
+| d9_455_dir1_B | 87 | 55 | 0 | 0 | no | 16259 |
+| d9_555_B | 83 | 62 | 0 | 0 | no | 15078 |
 | d9_455_dir0_AE | 0 | 0 | 0 | 0 | no | 0 |
 
-family B, aux 1, not saturated at the lower rank: 83 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+family B, aux 1, not saturated at the lower rank: 90 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+  d9_455_dir1_B famB mn=6111|51111 bound 3920 gap 3640 max 280/280
+  d9_455_dir1_B famB mn=5211|32211 bound 3780 gap 3360 max 420/420
+  d9_455_dir1_B famB mn=4221|42111 bound 3780 gap 2760 max 1020/1020
+  d9_555_B famB mn=51111|33111 bound 2475 gap 2425 max 50/50
   d9_455_dir1_B famB mn=4311|33111 bound 3000 gap 2300 max 700/700
   d9_455_dir1_B famB mn=4221|51111 bound 2520 gap 2100 max 420/420
   d9_455_dir1_B famB mn=4311|32211 bound 2700 gap 1860 max 840/840
@@ -27,7 +31,3 @@ family B, aux 1, not saturated at the lower rank: 83 lattices (gap = size bound 
   d9_455_dir1_B famB mn=4221|6111 bound 1540 gap 1090 max 450/450
   d9_455_dir1_B famB mn=3222|5211 bound 1540 gap 1090 max 450/450
   d9_455_dir1_B famB mn=3222|4221 bound 1920 gap 1045 max 875/875
-  d9_455_dir1_B famB mn=4221|33111 bound 1800 gap 980 max 820/820
-  d9_455_dir1_B famB mn=4221|32211 bound 1620 gap 870 max 750/750
-  d9_555_B famB mn=32211|32211 bound 2025 gap 730 max 1295/1295
-  d9_455_dir1_B famB mn=3222|522 bound 2475 gap 720 max 1755/1755

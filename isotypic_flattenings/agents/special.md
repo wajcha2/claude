@@ -105,7 +105,7 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   record 'vstack': false; H-stacks, single-functional lines, natural U with H prefixes, H Grassmannian pencils).
   ncores 4, maxbig 2, tlimit 36 h.  Expected: the cheaper half (the 246 components the scan has done took ~200
   core-hours there) about a week; the expensive half considerably longer.
-  2026-10-23 14:40: the fast rankscan (2a0ce8e, SPEEDUP_rankscan.md: planned evaluation with reuse, blocked RREF,
+  2026-10-23 14:15: the fast rankscan (2a0ce8e, SPEEDUP_rankscan.md: planned evaluation with reuse, blocked RREF,
   layout-aware contraction; float32 bases since b9a24bd) is used by every job started from now on; specialscan.F
   also uses its cheaper evaluation basis (E = A F, F = A^-1 E exactly; EVALBASIS=0 = old fillings) and writes F
   into float32 directly (dest=).  Checked: F identical with and without the basis (4x4x4 d=8 control, forced on,

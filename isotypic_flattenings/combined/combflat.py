@@ -54,9 +54,11 @@ from hwv_fast import build_network, find_path, execute, minors_of_points, minors
 from isoflat import partitions, kronecker, modrank
 
 MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))   # max elements of a contraction intermediate (else block splitting)
-DPMAX = int(os.environ.get('DPMAX', '24'))              # max tensors for the DynamicProgramming path fallback
+DPMAX = int(os.environ.get('DPMAX', '40'))              # max tensors for the DynamicProgramming (optimal) path; 2*(lam_1+mu_1+nu_1) operands
 EXTRA = 8                                               # extra sample points / compression columns
 PR1, PR2 = 8, 16                                        # probe size for the choice of independent fillings
+FILLPOOL = int(os.environ.get('FILLPOOL', '1500'))      # random fillings scored per component before choosing the cheapest
+FILLCHEAP = float(os.environ.get('FILLCHEAP', '1e8'))   # stop enlarging the pool once a filling this cheap (flops) is found
 
 # ----------------------------------------------------------------------------------------------------------------
 # exact modular helpers
@@ -122,6 +124,19 @@ class Echelon:
 # memory-safe evaluation of one flattening (port of sweep_fast.best_path / compute_F without the MAXFLOPS cap)
 
 def best_path(ops, out, cheap=False, repeats=128):
+    """contraction path.  2026-10-22: for up to DPMAX operands the optimal path (opt_einsum DynamicProgramming,
+    minimize='flops') is tried first: on the d = 8, 9 networks of 455/555 (24..36 operands) it is found in 0.02-0.2 s and
+    executes 2-6x faster than the RandomGreedy path, with smaller intermediates; the size-minimising optimum is taken when
+    the flop-optimal path exceeds MEMCAP.  RandomGreedy remains the fallback (more operands, or cheap=True probes)."""
+    if not cheap and len(ops) <= DPMAX:
+        path, info = find_path(ops, out, None, oe.DynamicProgramming(minimize='flops'))
+        big = hwv_fast.largest_intermediate(ops, out, path)
+        if big > MEMCAP:
+            path2, info2 = find_path(ops, out, None, oe.DynamicProgramming(minimize='size'))
+            big2 = hwv_fast.largest_intermediate(ops, out, path2)
+            if big2 < big:
+                path, info, big = path2, info2, big2
+        return path, info, big
     path, info = find_path(ops, out, None, 'greedy' if cheap else oe.RandomGreedy(max_repeats=repeats))
     big = hwv_fast.largest_intermediate(ops, out, path)
     if big > MEMCAP and len(ops) <= DPMAX:
@@ -251,34 +266,56 @@ class Context:
         return [self.pm_src(tri[0])] + self.pm_tgt(tri[1:])
 
     def basis(self, tri):
-        """g fillings of the three diagrams whose functionals on M are linearly independent (probe on the rank-r_hi
-        tensor, as in sweep_fast.py), cheapest contraction first."""
+        """g fillings of the three diagrams whose functionals on M are linearly independent, chosen to make the
+        contraction CHEAP: a pool of FILLPOOL random fillings is scored by the estimated contraction cost of its
+        network (shapes only, greedy path, ~2 ms each; the cost varies by a factor 10..1000 between fillings of the
+        same component), the fillings are then probed in order of increasing cost on small probe points and the first
+        g with linearly independent functionals are kept.  The functional space spanned is the same (for g = 1 the
+        matrix is the same up to a scalar), only the cost changes.  2026-10-22: before, the cheapest of 6 random
+        fillings was taken; on 455/555 d = 8, 9 components that is 10x..700x more flops and up to 1000x larger
+        intermediates than the cheapest of 1500.  The pool grows in chunks of 100 and stops early once the best
+        estimate is below FILLCHEAP flops (small components do not pay the scoring overhead)."""
         if tri in self._basis:
             return self._basis[tri]
         g = self.g[tri]
         crng = np.random.default_rng([self.seed, 13, self.dirn] + self.tri_index(tri))
         gp = [crng.integers(0, p, (PR1 if t == 0 else PR2, self.ns[t], self.ns[t])) for t in range(3)]
         pmp = [{l: minors_of_points(gp[t], l) for l in range(1, self.ns[t] + 1)} for t in range(3)]
-        ech, chosen, tried = Echelon(), [], 0
-        maxtry = 60 * g + 100
-        while len(chosen) < g and tried < maxtry:
-            batch = []
-            while len(batch) < 2 * (g - len(chosen)) + 4 and tried < maxtry:
-                f = random_fillings(crng, tri); tried += 1
-                v = eval_F(f, self.vm(self.rhi), pmp, cheap=True).ravel()
-                if v.any():
-                    batch.append((f, v))
-            scored = []
-            for f, v in batch:
-                ops, out = build_network(f, self.vm(self.rhi), self.pm(tri))
-                _, info = find_path(ops, out, None, 'greedy')
-                scored.append((float(info.opt_cost), len(scored), f, v))
-            scored.sort(key=lambda x: x[:2])
-            for _, _, f, v in scored:
-                if len(chosen) < g and ech.add(v):
-                    chosen.append(f)
+        vm, pm = self.vm(self.rhi), self.pm(tri)
+        pool, seen = [], set()
+        while len(seen) < FILLPOOL:
+            for _ in range(100):
+                f = random_fillings(crng, tri)
+                key = repr(f)
+                if key in seen:
+                    continue
+                seen.add(key)
+                ops, out = build_network(f, vm, pm)
+                path, info = find_path(ops, out, None, 'greedy')
+                big = float(info.largest_intermediate)          # opt_einsum's estimate (cheap; execute() may differ slightly)
+                # flops, penalised when the largest intermediate exceeds MEMCAP (block splitting)
+                pool.append((float(info.opt_cost) * max(1.0, big / MEMCAP), f))
+            if min(c for c, _ in pool) < FILLCHEAP:
+                break
+        pool.sort(key=lambda x: x[0])
+        ech, chosen = Echelon(), []
+        for c, f in pool:
+            v = eval_F(f, vm, pmp, cheap=True).ravel()
+            if v.any() and ech.add(v):
+                chosen.append(f)
+                if len(chosen) == g:
+                    break
+        tried = len(pool)
+        while len(chosen) < g and tried < 60 * g + 100 + FILLPOOL:          # fallback: plain random fillings
+            f = random_fillings(crng, tri); tried += 1
+            v = eval_F(f, vm, pmp, cheap=True).ravel()
+            if v.any() and ech.add(v):
+                chosen.append(f)
         if len(chosen) < g:
             raise RuntimeError('only %d of g = %d independent fillings found for %s' % (len(chosen), g, tri))
+        if self.verbose and pool:
+            print('#   basis %s: pool %d, chosen cost %.1e (pool median %.1e)' % (tri, len(pool),
+                  max(c for c, f in pool if any(f is ch for ch in chosen)), np.median([c for c, _ in pool])), file=sys.stderr)
         self._basis[tri] = chosen
         return chosen
 

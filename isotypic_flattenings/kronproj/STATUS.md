@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 19:15 UTC): NO separation anywhere
+## Results so far (2026-10-23 20:16 UTC): NO separation anywhere
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
 large targets, kpE, kpG), no separation.
 
@@ -20,7 +20,7 @@ large targets, kpE, kpG), no separation.
 | k455_d6_dir0_G | 500 random general block matrices (2-3 sources x 2-3 targets, random ranks s_ij), 4x5x5 d=6 source C^4 | **complete**, none (142 s) |
 | k555_d6_G | 500 random general block matrices, 5x5x5 d=6 | **complete**, none (2011 s) |
 | k455_d6_dir1_G | 500 random general block matrices, 4x5x5 d=6 source C^5 | **complete**, none (1956 s) |
-| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (size <= 3000), kpE | **complete**, none (kpA 10 lattices, kpB 102 + 93 mirrors, 3 above the cap -> k455_d7_dir0_big; kpE 99 components, all 496 grid values at the size bound) |
+| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (size <= 3000), kpE | **complete (with k455_d7_dir0_big: 4x5x5 d=7 source C^4 fully done)**, none (kpA 10 lattices, kpB 102 + 93 mirrors, 3 above the cap -> k455_d7_dir0_big; kpE 99 components, all 496 grid values at the size bound) |
 | k555_d7 | 5x5x5 d=7: kpB (size <= 2500), kpE | **complete**, none (12999 s): kpB 27 lattices + 133 mirrors, 47 above the cap -> k555_d7_big; kpE 107 components + 81 mirrors, all 356 computed grid values at the size bound, 164 grid values (12 components) above --emax -> k555_d7_E2 (compressed grids) |
 | k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | **complete**, none (16953 s): kpB 32 lattices, 67 above the cap -> k455_d7_dir1_big; kpE 176 components, 672 grid values (663 at the size bound, 9 below it but equal on rank 8 and 9, e.g. ((3,3,1),(3,2,1,1),(3,1,1,1,1)) 2x3/s2: 480/480 vs bound 630), 160 above --emax -> k455_d7_dir1_E2 |
 | s555_d6 | H_s / V_s for all s, 5x5x5 d=6, the 13 components with g >= 3 | **complete**, none: every value at the size bound (e.g. 321|321|321 g=5: V_s = 280 s) (377 s) |

@@ -176,6 +176,18 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## Frontier reruns keep the old block evaluation (2026-10-23 19:35)
+The planned evaluation (NEWEVAL) is slower on the 8x8x8 d = 7 WCAP 2^28 networks, which its authors could not time:
+((6,1),(3,1^4),(2,1^5)) direction 1 at r = 13 (10304 x 10304) was planned in Z-outer tiles of 5 x 246 points (cheaper
+evaluation basis, planned cost 3.56e14) and ran 3200 tiles per hour, about 27 h for the matrix; the old block loop with
+the old fillings, timed on 2576 x 2 and 2576 x 4 slices of the same points under the same load (bench_hook3.py in the
+session scratchpad), runs at 2.5-2.7e-4 s per entry, 7.5-8 h for the matrix.  The rerun job n8_d7_x1 now carries
+NEWEVAL=0 FILLPOOL=0 in its env (exactly the old evaluation path; the blocked RREF and the rest stay); the worker
+(4 % done after 1.2 h) was restarted at 19:35 and its planned checkpoint deleted (its Z-order tiles would otherwise be
+resumed by the old loop as tiny blocks).  The normal jobs keep the planned evaluation: 9x9x9 d = 6 ((3,3),(3,2,1),(3,2,1))
+took 56 min (a component of the same size took 2.1 h with the float32 code alone); the first 8x8x8 normal (WCAP 2^26)
+components on the new code are to be watched the same way.
+
 ## hwv_fast.py / isoflat.py from the sweep_fast speed-up (adopted 2026-10-23 14:32)
 hwv_fast.py and isoflat.py taken unchanged from commit 6590942 (branch claude/project-thread-ttahoa-sweepfast,
 SPEEDUP_sweep_fast.md): pair_contract_fast (views instead of copies, loops of 2-D dot, broadcast products, einsum for

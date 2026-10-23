@@ -2,7 +2,9 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 21:19 UTC): NO separation anywhere
+## Results so far (2026-10-23 22:21 UTC): NO separation anywhere
+**Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
+
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
 large targets, kpE, kpG), no separation.
 
@@ -28,7 +30,7 @@ large targets, kpE, kpG), no separation.
 | k555_d6_big | the 5x5x5 d=6 kpB lattices with size 3128-3408 (one per mirror pair) | **complete**, none: 42|321 by the exhaustive walk (5183 level vectors, 11874 s), 321|2211, 411|321, 321|3111 by the direct-sum certificate (196-378 s each); only 321|321 (size 5713) left at 5x5x5 d=6 |
 | k455_d6_dir1_big | the 4x5x5 d=6 dir 1 kpB lattices with size 3128-3408 | **complete**, none: 4 by the certificate (34-47 s each), 321|3111 (not direct, 2650 < 3400) by the exhaustive walk (6479 level vectors, 6555 s) |
 | k555_d6_321, k455_d6_dir1_321 | the deferred 321|321 lattices (size 5713, 10 members, g = 1234254232) | **complete**, none: both direct sums (5705/5705), certified (269 s / 154 s, peak ~1.6 GB) |
-| s455_d8_dir1_H_w0/w1 (then s555_d8_H, s455_d8_dir0_H) | H_s for all s, single components with g >= 3 at d=8 | started 21:17 |
+| s455_d8_dir1_H_w0/w1 (then s555_d8_H, s455_d8_dir0_H) | H_s for all s, single components with g >= 3 at d=8 (4x5x5 source C^5: 977 components) | 707 components, 3416 H_s values (29 below the size bound, all equal on rank 8 and 9), none (running) |
 * Smoke runs: 4x5x5 d=5 dir 0 (`logs/smoke_455_d5_dir0.log`) and the 13 components with g >= 3 at 4x5x5 d=6 dir 0, H_s and V_s
   for all s (`logs/smoke_single_455_d6_dir0.log`): all full rank, no separation.
 * Validation: `test_kp.py full` 382 ok / 0 failures (`logs/test_full.log`), including C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)):

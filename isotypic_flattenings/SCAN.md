@@ -176,6 +176,20 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## Planned evaluation with reuse, cheaper evaluation basis, blocked RREF (adopted 2026-10-23 ~13:20)
+From branch claude/project-thread-ttahoa-rankscan (commit b15eff6, based on this branch at 0f46ae8, after the float32
+change; cherry-picked unchanged, details in SPEEDUP_rankscan.md): compute_F plans one contraction path of the whole
+network and reuses the intermediates that depend only on the word minors or on one side's points across tiles
+(NEWEVAL); each rank is evaluated in the cheapest of up to 1500 random fillings and mapped back exactly to the old
+basis (Fs = A^-1 E mod p, so F_i, phi, H_k, V_k are bit-identical; FILLPOOL); a blocked Gauss-Jordan replaces the
+row-by-row one inside RREF, and V_1 is not eliminated again for g = 1 (= H_1); layout-aware pairwise contractions.
+Their check: 40 scan components (3x3x3 .. 7x7x7, including the 4x4x4 rank-6 separators and the 6x6x6 rank-10
+separator) give identical records, 2.4x faster overall (up to 9.5x), lower peaks.  Here: test_speedup.py 33 ok,
+test_cut.py and test_ckpt.py pass.  Checkpoints stay compatible both ways (old Y-major format; a rank with an old
+filling's checkpoint is finished with the old fillings), profile caches keep their names.  Running workers keep the
+module they started with; every worker started since the cherry-pick uses it.  The runner's memory estimates are
+unchanged (conservative: the peaks went down).
+
 ## Float32 matrices (2026-10-23 04:58; idea from the combined agents' float32 RREF storage)
 Checked at the user's request: the method changes of the other agents since 2026-10-21 (branches charming-heisenberg,
 tender-ride, zealous-mendel): (a) hwv_fast.minors_of_points over the C(n, l) row subsets by Leibniz (l! terms): not

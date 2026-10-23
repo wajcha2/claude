@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 11:55 UTC): NO separation anywhere
+## Results so far (2026-10-23 12:57 UTC): NO separation anywhere
 | job | what | result |
 |---|---|---|
 | k455_d5_dir0 | 4x5x5 d=5, source C^4: kpA, kpB (all level vectors, g <= 2), 300 kpG | none (320 s) |
@@ -17,7 +17,7 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
 | k455_d6_dir0_G | 500 random general block matrices (2-3 sources x 2-3 targets, random ranks s_ij), 4x5x5 d=6 source C^4 | **complete**, none (142 s) |
 | k555_d6_G | 500 random general block matrices, 5x5x5 d=6 | **complete**, none (2011 s) |
 | k455_d6_dir1_G | 500 random general block matrices, 4x5x5 d=6 source C^5 | **complete**, none (1956 s) |
-| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (exhaustive up to 8000 level vectors, size <= 3000), kpE (families always run in the order A, B, E) | kpA done, kpB 96 lattices (e.g. 421|22111: g=11322242, 6495 level vectors), none (running) |
+| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (exhaustive up to 8000 level vectors, size <= 3000), kpE (families always run in the order A, B, E) | kpA done, kpB 97 lattices (e.g. 421|22111: g=11322242, 6495 level vectors), none (running) |
 | k555_d7 | 5x5x5 d=7: kpB (size <= 2500), kpE | 24 lattices (e.g. 3211|22111: 11 members, g up to 4, sampled level vectors), 5 mirrors skipped, none (running) |
 | k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | 19 lattices, none (running) |
 | s555_d6 | H_s / V_s for all s, 5x5x5 d=6, the 13 components with g >= 3 | **complete**, none: every value at the size bound (e.g. 321|321|321 g=5: V_s = 280 s) (377 s) |

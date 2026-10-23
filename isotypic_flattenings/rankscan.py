@@ -30,7 +30,10 @@ component).  A readable line per component goes to stdout.
 Env: NEED (comma list of r; default 1..r_gen-1), RLO (default min NEED), SEED (5), WORKER/NWORKERS (0/1),
      LIST (file with the components to do, one repr per line, in this order; default all, cheapest first),
      CLAIMDIR (claim files; default scan/claims_n<n>_d<d>), RESUME (':'-separated jsonl files to skip),
-     MEMCAP (2^25, elements of an intermediate), WCAP (2^26), DPMAX (24), VSTACK (1 = compute V_k)."""
+     MEMCAP (2^25, elements of an intermediate), WCAP (2^26), DPMAX (24), VSTACK (1 = compute V_k).
+Speed-ups of 2026-10-23 (SPEEDUP_rankscan.md; identical ranks, every one can be switched off): NEWEVAL (planned
+contraction with reuse across blocks), FILLPOOL (cheaper evaluation basis, mapped back exactly), RREF_OLD,
+PAIR_OLD."""
 import numpy as np, sys, os, time, json, itertools, resource
 from math import comb
 import opt_einsum as oe
@@ -145,12 +148,15 @@ class Infeasible(Exception):
     pass
 
 
-def _ckpt_load(path):
-    """(F, yb, zb, next block) from a checkpoint of compute_F's block loop, or None."""
+def _ckpt_load(path, meta=False):
+    """(F, yb, zb, next block) from a checkpoint of compute_F's block loop, or None.  meta=True: (F, meta dict)."""
     try:
-        meta = json.load(open(path + '.json'))
+        m = json.load(open(path + '.json'))
         F = np.load(path + '.npy')
-        return F, meta['yb'], meta['zb'], meta['next']
+        if meta:
+            m['yb'], m['zb'], m['next']
+            return F, m
+        return F, m['yb'], m['zb'], m['next']
     except (OSError, ValueError, KeyError):
         return None
 
@@ -160,13 +166,386 @@ def _plain(f):
     return json.loads(json.dumps(f, default=int))
 
 
-def _ckpt_save(path, F, yb, zb, nxt, f=None):
-    """atomically (rename) write the matrix, the position of the block loop and the filling it belongs to."""
+def _ckpt_save(path, F, yb, zb, nxt, f=None, order='Y'):
+    """atomically (rename) write the matrix, the position of the block loop and the filling it belongs to.
+    order 'Z' (planned evaluation, Z blocks outside, Y blocks inside): 'next2' holds the position and 'next' is 0,
+    so that the old block loop (Y-major order) would redo the matrix rather than skip blocks."""
     np.save(path + '.tmp.npy', F)
-    json.dump({'yb': yb, 'zb': zb, 'next': nxt, 't': time.time(), 'filling': _plain(f) if f is not None else None},
-              open(path + '.tmp.json', 'w'))
+    zmajor = order == 'Z' and yb < F.shape[0]
+    json.dump({'yb': yb, 'zb': zb, 'next': 0 if zmajor else nxt, 'next2': nxt, 'order': order, 't': time.time(),
+               'filling': _plain(f) if f is not None else None}, open(path + '.tmp.json', 'w'))
     os.replace(path + '.tmp.npy', path + '.npy')
     os.replace(path + '.tmp.json', path + '.json')
+
+
+# ---------------------------------------------------------------- planned evaluation (2026-10-23, SPEEDUP_rankscan.md)
+# A path for the WHOLE network (opt_einsum DynamicProgramming: flops / combo / size optimum, or RandomGreedy) whose
+# steps are classified by what they depend on: word minors only, Y points (source), Z points (targets), both.  The
+# matrix is cut into tiles (outer side in blocks, the other side in blocks or whole); word-minor-only intermediates
+# are computed once, outer-only ones once per outer block, inner-only ones once (inner side whole) or per tile, mixed
+# ones per tile -- so no step is repeated across tiles unless the model says it pays.  The plan minimises a cost
+# model (flops + MOVE_COST per element moved + STEP_OVERHEAD per step) under the memory cap (kept intermediates +
+# largest tensor of a tile <= cap).  The old code re-ran the whole path (fixed at tile size) on every tile.
+# Exact arithmetic is unchanged (hwv_fast.pair_contract on every pair), so F is identical.
+NEWEVAL = os.environ.get('NEWEVAL', '1') == '1'       # 0: the old block search (best_path + 2-d halving), as before
+DPFULL = int(os.environ.get('DPFULL', '32'))           # max operands for the DynamicProgramming path of the full network
+MOVE_COST = 30.0                                        # flop-equivalent per element read or written by a step
+                                                        # (transposes + fmod; calibrated on a 6x6x6 d = 8 network)
+STEP_OVERHEAD = 2e6                                     # flop-equivalent of the Python overhead of one contraction step
+_SIDE = {'Y': oe.get_symbol(0), 'Z': oe.get_symbol(1)}  # the index letters of Y and Z in hwv_fast.build_network
+_plan_cache = {}
+PLANMIN = float(os.environ.get('PLANMIN', '2e9'))      # networks whose greedy flop estimate is below: old path search
+
+
+def _greedy_cost(ops, out):
+    """opt_einsum's flop estimate of the plain greedy path (~1 ms; an upper bound for the planned cost)."""
+    return float(find_path(ops, out, None, 'greedy')[1].opt_cost)
+FILLPOOL = int(os.environ.get('FILLPOOL', '1500'))     # random fillings ranked for a cheaper evaluation basis (0 = off)
+FILLTOP = int(os.environ.get('FILLTOP', '8'))         # ... of which the cheapest distinct ones are planned exactly
+FILLMIN = float(os.environ.get('FILLMIN', '2e10'))     # only when the old fillings' planned cost exceeds this (~5 s)
+FILLMIN_GREEDY = float(os.environ.get('FILLMIN_GREEDY', '1e12'))   # ... and the greedy estimate exceeds this (~4 min)
+POOLFRAC = float(os.environ.get('POOLFRAC', '0.05'))   # ... spending at most this fraction of the estimated time
+SEC_PER_COST = 2.6e-10                                  # s per unit of the plan cost model (6x6x6 d = 8, one core)
+FILLGAIN = float(os.environ.get('FILLGAIN', '0.7'))    # ... and the new basis costs at most this fraction of it
+
+
+def _rowreduce_mod(M):
+    """reduced row echelon form of an integer matrix mod p (Python ints; small matrices): (rows, pivots)."""
+    M = [[int(x) % p for x in row] for row in M]
+    piv, r = [], 0
+    ncol = len(M[0]) if M else 0
+    for c in range(ncol):
+        k = next((i for i in range(r, len(M)) if M[i][c]), None)
+        if k is None:
+            continue
+        M[r], M[k] = M[k], M[r]
+        inv = pow(M[r][c], p - 2, p)
+        M[r] = [x * inv % p for x in M[r]]
+        for i in range(len(M)):
+            if i != r and M[i][c]:
+                f = M[i][c]
+                M[i] = [(x - f * y) % p for x, y in zip(M[i], M[r])]
+        piv.append(c); r += 1
+    return M[:r], piv
+
+
+def _solve_rows(Vold, Vnew):
+    """A (g x g) with Vnew = A Vold mod p (Vold: g independent rows), or None if some row of Vnew is not in the
+    row space of Vold."""
+    g, m = Vold.shape
+    # [Vold^T | Vnew^T] reduced: the first g columns are pivots (Vold^T has full column rank); A^T = the rest
+    R, piv = _rowreduce_mod(np.hstack([Vold.T, Vnew.T]).tolist())
+    if piv[:g] != list(range(g)) or len(piv) > g:
+        return None
+    return [[R[k][g + i] for k in range(g)] for i in range(g)]
+
+
+def _inv_mod(A):
+    g = len(A)
+    R, piv = _rowreduce_mod([list(row) + [int(i == j) for j in range(g)] for i, row in enumerate(A)])
+    if piv[:g] != list(range(g)) or len(R) < g:
+        return None
+    return [row[g:] for row in R]
+
+
+def _program(ops, out, path):
+    """the pairwise program that hwv_fast.execute runs for `path` (same pairing, same 'keep' strings):
+    entries ('pair', a, b, keep, o) / ('red', a, keep, o) over tensor ids (0..len(ops)-1 the inputs), and the
+    final id and its index string (execute ends with single_reduce(ia, A, out))."""
+    cur = [(k, i) for k, (i, _) in enumerate(ops)]
+    nxt, prog, idx = len(ops), [], {k: i for k, (i, _) in enumerate(ops)}
+    for step in path:
+        step = sorted(step, reverse=True)
+        taken = [cur.pop(k) for k in step]
+        rest = set(''.join(i for _, i in cur)) | set(out)
+        while len(taken) > 1:
+            (a, ia), (b, ib) = taken.pop(), taken.pop()
+            others = rest | set(''.join(i for _, i in taken))
+            keep = ''.join(dict.fromkeys(i for i in ia + ib if i in others))
+            prog.append(('pair', a, b, keep, nxt)); idx[nxt] = keep
+            taken.append((nxt, keep)); nxt += 1
+        a, ia = taken[0]
+        keep = ''.join(dict.fromkeys(i for i in ia if i in rest))
+        if keep != ia:
+            prog.append(('red', a, keep, nxt)); idx[nxt] = keep
+            a = nxt; nxt += 1
+        cur.append((a, keep))
+    assert len(cur) == 1
+    return prog, cur[0][0], idx
+
+
+def _classify(ops, prog):
+    """class of every tensor id: bit 1 = depends on the Y points, bit 2 = on the Z points (0: word minors only)."""
+    cls = {}
+    for k, (i, _) in enumerate(ops):
+        cls[k] = (1 if _SIDE['Y'] in i else 0) | (2 if _SIDE['Z'] in i else 0)
+    for e in prog:
+        c = 0
+        for a in _ins(e):
+            c |= cls[a]
+        cls[e[-1]] = c
+    return cls
+
+
+def _ins(e):
+    return e[1:3] if e[0] == 'pair' else e[1:2]
+
+
+class _Plan:
+    """a path of the full network with its pairwise program and per-step data for the tiling model."""
+    def __init__(self, ops, out, path):
+        self.path = path
+        self.prog, self.last, self.idx = _program(ops, out, path)
+        self.nin = len(ops)
+        self.dims = {}
+        for i, A in ops:
+            self.dims.update(zip(i, A.shape))
+        self.N = {1: self.dims[_SIDE['Y']], 2: self.dims[_SIDE['Z']]}
+        self.cls = _classify(ops, self.prog)
+        sz = lambda s: float(np.prod([self.dims[c] for c in s])) if s else 1.0
+        self.size = {k: sz(s) for k, s in self.idx.items()}
+        self.cost = {}                       # step output id -> modelled cost of the full (unblocked) step
+        for e in self.prog:
+            ins = _ins(e)
+            self.cost[e[-1]] = sz(''.join(dict.fromkeys(''.join(self.idx[a] for a in ins)))) \
+                + MOVE_COST * (self.size[e[-1]] + sum(self.size[a] for a in ins))
+        # tensors read by a step of another class (they must be kept while that class runs)
+        self.cross = {}
+        for e in self.prog:
+            for a in _ins(e):
+                if a >= self.nin and self.cls[a] != self.cls[e[-1]]:
+                    self.cross[a] = self.cls[a]
+        self.full_cost = sum(self.cost.values())
+        self.big = max(self.size[e[-1]] for e in self.prog) if self.prog else 0.0
+
+    def model(self, outer, bo, bi):
+        """(cost, memory in elements) of the tiled evaluation: outer side `outer` (1 = Y, 2 = Z) in blocks of bo,
+        the other side in blocks of bi.  Word-minor-only steps run once, outer-only steps once per outer block (once
+        in total), inner-only steps once in total if the inner side is not cut, else once per tile; mixed steps once
+        per tile (once in total).  Memory: kept tensors (word-minor-only and, if the inner side is not cut,
+        inner-only tensors read by mixed steps; outer-only ones per outer block) + the largest tensor of a tile."""
+        inner = 3 - outer
+        no, ni = -(-self.N[outer] // bo), -(-self.N[inner] // bi)
+        fo, fi = bo / self.N[outer], bi / self.N[inner]
+        scale = {0: 1.0, outer: fo, inner: fi, 3: fo * fi}
+        cost = 0.0
+        for e in self.prog:
+            c = self.cls[e[-1]]
+            reps = 1 if c == 0 else no if c == outer else (1 if ni == 1 else no * ni) if c == inner else no * ni
+            mult = no if (c == inner and ni > 1) else 1
+            cost += self.cost[e[-1]] * mult + reps * STEP_OVERHEAD
+        kept = sum(self.size[a] * scale[c] for a, c in self.cross.items())
+        big = max([self.size[k] * scale[self.cls[k]] for k in self.size if k >= self.nin] or [0.0])
+        # a pairwise step holds its operands, their transposed copies and the product: ~3x the largest tensor
+        return cost, kept + 3 * big, no, ni
+
+
+def _block_sizes(N):
+    """candidate block sizes: N / 1, 2, 3, 4, 6, 8, ... (equal blocks), down to 1."""
+    out, k = [], 1
+    while True:
+        b = -(-N // k)
+        if not out or b < out[-1]:
+            out.append(b)
+        if b == 1:
+            return out
+        k = k + 1 if k < 4 else int(k * 1.5)
+
+
+def plan_eval(ops, out, cap, light=False):
+    """cheapest feasible plan (cost, _Plan, outer side, outer block, inner block) over the candidate paths
+    (DynamicProgramming flops / combo / size, RandomGreedy) and tilings; outer None = no cutting needed.  None if
+    nothing fits (compute_F then uses the old block search)."""
+    # path searches in proportion to the work: a DynamicProgramming search takes 0.1 s to a minute (combo variants on
+    # 26 operands: ~10 s each), so it is only run when the greedy estimate of the evaluation time is larger
+    gpath, ginfo = find_path(ops, out, None, 'greedy')
+    est = float(ginfo.opt_cost) * SEC_PER_COST
+    paths = [gpath]
+    dps = []
+    if len(ops) <= DPFULL:
+        if est > 5:
+            dps.append('flops')
+        if est > 60 and not light:
+            dps += ['size', 'combo-64']
+        if est > 600 and not light:
+            dps += ['combo-16', 'combo-256']
+    for mz in dps:
+        paths.append(find_path(ops, out, None, oe.DynamicProgramming(minimize=mz))[0])
+    if not light:
+        paths.append(find_path(ops, out, None, oe.RandomGreedy(max_repeats=32 if est < 60 else 128))[0])
+    best = [None, None]                        # within cap; within 4 cap (the old code's Infeasible limit)
+    for path in paths:
+        P = _Plan(ops, out, path)
+        for j, cp in enumerate((cap, 4 * cap)):
+            if 3 * P.big <= cp:
+                c = P.full_cost + len(P.prog) * STEP_OVERHEAD
+                if best[j] is None or c < best[j][0]:
+                    best[j] = (c, P, None, None, None)
+                continue
+            for outer in (1, 2):
+                for bo in _block_sizes(P.N[outer]):
+                    for bi in _block_sizes(P.N[3 - outer]):
+                        c, mem, no, ni = P.model(outer, bo, bi)
+                        if mem <= cp:
+                            if best[j] is None or c < best[j][0]:
+                                best[j] = (c, P, outer, bo, bi)
+                            break                   # smaller inner blocks only cost more
+    return best[0] if best[0] is not None else best[1]
+
+
+def _pair(ia, A, ib, B, keep):
+    """hwv_fast.pair_contract with the index order inside each group (batch, free of A, contracted, free of B)
+    taken from the memory layout (strides) of the operands instead of the order of appearance, so that operands
+    that are transposed views of contiguous results need no copy (np.ascontiguousarray was ~40 %% of the
+    evaluation time).  Same exact float64 BLAS product (hwv_fast.fmatmul), same values."""
+    for i in list(ia):
+        if i not in ib and i not in keep:
+            A = hwv_fast._fmod(A.sum(axis=ia.index(i))); ia = ia.replace(i, '')
+    for i in list(ib):
+        if i not in ia and i not in keep:
+            B = hwv_fast._fmod(B.sum(axis=ib.index(i))); ib = ib.replace(i, '')
+    sa = dict(zip(ia, A.strides)); sb = dict(zip(ib, B.strides))
+    sbig = sa if A.size >= B.size else sb
+    batch = sorted((i for i in ia if i in ib and i in keep), key=lambda i: -sbig[i])
+    contr = sorted((i for i in ia if i in ib and i not in keep), key=lambda i: -sbig[i])
+    fa = sorted((i for i in ia if i not in ib), key=lambda i: -sa[i])
+    fb = sorted((i for i in ib if i not in ia), key=lambda i: -sb[i])
+    dims = dict(zip(ia, A.shape)); dims.update(zip(ib, B.shape))
+    size = lambda idx: int(np.prod([dims[i] for i in idx])) if idx else 1
+    nb, na, nc, nbb = size(batch), size(fa), size(contr), size(fb)
+    At = np.ascontiguousarray(np.transpose(A, [ia.index(i) for i in batch + fa + contr])).reshape(nb, na, nc)
+    Bt = np.ascontiguousarray(np.transpose(B, [ib.index(i) for i in batch + contr + fb])).reshape(nb, nc, nbb)
+    del A, B
+    R = hwv_fast.fmatmul(At, Bt)
+    del At, Bt
+    res = ''.join(batch + fa + fb)
+    R = R.reshape([dims[i] for i in res])
+    return np.transpose(R, [res.index(i) for i in keep])
+
+
+PAIR_OLD = os.environ.get('PAIR_OLD', '0') == '1'      # 1: hwv_fast.pair_contract (index order of appearance)
+
+
+def _run(prog, idx, which, env, lookup, keep):
+    """run the entries of prog whose output id is in `which` (exact pair_contract / single_reduce); inputs from env
+    or the dicts in lookup; results into env; an env tensor is freed after its last read unless it is in keep."""
+    refs = {}
+    for e in prog:
+        if e[-1] in which:
+            for a in _ins(e):
+                refs[a] = refs.get(a, 0) + 1
+
+    def get(a):
+        if a in env:
+            return env[a]
+        for L in lookup:
+            if a in L:
+                return L[a]
+        raise KeyError(a)
+    for e in prog:
+        o = e[-1]
+        if o not in which:
+            continue
+        if e[0] == 'pair':
+            env[o] = (hwv_fast.pair_contract if PAIR_OLD else _pair)(idx[e[1]], get(e[1]), idx[e[2]], get(e[2]), e[3])
+        else:
+            env[o] = hwv_fast.single_reduce(idx[e[1]], get(e[1]), e[2])
+        for a in _ins(e):
+            refs[a] -= 1
+            if refs[a] == 0 and a in env and a not in keep:
+                del env[a]
+
+
+def _compute_F_planned(f, ops, out, N1, K, cap, ckpt, dest, light=False):
+    """F by the planned evaluation, or None (no feasible plan, or a checkpoint of a block shape it cannot use)."""
+    key = (repr(_plain(f)), tuple((i, A.shape) for i, A in ops), cap, light)
+    if key not in _plan_cache:
+        if len(_plan_cache) > 64:
+            _plan_cache.clear()
+        _plan_cache[key] = plan_eval(ops, out, cap, light=light)
+    plan = _plan_cache[key]
+    if plan is None:
+        return None
+    cost, P, outer, bo, bi = plan
+    prog, idx, last, cls = P.prog, P.idx, P.last, P.cls
+    if outer is None:
+        env = {k: A for k, (_, A) in enumerate(ops)}
+        del ops[:]
+        _run(prog, idx, set(cls) - set(range(P.nin)), env, [], {last})
+        R = hwv_fast.single_reduce(idx[last], env.pop(last), out)
+        del env
+        if dest is None:
+            return R
+        dest[...] = R
+        return dest
+    yb, zb = (bo, bi) if outer == 1 else (bi, bo)
+    st = _ckpt_load(ckpt, meta=True) if ckpt else None
+    start = 0
+    if st is not None and st[0].shape == (N1, K):
+        F, meta = st
+        yb_s, zb_s = meta['yb'], meta['zb']
+        order = meta.get('order', 'Y')
+        outer_s = 2 if order == 'Z' else 1
+        bo_s, bi_s = (yb_s, zb_s) if outer_s == 1 else (zb_s, yb_s)
+        if P.model(outer_s, bo_s, bi_s)[1] > 4 * cap:
+            return None                                       # resumed by the old block loop
+        outer, bo, bi, yb, zb = outer_s, bo_s, bi_s, yb_s, zb_s
+        start = meta.get('next2', meta['next'])
+        if dest is not None:
+            dest[...] = F
+            F = dest
+    else:
+        F = np.zeros((N1, K), dtype=np.float64) if dest is None else dest
+    inner = 3 - outer
+    no, ni = -(-P.N[outer] // bo), -(-P.N[inner] // bi)
+    if os.environ.get('PLANLOG'):
+        print('    plan: cost %.3e (unblocked %.3e) outer %s %d x %d, inner %d x %d' %
+              (cost, P.full_cost, 'YZ'[outer - 1], no, bo, ni, bi), flush=True)
+    if start:
+        print('  . resumed block evaluation at block %d of %d (%s)' % (start, no * ni, os.path.basename(ckpt)), flush=True)
+    steps = {c: {e[-1] for e in prog if cls[e[-1]] == c} for c in range(4)}
+    inputs = {k: A for k, (_, A) in enumerate(ops)}
+    del ops[:]
+    sl = lambda A, s: A[s]                                    # a point tensor has its Y / Z index first
+    # word-minor-only part, once
+    env0 = {k: A for k, A in inputs.items() if cls[k] == 0}
+    keep0 = {a for a, c in P.cross.items() if c == 0}
+    _run(prog, idx, steps[0], env0, [], keep0)
+    env0 = {k: A for k, A in env0.items() if k in keep0 or k < P.nin}
+    envI_full = None
+    if ni == 1:                                               # inner side not cut: its part once, kept
+        envI_full = {k: A for k, A in inputs.items() if cls[k] == inner}
+        keepI = {a for a, c in P.cross.items() if c == inner}
+        _run(prog, idx, steps[inner], envI_full, [env0], keepI)
+        envI_full = {k: A for k, A in envI_full.items() if k in keepI or k < P.nin}
+    keepO = {a for a, c in P.cross.items() if c == outer}
+    last_ck = time.time()
+    for bidx in range(start, no * ni):
+        o, i = divmod(bidx, ni)
+        so = slice(o * bo, min(P.N[outer], (o + 1) * bo))
+        si = slice(i * bi, min(P.N[inner], (i + 1) * bi))
+        if i == 0 or bidx == start:
+            envO = {k: sl(A, so) for k, A in inputs.items() if cls[k] == outer}
+            _run(prog, idx, steps[outer], envO, [env0], keepO)
+            envO = {k: A for k, A in envO.items() if k in keepO or k < P.nin}
+        if envI_full is not None:
+            envT, look = {}, [envO, envI_full, env0]
+        else:
+            envT = {k: sl(A, si) for k, A in inputs.items() if cls[k] == inner}
+            look = [envO, env0]
+            _run(prog, idx, steps[inner], envT, look, set(P.cross))
+        _run(prog, idx, steps[3], envT, look, {last})
+        R = hwv_fast.single_reduce(idx[last], envT.pop(last), out)
+        del envT
+        ys, zs = (so, si) if outer == 1 else (si, so)
+        F[ys, zs] = R
+        del R
+        if ckpt and time.time() - last_ck > CKPT_EVERY and bidx + 1 < no * ni:
+            _ckpt_save(ckpt, F, yb, zb, bidx + 1, f, order='YZ'[outer - 1])
+            last_ck = time.time()
+    if ckpt and os.path.exists(ckpt + '.json'):
+        _ckpt_save(ckpt, F, yb, zb, no * ni, f, order='YZ'[outer - 1])
+    return F
 
 
 def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None, dest=None):
@@ -183,6 +562,14 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None, dest=None
     # (a 7x7x7 probe was cut into 128 blocks of 1 x 1 points, 400 s instead of 3 s).  So the cap is at least the
     # largest input.
     cap = max(MEMCAP, max(A.size for _, A in ops))
+    if NEWEVAL and _greedy_cost(ops, out) >= PLANMIN:
+        # (small networks keep the old path: planning costs ~0.1-1 s.  cheap = filling probes on a few points: the
+        # light plan; the old greedy path made the probes of choose_fillings take minutes per direction -- 6x6x6
+        # d = 8: 90 probes, 518 s.  Same values either way: exact.)
+        res = _compute_F_planned(f, ops, out, N1, K, cap, ckpt, dest, light=cheap)
+        if res is not None:
+            return res
+        ops, out = build_network(f, vm, pm)          # (fallback: the old block search below)
     if path is None:
         path, info, big = best_path(ops, out, cheap=cheap, cap=cap)
     else:
@@ -273,6 +660,75 @@ def _sub(A, B):
     return D
 
 
+RREF_OLD = os.environ.get('RREF_OLD', '0') == '1'      # 1: the unblocked row-by-row _gauss_jordan of a chunk
+RREF_PANEL = 64                                           # panel width: float64 sums of <= 64 products < p^2 are exact
+
+
+def _inv_small(B):
+    """inverse mod p of an invertible k x k matrix (k <= RREF_PANEL), Gauss-Jordan on [B | I]."""
+    k = B.shape[0]
+    A = np.hstack([np.mod(B, p), np.eye(k)])
+    for c in range(k):
+        i = c + np.flatnonzero(A[c:, c])[0]
+        if i != c:
+            A[[c, i]] = A[[i, c]]
+        A[c] = np.mod(A[c] * float(pow(int(A[c, c]), p - 2, p)), p)
+        col = A[:, c].copy(); col[c] = 0
+        nzr = np.flatnonzero(col)
+        if nzr.size:
+            A[nzr] = np.mod(A[nzr] - np.outer(col[nzr], A[c]), p)
+    return A[:, k:]
+
+
+def _rref_blocked(Y):
+    """reduced row echelon form of the rows of Y mod p (float64 residues): (R, pivot columns), R the nonzero rows.
+    Blocked Gauss-Jordan (from flattening_candidates/speedup_rref/rref_fast.py): each panel of RREF_PANEL columns is
+    eliminated row by row on the panel only, then all other rows get the panel's row operations at once
+    (W = Bk^-1 A[pivot rows]; A_i -= A_i[pivot cols] W: one BLAS product, inner dimension <= 64, exact in float64).
+    The RREF of a row space is unique, so the rows are those of _gauss_jordan (sorted by pivot column)."""
+    A = np.array(Y, dtype=np.float64)
+    n, m = A.shape
+    piv, r = [], 0
+    for c0 in range(0, m, RREF_PANEL):
+        if r == n:
+            break
+        c1 = min(m, c0 + RREF_PANEL)
+        P = A[r:, c0:c1].copy()
+        pcol, k = [], 0
+        perm = np.arange(n - r)
+        for j in range(c1 - c0):
+            if k == P.shape[0]:
+                break
+            nz = np.flatnonzero(P[k:, j])
+            if nz.size == 0:
+                continue
+            i = k + nz[0]
+            if i != k:
+                P[[k, i]] = P[[i, k]]; perm[[k, i]] = perm[[i, k]]
+            P[k] = np.mod(P[k] * float(pow(int(P[k, j]), p - 2, p)), p)
+            col = P[:, j].copy(); col[k] = 0
+            nzr = np.flatnonzero(col)
+            if nzr.size:
+                P[nzr] = np.mod(P[nzr] - np.outer(col[nzr], P[k]), p)
+            pcol.append(c0 + j); k += 1
+        if k == 0:
+            continue
+        A[r:] = A[r:][perm]
+        cols = np.array(pcol)
+        W = np.mod(_inv_small(A[r:r + k][:, cols]) @ A[r:r + k, c0:], p)
+        others = np.r_[0:r, r + k:n]
+        step = max(1, (1 << 22) // max(1, m - c0))
+        for i0 in range(0, others.size, step):
+            idx = others[i0:i0 + step]
+            X = A[idx][:, cols]
+            if not X.any():
+                continue
+            A[idx, c0:] = np.mod(A[idx, c0:] - np.mod(X @ W, p), p)
+        A[r:r + k, c0:] = W
+        piv += pcol; r += k
+    return A[:r], np.array(piv, dtype=np.int64)
+
+
 class RREF:
     """reduced row echelon basis of a growing set of vectors of length N over F_p (residues; the basis is stored as
     float32 since 2026-10-23 -- exact below 2^24 > p -- and every product is formed in float64 by fmatmul).
@@ -307,7 +763,7 @@ class RREF:
             Y = np.array(X[s:s + self.CH], dtype=np.float64)
             for Bb, m, pv in self.blocks:            # RREF: reducing block by block = reducing by the whole basis
                 Y = _sub(Y, _mm(Y[:, pv], Bb[:m]))
-            R, newpiv = self._gauss_jordan(Y)
+            R, newpiv = self._gauss_jordan(Y) if RREF_OLD else _rref_blocked(Y)
             if not len(newpiv):
                 continue
             for blk in self.blocks:                  # eliminate the new pivot columns from the old rows, in place
@@ -435,6 +891,105 @@ class Direction:
         self.fillings = chosen
         self.span = len(chosen)
         self.tried = tried
+        self.pmp = pmp                              # probe points (eval_basis)
+        self.ebases = {}                            # rank -> (evaluation fillings, Ainv) or None
+
+    def eval_basis(self, r, vm, pm):
+        """(2026-10-23) a basis E of the same functionals that is cheap to contract at rank r, and Ainv with
+        F = Ainv E exactly -- or None (keep the old fillings).  The fillings of choose_fillings are the cheapest of a
+        few random ones by a RandomGreedy estimate; the contraction cost of fillings of one component differs by
+        orders of magnitude.  FILLPOOL random fillings (own generator: the draws of crng, hence evaluation points, C
+        and the next direction, are unchanged) are ranked by the greedy estimate; the FILLTOP cheapest distinct ones
+        are costed by plan_eval at this rank; in order of that cost the first g with independent probe vectors on
+        the rank-r tensor form E.  The functionals are determined by their probe vectors when the old fillings'
+        probe vectors are independent, so E_i = sum_k A[i, k] F_k exactly with A from v_E = A v_F (checked on all
+        probe entries), and F = A^-1 E restores the old matrices exactly (profile()); everything after is
+        unchanged.  Used only if the planned cost of E is below FILLGAIN times that of the old fillings and the old
+        one is above FILLMIN.  Deterministic (a restarted worker picks the same E, so its checkpoints resume)."""
+        if not FILLPOOL:
+            return None
+        if r not in self.ebases:
+            try:
+                self.ebases[r] = self._eval_basis(r, vm, pm)
+            except Exception as e:                  # never let the optional basis change break a component
+                print('  . eval_basis failed (%s); old fillings used' % str(e)[:200], flush=True)
+                self.ebases[r] = None
+        return self.ebases[r]
+
+    def _eval_basis(self, r, vm, pm):
+        g = self.span
+        T0 = time.time()
+        cap0 = lambda ops: max(MEMCAP, max(A.size for _, A in ops))
+
+        def pcost(f):
+            ops, out = build_network(f, vm, pm)
+            pl = plan_eval(ops, out, cap0(ops), light=True)
+            return pl[0] if pl else float('inf')
+        if sum(_greedy_cost(*build_network(fl[0], vm, pm)) for fl in self.fillings) < FILLMIN_GREEDY:
+            return None                              # (cheap gate: the greedy estimate bounds the planned cost)
+        old_cost = sum(pcost(fl[0]) for fl in self.fillings)
+        if old_cost < FILLMIN:
+            return None
+        pmp, vmr = self.pmp, vm
+        budget = max(10.0, POOLFRAC * old_cost * SEC_PER_COST)
+        vold = []
+        for fl in self.fillings:
+            vold.append(compute_F(fl[0], vmr, pmp, cheap=True).ravel())
+        if len(_rowreduce_mod(np.array(vold, dtype=np.int64).tolist())[1]) < g:
+            return None                              # the old functionals are dependent on this tensor's probe
+        import zlib
+        rng = np.random.default_rng([zlib.crc32(repr((self.n, self.lam_p, self.t)).encode()), 4711])
+        pool, seen = [], set()
+        for _ in range(FILLPOOL):
+            f = random_fillings(rng, self.lam_p)
+            key = repr(_plain(f))
+            if key in seen:
+                continue
+            seen.add(key)
+            ops, out = build_network(f, vm, pm)
+            _, info = find_path(ops, out, None, 'greedy')
+            pool.append((float(info.opt_cost), float(info.largest_intermediate), len(pool), f))
+        pool.sort(key=lambda x: x[:3])
+        # in order of the greedy estimate: candidates with a nonzero probe vector (many fillings give the zero
+        # functional), at most FILLTOP distinct estimates; then by planned cost the first g independent ones
+        cand, costs, nprobe = [], set(), 0
+        for c, b, _, f in pool:
+            if (c, b) in costs:                      # equal estimates: (almost always) an equivalent network
+                continue
+            if nprobe >= 60 * g + 100 or time.time() - T0 > budget:   # (probe budget of choose_fillings; time
+                break                                                    # at most POOLFRAC of the estimated gain)
+            v = compute_F(f, vmr, pmp, cheap=True).ravel(); nprobe += 1
+            costs.add((c, b))                         # (an equivalent network of a zero functional is zero too)
+            if v.any():
+                cand.append((f, v))
+                if len(cand) >= FILLTOP + g:
+                    break
+        scored = sorted(((pcost(f), k, f, v) for k, (f, v) in enumerate(cand)), key=lambda x: x[:2])
+        ech, chosen, vnew = Echelon(), [], []
+        for c, _, f, v in scored:
+            if c == float('inf'):
+                break
+            if ech.add(v.astype(np.int64)):
+                chosen.append((c, f)); vnew.append(v)
+                if len(chosen) == g:
+                    break
+        if len(chosen) < g:
+            return None
+        new_cost = sum(c for c, _ in chosen)
+        if os.environ.get('PLANLOG'):
+            print('    pool: old fillings %.3e, best basis %.3e (%d probed, %d planned: %s)' % (old_cost, new_cost, nprobe,
+                  len(scored), ' '.join('%.1e' % x[0] for x in scored)), flush=True)
+        if new_cost > FILLGAIN * old_cost:
+            return None
+        A = _solve_rows(np.array(vold, dtype=np.int64), np.array(vnew, dtype=np.int64))   # vnew = A vold
+        if A is None:
+            return None
+        Ainv = _inv_mod(A)
+        if Ainv is None:
+            return None
+        print('  . %s dir %d r=%d: evaluation basis from a pool of %d fillings, planned cost %.2e -> %.2e (%.0fs)' %
+              (self.lam_p, self.t, r, len(pool), old_cost, new_cost, time.time() - T0), flush=True)
+        return [[f, None, None] for _, f in chosen], np.array(Ainv, dtype=np.float64)
 
     def profile(self, r, cut=None):
         """{'H': [rank H_k], 'V': [rank V_k]} at the random rank-r tensor.  cut (g = 1): evaluate only the leading
@@ -464,12 +1019,19 @@ class Direction:
             pm = slice_pm(self.pm, slice(0, cut), slice(0, cut))
             self.cuts[r] = cut
         Fs = np.empty((g, N1, K), dtype=np.float32)       # residues < p < 2^24: exact (float64 up to 2026-10-23)
-        if CKPT and g == 1:
+        # evaluation basis (cheap_basis): E_i = sum_k A[i, k] F_k, F = A^-1 E restores the old matrices exactly.  A
+        # checkpoint of the old fillings at this rank (worker started before the change) is resumed with them.
+        eb = self.eval_basis(r, vm, pm)
+        use_e = eb is not None and not self.legacy_ckpt(r, eb[0])
+        fills = eb[0] if use_e else self.fillings
+        if CKPT and g == 1 and not use_e:
             self.adopt_ckpt_filling(r)
-        cks = [self.ckpt_name(r, i) + ('_c%d' % cut if cut else '') for i in range(g)] if CKPT else [None] * g
-        for i, fl in enumerate(self.fillings):
+        cks = [self.ckpt_name(r, i, fills) + ('_c%d' % cut if cut else '') for i in range(g)] if CKPT else [None] * g
+        for i, fl in enumerate(fills):
             compute_F(fl[0], vm, pm, fl[1], fl[2], ckpt=cks[i], dest=Fs[i])
         del vm                                 # the word minors are not needed for the elimination
+        if use_e:
+            self.to_old_basis(Fs, eb[1])
         t1 = time.time()
         cache = {}
 
@@ -495,6 +1057,9 @@ class Direction:
                 if EH.rank < self.n1:
                     P = phi(k); EH.add(P.T)
                 H.append(EH.rank)
+                if g == 1 and not RREF_OLD:      # V_1 = rank phi_1 = H_1: the second elimination (rows instead of
+                    V.append(H[0])               # columns of the same matrix) only repeated it (2026-10-23)
+                    break
                 if EV.rank < self.n23:
                     P = phi(k) if P is None else P; EV.add(P)
                 V.append(EV.rank)
@@ -507,7 +1072,7 @@ class Direction:
             json.dump({'H': H, 'V': V, 'times': self.times[r], 'cut': cut, 't': time.time()}, open(tmp, 'w'))
             os.replace(tmp, pc)
             self.prof_files.append(pc)
-        stale = [self.ckpt_name(r, i) for i in range(g)] if CKPT and cut else []   # a full-size block loop of this
+        stale = [self.ckpt_name(r, i, fills) for i in range(g)] if CKPT and cut else []   # a full-size block loop of this
         for c in cks + stale:                 # rank cut short; the profile is done: its checkpoints are no longer needed
             for ext in ('.npy', '.json'):
                 if c and os.path.exists(c + ext):
@@ -538,12 +1103,39 @@ class Direction:
         os.makedirs(CKPT, exist_ok=True)
         return os.path.join(CKPT, 'n%d_t%d_r%d_f%d_%s' % (self.n, self.t, r, i, h.hexdigest()[:16]))
 
-    def ckpt_name(self, r, i):
+    def ckpt_name(self, r, i, fills=None):
         """checkpoint prefix: ckpt_base + a hash of the filling, so a checkpoint is only ever resumed by the
-        identical computation."""
+        identical computation.  fills: the fillings evaluated (default the old basis; profile() passes the
+        evaluation basis when it is used)."""
         import hashlib
-        fh = hashlib.sha1(json.dumps(_plain(self.fillings[i][0])).encode()).hexdigest()[:8]
+        fh = hashlib.sha1(json.dumps(_plain((fills or self.fillings)[i][0])).encode()).hexdigest()[:8]
         return self.ckpt_base(r, i) + '_' + fh
+
+    def legacy_ckpt(self, r, efill):
+        """True if a block checkpoint at rank r was written with a filling other than the evaluation basis (by a
+        worker that ran the old fillings): then this rank is evaluated with the old fillings, which resume it."""
+        if not CKPT:
+            return False
+        import glob
+        for i in range(self.span):
+            mine = _plain(efill[i][0])
+            for jf in glob.glob(self.ckpt_base(r, i) + '_*.json'):
+                try:
+                    meta = json.load(open(jf))
+                except (OSError, ValueError):
+                    continue
+                if isinstance(meta, dict) and meta.get('filling') is not None and meta['filling'] != mine:
+                    return True
+        return False
+
+    def to_old_basis(self, Fs, Ainv):
+        """Fs[i] <- sum_k Ainv[i, k] Fs[k] mod p in place (row chunks, exact float64 sums of g products < p^2)."""
+        g, N1, K = Fs.shape
+        rs = max(1, (1 << 22) // (g * K))
+        for s0 in range(0, N1, rs):
+            blk = Fs[:, s0:s0 + rs].astype(np.float64)
+            T = np.tensordot(Ainv, blk, axes=(1, 0))
+            Fs[:, s0:s0 + rs] = np.fmod(T, p, out=T)
 
     def adopt_ckpt_filling(self, r):
         """g = 1: every filling with a nonzero highest weight vector gives the same flattening up to a nonzero

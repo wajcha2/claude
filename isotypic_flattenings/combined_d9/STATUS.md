@@ -14,7 +14,11 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   targets of compressed size <= 6000 (the other 78 are in d9_455_dir1_B_big), every subset at every combination of the
   levels 1 and g: **no separation**.  2026-10-23 20:30 UTC.
 
+* **d9_555_B** (5x5x5, rank 9 vs 10; sources (8,1), (7,2), (7,1,1); family B, aux 1): the 198 targets of compressed size
+  <= 6000 (the other 106 are in d9_555_B_big), every subset at every combination of the levels 1 and g: **no separation**.
+  2026-10-23 22:50 UTC.
+
 ## Running / queued (no separation so far)
 
-* d9_555_B (family B, size <= 6000), d9_455_dir1_B_big, d9_555_B_big (size 6000..25000),
+* d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir0_B_p3 (sources lam_1 >= 6, --exhaust 14);
   d9_455_dir0_AE (family A with aux 1, 2: sources (7,1,1), (8,1), (7,2) aux 1 done, (7,2) aux 2 running; then family E).

@@ -20,7 +20,7 @@ reaches that job again.  On a restart, workers that are still running are adopte
 A resource line (memory, per-worker RSS, load) goes to <SCAN>/monitor.log every MONITOR s, and scan_report.py writes
 <SCAN>/STATUS.md after every job and every REPORT s.  State: <SCAN>/state.json (SCAN = scan/live, untracked;
 scan_autosave.sh copies everything into scan/ and commits)."""
-import os, sys, json, time, subprocess, itertools, signal, collections
+import os, sys, json, time, subprocess, itertools, signal, collections, calendar
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rankscan import generic_rank, components, cost_proxy, is_onerow, word_minor_size
 from hwv import dim_schur
@@ -33,6 +33,7 @@ LONGRUN = float(os.environ.get('LONGRUN', '14400'))  # s: a blocking backfill ru
 BFWAIT = float(os.environ.get('BFWAIT', '1800'))   # s a waiting component lets cheap/small components backfill past it
 CAPS = [0] + [float(x) for x in os.environ.get('CAPS', '3e5,3e6,3e7,3e8,3e9').split(',')]
 TLIMIT = float(os.environ.get('TLIMIT', '7200'))
+F32_SINCE = 1792731484.0     # 2026-10-23 04:58:04 UTC: rankscan.py keeps flattenings and elimination bases in float32
 EVALMARGIN = float(os.environ.get('EVALMARGIN', '0'))       # MB over the calibrated evaluation phase (see est_peak_mb)
 MEMBUDGET = float(os.environ.get('MEMBUDGET', '15000'))     # MB for the workers (container: 16 GB, no swap)
 MONITOR = int(os.environ.get('MONITOR', '300'))
@@ -219,16 +220,20 @@ def left_in_degree(st, n, d):
 _est_cache, _calib = {}, {}
 
 
-def mat_parts(n, lam, g):
-    """per direction: (MB of the g evaluated flattenings N1 x K (float32 above 2^26 entries), MB of the combination
-    phi and the H and V eliminations: 8 (N1 K + N1^2 + K^2))."""
+def mat_parts(n, lam, g, old=False):
+    """per direction: (MB of the g evaluated flattenings N1 x K, MB of the combination phi and the H and V
+    eliminations).  Workers started since F32_SINCE: float32 throughout, 4 g N1 K and 4 (N1 K + N1^2 + K^2); before
+    (old=True): flattenings float64 (float32 above 2^26 entries) and 8 (N1 K + N1^2 + K^2)."""
     out = []
     for t in range(3):
         a = lam[t]; b, c = [lam[u] for u in range(3) if u != t]
         n1 = dim_schur(a, n); n23 = dim_schur(b, n) * dim_schur(c, n)
         N1 = min(n1, g * n23) + 8; K = min(g * n1, n23) + 8
         el = g * N1 * K
-        out.append((el * (8 if el <= (1 << 26) else 4) / 2.0 ** 20, 8.0 * (N1 * K + N1 * N1 + K * K) / 2.0 ** 20))
+        if old:
+            out.append((el * (8 if el <= (1 << 26) else 4) / 2.0 ** 20, 8.0 * (N1 * K + N1 * N1 + K * K) / 2.0 ** 20))
+        else:
+            out.append((4.0 * el / 2.0 ** 20, 4.0 * (N1 * K + N1 * N1 + K * K) / 2.0 ** 20))
     return out
 
 
@@ -252,7 +257,7 @@ def eval_phase_mb(st, n, d):
             if any(x.get('method') in ('onerow', 'colwedge') or x.get('status') == 'infeasible' for x in r['dirs']):
                 continue
             lam = tuple(tuple(x) for x in r['lam'])
-            P = mat_parts(n, lam, r['g'])
+            P = mat_parts(n, lam, r['g'], ('ts' not in r or calendar.timegm(time.strptime(r['ts'], '%Y-%m-%dT%H:%M:%SZ')) < F32_SINCE))
             allv.append(r['rss_peak_mb'] - max(fs for fs, _ in P))
             if r['rss_peak_mb'] > max(fs + m for fs, m in P) + 1024:      # peak not explained by the elimination
                 vals.append(allv[-1])
@@ -268,7 +273,16 @@ def eval_phase_mb(st, n, d):
     return v
 
 
-def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
+def f32_model_on():
+    """<SCAN>/f32model = 1: estimate workers started since F32_SINCE with the float32 matrix sizes (mat_parts); off
+    (the default) keeps the float64 sizes for every worker until a large float32 peak has confirmed the new ones."""
+    try:
+        return open(os.path.join(SCAN, 'f32model')).read().split()[0] == '1'
+    except (OSError, IndexError):
+        return False
+
+
+def est_peak_mb(st, n, d, lam, g, extra=False, job=None, old=False):
     """estimated peak RSS of a worker on component lam (MB): two phases -- evaluation (flattenings + word minors and
     contraction blocks, eval_phase_mb, which carries its own 512 MB margin) and elimination (flattenings + phi +
     eliminations, + 800 MB: 300 MB was 130 MB short on 8x8x8 ((3,2,1),(3,2,1),(3,1,1,1)): 6785 MB) -- of its largest
@@ -287,9 +301,10 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None):
             rmax = max([r for r in range(1, rlo) if word_minor_size(lam, n, r) <= wcap] or [0])
             if rmax < max(2, rlo - 4):
                 return 300.0                     # largest recorded one-row peak: 3.0 GB (9x9x9 d = 6)
-    key = (n, lam, g)
+    old = old or not f32_model_on()
+    key = (n, lam, g, old)            # old: a worker started before F32_SINCE (float64 matrices)
     if key not in _est_cache:
-        _est_cache[key] = mat_parts(n, lam, g)
+        _est_cache[key] = mat_parts(n, lam, g, old)
     B = eval_phase_mb(st, n, d)
     # elimination phase: + 1.2 GB over the matrices (largest recorded excess 0.77 GB: 9x9x9 ((3,2,1),(3,2,1),(2,1^4)) 9218 MB);
     # evaluation phase: B (calibrated on the recorded peaks, + 512 MB) + EVALMARGIN (0 since 2026-10-18 07:43; it was 800
@@ -696,7 +711,7 @@ def main():
                 return predicted.get(pid, (None, 0.0))[1]
             predicted.pop(pid, None)
             lm, gg = {i: (l_, g_) for _, i, l_, g_ in comp_list(jb['n'], jb['d'])}[li]
-            return est_peak_mb(st, jb['n'], jb['d'], lm, gg, bool(jb.get('extra')), jb)
+            return est_peak_mb(st, jb['n'], jb['d'], lm, gg, bool(jb.get('extra')), jb, workers[pid][3] < F32_SINCE)
         while len(workers) < ncores:
             per_n = collections.Counter(st['jobs'][nm]['n'] for _, nm, _, _ in workers.values())
             cands = []

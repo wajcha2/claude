@@ -176,6 +176,32 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## Float32 matrices (2026-10-23 04:58; idea from the combined agents' float32 RREF storage)
+Checked at the user's request: the method changes of the other agents since 2026-10-21 (branches charming-heisenberg,
+tender-ride, zealous-mendel): (a) hwv_fast.minors_of_points over the C(n, l) row subsets by Leibniz (l! terms): not
+needed here -- rankscan.py replaced both minors routines by Laplace recursions (cost ~ sum_k k C(n, k) per point or
+per vector tuple) on 2026-10-01, which also handles l = 8..10; (b) isoflat.modrank as a blocked LU: rankscan.py uses
+its own incremental float64-BLAS RREF; (c) sweep_fast.py streaming of the g flattenings (noV mode only) and (d) the
+combined agent's float32 storage of RREF bases: adopted in spirit.  Residues mod p = 524287 < 2^24 are exact in
+float32; every product is still formed in float64 (fmatmul), so the arithmetic is unchanged.  rankscan.py now
+* evaluates each flattening directly into a float32 slot of Fs (compute_F(dest=...)): no float64 F per filling;
+  checkpoints are written in float32, and float64 checkpoints of older workers are resumed into the float32 slot;
+* frees the word minors before the elimination;
+* builds phi_j = sum_i C_ji F_i on row chunks in float64 and stores it as float32 (before: float64 plus two
+  full-size temporaries);
+* stores the RREF basis blocks as float32.
+Checks: profiles identical old vs new on 6x6x6 d = 6 ((3,2,1),(3,2,1),(3,1,1,1)) g = 4, d = 7 ((3,2,1,1)^3) g = 8 and
+((4,2,1),(4,1,1,1),(2,2,2,1)) g = 2 (direction 1, r = 10, all H_k and V_k); block mode with MEMCAP 2^12 into a
+float32 dest equals the float64 matrix; an old float64 checkpoint (interrupted old worker) resumed by the new code
+gives the same matrix and profile (4x4x4 d = 6 g = 4, 5x5x5 d = 6 g = 1); test_cut.py, test_ckpt.py pass.  Peak RSS
+of ((3,2,1,1)^3) direction 1: 1192 -> 1016 MB (its peak is in the evaluation phase).  The big savings are expected
+where the elimination dominates: 7x7x7 ((4,2,1),(4,2,1),(3,1,1,1,1)) g = 3 (V basis 22058^2: 3.7 -> 1.9 GB, phi
+3 x 1.2 GB -> 0.6 GB; recorded peak 7.65 GB) and 9x9x9 ((3,2,1),(3,1,1,1),(3,1,1,1)) (9.2 GB).
+scan_runner.py: mat_parts(old=False) = 4 g N1 K and 4 (N1 K + N1^2 + K^2) for workers started since F32_SINCE
+(2026-10-23 04:58:04); the estimates drop from 8.4 to 5.7 GB (7x7x7 above) and 9.7 to 6.4 GB (9x9x9).  They are used
+only when <SCAN>/f32model contains 1 -- off until a large component has run on the new code and its recorded peak
+confirms them (until then every estimate is the float64 one).  Runner restarted 05:21 (workers adopted).
+
 ## 6x6x6, rank 10 vs 11 at d = 8: the two separators, rechecked (2026-10-22)
 Components ((5,3),(3,2,1,1,1),nu) with nu = (2,2,1,1,1,1) (dims 4410 x 384 x 15) and nu = (3,1,1,1,1,1) (4410 x 384 x
 21), g = 2 for both (found 2026-10-12 and 2026-10-18; d <= 7 has no separator of 10 vs 11).  Direction 1 (source

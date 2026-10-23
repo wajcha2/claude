@@ -169,11 +169,13 @@ def _ckpt_save(path, F, yb, zb, nxt, f=None):
     os.replace(path + '.tmp.json', path + '.json')
 
 
-def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
+def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None, dest=None):
     """flattening matrix F[Y, Z] (sweep_fast.compute_F: block splitting when an intermediate exceeds MEMCAP, both
     halving orders tried, the full block's checked path reused for edge blocks).  Raises Infeasible if no block
     shape fits 4 * MEMCAP.  ckpt: file prefix; the block loop then saves F and its position every CKPT_EVERY s
-    and resumes from such a checkpoint (same block shape; the caller makes the prefix unique for its inputs)."""
+    and resumes from such a checkpoint (same block shape; the caller makes the prefix unique for its inputs).
+    dest: an (N1, K) array (float32: residues < p < 2^24 are exact) that receives F block by block instead of a
+    float64 matrix of its own (2026-10-23: half the memory of the evaluation phase)."""
     N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
     ops, out = build_network(f, vm, pm)
     # the word-minor inputs do not depend on the points: when one of them is already larger than MEMCAP (allowed up
@@ -188,7 +190,10 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
         if big > cap:
             path, info, big = best_path(ops, out, cap=cap)
     if big <= cap:
-        return execute(ops, out, path)
+        if dest is None:
+            return execute(ops, out, path)
+        dest[...] = execute(ops, out, path)
+        return dest
     best = None
     for order in ('Z', 'Y'):
         yb, zb = N1, K
@@ -211,6 +216,9 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
     st = _ckpt_load(ckpt) if ckpt else None
     if st is not None and st[0].shape == (N1, K):
         F, yb_s, zb_s, start = st
+        if dest is not None:                  # (checkpoints written before 2026-10-23 hold float64)
+            dest[...] = F
+            F = dest
         if (yb_s, zb_s) != (yb, zb):          # the path search is randomised: resume with the saved block shape
             yb, zb = yb_s, zb_s
             ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
@@ -218,7 +226,7 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None):
         print('  . resumed block evaluation at block %d of %d (%s)' % (start, (-(-N1 // yb)) * (-(-K // zb)),
                                                                         os.path.basename(ckpt)), flush=True)
     else:
-        F, start = np.zeros((N1, K), dtype=np.float64), 0
+        F, start = (np.zeros((N1, K), dtype=np.float64) if dest is None else dest), 0
     nbz = -(-K // zb)
     nblocks = (-(-N1 // yb)) * nbz
     last = time.time()
@@ -266,7 +274,8 @@ def _sub(A, B):
 
 
 class RREF:
-    """reduced row echelon basis of a growing set of vectors of length N over F_p (float64 residues).
+    """reduced row echelon basis of a growing set of vectors of length N over F_p (residues; the basis is stored as
+    float32 since 2026-10-23 -- exact below 2^24 > p -- and every product is formed in float64 by fmatmul).
     add(X) adds the rows of X and returns the new rank; cost is dominated by BLAS products.
     The basis is kept in blocks of at most BLK rows that are updated in place, so the memory is the basis itself
     plus one block-sized temporary (the former single array was re-allocated on every growth and every update made
@@ -309,7 +318,7 @@ class RREF:
                 del U
             for row, c in zip(R, newpiv):            # append the new rows
                 if not self.blocks or self.blocks[-1][1] == self.blocks[-1][0].shape[0]:
-                    self.blocks.append([np.empty((min(self.BLK, self.N), self.N)), 0, []])
+                    self.blocks.append([np.empty((min(self.BLK, self.N), self.N), dtype=np.float32), 0, []])
                 blk = self.blocks[-1]
                 blk[0][blk[1]] = row; blk[1] += 1; blk[2].append(int(c))
             self._rank += len(newpiv)
@@ -454,23 +463,28 @@ class Direction:
             N1 = K = cut
             pm = slice_pm(self.pm, slice(0, cut), slice(0, cut))
             self.cuts[r] = cut
-        big = g * N1 * K
-        Fs = np.empty((g, N1, K), dtype=np.float64 if big <= (1 << 26) else np.float32)
+        Fs = np.empty((g, N1, K), dtype=np.float32)       # residues < p < 2^24: exact (float64 up to 2026-10-23)
         if CKPT and g == 1:
             self.adopt_ckpt_filling(r)
         cks = [self.ckpt_name(r, i) + ('_c%d' % cut if cut else '') for i in range(g)] if CKPT else [None] * g
         for i, fl in enumerate(self.fillings):
-            Fs[i] = compute_F(fl[0], vm, pm, fl[1], fl[2], ckpt=cks[i])
+            compute_F(fl[0], vm, pm, fl[1], fl[2], ckpt=cks[i], dest=Fs[i])
+        del vm                                 # the word minors are not needed for the elimination
         t1 = time.time()
         cache = {}
 
         def phi(j):
+            """sum_i C[j, i] F_i mod p, accumulated exactly in float64 on row chunks, stored as float32."""
             if j not in cache:
                 cache.clear()
-                A = np.zeros((N1, K))
-                for i in range(g):
-                    A += self.C[j, i] * Fs[i]
-                cache[j] = np.fmod(A, p)
+                A = np.empty((N1, K), dtype=np.float32)
+                rs = max(1, (1 << 22) // K)
+                for s0 in range(0, N1, rs):
+                    T = np.zeros((min(rs, N1 - s0), K))
+                    for i in range(g):
+                        T += self.C[j, i] * Fs[i, s0:s0 + rs].astype(np.float64)
+                    A[s0:s0 + rs] = np.fmod(T, p, out=T)
+                cache[j] = A
             return cache[j]
         # H_k: vectors = columns of phi_j (length N1); V_k: vectors = rows of phi_j (length K)
         if VSTACK:

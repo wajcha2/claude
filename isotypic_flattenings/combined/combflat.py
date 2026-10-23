@@ -750,7 +750,8 @@ class LatticeFamily:
     #   * dim V_s (the single dims) is found first on sketches with t = 512, 1024, ... coordinates, until it is at most
     #     t - EXTRA (a prefix of t generic coordinates is injective on a space of dim <= t - EXTRA, as in the old dims());
     #   * ncols = min(size, sum over members of the top-level dim + EXTRA): no sum of subspaces is larger, so the
-    #     projection onto ncols generic coordinates is injective on every sum.
+    #     projection onto ncols generic coordinates is injective on every sum; the thin matrices are built in a second
+    #     pass directly on ncols coordinates (the flattenings are reloaded from the disk cache).
     # dims(S) is then the rank of the stacked thin matrices (about h x h, h = sum of the single dims), the same number as
     # the old c x c rank of R[:c] (sum mats[:, :c]); the single dims need no extra rank.  Memory: sum_s u_s x ncols
     # float32 per rank instead of (number of member levels) x size^2 uint32 plus size^2 int64 temporaries.
@@ -786,33 +787,32 @@ class LatticeFamily:
             acc = part if acc is None else _fmod(acc + part)
         return acc
 
-    def _member(self, m, r, Psi, crng):
-        """single dims {level: dim V_(m, level)} and thin matrices {level: (u x cap) float32} of member m, rank r."""
-        ctx, levs = self.ctx, self.levels[m]
-        top = max(levs)
-        Fs = ctx.flats(self.tri(m), r)
-        R = ctx.N1[m] if self.kind == 'B' else ctx.K[m]          # spanning rows per level
-        def spans(t):
-            ch = max(1, CHUNK // max(t, self.ambient if self.aux > 1 else 1))
-            return [slice(i, min(R, i + ch)) for i in range(0, R, ch)]
-        def rand(u, n):
-            return crng.integers(0, p, (u, n)).astype(np.float64)
-        # 1. single dims on sketches of t coordinates (rows: raw while at most t of them, then t random combinations)
+    def _spans(self, m, t):
+        """row chunks of a member's spanning rows per level (B: its source points, A: its target points)."""
+        R = self.ctx.N1[m] if self.kind == 'B' else self.ctx.K[m]
+        ch = max(1, CHUNK // max(t, self.ambient if self.aux > 1 else 1))
+        return [slice(i, min(R, i + ch)) for i in range(0, R, ch)]
+
+    def _sketch(self, m, r, Psi, crng):
+        """single dims {level: dim V_(m, level)} of member m on the rank-r tensor: ranks on sketches of t coordinates
+        (rows: raw while at most t of them, then t random combinations), t doubled until the top dim is <= t - EXTRA."""
+        levs = self.levels[m]; top = max(levs)
+        Fs = self.ctx.flats(self.tri(m), r)
         t = min(self.cap, self._t0.get(m, 512))
         while True:
             d, raw, acc = {}, [], None
             for lev in range(1, top + 1):
-                for sp in spans(t):
+                for sp in self._spans(m, t):
                     B = self._block(Fs, Psi, lev, sp, t)
                     if acc is None and sum(x.shape[0] for x in raw) + B.shape[0] <= t:
                         raw.append(B); continue
                     if acc is None:
                         acc = np.zeros((t, t))
                         for Bo in raw:
-                            acc += fmm(rand(t, Bo.shape[0]), Bo)
+                            acc += fmm(crng.integers(0, p, (t, Bo.shape[0])).astype(np.float64), Bo)
                             np.fmod(acc, p, out=acc)
                         raw = None
-                    acc += fmm(rand(t, B.shape[0]), B)
+                    acc += fmm(crng.integers(0, p, (t, B.shape[0])).astype(np.float64), B)
                     np.fmod(acc, p, out=acc)
                 if lev in levs:
                     d[lev] = modrank(acc if acc is not None else np.vstack(raw))
@@ -820,52 +820,67 @@ class LatticeFamily:
                 break
             t = min(self.cap, 2 * t)
         self._t0[m] = t                                         # dims grow with the rank: start the next rank here
-        # 2. thin matrices on all cap coordinates
+        self.ctx.release(self.tri(m), r)
+        return d
+
+    def _thin(self, m, r, Psi, crng, d, w):
+        """thin matrices {level: (u x w) float32} of member m on the rank-r tensor, on the first w projected coordinates:
+        all spanning rows when there are at most dim + EXTRA of them, else dim + EXTRA random combinations (one
+        accumulator for the nested levels, filled by row and column chunks)."""
+        levs = self.levels[m]; top = max(levs)
+        R = self.ctx.N1[m] if self.kind == 'B' else self.ctx.K[m]
         need = {lev: d[lev] + EXTRA for lev in levs}
         rawlev = [lev for lev in levs if lev * R <= need[lev]]  # few rows: keep them all (exact, no combinations)
         U = max([need[lev] for lev in levs if lev not in rawlev], default=0)
-        raw, acc, out = [], (np.zeros((U, self.cap)) if U else None), {}
+        Fs = self.ctx.flats(self.tri(m), r)
+        raw, acc, out = [], (np.zeros((U, w)) if U else None), {}
+        cc = max(256, CHUNK // max(1, U))                       # column chunks of the accumulator update
         for lev in range(1, top + 1):
-            for sp in spans(self.cap):
-                B = self._block(Fs, Psi, lev, sp, self.cap)
+            for sp in self._spans(m, w):
+                B = self._block(Fs, Psi, lev, sp, w)
                 if rawlev and lev <= max(rawlev):
                     raw.append(B.astype(np.float32))
                 if U:
-                    acc += fmm(rand(U, B.shape[0]), B)
-                    np.fmod(acc, p, out=acc)
+                    G = crng.integers(0, p, (U, B.shape[0])).astype(np.float64)
+                    for c0 in range(0, w, cc):
+                        sl = slice(c0, min(w, c0 + cc))
+                        acc[:, sl] += fmm(G, np.ascontiguousarray(B[:, sl]))
+                        np.fmod(acc[:, sl], p, out=acc[:, sl])
                 del B
             if lev in levs:
                 out[lev] = np.vstack(raw) if lev in rawlev else acc[:need[lev]].astype(np.float32)
-        ctx.release(self.tri(m), r)
-        return d, out
+        self.ctx.release(self.tri(m), r)
+        return out
 
     def build(self):
+        """two passes over the members (flattenings reloaded from the disk cache in between, see Context.release):
+        1. the single dims (sketches), 2. ncols = min(size, max over ranks of the sum of the top-level dims + EXTRA) and
+        the thin matrices on the first ncols projected coordinates."""
         ctx, a = self.ctx, self.aux
-        # coordinates kept until all single dims are known: aux = 1: the first `size` sample points; aux >= 2: all
-        # (raw) ambient coordinates, projected by W once ncols is known
+        # widest coordinate set a sketch may need: aux = 1: the first `size` sample points; aux >= 2: all ambient
+        # coordinates (the identity; narrower sketches use the random projection W)
         self.cap = self.size if a == 1 else self.ambient
         self._W, self._t0 = None, {}
-        sd = {r: {} for r in ctx.ranks}
+        psis, rngs, sd = {}, {}, {r: {} for r in ctx.ranks}
         for m in self.members:
             tri = self.tri(m); top = max(self.levels[m])
             # generic Psi (g, k, l): family A: k = aux, l = level (nested); family B: k = level (nested), l = aux
-            Psi = ctx.psi(tri, a, top, self.tag) if self.kind == 'A' else ctx.psi(tri, top, a, self.tag)
-            crng = np.random.default_rng([ctx.seed, 17, ctx.dirn, self.tag, a, 0 if self.kind == 'A' else 1] + ctx.tri_index(tri))
+            psis[m] = ctx.psi(tri, a, top, self.tag) if self.kind == 'A' else ctx.psi(tri, top, a, self.tag)
+            rngs[m] = np.random.default_rng([ctx.seed, 17, ctx.dirn, self.tag, a, 0 if self.kind == 'A' else 1] + ctx.tri_index(tri))
             for r in ctx.ranks:
-                d, thin = self._member(m, r, Psi, crng)
+                d = self._sketch(m, r, psis[m], rngs[m])
                 for lev in self.levels[m]:
                     sd[r][(m, lev)] = d[lev]
-                    self.mats[r][(m, lev)] = thin[lev]
         for m in self.members:
             for lev in self.levels[m]:
                 self._dims[((m, lev),)] = tuple(sd[r][(m, lev)] for r in ctx.ranks)
         H = max([sum(sd[r][(m, max(self.levels[m]))] for m in self.members) for r in ctx.ranks], default=0)
         self.ncols = min(self.size, H + EXTRA)
-        if self.ncols < self.cap:
+        for m in self.members:
             for r in ctx.ranks:
-                for s, Z in self.mats[r].items():
-                    self.mats[r][s] = (np.ascontiguousarray(Z[:, :self.ncols]) if a == 1 else
-                                       fmm(Z.astype(np.float64), self._proj(self.ncols)).astype(np.float32))
+                thin = self._thin(m, r, psis[m], rngs[m], {lev: sd[r][(m, lev)] for lev in self.levels[m]}, self.ncols)
+                for lev in self.levels[m]:
+                    self.mats[r][(m, lev)] = thin[lev]
         self._W = None
 
     def dims(self, S):

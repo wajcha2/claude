@@ -18,6 +18,7 @@ import numpy as np, itertools
 from itertools import combinations
 import opt_einsum as oe
 from hwv import p, col_dets
+from isoflat import perm_sign
 
 NCMAX = 1 << 15          # max number of summands per exact float64 dot product: 2^15 * p^2 < 2^53
 MEMCAP = 1 << 25         # default cap (elements) on intermediates of a contraction path
@@ -90,12 +91,32 @@ def execute(ops, out, path):
     return single_reduce(ia, A, out)
 
 _minor_cache = {}
-def minors_of_points(G, ell):
-    """P[b, I] = det G[b][I, :ell] for I in combinations(range(n), ell)  (G: (B, n, n))."""
+def minors_of_points_ref(G, ell):
+    """P[b, I] = det G[b][I, :ell] for I in combinations(range(n), ell)  (G: (B, n, n)).  Reference: col_dets builds
+    all n^ell ordered row tuples over all ell! permutations (2 min for B = 4716 points of 5x5 at ell = 5)."""
     n = G.shape[1]
     D = col_dets(np.ascontiguousarray(G[:, :, :ell]), ell)           # (B, n, ..., n): rows i_1..i_ell
     subs = list(combinations(range(n), ell))
     return (np.stack([D[(slice(None),) + I] for I in subs], axis=1) % p).astype(np.float64)
+
+def minors_of_points(G, ell):
+    """P[b, I] = det G[b][I, :ell] for I in combinations(range(n), ell)  (G: (B, n, n)); same values as
+    minors_of_points_ref (2026-10-22, degree-9 combined agent), but only the C(n, ell) row subsets, each by the
+    Leibniz expansion over ell! permutations, products reduced mod p after every factor (int64 exact)."""
+    n = G.shape[1]
+    Gm = np.asarray(G[:, :, :ell], dtype=np.int64) % p
+    perms = [(pi, perm_sign(pi)) for pi in itertools.permutations(range(ell))]
+    subs = list(combinations(range(n), ell))
+    out = np.zeros((G.shape[0], len(subs)), dtype=np.int64)
+    for k, I in enumerate(subs):
+        acc = np.zeros(G.shape[0], dtype=np.int64)
+        for pi, sg in perms:
+            term = Gm[:, I[0], pi[0]]
+            for i in range(1, ell):
+                term = (term * Gm[:, I[i], pi[i]]) % p
+            acc = (acc + sg * term) % p
+        out[:, k] = acc
+    return out.astype(np.float64)
 
 def minors_of_vectors(V, ell):
     """M[I, s_1..s_ell] = det V[s_*, I]  (V: (r, n))."""

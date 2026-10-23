@@ -44,6 +44,13 @@ lattices every block is stored once, compressed by a random matrix to a square m
 space, so the rank of a sub-sum costs one small rank computation.  Tensors: the same random rank-r tensors as
 `sweep_fast.py` for the same seed and rank list.  Flattening matrices are cached on disk in `live/cache/` (untracked).
 
+Since 2026-10-23 `combflat.py` is the fast, low-memory version from `claude/project-thread-ttahoa` (filling pool with DP
+contraction paths, blocked RREF, lattices stored thin; flattenings bit-identical, so cache and `--resume` stay valid).
+`comb_search.py` closes an aux-1 lattice after one rank when its full sum is **direct** on the lower rank and every
+single (member, level) has equal dims on both ranks: with aux 1 a member's level-1 subspace lies in its full-level
+subspace (checked on 107 members of C^4 and 4x5x5 lattices), so every S has dim_lo(S) = Σ singles = Σ singles on r_hi
+≥ dim_hi(S) and cannot separate (idea from the kronproj session; summary field `direct-sum-certified:1`).
+
 ## Validation (`python3 test_comb.py full`, log `logs/test_full.log`: 0 failures)
 * families A and B (full Kronecker spaces) equal an independent brute force (`brute.py`: T^{⊗d} as an explicit array,
   isotypic projectors and Young symmetrizers on tensor positions, no highest weight vectors, no sampling) on every

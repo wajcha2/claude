@@ -5,7 +5,8 @@ usage: python3 cache_gc.py [--dry]"""
 import os, re, sys, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
 JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_*', [1]), 'd9_555_B': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_*', [1]),
-        'd9_455_dir1_B_big': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_*', [1]), 'd9_555_B_big': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_*', [1])}
+        'd9_455_dir1_B_big': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_*', [1]), 'd9_555_B_big': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_*', [1]),
+        'd9_455_dir0_B_p3': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_*', [1])}      # ax1 dir 0 = the lam_1 >= 6 pass only (pattern:2 dir 0 is ax2)
 dry = '--dry' in sys.argv
 freed = 0
 for job, (pat, auxes) in JOBS.items():

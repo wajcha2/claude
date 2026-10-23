@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 04:37 UTC): NO separation anywhere
+## Results so far (2026-10-23 05:02 UTC): NO separation anywhere
 | job | what | result |
 |---|---|---|
 | k455_d5_dir0 | 4x5x5 d=5, source C^4: kpA, kpB (all level vectors, g <= 2), 300 kpG | none (320 s) |
@@ -34,6 +34,11 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
 
 * 2026-10-23 03:40 UTC: container restart (not memory: 10.5 GB steady before it); disk, logs and caches survived, runner
   relaunched with --resume (only the lattices in progress were redone, e.g. 4x5x5 d=6 dir 1 3111|321).
+
+* Gap filling (queued 2026-10-23 05:00): the d=6 components with g >= 3 all sit in kpB lattices above the size cap, so
+  their V_s were not tested (H_s were, as kpA singles).  Jobs s555_d6 / s455_d6_dir1 (H_s, V_s of every g >= 3 component)
+  and k555_d6_big / k455_d6_dir1_big (those lattices with the cap at 3500; 5x5x5 one of each mirror pair).  321|321 (size
+  5713, ~8 GB of lattice matrices) is deferred.  The runner now re-reads `jobs.txt` and adopts running workers.
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

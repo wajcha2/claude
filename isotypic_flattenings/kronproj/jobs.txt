@@ -20,6 +20,12 @@ k455_d6_dir1_G | 4,5,5 6 8,9 --dir 1 --fam G --gcount 500
 k455_d7_dir0 | 4,5,5 7 8,9 --dir 0 --fam B,E,A --exhB 8000 --bmax 3000 --nrand 800 --greedy 1
 k555_d7      | 5 7 9,10 --fam B,E --exhB 8000 --bmax 2500 --nrand 800 --greedy 1
 k455_d7_dir1 | 4,5,5 7 8,9 --dir 1 --fam B,E --exhB 8000 --bmax 2500 --nrand 800 --greedy 1
+# 2026-10-23: d=6 gap filling -- V_s of the g >= 3 components (they sit in the B lattices above the size cap) and those
+# large B lattices with the cap raised to 3500 (5x5x5: one of each mirror pair mu|nu ~ nu|mu); 321|321 (size 5713, ~8 GB) deferred
+s555_d6      | kp_single.py 5 6 9,10 --mode HV
+s455_d6_dir1 | kp_single.py 4,5,5 6 8,9 --dir 1 --mode HV
+k555_d6_big  | 5 6 9,10 --fam B --bmax 3500 --only-mn 42|321;321|2211;411|321;321|3111
+k455_d6_dir1_big | 4,5,5 6 8,9 --dir 1 --fam B --bmax 3500 --only-mn 42|321;321|42;411|321;321|411;321|3111
 s455_d8_dir1_H_w0 | kp_single.py 4,5,5 8 8,9 --dir 1 --mode H --worker 0 --nworkers 2
 s455_d8_dir1_H_w1 | kp_single.py 4,5,5 8 8,9 --dir 1 --mode H --worker 1 --nworkers 2
 s555_d8_H_w0 | kp_single.py 5 8 9,10 --mode H --worker 0 --nworkers 2

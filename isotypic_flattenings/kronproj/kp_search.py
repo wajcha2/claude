@@ -168,17 +168,27 @@ class Searcher:
 
 # ------------------------------------------------------------------------------------------------------------------
 def exhaustive(sr, members):
-    """every level vector (s_m in 0..g_m) over `members`, depth first; nested levels are added incrementally."""
+    """every level vector (s_m in 0..g_m) over `members`, depth first; nested levels are added incrementally.
+    Saturation cut (2026-10-23): once the sum has dimension fam.rankcap (the largest possible) on the LOWEST rank, every
+    superset (deeper members, higher levels of this member) has the same dimension on every rank, so it cannot separate;
+    those nodes are skipped.  Returns the number of nodes visited."""
     fam = sr.fam
+    cap = fam.rankcap
+    visited = [0]
     def dfs(i, cur, S):
         for j in range(i, len(members)):
             m = members[j]; c = cur
             for lev in range(1, fam.gm[m] + 1):
                 c = {r: add_basis(*c[r], fam.basis_rows(r, (m, lev))) for r in ranks}
                 S2 = S + [(m, lev)]
-                sr.note(S2, tuple(len(c[r][1]) for r in ranks), 'exhaustive', recheck=True)
+                dims = tuple(len(c[r][1]) for r in ranks)
+                visited[0] += 1
+                sr.note(S2, dims, 'exhaustive', recheck=True)
+                if dims[0] >= cap:
+                    break                       # saturated: higher levels of m and all deeper members are supersets
                 dfs(j + 1, c, S2)
     dfs(0, {r: (np.zeros((0, fam.size), dtype=np.float32), []) for r in ranks}, [])
+    return visited[0]
 
 def greedy(sr, cands, rng):
     """grow a configuration one (member, level) at a time, maximising the top-pair drop (ties random); a member already
@@ -219,11 +229,24 @@ def search(fam, rng):
     for m in ms:
         singles[m] = [sr.test([(m, lev)], 'single') for lev in range(1, gm[m] + 1)]
     named = {}
+    if len(ms) > 1:
+        # direct-sum certificate (2026-10-23): if on rank r_i the full sum (all members, full levels) is DIRECT (its dim is
+        # the sum of the single dims) and every single (m, s) has equal dims on r_i and r_{i+1}, then every configuration S
+        # has dim_i(S) = sum of its single dims (subspaces of independent subspaces are independent)
+        # = sum of the r_{i+1} single dims >= dim_{i+1}(S): no S separates r_i from r_{i+1}.  Then the lattice is done.
+        full = fam.dims([(m, gm[m]) for m in ms]); sr.note([(m, gm[m]) for m in ms], full, 'all')
+        named['all'] = full
+        certified = all(full[i] == sum(singles[m][gm[m] - 1][i] for m in ms) and
+                        all(v[i] == v[i + 1] for m in ms for v in singles[m]) for i in range(NPAIR))
+        if certified:
+            named['direct-sum-certified'] = 1
+            return sr, singles, named
     nvec = float(np.prod([gm[m] + 1 for m in ms], dtype=np.float64)) - 1
     bound = args.exh if fam.kind == 'A' else exhB
     if len(ms) > 1 and nvec <= bound:
-        exhaustive(sr, ms)
+        nvis = exhaustive(sr, ms)
         named['exhaustive'] = int(nvec)
+        named['visited'] = nvis
         named['all'] = fam.dims([(m, gm[m]) for m in ms])
         return sr, singles, named
     if len(ms) == 1:

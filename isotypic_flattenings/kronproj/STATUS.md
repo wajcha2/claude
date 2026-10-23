@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 13:59 UTC): NO separation anywhere
+## Results so far (2026-10-23 14:10 UTC): NO separation anywhere
 | job | what | result |
 |---|---|---|
 | k455_d5_dir0 | 4x5x5 d=5, source C^4: kpA, kpB (all level vectors, g <= 2), 300 kpG | none (320 s) |
@@ -50,6 +50,15 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
   computed both ways so far gave identical members, g and ranks; a --nomirror rerun of 4x5x5 d=5 dir 0 reproduces the
   processed lattices line for line.  k455_d7_dir0 and k555_d7 restarted with it (resume), the d=8 kp_single jobs of 5x5x5
   and 4x5x5 dir 0 queued with it.
+
+* 2026-10-23 14:05 UTC: **direct-sum certificate** in kp_search (lattices A, B): if on r_lo the full sum (all members,
+  full levels) is direct (dim = sum of the single dims) and every single (member, level) has equal dims on r_lo and r_hi,
+  then every configuration S has dim_lo(S) = sum of its single dims = sum of the r_hi single dims >= dim_hi(S), so no
+  level vector separates and the walk is skipped.  Exact, not a heuristic.  From the logs: 74 of 88 kpB lattices of
+  k455_d7_dir0 (97% of its time), 18 of 24 of k555_d6, 14 of 26 of k555_d7 are certifiable.  Checked: 4x5x5 d=6 dir 0
+  42|321 certified in 11 s (exhaustive walk 262 s, same verdict); non-direct lattices still get the walk (3111|3111:
+  same line as before).  Also a saturation cut in the walk (skip supersets once the sum reaches the lattice cap on
+  r_lo).  k455_d7_dir0, k555_d7, k555_d6_big restarted with it (resume); k455_d7_dir1 left running (13%).
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

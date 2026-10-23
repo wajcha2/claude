@@ -36,6 +36,7 @@ ap.add_argument('--mode', default='HV'); ap.add_argument('--gmin', type=int, def
 ap.add_argument('--worker', type=int, default=0); ap.add_argument('--nworkers', type=int, default=1)
 ap.add_argument('--resume', default='', help='log1:log2: skip components already reported there')
 ap.add_argument('--maxcost', type=float, default=float('inf'), help='skip components with g * N1 * K above this')
+ap.add_argument('--nomirror', action='store_true', help='equal target dimensions: only one of (lam, mu, nu), (lam, nu, mu)')
 ap.add_argument('--only', default='', help='comma-free list "lam|mu|nu;..." of components')
 args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
@@ -50,6 +51,8 @@ def sizes(tri):
     return N1, K
 
 comps = [t for t in ctx.g if ctx.g[t] >= args.gmin]
+if args.nomirror and ctx.ns[1] == ctx.ns[2]:
+    comps = [t for t in comps if ctx.pidx[1][t[1]] <= ctx.pidx[2][t[2]]]     # swapping the target factors: same generic ranks
 if args.only:
     want = set(args.only.split(';'))
     comps = [t for t in comps if '%s|%s|%s' % tuple(map(fmt, t)) in want]

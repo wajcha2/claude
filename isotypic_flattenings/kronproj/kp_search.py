@@ -67,6 +67,11 @@ ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random gen
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--resume', default='')
+ap.add_argument('--nomirror', action='store_true',
+                help='when the two target factors have the same dimension (5x5x5; 4x5x5 with --dir 0), skip the mirror '
+                     'target (nu, mu) of a target (mu, nu) already done (kpB) and the mirror component (lam, nu, mu) (kpE): '
+                     'swapping the two target factors maps generic rank-r tensors to generic rank-r tensors, so the '
+                     'generic ranks agree')
 args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
@@ -304,10 +309,17 @@ if 'B' in fams:
         a, b = s.split('|')
         return tuple(tuple(int(c) for c in x) for x in (a, b))
     only = [parse_mn(s) for s in args.only_mn.split(';') if s]
+    MIRROR = args.nomirror and ctx.ns[1] == ctx.ns[2]
     for mn in sorted(ctx.targets, key=lambda mn: ctx.K[mn]):
         name = '%s|%s' % (fmt(mn[0]), fmt(mn[1]))
         if (only and mn not in only) or ('B', name) in DONE:
             continue
+        mirror = '%s|%s' % (fmt(mn[1]), fmt(mn[0]))
+        if MIRROR and mn[0] != mn[1] and ('B', mirror) in DONE:
+            print('kpB mn=%s SKIPPED (mirror of %s)' % (name, mirror)); sys.stdout.flush()
+            DONE.add(('B', name))
+            continue
+        DONE.add(('B', name))
         mem = [lam for lam in ctx.sources if (lam,) + mn in ctx.g]
         if max(ctx.g[(lam,) + mn] for lam in mem) < 2:
             print('kpB mn=%s SKIPPED (all %d members g = 1)' % (name, len(mem))); sys.stdout.flush()
@@ -326,6 +338,11 @@ if 'E' in fams:
         g = ctx.g[tri]
         if g < 3 or ('E', str(tri)) in DONE:
             continue
+        if args.nomirror and ctx.ns[1] == ctx.ns[2] and tri[1] != tri[2] and ('E', str((tri[0], tri[2], tri[1]))) in DONE:
+            print('kpE %s g=%d SKIPPED (mirror of %s)' % (tri, g, (tri[0], tri[2], tri[1]))); sys.stdout.flush()
+            DONE.add(('E', str(tri)))
+            continue
+        DONE.add(('E', str(tri)))
         lam, mn = tri[0], tri[1:]
         t0 = time.time(); out = []
         rng = np.random.default_rng([args.seed, 33, args.dir] + ctx.tri_index(tri))

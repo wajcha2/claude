@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 09:47 UTC): NO separation anywhere
+## Results so far (2026-10-23 10:55 UTC): NO separation anywhere
 | job | what | result |
 |---|---|---|
 | k455_d5_dir0 | 4x5x5 d=5, source C^4: kpA, kpB (all level vectors, g <= 2), 300 kpG | none (320 s) |
@@ -17,7 +17,7 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
 | k455_d6_dir0_G | 500 random general block matrices (2-3 sources x 2-3 targets, random ranks s_ij), 4x5x5 d=6 source C^4 | **complete**, none (142 s) |
 | k555_d6_G | 500 random general block matrices, 5x5x5 d=6 | **complete**, none (2011 s) |
 | k455_d6_dir1_G | 500 random general block matrices, 4x5x5 d=6 source C^5 | **complete**, none (1956 s) |
-| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (exhaustive up to 8000 level vectors, size <= 3000), kpE (families always run in the order A, B, E) | kpA done, kpB 80 lattices (e.g. 421|22111: g=11322242, 6495 level vectors), none (running) |
+| k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (exhaustive up to 8000 level vectors, size <= 3000), kpE (families always run in the order A, B, E) | kpA done, kpB 93 lattices (e.g. 421|22111: g=11322242, 6495 level vectors), none (running) |
 | k555_d7 | 5x5x5 d=7: kpB (size <= 2500), kpE | 21 lattices (e.g. 3211|22111: 11 members, g up to 4, sampled level vectors), none (running) |
 | k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | 19 lattices, none (running) |
 | s555_d6 | H_s / V_s for all s, 5x5x5 d=6, the 13 components with g >= 3 | **complete**, none: every value at the size bound (e.g. 321|321|321 g=5: V_s = 280 s) (377 s) |
@@ -43,6 +43,13 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
   their V_s were not tested (H_s were, as kpA singles).  Jobs s555_d6 / s455_d6_dir1 (H_s, V_s of every g >= 3 component)
   and k555_d6_big / k455_d6_dir1_big (those lattices with the cap at 3500; 5x5x5 one of each mirror pair).  321|321 (size
   5713, ~8 GB of lattice matrices) is deferred.  The runner now re-reads `jobs.txt` and adopts running workers.
+
+* 2026-10-23 10:50 UTC: `--nomirror` (kp_search, kp_single): when the two target factors have equal dimension (5x5x5, 4x5x5
+  with source C^4) only one of each mirror pair mu|nu ~ nu|mu (kpB) and (lam, mu, nu) ~ (lam, nu, mu) (kpE, kp_single) is
+  computed: swapping the target factors maps generic rank-r tensors to generic rank-r tensors.  Checked: every mirror pair
+  computed both ways so far gave identical members, g and ranks; a --nomirror rerun of 4x5x5 d=5 dir 0 reproduces the
+  processed lattices line for line.  k455_d7_dir0 and k555_d7 restarted with it (resume), the d=8 kp_single jobs of 5x5x5
+  and 4x5x5 dir 0 queued with it.
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

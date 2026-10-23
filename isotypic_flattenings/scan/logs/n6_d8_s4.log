@@ -1563,3 +1563,10 @@ lam=((5, 2, 1), (3, 3, 1, 1), (3, 1, 1, 1, 1, 1)) g=2 dims=[5760, 1176, 21] ok  
 # worker 328695 done, 4979s
 # rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 328696/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
   . ((5, 2, 1), (3, 3, 1, 1), (2, 2, 2, 2)) dir 0 r=10: evaluation basis from a pool of 1500 fillings, planned cost 3.10e+13 -> 1.74e+13 (11s)
+  . ((5, 2, 1), (3, 3, 1, 1), (2, 2, 2, 2)) dir 0 r=10 H=[5760, 5760] V=[5760, 11520] eval 4883s rref 263s
+  . ((3, 3, 1, 1), (5, 2, 1), (2, 2, 2, 2)) dir 1 r=10: evaluation basis from a pool of 1500 fillings, planned cost 2.11e+11 -> 1.24e+11 (4s)
+  . ((3, 3, 1, 1), (5, 2, 1), (2, 2, 2, 2)) dir 1 r=10 H=[1176, 1176] V=[1176, 2352] eval 37s rref 4s
+  . ((2, 2, 2, 2), (5, 2, 1), (3, 3, 1, 1)) dir 2 r=10 H=[105, 105] V=[105, 210] eval 1s rref 0s
+lam=((5, 2, 1), (3, 3, 1, 1), (2, 2, 2, 2)) g=2 dims=[5760, 1176, 105] ok  wall=5203.5s rss=1644MB
+# worker 328696 done, 5204s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 328698/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list

@@ -72,6 +72,7 @@ ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random gen
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--resume', default='')
+ap.add_argument('--nocache', action='store_true', help='no disk cache of the flattenings (lattices whose components are used once; saves disk)')
 ap.add_argument('--nomirror', action='store_true',
                 help='when the two target factors have the same dimension (5x5x5; 4x5x5 with --dir 0), skip the mirror '
                      'target (nu, mu) of a target (mu, nu) already done (kpB) and the mirror component (lam, nu, mu) (kpE): '
@@ -82,7 +83,7 @@ ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else 
 ranks = [int(x) for x in args.ranks.split(',')]
 fams = args.fam.split(',')
 exhB = args.exhB or args.exh
-ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache + ('_p%d' % p if PRIME else ''), auxmax=1)
+ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=None if args.nocache else args.cache + ('_p%d' % p if PRIME else ''), auxmax=1)
 gs = sorted(set(ctx.g.values()))
 print('# kp_search n=%s d=%d ranks=%s seed=%d dir=%d fam=%s exh=%g p=%d: %d sources, %d targets, %d ordered components, g in %s'
       % (args.n, args.d, ranks, args.seed, args.dir, args.fam, args.exh, p, len(ctx.sources), len(ctx.targets), len(ctx.g), gs))

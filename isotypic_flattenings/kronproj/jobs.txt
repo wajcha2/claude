@@ -33,9 +33,9 @@ k555_d6_321  | 5 6 9,10 --fam B --bmax 6000 --only-mn 321|321
 k455_d6_dir1_321 | 4,5,5 6 8,9 --dir 1 --fam B --bmax 6000 --only-mn 321|321
 # d=7 kpB lattices above the first runs' size caps (47 at 5x5x5 alone; most members with g >= 3 sit there), affordable with
 # the low-memory combflat; --bmin = the cap of the first run, so only the skipped lattices are done
-k555_d7_big  | 5 7 9,10 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror
+k555_d7_big  | 5 7 9,10 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror --nocache
 k455_d7_dir0_big | 4,5,5 7 8,9 --dir 0 --fam B --bmin 3000 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror
-k455_d7_dir1_big | 4,5,5 7 8,9 --dir 1 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1
+k455_d7_dir1_big | 4,5,5 7 8,9 --dir 1 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nocache
 s455_d8_dir1_H_w0 | kp_single.py 4,5,5 8 8,9 --dir 1 --mode H --worker 0 --nworkers 2
 s455_d8_dir1_H_w1 | kp_single.py 4,5,5 8 8,9 --dir 1 --mode H --worker 1 --nworkers 2
 s555_d8_H_w0 | kp_single.py 5 8 9,10 --mode H --worker 0 --nworkers 2 --nomirror

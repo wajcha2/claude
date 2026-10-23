@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 17:10 UTC): NO separation anywhere
+## Results so far (2026-10-23 18:12 UTC): NO separation anywhere
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
 large targets, kpE, kpG), no separation.
 
@@ -21,8 +21,8 @@ large targets, kpE, kpG), no separation.
 | k555_d6_G | 500 random general block matrices, 5x5x5 d=6 | **complete**, none (2011 s) |
 | k455_d6_dir1_G | 500 random general block matrices, 4x5x5 d=6 source C^5 | **complete**, none (1956 s) |
 | k455_d7_dir0 | 4x5x5 d=7 source C^4: kpA, kpB (size <= 3000), kpE | **complete**, none (kpA 10 lattices, kpB 102 + 93 mirrors, 3 above the cap -> k455_d7_dir0_big; kpE 99 components, all 496 grid values at the size bound) |
-| k555_d7 | 5x5x5 d=7: kpB (size <= 2500), kpE | kpB done: 27 lattices searched, mirrors skipped, 47 above the cap -> k555_d7_big; kpE 52 components so far, none (running) |
-| k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | kpB done (32 lattices, 67 above the cap -> k455_d7_dir1_big), kpE running; 19 lattices, none (running) |
+| k555_d7 | 5x5x5 d=7: kpB (size <= 2500), kpE | **complete**, none (12999 s): kpB 27 lattices + 133 mirrors, 47 above the cap -> k555_d7_big; kpE 107 components + 81 mirrors, all 356 computed grid values at the size bound, 164 grid values (12 components) above --emax -> k555_d7_E2 (compressed grids) |
+| k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | kpB done (32 lattices, 67 above the cap -> k455_d7_dir1_big), kpE 137+ components (all grid values at the size bound so far); 19 lattices, none (running) |
 | s555_d6 | H_s / V_s for all s, 5x5x5 d=6, the 13 components with g >= 3 | **complete**, none: every value at the size bound (e.g. 321|321|321 g=5: V_s = 280 s) (377 s) |
 | s455_d6_dir1 | same, 4x5x5 d=6 source C^5 | **complete**, none: every value at the size bound (329 s) |
 | k555_d6_big | the 5x5x5 d=6 kpB lattices with size 3128-3408 (one per mirror pair) | **complete**, none: 42|321 by the exhaustive walk (5183 level vectors, 11874 s), 321|2211, 411|321, 321|3111 by the direct-sum certificate (196-378 s each); only 321|321 (size 5713) left at 5x5x5 d=6 |
@@ -71,6 +71,11 @@ large targets, kpE, kpG), no separation.
   in 455 s (`logs/test_quick_newcode.log`; old code >50 min); 4x5x5 d=6 dir 0 lattices 3111|3111 / 42|321, the d=5
   --nomirror run and kp_single 4x5x5 d=6 dir 0 reproduce the earlier singles, full sums and H_s / V_s values (kp_single
   15 s vs 239 s originally).  All four workers restarted on it (resume).
+
+* 2026-10-23 18:05 UTC: kpE grids larger than --emax entries are now ranked after a random right compression of each
+  column block (c = min(K, k N1) + 8 columns per block; the grid's row space has dim <= k N1, so a generic compression of
+  each column block is injective on its projection and the rank is preserved w.h.p.).  Checked: forcing it on all 13
+  components of 4x5x5 d=6 dir 0 reproduces every grid value (`logs/test_ecompress_455_d6_dir0.log`).
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

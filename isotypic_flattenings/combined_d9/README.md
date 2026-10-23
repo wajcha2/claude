@@ -22,6 +22,14 @@ against `modrank_ref`, block 32 = block 256 on full and rank-deficient matrices 
 (the family-A lattices), 2x at n = 2500..3000; `test_comb.py quick` 0 failures (`logs/test_quick_modrank32.log`).  Family-B
 workers restarted at 16:15 UTC; the family-A worker after its (8,1) aux-2 lattice.
 
+Memory (2026-10-23): family A kept the flattenings of all targets of a source in memory during the whole search (3.9 GB for
+(7,2)) besides the compressed matrices (~5 GB at aux 2); `comb_search.py` now frees the flattenings once a lattice is built
+(the next lattice reloads them from the disk cache) and the matrices of dropped saturated members.  Fixed with it: the
+`--exhaust` walk (`LatticeFamily.enumerate(members=...)`) now runs over the kept members only (before, a lattice that the
+saturation drop brought below the --exhaust limit raised ValueError).  Checks: `test_comb.py quick` 0 failures
+(`logs/test_quick_memfix.log`); C^5 d=5 family A source 32 with --exhaust 3 finds 105/150 (25 of 27 dropped); C^4 d=6
+family B target (321, 222) with --exhaust 14 finds [411 + 42 + 51] 316/320.
+
 ### `hwv_fast.minors_of_points`
 
 At degree 9 the targets need up to K = 4716 sample points, and computing the minors of the sample points took 2 minutes per

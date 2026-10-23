@@ -516,13 +516,13 @@ class LatticeFamily:
             chain.append((list(S), dims))
         return chain
 
-    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None):
-        """every nonempty subset of the members, each at level `level` ('full' = g_m, or an int, capped at the
-        member's top level), by a depth-first walk that keeps one RREF basis per rank and adds one member at a time
-        (reduce its basis modulo the current one, then back-substitute): 2^m - 1 incremental additions instead of
-        2^m rank computations.  maxsize: only subsets with at most that many members.  callback(S, dims) is called
-        for every subset; returns the number of subsets."""
-        ms = self.members
+    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None, members=None):
+        """every nonempty subset of the members (or of `members`, a sublist), each at level `level` ('full' = g_m, or
+        an int, capped at the member's top level), by a depth-first walk that keeps one RREF basis per rank and adds one
+        member at a time (reduce its basis modulo the current one, then back-substitute): 2^m - 1 incremental additions
+        instead of 2^m rank computations.  maxsize: only subsets with at most that many members.  callback(S, dims) is
+        called for every subset; returns the number of subsets."""
+        ms = self.members if members is None else members
         if len(ms) > maxmembers:
             raise ValueError('%d members > maxmembers %d' % (len(ms), maxmembers))
         sel = [(m, max(self.levels[m]) if level == 'full' else min(level, max(self.levels[m]))) for m in ms]

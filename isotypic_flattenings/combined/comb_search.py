@@ -140,6 +140,10 @@ def search(fam, rng):
                  len(satm), m, fam.rankcap, ranks[0]))
         sys.stdout.flush()
         members = [x for x in members if x not in satm]; m = len(members)
+        for r in fam.mats:                                   # their compressed matrices are never used again
+            for x in satm:
+                for lev in fam.levels[x]:
+                    fam.mats[r].pop((x, lev), None)
         full = [fam.full(x) for x in members]
         one = [(x, 1) for x in members]
         if m <= 1:
@@ -171,7 +175,7 @@ def search(fam, rng):
                     named['all' if lev == 'full' else 'all:1'] = dims
                 if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)):
                     test(S, 'exhaustive')            # re-checked by a direct rank, then reported
-            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None)
+            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None, members=members)
         return tested[0], best, singles, named
     named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
     for x in members:
@@ -244,6 +248,7 @@ if 'A' in fams:
                 continue
             t0 = time.time()
             fam = LatticeFamily(ctx, 'A', lam, aux=aux, levels='ends')
+            ctx.drop()                  # the search needs only fam.mats; the flattenings of all targets of lam can be GB
             res = search(fam, np.random.default_rng([args.seed, 21, aux] + list(lam)))
             summary(fam, *res, time.time() - t0)
         ctx.drop()

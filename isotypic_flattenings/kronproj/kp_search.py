@@ -65,6 +65,7 @@ ap.add_argument('--nrand', type=int, default=1500); ap.add_argument('--pairs', t
 ap.add_argument('--greedy', type=int, default=2); ap.add_argument('--gcand', type=int, default=400,
                 help='greedy: at most this many (member, level) candidates (random subset)')
 ap.add_argument('--bmax', type=int, default=3000, help='skip kpB lattices whose compressed size exceeds this')
+ap.add_argument('--bmin', type=int, default=0, help='skip kpB lattices whose compressed size is at most this (done by an earlier job with --bmax bmin)')
 ap.add_argument('--amax', type=int, default=10 ** 9, help='skip kpA lattices with more members than this')
 ap.add_argument('--emax', type=float, default=4e7); ap.add_argument('--kmax', type=int, default=3)
 ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random general block configurations')
@@ -354,6 +355,9 @@ if 'B' in fams:
         bound = min(ctx.K[mn] - 8, ctx.capB[mn])
         if bound + 8 > args.bmax:
             print('kpB mn=%s SKIPPED (compressed size %d > bmax %d; %d sources)' % (name, bound + 8, args.bmax, len(mem))); sys.stdout.flush()
+            continue
+        if bound + 8 <= args.bmin:
+            print('kpB mn=%s SKIPPED (compressed size %d <= bmin %d: earlier job)' % (name, bound + 8, args.bmin)); sys.stdout.flush()
             continue
         t0 = time.time()
         fam = KPLattice(ctx, 'B', mn, aux=1, levels='all')

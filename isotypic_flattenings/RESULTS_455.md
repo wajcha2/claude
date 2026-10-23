@@ -2,6 +2,11 @@
 
 Agent `d10`, 2026-10-23 07:30 UTC. Shared branch `claude/wonderful-fermat-1v76ux`, mirror `claude/tender-hopper-mcnmta`.
 
+> **Status (2026-10-23 08:15 UTC):** this report covers the planned queue, which ended 07:13 UTC. The user has since
+> allowed raising the cost caps, so the d = 10 sweep continues with ROWCAP-cost-capped passes over the unchecked
+> components (now `c3e7`: 1e7 < cost ≤ 3e7, 1614 components). This file will be updated when those passes finish;
+> live progress is in `agents/d10.md`.
+
 ## Question and result
 
 Is there an isotypic flattening of a component S_λ1(C^4) ⊗ S_λ2(C^5) ⊗ S_λ3(C^5) of S^d(C^4 ⊗ C^5 ⊗ C^5) whose rank on a

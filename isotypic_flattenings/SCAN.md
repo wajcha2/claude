@@ -201,6 +201,11 @@ scan_runner.py: mat_parts(old=False) = 4 g N1 K and 4 (N1 K + N1^2 + K^2) for wo
 (2026-10-23 04:58:04); the estimates drop from 8.4 to 5.7 GB (7x7x7 above) and 9.7 to 6.4 GB (9x9x9).  They are used
 only when <SCAN>/f32model contains 1 -- off until a large component has run on the new code and its recorded peak
 confirms them (until then every estimate is the float64 one).  Runner restarted 05:21 (workers adopted).
+Switched on 10:01 (a 6x6x6 backfill had taken the slot of the waiting 8.4 GB 7x7x7 component again; the old-code
+workers keep their float64 estimates).  Validation on 9x9x9 d = 6 ((3,2,1),(3,1,1,1),(3,1,1,1)), g = 2, direction 1
+N1 = 11096, K = 22184 (the component whose float64 run had peaked at 9218 MB): float32 run started 10:01 at an
+estimate of 6.2 GB (6349 MB), both flattenings evaluated by 11:20, elimination 11:17-12:00 with RSS rising from 2.3
+to 5.6 GB; peak (VmHWM) 5734 MB, 0.6 GB below the estimate and 38 % below the float64 peak.
 
 ## 6x6x6, rank 10 vs 11 at d = 8: the two separators, rechecked (2026-10-22)
 Components ((5,3),(3,2,1,1,1),nu) with nu = (2,2,1,1,1,1) (dims 4410 x 384 x 15) and nu = (3,1,1,1,1,1) (4410 x 384 x

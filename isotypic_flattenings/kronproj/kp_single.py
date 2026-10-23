@@ -19,6 +19,10 @@ workers by a static split of the cost-sorted list (component i -> worker i mod n
 --resume skips components with a result line in earlier logs (after a container restart)."""
 import sys, os, time, argparse
 PRIME = int(os.environ.get('PRIME', '0'))
+# combflat (2026-10-23) scores up to FILLPOOL = 1500 random fillings per component unless one below FILLCHEAP flops turns up;
+# its default 1e8 makes the many small components here pay 1-4 s of scoring each (kpA lam=33 at 4x5x5 d=6: 62 of 177 s).
+# 1e9 stops after 100 fillings whenever one evaluates in about a second.  Only the chosen basis changes, not the ranks.
+os.environ.setdefault('FILLCHEAP', '1e9')
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import hwv, isoflat
 if PRIME:

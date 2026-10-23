@@ -38,6 +38,10 @@ of the summed lattice matrices; exact=True means the sample sizes guarantee the 
 Env PRIME=524269 switches the prime (verification).  Tensors: as sweep_fast.py / comb_search.py for the same seed."""
 import sys, os, re, time, itertools, argparse
 PRIME = int(os.environ.get('PRIME', '0'))
+# combflat (2026-10-23) scores up to FILLPOOL = 1500 random fillings per component unless one below FILLCHEAP flops turns up;
+# its default 1e8 makes the many small components here pay 1-4 s of scoring each (kpA lam=33 at 4x5x5 d=6: 62 of 177 s).
+# 1e9 stops after 100 fillings whenever one evaluates in about a second.  Only the chosen basis changes, not the ranks.
+os.environ.setdefault('FILLCHEAP', '1e9')
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import hwv, isoflat
 if PRIME:
@@ -46,7 +50,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import combflat
 from combflat import Context, LatticeFamily, fmt, p, rref, reduce_rows, mulmod, compressed_rank
-from kplib import add_basis
+from kplib import add_basis, empty_basis, KPLattice
 from isoflat import modrank
 assert p == (PRIME or 524287) and hwv.p == p and isoflat.p == p
 
@@ -187,14 +191,14 @@ def exhaustive(sr, members):
                 if dims[0] >= cap:
                     break                       # saturated: higher levels of m and all deeper members are supersets
                 dfs(j + 1, c, S2)
-    dfs(0, {r: (np.zeros((0, fam.size), dtype=np.float32), []) for r in ranks}, [])
+    dfs(0, {r: empty_basis(fam) for r in ranks}, [])
     return visited[0]
 
 def greedy(sr, cands, rng):
     """grow a configuration one (member, level) at a time, maximising the top-pair drop (ties random); a member already
     in at level s can be raised (its lower levels are dropped from the candidates)."""
     fam = sr.fam
-    cur = {r: (np.zeros((0, fam.size), dtype=np.float32), []) for r in ranks}
+    cur = {r: empty_basis(fam) for r in ranks}
     S, rest = [], list(cands)
     while rest:
         best = None
@@ -323,7 +327,7 @@ if 'A' in fams:
             print('kpA lam=%s SKIPPED (%d members > amax)' % (fmt(lam), len(mem))); sys.stdout.flush()
             continue
         t0 = time.time()
-        fam = LatticeFamily(ctx, 'A', lam, aux=1, levels='all')
+        fam = KPLattice(ctx, 'A', lam, aux=1, levels='all')
         res = search(fam, np.random.default_rng([args.seed, 31] + list(lam)))
         summary(*res, time.time() - t0)
         ctx.drop()
@@ -352,7 +356,7 @@ if 'B' in fams:
             print('kpB mn=%s SKIPPED (compressed size %d > bmax %d; %d sources)' % (name, bound + 8, args.bmax, len(mem))); sys.stdout.flush()
             continue
         t0 = time.time()
-        fam = LatticeFamily(ctx, 'B', mn, aux=1, levels='all')
+        fam = KPLattice(ctx, 'B', mn, aux=1, levels='all')
         res = search(fam, np.random.default_rng([args.seed, 32] + list(mn[0]) + [0] + list(mn[1])))
         summary(*res, time.time() - t0)
         ctx.drop()

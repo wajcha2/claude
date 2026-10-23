@@ -10,9 +10,11 @@
  5. the exhaustive level-vector walk of kp_search (incremental RREF) == fam.dims on every node (small lattices)."""
 import sys, os, itertools, time
 import numpy as np
+os.environ.setdefault('FILLCHEAP', '1e9')            # as kp_search.py / kp_single.py
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from combflat import Context, LatticeFamily, p, mulmod, rref, reduce_rows, compressed_rank, combine
+from combflat import Context, p, mulmod, rref, reduce_rows, compressed_rank, combine
+from kplib import KPLattice as LatticeFamily       # the lattice class kp_search.py uses (combflat.LatticeFamily + faster dims)
 from isoflat import modrank
 
 MODE = sys.argv[1] if len(sys.argv) > 1 else 'quick'
@@ -113,7 +115,7 @@ def test_grid(ctx, rng):
 
 def test_walk(ctx, rng):
     """kp_search's exhaustive walk on a few small lattices: every node == fam.dims."""
-    from kplib import add_basis
+    from kplib import add_basis, empty_basis
     for mn in sorted([mn for mn in ctx.targets if max(ctx.g[t] for t in ctx.g if t[1:] == mn) >= 2], key=lambda mn: ctx.K[mn])[:2]:
         fam = LatticeFamily(ctx, 'B', mn, levels='all')
         ms = fam.members[:5]; nodes = [0]; bad = [0]
@@ -127,7 +129,7 @@ def test_walk(ctx, rng):
                     if tuple(len(c[r][1]) for r in ctx.ranks) != fam.dims(S2):
                         bad[0] += 1
                     dfs(j + 1, c, S2)
-        dfs(0, {r: (np.zeros((0, fam.size), dtype=np.float32), []) for r in ctx.ranks}, [])
+        dfs(0, {r: empty_basis(fam) for r in ctx.ranks}, [])
         check('walk B %s|%s: %d nodes, mismatches' % (mn[0], mn[1], nodes[0]), bad[0], 0)
         ctx.drop()
 

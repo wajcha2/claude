@@ -757,17 +757,16 @@ class LatticeFamily:
     # float32 per rank instead of (number of member levels) x size^2 uint32 plus size^2 int64 temporaries.
 
     def _proj(self, t):
-        """W[:, :t]: ambient x t random projection (aux >= 2), generated in column blocks of 512 with their own seeds."""
-        have = 0 if self._W is None else self._W.shape[1]
-        if t > have:
+        """column blocks of W[:, :t], the ambient x t random projection (aux >= 2): ambient x 512 blocks with their own
+        seeds, kept as float32 (exact for residues < 2^24) and generated once."""
+        nb = -(-t // 512)
+        if len(self._W) < nb:
             ctx = self.ctx
             kid = [0, ctx.pidx[0][self.key]] if self.kind == 'A' else [1, ctx.pidx[1][self.key[0]], ctx.pidx[2][self.key[1]]]
-            blocks = [] if self._W is None else [self._W]
-            for j in range(have // 512, -(-t // 512)):
+            for j in range(len(self._W), nb):
                 rng = np.random.default_rng([ctx.seed, 16, ctx.dirn, self.tag, self.aux, j] + kid)
-                blocks.append(rng.integers(0, p, (self.ambient, 512)).astype(np.float64))
-            self._W = np.hstack(blocks) if len(blocks) > 1 else blocks[0]
-        return self._W[:, :t]
+                self._W.append(rng.integers(0, p, (self.ambient, 512)).astype(np.float32))
+        return self._W[:nb]
 
     def _block(self, Fs, Psi, lev, span, t):
         """rows `span` of the level-lev increment of a member's spanning set (B: source points of row block x = lev - 1;
@@ -780,12 +779,21 @@ class LatticeFamily:
             return inc(0, slice(0, t))
         if t >= self.ambient:
             return np.hstack([inc(a2, slice(None)) for a2 in range(self.aux)])
-        W = self._proj(t); L = self.ambient // self.aux
+        Ws = self._proj(t); L = self.ambient // self.aux
         acc = None
         for a2 in range(self.aux):
-            part = fmm(np.ascontiguousarray(inc(a2, slice(None))), W[a2 * L:(a2 + 1) * L])
-            acc = part if acc is None else _fmod(acc + part)
-        return acc
+            X = np.ascontiguousarray(inc(a2, slice(None)))
+            if acc is None:
+                acc = np.empty((X.shape[0], t))
+            for j, Wj in enumerate(Ws):
+                cs = slice(512 * j, min(t, 512 * (j + 1)))
+                part = fmm(X, Wj[a2 * L:(a2 + 1) * L, :cs.stop - cs.start].astype(np.float64))
+                if a2 == 0:
+                    acc[:, cs] = part
+                else:
+                    acc[:, cs] += part
+            del X
+        return _fmod(acc)
 
     def _spans(self, m, t):
         """row chunks of a member's spanning rows per level (B: its source points, A: its target points)."""
@@ -860,7 +868,7 @@ class LatticeFamily:
         # widest coordinate set a sketch may need: aux = 1: the first `size` sample points; aux >= 2: all ambient
         # coordinates (the identity; narrower sketches use the random projection W)
         self.cap = self.size if a == 1 else self.ambient
-        self._W, self._t0 = None, {}
+        self._W, self._t0 = [], {}
         psis, rngs, sd = {}, {}, {r: {} for r in ctx.ranks}
         for m in self.members:
             tri = self.tri(m); top = max(self.levels[m])
@@ -881,7 +889,7 @@ class LatticeFamily:
                 thin = self._thin(m, r, psis[m], rngs[m], {lev: sd[r][(m, lev)] for lev in self.levels[m]}, self.ncols)
                 for lev in self.levels[m]:
                     self.mats[r][(m, lev)] = thin[lev]
-        self._W = None
+        self._W = []
 
     def dims(self, S):
         """S: iterable of (member, level).  Returns (dim on rank r_1, ..., dim on rank r_last).

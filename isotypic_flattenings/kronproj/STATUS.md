@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-23 14:10 UTC): NO separation anywhere
+## Results so far (2026-10-23 14:27 UTC): NO separation anywhere
 | job | what | result |
 |---|---|---|
 | k455_d5_dir0 | 4x5x5 d=5, source C^4: kpA, kpB (all level vectors, g <= 2), 300 kpG | none (320 s) |
@@ -22,7 +22,7 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
 | k455_d7_dir1 | 4x5x5 d=7 source C^5: kpB (size <= 2500), kpE | 19 lattices, none (running) |
 | s555_d6 | H_s / V_s for all s, 5x5x5 d=6, the 13 components with g >= 3 | **complete**, none: every value at the size bound (e.g. 321|321|321 g=5: V_s = 280 s) (377 s) |
 | s455_d6_dir1 | same, 4x5x5 d=6 source C^5 | **complete**, none: every value at the size bound (329 s) |
-| k555_d6_big | the 5x5x5 d=6 kpB lattices with size 3128-3408 (one per mirror pair) | 42|321 done (g=122132121, all 5183 level vectors, ~4 h), none; 3 left (running) |
+| k555_d6_big | the 5x5x5 d=6 kpB lattices with size 3128-3408 (one per mirror pair) | **complete**, none: 42|321 by the exhaustive walk (5183 level vectors, 11874 s), 321|2211, 411|321, 321|3111 by the direct-sum certificate (196-378 s each); only 321|321 (size 5713) left at 5x5x5 d=6 |
 * Smoke runs: 4x5x5 d=5 dir 0 (`logs/smoke_455_d5_dir0.log`) and the 13 components with g >= 3 at 4x5x5 d=6 dir 0, H_s and V_s
   for all s (`logs/smoke_single_455_d6_dir0.log`): all full rank, no separation.
 * Validation: `test_kp.py full` 382 ok / 0 failures (`logs/test_full.log`), including C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)):
@@ -59,6 +59,13 @@ Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `gr
   42|321 certified in 11 s (exhaustive walk 262 s, same verdict); non-direct lattices still get the walk (3111|3111:
   same line as before).  Also a saturation cut in the walk (skip supersets once the sum reaches the lattice cap on
   r_lo).  k455_d7_dir0, k555_d7, k555_d6_big restarted with it (resume); k455_d7_dir1 left running (13%).
+
+* 2026-10-23 14:25 UTC: **switched to the fast low-memory combflat.py** of `claude/project-thread-ttahoa-kronproj`
+  (see `SWITCH.md`; merged with --nomirror / saturation cut / certificate) and the faster `isoflat.modrank` (panel 64) of
+  `claude/project-thread-ttahoa-sweepfast`.  Checked here: test_comb quick 0 failures; test_kp quick 200 ok / 0 failures
+  in 455 s (`logs/test_quick_newcode.log`; old code >50 min); 4x5x5 d=6 dir 0 lattices 3111|3111 / 42|321, the d=5
+  --nomirror run and kp_single 4x5x5 d=6 dir 0 reproduce the earlier singles, full sums and H_s / V_s values (kp_single
+  15 s vs 239 s originally).  All four workers restarted on it (resume).
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

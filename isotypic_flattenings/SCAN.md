@@ -179,8 +179,8 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 ## Float32 matrices (2026-10-23 04:58; idea from the combined agents' float32 RREF storage)
 Checked at the user's request: the method changes of the other agents since 2026-10-21 (branches charming-heisenberg,
 tender-ride, zealous-mendel): (a) hwv_fast.minors_of_points over the C(n, l) row subsets by Leibniz (l! terms): not
-needed here -- rankscan.py replaced both minors routines by Laplace recursions (cost ~ sum_k k C(n, k) per point or
-per vector tuple) on 2026-10-01, which also handles l = 8..10; (b) isoflat.modrank as a blocked LU: rankscan.py uses
+needed here -- rankscan.py has computed both minors by Laplace recursion since its first version (2026-10-04; cost
+~ sum_k k C(n, k) per point or per vector tuple), which also handles l = 8..10; (b) isoflat.modrank as a blocked LU: rankscan.py uses
 its own incremental float64-BLAS RREF; (c) sweep_fast.py streaming of the g flattenings (noV mode only) and (d) the
 combined agent's float32 storage of RREF bases: adopted in spirit.  Residues mod p = 524287 < 2^24 are exact in
 float32; every product is still formed in float64 (fmatmul), so the arithmetic is unchanged.  rankscan.py now

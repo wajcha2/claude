@@ -34,8 +34,13 @@ k_i <= g_ij and l_j <= g_ij is exact.
 
 Lattices.  With one source (family A) the rank is the dimension of the SUM of the column spaces of the column
 blocks j (subspaces of F_p^{k N1}); with one target (family B) the dimension of the sum of the row spaces of the row
-blocks.  Each block is stored once, compressed by a random matrix to a square matrix with the same column (row)
-space, so the rank of any sub-sum costs one small rank computation: LatticeFamily.dims(S).
+blocks.  Each block's subspace is stored once as a thin matrix (about dim + 8 rows, on the first sum-of-dims + 8
+generic coordinates; see LatticeFamily), so the rank of any sub-sum costs one small rank computation:
+LatticeFamily.dims(S).
+
+Memory (2026-10-23).  A flattening evaluation keeps at most about EVALMEM float64 elements alive (blocks of sample
+points, block-independent part computed once; eval_F), flattenings go straight into uint32 and, when a disk cache is
+used, leave memory once their lattice block is stored (Context.release).
 
 Random streams: tensors as in sweep_fast.py (np.random.default_rng(seed), then rank by rank, factor by factor), so
 the same seed and rank list give the same tensors; points, fillings and Psi come from default_rng([seed, tag, ...]).
@@ -50,7 +55,7 @@ import hwv                                      # sets isoflat.p = hwv.p = 52428
 import hwv_fast
 import opt_einsum as oe
 from hwv import p, dim_schur, random_fillings
-from hwv_fast import build_network, find_path, execute, minors_of_points, minors_of_vectors, fmatmul
+from hwv_fast import build_network, find_path, minors_of_points, minors_of_vectors, fmatmul, _fmod, single_reduce
 from isoflat import partitions, kronecker, modrank
 
 MEMCAP = int(os.environ.get('MEMCAP', str(1 << 25)))   # max elements of a contraction intermediate (else block splitting)
@@ -59,6 +64,9 @@ EXTRA = 8                                               # extra sample points / 
 PR1, PR2 = 8, 16                                        # probe size for the choice of independent fillings
 FILLPOOL = int(os.environ.get('FILLPOOL', '1500'))      # random fillings scored per component before choosing the cheapest
 FILLCHEAP = float(os.environ.get('FILLCHEAP', '1e8'))   # stop enlarging the pool once a filling this cheap (flops) is found
+EVALMEM = int(float(os.environ.get('EVALMEM', str(1 << 23))))  # max float64 elements (64 MB) alive in one flattening evaluation (simulated), else blocks
+STEPCOST = float(os.environ.get('STEPCOST', '2e5'))     # cost (flops) charged per block-dependent pairwise contraction and block
+CHUNK = 1 << 23                                         # elements (float64) of a row chunk when lattice blocks are built
 
 # ----------------------------------------------------------------------------------------------------------------
 # exact modular helpers
@@ -68,14 +76,44 @@ def mulmod(A, B):
     A = np.asarray(A); B = np.asarray(B)
     return fmatmul((A % p).astype(np.float64)[None], (B % p).astype(np.float64)[None])[0].astype(np.int64)
 
-def combine(Psi, Fs):
-    """sum_m Psi[m] * Fs[m] mod p; Psi (g,) ints, Fs (g, N, K)."""
-    out = np.zeros(Fs.shape[1:], dtype=np.int64)
+def _residues(M):
+    """float64 residues of M: a float64 array is taken as already reduced (no copy), integer arrays are reduced."""
+    M = np.asarray(M)
+    return M if M.dtype == np.float64 else (M.astype(np.int64) % p).astype(np.float64)
+
+def fmm(A, B):
+    """exact 2-d A @ B mod p on float64 arrays of residues (hwv_fast.fmatmul)."""
+    return fmatmul(A[None], B[None])[0]
+
+def fcombine(Psi, Fs, rows=slice(None), cols=slice(None)):
+    """sum_m Psi[m] * Fs[m][rows, cols] mod p as float64 residues (Psi (g,) ints, Fs (g, N, K) residues, e.g. uint32).
+    Every product is < p^2 < 2^38 and at most g < 2^15 of them are added before the reduction, so float64 is exact.
+    2026-10-23: replaces the int64 loop of combine(), which held four full-size int64 temporaries per term."""
+    out = tmp = None
     for c, F in zip(Psi, Fs):
-        out = (out + int(c) * F.astype(np.int64)) % p
-    return out
+        c = float(int(c) % p)
+        if out is None:
+            out = np.multiply(F[rows, cols], c, dtype=np.float64)
+        else:
+            if tmp is None:
+                tmp = np.empty_like(out)
+            np.multiply(F[rows, cols], c, out=tmp, dtype=np.float64)
+            out += tmp
+    return np.fmod(out, p, out=out)
+
+def combine(Psi, Fs):
+    """sum_m Psi[m] * Fs[m] mod p; Psi (g,) ints, Fs (g, N, K); int64 (see fcombine)."""
+    return fcombine(Psi, Fs).astype(np.int64)
 
 def rref(M):
+    """reduced row echelon form of M mod p: (R, pivots).  2026-10-23: blocked Gauss-Jordan (rref_fast, BLAS panel
+    updates), 10-20x faster than the unblocked rref_ref on 1000 x 1200 and larger, output identical (the RREF is unique;
+    checked entrywise on random, rank-deficient, structured and sparse matrices).  RREF_OLD=1 restores rref_ref."""
+    return rref_ref(M) if RREF_OLD else rref_fast(M)
+
+RREF_OLD = os.environ.get('RREF_OLD', '0') == '1'
+
+def rref_ref(M):
     """reduced row echelon form of M mod p: (R, pivots), R the nonzero rows (float64 holding residues; every update
     a - c*b with a, b, c < p stays < p^2 < 2^53, so the arithmetic is exact)."""
     A = (np.asarray(M) % p).astype(np.float64)
@@ -97,6 +135,84 @@ def rref(M):
             A[nzr] = np.mod(A[nzr] - np.outer(col[nzr], A[r]), p)
         piv.append(c); r += 1
     return A[:r], piv
+
+RREF_BLOCK = int(os.environ.get('RREF_BLOCK', '64'))
+def _mm(A, B):
+    """exact (A @ B) mod p for float64 arrays with entries in [0, p) and inner dimension <= RREF_BLOCK."""
+    return np.mod(A @ B, p)
+
+def rref_fast(M, block=RREF_BLOCK):
+    """reduced row echelon form of M mod p: (R, pivots), R the nonzero rows as float64 residues.  Same output as the
+    unblocked rref (the RREF is unique).  Blocked Gauss-Jordan: each panel of `block` columns is eliminated unblocked on
+    the panel only (pivot rows below the current rank, leftmost pivots first), then the whole trailing matrix gets the
+    panel's row operations at once: pivot rows W = Bk^-1 A[piv rows], every other row A_i -= A_i[piv cols] W (one
+    BLAS matmul, inner dimension k <= block, so float64 sums of products < p^2 stay exact)."""
+    A = (np.asarray(M) % p).astype(np.float64)
+    n, m = A.shape
+    piv, r = [], 0
+    for c0 in range(0, m, block):
+        if r == n:
+            break
+        c1 = min(m, c0 + block)
+        P = A[r:, c0:c1].copy()                 # panel rows r.. (rows < r are pivot rows of earlier panels)
+        prow, pcol, k = [], [], 0               # pivot rows (indices into P after swaps), panel columns
+        perm = np.arange(n - r)
+        for j in range(c1 - c0):
+            if k == P.shape[0]:
+                break
+            nz = np.flatnonzero(P[k:, j])
+            if nz.size == 0:
+                continue
+            i = k + nz[0]
+            if i != k:
+                P[[k, i]] = P[[i, k]]; perm[[k, i]] = perm[[i, k]]
+            P[k] = np.mod(P[k] * float(pow(int(P[k, j]), p - 2, p)), p)
+            col = P[:, j].copy(); col[k] = 0
+            nzr = np.flatnonzero(col)
+            if nzr.size:
+                P[nzr] = np.mod(P[nzr] - np.outer(col[nzr], P[k]), p)
+            pcol.append(c0 + j); k += 1
+        if k == 0:
+            continue
+        # apply the row permutation of the panel to rows r.. of A
+        A[r:] = A[r:][perm]
+        cols = np.array(pcol)
+        # Bk = original pivot block (rows r..r+k-1, pivot columns); W = Bk^-1 A[r:r+k, c0:]
+        Bk = A[r:r + k][:, cols]
+        Binv = _inv_small(Bk)
+        T = A[r:r + k, c0:]
+        W = np.zeros_like(T)
+        for s in range(0, k, block):
+            W = np.mod(W + _mm(Binv[:, s:s + block], T[s:s + block]), p)
+        others = np.r_[0:r, r + k:n]
+        step = max(1, (1 << 22) // max(1, m - c0))     # row chunks: temporaries of <= 2^22 entries
+        for i0 in range(0, others.size, step):
+            idx = others[i0:i0 + step]
+            X = A[idx][:, cols]                 # multipliers
+            if not X.any():
+                continue
+            U = A[idx, c0:]
+            for s in range(0, k, block):
+                U = np.mod(U - _mm(X[:, s:s + block], W[s:s + block]), p)
+            A[idx, c0:] = U
+        A[r:r + k, c0:] = W
+        piv += pcol; r += k
+    return A[:r], piv
+
+def _inv_small(B):
+    """inverse of a k x k invertible matrix mod p (unblocked Gauss-Jordan on [B | I]; k <= block)."""
+    k = B.shape[0]
+    A = np.hstack([np.mod(B, p), np.eye(k)])
+    for c in range(k):
+        i = c + np.flatnonzero(A[c:, c])[0]
+        if i != c:
+            A[[c, i]] = A[[i, c]]
+        A[c] = np.mod(A[c] * float(pow(int(A[c, c]), p - 2, p)), p)
+        col = A[:, c].copy(); col[c] = 0
+        nzr = np.flatnonzero(col)
+        if nzr.size:
+            A[nzr] = np.mod(A[nzr] - np.outer(col[nzr], A[c]), p)
+    return A[:, k:]
 
 def reduce_rows(V, R, piv):
     """V (rows) modulo the row space of the RREF basis (R, piv): V - V[:, piv] R, exact mod p (V, R may be float32)."""
@@ -149,15 +265,175 @@ def best_path(ops, out, cheap=False, repeats=128):
 def _slice_pm(pm, ys, zs):
     return [{l: A[ys] for l, A in pm[0].items()}, {l: A[zs] for l, A in pm[1].items()}, {l: A[zs] for l, A in pm[2].items()}]
 
-def eval_F(f, vm, pm, cheap=False):
-    """F[Y, Z] for fillings f, vector minors vm, point minors pm; block splitting when a path exceeds MEMCAP."""
+def _contract(pair, keep):
+    """hwv_fast.pair_contract for pair = [(ia, A), (ib, B)], which is emptied first: the operands are released as soon as
+    their transposed copies exist and the copies as soon as the product exists (2026-10-23: before, both operands, both
+    copies and the product were alive together, and the last operand of a step stayed referenced into the next step)."""
+    (ia, A), (ib, B) = pair
+    pair.clear()
+    for idx in list(ia):
+        if idx not in ib and idx not in keep:
+            A = _fmod(A.sum(axis=ia.index(idx))); ia = ia.replace(idx, '')
+    for idx in list(ib):
+        if idx not in ia and idx not in keep:
+            B = _fmod(B.sum(axis=ib.index(idx))); ib = ib.replace(idx, '')
+    batch = [i for i in ia if i in ib and i in keep]
+    contr = [i for i in ia if i in ib and i not in keep]
+    fa = [i for i in ia if i not in ib]; fb = [i for i in ib if i not in ia]
+    dims = dict(zip(ia, A.shape)); dims.update(zip(ib, B.shape))
+    size = lambda idx: int(np.prod([dims[i] for i in idx])) if idx else 1
+    nb, na, nc, nbb = size(batch), size(fa), size(contr), size(fb)
+    A = np.ascontiguousarray(np.transpose(A, [ia.index(i) for i in batch + fa + contr])).reshape(nb, na, nc)
+    B = np.ascontiguousarray(np.transpose(B, [ib.index(i) for i in batch + contr + fb])).reshape(nb, nc, nbb)
+    R = fmatmul(A, B)
+    del A, B
+    res_idx = ''.join(batch + fa + fb)
+    R = R.reshape([dims[i] for i in res_idx])
+    return np.transpose(R, [res_idx.index(i) for i in keep])
+
+def _step_out(idxs, rest):
+    """index string of the result of one path step on operands with index strings idxs, as execute() forms it."""
+    t = list(idxs)
+    while len(t) > 1:
+        others = rest | set(''.join(t[:-2]))
+        ia, ib = t.pop(), t.pop()
+        t.append(''.join(dict.fromkeys(i for i in ia + ib if i in others)))
+    return ''.join(dict.fromkeys(i for i in t[0] if i in rest))
+
+def execute(ops, out, path, reuse=None):
+    """hwv_fast.execute (same pairwise contractions, same result) with the operands of every pairwise contraction released
+    early (see _contract).  reuse: dict(axis, frontier, vals, first) when F is evaluated in blocks along the output index
+    `axis`: a step whose operands do not contain `axis` does not depend on the block, so it is computed in the first
+    block only (first = True), the results of the `frontier` steps (those consumed by a block-dependent step) are kept in
+    vals, and the later blocks skip every block-independent step."""
+    ops = list(ops)
+    for si, step in enumerate(path):
+        step = sorted(step, reverse=True)
+        taken = [ops.pop(k) for k in step]
+        rest = set(''.join(i for i, _ in ops)) | set(out)
+        ind = reuse is not None and not any(reuse['axis'] in i for i, _ in taken)
+        if ind and not reuse['first']:
+            ops.append((_step_out([i for i, _ in taken], rest), reuse['vals'].get(si)))
+            del taken
+            continue
+        while len(taken) > 1:
+            others = rest | set(''.join(i for i, _ in taken[:-2]))
+            ia, ib = taken[-1][0], taken[-2][0]
+            keep = ''.join(dict.fromkeys(i for i in ia + ib if i in others))
+            pair = [taken.pop(), taken.pop()]
+            taken.append((keep, _contract(pair, keep)))
+        ia, A = taken.pop()
+        keep = ''.join(dict.fromkeys(i for i in ia if i in rest))
+        if keep != ia:
+            A = single_reduce(ia, A, keep); ia = keep
+        if ind and si in reuse['frontier']:
+            reuse['vals'][si] = A
+        ops.append((ia, A))
+        del A
+    assert len(ops) == 1
+    ia, A = ops.pop()
+    return single_reduce(ia, A, out)
+
+def slice_plan(ops, out, path, axis=None, b=None):
+    """symbolic run of execute() along `path` (index strings and shapes only), optionally in blocks of length b of the
+    output index `axis` (Y: source points, Z: target points; b = None: the whole index).  A tensor depends on the block
+    iff its index string contains `axis` (output indices are never summed).  Returns a dict:
+      peak      largest number of float64 elements alive at once in the FIRST block (which also computes the
+                block-independent part): every intermediate still needed, the transposed copies of both operands and the
+                product of each pairwise contraction, the kept frontier tensors (leaves, i.e. the minors, not counted);
+      frontier  block-independent steps consumed by a dependent one (execute(reuse) keeps them for the later blocks);
+      fl_dep, fl_ind  flops (product of the dimensions of each pairwise contraction) of dependent / independent steps,
+                at block length b;  ndep: number of dependent pairwise contractions;  big: largest tensor."""
+    dims = {}
+    for i, A in ops:
+        dims.update(zip(i, A.shape))
+    if axis is not None and b is not None:
+        dims[axis] = min(dims[axis], b)
+    sz = lambda s: float(np.prod([dims[c] for c in s])) if s else 1.0
+    dep_of = lambda s: axis is not None and axis in s
+    # first pass: which steps form the frontier
+    idxs = [i for i, _ in ops]; made = [None] * len(idxs); frontier = set()
+    for si, step in enumerate(path):
+        step = sorted(step, reverse=True)
+        taken = [(idxs.pop(k), made.pop(k)) for k in step]
+        rest = set(''.join(idxs)) | set(out)
+        if any(dep_of(i) for i, _ in taken):
+            frontier |= {m for i, m in taken if m is not None and not dep_of(i)}
+        idxs.append(_step_out([i for i, _ in taken], rest)); made.append(si)
+    # second pass: live memory and flops; ops entries (idx, size or 0 for a leaf, step that made it)
+    live = [(i, 0.0, None) for i, _ in ops]
+    res = dict(peak=0.0, frontier=frontier, fl_dep=0.0, fl_ind=0.0, ndep=0, big=0.0)
+    kept = 0.0                                                  # frontier tensors made so far (kept to the end)
+    for si, step in enumerate(path):
+        step = sorted(step, reverse=True)
+        taken = [live.pop(k) for k in step]
+        rest = set(''.join(i for i, _, _ in live)) | set(out)
+        dep = any(dep_of(i) for i, _, _ in taken)
+        while len(taken) > 1:
+            base = sum(s for _, s, m in live if m not in frontier) + sum(s for _, s, m in taken[:-2] if m not in frontier) + kept
+            others = rest | set(''.join(i for i, _, _ in taken[:-2]))
+            (ia, sa, ma), (ib, sb, mb) = taken.pop(), taken.pop()
+            keep = ''.join(dict.fromkeys(i for i in ia + ib if i in others))
+            ca, cb, cr = sz(ia), sz(ib), sz(keep)
+            fa = 0.0 if ma in frontier else sa                  # operands freed after their copy (unless kept)
+            fb = 0.0 if mb in frontier else sb
+            res['peak'] = max(res['peak'], base + fa + fb + ca, base + fb + ca + cb, base + ca + cb + cr)
+            res['big'] = max(res['big'], ca, cb, cr)
+            res['fl_dep' if dep else 'fl_ind'] += sz(''.join(dict.fromkeys(ia + ib)))
+            res['ndep'] += dep
+            taken.append((keep, cr, -1))
+        ia, s, _ = taken.pop()
+        o = ''.join(dict.fromkeys(i for i in ia if i in rest))
+        if o != ia:
+            s = sz(o)
+        if si in frontier:
+            kept += s
+        live.append((o, s, si))
+    res['peak'] = max(res['peak'], kept + sum(s for _, s, m in live if m not in frontier))
+    return res
+
+def eval_F(f, vm, pm, cheap=False, out=None):
+    """F[Y, Z] for fillings f, vector minors vm, point minors pm, evaluated in blocks when the contraction needs more than
+    EVALMEM float64 elements at once.  out: optional (N1, K) array (e.g. a uint32 slice of the flats array) that receives F
+    directly, without the int64 copy; returned.
+
+    Blocks (2026-10-23).  The memory of a block is the simulated peak of execute() (slice_plan: live intermediates,
+    transposed copies, products), not only the largest intermediate.  Candidates: (a) the optimal path of the whole
+    network, run in blocks of source points (Y) or of target points (Z), the block-independent part computed once
+    (execute(reuse)); (b) only if (a) cannot fit EVALMEM: as before, paths of halved block shapes (one DP search per
+    halving, up to minutes on d = 10 networks), with that reuse when one index is split.  Cost =
+    flops + STEPCOST per block-dependent pairwise contraction and block.  Before, every block recomputed the
+    block-independent part, which made small blocks slow (555 d=10 (82 | 61111, 61111): 0.22 s of a 0.69 s block), and
+    blocks were sized by the largest intermediate (<= MEMCAP) only, so one evaluation could hold 3-5 MEMCAP."""
     N1 = next(iter(pm[0].values())).shape[0]; K = next(iter(pm[1].values())).shape[0]
-    ops, out = build_network(f, vm, pm)
-    path, info, big = best_path(ops, out, cheap=cheap)
-    if big <= MEMCAP:
-        return execute(ops, out, path).astype(np.int64)
-    best = None
-    for order in ('Z', 'Y'):
+    ops, outi = build_network(f, vm, pm)
+    path, info, big = best_path(ops, outi, cheap=cheap)
+    if slice_plan(ops, outi, path)['peak'] <= EVALMEM:
+        R = execute(ops, outi, path)
+        if out is None:
+            return R.astype(np.int64)
+        np.copyto(out, R, casting='unsafe')
+        return out
+    Y, Z = oe.get_symbol(0), oe.get_symbol(1)
+    cands = []
+    def fit(o, outx, pth, axis, n):
+        """largest block length along axis whose first block fits EVALMEM (binary search; 0 if none)."""
+        lo, hi = 0, n
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if slice_plan(o, outx, pth, axis, mid)['peak'] <= EVALMEM:
+                lo = mid
+            else:
+                hi = mid - 1
+        return lo
+    for axis, n in ((Y, N1), (Z, K)):                          # (a) the whole network's path in blocks
+        bl = fit(ops, outi, path, axis, n)
+        if bl >= 1:
+            a = slice_plan(ops, outi, path, axis, bl)
+            nbk = -(-n // bl)
+            cands.append((a['fl_ind'] + (a['fl_dep'] + STEPCOST * a['ndep']) * nbk,
+                          bl if axis == Y else N1, bl if axis == Z else K, path, axis, a['frontier']))
+    for order in (() if cands else ('Z', 'Y')):                 # (b) only if (a) cannot fit: paths of smaller block shapes
         yb, zb = N1, K
         while zb > 1 or yb > 1:
             if order == 'Z':
@@ -168,18 +444,23 @@ def eval_F(f, vm, pm, cheap=False):
                 else: zb = (zb + 1) // 2
             o2, out2 = build_network(f, vm, _slice_pm(pm, slice(0, yb), slice(0, zb)))
             pb, ib, bb = best_path(o2, out2)
-            if bb <= MEMCAP:
+            axis = Y if zb == K else Z if yb == N1 else None
+            a = slice_plan(o2, out2, pb, axis)
+            if a['peak'] <= EVALMEM:
                 break
-        total = float(ib.opt_cost) * (-(-N1 // yb)) * (-(-K // zb))
-        if best is None or total < best[0]:
-            best = (total, yb, zb, pb)
-    _, yb, zb, pb = best
-    F = np.zeros((N1, K), dtype=np.int64)
+        nbk = (-(-N1 // yb)) * (-(-K // zb))
+        cands.append((a['fl_ind'] + (a['fl_dep'] + STEPCOST * a['ndep']) * nbk if axis is not None else
+                      (a['fl_ind'] + STEPCOST * len(pb)) * nbk, yb, zb, pb, axis, a['frontier'] if axis is not None else None))
+    _, yb, zb, pb, axis, frontier = min(cands, key=lambda c: c[0])
+    reuse = None if axis is None else dict(axis=axis, frontier=frontier, vals={}, first=True)
+    F = np.zeros((N1, K), dtype=np.int64) if out is None else out
     for y0 in range(0, N1, yb):
         for z0 in range(0, K, zb):
             ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
             o2, out2 = build_network(f, vm, _slice_pm(pm, ys, zs))
-            F[ys, zs] = execute(o2, out2, pb)          # the full block's path also fits the smaller edge blocks
+            np.copyto(F[ys, zs], execute(o2, out2, pb, reuse), casting='unsafe')   # the block's path also fits the smaller edge blocks
+            if reuse:
+                reuse['first'] = False
     return F
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -333,7 +614,10 @@ class Context:
                 self._F[key] = F
                 return F
         t0 = time.time()
-        F = np.stack([eval_F(f, self.vm(r), self.pm(tri)) for f in self.basis(tri)]).astype(np.uint32)
+        fills = self.basis(tri)
+        F = np.empty((len(fills), self.N1[tri[0]], self.K[tri[1:]]), dtype=np.uint32)   # filled in place (no int64 stack)
+        for i, f in enumerate(fills):
+            eval_F(f, self.vm(r), self.pm(tri), out=F[i])
         if fn:
             tmp = '%s.%d.tmp.npy' % (fn, os.getpid())          # process-unique: parallel workers may share the cache
             np.save(tmp, F); os.replace(tmp, fn)
@@ -349,6 +633,13 @@ class Context:
         else:
             for k in [k for k in self._F if k[0] in tris]:
                 del self._F[k]
+
+    def release(self, tri, r):
+        """free the in-memory flattening of (tri, r) if the disk cache holds it (a later flats() call reloads it);
+        without a disk cache it stays in memory, as before."""
+        if self.cache and (tri, r) in self._F and os.path.exists(
+                os.path.join(self.cache, 'r%d_%s_%s_%s.npy' % (r, fmt(tri[0]), fmt(tri[1]), fmt(tri[2])))):
+            del self._F[(tri, r)]
 
     # random coefficient tensors Psi in M^* (x) X^* (x) Y (generic; nested in the last index when sliced)
     def psi(self, tri, k, l, tag=0):
@@ -367,9 +658,9 @@ class Context:
 
     def block_matrix(self, rows, cols, r, psis=None, tag=0):
         """the sampled block matrix (sum_i k_i N1_i) x (sum_j l_j K_j) for the rank-r tensor.  psis: optional dict
-        (lam, (mu, nu)) -> Psi array (g, k, l); default generic (Context.psi with `tag`)."""
+        (lam, (mu, nu)) -> Psi array (g, k, l); default generic (Context.psi with `tag`).  float64 residues."""
         R = sum(k * self.N1[lam] for lam, k in rows); C = sum(l * self.K[mn] for mn, l in cols)
-        M = np.zeros((R, C), dtype=np.int64)
+        M = np.zeros((R, C), dtype=np.float64)
         r0 = 0
         for lam, k in rows:
             c0 = 0
@@ -381,7 +672,7 @@ class Context:
                     N1, K = self.N1[lam], self.K[mn]
                     for x in range(k):
                         for y in range(l):
-                            M[r0 + x * N1:r0 + (x + 1) * N1, c0 + y * K:c0 + (y + 1) * K] = combine(Psi[:, x, y], Fs)
+                            M[r0 + x * N1:r0 + (x + 1) * N1, c0 + y * K:c0 + (y + 1) * K] = fcombine(Psi[:, x, y], Fs)
                 c0 += l * self.K[mn]
             r0 += k * self.N1[lam]
         return M
@@ -399,9 +690,9 @@ def compressed_rank(M, rng):
     than its smaller side (rank preserved except with probability < p^-EXTRA)."""
     R, C = M.shape
     if C > R + 2 * EXTRA:
-        M = mulmod(M, rng.integers(0, p, (C, R + EXTRA)))
+        M = fmm(_residues(M), rng.integers(0, p, (C, R + EXTRA)).astype(np.float64))
     elif R > C + 2 * EXTRA:
-        M = mulmod(rng.integers(0, p, (C + EXTRA, R)), M)
+        M = fmm(rng.integers(0, p, (C + EXTRA, R)).astype(np.float64), _residues(M))
     return modrank(M)
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -436,7 +727,7 @@ class LatticeFamily:
             N1 = ctx.N1[key]
             self.ambient = aux * N1
             self.rankcap = aux * (N1 - EXTRA)          # dims of sums never exceed this (n1 <= N1 - EXTRA)
-            self.size = self.ambient                  # compressed matrices: ambient x ambient
+            self.size = self.ambient                  # coordinates kept: all of the ambient space
         else:
             K = ctx.K[tuple(key)]
             bound = min(aux * (K - EXTRA), sum(self.gm[m] * ctx.n1(m) for m in self.members))
@@ -445,87 +736,165 @@ class LatticeFamily:
             self.size = min(self.ambient, bound + EXTRA)
         self.mats = {r: {} for r in ctx.ranks}
         self._dims = {}
-        self.R = None
         self.build()
 
+    # Storage (2026-10-23, replaces one size x size compressed matrix per member, level and rank, which made the family-B
+    # lattices of 555 at d = 9, 10 (size 12000..14000) hold 5..10 GB).  Each subspace V_s, s = (member, level), of the
+    # ambient space is kept as a THIN matrix mats[r][s] (float32 residues, u_s x ncols) whose rows span its image under a
+    # fixed projection pi of the ambient space onto its first ncols "generic" coordinates, u_s <= dim V_s + EXTRA:
+    #   * coordinates: aux = 1: the sample points themselves (target points for B, source points for A) -- the same
+    #     generic coordinates whose prefixes the old dims() used ([:, :c]); aux >= 2: random combinations W (ambient x t,
+    #     lazily generated column blocks, so that every prefix is the same projection);
+    #   * rows: the rows of the level blocks of the member (B: source points x level; A: target points x level, i.e. the
+    #     columns of the column block), or u_s = dim V_s + EXTRA random combinations of them when there are more;
+    #   * dim V_s (the single dims) is found first on sketches with t = 512, 1024, ... coordinates, until it is at most
+    #     t - EXTRA (a prefix of t generic coordinates is injective on a space of dim <= t - EXTRA, as in the old dims());
+    #   * ncols = min(size, sum over members of the top-level dim + EXTRA): no sum of subspaces is larger, so the
+    #     projection onto ncols generic coordinates is injective on every sum.
+    # dims(S) is then the rank of the stacked thin matrices (about h x h, h = sum of the single dims), the same number as
+    # the old c x c rank of R[:c] (sum mats[:, :c]); the single dims need no extra rank.  Memory: sum_s u_s x ncols
+    # float32 per rank instead of (number of member levels) x size^2 uint32 plus size^2 int64 temporaries.
+
+    def _proj(self, t):
+        """W[:, :t]: ambient x t random projection (aux >= 2), generated in column blocks of 512 with their own seeds."""
+        have = 0 if self._W is None else self._W.shape[1]
+        if t > have:
+            ctx = self.ctx
+            kid = [0, ctx.pidx[0][self.key]] if self.kind == 'A' else [1, ctx.pidx[1][self.key[0]], ctx.pidx[2][self.key[1]]]
+            blocks = [] if self._W is None else [self._W]
+            for j in range(have // 512, -(-t // 512)):
+                rng = np.random.default_rng([ctx.seed, 16, ctx.dirn, self.tag, self.aux, j] + kid)
+                blocks.append(rng.integers(0, p, (self.ambient, 512)).astype(np.float64))
+            self._W = np.hstack(blocks) if len(blocks) > 1 else blocks[0]
+        return self._W[:, :t]
+
+    def _block(self, Fs, Psi, lev, span, t):
+        """rows `span` of the level-lev increment of a member's spanning set (B: source points of row block x = lev - 1;
+        A: target points of column block y = lev - 1), on the first t projected coordinates: float64 (len(span), t)."""
+        def inc(a2, coords):
+            if self.kind == 'B':
+                return fcombine(Psi[:, lev - 1, a2], Fs, span, coords)              # source points x target points
+            return fcombine(Psi[:, a2, lev - 1], Fs, coords, span).T                # target points x source points
+        if self.aux == 1:
+            return inc(0, slice(0, t))
+        if t >= self.ambient:
+            return np.hstack([inc(a2, slice(None)) for a2 in range(self.aux)])
+        W = self._proj(t); L = self.ambient // self.aux
+        acc = None
+        for a2 in range(self.aux):
+            part = fmm(np.ascontiguousarray(inc(a2, slice(None))), W[a2 * L:(a2 + 1) * L])
+            acc = part if acc is None else _fmod(acc + part)
+        return acc
+
+    def _member(self, m, r, Psi, crng):
+        """single dims {level: dim V_(m, level)} and thin matrices {level: (u x cap) float32} of member m, rank r."""
+        ctx, levs = self.ctx, self.levels[m]
+        top = max(levs)
+        Fs = ctx.flats(self.tri(m), r)
+        R = ctx.N1[m] if self.kind == 'B' else ctx.K[m]          # spanning rows per level
+        def spans(t):
+            ch = max(1, CHUNK // max(t, self.ambient if self.aux > 1 else 1))
+            return [slice(i, min(R, i + ch)) for i in range(0, R, ch)]
+        def rand(u, n):
+            return crng.integers(0, p, (u, n)).astype(np.float64)
+        # 1. single dims on sketches of t coordinates (rows: raw while at most t of them, then t random combinations)
+        t = min(self.cap, self._t0.get(m, 512))
+        while True:
+            d, raw, acc = {}, [], None
+            for lev in range(1, top + 1):
+                for sp in spans(t):
+                    B = self._block(Fs, Psi, lev, sp, t)
+                    if acc is None and sum(x.shape[0] for x in raw) + B.shape[0] <= t:
+                        raw.append(B); continue
+                    if acc is None:
+                        acc = np.zeros((t, t))
+                        for Bo in raw:
+                            acc += fmm(rand(t, Bo.shape[0]), Bo)
+                            np.fmod(acc, p, out=acc)
+                        raw = None
+                    acc += fmm(rand(t, B.shape[0]), B)
+                    np.fmod(acc, p, out=acc)
+                if lev in levs:
+                    d[lev] = modrank(acc if acc is not None else np.vstack(raw))
+            if d[top] <= t - EXTRA or t >= self.cap:
+                break
+            t = min(self.cap, 2 * t)
+        self._t0[m] = t                                         # dims grow with the rank: start the next rank here
+        # 2. thin matrices on all cap coordinates
+        need = {lev: d[lev] + EXTRA for lev in levs}
+        rawlev = [lev for lev in levs if lev * R <= need[lev]]  # few rows: keep them all (exact, no combinations)
+        U = max([need[lev] for lev in levs if lev not in rawlev], default=0)
+        raw, acc, out = [], (np.zeros((U, self.cap)) if U else None), {}
+        for lev in range(1, top + 1):
+            for sp in spans(self.cap):
+                B = self._block(Fs, Psi, lev, sp, self.cap)
+                if rawlev and lev <= max(rawlev):
+                    raw.append(B.astype(np.float32))
+                if U:
+                    acc += fmm(rand(U, B.shape[0]), B)
+                    np.fmod(acc, p, out=acc)
+                del B
+            if lev in levs:
+                out[lev] = np.vstack(raw) if lev in rawlev else acc[:need[lev]].astype(np.float32)
+        ctx.release(self.tri(m), r)
+        return d, out
+
     def build(self):
-        ctx, a, sz = self.ctx, self.aux, self.size
-        if self.kind == 'B' and self.size < self.ambient:
-            # common right compression of the ambient F^{aux K}: Q (aux K x size)
-            self.Q = np.random.default_rng([ctx.seed, 16, ctx.dirn, self.tag, a, ctx.pidx[1][self.key[0]], ctx.pidx[2][self.key[1]]]).integers(0, p, (self.ambient, sz))
-        else:
-            self.Q = None
+        ctx, a = self.ctx, self.aux
+        # coordinates kept until all single dims are known: aux = 1: the first `size` sample points; aux >= 2: all
+        # (raw) ambient coordinates, projected by W once ncols is known
+        self.cap = self.size if a == 1 else self.ambient
+        self._W, self._t0 = None, {}
+        sd = {r: {} for r in ctx.ranks}
         for m in self.members:
-            tri = self.tri(m); g = self.gm[m]; top = max(self.levels[m])
+            tri = self.tri(m); top = max(self.levels[m])
             # generic Psi (g, k, l): family A: k = aux, l = level (nested); family B: k = level (nested), l = aux
             Psi = ctx.psi(tri, a, top, self.tag) if self.kind == 'A' else ctx.psi(tri, top, a, self.tag)
             crng = np.random.default_rng([ctx.seed, 17, ctx.dirn, self.tag, a, 0 if self.kind == 'A' else 1] + ctx.tri_index(tri))
             for r in ctx.ranks:
-                Fs = ctx.flats(tri, r)
-                acc = None
-                for lev in range(1, top + 1):
-                    if self.kind == 'A':
-                        # column block (j, y = lev-1): rows x = 0..a-1 stacked; compress its columns K -> sz
-                        blk = np.vstack([combine(Psi[:, x, lev - 1], Fs) for x in range(a)])          # (a N1, K)
-                        G = crng.integers(0, p, (blk.shape[1], sz))
-                        C = mulmod(blk, G)
-                    else:
-                        # row block (i, x = lev-1): columns y = 0..a-1 side by side; compress its rows N1 -> sz
-                        blk = np.hstack([combine(Psi[:, lev - 1, y], Fs) for y in range(a)])          # (N1, a K)
-                        if self.Q is not None:
-                            blk = mulmod(blk, self.Q)
-                        G = crng.integers(0, p, (sz, blk.shape[0]))
-                        C = mulmod(G, blk)
-                    acc = C if acc is None else (acc + C) % p
-                    if lev in self.levels[m]:
-                        self.mats[r][(m, lev)] = acc.astype(np.uint32)
+                d, thin = self._member(m, r, Psi, crng)
+                for lev in self.levels[m]:
+                    sd[r][(m, lev)] = d[lev]
+                    self.mats[r][(m, lev)] = thin[lev]
+        for m in self.members:
+            for lev in self.levels[m]:
+                self._dims[((m, lev),)] = tuple(sd[r][(m, lev)] for r in ctx.ranks)
+        H = max([sum(sd[r][(m, max(self.levels[m]))] for m in self.members) for r in ctx.ranks], default=0)
+        self.ncols = min(self.size, H + EXTRA)
+        if self.ncols < self.cap:
+            for r in ctx.ranks:
+                for s, Z in self.mats[r].items():
+                    self.mats[r][s] = (np.ascontiguousarray(Z[:, :self.ncols]) if a == 1 else
+                                       fmm(Z.astype(np.float64), self._proj(self.ncols)).astype(np.float32))
+        self._W = None
 
     def dims(self, S):
         """S: iterable of (member, level).  Returns (dim on rank r_1, ..., dim on rank r_last).
-        The sum has dim <= h = sum of the single dims (when known), so only the first c = h + EXTRA columns of the
-        compressed matrices are summed (they are random combinations already) and the rows are compressed by the
-        first c rows of a fixed random matrix: an exact c x c rank instead of size x size, except with probability
-        < p^-EXTRA per subset."""
+        The sum has dim <= h = sum of the single dims, so the first c = h + EXTRA (generic) coordinates are injective on
+        it: rank of the stacked thin matrices restricted to c columns (about h x h), exact except with probability
+        < p^-EXTRA per subset (as before, when the c x c matrix R[:c] (sum of size x c slices) was ranked)."""
         key = tuple(sorted(S, key=repr))
         if key not in self._dims:
-            h = 0
-            for s in key:
-                d1 = self._dims.get((s,))
-                if d1 is None:
-                    h = self.size; break
-                h += max(d1)
-            c = min(self.size, h + EXTRA)
-            if c < self.size and self.R is None:
-                self.R = np.random.default_rng([self.ctx.seed, 18, self.ctx.dirn, self.tag, self.aux, len(self.members)]).integers(0, p, (self.size, self.size))
-            out = []
-            for r in self.ctx.ranks:
-                M = np.zeros((self.size, c), dtype=np.int64)
-                for s in key:
-                    M += self.mats[r][s][:, :c]
-                M %= p
-                if c < self.size:
-                    M = mulmod(self.R[:c], M)
-                out.append(modrank(M))
-            self._dims[key] = tuple(out)
+            c = min(self.ncols, sum(max(self._dims[(s,)]) for s in key) + EXTRA)
+            self._dims[key] = tuple(modrank(np.vstack([self.mats[r][s][:, :c] for s in key])) for r in self.ctx.ranks)
         return self._dims[key]
 
     def basis_rows(self, r, s):
-        """RREF basis (rows in F_p^size) of the subspace of (member, level) s for the rank-r tensor (cached): the column
-        space of the compressed matrix for family A, its ROW space for family B (sum over sources)."""
+        """RREF basis (rows in F_p^ncols, the projected coordinates) of the subspace of (member, level) s for the rank-r
+        tensor (cached): the column space of the column block for family A, the row space of the row block for B."""
         if not hasattr(self, '_basis'):
             self._basis = {}
         if (r, s) not in self._basis:
-            M = self.mats[r][s]
             # stored as float32: residues < p < 2^24 are exact, half the memory of float64 (the exhaustive enumeration of
             # large family-B lattices held several GB of bases per worker)
-            self._basis[(r, s)] = rref(M.T if self.kind == 'A' else M)[0].astype(np.float32)
+            self._basis[(r, s)] = rref(self.mats[r][s])[0].astype(np.float32)
         return self._basis[(r, s)]
 
     def greedy(self, start, candidates, rng, score):
         """grow S from `start` by one candidate at a time, maximising score(dims) (ties: random); incremental
         (RREF basis of the current sum per rank, candidates reduced modulo it).  Returns the chain [(S, dims)]."""
         ranks = self.ctx.ranks
-        cur = {r: (np.zeros((0, self.size)), []) for r in ranks}
+        cur = {r: (np.zeros((0, self.ncols)), []) for r in ranks}
         S = []
         for s in start:
             for r in ranks:
@@ -584,7 +953,7 @@ class LatticeFamily:
                 if callback:
                     callback(S2, tuple(len(nxt[r][1]) for r in ranks))
                 dfs(j + 1, nxt, S2)
-        dfs(0, {r: (np.zeros((0, self.size)), []) for r in ranks}, [])
+        dfs(0, {r: (np.zeros((0, self.ncols)), []) for r in ranks}, [])
         return count[0]
 
     def exact(self, S):

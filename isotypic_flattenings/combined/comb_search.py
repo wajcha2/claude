@@ -28,6 +28,7 @@ ap.add_argument('--fam', default='A,B'); ap.add_argument('--aux', default='1')
 ap.add_argument('--nrand', type=int, default=300); ap.add_argument('--pairs', type=int, default=3000)
 ap.add_argument('--triples', type=int, default=1500); ap.add_argument('--greedy', type=int, default=2)
 ap.add_argument('--bmax', type=int, default=2500); ap.add_argument('--emax', type=float, default=4e7)
+ap.add_argument('--bmin', type=int, default=0, help='family B: only lattices whose compressed size exceeds this (the complement of an earlier --bmax run)')
 ap.add_argument('--seed', type=int, default=5)
 ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); needed for unequal formats such as 4,5,5')
 ap.add_argument('--sources', default='', help='restrict to these source partitions, e.g. "61;52;511", or "pattern:K" = all lam with lam_1 >= d - K except (d)')
@@ -266,6 +267,8 @@ if 'B' in fams:
             t0 = time.time()
             nmem = sum(1 for lam in ctx.sources if (lam,) + mn in ctx.g)
             bound = min(aux * (ctx.K[mn] - 8), ctx.capB[mn])
+            if bound + 8 <= args.bmin:
+                continue
             if bound + 8 > args.bmax:
                 print('famB mn=%s|%s aux=%d SKIPPED (compressed size %d > bmax %d; %d sources)' % (fmt(mn[0]), fmt(mn[1]), aux, bound + 8, args.bmax, nmem))
                 continue

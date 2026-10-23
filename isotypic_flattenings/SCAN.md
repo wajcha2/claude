@@ -176,7 +176,7 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
-## Planned evaluation with reuse, cheaper evaluation basis, blocked RREF (adopted 2026-10-23 ~13:20)
+## Planned evaluation with reuse, cheaper evaluation basis, blocked RREF (adopted 2026-10-23 12:50)
 From branch claude/project-thread-ttahoa-rankscan (commit b15eff6, based on this branch at 0f46ae8, after the float32
 change; cherry-picked unchanged, details in SPEEDUP_rankscan.md): compute_F plans one contraction path of the whole
 network and reuses the intermediates that depend only on the word minors or on one side's points across tiles

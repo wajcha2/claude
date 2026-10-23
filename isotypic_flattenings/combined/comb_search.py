@@ -33,6 +33,7 @@ ap.add_argument('--dir', type=int, default=0, help='source factor (0, 1, 2); nee
 ap.add_argument('--sources', default='', help='restrict to these source partitions, e.g. "61;52;511", or "pattern:K" = all lam with lam_1 >= d - K except (d)')
 ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust); from the degree-9 combined session')
+ap.add_argument('--allsub-maxconf', type=int, default=256, help='with --allsub: if the number of level combinations exceeds this, test every subset only at uniform levels (all full, all level 1)')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
@@ -146,7 +147,17 @@ def search(fam, rng):
         # a direct rank (fam.dims, blocked modrank) -- for small lattices of large size this is much faster than the
         # RREF walk (python-loop rref in basis_rows); adopted from the degree-9 combined session (claude/charming-heisenberg-f66sy8)
         named = {}
-        for S in itertools.product(*[[None] + [(x, lev) for lev in fam.levels[x]] for x in members]):
+        nconf = 1
+        for x in members:
+            nconf *= 1 + len(fam.levels[x])
+        if nconf <= args.allsub_maxconf:
+            confs = itertools.product(*[[None] + [(x, lev) for lev in fam.levels[x]] for x in members])
+        else:
+            # too many mixed-level combinations (e.g. 6 members with g >= 2: 3^6): every subset at uniform levels only,
+            # whole Kronecker spaces or one generic functional each (2 * (2^m - 1) subsets)
+            confs = itertools.chain(itertools.product(*[[None, fam.full(x)] for x in members]),
+                                    itertools.product(*[[None, (x, 1)] for x in members]))
+        for S in confs:
             S = [s for s in S if s is not None]
             if len(S) < 2:
                 continue

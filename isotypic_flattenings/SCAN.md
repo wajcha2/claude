@@ -176,6 +176,15 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## hwv_fast.py / isoflat.py from the sweep_fast speed-up (adopted 2026-10-23 ~14:50)
+hwv_fast.py and isoflat.py taken unchanged from commit 6590942 (branch claude/project-thread-ttahoa-sweepfast,
+SPEEDUP_sweep_fast.md): pair_contract_fast (views instead of copies, loops of 2-D dot, broadcast products, einsum for
+small sums; exact as before), execute drops operand references early, blocked modrank (panel 64), and the
+C(n, l)-subset minors_of_points (rankscan.py keeps its own Laplace minors).  rankscan.py's planned evaluation uses its
+own layout-aware contraction, so the gain is in the small networks (old path below PLANMIN, probes).  Checked here:
+test_speedup.py 33 ok, test_cut.py and test_ckpt.py pass; rankscan.py 5 6 (all 113 components, NEED 8,9) gives 113
+identical records, CPU 393 -> 372 s, largest peak 763 -> 490 MB.
+
 ## Planned evaluation with reuse, cheaper evaluation basis, blocked RREF (adopted 2026-10-23 12:50)
 From branch claude/project-thread-ttahoa-rankscan (commit b15eff6, based on this branch at 0f46ae8, after the float32
 change; cherry-picked unchanged, details in SPEEDUP_rankscan.md): compute_F plans one contraction path of the whole

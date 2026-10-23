@@ -7,7 +7,10 @@ Kronecker-subspace projections (branch `claude/zealous-mendel-i9qpdu`, `kronproj
 
 Code: `../combined/` copied unchanged from `claude/tender-ride-7mz2gl` at 4c2baa0 (combflat.py, comb_search.py, comb_jobs.py,
 test_comb.py, brute.py; see `../combined/README.md` for the construction and its validation).  Additions to
-`comb_search.py`: `--allsub M` (below) and transposed pairs {(μ,ν), (ν,μ)} as named groups of family A.  Here: `d9_jobs.py` (the same
+`comb_search.py`: `--allsub M` (below), transposed pairs {(μ,ν), (ν,μ)} as named groups of family A, and members whose
+level-1 subspace alone already has the lattice's maximal dimension on the lowest rank are dropped from the subsets (every sum
+containing one is saturated on every rank; at d=9 every target of the source (7,1,1) has rank n1 = 280 on rank 8).  Check:
+C^5 d=5 family A, source (3,2): 25 of 27 members dropped, the known hit [1^5,221 + 221,1^5] 105/150 still found (19 s).  Here: `d9_jobs.py` (the same
 resumable runner, logs in `logs/jobs/`, cache in `live/cache/`), `jobs_d9.txt` (job list), `memlog.sh` (memory log).
 
 ## One change to the shared library: `hwv_fast.minors_of_points`

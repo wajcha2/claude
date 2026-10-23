@@ -129,6 +129,21 @@ def search(fam, rng):
             singles[(x, lev)] = test([(x, lev)], 'single')
     if m == 1:
         return tested[0], best, singles, {}
+    # a member whose level-1 subspace alone already has the lattice's maximal dimension (fam.rankcap) on the lowest rank
+    # saturates every sum containing it, on every rank: drop such members (family A at d=9: every single target of the
+    # source (7,1,1) already has rank n1 = 280 on rank 8, and 25000 pairs were all 280/280)
+    satm = [x for x in members if singles[(x, min(fam.levels[x]))][0] >= fam.rankcap]
+    if satm:
+        print('# fam%s%s %s: %d of %d members saturated (dim %d on rank %d at level 1), dropped from the subsets'
+              % (fam.kind, '' if fam.aux == 1 else '(aux=%d)' % fam.aux,
+                 'lam=' + fmt(fam.key) if fam.kind == 'A' else 'mn=%s|%s' % (fmt(fam.key[0]), fmt(fam.key[1])),
+                 len(satm), m, fam.rankcap, ranks[0]))
+        sys.stdout.flush()
+        members = [x for x in members if x not in satm]; m = len(members)
+        full = [fam.full(x) for x in members]
+        one = [(x, 1) for x in members]
+        if m <= 1:
+            return tested[0], best, singles, {}
     if m <= args.allsub:
         # every nonempty subset with every combination of the members' levels (1 and g: mixed levels included), each by
         # a direct rank (fam.dims, blocked modrank) -- for small lattices this is much faster than the RREF walk
@@ -162,6 +177,9 @@ def search(fam, rng):
     for x in members:
         test([y for y in full if y[0] != x], 'all-but-one')
     for name, grp in natural_groups(fam).items():
+        grp = [x for x in grp if x in members]
+        if len(grp) < 2:
+            continue
         named[name] = test([fam.full(x) for x in grp], name)
         test([(x, 1) for x in grp], name + ':1')
     pairs = list(itertools.combinations(full, 2))

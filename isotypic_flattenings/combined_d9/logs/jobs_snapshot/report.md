@@ -4,16 +4,17 @@
 | d9_455_dir1_B | 164 | 105 | 78 | 0 | yes | 81129 |
 | d9_555_B | 198 | 132 | 106 | 0 | yes | 86659 |
 | d9_455_dir0_AE | 5 | 3 | 0 | 0 | no | 36447 |
-| d9_455_dir1_B_big | 15 | 9 | 0 | 0 | no | 13911 |
-| d9_555_B_big | 9 | 7 | 0 | 0 | no | 8084 |
-| d9_455_dir0_B_p3 | 0 | 0 | 0 | 0 | no | 0 |
+| d9_455_dir1_B_big | 16 | 9 | 0 | 0 | no | 16714 |
+| d9_555_B_big | 11 | 8 | 0 | 0 | no | 10581 |
+| d9_455_dir0_B_p3 | 147 | 127 | 0 | 0 | no | 2543 |
 
-family B, aux 1, not saturated at the lower rank: 198 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+family B, aux 1, not saturated at the lower rank: 220 lattices (gap = size bound - lower-rank value; values lower/higher rank)
   d9_455_dir1_B_big famB mn=5211|42111 bound 8820 gap 7700 max 1120/1120
   d9_555_B_big famB mn=51111|42111 bound 7350 gap 6545 max 805/805
   d9_555_B_big famB mn=42111|51111 bound 7350 gap 6545 max 805/805
   d9_455_dir1_B_big famB mn=4311|42111 bound 6300 gap 5180 max 1120/1120
   d9_455_dir1_B famB mn=5211|51111 bound 5880 gap 5180 max 700/700
+  d9_555_B_big famB mn=4311|32211 bound 8030 gap 4590 max 3440/3440
   d9_555_B famB mn=42111|33111 bound 5250 gap 4400 max 850/850
   d9_555_B famB mn=33111|42111 bound 5250 gap 4400 max 850/850
   d9_555_B famB mn=51111|51111 bound 4900 gap 4130 max 770/770
@@ -28,9 +29,8 @@ family B, aux 1, not saturated at the lower rank: 198 lattices (gap = size bound
   d9_455_dir1_B famB mn=5211|33111 bound 4015 gap 3595 max 420/420
   d9_455_dir1_B famB mn=4311|51111 bound 4015 gap 3595 max 420/420
   d9_455_dir1_B famB mn=5211|32211 bound 3780 gap 3360 max 420/420
+  d9_455_dir1_B_big famB mn=3321|4221 bound 9600 gap 3335 max 6265/6265
   d9_455_dir1_B famB mn=5211|3321 bound 4015 gap 2890 max 1125/1125
   d9_455_dir1_B famB mn=4311|3222 bound 4015 gap 2890 max 1125/1125
   d9_455_dir1_B famB mn=3321|5211 bound 4015 gap 2890 max 1125/1125
   d9_455_dir1_B famB mn=4221|42111 bound 3780 gap 2760 max 1020/1020
-  d9_555_B famB mn=51111|33111 bound 2475 gap 2425 max 50/50
-  d9_555_B famB mn=33111|51111 bound 2475 gap 2425 max 50/50

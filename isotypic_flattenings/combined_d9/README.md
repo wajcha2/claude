@@ -10,7 +10,9 @@ test_comb.py, brute.py; see `../combined/README.md` for the construction and its
 `comb_search.py`: `--allsub M` (below), transposed pairs {(μ,ν), (ν,μ)} as named groups of family A, and members whose
 level-1 subspace alone already has the lattice's maximal dimension on the lowest rank are dropped from the subsets (every sum
 containing one is saturated on every rank; at d=9 every target of the source (7,1,1) has rank n1 = 280 on rank 8).  Check:
-C^5 d=5 family A, source (3,2): 25 of 27 members dropped, the known hit [1^5,221 + 221,1^5] 105/150 still found (19 s).  Here: `d9_jobs.py` (the same
+C^5 d=5 family A, source (3,2): 25 of 27 members dropped, the known hit [1^5,221 + 221,1^5] 105/150 still found (19 s).  `combflat.LatticeFamily.dims`: once a
+sum is saturated (rankcap) on a lower rank, the higher ranks are not computed (dims are nondecreasing in r and <= rankcap);
+`test_comb.py quick` 0 failures (`logs/test_quick_dims_earlyexit.log`).  Here: `d9_jobs.py` (the same
 resumable runner, logs in `logs/jobs/`, cache in `live/cache/`), `jobs_d9.txt` (job list), `memlog.sh` (memory log).
 
 ## One change to the shared library: `hwv_fast.minors_of_points`
@@ -36,7 +38,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir0_B | B: fixed target, sum over sources; Kronecker spaces on the source side (aux 1) or through a shared Y = C^2 on the target side (aux 2, "family D") | 304 targets, compressed size <= 4708 |
 | d9_455_dir1_B | B, aux 1 | 164 of 242 targets (compressed size <= 6000) |
 | d9_555_B | B, aux 1 | 198 of 304 targets (compressed size <= 6000) |
-| d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every pair of targets (--pairs 25000) and every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair) |
+| d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs (lattices (7,1,1) aux 1, 2: all pairs, --pairs 25000; at aux 2 that took ~5 h per source, too slow for (8,1), (7,2)) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0
 about 6 core-hours, dir 1 and 555 with size <= 6000 about 15 and 18 core-hours; all targets of dir 1 / 555 would be

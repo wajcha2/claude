@@ -462,6 +462,10 @@ class LatticeFamily:
                 self.R = np.random.default_rng([self.ctx.seed, 18, self.ctx.dirn, self.tag, self.aux, len(self.members)]).integers(0, p, (self.size, self.size))
             out = []
             for r in self.ctx.ranks:
+                if out and out[-1] >= self.rankcap:
+                    # dims are nondecreasing in r and never exceed rankcap: saturated on a lower rank = saturated on
+                    # every higher rank (saves the remaining ranks for the many saturated sums of large lattices)
+                    out.append(out[-1]); continue
                 M = np.zeros((self.size, c), dtype=np.int64)
                 for s in key:
                     M += self.mats[r][s][:, :c]

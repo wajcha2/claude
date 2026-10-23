@@ -50,6 +50,8 @@ contraction paths, blocked RREF, lattices stored thin; flattenings bit-identical
 single (member, level) has equal dims on both ranks: with aux 1 a member's level-1 subspace lies in its full-level
 subspace (checked on 107 members of C^4 and 4x5x5 lattices), so every S has dim_lo(S) = Σ singles = Σ singles on r_hi
 ≥ dim_hi(S) and cannot separate (idea from the kronproj session; summary field `direct-sum-certified:1`).
+`isoflat.modrank` uses panels of 64 columns (from `claude/project-thread-ttahoa-sweepfast`): same ranks, 2.5x faster
+on 3000x3000 (19.6 s -> 7.6 s), which speeds up `--allsub` (one direct rank per subset).
 
 ## Validation (`python3 test_comb.py full`, log `logs/test_full.log`: 0 failures)
 * families A and B (full Kronecker spaces) equal an independent brute force (`brute.py`: T^{⊗d} as an explicit array,

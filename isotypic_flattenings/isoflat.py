@@ -101,10 +101,16 @@ def modrank_ref(M):
         r += 1
     return r
 
-MODRANK_BLOCK = 256       # panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul)
+# panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul).  2026-10-23: 256 -> 64
+# (env MODRANK_BLOCK): the unblocked panel elimination and the forward substitution cost O(n m block), and at 256 they
+# dominate: 1184^2 rank 1176: 2.4 s -> 0.7 s, 3000^2: 18.4 s -> 7.0 s (same ranks; the rank does not depend on the block).
+import os as _os
+MODRANK_BLOCK = int(_os.environ.get('MODRANK_BLOCK', '64'))
 
-def modrank(M, block=MODRANK_BLOCK):
-    """rank of integer matrix M over F_p (M values reduced mod p; M is not modified).
+def modrank(M, block=MODRANK_BLOCK, overwrite=False):
+    """rank of integer matrix M over F_p (M values reduced mod p; M is not modified unless overwrite=True and M is a
+    C-contiguous 2-D float64 array of integer values: then M itself is the work array and is destroyed, saving one
+    full-size copy -- 2026-10-23, for the compressed H stacks of sweep_fast).
 
     Blocked right-looking Gaussian elimination with row pivoting (LAPACK getrf style) in exact float64 arithmetic:
     the columns are processed in panels of `block` columns; within a panel the elimination is unblocked (multipliers
@@ -122,10 +128,15 @@ def modrank(M, block=MODRANK_BLOCK):
     if Mi.ndim != 2:
         Mi = np.atleast_2d(Mi)
     n, m = Mi.shape
-    A = np.empty((n, m), dtype=np.float64)
     rstep = max(1, (1 << 23) // m)
-    for i0 in range(0, n, rstep):                      # chunked conversion: one full-size copy, not two
-        A[i0:i0 + rstep] = Mi[i0:i0 + rstep].astype(np.int64) % p
+    if overwrite and Mi.dtype == np.float64 and Mi.flags.c_contiguous:
+        A = Mi
+        for i0 in range(0, n, rstep):
+            np.mod(A[i0:i0 + rstep], p, out=A[i0:i0 + rstep])
+    else:
+        A = np.empty((n, m), dtype=np.float64)
+        for i0 in range(0, n, rstep):                  # chunked conversion: one full-size copy, not two
+            A[i0:i0 + rstep] = Mi[i0:i0 + rstep].astype(np.int64) % p
     r = 0
     for c0 in range(0, m, block):
         if r == n:

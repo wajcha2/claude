@@ -41,9 +41,10 @@ def matmul_mod(A, B):
     """int64 interface: exact (nb, na, nc) @ (nb, nc, nbb) mod p."""
     return fmatmul((np.asarray(A) % p).astype(np.float64), (np.asarray(B) % p).astype(np.float64)).astype(np.int64)
 
-def pair_contract(ia, A, ib, B, keep):
+def pair_contract_ref(ia, A, ib, B, keep):
     """contract A (index string ia) with B (ib); result has index string `keep` (sub-multiset of ia+ib).
-    A, B float64 with integer entries in [0, p); result likewise."""
+    A, B float64 with integer entries in [0, p); result likewise.  Reference version (before 2026-10-23): both
+    operands transposed to (batch, free, contracted) copies and one batched np.matmul."""
     for idx in list(ia):
         if idx not in ib and idx not in keep:
             A = _fmod(A.sum(axis=ia.index(idx))); ia = ia.replace(idx, '')
@@ -63,6 +64,88 @@ def pair_contract(ia, A, ib, B, keep):
     R = R.reshape([dims[i] for i in res_idx])
     return np.transpose(R, [res_idx.index(i) for i in keep])
 
+_LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+def pair_contract_fast(ia, A, ib, B, keep):
+    """same result as pair_contract_ref (bit for bit: every entry is the exact integer sum of < 2^15 products < p^2,
+    so any summation order gives the same float64, then fmod), faster (2026-10-23, measured 2-3x on the C^5 d = 14
+    block loops):
+     * numpy's batched np.matmul (batch > 1) does not reach BLAS speed (1.9 s vs 0.14 s for 3 x (4908x9 @ 9x3125));
+       the batch is now a Python loop of 2-D np.dot calls into a preallocated result;
+     * an operand already laid out as (batch, free, contracted) or (batch, contracted, free) is passed as a (transposed)
+       view instead of being copied; the contracted order follows the larger operand, so only the smaller one is copied;
+     * products without a summed index are one broadcast np.multiply into the output layout;
+     * when a rough time model (BLAS loop: per-batch call overhead + transposed copies + fast MACs; einsum: slow MACs,
+       no copies) prefers it, np.einsum works directly on the operands' layouts: the old code transposed a
+       (4908, ...) operand of 47M elements to move the batch index first (2.8 s of a 7 s block) for a sum of 5 terms."""
+    for idx in list(ia):
+        if idx not in ib and idx not in keep:
+            A = _fmod(A.sum(axis=ia.index(idx))); ia = ia.replace(idx, '')
+    for idx in list(ib):
+        if idx not in ia and idx not in keep:
+            B = _fmod(B.sum(axis=ib.index(idx))); ib = ib.replace(idx, '')
+    dims = dict(zip(ia, A.shape)); dims.update(zip(ib, B.shape))
+    batch = [i for i in ia if i in ib and i in keep]
+    contr = [i for i in ia if i in ib and i not in keep]
+    fa = [i for i in ia if i not in ib]; fb = [i for i in ib if i not in ia]
+    size = lambda idx: int(np.prod([dims[i] for i in idx])) if idx else 1
+    nb, na, nc, nbb = size(batch), size(fa), size(contr), size(fb)
+    if not contr:
+        # no summation (outer / Hadamard product over the batch): broadcast multiply straight into the output layout
+        def view(idx, X):
+            Xt = np.transpose(X, [idx.index(i) for i in keep if i in idx])
+            return np.expand_dims(Xt, tuple(k for k, i in enumerate(keep) if i not in idx))
+        R = np.empty([dims[i] for i in keep])
+        np.multiply(view(ia, A), view(ib, B), out=R)
+        return _fmod(R)
+    contr = [i for i in (ia if A.size >= B.size else ib) if i in contr]
+    def layout(idx, free):
+        """0: idx is batch+free+contr, 1: batch+contr+free (both usable as views), None: needs a copy"""
+        n = list(range(len(idx)))
+        if [idx.index(i) for i in batch + free + contr] == n: return 0
+        if [idx.index(i) for i in batch + contr + free] == n: return 1
+        return None
+    la, lb = layout(ia, fa), layout(ib, fb)
+    macs = float(nb) * na * nc * nbb
+    t_blas = nb * 4e-6 + ((A.size if la is None else 0) + (B.size if lb is None else 0)) / 1e8 + macs / 4e9
+    t_einsum = macs / 4e8
+    allidx = list(dict.fromkeys(ia + ib))
+    if t_einsum < t_blas and nc <= NCMAX and len(allidx) <= len(_LETTERS):
+        # small contraction, many batches or a layout that would need a large transposed copy: sum of products
+        # straight from the operands' layouts
+        m = {c: _LETTERS[k] for k, c in enumerate(allidx)}
+        eq = ''.join(m[c] for c in ia) + ',' + ''.join(m[c] for c in ib) + '->' + ''.join(m[c] for c in keep)
+        return _fmod(np.einsum(eq, A, B))
+    def as3(idx, X, free, lay):
+        """X as an (nb, n_free, n_contr) array, a view (possibly transposed) when the layout allows"""
+        nf, ncc = size(free), size(contr)
+        if lay == 0:
+            return X.reshape(nb, nf, ncc)
+        if lay == 1:
+            return np.swapaxes(X.reshape(nb, ncc, nf), 1, 2)
+        return np.ascontiguousarray(np.transpose(X, [idx.index(i) for i in batch + free + contr])).reshape(nb, nf, ncc)
+    A3 = as3(ia, A, fa, la)                              # (nb, na, nc)
+    B3 = np.swapaxes(as3(ib, B, fb, lb), 1, 2)           # (nb, nc, nbb)
+    R = np.empty((nb, na, nbb))
+    if nc <= NCMAX:
+        for i in range(nb):
+            np.dot(A3[i], B3[i], out=R[i])           # np.dot, not np.matmul: matmul with out= and a transposed operand
+        _fmod(R)                                     # leaves BLAS (1.3 s vs 0.16 s for 176 x (50x1000 @ 1000x100))
+    else:
+        for i in range(nb):
+            acc = None
+            for c0 in range(0, nc, NCMAX):
+                C = _fmod(np.matmul(A3[i][:, c0:c0 + NCMAX], B3[i][c0:c0 + NCMAX]))
+                acc = C if acc is None else _fmod(acc + C)
+            R[i] = acc
+    del A3, B3
+    res_idx = ''.join(batch + fa + fb)
+    R = R.reshape([dims[i] for i in res_idx])
+    return np.transpose(R, [res_idx.index(i) for i in keep])
+
+import os as _os
+pair_contract = pair_contract_ref if _os.environ.get('HWV_PC', 'fast') == 'ref' else pair_contract_fast
+
 def single_reduce(ia, A, keep):
     for idx in list(ia):
         if idx not in keep:
@@ -81,6 +164,7 @@ def execute(ops, out, path):
             others = rest | set(''.join(i for i, _ in taken))
             keep = ''.join(dict.fromkeys(i for i in ia + ib if i in others))
             taken.append((keep, pair_contract(ia, A, ib, B, keep)))
+            del A, B                                     # free the operands before the next contraction
         ia, A = taken[0]
         keep = ''.join(dict.fromkeys(i for i in ia if i in rest))
         if keep != ia:
@@ -118,8 +202,21 @@ def minors_of_points(G, ell):
         out[:, k] = acc
     return out.astype(np.float64)
 
+_vminor_cache = {}
 def minors_of_vectors(V, ell):
-    """M[I, s_1..s_ell] = det V[s_*, I]  (V: (r, n))."""
+    """M[I, s_1..s_ell] = det V[s_*, I]  (V: (r, n)).  Memoized on (V, ell) (2026-10-23): a sweep calls prepare() for
+    every direction, rank and probe with the same few tensors (3 s of a 31 s C^5 d = 13 component); the returned array
+    is shared, which is safe because nothing writes into the minors."""
+    V = np.asarray(V)
+    key = (V.shape, V.dtype.str, V.tobytes(), ell)
+    hit = _vminor_cache.get(key)
+    if hit is None:
+        if len(_vminor_cache) > 256:
+            _vminor_cache.clear()
+        hit = _vminor_cache[key] = _minors_of_vectors(V, ell)
+    return hit
+
+def _minors_of_vectors(V, ell):
     n = V.shape[1]
     return (np.stack([col_dets(np.ascontiguousarray(V[None][:, :, list(I)]), ell)[0]
                      for I in combinations(range(n), ell)], axis=0) % p).astype(np.float64)

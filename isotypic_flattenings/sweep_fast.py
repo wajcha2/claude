@@ -49,6 +49,10 @@ MAXFLOPS = float(os.environ.get('MAXFLOPS', 'inf'))
 class TooExpensive(Exception):
     """raised by compute_F before any work when the estimated flop count of one flattening exceeds MAXFLOPS"""
 ROWCAP = os.environ.get('ROWCAP', '1') == '1'   # cap the number of sampled rows/columns by the rank bounds (noV only)
+# path refinement (2026-10-23, see refine_path): contractions estimated above REFINE flops get a RandomGreedy search with
+# REFINE_REPEATS trials (REFINE_REPEATS <= 128: off, the old paths)
+REFINE = float(os.environ.get('REFINE', '1e11'))
+REFINE_REPEATS = int(os.environ.get('REFINE_REPEATS', '1024'))
 CLAIMDIR = os.environ.get('CLAIMDIR', 'claims_n%s_d%d' % ('x'.join(map(str, ns)) if len(set(ns)) > 1 else ns[0], d))
 PR1, PR2 = 8, 16                       # probe size (source points x target pairs)
 EXTRA = 8                              # extra columns in the random compression of HN
@@ -65,6 +69,9 @@ VLOCK_GB = float(os.environ.get('VLOCK_GB', '0'))
 # and a relaunch that resumes this direction (from its '#partial' line) continues after the last folded flattening.  The
 # filling choice before the loop is deterministic, so results are identical.  0 (default) = off.
 CKPT_SECS = float(os.environ.get('CKPT_SECS', '0'))
+# LOWMEM=1 (default since 2026-10-23): the noV streaming path keeps F as float64, updates Fgen and H in row chunks and
+# ranks H in place; LOWMEM=0 gives the previous code (identical results)
+LOWMEM = os.environ.get('LOWMEM', '1') == '1'
 rlo, rhi = ranks[0], ranks[-1]
 
 def dims_of(lam):
@@ -118,9 +125,24 @@ def best_path(ops, out, repeats=128, cheap=False):
             path, info, big = path2, info2, big2
     return path, info, big
 
-def compute_F(f, vm, pm, path=None, info=None, cheap=False):
+def refine_path(ops, out, path, info, big, mult=1):
+    """(2026-10-23) for an expensive contraction (path estimate x mult blocks > REFINE flops) a longer RandomGreedy search
+    (REFINE_REPEATS trials; its trials include the 128 seeded trials of best_path) replaces the path when it needs fewer
+    flops and its largest intermediate stays within max(MEMCAP, big).  Seconds against hours: on a C^5 d = 14 block
+    network (1 x 2454 points) 1.45e9 -> 9.8e8 flops per block and the largest intermediate 3.8e7 -> 5.0e6.  Any path
+    gives the same matrix (exact arithmetic)."""
+    if info is None or REFINE_REPEATS <= 128 or float(info.opt_cost) * mult <= REFINE:
+        return path, info, big
+    p2, i2 = find_path(ops, out, None, oe.RandomGreedy(max_repeats=REFINE_REPEATS))
+    b2 = hwv_fast.largest_intermediate(ops, out, p2)
+    if float(i2.opt_cost) < float(info.opt_cost) and b2 <= max(MEMCAP, big):
+        return p2, i2, b2
+    return path, info, big
+
+def compute_F(f, vm, pm, path=None, info=None, cheap=False, as_float=False):
     """flattening matrix F[Y, Z]; if the path's largest intermediate exceeds MEMCAP, the evaluation points are
-    split into blocks (first over Z, then over Y, down to single points) until every intermediate fits."""
+    split into blocks (first over Z, then over Y, down to single points) until every intermediate fits.
+    as_float: F as float64 residues (what execute() produces; saves the int64 copy), else int64."""
     N1, K = next(iter(pm[0].values())).shape[0], next(iter(pm[1].values())).shape[0]
     ops, out = build_network(f, vm, pm)
     if path is None:
@@ -132,7 +154,10 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
     if big <= MEMCAP:
         if info is not None and float(info.opt_cost) > MAXFLOPS:
             raise TooExpensive(float(info.opt_cost))
-        return execute(ops, out, path).astype(np.int64)
+        if not cheap:
+            path, info, big = refine_path(ops, out, path, info, big)
+        F = execute(ops, out, path)
+        return F if as_float else F.astype(np.int64)
     # Block splitting.  Two halving orders are tried, Z (target pairs) first and Y (source points) first, each down
     # to the first block shape whose path fits MEMCAP, and the order with the smaller total flop count
     # (flops per block x number of blocks) is used.  The point-independent parts of the network are recomputed in
@@ -156,12 +181,19 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False):
         if best is None or total < best[0]:
             best = (total, order, yb, zb, pb, ib, bb)
     total, order, yb, zb, pb, ib, bb = best
+    if total > MAXFLOPS:                     # decided on the unrefined estimate, as before 2026-10-23
+        raise TooExpensive(total)
+    if not cheap:
+        nblk = (-(-N1 // yb)) * (-(-K // zb))
+        ops, out = build_network(f, vm, slice_pm(pm, slice(0, yb), slice(0, zb)))
+        pb, ib, bb = refine_path(ops, out, pb, ib, bb, nblk)
+        total = float(ib.opt_cost) * nblk
     print("# blocks: %s-first (%d x %d) of %d x %d, %.2e flops, largest intermediate %.2e" % (order, yb, zb, N1, K, total, bb), file=sys.stderr); sys.stderr.flush()
     if total > MAXFLOPS:
         raise TooExpensive(total)
     if bb > MEMCAP:
         print("# memory: no path within MEMCAP even for 1x1 blocks (largest intermediate %.2e elements); proceeding" % bb, file=sys.stderr); sys.stderr.flush()
-    F = np.zeros((N1, K), dtype=np.int64)
+    F = np.zeros((N1, K), dtype=np.float64 if as_float else np.int64)
     for y0 in range(0, N1, yb):
         for z0 in range(0, K, zb):
             ys, zs = slice(y0, min(N1, y0 + yb)), slice(z0, min(K, z0 + zb))
@@ -259,18 +291,37 @@ def direction(lam, g, dirn, crng):
             for j, (c, (f, path, info)) in enumerate(zip(coeffs, chosen)):
                 if j < j0:
                     continue
-                F = compute_F(f, *pre[r], path, info)
-                if r == rhi:
-                    assert F.any(), 'accepted filling gives a zero flattening'
-                Fgen = (Fgen + c * F) % p
-                Rj = Rgen.integers(0, p, (K, N1 + EXTRA)).astype(np.float64)
-                C = hwv_fast.fmatmul((F % p).astype(np.float64)[None], Rj[None])[0]
-                del F, Rj
-                if H is None:
-                    H = C
+                if LOWMEM:
+                    # (2026-10-23) F stays float64 (entries already in [0, p)), Fgen and H are updated in row chunks
+                    # (temporaries of <= 2^22 entries instead of ~5 full-size N1 x K / N1 x (N1+8) arrays); every
+                    # entry is the same exact integer arithmetic as below, so Fgen and H are identical.
+                    F = compute_F(f, *pre[r], path, info, as_float=True)
+                    if r == rhi:
+                        assert F.any(), 'accepted filling gives a zero flattening'
+                    Rj = Rgen.integers(0, p, (K, N1 + EXTRA)).astype(np.float64)
+                    if H is None:
+                        H = np.zeros((N1, N1 + EXTRA))
+                    step = max(1, (1 << 22) // max(K, N1 + EXTRA))
+                    for i0 in range(0, N1, step):
+                        Fi = F[i0:i0 + step]
+                        Fgen[i0:i0 + step] = (Fgen[i0:i0 + step] + c * Fi.astype(np.int64)) % p
+                        Hi = H[i0:i0 + step]
+                        Hi += hwv_fast.fmatmul(Fi[None], Rj[None])[0]
+                        np.fmod(Hi, p, out=Hi)
+                    del F, Rj, Fi, Hi
                 else:
-                    np.add(H, C, out=H); np.fmod(H, p, out=H)
-                del C
+                    F = compute_F(f, *pre[r], path, info)
+                    if r == rhi:
+                        assert F.any(), 'accepted filling gives a zero flattening'
+                    Fgen = (Fgen + c * F) % p
+                    Rj = Rgen.integers(0, p, (K, N1 + EXTRA)).astype(np.float64)
+                    C = hwv_fast.fmatmul((F % p).astype(np.float64)[None], Rj[None])[0]
+                    del F, Rj
+                    if H is None:
+                        H = C
+                    else:
+                        np.add(H, C, out=H); np.fmod(H, p, out=H)
+                    del C
                 if ckf is not None and j < len(chosen) - 1 and time.time() - tck > CKPT_SECS:
                     os.makedirs(os.path.dirname(ckf), exist_ok=True)
                     np.savez(ckf + '.tmp.npz', ri=ri, j=j, Fgen=Fgen, H=H, rst=repr(Rst), rgen=repr(Rgen.bit_generator.state),
@@ -278,8 +329,11 @@ def direction(lam, g, dirn, crng):
                     os.replace(ckf + '.tmp.npz', ckf); tck = time.time()
             res[(dirn, 'gen')] = res.get((dirn, 'gen'), ()) + (modrank(Fgen),)
             del Fgen
-            H = H.astype(np.int64)
-            res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H),)
+            if LOWMEM:
+                res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H, overwrite=True),)   # H's buffer is the work array
+            else:
+                H = H.astype(np.int64)
+                res[(dirn, 'Hstack')] = res.get((dirn, 'Hstack'), ()) + (modrank(H),)
             del H
             continue
         Fs_r = [compute_F(f, *pre[r], path, info) for f, path, info in chosen]

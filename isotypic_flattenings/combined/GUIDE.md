@@ -82,3 +82,11 @@ is paid once per component and cached in memory only); the gain grows with the c
 d = 8, 9 components a single flattening evaluation is 12–30x faster (455 d=9 (72 | 3222, 3222) 87 s → 6 s,
 555 d=8 (71 | 3221, 2222) 38–46 s → 3–3.6 s) and the largest intermediates shrink 5–100x, which is what lets
 memory-bound jobs run.
+
+**Caveat, 555 d=10 (sources {91, 82, 811}, target (61111, 61111), ranks 9/10, OPENBLAS_NUM_THREADS=4, alone in a
+13.4 GB container, 40 min cap each).** Neither version finished the lattice in 40 min. The new code got further: it
+chose bases for 91, 82 and 811 and evaluated the 82 block (g = 2, 3858 × 12658) at both ranks (572 s, 256 s); the
+old code evaluated that block at rank 9 only (450 s). Here the new code's peak RSS was higher, 11.4 GB against
+8.4 GB, so on d = 10 555 blocks run one job at a time (two such jobs together were OOM-killed at 8.4 GB each), or
+lower `MEMCAP` if memory is tight. The degree-10 thread completed this lattice earlier with the new code
+(1526/1526, `degree10/results_d10.md`).

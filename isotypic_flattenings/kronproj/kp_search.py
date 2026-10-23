@@ -49,7 +49,7 @@ if PRIME:
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import combflat
-from combflat import Context, LatticeFamily, fmt, p, rref, reduce_rows, mulmod, compressed_rank
+from combflat import Context, LatticeFamily, fmt, p, rref, reduce_rows, mulmod, compressed_rank, combine, EXTRA
 from kplib import add_basis, empty_basis, KPLattice
 from isoflat import modrank
 assert p == (PRIME or 524287) and hwv.p == p and isoflat.p == p
@@ -67,6 +67,10 @@ ap.add_argument('--greedy', type=int, default=2); ap.add_argument('--gcand', typ
 ap.add_argument('--bmax', type=int, default=3000, help='skip kpB lattices whose compressed size exceeds this')
 ap.add_argument('--bmin', type=int, default=0, help='skip kpB lattices whose compressed size is at most this (done by an earlier job with --bmax bmin)')
 ap.add_argument('--amax', type=int, default=10 ** 9, help='skip kpA lattices with more members than this')
+ap.add_argument('--ecompress', type=int, default=1, help='kpE: 1 = grids larger than --emax entries are ranked after a random '
+                'right compression of every column block (exact w.h.p.), 2 = always (test), 0 = never (skip them)')
+ap.add_argument('--emax2', type=float, default=1.5e8, help='kpE: skip compressed grids with more entries than this')
+ap.add_argument('--eredo', default='', help='log1:log2: kpE components with a complete line (no :skip) there are done')
 ap.add_argument('--emax', type=float, default=4e7); ap.add_argument('--kmax', type=int, default=3)
 ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random general block configurations')
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
@@ -365,6 +369,43 @@ if 'B' in fams:
         res = search(fam, np.random.default_rng([args.seed, 32] + list(mn[0]) + [0] + list(mn[1])))
         summary(*res, time.time() - t0)
         ctx.drop()
+def grid_ranks_compressed(tri, k, l, Psi, FG):
+    """ranks of the k x l grid sum_t Psi[t, x, y] F_t (rows k N1, columns l K) after multiplying column block y by its own
+    random K x c_y matrix G_y, c = min(K, k N1) + EXTRA: the row space W of the grid has dim <= k N1, its projection to
+    column block y too, and a generic G_y is injective on that projection, so W meets the kernel of diag(G_y) only in 0
+    and the rank is preserved (failure probability < p^-EXTRA per block, as for every compression here).  FG caches
+    F_t G_y per (rank, y) for the component (G_y has kmax N1 + EXTRA columns; the first c are used)."""
+    lam, mn = tri[0], tri[1:]
+    out = []
+    for r in ranks:
+        Fs = None
+        N1, K = ctx.N1[lam], ctx.K[mn]
+        cmax = min(K, args.kmax * N1) + EXTRA if K > args.kmax * N1 + EXTRA else K
+        c = min(cmax, min(K, k * N1) + EXTRA) if cmax < K else K
+        blocks = []
+        for y in range(l):
+            if (r, y) not in FG:
+                if Fs is None:
+                    Fs = ctx.flats(tri, r)
+                if cmax < K:
+                    G = np.random.default_rng([args.seed, 35, args.dir, r, y] + ctx.tri_index(tri)).integers(0, p, (K, cmax))
+                    FG[(r, y)] = np.stack([mulmod(Fs[t].astype(np.int64), G) for t in range(Fs.shape[0])])
+                else:
+                    FG[(r, y)] = Fs.astype(np.int64)
+            blocks.append(FG[(r, y)][:, :, :c])
+        M = np.zeros((k * N1, l * c), dtype=np.int64)
+        for x in range(k):
+            for y in range(l):
+                M[x * N1:(x + 1) * N1, y * c:(y + 1) * c] = combine(Psi[:, x, y], blocks[y])
+        out.append(compressed_rank(M, np.random.default_rng([args.seed, 15, r])))
+    return tuple(out)
+
+for lf in args.eredo.split(':'):
+    if lf and os.path.exists(lf):
+        for l in open(lf):
+            if l.startswith('kpE ') and ':skip' not in l and 'SKIPPED' not in l:
+                DONE.add(('E', l[4:].split(' g=')[0]))
+
 if 'E' in fams:
     for tri in sorted(ctx.g, key=lambda t: ctx.g[t] * ctx.N1[t[0]] * ctx.K[t[1:]]):
         g = ctx.g[tri]
@@ -378,17 +419,23 @@ if 'E' in fams:
         lam, mn = tri[0], tri[1:]
         t0 = time.time(); out = []
         rng = np.random.default_rng([args.seed, 33, args.dir] + ctx.tri_index(tri))
+        FG = {}
         for k in range(2, args.kmax + 1):
             for l in range(2, args.kmax + 1):
                 for s in range(2, min(g, k * l)):
                     if k == l and s == 2:
                         continue
-                    if k * ctx.N1[lam] * l * ctx.K[mn] > args.emax:
+                    big = k * ctx.N1[lam] * l * ctx.K[mn] > args.emax
+                    comp = args.ecompress == 2 or (big and args.ecompress == 1)
+                    if big and not comp or comp and k * ctx.N1[lam] * l * min(ctx.K[mn], args.kmax * ctx.N1[lam] + EXTRA) > args.emax2:
                         out.append('%dx%d/s%d:skip' % (k, l, s)); continue
                     P = rng.integers(0, p, (g, s)); Q = rng.integers(0, p, (s, k * l))
                     Psi = mulmod(P, Q).reshape(g, k, l)
-                    dims, ex = ctx.block_rank([(lam, k)], [(mn, l)], psis={(lam, mn): Psi})
-                    out.append('%dx%d/s%d:%s%s' % (k, l, s, '/'.join(map(str, dims)), '' if ex else '(inexact)'))
+                    if comp:
+                        dims, ex = grid_ranks_compressed(tri, k, l, Psi, FG), ctx.exact([(lam, k)], [(mn, l)])
+                    else:
+                        dims, ex = ctx.block_rank([(lam, k)], [(mn, l)], psis={(lam, mn): Psi})
+                    out.append('%dx%d/s%d:%s%s%s' % (k, l, s, '/'.join(map(str, dims)), '' if ex else '(inexact)', 'c' if comp else ''))
                     for i in range(NPAIR):
                         if dims[i] < dims[i + 1]:
                             line = '*** SEPARATES [I] r%d<r%d kpE %s g=%d k=%d l=%d s=%d %s ranks %s exact=%s' % (

@@ -104,8 +104,9 @@ def modrank_ref(M):
 # panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul).  2026-10-23: 256 -> 64
 # (env MODRANK_BLOCK): the unblocked panel elimination and the forward substitution cost O(n m block), and at 256 they
 # dominate: 1184^2 rank 1176: 2.4 s -> 0.7 s, 3000^2: 18.4 s -> 7.0 s (same ranks; the rank does not depend on the block).
+# 2026-10-23: default 64 -> 32 (identical ranks, about 2x faster than 256 on the combined-flattening workloads).
 import os as _os
-MODRANK_BLOCK = int(_os.environ.get('MODRANK_BLOCK', '64'))
+MODRANK_BLOCK = int(_os.environ.get('MODRANK_BLOCK', '32'))
 
 def modrank(M, block=MODRANK_BLOCK, overwrite=False):
     """rank of integer matrix M over F_p (M values reduced mod p; M is not modified unless overwrite=True and M is a

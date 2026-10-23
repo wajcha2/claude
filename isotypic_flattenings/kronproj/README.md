@@ -26,7 +26,7 @@ and V; s = g: the whole M).
 
 kpA over all targets with all s_j = g_j is S_λ(T_A) (never separates); with s_j < g_j it is a different map.
 Levels are nested (level s = the first s columns of one generic Ψ), so each level is a generic s-dim projection and sums are
-lattice dimensions (combflat.LatticeFamily, copied unchanged from `combined/` at 82d3d98, with its validation `test_comb.py`
+lattice dimensions (combflat.LatticeFamily, since 2026-10-23 the fast low-memory `combined/combflat.py` of `claude/project-thread-ttahoa`, see `SWITCH.md`; before: copied from `combined/` at 82d3d98; with its validation `test_comb.py`
 and `brute.py`).  Per lattice: all singles (member, s); **all level vectors** (s_m ∈ 0..g_m) when ∏(g_m + 1) ≤ `--exh`
 (incremental RREF walk), otherwise uniform / codim-t levels, full sum with one member lowered, all-but-one, natural groups,
 pairs with all level combinations, random level vectors and greedy growth.  Lattices whose members all have g = 1 are

@@ -52,6 +52,9 @@ subspace (checked on 107 members of C^4 and 4x5x5 lattices), so every S has dim_
 ≥ dim_hi(S) and cannot separate (idea from the kronproj session; summary field `direct-sum-certified:1`).
 `isoflat.modrank` uses panels of 32 columns (64 from `claude/project-thread-ttahoa-sweepfast`, 32 since 16:10): same ranks, 2.5x faster
 on 3000x3000 (19.6 s -> 7.6 s), which speeds up `--allsub` (one direct rank per subset).
+The disk cache grows by ~0.1 GB per family-B target at d = 7, 8 (30 GB filled the disk on 2026-10-23 19:28 UTC);
+`prune_cache.py JOBFILE --do` deletes the cached flattenings of targets every job of the directory has finished,
+and `comb_jobs.py` runs it every 10 minutes.
 
 ## Validation (`python3 test_comb.py full`, log `logs/test_full.log`: 0 failures)
 * families A and B (full Kronecker spaces) equal an independent brute force (`brute.py`: T^{⊗d} as an explicit array,

@@ -138,6 +138,10 @@ def search(fam, rng):
                  len(satm), m, fam.rankcap, ranks[0]))
         sys.stdout.flush()
         members = [x for x in members if x not in satm]; m = len(members)
+        for r in fam.mats:                                   # their compressed matrices are never used again
+            for x in satm:
+                for lev in fam.levels[x]:
+                    fam.mats[r].pop((x, lev), None)
         full = [fam.full(x) for x in members]
         one = [(x, 1) for x in members]
         if m <= 1:
@@ -190,7 +194,7 @@ def search(fam, rng):
                     named['all' if lev == 'full' else 'all:1'] = dims
                 if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)):
                     test(S, 'exhaustive')            # re-checked by a direct rank, then reported
-            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None)
+            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None, members=members)
         return tested[0], best, singles, named
     named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
     for x in members:

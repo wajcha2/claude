@@ -101,7 +101,8 @@ def modrank_ref(M):
         r += 1
     return r
 
-MODRANK_BLOCK = 256       # panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul)
+MODRANK_BLOCK = 32        # panel width of modrank; must stay <= 2^15 so that block * p^2 < 2^53 (exact float64 matmul).
+                          # 2026-10-23: 32 instead of 256, same ranks, 2x (n = 2500..3000) to 4x (n = 576..1100) faster
 
 def modrank(M, block=MODRANK_BLOCK):
     """rank of integer matrix M over F_p (M values reduced mod p; M is not modified).

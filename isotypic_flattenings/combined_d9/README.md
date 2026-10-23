@@ -15,7 +15,14 @@ sum is saturated (rankcap) on a lower rank, the higher ranks are not computed (d
 `test_comb.py quick` 0 failures (`logs/test_quick_dims_earlyexit.log`).  Here: `d9_jobs.py` (the same
 resumable runner, logs in `logs/jobs/`, cache in `live/cache/`), `jobs_d9.txt` (job list), `memlog.sh` (memory log).
 
-## One change to the shared library: `hwv_fast.minors_of_points`
+## Changes to the shared library
+
+`isoflat.MODRANK_BLOCK` = 32 instead of 256 (2026-10-23, suggested by the user): same ranks (200 small / degenerate matrices
+against `modrank_ref`, block 32 = block 256 on full and rank-deficient matrices of size 576..3000), 4x faster at n = 576..1100
+(the family-A lattices), 2x at n = 2500..3000; `test_comb.py quick` 0 failures (`logs/test_quick_modrank32.log`).  Family-B
+workers restarted at 16:15 UTC; the family-A worker after its (8,1) aux-2 lattice.
+
+### `hwv_fast.minors_of_points`
 
 At degree 9 the targets need up to K = 4716 sample points, and computing the minors of the sample points took 2 minutes per
 target (`hwv.col_dets` builds all n^l ordered row tuples over all l! permutations; profiled on ((7,1,1),(4,3,1,1),(4,3,1,1))).

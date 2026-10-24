@@ -8,6 +8,10 @@ cd $MAIN
 export PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
 . $MAIN/t455_helpers.sh             # tag/logf/alive/finished/launch/joblogs (job names: ONLY list or V = V-stack pass)
 echo "== $(date -u +'%Y-%m-%d %H:%M:%S UTC') =="
+# fresh container: the workers and the report need these (2026-10-24: a check-in without numpy crashed every worker and
+# pushed an empty agents/d10.md); install them for the python3 on PATH, not a different interpreter
+python3 -c "import numpy, sympy, opt_einsum" 2>/dev/null || { echo "installing numpy sympy opt_einsum for $(command -v python3)"; python3 -m pip install -q numpy sympy opt_einsum 2>&1 | grep -v "as the 'root' user" | tail -2; }
+python3 -c "import numpy, sympy, opt_einsum" || { echo "*** python packages missing, check-in aborted (nothing started or pushed)"; exit 1; }
 echo "-- processes --"; ps -eo pid,etime,rss,pcpu,args | grep "[s]weep_fast.py 4,5,5" || echo "(none)"
 echo "-- oom --"; grep oom_kill /sys/fs/cgroup/memory/process_api/*/claude-code-bash/memory.oom_control 2>/dev/null | tail -1
 echo "-- hits / problems --"; grep -H "SEPARATES" hwv455_*.log hwv455V_*.log 2>/dev/null || echo "no SEPARATES"
@@ -34,7 +38,7 @@ while read d M O; do
   echo "$T:$st   ($(cat $(joblogs $d $M "$O") /dev/null 2>/dev/null | grep -c '^lam=') lines)"
 done < t455_jobs.txt
 NW=3
-python3 t455_report.py > agents/d10.md
+python3 t455_report.py > agents/d10.md.tmp && mv agents/d10.md.tmp agents/d10.md || { rm -f agents/d10.md.tmp; echo "*** t455_report.py failed, agents/d10.md left unchanged"; }
 # push with retries (2, 4, 8, 16 s back-off) and the real exit status (a pipe into tail hid failures before)
 push_retry() { local i; for i in 1 2 3 4 5; do git push -q origin "$1" 2>&1 | tail -1; [ ${PIPESTATUS[0]} -eq 0 ] && return 0; [ $i -lt 5 ] && { sleep $((2**i)); git pull -q --rebase --autostash origin "$1" 2>&1 | tail -1; }; done; return 1; }
 # commit attribution footer: read from the git-excluded file .d10_commit_footer next to this script (recreate it from the session's attribution

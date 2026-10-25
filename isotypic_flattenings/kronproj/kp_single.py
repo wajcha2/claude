@@ -32,6 +32,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from combflat import Context, eval_F, fmt, p, mulmod, EXTRA
 from hwv_fast import minors_of_points
 from isoflat import modrank
+from kplib import add_basis
 
 ap = argparse.ArgumentParser()
 ap.add_argument('n'); ap.add_argument('d', type=int); ap.add_argument('ranks')
@@ -42,6 +43,8 @@ ap.add_argument('--resume', default='', help='log1:log2: skip components already
 ap.add_argument('--maxcost', type=float, default=float('inf'), help='skip components with g * N1 * K above this')
 ap.add_argument('--nomirror', action='store_true', help='equal target dimensions: only one of (lam, mu, nu), (lam, nu, mu)')
 ap.add_argument('--only', default='', help='comma-free list "lam|mu|nu;..." of components')
+ap.add_argument('--vold', action='store_true', help='V_s by g full ranks of the compressed sum (before 2026-10-25) '
+                'instead of one incremental exact row basis')
 args = ap.parse_args()
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
@@ -104,10 +107,15 @@ for i, tri in enumerate(comps):
                 C = mulmod(Fp, crng.integers(0, p, (K, N1)))                  # N1 x N1, same column space as Fp
                 accH = C if accH is None else (accH + C) % p
                 res['H'].setdefault(s + 1, []).append(modrank(accH))
-            if V:
+            if V and args.vold:
                 C = mulmod(crng.integers(0, p, (cV, N1)), Fp)                 # cV x K, same row space as Fp
                 accV = C if accV is None else (accV + C) % p
                 res['V'].setdefault(s + 1, []).append(modrank(accV))
+            elif V:
+                # 2026-10-25: exact RREF basis of row(Fp_1) + .. + row(Fp_s), grown one functional at a time (about g times
+                # cheaper than g ranks of the cV x K compressed sum, and no compression); V_s = its dimension
+                Vb = add_basis(*Vb, Fp) if s else add_basis(np.zeros((0, K), dtype=np.float32), [], Fp)
+                res['V'].setdefault(s + 1, []).append(len(Vb[1]))
         del Fs
     out = []
     for kind in 'HV':

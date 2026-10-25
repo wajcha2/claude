@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-25 09:45 UTC): NO separation anywhere
+## Results so far (2026-10-25 10:50 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -31,7 +31,7 @@ large targets, kpE, kpG), no separation.
 | k455_d6_dir1_big | the 4x5x5 d=6 dir 1 kpB lattices with size 3128-3408 | **complete**, none: 4 by the certificate (34-47 s each), 321|3111 (not direct, 2650 < 3400) by the exhaustive walk (6479 level vectors, 6555 s) |
 | k555_d6_321, k455_d6_dir1_321 | the deferred 321|321 lattices (size 5713, 10 members, g = 1234254232) | **complete**, none: both direct sums (5705/5705), certified (269 s / 154 s, peak ~1.6 GB) |
 | s455_d8_dir1_H_w0/w1 | H_s for all s, 4x5x5 d=8 source C^5, the 977 components with g >= 3 | **complete**, none: 4874 H_s values, 60 below the size bound but equal on rank 8 and 9 (e.g. 611|3221|32111 g=3: H_1 = H_2 = H_3 = 300/300 vs bound 600-945) |
-| s555_d8_H_w0/w1, s455_d8_dir0_H | H_s for all s, 5x5x5 d=8 (645 components after mirrors) and 4x5x5 d=8 source C^4 (g >= 3, --nomirror) | 5x5x5: 634 of 645 components, 3114 H_s values (42 below the size bound, all equal on rank 9 and 10), none (running); 4x5x5 source C^4 queued |
+| s555_d8_H_w0/w1, s455_d8_dir0_H | H_s for all s, 5x5x5 d=8 (645 components after mirrors) and 4x5x5 d=8 source C^4 (g >= 3, --nomirror) | 5x5x5 **complete**, none: 645 components, 3218 H_s values, 51 below the size bound but all equal on rank 9 and 10 (e.g. 521|32111|22211 g=5: H_3 = 980/980, H_4 = 1160/1160 vs bound 1200-1440) (15032 s + 16226 s); 4x5x5 source C^4 running |
 | k555_d7_big, k455_d7_dir1_big | the d=7 kpB lattices above the first runs' caps (size 2500-12000; 5x5x5 one of each mirror pair) | 5x5x5: 21 lattices done (16 by the direct-sum certificate, 5 by the walk / samples), none (running); 4x5x5 source C^5: 2 lattices done (2221|421, 4111|4111: ~9400 s each, not direct sums, 1085-1120 level vectors, maxdrop 0), none (running, multi-day) |
 * Smoke runs: 4x5x5 d=5 dir 0 (`logs/smoke_455_d5_dir0.log`) and the 13 components with g >= 3 at 4x5x5 d=6 dir 0, H_s and V_s
   for all s (`logs/smoke_single_455_d6_dir0.log`): all full rank, no separation.

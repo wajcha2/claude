@@ -176,6 +176,19 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## 8x8x8 d = 7 rerun n8_d7_x1 (WCAP 2^28): all components resolved, none separates 13 vs 14 (2026-10-25 10:39)
+Direction 1 at r = 13 (rank / bound min(n1, n23)):
+| component | r = 13 | r = 14 | bound |
+|---|---|---|---|
+| ((6,1),(2,1^5),(2,1^5)) | 6208 | 6208 (leading 6216-block) | 10296 |
+| ((6,1),(2,2,1,1,1),(2,1^5)) | 10296 (saturated) | -- | 10296 |
+| ((6,1),(3,1^4),(2,1^5)) | 10296 (saturated) | -- | 10296 |
+| ((4,3),(2,2,1,1,1),(2,1^5)) | 11088 (saturated) | -- | 11088 |
+(the other directions are saturated at r = 13).  The first one stays unresolved above 14 (r >= 15 is beyond WCAP 2^28),
+the other three are resolved for every r >= 13.  Evaluation times at r = 13: 28 h, 36 h, 3.2 h (old loop, 10304 x 3
+blocks), 5.0 h; the last one lost ~28 h to the container outage of 2026-10-24 01:05 to 10-25 05:31 and resumed from its
+checkpoint (block 2506 of 11096).
+
 ## Frontier reruns keep the old block evaluation (2026-10-23 19:35)
 The planned evaluation (NEWEVAL) is slower on the 8x8x8 d = 7 WCAP 2^28 networks, which its authors could not time:
 ((6,1),(3,1^4),(2,1^5)) direction 1 at r = 13 (10304 x 10304) was planned in Z-outer tiles of 5 x 246 points (cheaper

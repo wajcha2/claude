@@ -247,14 +247,20 @@ class Comp:
                 t1 = time.time()
                 if vm is None:
                     vm = self.D.vm(name)
+                # rankscan block checkpoints inside one long evaluation (every CKPT_EVERY s, default 30 min): a
+                # restarted job resumes the matrix it was evaluating instead of starting it again
+                ck = pi[:-4] + '_blk'
+                os.makedirs(FCACHE, exist_ok=True)
                 if Fs.dtype == np.float32:
-                    compute_F(fl[0], vm, self.D.pm, fl[1], fl[2], dest=Fs[i])     # (no float64 copy)
+                    compute_F(fl[0], vm, self.D.pm, fl[1], fl[2], ckpt=ck, dest=Fs[i])     # (no float64 copy)
                 else:
-                    Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2])
+                    Fs[i] = compute_F(fl[0], vm, self.D.pm, fl[1], fl[2], ckpt=ck)
                 if time.time() - t1 > FCACHE_MIN:
-                    os.makedirs(FCACHE, exist_ok=True)
                     np.save(pi[:-4] + '.tmp.npy', Fs[i])
                     os.replace(pi[:-4] + '.tmp.npy', pi)
+                for ext in ('.npy', '.json'):
+                    if os.path.exists(ck + ext):
+                        os.remove(ck + ext)
             if eb is not None:
                 self.D.to_old_basis(Fs, eb[1])
                 if self.D.fillings is not fills:
@@ -267,7 +273,7 @@ class Comp:
         return self.cache[name]
 
     def clear_fcache(self):
-        for f in glob.glob(self.fcache_path('*')[:-4] + '*.npy'):
+        for f in glob.glob(self.fcache_path('*')[:-4] + '*.npy') + glob.glob(self.fcache_path('*')[:-4] + '*.json'):
             os.remove(f)
 
     def drop(self, name):

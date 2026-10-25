@@ -112,7 +112,9 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   ranks 6, 7); positive controls reproduced (C^3 d=6 26/27, C^4 d=8 220/225, same hits).  Jobs started before
   keep the old module (same results, slower).
   Container reclaimed 2026-10-23 23:29 (runner restarted 23:30) and 2026-10-24 ~01:05 (check-ins lapsed; restarted
-  2026-10-25 05:32, ~28 h lost).  82 of 495 components done at the restart, no hit.  `special/sync.sh` copies special/live into
+  2026-10-25 05:32, ~28 h lost).  82 of 495 components done at the restart, no hit.
+  Again stopped 2026-10-25 ~11:30 (worker restart), restarted 17:09 (98 of 495 done, no hit); the long components
+  resume from their per-filling checkpoints.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

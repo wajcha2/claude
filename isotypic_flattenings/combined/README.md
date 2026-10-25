@@ -82,10 +82,10 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | pat_555_d7 | 5x5x5, d = 7 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 148 (58 by the certificate); 4 SKIPPED (421\|3211, 3211\|421: size 12948; 421\|421, 3211\|3211: 16308) -> job pat_555_d7_big | 15872 s (last part) |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: pattern jobs
-4x5x5 d = 7 (source on C^5), 5x5x5 d = 8, the 4 large 5x5x5 d = 7 targets (pat_555_d7_big, `--bmax 17000`) (`--bmax 10000`: the largest targets, d = 7 sizes 12948 and 16308,
-d = 8 sizes > 10000, are skipped and listed as `SKIPPED`), all-source family B at 4x5x5 d = 7 (source on C^5) and
-5x5x5 d = 7 (subsets of at most 4 sources), families A and E at d = 5, 6.  4x5x5 d = 8 and all d = 9 run in other
-threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
+4x5x5 d = 7 (source on C^5) and 5x5x5 d = 8 (`--bmax 10000`: larger targets are listed as `SKIPPED`, for 5x5x5 d = 8
+the 64 targets of size > 10000), the 4 large 5x5x5 d = 7 targets (pat_555_d7_big, `--bmax 17000`), all-source family B
+at 4x5x5 d = 7 (source on C^5) and 5x5x5 d = 7 (subsets of at most 4 sources), families A and E at d = 5, 6.
+4x5x5 d = 8 and all d = 9 run in other threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
 
 ### C^3, rank 4 vs 5: separated at d = 4 (isotypic flattenings: d = 5)
 Family B, target S^{211}B ⊗ S^{211}C (≅ B⊗C ⊗ det_B ⊗ det_C, dimension 9), sources λ ∈ {22, 31} (all g = 1):

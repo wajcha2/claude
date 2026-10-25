@@ -589,3 +589,67 @@ lam=((3, 3, 1, 1), (3, 3, 1, 1), (3, 3, 1, 1)) g=5 dir 1: n1=1176 n23=1382976 N1
    U4^sw23+                     r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
    sw23-                        r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
    sw12+                        r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   U4^sw12+                     r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   sw12-                        r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   sw13+                        r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   U4^sw13+                     r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   sw13-                        r11 H[1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880]
+   line0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.3s)
+   line1 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.6s)
+   gline H2 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (31.8s)
+   gline V2 rho 2352  minpoly deg [2352, 2352]  gcd deg 0    (84.7s)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   thru-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.1s)
+   in-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (12.3s)
+   thru-sw23+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (12.9s)
+   in-sw23+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.9s)
+   thru-sw23-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (15.4s)
+   in-sw23-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.7s)
+   thru-sw12+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.7s)
+   in-sw12+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.6s)
+   thru-sw12-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.2s)
+   in-sw12-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.5s)
+   thru-sw13+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.9s)
+   in-sw13+0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.9s)
+   thru-sw13-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.9s)
+   in-sw13-0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.2s)
+   done dir 1: ok, 32 cases, 0 hits, wall 1427.4s (F 531.3s), peak 1211 MB
+lam=((5, 1, 1, 1), (3, 3, 1, 1), (3, 3, 1, 1)) g=3 dir 1: n1=1575 n23=1382976 N1=1583 K=4733  ranks [11, 12, 13]
+  . ((5, 1, 1, 1), (3, 3, 1, 1), (3, 3, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.08e+12 -> 9.95e+11 (11s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1575, 1575, 1575] V[3150, 4725]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 2, 5: 0}  swaps {'sw23+': 0, 'sw23-': 3}  (11.5s)
+   U4                           r11 H[1575, 1575, 1575] V[3150, 4725]
+   line0 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (32.5s)
+   line1 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (34.1s)
+   gline H2 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (51.1s)
+   gline V2 rho 3150  minpoly deg [3150, 3150]  gcd deg 0    (177.3s)
+   thru-U40 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (29.7s)
+   in-U40 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (31.5s)
+   done dir 1: ok, 7 cases, 0 hits, wall 801.4s (F 371.3s), peak 1730 MB
+lam=((5, 1, 1, 1), (3, 3, 1, 1), (3, 3, 1, 1)) g=3 dir 2: n1=1176 n23=1852200 N1=1184 K=3536  ranks [11, 12, 13]
+  . ((3, 3, 1, 1), (5, 1, 1, 1), (3, 3, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.45e+11 -> 1.57e+11 (5s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1176, 1176, 1176] V[2352, 3528]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 2, 5: 0}  swaps {'sw13+': 0, 'sw13-': 3}  (4.8s)
+   U4                           r11 H[1176, 1176, 1176] V[2352, 3528]
+   line0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (14.0s)
+   line1 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.9s)
+   gline H2 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (21.8s)
+   gline V2 rho 2352  minpoly deg [2352, 2352]  gcd deg 0    (72.5s)
+   thru-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.1s)
+   in-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (13.1s)
+   done dir 2: ok, 7 cases, 0 hits, wall 272.5s (F 90.3s), peak 1033 MB
+lam=((5, 1, 1, 1), (5, 1, 1, 1), (4, 2, 2)) g=2 dir 1: n1=1575 n23=3969000 N1=1583 K=3158  ranks [11, 12, 13]
+  . ((5, 1, 1, 1), (5, 1, 1, 1), (4, 2, 2)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.17e+11 -> 1.36e+11 (9s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1575, 1575] V[3150]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 0}  swaps {'sw12+': 2, 'sw12-': 0}  (3.4s)
+   no natural U with 0 < dim < g
+   line0 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (31.0s)
+   done dir 1: ok, 2 cases, 0 hits, wall 162.0s (F 116.5s), peak 531 MB
+lam=((5, 1, 1, 1), (5, 1, 1, 1), (4, 2, 2)) g=2 dir 3: n1=2520 n23=2480625 N1=2528 K=5048  ranks [11, 12, 13]
+  . ((4, 2, 2), (5, 1, 1, 1), (5, 1, 1, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.06e+12 -> 1.78e+11 (18s)

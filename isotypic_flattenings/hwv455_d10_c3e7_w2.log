@@ -1629,3 +1629,58 @@ lam=((5, 4, 1), (4, 4, 2), (4, 4, 2)) g=5 dims=(384, 1176, 1176)  H1:384/384 g1:
 #partial ((5, 5), (5, 3, 2), (4, 2, 2, 2)) next=1 res={(0, 'gen'): (196, 196), (0, 'Hstack'): (196, 196)} spans=[2] secs=8.6 state={'bit_generator': 'PCG64', 'state': {'state': 310305550811968349951357744016335692001, 'inc': 222803127387714511753991823335275687739}, 'has_uint32': 1, 'uinteger': 139520223}
 # blocks: Z-first (2708 x 3) of 2708 x 2708, 3.51e+11 flops, largest intermediate 1.62e+07
 # blocks: Z-first (2708 x 3) of 2708 x 2708, 4.89e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 3.83e+11 flops, largest intermediate 1.83e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 5.26e+11 flops, largest intermediate 2.03e+07
+#partial ((5, 5), (5, 3, 2), (4, 2, 2, 2)) next=2 res={(0, 'gen'): (196, 196), (0, 'Hstack'): (196, 196), (1, 'gen'): (2700, 2700), (1, 'Hstack'): (2700, 2700)} spans=[2, 2] secs=1164.9 state={'bit_generator': 'PCG64', 'state': {'state': 271383170762654768826219657563566526750, 'inc': 222803127387714511753991823335275687739}, 'has_uint32': 1, 'uinteger': 799291424}
+lam=((5, 5), (5, 3, 2), (4, 2, 2, 2)) g=2 dims=(196, 2700, 200)  H1:196/196 g1:196/196 H2:2700/2700 g2:2700/2700 H3:200/200 g3:200/200  span=2,2,2 cost=1.48e+07 (1166.7s)
+# blocks: Z-first (548 x 69) of 548 x 548, 1.09e+10 flops, largest intermediate 1.94e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 1.04e+10 flops, largest intermediate 1.94e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 1.38e+10 flops, largest intermediate 1.94e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 1.94e+10 flops, largest intermediate 1.94e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 1.60e+10 flops, largest intermediate 2.76e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 1.64e+10 flops, largest intermediate 2.76e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 2.05e+10 flops, largest intermediate 2.76e+07
+# blocks: Z-first (548 x 69) of 548 x 548, 3.07e+10 flops, largest intermediate 2.76e+07
+#partial ((6, 4), (5, 3, 1, 1), (4, 4, 1, 1)) next=1 res={(0, 'gen'): (540, 540), (0, 'Hstack'): (540, 540)} spans=[4] secs=137.4 state={'bit_generator': 'PCG64', 'state': {'state': 196104212588348406151177206597559246996, 'inc': 92874939139216850643668558252301850189}, 'has_uint32': 1, 'uinteger': 4088237353}
+# blocks: Z-first (1709 x 54) of 1709 x 1709, 2.96e+10 flops, largest intermediate 1.85e+07
+# blocks: Y-first (27 x 1709) of 1709 x 1709, 7.89e+10 flops, largest intermediate 2.36e+07
+# blocks: Z-first (1709 x 107) of 1709 x 1709, 5.43e+10 flops, largest intermediate 2.29e+07
+# blocks: Z-first (1709 x 14) of 1709 x 1709, 8.66e+10 flops, largest intermediate 2.99e+07
+# blocks: Z-first (1709 x 27) of 1709 x 1709, 3.17e+10 flops, largest intermediate 2.08e+07
+# blocks: Z-first (1709 x 14) of 1709 x 1709, 8.72e+10 flops, largest intermediate 2.99e+07
+# blocks: Z-first (1709 x 107) of 1709 x 1709, 6.96e+10 flops, largest intermediate 2.29e+07
+# blocks: Z-first (1709 x 14) of 1709 x 1709, 8.83e+10 flops, largest intermediate 2.99e+07
+#partial ((6, 4), (5, 3, 1, 1), (4, 4, 1, 1)) next=2 res={(0, 'gen'): (540, 540), (0, 'Hstack'): (540, 540), (1, 'gen'): (1701, 1701), (1, 'Hstack'): (1701, 1701)} spans=[4, 4] secs=489.6 state={'bit_generator': 'PCG64', 'state': {'state': 284633068340120305494982553748151602995, 'inc': 92874939139216850643668558252301850189}, 'has_uint32': 1, 'uinteger': 2300273341}
+# blocks: Z-first (708 x 354) of 708 x 708, 1.69e+09 flops, largest intermediate 1.20e+07
+# blocks: Z-first (708 x 89) of 708 x 708, 7.59e+09 flops, largest intermediate 2.52e+07
+# blocks: Z-first (708 x 89) of 708 x 708, 1.66e+10 flops, largest intermediate 3.15e+07
+# blocks: Z-first (708 x 177) of 708 x 708, 2.30e+09 flops, largest intermediate 6.77e+06
+# blocks: Z-first (708 x 89) of 708 x 708, 1.04e+10 flops, largest intermediate 2.84e+07
+# blocks: Z-first (708 x 89) of 708 x 708, 4.80e+10 flops, largest intermediate 3.15e+07
+lam=((6, 4), (5, 3, 1, 1), (4, 4, 1, 1)) g=4 dims=(540, 1701, 700)  H1:540/540 g1:540/540 H2:1701/1701 g2:1701/1701 H3:700/700 g3:700/700  span=4,4,4 cost=1.49e+07 (524.6s)
+#partial ((6, 2, 1, 1), (8, 1, 1), (5, 4, 1)) next=1 res={(0, 'gen'): (140, 140)} spans=[1] secs=0.4 state={'bit_generator': 'PCG64', 'state': {'state': 62754788876885742847961403166931594576, 'inc': 326413062503623313706229123734858802311}, 'has_uint32': 1, 'uinteger': 1917815163}
+# blocks: Z-first (2384 x 38) of 2384 x 2384, 1.72e+11 flops, largest intermediate 1.81e+07
+# blocks: Y-first (38 x 2384) of 2384 x 2384, 2.37e+11 flops, largest intermediate 1.96e+07
+#partial ((6, 2, 1, 1), (8, 1, 1), (5, 4, 1)) next=2 res={(0, 'gen'): (140, 140), (1, 'gen'): (2376, 2376)} spans=[1, 1] secs=132.1 state={'bit_generator': 'PCG64', 'state': {'state': 289720961109599702455885199784985832918, 'inc': 326413062503623313706229123734858802311}, 'has_uint32': 1, 'uinteger': 660567202}
+# blocks: Z-first (3032 x 95) of 3032 x 3032, 1.93e+10 flops, largest intermediate 2.30e+07
+# blocks: Z-first (3032 x 95) of 3032 x 3032, 2.18e+10 flops, largest intermediate 2.59e+07
+lam=((6, 2, 1, 1), (8, 1, 1), (5, 4, 1)) g=1 dims=(140, 2376, 3024)  g1:140/140 g2:2376/2376 g3:3024/3024  span=1,1,1 cost=1.49e+07 (182.6s)
+#partial ((4, 4, 1, 1), (8, 2), (4, 2, 2, 1, 1)) next=1 res={(0, 'gen'): (50, 50)} spans=[1] secs=0.5 state={'bit_generator': 'PCG64', 'state': {'state': 113853010110729443612837104948911282168, 'inc': 271223552498723749638822528786492938433}, 'has_uint32': 1, 'uinteger': 1499450337}
+# blocks: Y-first (4 x 3858) of 3858 x 3858, 4.93e+11 flops, largest intermediate 2.22e+07
+# blocks: Y-first (4 x 3858) of 3858 x 3858, 5.56e+11 flops, largest intermediate 2.50e+07
+#partial ((4, 4, 1, 1), (8, 2), (4, 2, 2, 1, 1)) next=2 res={(0, 'gen'): (50, 50), (1, 'gen'): (890, 890)} spans=[1, 1] secs=776.6 state={'bit_generator': 'PCG64', 'state': {'state': 173727035673553697392034366672450405224, 'inc': 271223552498723749638822528786492938433}, 'has_uint32': 1, 'uinteger': 2914719229}
+lam=((4, 4, 1, 1), (8, 2), (4, 2, 2, 1, 1)) g=1 dims=(50, 3850, 126)  g1:50/50 g2:890/890 g3:126/126  span=1,1,1 cost=1.49e+07 (777.4s)
+#partial ((4, 3, 3), (8, 2), (3, 3, 2, 2)) next=1 res={(0, 'gen'): (70, 70)} spans=[1] secs=0.7 state={'bit_generator': 'PCG64', 'state': {'state': 124209935016943481744780604084960629356, 'inc': 312010374586188749359948417315178541147}, 'has_uint32': 0, 'uinteger': 369145348}
+# blocks: Z-first (3858 x 16) of 3858 x 3858, 6.96e+11 flops, largest intermediate 1.98e+07
+# blocks: Z-first (3858 x 8) of 3858 x 3858, 8.92e+11 flops, largest intermediate 1.25e+07
+#partial ((4, 3, 3), (8, 2), (3, 3, 2, 2)) next=2 res={(0, 'gen'): (70, 70), (1, 'gen'): (3850, 3850)} spans=[1, 1] secs=594.0 state={'bit_generator': 'PCG64', 'state': {'state': 300325645440579930529111572869182413782, 'inc': 312010374586188749359948417315178541147}, 'has_uint32': 0, 'uinteger': 2803453411}
+lam=((4, 3, 3), (8, 2), (3, 3, 2, 2)) g=1 dims=(70, 3850, 126)  g1:70/70 g2:3850/3850 g3:126/126  span=1,1,1 cost=1.49e+07 (594.7s)
+#partial ((5, 5), (8, 1, 1), (5, 4, 1)) next=1 res={(0, 'gen'): (196, 196)} spans=[1] secs=0.6 state={'bit_generator': 'PCG64', 'state': {'state': 168297271644117912885541771607641992467, 'inc': 217650246698793857648303832465679390769}, 'has_uint32': 1, 'uinteger': 1892735548}
+# blocks: Z-first (2384 x 38) of 2384 x 2384, 3.11e+10 flops, largest intermediate 2.90e+07
+# blocks: Z-first (2384 x 38) of 2384 x 2384, 3.10e+10 flops, largest intermediate 1.13e+07
+#partial ((5, 5), (8, 1, 1), (5, 4, 1)) next=2 res={(0, 'gen'): (196, 196), (1, 'gen'): (2376, 2376)} spans=[1, 1] secs=91.0 state={'bit_generator': 'PCG64', 'state': {'state': 50470169217177574415097297840948684270, 'inc': 217650246698793857648303832465679390769}, 'has_uint32': 0, 'uinteger': 3620813960}
+# blocks: Z-first (3032 x 95) of 3032 x 3032, 2.10e+10 flops, largest intermediate 2.30e+07
+# blocks: Z-first (3032 x 12) of 3032 x 3032, 1.04e+11 flops, largest intermediate 1.82e+07
+lam=((5, 5), (8, 1, 1), (5, 4, 1)) g=1 dims=(196, 2376, 3024)  g1:196/196 g2:2376/2376 g3:3024/3024  span=1,1,1 cost=1.49e+07 (202.2s)
+#partial ((6, 2, 1, 1), (8, 2), (4, 2, 2, 1, 1)) next=1 res={(0, 'gen'): (140, 140)} spans=[1] secs=0.5 state={'bit_generator': 'PCG64', 'state': {'state': 231813374154609634931597898445001952302, 'inc': 208022183199311219579026436309313629503}, 'has_uint32': 1, 'uinteger': 2665847799}
+# blocks: Y-first (2 x 3858) of 3858 x 3858, 8.89e+11 flops, largest intermediate 1.98e+07

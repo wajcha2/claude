@@ -6,6 +6,8 @@ pat_455_d7_dir0 | 4,5,5 7 8,9 --dir 0 --fam B --aux 1 --allsub 6 --exhaust 14 --
 pat_555_d7      | 5 7 9,10 --fam B --aux 1 --allsub 6 --exhaust 14 --sources pattern:3 --bmax 10000
 pat_455_d7_dir1 | 4,5,5 7 8,9 --dir 1 --fam B --aux 1 --allsub 6 --exhaust 14 --sources pattern:3 --bmax 10000
 pat_555_d8      | 5 8 9,10 --fam B --aux 1 --allsub 6 --exhaust 14 --sources pattern:3 --bmax 10000
+# the 4 targets pat_555_d7 skipped (compressed size 12948, 16308 > --bmax 10000; 6 sources each)
+pat_555_d7_big  | 5 7 9,10 --fam B --aux 1 --allsub 6 --exhaust 14 --sources pattern:3 --bmax 17000 --only-mn 421|3211;3211|421;421|421;3211|3211
 # exhaustive / partial family B (running or done)
 p455_d5_dir0 | 4,5,5 5 8,9 --dir 0 --fam A,B,E --aux 1,2 --exhaust 14 --nrand 1000 --greedy 2
 p555_d6_B    | 5 6 9,10 --fam B --aux 1,2 --exhaust 14 --bmax 8000

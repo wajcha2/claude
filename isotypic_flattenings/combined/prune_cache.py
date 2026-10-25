@@ -19,6 +19,7 @@ def job_args(a):
     ap.add_argument('--fam', default='A,B'); ap.add_argument('--aux', default='1'); ap.add_argument('--dir', type=int, default=0)
     ap.add_argument('--seed', type=int, default=5); ap.add_argument('--sources', default='')
     ap.add_argument('--cache', default=os.path.join(HERE, 'live', 'cache'))
+    ap.add_argument('--only-mn', dest='only_mn', default='')
     return ap.parse_known_args(shlex.split(a))[0]
 
 def cache_dir(o):
@@ -67,14 +68,15 @@ def main():
         states = [(name, o) + done_targets(name) for name, o in jobs]
         if any(not fin and set(o.fam.split(',')) - {'B'} for name, o, fin, _ in states):
             continue                                        # a running/waiting family A or E job reads whole sources
-        live = [dn for name, o, fin, dn in states if not fin]
+        # an unfinished job needs a target unless it has a summary line for it or excludes it by --only-mn
+        live = [(dn, set(x for x in o.only_mn.split(';') if x)) for name, o, fin, dn in states if not fin]
         n = b = 0
         for f in glob.glob(os.path.join(d, 'r*_*_*_*.npy')):
             parts = os.path.basename(f)[:-4].split('_')
             if len(parts) != 4:
                 continue
             mn = parts[2] + '|' + parts[3]
-            if all(mn in dn for dn in live):                 # every unfinished job has this target (or none is left)
+            if all(mn in dn or (only and mn not in only) for dn, only in live):
                 n += 1; b += os.path.getsize(f)
                 if do:
                     os.remove(f)

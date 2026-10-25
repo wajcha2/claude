@@ -79,9 +79,10 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p555_d6_B | 5x5x5, d = 6 | B; aux 1, 2; all subsets | 200 (9 by the direct-sum certificate) | 12064 s |
 | p455_d6_dir1 | 4x5x5, d = 6, source on C^5 | B; aux 1, 2; all subsets | 180 (6 by the certificate) | 5639 s (last part) |
 | p455_d7_dir0 | 4x5x5, d = 7, source on C^4 | B, aux 1; all sources, subsets of at most 4 sources | 165 (10 by the certificate) | 2456 s (last part) |
+| pat_555_d7 | 5x5x5, d = 7 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 148 (58 by the certificate); 4 SKIPPED (421\|3211, 3211\|421: size 12948; 421\|421, 3211\|3211: 16308) -> job pat_555_d7_big | 15872 s (last part) |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: pattern jobs
-4x5x5 d = 7 (source on C^5), 5x5x5 d = 7 and d = 8 (`--bmax 10000`: the largest targets, d = 7 sizes 12948 and 16308,
+4x5x5 d = 7 (source on C^5), 5x5x5 d = 8, the 4 large 5x5x5 d = 7 targets (pat_555_d7_big, `--bmax 17000`) (`--bmax 10000`: the largest targets, d = 7 sizes 12948 and 16308,
 d = 8 sizes > 10000, are skipped and listed as `SKIPPED`), all-source family B at 4x5x5 d = 7 (source on C^5) and
 5x5x5 d = 7 (subsets of at most 4 sources), families A and E at d = 5, 6.  4x5x5 d = 8 and all d = 9 run in other
 threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).

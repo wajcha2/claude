@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-24 00:25 UTC): NO separation anywhere
+## Results so far (2026-10-25 05:35 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -79,6 +79,9 @@ large targets, kpE, kpG), no separation.
   column block (c = min(K, k N1) + 8 columns per block; the grid's row space has dim <= k N1, so a generic compression of
   each column block is injective on its projection and the rank is preserved w.h.p.).  Checked: forcing it on all 13
   components of 4x5x5 d=6 dir 0 reproduces every grid value (`logs/test_ecompress_455_d6_dir0.log`).
+
+* 2026-10-24 00:56 UTC -> 2026-10-25 05:32 UTC: the container was down (~28.5 h); disk, logs and scratchpad survived.
+  Runner relaunched with --resume (only the lattices / components in progress are redone).
 
 ## Running
 Snapshot of the job logs: `logs/jobs_snapshot/` (live logs in the untracked `logs/jobs/`).

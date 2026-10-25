@@ -4,9 +4,10 @@ lattices are finished (summary line) in the logs of the jobs that alone use that
 usage: python3 cache_gc.py [--dry]"""
 import os, re, sys, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
-JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_*', [1]), 'd9_555_B': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_*', [1]),
-        'd9_455_dir1_B_big': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_*', [1]), 'd9_555_B_big': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_*', [1]),
-        'd9_455_dir0_B_p3': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_*', [1])}      # ax1 dir 0 = the lam_1 >= 6 pass only (pattern:2 dir 0 is ax2)
+JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srca3d7b922', [1]), 'd9_555_B': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srca3d7b922', [1]),
+        'd9_455_dir1_B_big': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srca3d7b922', [1]), 'd9_555_B_big': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srca3d7b922', [1]),
+        'd9_455_dir0_B_p3': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_src2307563d', [1]),      # ax1 dir 0 = the lam_1 >= 6 pass only (src a3d7b922 = sources lam_1 >= 7, 2307563d = lam_1 >= 6)
+        'd9_555_B_p3': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_src2307563d', [1])}     # its own cache only (the pattern:2 cache is in use by d9_555_B_big)
 dry = '--dry' in sys.argv
 freed = 0
 for job, (pat, auxes) in JOBS.items():

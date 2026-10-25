@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-10-25 10:50 UTC): NO separation anywhere
+## Results so far (2026-10-25 17:15 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -32,12 +32,15 @@ large targets, kpE, kpG), no separation.
 | k555_d6_321, k455_d6_dir1_321 | the deferred 321|321 lattices (size 5713, 10 members, g = 1234254232) | **complete**, none: both direct sums (5705/5705), certified (269 s / 154 s, peak ~1.6 GB) |
 | s455_d8_dir1_H_w0/w1 | H_s for all s, 4x5x5 d=8 source C^5, the 977 components with g >= 3 | **complete**, none: 4874 H_s values, 60 below the size bound but equal on rank 8 and 9 (e.g. 611|3221|32111 g=3: H_1 = H_2 = H_3 = 300/300 vs bound 600-945) |
 | s555_d8_H_w0/w1, s455_d8_dir0_H | H_s for all s, 5x5x5 d=8 (645 components after mirrors) and 4x5x5 d=8 source C^4 (g >= 3, --nomirror) | 5x5x5 **complete**, none: 645 components, 3218 H_s values, 51 below the size bound but all equal on rank 9 and 10 (e.g. 521|32111|22211 g=5: H_3 = 980/980, H_4 = 1160/1160 vs bound 1200-1440) (15032 s + 16226 s); 4x5x5 source C^4 **complete**, none: 527 components, 2677 H_s values, 8 below the size bound but equal on rank 8 and 9 (e.g. 611|32111|32111 g=4: H_s = 183/183 vs bound 189) (2806 s).  **All d=8 single-component H_s done (three directions), no separation.** |
-| s455_d8_dir0_V, s555_d8_V, s455_d8_dir1_V | V_s for all s at d=8 (incremental exact row basis; 5x5x5 and source C^5 cut at --maxcost 4e7: 580 of 645 / 891 of 977 components) | running (started 10:45 UTC); the new V_s is identical to the old one on all 13 components of 5x5x5 d=6 and all 176 of 4x5x5 d=7 source C^4 (`logs/test_vinc_*.log` vs the s555_d6 / s455_d7_dir0 logs), 4x5x5 d=7 source C^5 being compared |
-| k555_d7_big, k455_d7_dir1_big | the d=7 kpB lattices above the first runs' caps (size 2500-12000; 5x5x5 one of each mirror pair) | 5x5x5: 26 lattices done (20 by the direct-sum certificate, the others by the walk / samples), none (running); 4x5x5 source C^5: 3 lattices done (2221|421, 4111|4111, 3211|4111: ~2.6 h each, not direct sums, 1085-1408 level vectors, maxdrop 0), none (running, multi-day) |
+| s455_d8_dir0_V, s555_d8_V, s455_d8_dir1_V | V_s for all s at d=8 (incremental exact row basis; 5x5x5 and source C^5 cut at --maxcost 4e7: 580 of 645 / 891 of 977 components) | running (started 10:45 UTC), none so far: 4x5x5 source C^4 379 of 527 components (1858 V_s values, 18 below the size bound but equal on rank 8 and 9, e.g. 5111|4211|22211 V_3 = 95/95 vs 105), 5x5x5 115 of 580 (503 values, all at the bound); the new V_s is identical to the old one on all 13 components of 5x5x5 d=6 and all 176 of 4x5x5 d=7 source C^4 (`logs/test_vinc_*.log` vs the s555_d6 / s455_d7_dir0 logs), 4x5x5 d=7 source C^5 being compared (139 of 176 identical so far) |
+| k555_d7_big, k455_d7_dir1_big | the d=7 kpB lattices above the first runs' caps (size 2500-12000; 5x5x5 one of each mirror pair) | 5x5x5: 29 lattices done (23 by the direct-sum certificate, the others by the walk / samples), none (running); 4x5x5 source C^5: 3 lattices done (2221|421, 4111|4111, 3211|4111: ~2.6 h each, not direct sums, 1085-1408 level vectors, maxdrop 0), none (running, multi-day) |
 * Smoke runs: 4x5x5 d=5 dir 0 (`logs/smoke_455_d5_dir0.log`) and the 13 components with g >= 3 at 4x5x5 d=6 dir 0, H_s and V_s
   for all s (`logs/smoke_single_455_d6_dir0.log`): all full rank, no separation.
 * Validation: `test_kp.py full` 382 ok / 0 failures (`logs/test_full.log`), including C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)):
   H_1 225/225, H_2 = H_3 = H_4 = 304/309 (the known values); `test_kp.py quick` 143 ok / 0 failures (`logs/test_quick.log`).
+
+* Container restart 2026-10-25: the jobs stopped at 11:42 UTC (last mem.log line), the container came back at 17:08;
+  runner, memory log and watch relaunched at 17:09 (jobs resume from their logs).
 
 * Incident 2026-10-22 19:52-20:21 UTC: `kp_single.py` lacked `FOUND = []` (lost in the resume edit); worker 0 of s455_d7_dir1
   finished its 88 components and crashed on the final summary line, so the runner relaunched it every 30 s (57 empty part

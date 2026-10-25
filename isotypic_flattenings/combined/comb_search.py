@@ -104,16 +104,42 @@ def natural_groups(fam):
             G.setdefault('rows=%d' % len(m), []).append(m); G.setdefault('row1=%d' % m[0], []).append(m)
     return {k: v for k, v in G.items() if 1 < len(v) < len(fam.members)}
 
+def dims_store(fam):
+    """(file, dict) of the subset dims of this lattice already computed in an earlier run (2026-10-25): a large --allsub
+    lattice takes hours and container restarts lost them twice; the dims are exact ranks for the fixed seed, so a
+    restart reuses them.  One line 'repr(sorted(S))<TAB>d1,d2,...' per subset in the lattice's cache directory."""
+    if not fam.ctx.cache:
+        return None, {}
+    key = fmt(fam.key) if fam.kind == 'A' else '%s-%s' % (fmt(fam.key[0]), fmt(fam.key[1]))
+    fn = os.path.join(fam.ctx.cache, 'dims_%s%d_%s.txt' % (fam.kind, fam.aux, key))
+    store = {}
+    if os.path.exists(fn):
+        for l in open(fn):
+            parts = l.rstrip('\n').split('\t')
+            if len(parts) == 2 and parts[1]:
+                store[parts[0]] = tuple(int(x) for x in parts[1].split(','))
+    return fn, store
+
 def search(fam, rng):
     members = fam.members; m = len(members)
     full = [fam.full(x) for x in members]
     one = [(x, 1) for x in members]
     tested, best = [0], [0, None, None]
+    sfile, store = dims_store(fam)
     def test(S, how):
         S = list(S)
         if not S:
             return None
-        dims = fam.dims(S); tested[0] += 1
+        k = repr(sorted(S))
+        if k in store:
+            dims = store[k]
+        else:
+            dims = fam.dims(S)
+            if sfile:
+                with open(sfile, 'a') as fh:
+                    fh.write('%s\t%s\n' % (k, ','.join(map(str, dims))))
+            store[k] = dims
+        tested[0] += 1
         drop = dims[-1] - dims[-2]          # the top pair (r_last - 1 vs r_last) drives the greedy search
         if drop > best[0]:
             best[:] = [drop, S, dims]

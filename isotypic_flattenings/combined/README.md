@@ -55,6 +55,9 @@ on 3000x3000 (19.6 s -> 7.6 s), which speeds up `--allsub` (one direct rank per 
 The disk cache grows by ~0.1 GB per family-B target at d = 7, 8 (30 GB filled the disk on 2026-10-23 19:28 UTC);
 `prune_cache.py JOBFILE --do` deletes the cached flattenings of targets every job of the directory has finished,
 and `comb_jobs.py` runs it every 10 minutes.
+`comb_search.py` stores every subset dimension it computes in `live/cache/<tag>/dims_<family><aux>_<target>.txt`, so a
+large lattice interrupted by a container restart resumes where it stopped (2026-10-25; two outages had cost a 3-hour
+5x5x5 d = 8 lattice twice).
 
 ## Validation (`python3 test_comb.py full`, log `logs/test_full.log`: 0 failures)
 * families A and B (full Kronecker spaces) equal an independent brute force (`brute.py`: T^{⊗d} as an explicit array,

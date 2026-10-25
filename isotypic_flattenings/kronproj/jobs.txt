@@ -45,3 +45,9 @@ s455_d8_dir1_H_w1 | kp_single.py 4,5,5 8 8,9 --dir 1 --mode H --worker 1 --nwork
 s555_d8_H_w0 | kp_single.py 5 8 9,10 --mode H --worker 0 --nworkers 2 --nomirror
 s555_d8_H_w1 | kp_single.py 5 8 9,10 --mode H --worker 1 --nworkers 2 --nomirror
 s455_d8_dir0_H | kp_single.py 4,5,5 8 8,9 --dir 0 --mode H --nomirror
+# 2026-10-25: V_s of the single components at d=8 (H_s done above), by the incremental exact row basis of kp_single.py
+# (identical to the old V_s on 5x5x5 d=6 and 4x5x5 d=7); 5x5x5 and 4x5x5 source C^5 cut at --maxcost 4e7 (580 of 645 /
+# 891 of 977 components, largest basis 6308 columns), cheapest first
+s455_d8_dir0_V | kp_single.py 4,5,5 8 8,9 --dir 0 --mode V --nomirror
+s555_d8_V    | kp_single.py 5 8 9,10 --mode V --nomirror --maxcost 4e7
+s455_d8_dir1_V | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --maxcost 4e7

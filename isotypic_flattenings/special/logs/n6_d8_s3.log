@@ -467,3 +467,54 @@ lam=((5, 1, 1, 1), (4, 2, 1, 1), (3, 1, 1, 1, 1, 1)) g=2 dir 1: n1=1575 n23=5103
    done dir 1: ok, 2 cases, 0 hits, wall 361.4s (F 282.8s), peak 448 MB
 lam=((5, 1, 1, 1), (4, 2, 1, 1), (3, 1, 1, 1, 1, 1)) g=2 dir 2: n1=2430 n23=33075 N1=2438 K=4868  ranks [11, 12, 13]
   . ((4, 2, 1, 1), (5, 1, 1, 1), (3, 1, 1, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.89e+12 -> 1.10e+12 (29s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430] V[4860]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 6: 0}  swaps {}  (1.3s)
+   no natural U with 0 < dim < g
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (78.5s)
+   done dir 2: ok, 2 cases, 0 hits, wall 640.4s (F 495.5s), peak 1022 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (3, 1, 1, 1, 1, 1)) g=2 dir 3: n1=21 n23=3827250 N1=29 K=50  ranks [11, 12, 13]
+   generic U: r11 H[21, 21] V[42]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 6: 0}  swaps {}  (1.5s)
+   no natural U with 0 < dim < g
+   line0 rho 21  minpoly deg [21, 21]  gcd deg 0    (0.0s)
+   done dir 3: ok, 2 cases, 0 hits, wall 10.6s (F 1.3s), peak 327 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (4, 1, 1, 1, 1)) g=2 dir 1: n1=1575 n23=765450 N1=1583 K=3158  ranks [11, 12, 13]
+  . ((5, 1, 1, 1), (4, 2, 1, 1), (4, 1, 1, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.08e+13 -> 3.34e+11 (15s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1575, 1575] V[3150]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 1, 6: 0}  swaps {}  (1.1s)
+   U5                           r11 H[1575, 1575] V[3150]
+   line0 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (29.6s)
+   done dir 1: ok, 2 cases, 0 hits, wall 212.8s (F 157.7s), peak 385 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (4, 1, 1, 1, 1)) g=2 dir 2: n1=2430 n23=496125 N1=2438 K=4868  ranks [11, 12, 13]
+  . ((4, 2, 1, 1), (5, 1, 1, 1), (4, 1, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.10e+12 -> 6.81e+11 (22s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430] V[4860]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 1, 6: 0}  swaps {}  (1.7s)
+   U5                           r11 H[2430, 2430] V[4860]
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (73.9s)
+   done dir 2: ok, 2 cases, 0 hits, wall 405.2s (F 266.3s), peak 1017 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (4, 1, 1, 1, 1)) g=2 dir 3: n1=315 n23=3827250 N1=323 K=638  ranks [11, 12, 13]
+   generic U: r11 H[315, 315] V[630]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 1, 6: 0}  swaps {}  (1.2s)
+   U5                           r11 H[315, 315] V[630]
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.5s)
+   done dir 3: ok, 2 cases, 0 hits, wall 25.7s (F 14.4s), peak 353 MB
+lam=((4, 2, 2), (4, 2, 2), (3, 3, 2)) g=2 dir 1: n1=2520 n23=3704400 N1=2528 K=5048  ranks [11, 12, 13]
+  . ((4, 2, 2), (4, 2, 2), (3, 3, 2)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.40e+12 -> 7.30e+11 (7s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2520, 2520] V[5040]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 0}  swaps {'sw12+': 1, 'sw12-': 1}  (0.8s)
+   sw12+                        r11 H[2520, 2520] V[5040]
+   sw12-                        r11 H[2520, 2520] V[5040]
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (84.3s)
+   done dir 1: ok, 3 cases, 0 hits, wall 496.2s (F 315.1s), peak 1094 MB
+lam=((4, 2, 2), (4, 2, 2), (3, 3, 2)) g=2 dir 3: n1=1470 n23=6350400 N1=1478 K=2948  ranks [11, 12, 13]
+   generic U: r11 H[1470, 1470] V[2940]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 0}  swaps {'sw23+': 1, 'sw23-': 1}  (1.0s)
+   sw23+                        r11 H[1470, 1470] V[2940]
+   sw23-                        r11 H[1470, 1470] V[2940]
+   line0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (25.4s)
+   done dir 3: ok, 3 cases, 0 hits, wall 189.4s (F 136.8s), peak 375 MB
+lam=((4, 2, 2), (3, 3, 2), (3, 1, 1, 1, 1, 1)) g=2 dir 1: n1=2520 n23=30870 N1=2528 K=5048  ranks [11, 12, 13]

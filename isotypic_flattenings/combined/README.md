@@ -84,6 +84,7 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p455_d7_dir0 | 4x5x5, d = 7, source on C^4 | B, aux 1; all sources, subsets of at most 4 sources | 165 (10 by the certificate) | 2456 s (last part) |
 | pat_555_d7 | 5x5x5, d = 7 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 148 (58 by the certificate); 4 SKIPPED (421\|3211, 3211\|421: size 12948; 421\|421, 3211\|3211: 16308) -> job pat_555_d7_big | 15872 s (last part) |
 | pat_555_d7_big | 5x5x5, d = 7 | the 4 skipped pattern targets, `--bmax 17000`: all 152 pattern targets of 5x5x5 d = 7 now done | 4 (3 by the certificate; 3211\|3211: all 127 subsets, full sum 12805/12805) | 30363 s |
+| pat_455_d7_dir1_big | 4x5x5, d = 7, source on C^5 | the 3 skipped pattern targets, `--bmax 17000`: all 129 pattern targets done | 3 (421\|421 by the certificate; 421\|3211 and 3211\|421: all 126 subsets each) | 29311 s |
 | pat_455_d7_dir1 | 4x5x5, d = 7, source on C^5 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 126 (30 by the certificate); 3 SKIPPED (421\|3211, 3211\|421: 12948; 421\|421: 16308) -> job pat_455_d7_dir1_big | 521 s (last part) |
 | p555_d7_B | 5x5x5, d = 7 | B, aux 1; all sources, subsets of at most 4 sources | 91 of 169 (21 by the certificate); 78 SKIPPED (size > 4000) -> the 74 of size ≤ 11708 in job p555_d7_B_big | 1329 s (last part) |
 | p455_d5_dir1 | 4x5x5, d = 5, source on C^5 | A (aux 1, 2: all-but-one, groups, pairs, triples, 1000 random, greedy) and E (reshaped components) | 14 A, 6 E | 1123 s |
@@ -92,8 +93,8 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p455_d7_dir1 | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources | 82 of 143 (26 by the certificate); 61 SKIPPED (size > 4000) -> the 58 of size ≤ 12000 in job p455_d7_dir1_big | 14895 s (last part) |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: pattern job
-5x5x5 d = 8 (`--bmax 10000`: the 64 targets of size > 10000 are listed as `SKIPPED`), the large pattern targets of
-4x5x5 d = 7 source on C^5 (pat_455_d7_dir1_big, `--bmax 17000`), the skipped all-source
+5x5x5 d = 8 (`--bmax 10000`: the 64 targets of size > 10000 are listed as `SKIPPED`), the 29 pattern targets of size
+10418..19418 at 5x5x5 d = 8 (one per mirror pair μ\|ν, ν\|μ; pat_555_d8_big, `--bmax 20000`), the skipped all-source
 family B targets of size ≤ 12000 at 4x5x5 d = 7 source on C^5 (58, p455_d7_dir1_big) and 5x5x5 d = 7 (74, p555_d7_B_big), families A and E at 4x5x5 d = 6 source on C^5.  4x5x5 d = 8 and all d = 9 run in other
 threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
 

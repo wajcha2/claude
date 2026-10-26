@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 128 | 335 | 0 | 227426 s |
+| 6x6x6 | 8 | 11-13 | 129 | 338 | 0 | 228117 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2503,6 +2503,9 @@ None so far.
 | 6x6x6 | 8 | (611,3311,32111) | 2 | 1 | 3465, 451584 | 11-13 | 11:3465 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 444 s / 1998 MB |
 | 6x6x6 | 8 | (611,3311,32111) | 2 | 2 | 1176, 1330560 | 11-13 | 11:1176 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 47 s / 443 MB |
 | 6x6x6 | 8 | (611,3311,32111) | 2 | 3 | 384, 4074840 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 6 s / 313 MB |
+| 6x6x6 | 8 | (611,332,3221) | 2 | 1 | 3465, 1543500 | 11-13 | 11:3465 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 643 s / 1950 MB |
+| 6x6x6 | 8 | (611,332,3221) | 2 | 2 | 1470, 3638250 | 11-13 | 11:1470 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 34 s / 422 MB |
+| 6x6x6 | 8 | (611,332,3221) | 2 | 3 | 1050, 5093550 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 14 s / 382 MB |
 | 6x6x6 | 8 | (611,41111,32111) | 2 | 1 | 3465, 120960 | 11-13 | 11:3465, 14:3465 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: line e=1 x1 [11:2154, 14:2154]. | none | 2296 s / 2572 MB |
 | 6x6x6 | 8 | (611,41111,32111) | 2 | 2 | 315, 1330560 | 11-13 | 11:315 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 16 s / 375 MB |
 | 6x6x6 | 8 | (611,41111,32111) | 2 | 3 | 384, 1091475 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 15 s / 304 MB |

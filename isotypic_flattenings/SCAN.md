@@ -254,6 +254,10 @@ workers keep their float64 estimates).  Validation on 9x9x9 d = 6 ((3,2,1),(3,1,
 N1 = 11096, K = 22184 (the component whose float64 run had peaked at 9218 MB): float32 run started 10:01 at an
 estimate of 6.2 GB (6349 MB), both flattenings evaluated by 11:20, elimination 11:17-12:00 with RSS rising from 2.3
 to 5.6 GB; peak (VmHWM) 5734 MB, 0.6 GB below the estimate and 38 % below the float64 peak.
+Largest so far: 9x9x9 d = 6 ((3,2,1),(3,2,1),(2,2,1,1)), g = 3, direction 0 N1 = 11096, K = 33272 (three 1.4 GB
+flattenings), 2026-10-26 00:01-03:20 on the planned evaluation: estimate 11.3 GB, peak 10930 MB (flattenings done
+02:03, RSS 6.0 -> 10.9 GB in the elimination); eval 7352 s, rref 4252 s, full rank already at r = 13 (H 11088 x3,
+V 11088/22176/33264), so no separation.
 
 ## 6x6x6, rank 10 vs 11 at d = 8: the two separators, rechecked (2026-10-22)
 Components ((5,3),(3,2,1,1,1),nu) with nu = (2,2,1,1,1,1) (dims 4410 x 384 x 15) and nu = (3,1,1,1,1,1) (4410 x 384 x

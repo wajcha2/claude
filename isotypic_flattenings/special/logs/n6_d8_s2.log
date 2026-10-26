@@ -468,3 +468,37 @@ lam=((4, 2, 1, 1), (3, 2, 1, 1, 1), (3, 1, 1, 1, 1, 1)) g=3 dir 1: n1=2430 n23=8
   . ((4, 2, 1, 1), (3, 2, 1, 1, 1), (3, 1, 1, 1, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost inf -> 5.55e+12 (70s)
    P11: evaluation basis (cheaper fillings, mapped back exactly)
   . ((4, 2, 1, 1), (3, 2, 1, 1, 1), (3, 1, 1, 1, 1, 1)) dir 0 r=14: evaluation basis from a pool of 1500 fillings, planned cost inf -> 1.37e+15 (247s)
+   P14: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430, 2430] V[4860, 6060] r14 H[2430, 2430, 2430] V[4860, 6060]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 0}  swaps {}  (1.5s)
+   U6                           r11 H[2430, 2430, 2430] V[4860, 6060] r14 H[2430, 2430, 2430] V[4860, 6060]
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (40.2s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (40.7s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   thru-U60 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (40.2s)
+   done dir 1: ok, 6 cases, 0 hits, wall 10198.5s (F 9746.1s), peak 1337 MB
+lam=((4, 2, 1, 1), (3, 2, 1, 1, 1), (3, 1, 1, 1, 1, 1)) g=3 dir 2: n1=384 n23=51030 N1=392 K=1160  ranks [11, 12, 13]
+   generic U: r11 H[384, 384, 384] V[768, 1152]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 0}  swaps {}  (1.5s)
+   U6                           r11 H[384, 384, 384] V[768, 1152]
+   line0 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   line1 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   gline H2 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.7s)
+   gline V2 rho 768  minpoly deg [768, 768]  gcd deg 0    (2.0s)
+   thru-U60 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   done dir 2: ok, 6 cases, 0 hits, wall 91.9s (F 29.5s), peak 497 MB
+lam=((4, 2, 1, 1), (3, 2, 1, 1, 1), (3, 1, 1, 1, 1, 1)) g=3 dir 3: n1=21 n23=933120 N1=29 K=71  ranks [11, 12, 13]
+   generic U: r11 H[21, 21, 21] V[42, 63]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 0}  swaps {}  (2.4s)
+   U6                           r11 H[21, 21, 21] V[42, 63]
+   line0 rho 21  minpoly deg [21, 21]  gcd deg 0    (0.0s)
+   line1 rho 21  minpoly deg [21, 21]  gcd deg 0    (0.0s)
+   gline H2 rho 21  minpoly deg [21, 21]  gcd deg 0    (0.0s)
+   gline V2 rho 42  minpoly deg [42, 42]  gcd deg 0    (0.0s)
+   thru-U60 rho 21  minpoly deg [21, 21]  gcd deg 0    (0.0s)
+   done dir 3: ok, 6 cases, 0 hits, wall 43.8s (F 1.5s), peak 539 MB
+lam=((6, 2), (3, 2, 1, 1, 1), (2, 2, 1, 1, 1, 1)) g=2 dir 1: n1=4950 n23=5760 N1=4958 K=5768  ranks [11, 12, 13]
+  . ((6, 2), (3, 2, 1, 1, 1), (2, 2, 1, 1, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.05e+12 -> 3.92e+11 (25s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+  . ((6, 2), (3, 2, 1, 1, 1), (2, 2, 1, 1, 1, 1)) dir 0 r=14: evaluation basis from a pool of 1500 fillings, planned cost 3.17e+12 -> 8.60e+11 (42s)

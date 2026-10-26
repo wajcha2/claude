@@ -90,12 +90,13 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p455_d5_dir1 | 4x5x5, d = 5, source on C^5 | A (aux 1, 2: all-but-one, groups, pairs, triples, 1000 random, greedy) and E (reshaped components) | 14 A, 6 E | 1123 s |
 | p455_d6_dir0 | 4x5x5, d = 6, source on C^4 | A (aux 1, 2, as above) and E | 18 A, 88 E | 822 s |
 | p555_d6_AE | 5x5x5, d = 6 | A (aux 1: all-but-one, groups, pairs, triples, 500 random, greedy) and E (one reshape over `--emax` skipped) | 10 A, 89 E | 3092 s |
+| p455_d6_dir1_AE | 4x5x5, d = 6, source on C^5 | A (aux 1, as above, 500 random) and E (one reshape over `--emax` skipped) | 10 A, 88 E | 1323 s |
 | p455_d7_dir1 | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources | 82 of 143 (26 by the certificate); 61 SKIPPED (size > 4000) -> the 58 of size ≤ 12000 in job p455_d7_dir1_big | 14895 s (last part) |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: pattern job
 5x5x5 d = 8 (`--bmax 10000`: the 64 targets of size > 10000 are listed as `SKIPPED`), the 29 pattern targets of size
 10418..19418 at 5x5x5 d = 8 (one per mirror pair μ\|ν, ν\|μ; pat_555_d8_big, `--bmax 20000`), the skipped all-source
-family B targets of size ≤ 12000 at 4x5x5 d = 7 source on C^5 (58, p455_d7_dir1_big) and 5x5x5 d = 7 (74, p555_d7_B_big), families A and E at 4x5x5 d = 6 source on C^5.  4x5x5 d = 8 and all d = 9 run in other
+family B targets of size ≤ 12000 at 4x5x5 d = 7 source on C^5 (58, p455_d7_dir1_big) and 5x5x5 d = 7 (74, p555_d7_B_big).  4x5x5 d = 8 and all d = 9 run in other
 threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
 
 ### C^3, rank 4 vs 5: separated at d = 4 (isotypic flattenings: d = 5)

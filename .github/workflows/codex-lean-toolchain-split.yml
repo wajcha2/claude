@@ -1,0 +1,74 @@
+name: Codex Lean toolchain splitter
+
+on:
+  push:
+    branches:
+      - codex/lean-toolchain-split-20261031
+
+permissions:
+  contents: read
+
+jobs:
+  split-toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Download exact Lean 4.36.0-rc1 Linux release
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean-4.36.0-rc1-linux.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            'lean-4.36.0-rc1-linux.tar.zst' | sha256sum --check --strict
+
+      - name: Split into connector-sized pieces
+        shell: bash
+        run: |
+          set -euo pipefail
+          split --bytes=160000000 --numeric-suffixes=0 --suffix-length=2 \
+            lean-4.36.0-rc1-linux.tar.zst lean-toolchain.part-
+          test "$(find . -maxdepth 1 -name 'lean-toolchain.part-*' | wc -l)" -eq 4
+          sha256sum lean-toolchain.part-* > lean-toolchain.parts.sha256
+          ls -lh lean-toolchain.part-* lean-toolchain.parts.sha256
+
+      - name: Upload part 00
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-toolchain-part-00
+          path: lean-toolchain.part-00
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Upload part 01
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-toolchain-part-01
+          path: lean-toolchain.part-01
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Upload part 02
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-toolchain-part-02
+          path: lean-toolchain.part-02
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Upload part 03
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-toolchain-part-03
+          path: lean-toolchain.part-03
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Upload part manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-toolchain-manifest
+          path: lean-toolchain.parts.sha256
+          if-no-files-found: error

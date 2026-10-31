@@ -1,0 +1,154 @@
+name: Codex exact mathlib cache splitter
+
+on:
+  push:
+    branches:
+      - codex/lean-toolchain-split-20261031
+
+permissions:
+  contents: read
+
+jobs:
+  build-cache:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+          "$GITHUB_WORKSPACE/lean/bin/lean" --version
+          "$GITHUB_WORKSPACE/lean/bin/lake" --version
+
+      - name: Restore exact mathlib and dependency cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          test "$(sha256sum .lake/build/lib/lean/Mathlib.olean | awk '{print $1}')" = \
+            'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
+          lake env lean --version
+
+      - name: Assemble compiler-relevant facets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bundle/packages
+          copy_pkg () {
+            local name="$1" src="$2" dst="bundle/packages/$1/.lake/build/lib"
+            test -d "$src"
+            mkdir -p "$dst/lean"
+            rsync -a \
+              --include='*/' \
+              --include='*.olean' \
+              --include='*.olean.private' \
+              --include='*.olean.server' \
+              --exclude='*' \
+              "$src/lean/" "$dst/lean/"
+            while IFS= read -r -d '' f; do
+              rel="${f#$src/}"
+              mkdir -p "$dst/$(dirname "$rel")"
+              cp -a "$f" "$dst/$rel"
+            done < <(find "$src" -type f -name '*.so' -print0)
+          }
+          copy_pkg mathlib mathlib/.lake/build/lib
+          copy_pkg plausible mathlib/.lake/packages/plausible/.lake/build/lib
+          copy_pkg LeanSearchClient mathlib/.lake/packages/LeanSearchClient/.lake/build/lib
+          copy_pkg importGraph mathlib/.lake/packages/importGraph/.lake/build/lib
+          copy_pkg proofwidgets mathlib/.lake/packages/proofwidgets/.lake/build/lib
+          copy_pkg aesop mathlib/.lake/packages/aesop/.lake/build/lib
+          copy_pkg Qq mathlib/.lake/packages/Qq/.lake/build/lib
+          copy_pkg batteries mathlib/.lake/packages/batteries/.lake/build/lib
+          cp mathlib/lake-manifest.json bundle/lake-manifest.json
+          printf '%s\n' 'leanprover/lean4:v4.36.0-rc1' > bundle/lean-toolchain
+          find bundle -type f -print0 | sort -z | xargs -0 sha256sum > bundle/FILES.sha256
+          du -sh bundle
+
+      - name: Compress and split cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -I 'zstd -T0 -8' -cf mathlib-cache.tar.zst bundle
+          sha256sum mathlib-cache.tar.zst > mathlib-cache.sha256
+          split --bytes=150000000 --numeric-suffixes=0 --suffix-length=2 \
+            mathlib-cache.tar.zst mathlib-cache.part-
+          sha256sum mathlib-cache.part-* > mathlib-cache.parts.sha256
+          find . -maxdepth 1 -name 'mathlib-cache.part-*' -printf '%f %s bytes\n' | sort
+          cat mathlib-cache.sha256 mathlib-cache.parts.sha256
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-cache-manifest
+          path: |
+            mathlib-cache.sha256
+            mathlib-cache.parts.sha256
+          if-no-files-found: error
+
+      - name: Upload part 00
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-00, path: mathlib-cache.part-00, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 01
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-01, path: mathlib-cache.part-01, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 02
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-02, path: mathlib-cache.part-02, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 03
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-03, path: mathlib-cache.part-03, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 04
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-04, path: mathlib-cache.part-04, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 05
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-05, path: mathlib-cache.part-05, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 06
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-06, path: mathlib-cache.part-06, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 07
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-07, path: mathlib-cache.part-07, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 08
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-08, path: mathlib-cache.part-08, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 09
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-09, path: mathlib-cache.part-09, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 10
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-10, path: mathlib-cache.part-10, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 11
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-11, path: mathlib-cache.part-11, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 12
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-12, path: mathlib-cache.part-12, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 13
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-13, path: mathlib-cache.part-13, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 14
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-14, path: mathlib-cache.part-14, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 15
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-cache-part-15, path: mathlib-cache.part-15, compression-level: 0, if-no-files-found: ignore}

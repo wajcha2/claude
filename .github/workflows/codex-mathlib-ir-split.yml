@@ -1,0 +1,167 @@
+name: Codex exact mathlib IR splitter
+
+on:
+  push:
+    branches:
+      - codex/lean-toolchain-split-20261031
+
+permissions:
+  contents: read
+
+jobs:
+  build-ir:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+
+      - name: Restore exact cache and verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          test "$(sha256sum .lake/build/lib/lean/Mathlib.olean | awk '{print $1}')" = \
+            'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
+
+      - name: Assemble IR facets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bundle/packages
+          copy_pkg () {
+            local name="$1" src="$2" dst="bundle/packages/$1/.lake/build/lib/lean"
+            test -d "$src"
+            mkdir -p "$dst"
+            rsync -a \
+              --include='*/' \
+              --include='*.ir' \
+              --include='*.ir.sig' \
+              --exclude='*' \
+              "$src/" "$dst/"
+          }
+          copy_pkg mathlib mathlib/.lake/build/lib/lean
+          copy_pkg plausible mathlib/.lake/packages/plausible/.lake/build/lib/lean
+          copy_pkg LeanSearchClient mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+          copy_pkg importGraph mathlib/.lake/packages/importGraph/.lake/build/lib/lean
+          copy_pkg proofwidgets mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean
+          copy_pkg aesop mathlib/.lake/packages/aesop/.lake/build/lib/lean
+          copy_pkg Qq mathlib/.lake/packages/Qq/.lake/build/lib/lean
+          copy_pkg batteries mathlib/.lake/packages/batteries/.lake/build/lib/lean
+          find bundle -type f -print0 | sort -z | xargs -0 sha256sum > bundle/IR_FILES.sha256
+          du -sh bundle
+
+      - name: Compress and split IR facets
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -I 'zstd -T0 -8' -cf mathlib-ir.tar.zst bundle
+          sha256sum mathlib-ir.tar.zst > mathlib-ir.sha256
+          split --bytes=150000000 --numeric-suffixes=0 --suffix-length=2 \
+            mathlib-ir.tar.zst mathlib-ir.part-
+          sha256sum mathlib-ir.part-* > mathlib-ir.parts.sha256
+          find . -maxdepth 1 -name 'mathlib-ir.part-*' -printf '%f %s bytes\n' | sort
+          cat mathlib-ir.sha256 mathlib-ir.parts.sha256
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-ir-manifest
+          path: |
+            mathlib-ir.sha256
+            mathlib-ir.parts.sha256
+          if-no-files-found: error
+
+      - name: Upload part 00
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-00, path: mathlib-ir.part-00, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 01
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-01, path: mathlib-ir.part-01, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 02
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-02, path: mathlib-ir.part-02, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 03
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-03, path: mathlib-ir.part-03, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 04
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-04, path: mathlib-ir.part-04, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 05
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-05, path: mathlib-ir.part-05, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 06
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-06, path: mathlib-ir.part-06, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 07
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-07, path: mathlib-ir.part-07, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 08
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-08, path: mathlib-ir.part-08, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 09
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-09, path: mathlib-ir.part-09, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 10
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-10, path: mathlib-ir.part-10, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 11
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-11, path: mathlib-ir.part-11, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 12
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-12, path: mathlib-ir.part-12, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 13
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-13, path: mathlib-ir.part-13, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 14
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-14, path: mathlib-ir.part-14, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 15
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-15, path: mathlib-ir.part-15, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 16
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-16, path: mathlib-ir.part-16, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 17
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-17, path: mathlib-ir.part-17, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 18
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-18, path: mathlib-ir.part-18, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 19
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-19, path: mathlib-ir.part-19, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 20
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-20, path: mathlib-ir.part-20, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 21
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-21, path: mathlib-ir.part-21, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 22
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-22, path: mathlib-ir.part-22, compression-level: 0, if-no-files-found: ignore}
+      - name: Upload part 23
+        uses: actions/upload-artifact@v4
+        with: {name: mathlib-ir-part-23, path: mathlib-ir.part-23, compression-level: 0, if-no-files-found: ignore}

@@ -3764,3 +3764,20 @@ lam=((4, 4, 2), (5, 2, 2, 1), (5, 2, 1, 1, 1)) g=17 dims=(126, 1050, 224)  H1:12
 # blocks: Z-first (392 x 98) of 392 x 392, 7.33e+09 flops, largest intermediate 2.80e+07
 #partial ((5, 4, 1), (6, 4), (3, 3, 2, 1, 1)) next=1 res={(0, 'gen'): (384, 384), (0, 'Hstack'): (384, 384)} spans=[2] secs=28.9 state={'bit_generator': 'PCG64', 'state': {'state': 183377846711459603576975332099864436899, 'inc': 240669326575527637947985258264182102681}, 'has_uint32': 0, 'uinteger': 447299420}
 # blocks: Y-first (25 x 3158) of 3158 x 3158, 2.93e+11 flops, largest intermediate 3.03e+07
+# blocks: Y-first (1 x 3158) of 3158 x 3158, 1.60e+12 flops, largest intermediate 2.18e+07
+# blocks: Y-first (13 x 3158) of 3158 x 3158, 3.75e+11 flops, largest intermediate 2.00e+07
+# blocks: Z-first (1579 x 1) of 3158 x 3158, 1.72e+12 flops, largest intermediate 1.28e+06
+#partial ((5, 4, 1), (6, 4), (3, 3, 2, 1, 1)) next=2 res={(0, 'gen'): (384, 384), (0, 'Hstack'): (384, 384), (1, 'gen'): (2055, 2055), (1, 'Hstack'): (2055, 2055)} spans=[2, 2] secs=2337.7 state={'bit_generator': 'PCG64', 'state': {'state': 255117571973948861597552158732495185377, 'inc': 240669326575527637947985258264182102681}, 'has_uint32': 1, 'uinteger': 3798573186}
+lam=((5, 4, 1), (6, 4), (3, 3, 2, 1, 1)) g=2 dims=(384, 3150, 75)  H1:384/384 g1:384/384 H2:2055/2055 g2:2055/2055 H3:75/75 g3:75/75  span=2,2,2 cost=2.03e+07 (2338.6s)
+#partial ((3, 3, 2, 2), (5, 3, 2), (3, 3, 3, 1)) next=1 res={(0, 'gen'): (6, 6), (0, 'Hstack'): (6, 6)} spans=[7] secs=6.4 state={'bit_generator': 'PCG64', 'state': {'state': 62085002776323018976600806275228047205, 'inc': 79122268152419259564733251263451216857}, 'has_uint32': 0, 'uinteger': 1650967840}
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 1.18e+11 flops, largest intermediate 2.70e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 8.36e+10 flops, largest intermediate 2.70e+07
+# blocks: Z-first (2708 x 3) of 2708 x 1058, 3.82e+11 flops, largest intermediate 2.03e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 5.27e+10 flops, largest intermediate 2.70e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 1.38e+11 flops, largest intermediate 2.79e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 1.68e+11 flops, largest intermediate 2.70e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 6.70e+11 flops, largest intermediate 2.79e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 2.12e+11 flops, largest intermediate 2.79e+07
+# blocks: Y-first (85 x 1058) of 2708 x 1058, 1.30e+11 flops, largest intermediate 2.70e+07
+# sweep_fast n=4,5,5 d=10 ranks=[8, 9] seed=5 worker 0/4 noV=True p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=inf MAXFLOPS=inf: 1614 components, 4068 already done
+# resuming ((3, 3, 2, 2), (5, 3, 2), (3, 3, 3, 1)) at direction 1 (checkpoint after 6.4s)

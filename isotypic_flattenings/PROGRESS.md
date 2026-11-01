@@ -85,3 +85,9 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - Grid-cap experiment (GCAP: sample only GCAP orbit points per factor = quotient of Y to C^GCAP per factor): on the
   C^4 d=5 Koszul hit ((3,1,1),(2,2,1),(2,2,1)) dims (36,20,20), GCAP=12 destroys the separation (all ranks equal 144/660),
   so sub-sampled quotients are too lossy to cover the large components cheaply.
+- 2026-11-01 18:00 UTC: KWEDGE mode validated — per wedged factor f the grid samples only m_f orbit points of that factor
+  (m_f = the projection dimension the budget allows anyway) and keeps the other two factors full; on the C^4 d=5 hit it
+  reproduces the full-grid ranks exactly (996 vs 1008 at p=2, SEPARATES [(1,0,2),(2,0,2)]). This makes the 187 large
+  C^5 d=7 components (full grids 3e6..6e8 points) affordable: <= 1.1e7 points each, 6.7e8 in total per tensor.
+  Started 2 KWEDGE workers on them (cost-sorted, MINPROD=3e6 so the generic pass's components are not repeated),
+  logs live/koszul5_d7_kw_w{0,1}.log.

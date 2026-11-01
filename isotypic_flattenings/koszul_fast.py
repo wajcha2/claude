@@ -14,7 +14,8 @@ for lf in os.environ.get('RESUME', '').split(':'):
     if lf and os.path.exists(lf):
         DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=') and 'SKIPPED' not in l}
 WK, NW = [int(x) for x in os.environ.get('WORKER', '0/1').split('/')]
-ci = -1
+MINPROD = float(os.environ.get('MINPROD', '0'))   # skip components whose full grid has <= MINPROD points (done by another pass)
+todo, ci = [], -1
 for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     g = kronecker(*lam)
     if g == 0: continue
@@ -22,9 +23,15 @@ for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     if ci % NW != WK: continue
     if ('lam=%s' % (lam,)) in DONE: continue
     dims = tuple(dim_schur(l, n) for l in lam)
+    full = np.prod([x + 2 for x in dims])
+    if full <= MINPROD: continue
     cost = koszul.kwedge_cost(dims) if koszul.KWEDGE else np.prod([min(x + 2, koszul.GCAP) if koszul.GCAP else x + 2 for x in dims])
     if cost > maxprod:
         print("lam=%s dims=%s SKIPPED (size)" % (lam, dims)); sys.stdout.flush(); continue
+    todo.append((cost, lam, g, dims))
+todo.sort()
+print("# %d components to do, costs %s .. %s" % (len(todo), todo[0][0] if todo else None, todo[-1][0] if todo else None)); sys.stdout.flush()
+for cost, lam, g, dims in todo:
     t0 = time.time()
     try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2))
     except Exception as ex: line = "lam=%s ERROR %r" % (lam, ex)

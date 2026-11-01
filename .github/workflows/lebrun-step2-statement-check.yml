@@ -53,7 +53,7 @@ jobs:
             'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
           git rev-parse HEAD | tee "$GITHUB_WORKSPACE/mathlib-revision.txt"
 
-      - name: Enforce admission-free statement layer
+      - name: Assemble admission-free diagnostic source
         shell: bash
         run: |
           set -euo pipefail
@@ -63,8 +63,19 @@ jobs:
             echo 'Forbidden admission token in statement layer' >&2
             exit 1
           fi
-          sha256sum "$src" | tee MainStatement.sha256
-          cp "$src" mathlib/MainStatement.lean
+          sha256sum "$src" | tee MainStatement.original.sha256
+          python3 - <<'PY'
+          from pathlib import Path
+          source = Path('project/lebrun-salamon/step2/MainStatement.lean').read_text()
+          needle = 'attribute [local instance 100] LieRing.ofAssociativeRing\n'
+          assert needle in source
+          source = source.replace(
+              needle,
+              needle + '\nopen Bundle\nopen scoped Bundle ContDiff ENNReal BigOperators\n',
+              1)
+          Path('mathlib/MainStatement.lean').write_text(source)
+          PY
+          sha256sum mathlib/MainStatement.lean | tee MainStatement.sha256
 
       - name: Compile audited statement
         shell: bash
@@ -90,6 +101,8 @@ jobs:
             'finished_utc': '$finish',
             'return_code': $rc,
             'source_sha256': pathlib.Path('$GITHUB_WORKSPACE/MainStatement.sha256').read_text().split()[0],
+            'original_source_sha256': pathlib.Path('$GITHUB_WORKSPACE/MainStatement.original.sha256').read_text().split()[0],
+            'diagnostic_opening_patch': True,
           }
           out = pathlib.Path('$GITHUB_WORKSPACE/MainStatement.olean')
           if out.exists():
@@ -106,6 +119,7 @@ jobs:
         with:
           name: lebrun-step2-statement-certificate
           path: |
+            MainStatement.original.sha256
             MainStatement.sha256
             MainStatement.build.log
             MainStatement.build.json

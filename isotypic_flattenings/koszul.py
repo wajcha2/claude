@@ -19,6 +19,8 @@ def iso_tensor(lam, fills, coeffs, vecs, gsA, gsB, gsC, chunk=48):
 from math import comb
 import os
 BUDGET = float(os.environ.get('KBUDGET', '3e7'))   # max number of matrix entries
+GCAP = int(os.environ.get('GCAP', '0'))   # cap on the number of orbit points sampled per factor (0 = dim+extra);
+# a cap means Y is replaced by its image under the quotient maps S^l V -> C^GCAP, y -> (<y, g_k v>)_k, k < GCAP
 
 def koszul_dim(nA, nB, nC, pk):
     """largest m <= nA with binom(m,pk)*nB * binom(m,pk+1)*nC <= BUDGET (m >= 2pk+1)."""
@@ -61,7 +63,8 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
             fills.append(f); probes.append(P)
     assert len(fills) == g
     coeffs = rng.integers(1, p, g)
-    gsA, gsB, gsC = (rng.integers(0, p, (dims[i] + extra, n, n)) for i in range(3))
+    sizes = [min(dims[i] + extra, GCAP) if GCAP else dims[i] + extra for i in range(3)]
+    gsA, gsB, gsC = (rng.integers(0, p, (sizes[i], n, n)) for i in range(3))
     res = {}
     for k, v in tens.items():
         Y = iso_tensor(lam, fills, coeffs, v, gsA, gsB, gsC)
@@ -69,8 +72,8 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
         kz = {(f, sw, pk): koszul_rank(Y, f, pk, rng, swap=bool(sw)) for f in range(3) for sw in (0, 1) for pk in pks}
         res[k] = (flat, kz)
     sep = [key for key in res['high'][1] if res['low'][1][key][1] < res['high'][1][key][1] and res['low2'][1][key][1] < res['high'][1][key][1]]
-    return "lam=%s g=%d dims=%s | flat low/high=%s/%s | koszul (factor,swap,p): low=%s high(m,rank)=%s%s" % (
-        lam, g, dims, res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
+    return "lam=%s g=%d dims=%s%s | flat low/high=%s/%s | koszul (factor,swap,p): low=%s high(m,rank)=%s%s" % (
+        lam, g, dims, " grid=%s" % (tuple(sizes),) if GCAP else "", res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
         "  *** KOSZUL SEPARATES %s" % sep if sep else "")
 
 if __name__ == "__main__":

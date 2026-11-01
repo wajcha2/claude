@@ -76,3 +76,12 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   space M_lambda, g >= 2), script koszul_stack.py: wedge the stacked factor (W) or a plain factor with U on the source (V)
   or target (H) side, p = 1, 2, both orders of the remaining factors. The earlier Koszul passes used a generic 1-dim U only.
   No g >= 2 components exist for d <= 4; C^5 d = 5 (2 components), 6 (24), 7 (121) queued, logs live/kstack5_d*.log.
+- 2026-11-01 17:35 UTC: Koszul pass C^4 (rank 6 vs 7) d=7 COMPLETE: 195/195 components, no Koszul separation at d=7
+  (the Koszul separators remain the d=5 and d=6 ones). C^5 d=8 V-stack sweep: worker 0 finished (FOUND: []), worker 1 on
+  its last component (151/152 done, none). Koszul C^5 d=7: 138/297 lines so far (112 of them size-skipped), none.
+  Stacked-U Koszul C^5 d=5: ((3,1,1),(3,1,1),(2,2,1)) g=2 all stacked ranks equal for ranks 9/9/10 (none); the other
+  g=2 component ((3,2),(3,1,1),(3,1,1)) deferred (size). Started generic Koszul C^5 d=8 (2 workers, maxprod 3e6:
+  180 of 729 components fit), logs live/koszul5_d8_w{0,1}.log.
+- Grid-cap experiment (GCAP: sample only GCAP orbit points per factor = quotient of Y to C^GCAP per factor): on the
+  C^4 d=5 Koszul hit ((3,1,1),(2,2,1),(2,2,1)) dims (36,20,20), GCAP=12 destroys the separation (all ranks equal 144/660),
+  so sub-sampled quotients are too lossy to cover the large components cheaply.

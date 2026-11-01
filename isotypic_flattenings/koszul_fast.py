@@ -12,13 +12,17 @@ rng = np.random.default_rng(61)
 DONE = set()
 for lf in os.environ.get('RESUME', '').split(':'):
     if lf and os.path.exists(lf):
-        DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=')}
+        DONE |= {l.split(' g=')[0] for l in open(lf) if l.startswith('lam=') and 'SKIPPED' not in l}
+WK, NW = [int(x) for x in os.environ.get('WORKER', '0/1').split('/')]
+ci = -1
 for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     g = kronecker(*lam)
     if g == 0: continue
+    ci += 1
+    if ci % NW != WK: continue
     if ('lam=%s' % (lam,)) in DONE: continue
     dims = tuple(dim_schur(l, n) for l in lam)
-    if np.prod([x + 2 for x in dims]) > maxprod:
+    if np.prod([min(x + 2, koszul.GCAP) if koszul.GCAP else x + 2 for x in dims]) > maxprod:
         print("lam=%s dims=%s SKIPPED (size)" % (lam, dims)); sys.stdout.flush(); continue
     t0 = time.time()
     try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2))

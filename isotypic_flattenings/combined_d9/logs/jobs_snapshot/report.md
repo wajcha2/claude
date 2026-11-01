@@ -4,12 +4,12 @@
 | d9_455_dir1_B | 164 | 105 | 78 | 0 | yes | 81129 |
 | d9_555_B | 198 | 132 | 106 | 0 | yes | 86659 |
 | d9_455_dir0_AE | 244 | 3 | 0 | 0 | yes | 60495 |
-| d9_455_dir1_B_big | 49 | 35 | 0 | 0 | no | 90025 |
-| d9_555_B_big | 51 | 34 | 0 | 0 | no | 84871 |
-| d9_455_dir0_B_p3 | 350 | 277 | 0 | 0 | no | 79758 |
-| d9_555_B_p3 | 107 | 86 | 0 | 0 | no | 28281 |
+| d9_455_dir1_B_big | 50 | 36 | 0 | 0 | no | 94548 |
+| d9_555_B_big | 53 | 34 | 0 | 0 | no | 87877 |
+| d9_455_dir0_B_p3 | 352 | 279 | 0 | 0 | no | 83262 |
+| d9_555_B_p3 | 112 | 89 | 0 | 0 | no | 31658 |
 
-family B, aux 1, not saturated at the lower rank: 315 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+family B, aux 1, not saturated at the lower rank: 319 lattices (gap = size bound - lower-rank value; values lower/higher rank)
   d9_455_dir1_B_big famB mn=5211|42111 bound 8820 gap 7700 max 1120/1120
   d9_555_B_big famB mn=51111|42111 bound 7350 gap 6545 max 805/805
   d9_555_B_big famB mn=42111|51111 bound 7350 gap 6545 max 805/805
@@ -17,6 +17,8 @@ family B, aux 1, not saturated at the lower rank: 315 lattices (gap = size bound
   d9_555_B_big famB mn=51111|5211 bound 9790 gap 6390 max 3400/3400
   d9_555_B_big famB mn=4311|33111 bound 9790 gap 6390 max 3400/3400
   d9_555_B_big famB mn=3321|33111 bound 9790 gap 6390 max 3400/3400
+  d9_555_B_big famB mn=33111|4311 bound 9790 gap 6390 max 3400/3400
+  d9_555_B_big famB mn=33111|3321 bound 9790 gap 6390 max 3400/3400
   d9_455_dir1_B_big famB mn=4311|42111 bound 6300 gap 5180 max 1120/1120
   d9_455_dir1_B famB mn=5211|51111 bound 5880 gap 5180 max 700/700
   d9_455_dir1_B_big famB mn=6111|5211 bound 9790 gap 5100 max 4690/4690
@@ -33,5 +35,3 @@ family B, aux 1, not saturated at the lower rank: 315 lattices (gap = size bound
   d9_555_B famB mn=33111|42111 bound 5250 gap 4400 max 850/850
   d9_555_B famB mn=51111|51111 bound 4900 gap 4130 max 770/770
   d9_555_B famB mn=6111|51111 bound 5775 gap 4095 max 1680/1680
-  d9_555_B famB mn=51111|6111 bound 5775 gap 4095 max 1680/1680
-  d9_455_dir1_B_big famB mn=6111|6111 bound 8250 gap 4050 max 4200/4200

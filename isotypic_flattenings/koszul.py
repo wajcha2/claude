@@ -19,6 +19,15 @@ def iso_tensor(lam, fills, coeffs, vecs, gsA, gsB, gsC, chunk=48):
 from math import comb
 import os
 BUDGET = float(os.environ.get('KBUDGET', '3e7'))   # max number of matrix entries
+KWEDGE = int(os.environ.get('KWEDGE', '0'))   # 1: per wedged factor f use a grid with f sampled at m_f orbit points, others full
+def kwedge_cost(dims, extra=2, pks=(1, 2)):
+    """number of grid evaluations per tensor in KWEDGE mode."""
+    sizes = [x + extra for x in dims]; tot = 0
+    for f in range(3):
+        o = [sizes[i] for i in range(3) if i != f]
+        mf = max(koszul_dim(sizes[f], o[0], o[1], pk) for pk in pks)
+        tot += mf * o[0] * o[1]
+    return tot
 GCAP = int(os.environ.get('GCAP', '0'))   # cap on the number of orbit points sampled per factor (0 = dim+extra);
 # a cap means Y is replaced by its image under the quotient maps S^l V -> C^GCAP, y -> (<y, g_k v>)_k, k < GCAP
 
@@ -66,14 +75,28 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
     sizes = [min(dims[i] + extra, GCAP) if GCAP else dims[i] + extra for i in range(3)]
     gsA, gsB, gsC = (rng.integers(0, p, (sizes[i], n, n)) for i in range(3))
     res = {}
+    if KWEDGE:
+        gs = [gsA, gsB, gsC]; wgs = {}
+        for f in range(3):
+            o = [sizes[i] for i in range(3) if i != f]
+            mf = max(koszul_dim(sizes[f], o[0], o[1], pk) for pk in pks)
+            wgs[f] = (mf, [rng.integers(0, p, (mf, n, n)) if i == f else gs[i] for i in range(3)])
+        sizes = tuple((sizes[f], wgs[f][0]) for f in range(3))
     for k, v in tens.items():
+        if KWEDGE:
+            flat, kz = None, {}
+            for f in range(3):
+                Yf = iso_tensor(lam, fills, coeffs, v, *wgs[f][1])
+                for sw in (0, 1):
+                    for pk in pks: kz[(f, sw, pk)] = koszul_rank(Yf, f, pk, rng, swap=bool(sw))
+            res[k] = (flat, kz); continue
         Y = iso_tensor(lam, fills, coeffs, v, gsA, gsB, gsC)
         flat = [modrank(np.moveaxis(Y, f, 0).reshape(Y.shape[f], -1)) for f in range(3)]
         kz = {(f, sw, pk): koszul_rank(Y, f, pk, rng, swap=bool(sw)) for f in range(3) for sw in (0, 1) for pk in pks}
         res[k] = (flat, kz)
     sep = [key for key in res['high'][1] if res['low'][1][key][1] < res['high'][1][key][1] and res['low2'][1][key][1] < res['high'][1][key][1]]
     return "lam=%s g=%d dims=%s%s | flat low/high=%s/%s | koszul (factor,swap,p): low=%s high(m,rank)=%s%s" % (
-        lam, g, dims, " grid=%s" % (tuple(sizes),) if GCAP else "", res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
+        lam, g, dims, " grid=%s" % (tuple(sizes),) if (GCAP or KWEDGE) else "", res['low'][0], res['high'][0], {k: (res['low'][1][k][1], res['low2'][1][k][1]) for k in res['low'][1]}, res['high'][1],
         "  *** KOSZUL SEPARATES %s" % sep if sep else "")
 
 if __name__ == "__main__":

@@ -22,7 +22,8 @@ for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     if ci % NW != WK: continue
     if ('lam=%s' % (lam,)) in DONE: continue
     dims = tuple(dim_schur(l, n) for l in lam)
-    if np.prod([min(x + 2, koszul.GCAP) if koszul.GCAP else x + 2 for x in dims]) > maxprod:
+    cost = koszul.kwedge_cost(dims) if koszul.KWEDGE else np.prod([min(x + 2, koszul.GCAP) if koszul.GCAP else x + 2 for x in dims])
+    if cost > maxprod:
         print("lam=%s dims=%s SKIPPED (size)" % (lam, dims)); sys.stdout.flush(); continue
     t0 = time.time()
     try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2))

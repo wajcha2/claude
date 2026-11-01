@@ -1,0 +1,115 @@
+name: LeBrun-Salamon Step 2 statement check
+
+on:
+  push:
+    branches:
+      - codex/lebrun-step2-statement-20261101
+
+permissions:
+  contents: read
+
+jobs:
+  compile-statement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout statement branch
+        uses: actions/checkout@v4
+        with:
+          path: project
+
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+          "$GITHUB_WORKSPACE/lean/bin/lean" --version | tee lean-version.txt
+          "$GITHUB_WORKSPACE/lean/bin/lake" --version | tee lake-version.txt
+
+      - name: Restore and verify exact mathlib cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          test "$(sha256sum .lake/build/lib/lean/Mathlib.olean | awk '{print $1}')" = \
+            'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
+          git rev-parse HEAD | tee "$GITHUB_WORKSPACE/mathlib-revision.txt"
+
+      - name: Enforce admission-free statement layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          src=project/lebrun-salamon/step2/MainStatement.lean
+          test -f "$src"
+          if grep -nE '(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)|^[[:space:]]*axiom[[:space:]]' "$src"; then
+            echo 'Forbidden admission token in statement layer' >&2
+            exit 1
+          fi
+          sha256sum "$src" | tee MainStatement.sha256
+
+      - name: Compile audited statement
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          start=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          set +e
+          lake env lean \
+            -o "$GITHUB_WORKSPACE/MainStatement.olean" \
+            "$GITHUB_WORKSPACE/project/lebrun-salamon/step2/MainStatement.lean" \
+            > "$GITHUB_WORKSPACE/MainStatement.build.log" 2>&1
+          rc=$?
+          set -e
+          finish=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          cat "$GITHUB_WORKSPACE/MainStatement.build.log"
+          python3 - <<PY
+          import json, pathlib
+          result = {
+            'schema': 'lebrun-salamon-step2-statement-build-v1',
+            'started_utc': '$start',
+            'finished_utc': '$finish',
+            'return_code': $rc,
+            'source_sha256': pathlib.Path('$GITHUB_WORKSPACE/MainStatement.sha256').read_text().split()[0],
+          }
+          out = pathlib.Path('$GITHUB_WORKSPACE/MainStatement.olean')
+          if out.exists():
+            import hashlib
+            result['olean_bytes'] = out.stat().st_size
+            result['olean_sha256'] = hashlib.sha256(out.read_bytes()).hexdigest()
+          pathlib.Path('$GITHUB_WORKSPACE/MainStatement.build.json').write_text(
+            json.dumps(result, indent=2, sort_keys=True) + '\n')
+          PY
+          test "$rc" -eq 0
+
+      - name: Upload statement certificate
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-step2-statement-certificate
+          path: |
+            MainStatement.sha256
+            MainStatement.build.log
+            MainStatement.build.json
+            MainStatement.olean
+            lean-version.txt
+            lake-version.txt
+            mathlib-revision.txt
+          if-no-files-found: error

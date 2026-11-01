@@ -18,13 +18,14 @@ def main():
         if os.path.exists(f):
             live_lines += [l for l in open(f) if not l.startswith('# blocks')]
     live_keys = {key(l) for l in live_lines if key(l)}
+    live_set = set(live_lines)
     old = []
     if os.path.exists(done):
         for l in open(done):
             if l.startswith('# blocks'):
                 continue
             k = key(l)
-            if k and k in live_keys:
+            if (k and k in live_keys) or l in live_set:
                 continue
             old.append(l)
     out = old + live_lines

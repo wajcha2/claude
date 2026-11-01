@@ -187,8 +187,10 @@ and chose this basis (1.99e13 -> 1.29e13); the full plan of compute_F then fell 
 plan_eval returns the best plan within 4 cap when it is PLAN4 (2) times cheaper than the best within cap (the old block
 search also allowed blocks up to 4 cap).  Exact arithmetic is unchanged (any path, same pair contractions);
 test_speedup.py: 0 failures.  Plans of this direction at r = 10, eval basis: f0 1.7e12 -> 8.3e11, f1 4.2e12 (kept),
-f2 3.1e15 -> 8.0e12, about 1 h in all.  The worker was stopped 14:31, its checkpoint moved aside (kept to compare
-entries with the rerun); the runner retries the component with the new rule.
+f2 3.1e15 -> 8.0e12, about 1 h in all.  The worker was stopped 14:31, its checkpoint moved aside; the runner
+restarted the component 15:08 with the new rule.  Check: f2 by the new plan (316 x 9 tiles of 42 x 491 points) on
+the full point set, first two Z blocks: columns 0..83, all 4418 rows (371112 entries, all nonzero) equal to the old
+run's checkpoint entries; 18 tiles in 17 s including planning.
 
 ## 8x8x8 d = 7 rerun n8_d7_x1 (WCAP 2^28): all components resolved, none separates 13 vs 14 (2026-10-25 10:39)
 Direction 1 at r = 13 (rank / bound min(n1, n23)):

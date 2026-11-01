@@ -56,7 +56,7 @@ jobs:
           cat > smoke.lean <<'EOF'
           import Mathlib
           #check Nat
-          #check Mathlib.Meta.NormNum
+          #check Polynomial
           EOF
           roots=("$GITHUB_WORKSPACE/mathlib/.lake/build/lib/lean")
           libs=("$GITHUB_WORKSPACE/mathlib/.lake/build/lib" "$GITHUB_WORKSPACE/lean/lib/lean" "$GITHUB_WORKSPACE/lean/lib")

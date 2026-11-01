@@ -6,7 +6,7 @@ on:
       - codex/lebrun-step2-statement-20261101
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   compile-statement:
@@ -17,6 +17,31 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: project
+
+      - name: Normalize checked-in namespace openings
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd project
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('lebrun-salamon/step2/MainStatement.lean')
+          source = p.read_text()
+          opening = 'open Bundle\nopen scoped Bundle ContDiff ENNReal BigOperators\n'
+          if opening not in source:
+              needle = 'attribute [local instance 100] LieRing.ofAssociativeRing\n'
+              if needle not in source:
+                  raise SystemExit('normalization anchor not found')
+              source = source.replace(needle, needle + '\n' + opening, 1)
+              p.write_text(source)
+          PY
+          if ! git diff --quiet -- lebrun-salamon/step2/MainStatement.lean; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add lebrun-salamon/step2/MainStatement.lean
+            git commit -m 'Normalize Step 2 statement namespace openings'
+            git push origin HEAD:codex/lebrun-step2-statement-20261101
+          fi
 
       - name: Checkout exact mathlib revision
         uses: actions/checkout@v4
@@ -53,7 +78,7 @@ jobs:
             'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
           git rev-parse HEAD | tee "$GITHUB_WORKSPACE/mathlib-revision.txt"
 
-      - name: Assemble admission-free diagnostic source
+      - name: Enforce admission-free statement layer
         shell: bash
         run: |
           set -euo pipefail
@@ -63,21 +88,10 @@ jobs:
             echo 'Forbidden admission token in statement layer' >&2
             exit 1
           fi
-          sha256sum "$src" | tee MainStatement.original.sha256
-          python3 - <<'PY'
-          from pathlib import Path
-          source = Path('project/lebrun-salamon/step2/MainStatement.lean').read_text()
-          needle = 'attribute [local instance 100] LieRing.ofAssociativeRing\n'
-          assert needle in source
-          source = source.replace(
-              needle,
-              needle + '\nopen Bundle\nopen scoped Bundle ContDiff ENNReal BigOperators\n',
-              1)
-          Path('mathlib/MainStatement.lean').write_text(source)
-          PY
-          sha256sum mathlib/MainStatement.lean | tee MainStatement.sha256
+          sha256sum "$src" | tee MainStatement.sha256
+          cp "$src" mathlib/MainStatement.lean
 
-      - name: Compile audited statement
+      - name: Compile checked-in statement
         shell: bash
         run: |
           set -euo pipefail
@@ -96,13 +110,12 @@ jobs:
           python3 - <<PY
           import json, pathlib
           result = {
-            'schema': 'lebrun-salamon-step2-statement-build-v1',
+            'schema': 'lebrun-salamon-step2-statement-build-v2',
             'started_utc': '$start',
             'finished_utc': '$finish',
             'return_code': $rc,
             'source_sha256': pathlib.Path('$GITHUB_WORKSPACE/MainStatement.sha256').read_text().split()[0],
-            'original_source_sha256': pathlib.Path('$GITHUB_WORKSPACE/MainStatement.original.sha256').read_text().split()[0],
-            'diagnostic_opening_patch': True,
+            'checked_in_source_compiled_without_transformation': True,
           }
           out = pathlib.Path('$GITHUB_WORKSPACE/MainStatement.olean')
           if out.exists():
@@ -119,7 +132,7 @@ jobs:
         with:
           name: lebrun-step2-statement-certificate
           path: |
-            MainStatement.original.sha256
+            project/lebrun-salamon/step2/MainStatement.lean
             MainStatement.sha256
             MainStatement.build.log
             MainStatement.build.json

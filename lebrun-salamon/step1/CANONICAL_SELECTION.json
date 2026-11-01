@@ -1,0 +1,78 @@
+{
+  "schema": "lebrun-salamon-step1-canonical-selection-v1",
+  "decision": "Use strict published-input candidate v7 as the sole forward source tree. Preserve Stage 3 integrated master v20 as an immutable compiling reference only.",
+  "forward_source_tree": "sources/strict_v7",
+  "compile_reference": "sources/compiling_reference_v20",
+  "overlay_policy": "No source file is copied or overlaid between the two trees. Any later transfer must be an explicit, reviewed patch with before/after hashes.",
+  "reasons": [
+    "Strict v7 is the only tree aligned with the final published-input-only admission policy and carries exact source-level admission reconciliation.",
+    "Stage 3 v20 has a verified complete build but retains 443 active sorry tokens and therefore cannot be the final forward tree.",
+    "Keeping the compiling reference separate supplies a regression oracle without contaminating strict provenance."
+  ],
+  "strict_freeze": {
+    "modules": 129,
+    "direct_admissions": 121,
+    "approved_admissions": 121,
+    "unapproved_direct_admissions": 0,
+    "unassociated_private_sorry_tokens": 0,
+    "native_dependency_audit_complete": false,
+    "whole_project_compile_complete": false,
+    "failed_roots": [
+      "LSBranchRamification",
+      "LSNodalFixedEnds",
+      "LSConicJets",
+      "LSClassicalActions",
+      "LSProductGeometry"
+    ],
+    "blocked_modules": [
+      "LSDescentAssembly",
+      "LSRelativeDifferential",
+      "LSStandardConicDifferential",
+      "LSFamilyBivectors",
+      "LSP1BivectorCoordinates",
+      "LSTraitContact",
+      "LSConicModelSections",
+      "LSFamilyBivectorDescent",
+      "LSP1CoordinateGauge",
+      "LSFamilyBaseChange",
+      "LSModelBivector",
+      "LSFiniteTypeSpreading",
+      "LSModelDifferential",
+      "LSModelGeometry",
+      "LSBoundedLines",
+      "LSFamilyReparametrization",
+      "LSRegularModelPair",
+      "LSFormalArcSections",
+      "LSGenericFamilyComparison",
+      "LSModelGenericComparison",
+      "LSScaledVelocities",
+      "LSFormalArcRegularity",
+      "LSVelocityAdditionFamily",
+      "LSArcParametrization",
+      "LSRationalOpenTransport",
+      "LSScaledVelocityDifferential",
+      "LSFormalArcComparison",
+      "LSSuitablePair",
+      "LSSmoothingAssembly",
+      "LSProjectAssembly",
+      "LSMovingPairConstruction",
+      "LSCompletedTargets"
+    ]
+  },
+  "compiling_reference_freeze": {
+    "command": [
+      "lake",
+      "build"
+    ],
+    "started_utc": "2026-10-27T19:50:17.143898+00:00",
+    "finished_utc": "2026-10-27T20:01:33.745184+00:00",
+    "exit_code": 0,
+    "source_unchanged_during_build": true,
+    "source_sha256": "5169c1ddea312c0bb9628b309bcd45f5afe7526b5118e6a1ea32eb1d416318ba",
+    "source_lines": 13987,
+    "source_bytes": 661895,
+    "lean_toolchain": "leanprover/lean4:v4.36.0-rc1",
+    "lean_version": "Lean (version 4.36.0-rc1, x86_64-unknown-linux-gnu, commit c9afcddf514a6772bd4d649f7cfc04eff0b9f15e, Release)",
+    "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a"
+  }
+}

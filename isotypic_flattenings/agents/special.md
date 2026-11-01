@@ -114,7 +114,10 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   Container reclaimed 2026-10-23 23:29 (runner restarted 23:30) and 2026-10-24 ~01:05 (check-ins lapsed; restarted
   2026-10-25 05:32, ~28 h lost).  82 of 495 components done at the restart, no hit.
   Again stopped 2026-10-25 ~11:30 (worker restart), restarted 17:09 (98 of 495 done, no hit); the long components
-  resume from their per-filling checkpoints.  `special/sync.sh` copies special/live into
+  resume from their per-filling checkpoints.
+  Block checkpoints inside long evaluations since 2026-10-25 19:45 (written every 30 min, verified 2026-10-26 05:12).
+  Stopped again 2026-10-26 ~06:45 (session gone), restarted 2026-11-01 12:42 (~6 days lost; 137 of 495 done, no hit;
+  the long components resume from their block checkpoints).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

@@ -91,3 +91,8 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   C^5 d=7 components (full grids 3e6..6e8 points) affordable: <= 1.1e7 points each, 6.7e8 in total per tensor.
   Started 2 KWEDGE workers on them (cost-sorted, MINPROD=3e6 so the generic pass's components are not repeated),
   logs live/koszul5_d7_kw_w{0,1}.log.
+- 2026-11-01 18:20 UTC: projection-dimension sensitivity of the C^4 d=5 Koszul separator ((3,1,1),(2,2,1),(2,2,1)):
+  forcing the wedged factor to m = 5, 6, 7 (KBUDGET 1e5, 2.6e5, 6.2e5) gives equal ranks for ranks 6 and 7 in all 12
+  Koszul flattenings; the separation (996 vs 1008) needs m >= 8 at p = 2 (p = 1 never separates there). Consequence:
+  the KWEDGE pass on the large C^5 d=7 components, which the KBUDGET=2e6 rank budget limits to m = 5, is too weak;
+  it will be restarted with a larger budget (isoflat.modrank is already the blocked float64-BLAS elimination).

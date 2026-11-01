@@ -56,6 +56,10 @@ SATPROBE_GAP = int(os.environ.get('SATPROBE_GAP', '4'))    # ... and at most thi
 CKPT = os.environ.get('CKPT', '')                         # checkpoint directory for long block evaluations ('' = off)
 CKPT_EVERY = float(os.environ.get('CKPT_EVERY', '1800'))  # s between checkpoints of a block evaluation
 CUT = os.environ.get('CUT', '1') == '1'                    # resolve(): adjacent ends decided on a leading block of F
+FSDISK = os.environ.get('FSDISK', '')                      # directory: the g flattenings of a profile in a float32
+# memory-mapped file there (unlinked at once: the space is freed whenever the worker ends), so the kernel can write
+# them out and only the elimination stays in memory (2026-11-01: 9x9x9 ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, 7.3 GB
+# of flattenings + 9.6 GB of elimination over the 15.4 GB budget)
 
 
 def generic_rank(n):
@@ -1026,7 +1030,13 @@ class Direction:
             N1 = K = cut
             pm = slice_pm(self.pm, slice(0, cut), slice(0, cut))
             self.cuts[r] = cut
-        Fs = np.empty((g, N1, K), dtype=np.float32)       # residues < p < 2^24: exact (float64 up to 2026-10-23)
+        if FSDISK:
+            os.makedirs(FSDISK, exist_ok=True)
+            fn = os.path.join(FSDISK, 'Fs_%d_n%d_t%d_r%d.f32' % (os.getpid(), self.n, self.t, r))
+            Fs = np.memmap(fn, dtype=np.float32, mode='w+', shape=(g, N1, K))
+            os.remove(fn)                     # (the mapping stays valid; the blocks go when it is closed)
+        else:
+            Fs = np.empty((g, N1, K), dtype=np.float32)   # residues < p < 2^24: exact (float64 up to 2026-10-23)
         # evaluation basis (cheap_basis): E_i = sum_k A[i, k] F_k, F = A^-1 E restores the old matrices exactly.  A
         # checkpoint of the old fillings at this rank (worker started before the change) is resumed with them.
         eb = self.eval_basis(r, vm, pm)

@@ -311,7 +311,10 @@ def est_peak_mb(st, n, d, lam, g, extra=False, job=None, old=False):
     # as well, so the evaluation estimates carried 1.3 GB over the largest recorded excess: 6x6x6 d = 8 peaks <= 1.4 GB
     # were estimated at 2.8-3.0 GB and kept cores idle next to the 9.4 GB 9x9x9 components; without it every one of the
     # 2661 recorded network peaks is still >= 0.2 GB below its estimate)
-    return max(max(fs + B + EVALMARGIN, fs + m + 400 + 800) for fs, m in _est_cache[key]) + (extra_mb(n, lam, job) if extra else 0)
+    # job env FSDISK (2026-11-01): the flattenings live in a memory-mapped file (page cache, written out by the kernel)
+    fsd = 0.0 if job is not None and job.get('env', {}).get('FSDISK') else 1.0
+    return max(max(fsd * fs + B + EVALMARGIN, fsd * fs + m + 400 + 800) for fs, m in _est_cache[key]) + \
+        (extra_mb(n, lam, job) if extra else 0)
 
 
 def extra_mb(n, lam, job):

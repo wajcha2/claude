@@ -176,6 +176,19 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## Flattenings in a memory-mapped file for the last 9x9x9 d = 6 component (FSDISK, 2026-11-01 16:55)
+9x9x9 d = 6: 22 of 23 components done (all saturated at r = 13 in every direction, no separation).  The last,
+((3,2,1),(3,2,1),(3,1,1,1)), g = 4, direction 0 (= 1): N1 = 11096, K = 44360, four flattenings of 1.8 GB (7.3 GB) and
+an elimination of 9.6 GB (phi 1.8, H basis 0.5, V basis up to 44352 x 44360 = 7.3 GB): estimate 18.6 GB, over the
+15.4 GB budget, so the runner could never start it.  Env FSDISK=<dir> (rankscan.py): profile() keeps the g flattenings
+in a float32 np.memmap file there, unlinked right after it is mapped (the space is freed whenever the worker ends,
+also when killed); the kernel writes the pages out and reads them back for phi (row chunks; disk 0.7 GB/s write,
+2.5 GB/s read here, ~3 s per pass over 7.3 GB).  Values are the same arrays, only their storage differs.  The runner
+leaves the flattenings out of the estimate of a job with FSDISK in its env: 11.1 GB for this component.
+test_fsdisk.py: profiles with FSDISK == in memory (g = 1, 3, 4; planned and block evaluation), no file left, and a
+block evaluation stopped after a checkpoint resumed with FSDISK: ALL OK.  Set for job n9_d6_s5 (its only open
+component) at 16:55 (runner restarted, workers adopted).
+
 ## Planner: a within-4-cap plan wins when it is much cheaper (PLAN4, 2026-11-01 14:31)
 After the outage 2026-10-26 07:16 - 2026-11-01 12:41 (container down; runner restarted, checkpoints resumed) the long
 6x6x6 d = 8 component ((4,3,1),(3,3,1,1),(3,1^5)) (g = 3, direction 0, N1 = 4418, K = 13238) resumed its third

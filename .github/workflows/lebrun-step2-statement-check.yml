@@ -64,6 +64,7 @@ jobs:
             exit 1
           fi
           sha256sum "$src" | tee MainStatement.sha256
+          cp "$src" mathlib/MainStatement.lean
 
       - name: Compile audited statement
         shell: bash
@@ -75,7 +76,7 @@ jobs:
           set +e
           lake env lean \
             -o "$GITHUB_WORKSPACE/MainStatement.olean" \
-            "$GITHUB_WORKSPACE/project/lebrun-salamon/step2/MainStatement.lean" \
+            MainStatement.lean \
             > "$GITHUB_WORKSPACE/MainStatement.build.log" 2>&1
           rc=$?
           set -e

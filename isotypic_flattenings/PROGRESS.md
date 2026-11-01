@@ -101,3 +101,8 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - 2026-11-01 18:13 UTC: **C^5 d=8 V-stack sweep COMPLETE**: all 152 components with g >= 2 and max dim <= 800 (list
   v5_d8.txt), generic U and full-U stacks in both orientations (H and V), ranks 9 vs 10: FOUND: [] — no separation.
   Snapshot hwv5_d8_V_done.log. The freed core goes to a third KWEDGE worker (queue re-split 3 ways, RESUME).
+- 2026-11-01 19:40 UTC: scheduling fix — the kernel autogroup feature was ignoring the per-process nice levels
+  (each nohup launch from a separate shell forms its own group with an equal CPU share), so the three KWEDGE workers
+  were getting ~0.47 core each. Disabled autogroup for new tasks and set the d=8/stacked group's autogroup nice to 5;
+  now generic d=7 ~1.0 core, KWEDGE ~0.77 core each, d=8 workers ~0.27, stacked ~0.1. Infrastructure note: when
+  launching workers, prefer one shell for all, or set /proc/<pid>/autogroup nice for the whole group.

@@ -6,6 +6,9 @@ set_option autoImplicit false
 
 attribute [local instance 100] LieRing.ofAssociativeRing
 
+open Bundle
+open scoped Bundle ContDiff ENNReal BigOperators
+
 namespace LeBrunSalamon
 
 /-- The Euclidean model space of (real) dimension `4*n` (mathlib). -/

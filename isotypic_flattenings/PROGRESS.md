@@ -72,3 +72,7 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - Koszul pass C^5 (rank 9 vs 10): d=4 complete (15 components), d=5 complete (40 components incl. size-skipped ones), no separation; d=6 running, d=7 started.
 - Koszul pass C^5 d=6 complete (122 components incl. size-skipped), no separation of rank 9 from 10. d=7 running (89 so far, none).
   Koszul pass C^4 d=7 resumed (113/195 done before the restart, none).
+- 2026-11-01 17:10 UTC: new check started — Koszul flattenings of the *stacked* isotypic tensor (U = full multiplicity
+  space M_lambda, g >= 2), script koszul_stack.py: wedge the stacked factor (W) or a plain factor with U on the source (V)
+  or target (H) side, p = 1, 2, both orders of the remaining factors. The earlier Koszul passes used a generic 1-dim U only.
+  No g >= 2 components exist for d <= 4; C^5 d = 5 (2 components), 6 (24), 7 (121) queued, logs live/kstack5_d*.log.

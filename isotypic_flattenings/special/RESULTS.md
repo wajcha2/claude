@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 139 | 366 | 0 | 241658 s |
+| 6x6x6 | 8 | 11-13 | 140 | 367 | 0 | 243628 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2198,6 +2198,7 @@ None so far.
 | 6x6x6 | 8 | (3221,3221,311111) | 2 | 3 | 21, 1102500 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 90 s / 489 MB |
 | 6x6x6 | 8 | (3221,3221,32111) | 7 | 1 | 1050, 403200 | 11-13 | 11:1050 | U1=7 U2=7 U3=7 U4=7 U5=1 U6=0 ; sw12+=3 sw12-=4 tested U5, sw12+, sw12- | 7 lines: no tensor-independent drop point. | none | 679 s / 669 MB |
 | 6x6x6 | 8 | (3221,3221,32111) | 7 | 3 | 384, 1102500 | 11-13 | 11:384 | U1=7 U2=7 U3=7 U4=7 U5=1 U6=0 ; sw23+=3 sw23-=4 tested U5, sw23+, sw23- | 17 lines: no tensor-independent drop point. | none | 344 s / 902 MB |
+| 6x6x6 | 8 | (3221,3221,3221) | 8 | 1 | 1050, 1102500 | 11-13 | 11:1050 | U1=8 U2=8 U3=8 U4=6 U5=0 ; sw23+=5 sw23-=3 sw12+=5 sw12-=3 sw13+=5 sw13-=3 tested U4, sw23+, U4^sw23+, sw23-, sw12+, U4^sw12+, sw12-, sw13+, U4^sw13+, sw13- | 16 lines: no tensor-independent drop point. | none | 1970 s / 912 MB |
 | 6x6x6 | 8 | (3311,32111,22211) | 2 | 1 | 1176, 40320 | 11-13 | 11:1176 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 445 s / 432 MB |
 | 6x6x6 | 8 | (3311,32111,22211) | 2 | 2 | 384, 123480 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 150 s / 438 MB |
 | 6x6x6 | 8 | (3311,32111,22211) | 2 | 3 | 105, 451584 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 162 s / 471 MB |

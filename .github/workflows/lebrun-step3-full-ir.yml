@@ -1,0 +1,166 @@
+name: LeBrun-Salamon Step 3 full mathlib IR
+
+on:
+  push:
+    branches:
+      - codex/lebrun-step3-published-boundary-20261101
+
+permissions:
+  contents: read
+
+jobs:
+  build-full-ir:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+          "$GITHUB_WORKSPACE/lean/bin/lean" --version
+
+      - name: Restore exact cache and build all IR
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          test "$(sha256sum .lake/build/lib/lean/Mathlib.olean | awk '{print $1}')" = \
+            'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
+          lake build
+          test -f .lake/build/lib/lean/Mathlib/CategoryTheory/Iso.ir
+
+      - name: Assemble complete IR bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p full-ir/packages
+          copy_pkg () {
+            local name="$1" src="$2" dst="full-ir/packages/$1/.lake/build/lib/lean"
+            test -d "$src"
+            mkdir -p "$dst"
+            rsync -a \
+              --include='*/' \
+              --include='*.ir' \
+              --include='*.ir.sig' \
+              --exclude='*' \
+              "$src/" "$dst/"
+          }
+          copy_pkg mathlib mathlib/.lake/build/lib/lean
+          copy_pkg plausible mathlib/.lake/packages/plausible/.lake/build/lib/lean
+          copy_pkg LeanSearchClient mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+          copy_pkg importGraph mathlib/.lake/packages/importGraph/.lake/build/lib/lean
+          copy_pkg proofwidgets mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean
+          copy_pkg aesop mathlib/.lake/packages/aesop/.lake/build/lib/lean
+          copy_pkg Qq mathlib/.lake/packages/Qq/.lake/build/lib/lean
+          copy_pkg batteries mathlib/.lake/packages/batteries/.lake/build/lib/lean
+          find full-ir -type f -print0 | sort -z | xargs -0 sha256sum > full-ir/FILES.sha256
+          find full-ir -type f -printf '%p %s bytes\n' | sort > full-ir/FILES.txt
+          test -f full-ir/packages/mathlib/.lake/build/lib/lean/Mathlib/CategoryTheory/Iso.ir
+          du -sh full-ir
+          echo "IR files: $(find full-ir -type f -name '*.ir' | wc -l)"
+
+      - name: Compress and split
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -I 'zstd -T0 -12' -cf mathlib-full-ir.tar.zst full-ir
+          sha256sum mathlib-full-ir.tar.zst > mathlib-full-ir.sha256
+          split --bytes=120000000 --numeric-suffixes=0 --suffix-length=2 \
+            mathlib-full-ir.tar.zst mathlib-full-ir.part-
+          sha256sum mathlib-full-ir.part-* > mathlib-full-ir.parts.sha256
+          find . -maxdepth 1 -name 'mathlib-full-ir.part-*' -printf '%f %s bytes\n' | sort
+          cat mathlib-full-ir.sha256 mathlib-full-ir.parts.sha256
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-full-ir-manifest
+          path: |
+            mathlib-full-ir.sha256
+            mathlib-full-ir.parts.sha256
+            full-ir/FILES.sha256
+            full-ir/FILES.txt
+          if-no-files-found: error
+
+      - name: Upload parts 00-07
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-full-ir-parts-00-07
+          path: |
+            mathlib-full-ir.part-00
+            mathlib-full-ir.part-01
+            mathlib-full-ir.part-02
+            mathlib-full-ir.part-03
+            mathlib-full-ir.part-04
+            mathlib-full-ir.part-05
+            mathlib-full-ir.part-06
+            mathlib-full-ir.part-07
+          compression-level: 0
+          if-no-files-found: ignore
+
+      - name: Upload parts 08-15
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-full-ir-parts-08-15
+          path: |
+            mathlib-full-ir.part-08
+            mathlib-full-ir.part-09
+            mathlib-full-ir.part-10
+            mathlib-full-ir.part-11
+            mathlib-full-ir.part-12
+            mathlib-full-ir.part-13
+            mathlib-full-ir.part-14
+            mathlib-full-ir.part-15
+          compression-level: 0
+          if-no-files-found: ignore
+
+      - name: Upload parts 16-23
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-full-ir-parts-16-23
+          path: |
+            mathlib-full-ir.part-16
+            mathlib-full-ir.part-17
+            mathlib-full-ir.part-18
+            mathlib-full-ir.part-19
+            mathlib-full-ir.part-20
+            mathlib-full-ir.part-21
+            mathlib-full-ir.part-22
+            mathlib-full-ir.part-23
+          compression-level: 0
+          if-no-files-found: ignore
+
+      - name: Upload parts 24-31
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-full-ir-parts-24-31
+          path: |
+            mathlib-full-ir.part-24
+            mathlib-full-ir.part-25
+            mathlib-full-ir.part-26
+            mathlib-full-ir.part-27
+            mathlib-full-ir.part-28
+            mathlib-full-ir.part-29
+            mathlib-full-ir.part-30
+            mathlib-full-ir.part-31
+          compression-level: 0
+          if-no-files-found: ignore

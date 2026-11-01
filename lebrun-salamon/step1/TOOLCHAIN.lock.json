@@ -1,0 +1,46 @@
+{
+  "schema": "lebrun-salamon-step1-toolchain-lock-v1",
+  "lean_toolchain": "leanprover/lean4:v4.36.0-rc1",
+  "lean_version": "Lean 4.36.0-rc1",
+  "lean_commit": "c9afcddf514a6772bd4d649f7cfc04eff0b9f15e",
+  "lean_linux_release_sha256": "26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2",
+  "lean_binary_sha256": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+  "lake_version": "5.0.0-src+c9afcdd",
+  "lake_binary_sha256": "42678ccbc2605e2f892540dc7236e009fdd1224e823d104dfd72725d2f1a52d2",
+  "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+  "mathlib_lake_manifest_sha256": "248e99cd9d08ea2732d71fa65bb6ee84841ca34baf028089aa4a819b7ee0338e",
+  "mathlib_root_olean_sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+  "strict_compile_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "strict_external_artifact_fingerprint": "16dcb597387325050177616acd80f1bbacab91966e320a44207f3a4bd3788ad2",
+  "github_environment_verification": {
+    "repository": "wajcha2/claude",
+    "branch": "codex/lebrun-step1-native-runtime-20261101",
+    "commit": "4c156319768607784e5d307ea66da558571f836a",
+    "actions_run_id": 41296866387,
+    "conclusion": "success",
+    "verified_operations": [
+      "download and checksum exact Lean release",
+      "checkout exact mathlib revision",
+      "lake exe cache get",
+      "verify Mathlib.olean checksum",
+      "lake build (18167 jobs)",
+      "direct lean import Mathlib",
+      "lake env lean import Mathlib"
+    ]
+  },
+  "mathlib_cache_bundle_sha256": "69d48979417b59f9e5e01f9659f661f70a6bc17c17678c45395c2459f4ad801e",
+  "mathlib_ir_bundle_sha256": "bba88a61f3458756d1c2e1706b8dfb86d9bc2c530f6b053e26abd9e3fb1aa4a2",
+  "mathlib_ir_file_count": 18188,
+  "live_reproduction": {
+    "baseline_clean_compile_passed": true,
+    "strict_failure_set_exact_match": true,
+    "strict_no_native_runtime_errors": true
+  }
+}

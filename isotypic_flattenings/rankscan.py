@@ -195,6 +195,12 @@ STEP_OVERHEAD = 2e6                                     # flop-equivalent of the
 _SIDE = {'Y': oe.get_symbol(0), 'Z': oe.get_symbol(1)}  # the index letters of Y and Z in hwv_fast.build_network
 _plan_cache = {}
 PLANMIN = float(os.environ.get('PLANMIN', '2e9'))      # networks whose greedy flop estimate is below: old path search
+PLAN4 = float(os.environ.get('PLAN4', '2'))             # a plan within 4 cap is taken over the best one within cap
+                                                        # when it is this many times cheaper (2026-11-01: 6x6x6 d = 8
+                                                        # ((4,3,1),(3,3,1,1),(3,1^5)): the only path within cap, the
+                                                        # 'size' DP, cost 3.1e15 in 4 x 1 tiles, ~9 days; the 'flops' DP
+                                                        # path within 4 cap 8.0e12 in 42 x 491 tiles.  The light plan of
+                                                        # eval_basis only had the latter, so it chose that basis)
 
 
 def _greedy_cost(ops, out):
@@ -390,6 +396,8 @@ def plan_eval(ops, out, cap, light=False):
                             if best[j] is None or c < best[j][0]:
                                 best[j] = (c, P, outer, bo, bi)
                             break                   # smaller inner blocks only cost more
+    if best[0] is not None and best[1] is not None and PLAN4 * best[1][0] < best[0][0]:
+        return best[1]
     return best[0] if best[0] is not None else best[1]
 
 

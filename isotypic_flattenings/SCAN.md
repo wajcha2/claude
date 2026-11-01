@@ -176,6 +176,20 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## Planner: a within-4-cap plan wins when it is much cheaper (PLAN4, 2026-11-01 14:31)
+After the outage 2026-10-26 07:16 - 2026-11-01 12:41 (container down; runner restarted, checkpoints resumed) the long
+6x6x6 d = 8 component ((4,3,1),(3,3,1,1),(3,1^5)) (g = 3, direction 0, N1 = 4418, K = 13238) resumed its third
+evaluation-basis matrix at block 1173605 of 14623580 (4 x 1 point tiles): 8 % after ~13 h, ~9 more days at its rate.
+Cause: plan_eval took any plan within cap over every plan within 4 cap.  For that filling the only path within cap is
+the 'size' DP path, cost 3.1e15 in 4 x 1 tiles; the 'flops' DP path (largest intermediate 7.9e10 untiled) fits 4 cap
+in 42 x 491 tiles at 8.0e12, 385x cheaper.  eval_basis plans its candidates light (greedy + 'flops' only), saw 8.0e12
+and chose this basis (1.99e13 -> 1.29e13); the full plan of compute_F then fell back to the 'size' path.  Now
+plan_eval returns the best plan within 4 cap when it is PLAN4 (2) times cheaper than the best within cap (the old block
+search also allowed blocks up to 4 cap).  Exact arithmetic is unchanged (any path, same pair contractions);
+test_speedup.py: 0 failures.  Plans of this direction at r = 10, eval basis: f0 1.7e12 -> 8.3e11, f1 4.2e12 (kept),
+f2 3.1e15 -> 8.0e12, about 1 h in all.  The worker was stopped 14:31, its checkpoint moved aside (kept to compare
+entries with the rerun); the runner retries the component with the new rule.
+
 ## 8x8x8 d = 7 rerun n8_d7_x1 (WCAP 2^28): all components resolved, none separates 13 vs 14 (2026-10-25 10:39)
 Direction 1 at r = 13 (rank / bound min(n1, n23)):
 | component | r = 13 | r = 14 | bound |

@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 141 | 369 | 0 | 244404 s |
+| 6x6x6 | 8 | 11-13 | 142 | 371 | 0 | 251504 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2432,6 +2432,8 @@ None so far.
 | 6x6x6 | 8 | (5111,32111,311111) | 2 | 1 | 1575, 8064 | 11-13 | 11:1575, 14:1575 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=1 U7=0 tested U6 | 1 lines: line e=1 x1 [11:525, 14:525]. | none | 7122 s / 911 MB |
 | 6x6x6 | 8 | (5111,32111,311111) | 2 | 2 | 384, 33075 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=1 U7=0 tested U6 | 1 lines: no tensor-independent drop point. | none | 98 s / 484 MB |
 | 6x6x6 | 8 | (5111,32111,311111) | 2 | 3 | 21, 604800 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=1 U7=0 tested U6 | 1 lines: no tensor-independent drop point. | none | 23 s / 501 MB |
+| 6x6x6 | 8 | (5111,32111,32111) | 5 | 1 | 1575, 147456 | 11-13 | 11:1575, 14:1575 | U1=5 U2=5 U3=5 U4=5 U5=4 U6=0 ; sw23+=1 sw23-=4 tested U5, sw23+, sw23-, U5^sw23- | 7 lines: no tensor-independent drop point. | none | 6963 s / 1444 MB |
+| 6x6x6 | 8 | (5111,32111,32111) | 5 | 2 | 384, 604800 | 11-13 | 11:384 | U1=5 U2=5 U3=5 U4=5 U5=4 U6=0 ; sw13+=1 sw13-=4 tested U5, sw13+, sw13-, U5^sw13- | 13 lines: no tensor-independent drop point. | none | 137 s / 480 MB |
 | 6x6x6 | 8 | (5111,3221,22211) | 2 | 1 | 1575, 110250 | 11-13 | 11:1575 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 398 s / 437 MB |
 | 6x6x6 | 8 | (5111,3221,22211) | 2 | 2 | 1050, 165375 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 78 s / 404 MB |
 | 6x6x6 | 8 | (5111,3221,22211) | 2 | 3 | 105, 1653750 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=1 U6=0 tested U5 | 1 lines: no tensor-independent drop point. | none | 19 s / 493 MB |

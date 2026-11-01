@@ -53,3 +53,7 @@ s555_d8_V    | kp_single.py 5 8 9,10 --mode V --nomirror --maxcost 4e7
 s455_d8_dir1_V | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --maxcost 4e7
 # the last (largest, g = 8) component of the V_s validation on 4x5x5 d=7 source C^5 (175 of 176 identical, logs/test_vinc_455_d7_dir1.log)
 vinc_455_d7_dir1_last | kp_single.py 4,5,5 7 8,9 --dir 1 --mode V --only 421|3211|421
+# 2026-11-01: the next cost band of the d=8 V_s (components with 4e7 < g N1 K <= 1e8: g = 5..17, the large Kronecker spaces;
+# 46 at 5x5x5, 63 at 4x5x5 source C^5; largest basis 9458 columns, ~0.8 GB flattenings per rank)
+s555_d8_V_b  | kp_single.py 5 8 9,10 --mode V --nomirror --mincost 4e7 --maxcost 1e8
+s455_d8_dir1_V_b | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 4e7 --maxcost 1e8

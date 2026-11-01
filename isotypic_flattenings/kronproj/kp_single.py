@@ -41,6 +41,7 @@ ap.add_argument('--mode', default='HV'); ap.add_argument('--gmin', type=int, def
 ap.add_argument('--worker', type=int, default=0); ap.add_argument('--nworkers', type=int, default=1)
 ap.add_argument('--resume', default='', help='log1:log2: skip components already reported there')
 ap.add_argument('--maxcost', type=float, default=float('inf'), help='skip components with g * N1 * K above this')
+ap.add_argument('--mincost', type=float, default=0, help='skip components with g * N1 * K at or below this (a later band)')
 ap.add_argument('--nomirror', action='store_true', help='equal target dimensions: only one of (lam, mu, nu), (lam, nu, mu)')
 ap.add_argument('--only', default='', help='comma-free list "lam|mu|nu;..." of components')
 ap.add_argument('--vold', action='store_true', help='V_s by g full ranks of the compressed sum (before 2026-10-25) '
@@ -77,7 +78,7 @@ FOUND = []
 T0 = time.time()
 for i, tri in enumerate(comps):
     N1, K = sizes(tri); g = ctx.g[tri]
-    if g * N1 * K > args.maxcost:
+    if g * N1 * K > args.maxcost or g * N1 * K <= args.mincost:
         continue
     if i % args.nworkers != args.worker or '%s|%s|%s' % tuple(map(fmt, tri)) in DONE:
         continue

@@ -69,3 +69,4 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   So the Koszul rank at the generic value 1008 (resp. 120) is reached exactly at rank 7 = generic rank; the drop at rank 6 is 12 (resp. 2).
 - 2026-11-01: Koszul pass C^4 d=4 complete (15/15 components): no separation, so d=5 is the lowest degree at which Koszul
   flattenings of the isotypic tensor separate rank 6 from 7 in (C^4)^{(x)3} (d=2,3 also complete, none).
+- Koszul pass C^5 (rank 9 vs 10): d=4 complete (15 components), d=5 complete (40 components incl. size-skipped ones), no separation; d=6 running, d=7 started.

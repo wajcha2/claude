@@ -11,7 +11,7 @@ left alone.  comb_jobs.py runs this every 10 minutes (2026-10-23: the cache of t
 import os, re, sys, glob, shlex, hashlib, argparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from combflat import partitions
+from combflat import partitions, Context, fmt
 
 def job_args(a):
     ap = argparse.ArgumentParser(add_help=False)
@@ -20,19 +20,35 @@ def job_args(a):
     ap.add_argument('--seed', type=int, default=5); ap.add_argument('--sources', default='')
     ap.add_argument('--cache', default=os.path.join(HERE, 'live', 'cache'))
     ap.add_argument('--only-mn', dest='only_mn', default='')
+    ap.add_argument('--bmax', type=int, default=2500)
     return ap.parse_known_args(shlex.split(a))[0]
 
-def cache_dir(o):
-    """the directory Context(...) uses for these comb_search arguments (same rules as combflat.Context.__init__)."""
+def job_sources(o):
     ns = tuple(int(x) for x in o.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
-    ranks = [int(x) for x in o.ranks.split(',')]
-    auxmax = max(int(x) for x in o.aux.split(','))
     src = None
     if o.sources.startswith('pattern:'):
         kk = int(o.sources.split(':')[1])
         src = [l for l in partitions(o.d, ns[o.dir]) if l[0] >= o.d - kk and l != (o.d,)]
     elif o.sources:
         src = [tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s) for s in o.sources.split(';') if s]
+    return ns, src
+
+def bmax_skipped(o):
+    """the targets 'mu|nu' this family-B job skips by --bmax (same bound as comb_search.py; 2026-11-01: the large-target
+    job pat_555_d8_big shares the cache of pat_555_d8, which only reaches those targets to write SKIPPED at its end, so
+    their flattenings were kept for days)."""
+    ns, src = job_sources(o)
+    auxes = [int(x) for x in o.aux.split(',')]
+    ctx = Context(ns, o.d, [int(x) for x in o.ranks.split(',')], seed=o.seed, dirn=o.dir, cache=None, auxmax=max(auxes),
+                  only_sources=src, verbose=False)
+    return set('%s|%s' % (fmt(mn[0]), fmt(mn[1])) for mn in ctx.targets
+               if all(min(aux * (ctx.K[mn] - 8), ctx.capB[mn]) + 8 > o.bmax for aux in auxes))
+
+def cache_dir(o):
+    """the directory Context(...) uses for these comb_search arguments (same rules as combflat.Context.__init__)."""
+    ns, src = job_sources(o)
+    ranks = [int(x) for x in o.ranks.split(',')]
+    auxmax = max(int(x) for x in o.aux.split(','))
     tag = 'n%s_d%d_s%d_dir%d_r%s_nc%s_kc%s_ax%d' % ('-'.join(map(str, ns)), o.d, o.seed, o.dir, '-'.join(map(str, ranks)),
                                                    float('inf'), float('inf'), auxmax)
     if src is not None:
@@ -68,8 +84,8 @@ def main():
         states = [(name, o) + done_targets(name) for name, o in jobs]
         if any(not fin and set(o.fam.split(',')) - {'B'} for name, o, fin, _ in states):
             continue                                        # a running/waiting family A or E job reads whole sources
-        # an unfinished job needs a target unless it has a summary line for it or excludes it by --only-mn
-        live = [(dn, set(x for x in o.only_mn.split(';') if x)) for name, o, fin, dn in states if not fin]
+        # an unfinished job needs a target unless it has a summary line for it, excludes it by --only-mn, or skips it by --bmax
+        live = [(dn | bmax_skipped(o), set(x for x in o.only_mn.split(';') if x)) for name, o, fin, dn in states if not fin]
         n = b = 0
         for f in glob.glob(os.path.join(d, 'r*_*_*_*.npy')):
             parts = os.path.basename(f)[:-4].split('_')

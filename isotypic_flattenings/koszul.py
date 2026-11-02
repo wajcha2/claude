@@ -31,10 +31,12 @@ def kwedge_cost(dims, extra=2, pks=(1, 2)):
 GCAP = int(os.environ.get('GCAP', '0'))   # cap on the number of orbit points sampled per factor (0 = dim+extra);
 # a cap means Y is replaced by its image under the quotient maps S^l V -> C^GCAP, y -> (<y, g_k v>)_k, k < GCAP
 
+KMAXM = int(os.environ.get('KMAXM', '0'))   # optional cap on the projection dimension m (0 = no cap)
 def koszul_dim(nA, nB, nC, pk):
-    """largest m <= nA with binom(m,pk)*nB * binom(m,pk+1)*nC <= BUDGET (m >= 2pk+1)."""
+    """largest m <= nA (and <= KMAXM if set) with binom(m,pk)*nB * binom(m,pk+1)*nC <= BUDGET (m >= 2pk+1)."""
     m = 2 * pk + 1
-    while m + 1 <= nA and comb(m + 1, pk) * nB * comb(m + 1, pk + 1) * nC <= BUDGET: m += 1
+    top = min(nA, KMAXM) if KMAXM else nA
+    while m + 1 <= top and comb(m + 1, pk) * nB * comb(m + 1, pk + 1) * nC <= BUDGET: m += 1
     return m
 
 def koszul_rank(Y, factor, pk, rng, swap=False):

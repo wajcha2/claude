@@ -199,6 +199,9 @@ never scheduled: ((4,1,1),(3,2,1),(3,2,1)), g = 4 (cost 3.3e9; directions 1, 2: 
 elimination: feasible with FSDISK, like ((3,2,1),(3,2,1),(3,1,1,1))) and ((3,2,1),(3,2,1),(3,2,1)), g = 5 (cost 3.1e9;
 K = 55448, 11.5 GB of flattenings and 14.2 GB of elimination: the V_5 basis alone is 12.3 GB, beyond this machine
 even with FSDISK).  Until they are checked, "all separators of 13 vs 14 at d = 6" is open for these two.
+The first is queued as the extra job n9_d6_x2 (FSDISK, need 13..29; created 22:20, runner restarted with the workers
+adopted; estimate 11.8 GB with the extra-job allowance).  Extra-job results are not counted in the STATUS coverage
+table (it will keep showing 117 of 119 for 9x9x9 d = 6).
 The last component, ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, with FSDISK, 2026-11-02 04:58 - 11:16 (6.3 h): direction 0
 H = 11088 x 4, V = 11088 / 22176 / 33264 / 44352 (eval 2.9 h, elimination 2.9 h), direction 2 H = 4620 x 4,
 V = 4620 k (eval 19 min, elimination 13 min).  Memory: anonymous RSS at most ~10.5 GB (estimate 10.8 GB) next to

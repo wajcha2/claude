@@ -176,6 +176,19 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## 9x9x9, d = 6 complete (2026-11-02 11:16): 13 vs 14 only by ((6),(1^6),(1^6))
+Job n9_d6_s5 done (23 of 23 network components, the last ones run 2026-11-01/02).  Every one of them is at its
+bounds at r = 13 in every direction, so none separates r vs r + 1 for any r >= 13.  The only separator of 13 vs 14 at
+d = 6 is the wedge component ((6),(1^6),(1^6)) (wedge_family.py, 2026-10-05; it also separates 12 vs 13).  The
+runner went on to d = 7 for 9x9x9 (need 14..29).
+The last component, ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, with FSDISK, 2026-11-02 04:58 - 11:16 (6.3 h): direction 0
+H = 11088 x 4, V = 11088 / 22176 / 33264 / 44352 (eval 2.9 h, elimination 2.9 h), direction 2 H = 4620 x 4,
+V = 4620 k (eval 19 min, elimination 13 min).  Memory: anonymous RSS at most ~10.5 GB (estimate 10.8 GB) next to
+1.9-7.7 GB of the mapped flattenings (page cache, reclaimed as the elimination grew; MemAvailable never below
+3.9 GB); the recorded peak RSS 13348 MB counts the file pages too.  Disk: ~23 GB written by the kernel during the
+evaluation (pages written back more than once), the file freed when the worker ended.  The earlier ones that day:
+((4,2),(4,1,1),(3,2,1)), g = 2 (1.9 h, 5.6 GB) and ((4,2),(3,2,1),(3,2,1)), g = 3 (3.8 h, 10.9 GB).
+
 ## Flattenings in a memory-mapped file for the last 9x9x9 d = 6 component (FSDISK, 2026-11-01 16:55)
 9x9x9 d = 6: 22 of 23 components done (all saturated at r = 13 in every direction, no separation).  The last,
 ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, direction 0 (= 1): N1 = 11096, K = 44360, four flattenings of 1.8 GB (7.3 GB) and

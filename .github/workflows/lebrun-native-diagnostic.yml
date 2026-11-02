@@ -1,0 +1,130 @@
+name: LeBrun native plugin diagnostic
+
+on:
+  push:
+    branches:
+      - codex/lebrun-native-diagnostic-20261102
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+
+      - name: Restore cache and build
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          lake build
+
+      - name: Diagnose runtime layout
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd mathlib
+          mkdir -p "$GITHUB_WORKSPACE/diagnostic"
+          {
+            echo '## environment'
+            export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+            lake env printenv | sort
+            echo '## all symlinks under build/lib'
+            find .lake/build/lib .lake/packages -type l -ls 2>/dev/null || true
+            echo '## non-olean files under build/lib'
+            find .lake/build/lib .lake/packages -path '*/.lake/build/lib/*' \
+              -type f ! -name '*.olean' ! -name '*.olean.private' ! -name '*.olean.server' \
+              ! -name '*.ilean' ! -name '*.ilean.private' ! -name '*.ilean.server' \
+              -printf '%p\t%s\n' 2>/dev/null | sort
+            echo '## batteries build tree'
+            find .lake/packages/batteries/.lake/build -maxdepth 6 -printf '%y %p %s\n' 2>/dev/null | sort
+            echo '## large build files'
+            find .lake/build .lake/packages -path '*/.lake/build/*' -type f -size +100k \
+              -printf '%p\t%s\n' 2>/dev/null | sort
+          } > "$GITHUB_WORKSPACE/diagnostic/layout.txt"
+          grep -R -n --binary-files=without-match 'registerTagAttributeExtra' \
+            .lake/packages/batteries Batteries 2>/dev/null \
+            > "$GITHUB_WORKSPACE/diagnostic/registerTagAttributeExtra.txt" || true
+
+      - name: Verify smoke and capture loaded objects
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cat > smoke.lean <<'EOF'
+          import Mathlib
+          #check Nat
+          #check Polynomial
+          EOF
+          cd mathlib
+          strace -f -e trace=openat -o "$GITHUB_WORKSPACE/diagnostic/openat.log" \
+            lake env lean "$GITHUB_WORKSPACE/smoke.lean" \
+            > "$GITHUB_WORKSPACE/diagnostic/smoke.out" 2> "$GITHUB_WORKSPACE/diagnostic/smoke.err"
+          grep -E '\.(so|a|o)(\"|$)|Batteries|batteries' "$GITHUB_WORKSPACE/diagnostic/openat.log" \
+            > "$GITHUB_WORKSPACE/diagnostic/openat-native-filtered.log" || true
+
+      - name: Package native and interpreter-support files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd mathlib
+          mkdir -p "$GITHUB_WORKSPACE/native"
+          # Preserve every non-olean file and every symlink in package/build lib trees.
+          while IFS= read -r -d '' p; do
+            rel="${p#./}"
+            mkdir -p "$GITHUB_WORKSPACE/native/$(dirname "$rel")"
+            cp -aL "$p" "$GITHUB_WORKSPACE/native/$rel"
+          done < <(find .lake/build/lib .lake/packages -path '*/.lake/build/lib/*' \
+            \( -type l -o \( -type f ! -name '*.olean' ! -name '*.olean.private' ! -name '*.olean.server' \
+              ! -name '*.ilean' ! -name '*.ilean.private' ! -name '*.ilean.server' \) \) -print0 2>/dev/null)
+          # Also preserve package sources containing extern implementations; small and useful as fallback.
+          mkdir -p "$GITHUB_WORKSPACE/native/package-sources"
+          cp -a .lake/packages/batteries/Batteries "$GITHUB_WORKSPACE/native/package-sources/"
+          find "$GITHUB_WORKSPACE/native" -type f -print0 | sort -z | xargs -0 sha256sum \
+            > "$GITHUB_WORKSPACE/native/FILES.sha256"
+          du -sh "$GITHUB_WORKSPACE/native" | tee "$GITHUB_WORKSPACE/diagnostic/native-size.txt"
+          cd "$GITHUB_WORKSPACE"
+          tar -I 'zstd -T0 -9' -cf lean-native-support.tar.zst native
+          sha256sum lean-native-support.tar.zst > lean-native-support.sha256
+
+      - name: Upload diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-native-diagnostic
+          path: diagnostic
+          if-no-files-found: error
+
+      - name: Upload native support
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-native-support
+          path: |
+            lean-native-support.tar.zst
+            lean-native-support.sha256
+          compression-level: 0
+          if-no-files-found: error

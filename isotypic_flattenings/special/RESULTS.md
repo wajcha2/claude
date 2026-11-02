@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 186 | 490 | 0 | 447238 s |
+| 6x6x6 | 8 | 11-13 | 187 | 492 | 0 | 449616 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2483,6 +2483,8 @@ None so far.
 | 6x6x6 | 8 | (5111,3221,32111) | 4 | 1 | 1575, 403200 | 11-13 | 11:1575 | U1=4 U2=4 U3=4 U4=4 U5=1 U6=0 tested U5 | 3 lines: no tensor-independent drop point. | none | 1145 s / 565 MB |
 | 6x6x6 | 8 | (5111,3221,32111) | 4 | 2 | 1050, 604800 | 11-13 | 11:1050 | U1=4 U2=4 U3=4 U4=4 U5=1 U6=0 tested U5 | 7 lines: no tensor-independent drop point. | none | 251 s / 1615 MB |
 | 6x6x6 | 8 | (5111,3221,32111) | 4 | 3 | 384, 1653750 | 11-13 | 11:384 | U1=4 U2=4 U3=4 U4=4 U5=1 U6=0 tested U5 | 7 lines: no tensor-independent drop point. | none | 32 s / 330 MB |
+| 6x6x6 | 8 | (5111,3221,3221) | 5 | 1 | 1575, 1102500 | 11-13 | 11:1575 | U1=5 U2=5 U3=5 U4=5 U5=0 ; sw23+=1 sw23-=4 tested sw23+, sw23- | 5 lines: no tensor-independent drop point. | none | 2077 s / 865 MB |
+| 6x6x6 | 8 | (5111,3221,3221) | 5 | 2 | 1050, 1653750 | 11-13 | 11:1050 | U1=5 U2=5 U3=5 U4=5 U5=0 ; sw13+=1 sw13-=4 tested sw13+, sw13- | 7 lines: no tensor-independent drop point. | none | 301 s / 968 MB |
 | 6x6x6 | 8 | (5111,3311,32111) | 3 | 1 | 1575, 451584 | 11-13 | 11:1575 | U1=3 U2=3 U3=3 U4=3 U5=1 U6=0 tested U5 | 5 lines: no tensor-independent drop point. | none | 1727 s / 1709 MB |
 | 6x6x6 | 8 | (5111,3311,32111) | 3 | 2 | 1176, 604800 | 11-13 | 11:1176 | U1=3 U2=3 U3=3 U4=3 U5=1 U6=0 tested U5 | 5 lines: no tensor-independent drop point. | none | 499 s / 1007 MB |
 | 6x6x6 | 8 | (5111,3311,32111) | 3 | 3 | 384, 1852200 | 11-13 | 11:384 | U1=3 U2=3 U3=3 U4=3 U5=1 U6=0 tested U5 | 5 lines: no tensor-independent drop point. | none | 82 s / 475 MB |

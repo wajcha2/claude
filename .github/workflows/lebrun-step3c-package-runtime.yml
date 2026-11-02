@@ -1,0 +1,74 @@
+name: LeBrun-Salamon Step 3c package runtime
+
+on:
+  push:
+    branches:
+      - codex/lebrun-step3c-package-runtime-20261102
+
+permissions:
+  contents: read
+
+jobs:
+  build-package-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout exact mathlib revision
+        uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: 116662aa4c1e9106ab5c609b3214b02f6e11a65a
+          path: mathlib
+          fetch-depth: 1
+
+      - name: Install exact Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors \
+            https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst \
+            --output lean.tar.zst
+          printf '%s  %s\n' \
+            '26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2' \
+            lean.tar.zst | sha256sum --check --strict
+          mkdir lean
+          tar --use-compress-program=unzstd -xf lean.tar.zst -C lean --strip-components=1
+          echo "$GITHUB_WORKSPACE/lean/bin" >> "$GITHUB_PATH"
+
+      - name: Restore exact cache and build package shared libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$GITHUB_WORKSPACE/lean/bin:$PATH"
+          cd mathlib
+          lake exe cache get
+          test "$(sha256sum .lake/build/lib/lean/Mathlib.olean | awk '{print $1}')" = \
+            'cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
+          lake build Batteries:shared Qq:shared Aesop:shared ProofWidgets:shared
+
+      - name: Package runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p package-runtime
+          cd mathlib
+          while IFS= read -r -d '' f; do
+            rel="${f#./}"
+            mkdir -p "$GITHUB_WORKSPACE/package-runtime/$(dirname "$rel")"
+            cp -a "$f" "$GITHUB_WORKSPACE/package-runtime/$rel"
+          done < <(find .lake/packages -type f -name '*.so' -print0)
+          cd "$GITHUB_WORKSPACE"
+          test "$(find package-runtime -type f -name '*.so' | wc -l)" -gt 0
+          find package-runtime -type f -print0 | sort -z | xargs -0 sha256sum > package-runtime/FILES.sha256
+          tar -I 'zstd -T0 -10' -cf mathlib-package-runtime.tar.zst package-runtime
+          sha256sum mathlib-package-runtime.tar.zst > mathlib-package-runtime.sha256
+
+      - name: Upload runtime
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathlib-package-runtime
+          path: |
+            mathlib-package-runtime.tar.zst
+            mathlib-package-runtime.sha256
+          compression-level: 0
+          if-no-files-found: error

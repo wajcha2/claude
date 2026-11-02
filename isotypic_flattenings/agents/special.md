@@ -117,7 +117,11 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   resume from their per-filling checkpoints.
   Block checkpoints inside long evaluations since 2026-10-25 19:45 (written every 30 min, verified 2026-10-26 05:12).
   Stopped again 2026-10-26 ~06:45 (session gone), restarted 2026-11-01 12:42 (~6 days lost; 137 of 495 done, no hit;
-  the long components resume from their block checkpoints).  `special/sync.sh` copies special/live into
+  the long components resume from their block checkpoints).
+  2026-11-02 03:00: tlimit 7 days (604800 s): some components need days -- ((5,1,1,1),(3,2,1,1,1),(2,2,1,1,1,1))
+  dir 1 rank-14 tensor: planned cost 7.5e14 with the evaluation basis (old fillings: no feasible plan), one filling
+  evaluation 416856 blocks (64 % after this run's 14 h); the 36 h limit would kill such jobs, and with block
+  checkpoints a long job no longer loses work at a restart.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

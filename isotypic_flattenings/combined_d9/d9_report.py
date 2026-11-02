@@ -10,7 +10,7 @@ jobs = []
 for l in open(jobfile):
     l = l.split('#')[0].strip()
     if l:
-        jobs.append(l.split('|')[0].strip())
+        jobs.append(l.split('|')[0].split()[0])          # 'name @GB' (memory hint)
 print('| job | lattices / components done | saturated at the lower rank | skipped (size > bmax) | separations | finished | time (s) |')
 print('|---|---|---|---|---|---|---|')
 unsat = []

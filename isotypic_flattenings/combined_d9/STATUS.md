@@ -28,7 +28,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   (6,1,1,1); family B, aux 1): 382 targets of compressed size <= 8000 (44 larger ones skipped), every subset of the sources at
   the levels 1 and g (`--exhaust 14`), 20475 subsets: **no separation**.  2026-11-02 11:40 UTC.
 
+* **d9_555_B_p3** (5x5x5, rank 9 vs 10; sources lam_1 >= 6; family B, aux 1): 159 targets of compressed size <= 8000 (267 larger
+  ones skipped), every subset of the sources at the levels 1 and g, 3503 subsets: **no separation**.  2026-11-02 13:10 UTC.
+
 ## Running / queued (no separation so far)
 
 * d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);
-  d9_555_B_p3 (5x5x5, sources lam_1 >= 6, 159 of 426 targets of size <= 8000).
+  d9_455_dir0_B_p3_big (the 44 dir-0 lam_1 >= 6 targets of size 8000..15000).

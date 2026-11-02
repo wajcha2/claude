@@ -27,4 +27,8 @@ The complete preservation archive and checksum are stored in the ChatGPT Library
 - `/Lean formalization checkpoints/LeBrunSalamon_Preservation_Steps1_2_3a_3f_20261102.zip`
 - `/Lean formalization checkpoints/LeBrunSalamon_Preservation_Steps1_2_3a_3f_20261102.zip.sha256`
 
-Archive SHA-256: `REPLACE_FROM_MANIFEST`.
+Archive SHA-256:
+
+```text
+c7fd95263b4e10ddc947e6ddc80013623dc044f7ab14f04a157c6dfe9e0e2e59
+```

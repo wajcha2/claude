@@ -189,11 +189,16 @@ failures.  The worker was stopped 19:13 (its 48 x 1 checkpoint removed: resumed,
 the runner restarted the component (worker 521228).  Result 21:18: r = 14 H = V = 6048 (= n1, saturated: no
 separation of r vs r + 1 for r >= 14), eval 6553 s (1.8 h), rref 24 s, wall 2.1 h, peak RSS 3.4 GB (estimate 4.1 GB).
 
-## 9x9x9, d = 6 complete (2026-11-02 11:16): 13 vs 14 only by ((6),(1^6),(1^6))
+## 9x9x9, d = 6: cost bands up to 3e9 done (2026-11-02 11:16); two components above the last band not run
 Job n9_d6_s5 done (23 of 23 network components, the last ones run 2026-11-01/02).  Every one of them is at its
-bounds at r = 13 in every direction, so none separates r vs r + 1 for any r >= 13.  The only separator of 13 vs 14 at
+bounds at r = 13 in every direction, so none separates r vs r + 1 for any r >= 13.  The known separator of 13 vs 14 at
 d = 6 is the wedge component ((6),(1^6),(1^6)) (wedge_family.py, 2026-10-05; it also separates 12 vs 13).  The
 runner went on to d = 7 for 9x9x9 (need 14..29).
+Correction (21:55): d = 6 is NOT complete.  Two components lie above the last cost band (CAPS end at 3e9) and were
+never scheduled: ((4,1,1),(3,2,1),(3,2,1)), g = 4 (cost 3.3e9; directions 1, 2: N1 = 11096, K = 44360, 9.6 GB of
+elimination: feasible with FSDISK, like ((3,2,1),(3,2,1),(3,1,1,1))) and ((3,2,1),(3,2,1),(3,2,1)), g = 5 (cost 3.1e9;
+K = 55448, 11.5 GB of flattenings and 14.2 GB of elimination: the V_5 basis alone is 12.3 GB, beyond this machine
+even with FSDISK).  Until they are checked, "all separators of 13 vs 14 at d = 6" is open for these two.
 The last component, ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, with FSDISK, 2026-11-02 04:58 - 11:16 (6.3 h): direction 0
 H = 11088 x 4, V = 11088 / 22176 / 33264 / 44352 (eval 2.9 h, elimination 2.9 h), direction 2 H = 4620 x 4,
 V = 4620 k (eval 19 min, elimination 13 min).  Memory: anonymous RSS at most ~10.5 GB (estimate 10.8 GB) next to

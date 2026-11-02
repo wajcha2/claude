@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 171 | 449 | 0 | 344357 s |
+| 6x6x6 | 8 | 11-13 | 173 | 455 | 0 | 350986 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2415,6 +2415,9 @@ None so far.
 | 6x6x6 | 8 | (431,32111,2222) | 2 | 1 | 4410, 40320 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 2348 s / 3200 MB |
 | 6x6x6 | 8 | (431,32111,2222) | 2 | 2 | 384, 463050 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 16 s / 430 MB |
 | 6x6x6 | 8 | (431,32111,2222) | 2 | 3 | 105, 1693440 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 25 s / 460 MB |
+| 6x6x6 | 8 | (431,3221,2222) | 2 | 1 | 4410, 110250 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=1 U5=0 tested U4 | 1 lines: no tensor-independent drop point. | none | 2172 s / 3200 MB |
+| 6x6x6 | 8 | (431,3221,2222) | 2 | 2 | 1050, 463050 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=1 U5=0 tested U4 | 1 lines: no tensor-independent drop point. | none | 44 s / 362 MB |
+| 6x6x6 | 8 | (431,3221,2222) | 2 | 3 | 105, 4630500 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=1 U5=0 tested U4 | 1 lines: no tensor-independent drop point. | none | 10 s / 420 MB |
 | 6x6x6 | 8 | (431,41111,22211) | 2 | 1 | 4410, 33075 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 2237 s / 3198 MB |
 | 6x6x6 | 8 | (431,41111,22211) | 2 | 2 | 315, 463050 | 11-13 | 11:315 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 26 s / 469 MB |
 | 6x6x6 | 8 | (431,41111,22211) | 2 | 3 | 105, 1389150 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 17 s / 468 MB |
@@ -2565,6 +2568,9 @@ None so far.
 | 6x6x6 | 8 | (53,3221,22211) | 2 | 1 | 4410, 110250 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1046 s / 3202 MB |
 | 6x6x6 | 8 | (53,3221,22211) | 2 | 2 | 1050, 463050 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 48 s / 460 MB |
 | 6x6x6 | 8 | (53,3221,22211) | 2 | 3 | 105, 4630500 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 7 s / 402 MB |
+| 6x6x6 | 8 | (53,3221,311111) | 2 | 1 | 4410, 22050 | 11-13 | 11:2835, 14:2835 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: line e=1 x1 [11:2370, 14:2370]; line e=1 x1 [11:2715, 14:2715]. | none | 4326 s / 2717 MB |
+| 6x6x6 | 8 | (53,3221,311111) | 2 | 2 | 1050, 92610 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 74 s / 492 MB |
+| 6x6x6 | 8 | (53,3221,311111) | 2 | 3 | 21, 4630500 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 4 s / 436 MB |
 | 6x6x6 | 8 | (53,41111,32111) | 2 | 1 | 4410, 120960 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1498 s / 3197 MB |
 | 6x6x6 | 8 | (53,41111,32111) | 2 | 2 | 315, 1693440 | 11-13 | 11:315 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 15 s / 435 MB |
 | 6x6x6 | 8 | (53,41111,32111) | 2 | 3 | 384, 1389150 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 18 s / 434 MB |

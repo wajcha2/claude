@@ -114,3 +114,5 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   the freed core: live/koszul4_d3_b5e7.log, koszul4_d4_b5e7.log, koszul5_d5_b5e7.log, koszul5_d6_b5e7.log.
 - 2026-11-02 02:30 UTC: container restart (uptime reset) killed all workers; relaunched all seven with RESUME from the live logs
   (3 KWEDGE d=7, 2 generic d=8, stacked d=7, redo chain from C^4 d=4). Nothing lost beyond the partial components in flight.
+- 2026-11-02 04:12 UTC: KBUDGET=5e7 KMAXM=12 redo of C^4 d=3 (5 components) and C^4 d=4 complete: no Koszul separation of
+  rank 6 from 7 at d <= 4 even with projection dimension 12 (so d = 5 stays the lowest Koszul degree for C^4). C^5 d=5 redo running.

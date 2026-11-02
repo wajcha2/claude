@@ -106,3 +106,9 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   were getting ~0.47 core each. Disabled autogroup for new tasks and set the d=8/stacked group's autogroup nice to 5;
   now generic d=7 ~1.0 core, KWEDGE ~0.77 core each, d=8 workers ~0.27, stacked ~0.1. Infrastructure note: when
   launching workers, prefer one shell for all, or set /proc/<pid>/autogroup nice for the whole group.
+- 2026-11-02 01:10 UTC: **generic Koszul pass C^5 d=7 COMPLETE** (297 lines: 110 computed at KBUDGET=2e6,
+  187 size-skipped and left to the KWEDGE pass, which is at 7/187), no separation. Caveat found today: with
+  KBUDGET=2e6 the wedged factor is projected to m = 8 (p = 2) only when the two other factors have (dim+2) product
+  <= 1275; larger components were tested at m = 5..7, which the C^4 d=5 separator shows can miss a separation. So the
+  earlier Koszul passes (C^4 d=3,4 and C^5 d=5,6) are being REDONE with KBUDGET=5e7 (KWEDGE sampled grids), chain on
+  the freed core: live/koszul4_d3_b5e7.log, koszul4_d4_b5e7.log, koszul5_d5_b5e7.log, koszul5_d6_b5e7.log.

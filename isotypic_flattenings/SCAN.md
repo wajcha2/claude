@@ -176,6 +176,18 @@ is beyond WCAP).  Rank 14 took 10.5 h of evaluation (two sessions; the container
 01:19 checkpoint at block 3066 of 6216, rank 13 from its cache file) instead of ~35 h for the full matrix.  Peak RSS
 7.0 GB (estimate 6.5 GB).  The rerun continues with ((6,1),(2,2,1,1,1),(2,1^5)) and ((6,1),(3,1^4),(2,1^5)).
 
+## No plan within 4 cap: one more planned try at 2 x cap (PLANCAP2, 2026-11-02 19:13)
+9x9x9 d = 7 ((2,2,2,1),(2,2,2,1),(2,2,2,1)), g = 1, N1 = K = 6056, r = 14 (worker started 14:03): plan_eval found no
+plan within 4 x MEMCAP (2^25 entries) for its filling, so compute_F fell back to the old block search: 48 x 1 point
+tiles, 769112 of them, 25166 done by 18:22 (~6200 per hour, ~5 days for this rank).  No eval basis either (the light
+plans of the pool are infeasible at that cap too).  At MEMCAP 2^26 the same filling plans at 2.89e13 (6056 tiles of
+one column), ~2 h; 2^27 gives the same.  compute_F now retries the planned evaluation once at PLANCAP2 (2) x cap when
+no plan fits, before the old block search (the largest intermediate grows to <= 8 x 2^25 entries, 2 GB), and logs
+"(evaluated with a plan within 8 x the memory cap)".  Check: the retry path on the full point set, first 8 tiles:
+rows 0..191 x columns 0..7 (1536 entries, all nonzero) equal to the old search's checkpoint; test_speedup.py 0
+failures.  The worker was stopped 19:13 (its 48 x 1 checkpoint removed: resumed, it would have kept that tile shape);
+the runner restarted the component (worker 521228).
+
 ## 9x9x9, d = 6 complete (2026-11-02 11:16): 13 vs 14 only by ((6),(1^6),(1^6))
 Job n9_d6_s5 done (23 of 23 network components, the last ones run 2026-11-01/02).  Every one of them is at its
 bounds at r = 13 in every direction, so none separates r vs r + 1 for any r >= 13.  The only separator of 13 vs 14 at

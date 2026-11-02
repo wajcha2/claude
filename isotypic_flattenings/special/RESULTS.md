@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 175 | 460 | 0 | 354250 s |
+| 6x6x6 | 8 | 11-13 | 177 | 464 | 0 | 356833 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2238,6 +2238,7 @@ None so far.
 | 6x6x6 | 8 | (332,3221,311111) | 2 | 1 | 1470, 22050 | 11-13 | 11:1470 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 4214 s / 603 MB |
 | 6x6x6 | 8 | (332,3221,311111) | 2 | 2 | 1050, 30870 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 226 s / 406 MB |
 | 6x6x6 | 8 | (332,3221,311111) | 2 | 3 | 21, 1543500 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 32 s / 408 MB |
+| 6x6x6 | 8 | (332,3221,32111) | 5 | 1 | 1470, 403200 | 11-13 | 11:1470 | U1=5 U2=5 U3=5 U4=5 U5=0 no natural U with 0 < dim < g | 2 lines: no tensor-independent drop point. | none | 1154 s / 686 MB |
 | 6x6x6 | 8 | (332,3221,3221) | 5 | 1 | 1470, 1102500 | 11-13 | 11:1470 | U1=5 U2=5 U3=5 U4=3 U5=0 ; sw23+=2 sw23-=3 tested U4, sw23+, U4^sw23+, sw23-, U4^sw23- | 8 lines: no tensor-independent drop point. | none | 897 s / 814 MB |
 | 6x6x6 | 8 | (332,3221,3221) | 5 | 2 | 1050, 1543500 | 11-13 | 11:1050 | U1=5 U2=5 U3=5 U4=3 U5=0 ; sw13+=2 sw13-=3 tested U4, sw13+, U4^sw13+, sw13-, U4^sw13- | 10 lines: no tensor-independent drop point. | none | 420 s / 990 MB |
 | 6x6x6 | 8 | (332,3311,22211) | 2 | 1 | 1470, 123480 | 11-13 | 11:1470 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 358 s / 595 MB |
@@ -2571,6 +2572,9 @@ None so far.
 | 6x6x6 | 8 | (53,3221,311111) | 2 | 1 | 4410, 22050 | 11-13 | 11:2835, 14:2835 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: line e=1 x1 [11:2370, 14:2370]; line e=1 x1 [11:2715, 14:2715]. | none | 4326 s / 2717 MB |
 | 6x6x6 | 8 | (53,3221,311111) | 2 | 2 | 1050, 92610 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 74 s / 492 MB |
 | 6x6x6 | 8 | (53,3221,311111) | 2 | 3 | 21, 4630500 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 4 s / 436 MB |
+| 6x6x6 | 8 | (53,3311,22211) | 2 | 1 | 4410, 123480 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1354 s / 3201 MB |
+| 6x6x6 | 8 | (53,3311,22211) | 2 | 2 | 1176, 463050 | 11-13 | 11:1176 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 70 s / 434 MB |
+| 6x6x6 | 8 | (53,3311,22211) | 2 | 3 | 105, 5186160 | 11-13 | 11:105 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 4 s / 403 MB |
 | 6x6x6 | 8 | (53,3311,3311) | 2 | 1 | 4410, 1382976 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1492 s / 3198 MB |
 | 6x6x6 | 8 | (53,3311,3311) | 2 | 2 | 1176, 5186160 | 11-13 | 11:1176 | U1=2 U2=2 U3=2 U4=0 ; sw13+=2 sw13-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 46 s / 495 MB |
 | 6x6x6 | 8 | (53,41111,32111) | 2 | 1 | 4410, 120960 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1498 s / 3197 MB |

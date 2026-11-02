@@ -217,6 +217,9 @@ Direction 1 at r = 13 (rank / bound min(n1, n23)):
 the other three are resolved for every r >= 13.  Evaluation times at r = 13: 28 h, 36 h, 3.2 h (old loop, 10304 x 3
 blocks), 5.0 h; the last one lost ~28 h to the container outage of 2026-10-24 01:05 to 10-25 05:31 and resumed from its
 checkpoint (block 2506 of 11096).
+The tenth component of the job, ((4,3),(2,2,2,1),(2,1^5)), g = 1, ran 2026-11-01 21:11 - 11-02 01:59 (old loop, 11096 x
+1 blocks): saturated at r = 13 in every direction (11088 / 2352 / 216), eval 4.5 h, peak 5.2 GB.  Job n8_d7_x1 done:
+10 of 10 components, none separates 13 vs 14 (or any r >= 13 vs r + 1, except ((6,1),(2,1^5),(2,1^5)) above r = 14).
 
 ## Frontier reruns keep the old block evaluation (2026-10-23 19:35)
 The planned evaluation (NEWEVAL) is slower on the 8x8x8 d = 7 WCAP 2^28 networks, which its authors could not time:

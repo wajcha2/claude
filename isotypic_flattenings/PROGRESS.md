@@ -112,3 +112,5 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   <= 1275; larger components were tested at m = 5..7, which the C^4 d=5 separator shows can miss a separation. So the
   earlier Koszul passes (C^4 d=3,4 and C^5 d=5,6) are being REDONE with KBUDGET=5e7 (KWEDGE sampled grids), chain on
   the freed core: live/koszul4_d3_b5e7.log, koszul4_d4_b5e7.log, koszul5_d5_b5e7.log, koszul5_d6_b5e7.log.
+- 2026-11-02 02:30 UTC: container restart (uptime reset) killed all workers; relaunched all seven with RESUME from the live logs
+  (3 KWEDGE d=7, 2 generic d=8, stacked d=7, redo chain from C^4 d=4). Nothing lost beyond the partial components in flight.

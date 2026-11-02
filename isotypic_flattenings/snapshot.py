@@ -28,7 +28,10 @@ def main():
             if (k and k in live_keys) or l in live_set:
                 continue
             old.append(l)
-    out = old + live_lines
+    out, seen = [], set()
+    for l in old + live_lines:   # drop exact duplicates (SKIPPED lines are re-printed after every restart)
+        if l in seen: continue
+        seen.add(l); out.append(l)
     nlam = sum(1 for l in out if l.startswith('lam='))
     nsep = sum(1 for l in out if 'SEPARATES' in l)
     with open(done, 'w') as fh:

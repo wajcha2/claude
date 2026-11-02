@@ -199,6 +199,7 @@ STEP_OVERHEAD = 2e6                                     # flop-equivalent of the
 _SIDE = {'Y': oe.get_symbol(0), 'Z': oe.get_symbol(1)}  # the index letters of Y and Z in hwv_fast.build_network
 _plan_cache = {}
 PLANMIN = float(os.environ.get('PLANMIN', '2e9'))      # networks whose greedy flop estimate is below: old path search
+PLANCAP2 = int(os.environ.get('PLANCAP2', '2'))         # no plan within 4 cap: try once more with this multiple of cap
 PLAN4 = float(os.environ.get('PLAN4', '2'))             # a plan within 4 cap is taken over the best one within cap
                                                         # when it is this many times cheaper (2026-11-01: 6x6x6 d = 8
                                                         # ((4,3,1),(3,3,1,1),(3,1^5)): the only path within cap, the
@@ -579,6 +580,14 @@ def compute_F(f, vm, pm, path=None, info=None, cheap=False, ckpt=None, dest=None
         # light plan; the old greedy path made the probes of choose_fillings take minutes per direction -- 6x6x6
         # d = 8: 90 probes, 518 s.  Same values either way: exact.)
         res = _compute_F_planned(f, ops, out, N1, K, cap, ckpt, dest, light=cheap)
+        if res is None and not cheap and PLANCAP2 > 1:
+            # no plan within 4 cap: one more try with PLANCAP2 x cap before the old block search (2026-11-02: 9x9x9
+            # d = 7 ((2,2,2,1)^3), r = 14: nothing within 4 x 2^25, the block search ran 48 x 1 tiles, ~5 days; within
+            # 4 x 2^26 the plan is 2.9e13, ~2 h)
+            ops, out = build_network(f, vm, pm)
+            res = _compute_F_planned(f, ops, out, N1, K, cap * PLANCAP2, ckpt, dest)
+            if res is not None:
+                print('  . (evaluated with a plan within %d x the memory cap)' % (4 * PLANCAP2), flush=True)
         if res is not None:
             return res
         ops, out = build_network(f, vm, pm)          # (fallback: the old block search below)

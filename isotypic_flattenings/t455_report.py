@@ -236,6 +236,8 @@ out.append('* 2026-11-02 19:47 UTC: c3e7 COMPLETE: all 1614 components (1e7 < RO
 out.append('  369.8 core-h of component time, largest 2.23 h (((5,5),(6,3,1),(3,3,3,1)), g = 1); two span<g lines, both harmless')
 out.append('  (t455_spancheck.py). c1.25e8 workers 3, 1, 2 were started by hand at 18:24, 19:03, 19:07 on the cores freed by the')
 out.append('  finished c3e7 workers (dynamic claims, so no overlap); the runner switched to c1.25e8 at 19:47 and launched worker 0.')
+out.append('* 2026-11-02 22:28 UTC: container restart (uptime 0; c1.25e8 at 26/1833). Runner and the four c1.25e8 workers relaunched')
+out.append('  22:29 by the check-in; three in-flight components resumed from their CKPT_SECS checkpoint files.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

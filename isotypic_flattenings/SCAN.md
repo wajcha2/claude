@@ -186,7 +186,8 @@ no plan fits, before the old block search (the largest intermediate grows to <= 
 "(evaluated with a plan within 8 x the memory cap)".  Check: the retry path on the full point set, first 8 tiles:
 rows 0..191 x columns 0..7 (1536 entries, all nonzero) equal to the old search's checkpoint; test_speedup.py 0
 failures.  The worker was stopped 19:13 (its 48 x 1 checkpoint removed: resumed, it would have kept that tile shape);
-the runner restarted the component (worker 521228).
+the runner restarted the component (worker 521228).  Result 21:18: r = 14 H = V = 6048 (= n1, saturated: no
+separation of r vs r + 1 for r >= 14), eval 6553 s (1.8 h), rref 24 s, wall 2.1 h, peak RSS 3.4 GB (estimate 4.1 GB).
 
 ## 9x9x9, d = 6 complete (2026-11-02 11:16): 13 vs 14 only by ((6),(1^6),(1^6))
 Job n9_d6_s5 done (23 of 23 network components, the last ones run 2026-11-01/02).  Every one of them is at its

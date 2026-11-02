@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 218 | 572 | 0 | 646655 s |
+| 6x6x6 | 8 | 11-13 | 220 | 578 | 0 | 648605 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2501,6 +2501,9 @@ None so far.
 | 6x6x6 | 8 | (44,431,3221) | 2 | 1 | 1764, 4630500 | 11-13 | 11:1764 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 176 s / 473 MB |
 | 6x6x6 | 8 | (44,431,3221) | 2 | 2 | 4410, 1852200 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 559 s / 3204 MB |
 | 6x6x6 | 8 | (44,431,3221) | 2 | 3 | 1050, 7779240 | 11-13 | 11:1050 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 17 s / 388 MB |
+| 6x6x6 | 8 | (44,431,4211) | 2 | 1 | 1764, 10716300 | 11-13 | 11:1764 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 153 s / 469 MB |
+| 6x6x6 | 8 | (44,431,4211) | 2 | 2 | 4410, 4286520 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 786 s / 3203 MB |
+| 6x6x6 | 8 | (44,431,4211) | 2 | 3 | 2430, 7779240 | 11-13 | 11:2430 | U1=2 U2=2 U3=2 U4=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 101 s / 1054 MB |
 | 6x6x6 | 8 | (44,431,431) | 2 | 1 | 1764, 19448100 | 11-13 | 11:1764 | U1=2 U2=2 U3=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 82 s / 469 MB |
 | 6x6x6 | 8 | (44,431,431) | 2 | 2 | 4410, 7779240 | 11-13 | 11:4410 | U1=2 U2=2 U3=0 ; sw13+=2 sw13-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1032 s / 3203 MB |
 | 6x6x6 | 8 | (5111,32111,221111) | 2 | 1 | 1575, 5760 | 11-13 | 11:1575, 14:1575 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=1 U7=0 tested U6 | 1 lines: line e=1 x1 [11:525, 14:525]. | none | 92639 s / 692 MB |
@@ -2660,6 +2663,9 @@ None so far.
 | 6x6x6 | 8 | (53,422,32111) | 2 | 1 | 4410, 967680 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 1377 s / 3202 MB |
 | 6x6x6 | 8 | (53,422,32111) | 2 | 2 | 2520, 1693440 | 11-13 | 11:2520 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 367 s / 1116 MB |
 | 6x6x6 | 8 | (53,422,32111) | 2 | 3 | 384, 11113200 | 11-13 | 11:384 | U1=2 U2=2 U3=2 U4=2 U5=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 8 s / 350 MB |
+| 6x6x6 | 8 | (53,422,332) | 2 | 1 | 4410, 3704400 | 11-13 | 11:4410 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 739 s / 3198 MB |
+| 6x6x6 | 8 | (53,422,332) | 2 | 2 | 2520, 6482700 | 11-13 | 11:2520 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 129 s / 1118 MB |
+| 6x6x6 | 8 | (53,422,332) | 2 | 3 | 1470, 11113200 | 11-13 | 11:1470 | U1=2 U2=2 U3=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 42 s / 568 MB |
 | 6x6x6 | 8 | (53,422,422) | 2 | 1 | 4410, 6350400 | 11-13 | 11:4410 | U1=2 U2=2 U3=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 535 s / 3198 MB |
 | 6x6x6 | 8 | (53,422,422) | 2 | 2 | 2520, 11113200 | 11-13 | 11:2520 | U1=2 U2=2 U3=0 ; sw13+=2 sw13-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 188 s / 1118 MB |
 | 6x6x6 | 8 | (53,5111,5111) | 2 | 1 | 4410, 2480625 | 11-13 | 11:4410 | U1=2 U2=2 U3=2 U4=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 790 s / 3196 MB |

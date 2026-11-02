@@ -24,7 +24,11 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   4000 random pairs, triples, random subsets, one greedy run); family E (reshaped single components, every k x l grid,
   k, l >= 2) on all 238 components with g >= 2: **no separation**.  2026-10-25 23:45 UTC.
 
+* **d9_455_dir0_B_p3** (4x5x5, source the C^4 factor, rank 8 vs 9; sources lam_1 >= 6: (8,1), (7,2), (7,1,1), (6,3), (6,2,1),
+  (6,1,1,1); family B, aux 1): 382 targets of compressed size <= 8000 (44 larger ones skipped), every subset of the sources at
+  the levels 1 and g (`--exhaust 14`), 20475 subsets: **no separation**.  2026-11-02 11:40 UTC.
+
 ## Running / queued (no separation so far)
 
-* d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir0_B_p3 (sources lam_1 >= 6, --exhaust 14);
+* d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);
   d9_555_B_p3 (5x5x5, sources lam_1 >= 6, 159 of 426 targets of size <= 8000).

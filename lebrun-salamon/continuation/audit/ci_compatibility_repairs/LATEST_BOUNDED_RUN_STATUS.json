@@ -1,0 +1,574 @@
+{
+  "schema": "lebrun-native-replay-v1",
+  "started_utc": "2026-11-03T21:56:15.006871+00:00",
+  "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+  "runtime": {
+    "config": {
+      "command": [
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+      ],
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M7200",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ],
+      "external_olean_roots": [
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean:/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib",
+        "LD_PRELOAD": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/libexplicit_exec_path.so",
+        "LEAN_EXPLICIT_EXECUTABLE": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean"
+      },
+      "fingerprint_files": [
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean/libleanshared.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/explicit_exec_path.c",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/libexplicit_exec_path.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+      ],
+      "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+      "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a"
+    },
+    "fingerprint_files": {
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+      "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80"
+    },
+    "toolchain_lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19"
+  },
+  "requested_targets": [
+    "LSBranchRamification",
+    "LSProductGeometry"
+  ],
+  "selected_modules": [
+    "FieldDifferentials",
+    "LSConeDiagonal",
+    "LSConePole",
+    "LSCurveLaurentStandardInputs",
+    "LSNilpotentTopology",
+    "RecompileBasePart01",
+    "LSConeArcs",
+    "LSLaurentRescaling",
+    "RecompileBasePart02",
+    "LSConeLocalization",
+    "RecompileBasePart03",
+    "RecompileBasePart04",
+    "RecompileBasePart05A",
+    "RecompileBasePart05B",
+    "RecompileBasePart05C",
+    "RecompileBasePart05",
+    "RecompileBasePart06",
+    "RecompileBasePart07",
+    "RecompileBase",
+    "RecompileSections",
+    "RecompileExtensionCore",
+    "RecompileExtensionsPart01",
+    "RecompileExtensionsPart02",
+    "RecompileExtensionsPart03",
+    "LSConicSplitting",
+    "LSProperSections",
+    "RecompileExtensionsPart04Geometry",
+    "RecompileExtensionsPart04GluingPrefix",
+    "RecompileExtensionsPart04Gluing",
+    "RecompileExtensionsPart04GluingSections",
+    "RecompileExtensionsPart04Nodes",
+    "RecompileExtensionsPart04",
+    "LSLineValueDescent",
+    "LSGenericSheets",
+    "LSContactLineTests",
+    "RecompileExtensions",
+    "LSBranchAlgebra",
+    "RecompileTail",
+    "LSBranchRamification",
+    "LSPositiveQuotient",
+    "LSSuitableDirections",
+    "LSAffineCurveSelection",
+    "LSConeOpen",
+    "LSConeRadial",
+    "LSPositiveHom",
+    "LSPositiveSplit",
+    "LSRadialDetection",
+    "LSSuitableLinear",
+    "LSConeIsotropy",
+    "LSContactGeneration",
+    "LSLeviFiber",
+    "LSPositiveIndependence",
+    "LSPositiveNodeImage",
+    "LSSelectedPair",
+    "LSConeRescaledArcs",
+    "LSContactHomBaseChange",
+    "LSContactStandardInputs",
+    "LSCurvePairing",
+    "LSAdditionFiberPresentation",
+    "LSContactHorizontal",
+    "LSCurveFunctionField",
+    "LSContactCompletion",
+    "LSCurveLaurentGeometry",
+    "LSConeFiberRigidity",
+    "LSHomVelocity",
+    "LSGlobalVelocity",
+    "LSTangentComparison",
+    "LSContactVelocityTarget",
+    "LSIntrinsicVelocity",
+    "LSRelativeGenericSmoothness",
+    "LSConeDominance",
+    "LSContactDirections",
+    "LSPublishedDirections",
+    "LSProductGeometry"
+  ],
+  "milestone_met": false,
+  "modules": {
+    "FieldDifferentials": {
+      "status": "reused",
+      "output_sha256": "befb5e2c0cd09243c49ef83e5db6977e465a03aa79ccdf8d34f838c89f49bbd3"
+    },
+    "LSConeDiagonal": {
+      "status": "reused",
+      "output_sha256": "5f1200de3483d67d086e55237152f8af0fd4e7a01f74733c41d919bfce2e00e4"
+    },
+    "LSConePole": {
+      "status": "reused",
+      "output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6"
+    },
+    "LSCurveLaurentStandardInputs": {
+      "status": "reused",
+      "output_sha256": "3c843a03dc5e0cb612f333ec4100b24e46bb4c0cf49b72e5863083d54b01b8e5"
+    },
+    "LSNilpotentTopology": {
+      "status": "reused",
+      "output_sha256": "e39a5e90e094034528432c112315cc44b14e0d26b9dfc91b056271aeadc6fd38"
+    },
+    "RecompileBasePart01": {
+      "status": "reused",
+      "output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74"
+    },
+    "LSConeArcs": {
+      "status": "reused",
+      "output_sha256": "d69de0baab99b8c9c0f3fcbc1b40892ff89a8135c4d45e1e37671cf755802e2a"
+    },
+    "LSLaurentRescaling": {
+      "status": "reused",
+      "output_sha256": "58e9961d480800c29b253f3f21a54c2d5d32f7c14011f47fb4a1807235bf724f"
+    },
+    "RecompileBasePart02": {
+      "status": "reused",
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21"
+    },
+    "LSConeLocalization": {
+      "status": "reused",
+      "output_sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d"
+    },
+    "RecompileBasePart03": {
+      "status": "reused",
+      "output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3"
+    },
+    "RecompileBasePart04": {
+      "status": "reused",
+      "output_sha256": "b2949fdabd3adb19db69cc8070275978908397e5209c7f20cffa8fbb249d2cd3"
+    },
+    "RecompileBasePart05A": {
+      "status": "reused",
+      "output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818"
+    },
+    "RecompileBasePart05B": {
+      "status": "reused",
+      "output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3"
+    },
+    "RecompileBasePart05C": {
+      "status": "reused",
+      "output_sha256": "62d545d72f2422de312b01ab553953b0d294de9d7ab4629286a590aa1ff2fd12"
+    },
+    "RecompileBasePart05": {
+      "status": "reused",
+      "output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b"
+    },
+    "RecompileBasePart06": {
+      "status": "reused",
+      "output_sha256": "147e5f9295c888d1017737048e55ccaada65f83668168427a889a461040e3d3d"
+    },
+    "RecompileBasePart07": {
+      "status": "reused",
+      "output_sha256": "3a0466d52eec2119914687beca923790528e44a1e1f8d6ad61a7a3d80205a063"
+    },
+    "RecompileBase": {
+      "status": "reused",
+      "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f"
+    },
+    "RecompileSections": {
+      "status": "reused",
+      "output_sha256": "8789ada7d5c3af28819ccda80d686e1d2009b21cb4c3b938bc94fbfc24910404"
+    },
+    "RecompileExtensionCore": {
+      "status": "reused",
+      "output_sha256": "632bb3878b69eb63e6b3a8636a0cc71387a51f75b185fbedf9264cd2a972b8e0"
+    },
+    "RecompileExtensionsPart01": {
+      "status": "reused",
+      "output_sha256": "a038108970a55ae6985837ca162a681ad9f91bcc14fca68ee15841a128aa6b72"
+    },
+    "RecompileExtensionsPart02": {
+      "status": "reused",
+      "output_sha256": "497aa7eec73be47f712563840ba1782fb5a550d38bac82432c5525ad84547bf4"
+    },
+    "RecompileExtensionsPart03": {
+      "status": "reused",
+      "output_sha256": "bbc5cabeade224258c32e06249f0c2b367ae124def809445014513d41922e959"
+    },
+    "LSConicSplitting": {
+      "status": "reused",
+      "output_sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a"
+    },
+    "LSProperSections": {
+      "status": "reused",
+      "output_sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85"
+    },
+    "RecompileExtensionsPart04Geometry": {
+      "status": "reused",
+      "output_sha256": "a29fccc4a1fc8a34ff8a59b2bd8a922f4d6e634dbcdd43733a42e8e5e6ecc2e0"
+    },
+    "RecompileExtensionsPart04GluingPrefix": {
+      "status": "reused",
+      "output_sha256": "60542f544cb40cd834f8dc3ddc50f029f0030b80c1a4ea5a9cdc2d333cd1ee7e"
+    },
+    "RecompileExtensionsPart04Gluing": {
+      "status": "reused",
+      "output_sha256": "a5ff6315c7d5c7afa7e1227815a0b020d19fe9490045a3fb6a58ea2b15e1e656"
+    },
+    "RecompileExtensionsPart04GluingSections": {
+      "status": "reused",
+      "output_sha256": "8858d9314a224fd2737b21d8450da60cc3dae3b86e9f2606964956ad959a980a"
+    },
+    "RecompileExtensionsPart04Nodes": {
+      "status": "reused",
+      "output_sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d"
+    },
+    "RecompileExtensionsPart04": {
+      "status": "reused",
+      "output_sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff"
+    },
+    "LSLineValueDescent": {
+      "status": "reused",
+      "output_sha256": "de78d7a07498d05c1cf4d67581746c553b48086f9a519a9f121f7ac397a14fb6"
+    },
+    "LSGenericSheets": {
+      "status": "reused",
+      "output_sha256": "cde57c6caedc0fe4fab8a38ad596b90975ecacc8714fd4e2cfef66e6f393d942"
+    },
+    "LSContactLineTests": {
+      "status": "reused",
+      "output_sha256": "c6803cc490b7e2383caf83e4ac31f08db027bea92a2a02dce9d30528ffa49e2f"
+    },
+    "RecompileExtensions": {
+      "status": "reused",
+      "output_sha256": "7191aeab268cda32b213afade1d84366b06872d5ca91e879ed4d54e346a7da4d"
+    },
+    "LSBranchAlgebra": {
+      "status": "reused",
+      "output_sha256": "b86c156be063ec7f688f9431d70173c8339f2e8d67befafe6db8101d82f3bb9e"
+    },
+    "RecompileTail": {
+      "status": "reused",
+      "output_sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e"
+    },
+    "LSBranchRamification": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "passed",
+      "module": "LSBranchRamification",
+      "key": {
+        "source_sha256": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
+        "imports": [
+          "LSBranchAlgebra"
+        ],
+        "dependency_artifacts": {
+          "LSBranchAlgebra": {
+            "sha256": "b86c156be063ec7f688f9431d70173c8339f2e8d67befafe6db8101d82f3bb9e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M7200",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M7200",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/source",
+        "-o",
+        "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/olean/LSBranchRamification.olean",
+        "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/source/LSBranchRamification.lean"
+      ],
+      "started_utc": "2026-11-03T21:56:15.131827+00:00",
+      "stdout": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/logs/LSBranchRamification.20261103T215615131776.stdout.jsonl",
+      "stderr": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/logs/LSBranchRamification.20261103T215615131776.stderr.txt",
+      "return_code": 0,
+      "finished_utc": "2026-11-03T21:56:20.714220+00:00",
+      "seconds": 5.582,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "32bb91afad489aba593f11385674bee50be5ba75c8c5a5954b4f6415d62d5039",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_sha256": "449bdb485715a7282d6fa96c2f005944ef020b98b4b26145b6860490b99e3807",
+      "evidence_kind": "native_kernel_compilation"
+    },
+    "LSPositiveQuotient": {
+      "status": "reused",
+      "output_sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53"
+    },
+    "LSSuitableDirections": {
+      "status": "reused",
+      "output_sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566"
+    },
+    "LSAffineCurveSelection": {
+      "status": "reused",
+      "output_sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216"
+    },
+    "LSConeOpen": {
+      "status": "reused",
+      "output_sha256": "be2860bfbf35b78a73fb795de57b3bc4d7c0ffeb8fd6225f293b235db8a0e434"
+    },
+    "LSConeRadial": {
+      "status": "reused",
+      "output_sha256": "607a4c8b0ed905536266541e5f1f5e1a6b8a83a58da5399104effd8d89b21356"
+    },
+    "LSPositiveHom": {
+      "status": "reused",
+      "output_sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1"
+    },
+    "LSPositiveSplit": {
+      "status": "reused",
+      "output_sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9"
+    },
+    "LSRadialDetection": {
+      "status": "reused",
+      "output_sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d"
+    },
+    "LSSuitableLinear": {
+      "status": "reused",
+      "output_sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c"
+    },
+    "LSConeIsotropy": {
+      "status": "reused",
+      "output_sha256": "97db7735130c56e28e5d01c57d4200135b5d612a05302d4c7ac26b9b3c4b9ab1"
+    },
+    "LSContactGeneration": {
+      "status": "reused",
+      "output_sha256": "544f474c5c436fc7333dafac3e2201cbe7ff01cf030c8d32fb76d107e87852f3"
+    },
+    "LSLeviFiber": {
+      "status": "reused",
+      "output_sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757"
+    },
+    "LSPositiveIndependence": {
+      "status": "reused",
+      "output_sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd"
+    },
+    "LSPositiveNodeImage": {
+      "status": "reused",
+      "output_sha256": "348d7a511c941aa0e4da2972043c08a224bd69685dad90f022cae41646792334"
+    },
+    "LSSelectedPair": {
+      "status": "reused",
+      "output_sha256": "3324a3b64e57d0322be4fbd2d6ce0a3bb1c24444f3a0b041c532d6f1fec1b49c"
+    },
+    "LSConeRescaledArcs": {
+      "status": "reused",
+      "output_sha256": "0fc3ac313ab05183bf8cc4905924d430d74b6942504012b196c7017187e6cc53"
+    },
+    "LSContactHomBaseChange": {
+      "status": "reused",
+      "output_sha256": "583cee379a8cb816d4e4009f5e3c234b50ab66cac47187086f0fe35c5a6196c5"
+    },
+    "LSContactStandardInputs": {
+      "status": "reused",
+      "output_sha256": "0acfd0a11cff0dd15afb85590ca195c8c5c2d6f243365788ef063bf8dfbe1372"
+    },
+    "LSCurvePairing": {
+      "status": "reused",
+      "output_sha256": "e323f23472e523880eafd307b353aa3a5c9bcfdf8c73e9e3bfdaacb6c1a267c4"
+    },
+    "LSAdditionFiberPresentation": {
+      "status": "reused",
+      "output_sha256": "5d660c1529427514014d1667082461570a3c52f6f538bdc8e22fd72a82478fe5"
+    },
+    "LSContactHorizontal": {
+      "status": "reused",
+      "output_sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42"
+    },
+    "LSCurveFunctionField": {
+      "status": "reused",
+      "output_sha256": "a1ac98d87c747ad546504c7c0776fab461cdd43af1eae5c02e58e21afd0d3c25"
+    },
+    "LSContactCompletion": {
+      "status": "reused",
+      "output_sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139"
+    },
+    "LSCurveLaurentGeometry": {
+      "status": "reused",
+      "output_sha256": "1df262c7e0948e8f772e9feb5c4f7dcfa7f8789cc5c6043f35ae02645a872bfd"
+    },
+    "LSConeFiberRigidity": {
+      "status": "reused",
+      "output_sha256": "975b68e5aa1953e18e1ed5642cf905f6fbf080adb03fdf67f23d3f74623b3c0d"
+    },
+    "LSHomVelocity": {
+      "status": "reused",
+      "output_sha256": "e3bfe182fbe3918b97f0d05d117afc0ad68782ae3842b877abb2e72321808549"
+    },
+    "LSGlobalVelocity": {
+      "status": "reused",
+      "output_sha256": "217095a26f1fc70c22a35254918f8d611cfba788c847274f6cd41947e7e5109b"
+    },
+    "LSTangentComparison": {
+      "status": "reused",
+      "output_sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9"
+    },
+    "LSContactVelocityTarget": {
+      "status": "reused",
+      "output_sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226"
+    },
+    "LSIntrinsicVelocity": {
+      "status": "reused",
+      "output_sha256": "100d2f65867de243de1278f52b7fe693c835ddcd1e583623c915daff036d1f39"
+    },
+    "LSRelativeGenericSmoothness": {
+      "status": "reused",
+      "output_sha256": "abfcc91f832c175d66322504b2c4448e210ccb2ab0a0ec6db16d3c2472a33ed1"
+    },
+    "LSConeDominance": {
+      "status": "reused",
+      "output_sha256": "ae68160626973de2142317a8c1b9ce0c62681c27cb15f282243e6ccb6987955a"
+    },
+    "LSContactDirections": {
+      "status": "reused",
+      "output_sha256": "e3715d309351c867c24884c3325ad4fcfe72058607b4eff41dd634e1c3cc11f6"
+    },
+    "LSPublishedDirections": {
+      "status": "reused",
+      "output_sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8"
+    },
+    "LSProductGeometry": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "failed",
+      "module": "LSProductGeometry",
+      "key": {
+        "source_sha256": "5f5060059a3614d71700f360b6757ab2362dc745150c053ffa844cb76a26fdd7",
+        "imports": [
+          "LSPublishedDirections"
+        ],
+        "dependency_artifacts": {
+          "LSPublishedDirections": {
+            "sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M7200",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M7200",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/source",
+        "-o",
+        "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/olean/LSProductGeometry.olean",
+        "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/source/LSProductGeometry.lean"
+      ],
+      "started_utc": "2026-11-03T21:56:20.782059+00:00",
+      "stdout": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/logs/LSProductGeometry.20261103T215620782017.stdout.jsonl",
+      "stderr": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/ci_41714131927/compat_diagnostic/build/logs/LSProductGeometry.20261103T215620782017.stderr.txt",
+      "return_code": 124,
+      "finished_utc": "2026-11-03T21:57:51.109693+00:00",
+      "seconds": 90.327,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "full_selected_graph_passed": false,
+  "final_validation": {
+    "checked_utc": "2026-11-03T21:57:52.303469+00:00",
+    "checked_module_count": 73,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "finished_utc": "2026-11-03T21:57:52.303487+00:00",
+  "failures": [
+    "LSProductGeometry"
+  ],
+  "verified_module_count": 73
+}

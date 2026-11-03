@@ -1,4 +1,5 @@
 import LSTangentComparison
+import LSCotangentDeformations
 
 /-!
 ## The actual relative-Hom tangent comparison at the nodal map
@@ -24,18 +25,18 @@ open LeBrunSalamon.Construction
 
 namespace LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry
 
-/-- The simply transitive action of cotangent functionals on first-order
-lifts, based at the actual constant lift. Source: Stacks 04BU, Lemma 37.9.2,
-04FJ, Lemma 37.9.5, and 04FK, Remark 37.9.6. The map here was constructed
-from actual epsilon coefficients on every target open in LSHomVelocity;
-its normalization on local differentials is already proved there. -/
+/-- The normalized first-order comparison is proved by constructing the
+inverse on every target open as `a ↦ f#(a) + ε D(a)`. The zero-section
+composite proves localness on stalks. This discharges the project translation
+of the classical square-zero deformation comparison (Stacks 02H5, 04FJ,
+04FK), using the existing dual-thickening coefficient theorem explicitly. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.firstOrder_cotangentHom_bijective
     {Y X : Scheme}
     (sY : Y ⟶ ComplexBase) (sX : X ⟶ ComplexBase)
     (f : Y ⟶ X) (hf : f ≫ sX = sY) :
     Function.Bijective (fun D : Lines.FamilyVariation.Deformation sY sX f =>
       D.cotangentHom) := by
-  sorry
+  exact Lines.FamilyVariation.Deformation.cotangentHom_bijective sY sX f hf
 
 /-- Project-facing alias of the cotangent torsor theorem for first-order lifts. -/
 theorem firstOrder_cotangentHom_bijective {Y X : Scheme}

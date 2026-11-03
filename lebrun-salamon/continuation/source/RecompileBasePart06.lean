@@ -1319,10 +1319,26 @@ def tangentMapRaw {X Y S : Scheme} (f : X ⟶ Y) (s : Y ⟶ S) :
       (internalHomPresentation (cotangentSheaf (f ≫ s))
         (structureModule X)).evaluate)
 
-/-- **Published input (characteristic-zero separability).** A nonconstant
-morphism from a smooth integral curve over `ℂ` has nonzero differential.  This
-is the standard separability criterion for morphisms of smooth curves in
-characteristic zero, expressed for the canonical cotangent map. -/
+/-- **Published primitive (characteristic-zero separability).** Debarre,
+`Rational curves on algebraic varieties`, GAeL XVIII notes (2010, revised
+14 November 2020), section 2.4, printed p.23, the paragraph immediately
+after (2.1): for a nonconstant separable map P1_k -> X whose image is in the
+smooth locus, the differential includes T_P1 in f* T_X.  Here the base is
+`ℂ`, so the induced algebraic extension of curve function fields is separable.
+This is the nonzero canonical cotangent differential form of that primitive,
+not an existence assertion about an arbitrary map of the same sheaves.
+
+The actual map is fixed by `pulledFunctionDifferential` and the proved
+`cotangentMap_adjoint`: on local functions its adjoint is a |-> d(f# a).
+The explicit pulled-local-section formula is also proved downstream as
+`Skeleton.ContactDerivativeIsoProof.cotangentMap_differential`.
+`ProjectiveLineOverC` is the binary polynomial Proj with a coefficient-spectrum
+isomorphism; `RationalCurve` supplies the actual map over that base and its
+nonconstancy.  See `audit/NONCONSTANT_DIFFERENTIAL_SOURCE_ELIGIBILITY.json`
+for the expanded-hypothesis audit.  Mathematical source eligibility is
+separate from current-graph native replay, which remains a required gate.
+Primary source:
+https://perso.imj-prg.fr/wp-content/uploads/debarre-pub/NotesGAEL.pdf -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.nonconstantCurveDifferential
     (P : ProjectiveLineOverC) {d : ℕ}
     (X : SmoothProperComplexVariety d) (f : RationalCurve P X) :

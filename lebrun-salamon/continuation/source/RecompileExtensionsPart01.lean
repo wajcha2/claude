@@ -1,5 +1,9 @@
+import LSAffineDerivations
 import RecompileExtensionCore
 import LSConePole
+import LSSecondDiagonalAlgebra
+import LSSectionCover
+import LSPublishedProjectiveSpace
 import Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule
 import Mathlib.Topology.Sheaves.SheafCondition.Sites
 
@@ -1155,7 +1159,19 @@ It is not conflated with properness in the definition. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.ampleLine_hasProjectiveEmbedding
     {d : ℕ} (X : SmoothProperComplexVariety d) (L : LineBundle X.scheme)
     (hL : IsAmpleLine L) : HasProjectiveEmbedding X := by
-  sorry
+  obtain ⟨N, i, hi, hs⟩ :=
+    LeBrunSalamon.PublishedInputs.ProjectiveSpace.properAmpleClosedImmersion ℂ
+      ⟨trivialLine ComplexBase,
+        LeBrunSalamon.ProjectiveQuotient.trivialLine_ample ComplexBase⟩
+      X.structureMap ⟨L, hL⟩
+  refine ⟨{ dimension := N
+            zeroDegreeIso := LeBrunSalamon.Skeleton.zeroDegreeSchemeIso N
+            embedding := i
+            isClosed := hi
+            overComplexBase := ?_ }⟩
+  simpa only [LeBrunSalamon.ProjectiveQuotient.toSpec,
+    LeBrunSalamon.ProjectiveQuotient.constants_complex,
+    LeBrunSalamon.Skeleton.zeroDegreeSchemeIso] using hs
 
 /-- Projectivity of a contact Fano manifold follows from the published
 projective-embedding theorem for an ample invertible sheaf, applied to its
@@ -1255,86 +1271,7 @@ theorem externalExchange_independent_on_proper {d : ℕ}
 
 end LeBrunSalamon.PhaseThirtyFive
 
-/- Exact declarations hoisted from their later positions so the affine
-cotangent comparison is available to the intrinsic diagonal calculation. -/
-section AffineDerivationInputSection
-
-set_option backward.isDefEq.respectTransparency false
-
-open CategoryTheory AlgebraicGeometry Opposite
-open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
-open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentyEight
-
-namespace LeBrunSalamon.Skeleton
-
-/-- Constants in O_X(U), using the actual structure morphism. -/
-def complexConstant {X : Scheme} (s : X ⟶ ComplexBase) (U : X.Opens) (c : ℂ) :
-    RingSections X U :=
-  X.presheaf.map (homOfLE le_top).op
-    (s.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c))
-
-end LeBrunSalamon.Skeleton
-
-open LeBrunSalamon.Skeleton
-
-namespace LeBrunSalamon.StandardInputs
-
-/-- Stacks Project, Tag 01UO, Lemma 29.33.4: a derivation of the ring of
-functions on an affine open extends to a sheaf derivation, with the prescribed
-action on global sections. Here the base is `Spec ℂ`; annihilating the actual
-complex constants is precisely the relative condition. This statement concerns
-only affine sheaf derivations, independently of tangent evaluation or contact
-geometry. https://stacks.math.columbia.edu/tag/01UO -/
-theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists
-    {Y : Scheme}
-    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)
-    (D : RingSections Y U → RingSections Y U)
-    (h0 : D 0 = 0)
-    (hadd : ∀ a b, D (a + b) = D a + D b)
-    (hmul : ∀ a b, D (a * b) = a * D b + b * D a)
-    (hc : ∀ c : ℂ, D (complexConstant s U c) = 0) :
-    ∃ δ : LocalDerivationProof.LocalDerivation s (structureModule Y) U,
-      ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a := by
-  sorry
-
-/-- Project-facing alias of Stacks Project Tag 01UO. -/
-theorem affine_localDerivation_exists {Y : Scheme}
-    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)
-    (D : RingSections Y U → RingSections Y U)
-    (h0 : D 0 = 0)
-    (hadd : ∀ a b, D (a + b) = D a + D b)
-    (hmul : ∀ a b, D (a * b) = a * D b + b * D a)
-    (hc : ∀ c : ℂ, D (complexConstant s U c) = 0) :
-    ∃ δ : LocalDerivationProof.LocalDerivation s (structureModule Y) U,
-      ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a := by
-  exact LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists
-    s U hU D h0 hadd hmul hc
-
-/-- The injective half of Stacks Project, Tag 01UO, Lemma 29.33.4:
-two relative sheaf derivations on an affine open agree when their actions on
-its global functions agree. The conclusion is equality of the derivations
-on every subopen, not a pointwise or contact-geometric assertion.
-https://stacks.math.columbia.edu/tag/01UO -/
-theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext
-    {Y : Scheme}
-    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)
-    (δ ε : LocalDerivationProof.LocalDerivation s (structureModule Y) U)
-    (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :
-    δ = ε := by
-  sorry
-
-/-- Project-facing alias of the injective half of Stacks Project Tag 01UO. -/
-theorem affine_localDerivation_ext {Y : Scheme}
-    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)
-    (δ ε : LocalDerivationProof.LocalDerivation s (structureModule Y) U)
-    (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :
-    δ = ε := by
-  exact LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext
-    s U hU δ ε h
-
-end LeBrunSalamon.StandardInputs
-
-end AffineDerivationInputSection
+/- The generic affine derivation inputs are imported from LSAffineDerivations. -/
 
 /-!
 # Project core -- normalized kernels and the algebraic proof route
@@ -1566,15 +1503,23 @@ theorem globalTensorMap_tmul {Y : Scheme} (s : Y ⟶ ComplexBase) (E F : OModule
   simp only [externalProductSection, sectionValue_tensorSection]
   rfl
 
-/-- **Published input (exact).** The injective half of the canonical
-degree-zero Künneth isomorphism for two copies of a proper complex scheme and
-invertible sheaves.  This is the `n = 0` component of Stacks Project,
-Lemma 33.29.1 (Tag 0BED); `globalTensorMap_tmul` fixes the canonical map. -/
+/-- The original project map is exactly the generic canonical Künneth map,
+including the actual scalar structures, pullbacks and tensor pairing. -/
+theorem globalTensorMap_eq_kunneth {Y : Scheme} (s : Y ⟶ ComplexBase)
+    (E F : OModule Y) :
+    globalTensorMap s E F =
+      LeBrunSalamon.KunnethDegreeZero.canonicalMap s s E F := by
+  rfl
+
+/-- The original injectivity API is proved by specializing the single
+generic degree-zero Künneth input (Stacks33.29.1, Tag0BED). The preceding
+equality fixes the actual map; no project specialization is admitted. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.kunneth_degreeZero_injective
     {d : ℕ} (X : SmoothProperComplexVariety d) (L M : LineBundle X.scheme) :
     Function.Injective
       (globalTensorMap X.structureMap L.sheaf M.sheaf) := by
-  sorry
+  rw [globalTensorMap_eq_kunneth]
+  exact (LeBrunSalamon.KunnethDegreeZero.lineMap_bijective X L M).injective
 
 /-- Project API wrapper for degree-zero Künneth injectivity. -/
 theorem globalTensorMap_injective {d : ℕ}
@@ -1852,18 +1797,21 @@ theorem tensorSecond_zero_on_diagonal_cube {A : Type*} [CommRing A] [Algebra ℂ
   apply tensorFirst_zero_on_diagonal_square D
   exact derivation_mem_power (tensorRightDerivation E) (KaehlerDifferential.ideal ℂ A) 2 t ht
 
-/-- **Published input (exact algebraic form).** For a smooth complex
-algebra, second derivations separate the degree-two piece of the diagonal
-filtration.  This is the degree-two form of the regular-diagonal associated
-graded theorem (Stacks Project Tags 0FDP, 063M and 062Z), the diagonal
-identification `I/I² ≅ Ω` (Tag 00RW), and finite-projective duality
-(Tag 00NX). -/
+/-- The actual tensor operator agrees with the quadratic reconstruction's
+operator; the definitions use the same right-factor derivation. -/
+theorem tensorSecond_eq_secondDiagonal {A : Type*} [CommRing A] [Algebra ℂ A]
+    (D E : Derivation ℂ A A) :
+    tensorSecond D E = LeBrunSalamon.SecondDiagonalAlgebra.second D E := rfl
+
+/-- Second derivations separate the degree-two diagonal class by the proved
+finite-projective reconstruction of I/I². The historical declaration name is
+retained for compatibility; this declaration no longer contains an admission. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.smooth_diagonal_secondDerivatives_detect
     {A : Type*} [CommRing A] [Algebra ℂ A] [Algebra.Smooth ℂ A]
     (t : A ⊗[ℂ] A) (ht : t ∈ (KaehlerDifferential.ideal ℂ A) ^ 2)
     (h : ∀ D E : Derivation ℂ A A, tensorSecond D E t = 0) :
     t ∈ (KaehlerDifferential.ideal ℂ A) ^ 3 := by
-  sorry
+  exact LeBrunSalamon.SecondDiagonalAlgebra.smooth_second_derivatives_detect t ht h
 
 /-- Project API wrapper for degree-two diagonal detection. -/
 theorem smooth_diagonal_square_detected {A : Type*}
@@ -2599,11 +2547,16 @@ def dualBaseChange {X Y : Scheme} (f : X ⟶ Y) (E : OModule Y) :
   currySheaf (tensorLift
     ((pullbackPair f (dualEvaluation E)).postcompose (unitPullbackMap f)))
 
-/-- **Published input (exact).** The canonical evaluation-normalized
-map from the pullback of the dual of a finite locally free module to the dual
-of its pullback is an isomorphism.  This is the finite-locally-free dual
-base-change theorem; see Stacks Project, Section 17.18 (Tag 0FNU), together
-with the arbitrary-base-change assertion used in Lemma 49.2.10 (Tag 0BVF). -/
+/-- **Published input (exact).** EGA I (1960), chapitre 0, (5.4.5),
+states for every morphism of ringed spaces that the canonical comparison
+f*(Eᵛ) → (f*E)ᵛ is an isomorphism when E is locally free of finite rank.
+Finite rank is the standing convention at the end of (5.4.1).
+The canonical map is that of (4.4.6); `dualBaseChange_pullLocalSection`
+below proves its evaluation normalization on every pair of pulled local
+sections, so the particular map in this statement is fixed.
+Primary source: Grothendieck, Publications Mathématiques de l'IHÉS 4
+(1960), chapitre 0, (5.4.5), DOI 10.1007/BF02684778:
+https://numdam.org/item/PMIHES_1960__4__5_0/ . -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso
     {X Y : Scheme} (f : X ⟶ Y) {E : OModule Y} {r : ℕ}
     (h : IsLocallyFreeOfRank E r) :
@@ -3858,7 +3811,17 @@ the universal property of projective space (Stacks Project, Section 27.13,
 in particular Lemma 27.13.1, Tag 01ND). -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.projectiveCoordinates
     (N : ℕ) : Nonempty (ProjectiveCoordinates N) := by
-  sorry
+  obtain ⟨L, hL, a, ha, h⟩ :=
+    LeBrunSalamon.PublishedInputs.ProjectiveSpace.universalInvertibleQuotient ℂ N
+  refine ⟨{ hyperplane := ⟨L, hL⟩
+            coordinate := a
+            generates := ha
+            universal := ?_ }⟩
+  intro T s F b hb
+  have hmap := h T s F.sheaf F.locallyFree b hb
+  simpa only [PointsOver, LeBrunSalamon.ProjectiveQuotient.toSpec,
+    projectiveBaseMap, LeBrunSalamon.ProjectiveQuotient.constants,
+    constantsToDegreeZero, LeBrunSalamon.ProjectiveQuotient.space] using hmap
 
 /-- Project wrapper for the universal projective-coordinate presentation. -/
 theorem projectiveCoordinates_exists (N : ℕ) : Nonempty (ProjectiveCoordinates N) :=

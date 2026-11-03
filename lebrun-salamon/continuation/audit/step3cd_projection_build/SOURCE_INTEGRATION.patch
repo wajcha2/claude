@@ -1,0 +1,32 @@
+--- before/RecompileBasePart05C.lean
++++ after/RecompileBasePart05C.lean
+@@ -1,4 +1,5 @@
+ import RecompileBasePart05B
++import LSProjectionFormula
+ 
+ noncomputable section
+ 
+@@ -740,17 +741,17 @@
+ def HasStructureSheafDescent {X Y : Scheme} (f : X ⟶ Y) : Prop :=
+   IsIso (structurePushforwardMap f)
+ 
+-/-- **Published input (exact).** Degree-zero projection formula for a finite
+-locally free module, in the case where the canonical comparison
+-`O_Y → f_* O_X` is an isomorphism.  This is the global-section form of
+-Stacks Project, Lemma 20.54.2 (Tag 01E6), with the canonical pullback map
+-identified by `pullSection_adjoint` above. -/
++/-- The global-section descent translation is proved from the generic
++finite-locally-free projection formula (Stacks Tag 01E8). Its canonical
++pairing, tensor-unit comparison, structure-sheaf isomorphism and adjunction
++transports are explicit in ProjectionFormulaProof. The historical name is
++retained for compatibility; this declaration itself is no longer admitted. -/
+ theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.projectionFormula_sections_bijective
+     {X Y : Scheme} (f : X ⟶ Y)
+     (hf : IsIso (structurePushforwardMap f)) {r : ℕ}
+     (E : AlgebraicVectorBundle Y r) :
+     Function.Bijective (pullSection f (E := E.sheaf)) := by
+-  sorry
++  exact LeBrunSalamon.ProjectionFormulaProof.sections_bijective f hf E
+ 
+ /-- Project API wrapper for the degree-zero projection formula. -/
+ theorem locallyFree_sections_descend {X Y : Scheme} (f : X ⟶ Y)

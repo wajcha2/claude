@@ -3,6 +3,7 @@ import LSBranchAlgebra
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
 open TopologicalSpace
@@ -211,13 +212,17 @@ theorem normalized_ramification {S Z : Scheme} (q : S ⟶ Z) [IsFinite q]
         (pullback.snd q c (f x)))).map ((pullback.snd q c).stalkMap (f x)).hom =
       (IsLocalRing.maximalIdeal ((pullback q c : Scheme).presheaf.stalk (f x))) ^
         F.index := by
-    simpa only [f, hx] using hpower
+    exact (show f x = F.point from hx).symm ▸ hpower
   have hn := BranchAlgebra.maximalIdeal_image_comp_of_stalkIso f
     (pullback.snd q c) x F.index hlocal
   have hf : f ≫ pullback.snd q c = C.curveCover.map := by
     simpa only [f, Category.assoc] using C.overLine
   refine ⟨C, x, F.index, ⟨hclosed, he, ?_⟩, F.greaterThanOne⟩
-  simpa only [hf] using hn
+  let Q (g : C.curveCover.curve ⟶ ProjectiveLine) : Prop :=
+    (IsLocalRing.maximalIdeal (ProjectiveLine.presheaf.stalk (g x))).map
+        (g.stalkMap x).hom =
+      (IsLocalRing.maximalIdeal (C.curveCover.curve.presheaf.stalk x)) ^ F.index
+  exact (congrArg Q hf).mp hn
 
 /-- A nonzero prime-divisor section has a zero at an actual ordered
 pair of complex points of the square. -/
@@ -250,7 +255,9 @@ theorem divisor_zero_pair {n : ℕ} (X : ContactFanoManifold n)
         Category.comp_id, x]
     · simp only [axisFiber, secondProjection, Category.assoc, pullback.lift_snd,
         x.overC, Category.id_comp, y]
+      rw [← Category.assoc, x.overC, Category.id_comp]
   have hsupport : q (IsLocalRing.closedPoint ℂ) ∈ D.ideal.support := by
+    change q (IsLocalRing.closedPoint ℂ) ∈ (D.ideal.support : Set (Square X))
     rw [← D.ideal.range_subschemeι]
     exact ⟨z.val (IsLocalRing.closedPoint ℂ), rfl⟩
   refine ⟨x, y, ?_⟩
@@ -259,6 +266,7 @@ theorem divisor_zero_pair {n : ℕ} (X : ContactFanoManifold n)
   rw [hxy]
   by_contra hnonzero
   have hnv := (point_mem_nonvanishing_iff D.line D.sectionValue q).mpr hnonzero
+  change q (IsLocalRing.closedPoint ℂ) ∈ (D.ideal.support : Set (Square X)) at hsupport
   rw [D.support_eq] at hsupport
   exact hsupport hnv
 
@@ -306,7 +314,7 @@ theorem transverse_member {n : ℕ} (X : ContactFanoManifold n)
   letI : Smooth s := by dsimp [s]; infer_instance
   letI : IsProper s := by dsimp [s]; infer_instance
   obtain ⟨x₀, y₀, hzero⟩ := divisor_zero_pair X D
-  obtain ⟨axis, hpositive⟩ := H.twoAxis_positive_degree hPic D.line D.sectionValue
+  obtain ⟨axis, hpositive⟩ := LineTests.twoAxis_positive_degree H hPic D.line D.sectionValue
     D.nonzero x₀ y₀ hzero
   let E : RationalSourceOver P H.Parameter H.parameterToC ⟶ Square X :=
     H.sourceProductIso.inv ≫ H.axisEvaluation axis
@@ -323,18 +331,18 @@ theorem transverse_member {n : ℕ} (X : ContactFanoManifold n)
   let J : H.Parameter.Opens := H.meetingOpen axis U ⊓ V
   have hJ : (J : Set H.Parameter).Nonempty :=
     hVdense.inter_open_nonempty _ (H.meetingOpen axis U).isOpen
-      (H.meetingOpen_nonempty axis U hU)
+      (LineTests.meetingOpen_nonempty H axis U hU)
   obtain ⟨w, hw⟩ := complexPoint_in_nonempty_open H.parameterToC J hJ
   let t := H.memberOfParameter w
   let y := H.otherOfParameter w
-  have hparameter : H.parameterPoint t y = w := H.parameterPoint_decompose w
+  have hparameter : H.parameterPoint t y = w := LineTests.parameterPoint_decompose H w
   have hcurve : GenericBranchGeometry.familyFiber H.parameterToC w ≫ E =
       testLine (H.lineAt t) y axis := by
     rw [← hparameter]
     change H.productFiber t y ≫ (H.sourceProductIso.inv ≫ H.axisEvaluation axis) = _
     rw [← Category.assoc, productFiber_inclusion, fiberInclusion_evaluation]
   have hmeets : MeetsOpen (testLine (H.lineAt t) y axis) U := by
-    apply H.meets_of_mem_meetingOpen t y axis U
+    apply LineTests.meets_of_mem_meetingOpen H t y axis U
     rw [hparameter]
     exact hw.1
   obtain ⟨havoid, htransverse⟩ := hV w hw.2
@@ -344,12 +352,17 @@ theorem transverse_member {n : ℕ} (X : ContactFanoManifold n)
       (pullSection (testLine (H.lineAt t) y axis) D.sectionValue)
   have hsupport : testLine (H.lineAt t) y axis
       (p.map (IsLocalRing.closedPoint ℂ)) ∈ D.ideal.support := by
+    change testLine (H.lineAt t) y axis (p.map (IsLocalRing.closedPoint ℂ)) ∈
+      (D.ideal.support : Set (Square X))
     rw [D.support_eq]
     intro hnv
     have hpull : pullSection (p.map ≫ testLine (H.lineAt t) y axis) D.sectionValue ≠ 0 :=
       (point_mem_nonvanishing_iff D.line D.sectionValue
         (p.map ≫ testLine (H.lineAt t) y axis)).mp
-          (by simpa only [Scheme.Hom.comp_apply] using hnv)
+          (by
+            change testLine (H.lineAt t) y axis (p.map (IsLocalRing.closedPoint ℂ)) ∈
+              (nonvanishingOpen D.line D.sectionValue : Set (Square X))
+            exact hnv)
     exact hpull ((FullFamilyDiagonalProof.pullSection_comp_zero_iff p.map
       (testLine (H.lineAt t) y axis) D.sectionValue).1 hp)
   exact ⟨t, y, axis, p, hmeets, hsupport,

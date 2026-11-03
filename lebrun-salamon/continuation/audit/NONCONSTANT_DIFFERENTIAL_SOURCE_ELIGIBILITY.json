@@ -1,0 +1,48 @@
+{
+  "schema": "lebrun-published-primitive-source-audit-v1",
+  "date": "2026-11-03",
+  "theorem": "LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.nonconstantCurveDifferential",
+  "file": "source/RecompileBasePart06.lean",
+  "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+  "declaration_changed": false,
+  "edit_scope": "source annotation only; signature and sorry proof unchanged",
+  "source": {
+    "author": "Olivier Debarre",
+    "title": "Rational curves on algebraic varieties",
+    "publication": "GAeL XVIII lecture notes (2010), revised14 November2020",
+    "locator": "section2.4, printed p.23, paragraph immediately after equation(2.1)",
+    "url": "https://perso.imj-prg.fr/wp-content/uploads/debarre-pub/NotesGAEL.pdf"
+  },
+  "mathematical_eligibility": "source_eligible_known_primitive_after_expanded_type_audit",
+  "published_assertion": "A nonconstant separable P1_k-map with image in the smooth locus has an injective canonical tangent differential. The current assertion is its characteristic-zero nonzero cotangent form.",
+  "canonical_map_evidence": [
+    "PhaseThirty.pulledFunctionDifferential is defined on every open by a -> d(f.app a).",
+    "PhaseThirty.cotangentMap_adjoint proves the actual pullback-pushforward adjunct is differentialLift of that derivation.",
+    "Skeleton.ContactDerivativeIsoProof.cotangentMap_differential proves the same formula on actual pulled local differentials."
+  ],
+  "expanded_hypotheses": {
+    "source_scheme": "Proj of the homogeneous binary polynomial algebra; its map to Spec(C) is Proj.toSpecZero followed by the given coefficient-spectrum isomorphism.",
+    "target": "Actual smooth proper complex variety; smoothness is stronger than smoothness along the image.",
+    "map": "RationalCurve supplies an actual map over C and denies factorization through a C-valued point.",
+    "separability": "The induced map to the curve image gives an algebraic function-field extension in characteristic zero. The separate generic algebraic characteristic-zero separability lemma has passed native checking. It does not assert that an arbitrary transcendental target extension is algebraic.",
+    "coefficient_identification": "The given degree-zero spectrum isomorphism is a base identification of the same polynomial Proj. Existing project base-isomorphism transport retains this map; it is not an arbitrary structure morphism."
+  },
+  "limitations": [
+    "The source paragraph says the tangent sheaf is contained in the pullback tangent sheaf; the intended inclusion is the differential, as indicated by the separability/Frobenius discussion. The audited local formula fixes this canonical interpretation.",
+    "The tiny field check does not construct the image normalization or claim a new global proof of the differential theorem. The latter remains the published primitive.",
+    "This record is not a native-current-graph receipt and does not mark the affected reverse cone as compiled."
+  ],
+  "kernel_status": "current graph replay pending; historical imported interfaces are not promoted to cumulative acceptance",
+  "characteristic_zero_native_check": {
+    "module": "LSCharacteristicZeroSeparability",
+    "source_sha256": "da39cac753228c1d526b1ad57591302d2d15c4fc78fd319c6abda4dc775b2833",
+    "status": "passed",
+    "scope": "Pinned Mathlib only; generic algebraic extensions of a characteristic-zero field. No project function-field construction is claimed.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "evidence": "audit/step3cd_kunneth_cover_build/receipts/LSCharacteristicZeroSeparability.json"
+  }
+}

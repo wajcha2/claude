@@ -1,0 +1,2663 @@
+[
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Type mismatch: After simplification, term\n  hpower\n has type\n  Ideal.map (CommRingCat.Hom.hom (Scheme.Hom.stalkMap (pullback.snd q c) F.point))\n      (IsLocalRing.maximalIdeal ↑(ProjectiveLine.presheaf.stalk ((pullback.snd q c) F.point))) =\n    IsLocalRing.maximalIdeal ↑((pullback q c).presheaf.stalk F.point) ^ F.index\nbut is expected to have type\n  Ideal.map (CommRingCat.Hom.hom (Scheme.Hom.stalkMap (pullback.snd q c) ((C.normalization ≫ C.insertion) x)))\n      (IsLocalRing.maximalIdeal\n        ↑(ProjectiveLine.presheaf.stalk ((pullback.snd q c) ((C.normalization ≫ C.insertion) x)))) =\n    IsLocalRing.maximalIdeal ↑((pullback q c).presheaf.stalk ((C.normalization ≫ C.insertion) x)) ^ F.index",
+    "endPos": {
+      "column": 35,
+      "line": 214
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 214
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Type mismatch: After simplification, term\n  hn\n has type\n  Ideal.map (CommRingCat.Hom.hom (Scheme.Hom.stalkMap (f ≫ pullback.snd q c) x))\n      (IsLocalRing.maximalIdeal ↑(ProjectiveLine.presheaf.stalk ((f ≫ pullback.snd q c) x))) =\n    IsLocalRing.maximalIdeal ↑(C.curveCover.curve.presheaf.stalk x) ^ F.index\nbut is expected to have type\n  Ideal.map (CommRingCat.Hom.hom (Scheme.Hom.stalkMap C.curveCover.map x))\n      (IsLocalRing.maximalIdeal ↑(ProjectiveLine.presheaf.stalk (C.curveCover.map x))) =\n    IsLocalRing.maximalIdeal ↑(C.curveCover.curve.presheaf.stalk x) ^ F.index",
+    "endPos": {
+      "column": 26,
+      "line": 220
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 220
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "unsolved goals\ncase h₁\nn : ℕ\nX : ContactFanoManifold n\nD : PrimeCartierDivisor (Square X)\ns : Square X ⟶ ComplexBase := firstProjection X.variety.structureMap ≫ X.variety.structureMap\nthis✝ : AlgebraicGeometry.IsIntegral D.ideal.subscheme := D.integral\nthis : LocallyOfFiniteType (D.ideal.subschemeι ≫ s) := id inferInstance\nz : PointsOver ComplexBase (𝟙 ComplexBase) D.ideal.subscheme (D.ideal.subschemeι ≫ s)\nh✝ : ↑z (IsLocalRing.closedPoint ℂ) ∈ ⊤\nq : ComplexBase ⟶ Square X := ↑z ≫ D.ideal.subschemeι\nhq : q ≫ s = 𝟙 ComplexBase\nx : ComplexPoint X.variety := { map := q ≫ firstProjection X.variety.structureMap, overC := ⋯ }\ny : ComplexPoint X.variety := { map := q ≫ secondProjection X.variety.structureMap, overC := ⋯ }\n⊢ x.map ≫ X.variety.structureMap ≫ q ≫ pullback.snd X.variety.structureMap X.variety.structureMap =\n    q ≫ pullback.snd X.variety.structureMap X.variety.structureMap",
+    "endPos": {
+      "column": 37,
+      "line": 252
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 4,
+      "line": 251
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑D.ideal.support\nin the target expression\n  q (IsLocalRing.closedPoint ℂ) ∈ D.ideal.support\n\nn : ℕ\nX : ContactFanoManifold n\nD : PrimeCartierDivisor (Square X)\ns : Square X ⟶ ComplexBase := firstProjection X.variety.structureMap ≫ X.variety.structureMap\nthis✝ : AlgebraicGeometry.IsIntegral D.ideal.subscheme := D.integral\nthis : LocallyOfFiniteType (D.ideal.subschemeι ≫ s) := id inferInstance\nz : PointsOver ComplexBase (𝟙 ComplexBase) D.ideal.subscheme (D.ideal.subschemeι ≫ s)\nh✝ : ↑z (IsLocalRing.closedPoint ℂ) ∈ ⊤\nq : ComplexBase ⟶ Square X := ↑z ≫ D.ideal.subschemeι\nhq : q ≫ s = 𝟙 ComplexBase\nx : ComplexPoint X.variety := { map := q ≫ firstProjection X.variety.structureMap, overC := ⋯ }\ny : ComplexPoint X.variety := { map := q ≫ secondProjection X.variety.structureMap, overC := ⋯ }\nhxy : x.map ≫ axisFiber y Axis.first = q\n⊢ q (IsLocalRing.closedPoint ℂ) ∈ D.ideal.support\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    IsLocalRing.closedPoint ℂ\n  has type\n    PrimeSpectrum ℂ\n  but is expected to have type\n    ↥ComplexBase\n  in the application\n    q (IsLocalRing.closedPoint ℂ)",
+    "endPos": {
+      "column": 34,
+      "line": 254
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 254
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑D.ideal.support\nin the target expression\n  q (IsLocalRing.closedPoint ℂ) ∈ D.ideal.support\n\nn : ℕ\nX : ContactFanoManifold n\nD : PrimeCartierDivisor (Square X)\ns : Square X ⟶ ComplexBase := firstProjection X.variety.structureMap ≫ X.variety.structureMap\nthis✝ : AlgebraicGeometry.IsIntegral D.ideal.subscheme := D.integral\nthis : LocallyOfFiniteType (D.ideal.subschemeι ≫ s) := id inferInstance\nz : PointsOver ComplexBase (𝟙 ComplexBase) D.ideal.subscheme (D.ideal.subschemeι ≫ s)\nh✝ : ↑z (IsLocalRing.closedPoint ℂ) ∈ ⊤\nq : ComplexBase ⟶ Square X := ↑z ≫ D.ideal.subschemeι\nhq : q ≫ s = 𝟙 ComplexBase\nx : ComplexPoint X.variety := { map := q ≫ firstProjection X.variety.structureMap, overC := ⋯ }\ny : ComplexPoint X.variety := { map := q ≫ secondProjection X.variety.structureMap, overC := ⋯ }\nhxy : x.map ≫ axisFiber y Axis.first = q\nhsupport : q (IsLocalRing.closedPoint ℂ) ∈ D.ideal.support\nhnonzero : ¬pullSection q D.sectionValue = 0\nhnv : q (IsLocalRing.closedPoint ℂ) ∈ nonvanishingOpen D.line D.sectionValue\n⊢ False\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    IsLocalRing.closedPoint ℂ\n  has type\n    PrimeSpectrum ℂ\n  but is expected to have type\n    ↥ComplexBase\n  in the application\n    q (IsLocalRing.closedPoint ℂ)",
+    "endPos": {
+      "column": 18,
+      "line": 262
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 262
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Invalid field `twoAxis_positive_degree`: The environment does not contain `LeBrunSalamon.Construction.Lines.CoveringFamily.twoAxis_positive_degree`, so it is not possible to project the field `twoAxis_positive_degree` from an expression\n  H\nof type `CoveringFamily X`",
+    "endPos": {
+      "column": 55,
+      "line": 309
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 32,
+      "line": 309
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSBranchRamification",
+    "caption": "",
+    "data": "Tactic `rcases` failed: `x✝ : ?m.173` is not an inductive datatype",
+    "endPos": {
+      "column": 26,
+      "line": 309
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSBranchRamification.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 9,
+      "line": 309
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\ncase h\nY S T : Scheme\nf : Y ⟶ S\ng : T ⟶ S\nU : Y.Opens\na : RingSections Y U\n⊢ pullback.fst f g ≫ f = pullback.snd f g ≫ g",
+    "endPos": {
+      "column": 71,
+      "line": 122
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 67,
+      "line": 114
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom (Scheme.Hom.appTop (lift ?A ?D).map)) ?a\nin the target expression\n  (ConcreteCategory.hom\n        (Scheme.Hom.appTop (lift BaseDifferentialProof.baseChart BaseDifferentialProof.unitDirection).map))\n      parameterFunction =\n    (ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) Infinitesimal.epsilon\n\n⊢ (ConcreteCategory.hom\n        (Scheme.Hom.appTop (lift BaseDifferentialProof.baseChart BaseDifferentialProof.unitDirection).map))\n      parameterFunction =\n    (ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) Infinitesimal.epsilon\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (lift BaseDifferentialProof.baseChart BaseDifferentialProof.unitDirection).map\n  has type\n    Infinitesimal.DualScheme ⟶ BaseDifferentialProof.baseChart.scheme\n  but is expected to have type\n    Infinitesimal.DualScheme ⟶ AffineLine\n  in the application\n    Scheme.Hom.appTop (lift BaseDifferentialProof.baseChart BaseDifferentialProof.unitDirection).map",
+    "endPos": {
+      "column": 39,
+      "line": 209
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 24,
+      "line": 209
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  homLiftMap G z ≫ G.hom.toBase ≫ affineLineToC\nin the target expression\n  (pullback.snd G.source.parameter epsilonParameter ≫ homLiftMap G z) ≫ G.hom.toBase ≫ affineLineToC =\n    pullback.snd G.source.parameter epsilonParameter ≫ Infinitesimal.dualToC\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nz : G.chart.Tangent\nhz : G.baseDifferential z = 1\n⊢ (pullback.snd G.source.parameter epsilonParameter ≫ homLiftMap G z) ≫ G.hom.toBase ≫ affineLineToC =\n    pullback.snd G.source.parameter epsilonParameter ≫ Infinitesimal.dualToC",
+    "endPos": {
+      "column": 66,
+      "line": 262
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 262
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rfl` failed: The left-hand side\n  (CommRingCat.Hom.hom (AffineNode.nodeParameter ≫ planeQuotient)) (Polynomial.C c)\nis not definitionally equal to the right-hand side\n  (CommRingCat.Hom.hom (dualQuotient ≫ parameterMap)) (Polynomial.C c)\n\ncase w.h₁\nc : ℂ\n⊢ (CommRingCat.Hom.hom (AffineNode.nodeParameter ≫ planeQuotient)) (Polynomial.C c) =\n    (CommRingCat.Hom.hom (dualQuotient ≫ parameterMap)) (Polynomial.C c)",
+    "endPos": {
+      "column": 9,
+      "line": 419
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 419
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  firstOrderParameter = fromDual Infinitesimal.epsilon\nis not definitionally equal to target\n  (CommRingCat.Hom.hom (AffineNode.nodeParameter ≫ planeQuotient)) Polynomial.X =\n    (CommRingCat.Hom.hom (dualQuotient ≫ parameterMap)) Polynomial.X",
+    "endPos": {
+      "column": 65,
+      "line": 420
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 420
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  hx\nhas type\n  (ConcreteCategory.hom (AffineNode.nodeParameter ≫ a)) Polynomial.X =\n    (ConcreteCategory.hom (dualQuotient ≫ b)) Polynomial.X\nbut is expected to have type\n  (ConcreteCategory.hom a) (MvPolynomial.X 0 * MvPolynomial.X 1) = (ConcreteCategory.hom b) Infinitesimal.epsilon",
+    "endPos": {
+      "column": 14,
+      "line": 433
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 433
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  congrArg (fun h => (ConcreteCategory.hom h) (Polynomial.C c)) h\nhas type\n  (ConcreteCategory.hom (AffineNode.nodeParameter ≫ a)) (Polynomial.C c) =\n    (ConcreteCategory.hom (dualQuotient ≫ b)) (Polynomial.C c)\nbut is expected to have type\n  (ConcreteCategory.hom a) (MvPolynomial.C c) = (ConcreteCategory.hom b) ((algebraMap ℂ Infinitesimal.Dual) c)",
+    "endPos": {
+      "column": 29,
+      "line": 436
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 435
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\ncase exists_desc.refine_1.hX\nT : CommRingCat\na : ↧PlaneRing ⟶ T\nb : ↧Infinitesimal.Dual ⟶ T\nh : AffineNode.nodeParameter ≫ a = dualQuotient ≫ b\nhxy : (ConcreteCategory.hom a) (MvPolynomial.X 0 * MvPolynomial.X 1) = (ConcreteCategory.hom b) Infinitesimal.epsilon\nhC :\n  ∀ (c : ℂ),\n    (ConcreteCategory.hom a) (MvPolynomial.C c) = (ConcreteCategory.hom b) ((algebraMap ℂ Infinitesimal.Dual) c)\nhk : nodeInfinitesimalIdeal ≤ RingHom.ker (CommRingCat.Hom.hom a)\nl : ↧Ring ⟶ T := CommRingCat.ofHom (Ideal.Quotient.lift nodeInfinitesimalIdeal (CommRingCat.Hom.hom a) hk)\np : Fin 2\n⊢ (CommRingCat.Hom.hom (planeQuotient ≫ l)) (MvPolynomial.X p) = (CommRingCat.Hom.hom a) (MvPolynomial.X p)",
+    "endPos": {
+      "column": 9,
+      "line": 446
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 4,
+      "line": 444
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  hC c\nhas type\n  (ConcreteCategory.hom a) (MvPolynomial.C c) = (ConcreteCategory.hom b) ((algebraMap ℂ Infinitesimal.Dual) c)\nbut is expected to have type\n  ((CommRingCat.Hom.hom (parameterMap ≫ l)).comp (Ideal.Quotient.mk Infinitesimal.dualIdeal)) (Polynomial.C c) =\n    ((CommRingCat.Hom.hom b).comp (Ideal.Quotient.mk Infinitesimal.dualIdeal)) (Polynomial.C c)",
+    "endPos": {
+      "column": 20,
+      "line": 455
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 10,
+      "line": 455
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  hxy\nhas type\n  (ConcreteCategory.hom a) (MvPolynomial.X 0 * MvPolynomial.X 1) = (ConcreteCategory.hom b) Infinitesimal.epsilon\nbut is expected to have type\n  ((CommRingCat.Hom.hom (parameterMap ≫ l)).comp (Ideal.Quotient.mk Infinitesimal.dualIdeal)) Polynomial.X =\n    ((CommRingCat.Hom.hom b).comp (Ideal.Quotient.mk Infinitesimal.dualIdeal)) Polynomial.X",
+    "endPos": {
+      "column": 19,
+      "line": 456
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 10,
+      "line": 456
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\nF : StandardSource\n⊢ (chartOpen F (leftIndex 0) (rightIndex 0)).ι = (chartOpen F 0 0).ι",
+    "endPos": {
+      "column": 41,
+      "line": 522
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 70,
+      "line": 519
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (nodeOpen ?F).ι ≫ inclusion ?F\nin the target expression\n  (openIso F).hom ≫ (nodeOpen F).ι ≫ pullback.fst F.parameter epsilonParameter =\n    Spec.map EpsilonNode.planeQuotient ≫ modelMap F 0\n\nF : StandardSource\n⊢ (openIso F).hom ≫ (nodeOpen F).ι ≫ pullback.fst F.parameter epsilonParameter =\n    Spec.map EpsilonNode.planeQuotient ≫ modelMap F 0",
+    "endPos": {
+      "column": 47,
+      "line": 548
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 31,
+      "line": 548
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  Ideal.span {?x} ≤ ?I\nin the target expression\n  ∀ a_1 ∈ Ideal.span {Polynomial.X ^ 2}, (Polynomial.eval₂RingHom (complexConstants sT) a) a_1 = 0\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nT : Scheme\nsT : T ⟶ ComplexBase\na : RingSections T ⊤\nha : a ^ 2 = 0\n⊢ ∀ a_1 ∈ Ideal.span {Polynomial.X ^ 2}, (Polynomial.eval₂RingHom (complexConstants sT) a) a_1 = 0",
+    "endPos": {
+      "column": 66,
+      "line": 565
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 35,
+      "line": 565
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom\n      ((Scheme.ΓSpecIso ↧ℂ).inv ≫ Scheme.Hom.appTop (Spec.map (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual)))))\n    c\nin the target expression\n  (ConcreteCategory.hom (Scheme.Hom.appTop (point sT a ha)))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop Infinitesimal.dualToC))\n        ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).inv) c)) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop sT)) ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).inv) c)\n\nT : Scheme\nsT : T ⟶ ComplexBase\na : RingSections T ⊤\nha : a ^ 2 = 0\nc : ↑↧ℂ\nhc :\n  (ConcreteCategory.hom\n        (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual) ≫ (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv))\n      c =\n    (ConcreteCategory.hom\n        ((Scheme.ΓSpecIso ↧ℂ).inv ≫ Scheme.Hom.appTop (Spec.map (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual)))))\n      c\n⊢ (ConcreteCategory.hom (Scheme.Hom.appTop (point sT a ha)))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop Infinitesimal.dualToC))\n        ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).inv) c)) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop sT)) ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).inv) c)",
+    "endPos": {
+      "column": 10,
+      "line": 603
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 603
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom\n      (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual) ≫ (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv))\n    c\nin the target expression\n  (ConcreteCategory.hom (Scheme.Hom.appTop f))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) ((algebraMap ℂ Infinitesimal.Dual) c)) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop g))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) ((algebraMap ℂ Infinitesimal.Dual) c))\n\ncase h₁\nT : Scheme\nsT : T ⟶ ComplexBase\nf g : T ⟶ Infinitesimal.DualScheme\nhf : f ≫ Infinitesimal.dualToC = sT\nhg : g ≫ Infinitesimal.dualToC = sT\nhe :\n  (ConcreteCategory.hom (Scheme.Hom.appTop f))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) Infinitesimal.epsilon) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop g))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) Infinitesimal.epsilon)\np : Polynomial ℂ\nc : ℂ\nhc :\n  (ConcreteCategory.hom\n        (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual) ≫ (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv))\n      c =\n    (ConcreteCategory.hom\n        ((Scheme.ΓSpecIso ↧ℂ).inv ≫ Scheme.Hom.appTop (Spec.map (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual)))))\n      c\n⊢ (ConcreteCategory.hom (Scheme.Hom.appTop f))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) ((algebraMap ℂ Infinitesimal.Dual) c)) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop g))\n      ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧Infinitesimal.Dual).inv) ((algebraMap ℂ Infinitesimal.Dual) c))",
+    "endPos": {
+      "column": 12,
+      "line": 643
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 10,
+      "line": 643
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    SquareZeroFunction.point sT _a ⋯ =\n      SquareZeroFunction.point sT\n        ((ConcreteCategory.hom (Scheme.Hom.appTop f)) a * (ConcreteCategory.hom (Scheme.Hom.appTop f)) b) ⋯\nError: Application type mismatch: The argument\n  map_pow (ConcreteCategory.hom (Scheme.Hom.appTop f)) (a * b) 2\nhas type\n  (ConcreteCategory.hom (Scheme.Hom.appTop f)) ((a * b) ^ 2) = (ConcreteCategory.hom (Scheme.Hom.appTop f)) (a * b) ^ 2\nbut is expected to have type\n  (ConcreteCategory.hom (Scheme.Hom.appTop f)) ((a * b) ^ 2) = _a ^ 2\nin the application\n  Eq.symm (map_pow (ConcreteCategory.hom (Scheme.Hom.appTop f)) (a * b) 2)\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\ncase h₁\nF : StandardSource\nT Y : Scheme\nsT : T ⟶ ComplexBase\nsY : Y ⟶ ComplexBase\nf : T ⟶ Y\nhf : f ≫ sY = sT\na b : RingSections Y ⊤\nhab : (a * b) ^ 2 = 0\n⊢ SquareZeroFunction.point sT ((ConcreteCategory.hom (Scheme.Hom.appTop f)) (a * b)) ⋯ =\n    SquareZeroFunction.point sT\n      ((ConcreteCategory.hom (Scheme.Hom.appTop f)) a * (ConcreteCategory.hom (Scheme.Hom.appTop f)) b) ⋯",
+    "endPos": {
+      "column": 58,
+      "line": 803
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 51,
+      "line": 803
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ nodeSource G.source (toC affineLineToC) coordinate epsilon =\n    (↑(ratioPoint 0) ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ firstNodeMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (↑(ratioPoint 0) ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 93,
+      "line": 1015
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1013
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ SquareZeroFunction.point (toC affineLineToC) (coordinate * epsilon) ?m.113 =\n    (↑(ratioPoint 0) ≫ firstBranch G) ≫ pullback.snd G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ firstNodeMap G ≫ pullback.snd G.source.parameter epsilonParameter =\n    (↑(ratioPoint 0) ≫ firstBranch G) ≫ pullback.snd G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 93,
+      "line": 1024
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1022
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ nodeSource G.source (toC affineLineToC) epsilon coordinate =\n    (↑(ratioPoint 0) ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ secondNodeMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (↑(ratioPoint 0) ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 94,
+      "line": 1037
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1035
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ SquareZeroFunction.point (toC affineLineToC) (epsilon * coordinate) ?m.113 =\n    (↑(ratioPoint 0) ≫ secondBranch G) ≫ pullback.snd G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ secondNodeMap G ≫ pullback.snd G.source.parameter epsilonParameter =\n    (↑(ratioPoint 0) ≫ secondBranch G) ≫ pullback.snd G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 94,
+      "line": 1046
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1044
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    nodeFamily G.source (toC Infinitesimal.dualToC) _a\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) epsilon)\n        ⋯ =\n      MixedFamily.swap ≫\n        nodeFamily G.source (toC Infinitesimal.dualToC)\n          ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n            epsilon)\n          _a ⋯\nError: Application type mismatch: The argument\n  map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n    coordinate epsilon\nhas type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n      (coordinate * epsilon) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) coordinate *\n      (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) epsilon\nbut is expected to have type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n      (coordinate * epsilon) =\n    _a * (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) epsilon\nin the application\n  Eq.symm\n    (map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n      coordinate epsilon)\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\n⊢ nodeFamily G.source (toC Infinitesimal.dualToC)\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n        coordinate)\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) epsilon)\n      ⋯ =\n    MixedFamily.swap ≫\n      nodeFamily G.source (toC Infinitesimal.dualToC)\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over))) epsilon)\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map epsilonParameter epsilonParameter_over)))\n          coordinate)\n        ⋯",
+    "endPos": {
+      "column": 27,
+      "line": 1120
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1120
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ outerSource G.source 1 (toC affineLineToC) epsilon coordinate =\n    (↑(ratioPoint 1) ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ firstOuterMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (↑(ratioPoint 1) ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 93,
+      "line": 1185
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1183
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection affineLineToC ≫ outerSource G.source 2 (toC affineLineToC) epsilon coordinate =\n    (↑(ratioPoint 1) ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter\nis not definitionally equal to target\n  zeroSection affineLineToC ≫ secondOuterMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (↑(ratioPoint 1) ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 94,
+      "line": 1201
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1199
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  DualThickening.map (scalarPoint 0) ⋯ ≫ outerSource G.source 1 (toC affineLineToC) epsilon coordinate = ?m.88\nis not definitionally equal to target\n  DualThickening.map (scalarPoint 0) ⋯ ≫ firstOuterMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (parameter (𝟙 ComplexBase) ≫ markLift G.source G.marks.first ⋯) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 73,
+      "line": 1261
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1260
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  DualThickening.map (scalarPoint 0) ⋯ ≫ outerSource G.source 2 (toC affineLineToC) epsilon coordinate = ?m.88\nis not definitionally equal to target\n  DualThickening.map (scalarPoint 0) ⋯ ≫ secondOuterMap G ≫ pullback.fst G.source.parameter epsilonParameter =\n    (parameter (𝟙 ComplexBase) ≫ markLift G.source G.marks.second ⋯) ≫ pullback.fst G.source.parameter epsilonParameter",
+    "endPos": {
+      "column": 73,
+      "line": 1277
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1276
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (sectionEquiv ?m.132).symm ((sectionEquiv ?m.132) ?x)\nin the target expression\n  pullSection (scalarPoint 0)\n      (sectionFromValue (sectionValue (FamilyVariation.Deformation.section X.variety (firstOuterDeformation G z hz)))) =\n    0\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nz : G.chart.Tangent\nhz : G.baseDifferential z = 1\nhe : G.endpointDifferential z = 0\nthis : SheafOfModules.IsQuasicoherent\n  (pullbackModule (↑(ratioPoint 1) ≫ D.first.curve.map) (tangentSheaf X.variety.structureMap)) :=\n  LocalExtensionSplitting.quasicoherent_of_locallyFreeRank\n    (pullback_locallyFree (↑(ratioPoint 1) ≫ D.first.curve.map)\n      (smooth_tangent_rank X.variety.structureMap (2 * n + 1) X.variety.smooth))\n⊢ pullSection (scalarPoint 0)\n      (sectionFromValue (sectionValue (FamilyVariation.Deformation.section X.variety (firstOuterDeformation G z hz)))) =\n    0\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule (scalarPoint 0)\n      (pullbackModule (↑(ratioPoint 1) ≫ D.first.curve.map) (tangentSheaf X.variety.structureMap))\n  has type\n    OModule ComplexBase\n  but is expected to have type\n    SheafOfModules ComplexBase.ringCatSheaf\n  in the application\n    HasZeroMorphisms.zero (SheafOfModules.unit ComplexBase.ringCatSheaf)\n      (pullbackModule (scalarPoint 0)\n        (pullbackModule (↑(ratioPoint 1) ≫ D.first.curve.map) (tangentSheaf X.variety.structureMap)))",
+    "endPos": {
+      "column": 39,
+      "line": 1324
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1324
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (sectionEquiv ?m.132).symm ((sectionEquiv ?m.132) ?x)\nin the target expression\n  pullSection (scalarPoint 0)\n      (sectionFromValue\n        (sectionValue (FamilyVariation.Deformation.section X.variety (secondOuterDeformation G z hz)))) =\n    0\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nz : G.chart.Tangent\nhz : G.baseDifferential z = 1\nhe : G.endpointDifferential z = 0\nthis : SheafOfModules.IsQuasicoherent\n  (pullbackModule (↑(ratioPoint 1) ≫ D.second.curve.map) (tangentSheaf X.variety.structureMap)) :=\n  LocalExtensionSplitting.quasicoherent_of_locallyFreeRank\n    (pullback_locallyFree (↑(ratioPoint 1) ≫ D.second.curve.map)\n      (smooth_tangent_rank X.variety.structureMap (2 * n + 1) X.variety.smooth))\n⊢ pullSection (scalarPoint 0)\n      (sectionFromValue\n        (sectionValue (FamilyVariation.Deformation.section X.variety (secondOuterDeformation G z hz)))) =\n    0\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule (scalarPoint 0)\n      (pullbackModule (↑(ratioPoint 1) ≫ D.second.curve.map) (tangentSheaf X.variety.structureMap))\n  has type\n    OModule ComplexBase\n  but is expected to have type\n    SheafOfModules ComplexBase.ringCatSheaf\n  in the application\n    HasZeroMorphisms.zero (SheafOfModules.unit ComplexBase.ringCatSheaf)\n      (pullbackModule (scalarPoint 0)\n        (pullbackModule (↑(ratioPoint 1) ≫ D.second.curve.map) (tangentSheaf X.variety.structureMap)))",
+    "endPos": {
+      "column": 39,
+      "line": 1339
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1339
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\ncase h\nY : Scheme\nd : ℕ\nM : SmoothProperComplexVariety d\nsY : Y ⟶ ComplexBase\nf : Y ⟶ M.scheme\nE : Deformation sY M.structureMap f\nU : M.scheme.Opens\na : RingSections M.scheme U\n⊢ E.map ≫ M.structureMap = parameter sY ≫ Infinitesimal.dualToC",
+    "endPos": {
+      "column": 71,
+      "line": 1377
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 41,
+      "line": 1368
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `dualMap`",
+    "endPos": {
+      "column": 11,
+      "line": 1394
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 4,
+      "line": 1394
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `intrinsicContactLine_velocity_zero`",
+    "endPos": {
+      "column": 42,
+      "line": 1412
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 1412
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\nY : Scheme\nsY : Y ⟶ ComplexBase\nc : RingSections Y ⊤\n⊢ pullback.lift (projection sY)\n        (SquareZeroFunction.point (toC sY)\n          (globalEpsilon sY * (ConcreteCategory.hom (Scheme.Hom.appTop (projection sY))) c) ⋯)\n        ⋯ ≫\n      projection sY =\n    projection sY",
+    "endPos": {
+      "column": 12,
+      "line": 1454
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 48,
+      "line": 1453
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 91,
+      "line": 1466
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "runtime.maxHeartbeats",
+    "pos": {
+      "column": 2,
+      "line": 1464
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  zeroSection sY ≫\n      SquareZeroFunction.point (toC sY)\n        (globalEpsilon sY * (ConcreteCategory.hom (Scheme.Hom.appTop (projection sY))) c) ?m.84 =\n    zeroSection sY ≫ parameter sY\nis not definitionally equal to target\n  (zeroSection sY ≫ map sY c) ≫ pullback.snd sY Infinitesimal.dualToC =\n    zeroSection sY ≫ pullback.snd sY Infinitesimal.dualToC",
+    "endPos": {
+      "column": 89,
+      "line": 1476
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1474
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  Scheme.Hom.appLE (map sY c) ⊤ (projection sY ⁻¹ᵁ U) ?m.131 =\n    Scheme.Hom.appLE (map sY c) ⊤ ⊤ ?m.144 ≫ (space sY).presheaf.map (homOfLE ⋯).op\nis not definitionally equal to target\n  Scheme.Hom.appLE (map sY c) ⊤ (projection sY ⁻¹ᵁ U) ⋯ =\n    Scheme.Hom.appTop (map sY c) ≫ (space sY).presheaf.map (homOfLE ⋯).op",
+    "endPos": {
+      "column": 74,
+      "line": 1510
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1509
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ?f (?x * ?y)\nin the target expression\n  (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) a +\n      epsilonOn sY U *\n          (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U))\n            ((ConcreteCategory.hom (Y.presheaf.map (homOfLE ⋯).op)) c) *\n        (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) b =\n    (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) a +\n      epsilonOn sY U *\n        ((ConcreteCategory.hom (Scheme.Hom.app (projection sY) U))\n            ((ConcreteCategory.hom (Y.presheaf.map (homOfLE ⋯).op)) c) *\n          (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) b)\n\nY : Scheme\nsY : Y ⟶ ComplexBase\nc : RingSections Y ⊤\nU : Y.Opens\na b : RingSections Y U\n⊢ (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) a +\n      epsilonOn sY U *\n          (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U))\n            ((ConcreteCategory.hom (Y.presheaf.map (homOfLE ⋯).op)) c) *\n        (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) b =\n    (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) a +\n      epsilonOn sY U *\n        ((ConcreteCategory.hom (Scheme.Hom.app (projection sY) U))\n            ((ConcreteCategory.hom (Y.presheaf.map (homOfLE ⋯).op)) c) *\n          (ConcreteCategory.hom (Scheme.Hom.app (projection sY) U)) b)",
+    "endPos": {
+      "column": 13,
+      "line": 1526
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1526
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 5,
+      "line": 1548
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 1548
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  TwoChartSections.homSection (h ≫ GlobalScalars.scalarEnd (structureModule Y) c)\nof type\n  (SheafOfModules.unit Y.ringCatSheaf).Hom (internalHomSheaf E (structureModule Y))",
+    "endPos": {
+      "column": 92,
+      "line": 1588
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 89,
+      "line": 1588
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  TwoChartSections.homSection h\nof type\n  (SheafOfModules.unit Y.ringCatSheaf).Hom (internalHomSheaf E (structureModule Y))",
+    "endPos": {
+      "column": 44,
+      "line": 1591
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 41,
+      "line": 1591
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HSMul (RingSections Y ⊤) (CSections sY (pullbackModule f (tangentSheaf M.structureMap))) ?m.32\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 56,
+      "line": 1610
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 39,
+      "line": 1610
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    nodeFamily G.source (toC sT) _a ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon) ⋯ =\n      DualScaling.map sT ((ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction) ≫\n        outerFamily G.source 1 ⋯ (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) epsilon)\n          ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) coordinate) ⋯\nError: Application type mismatch: The argument\n  map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate epsilon\nhas type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) (coordinate * epsilon) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate *\n      (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon\nbut is expected to have type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) (coordinate * epsilon) =\n    _a * (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon\nin the application\n  Eq.symm (map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate epsilon)\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nT : Scheme\nsT : T ⟶ ComplexBase\nu w : T ⟶ AffineLine\nhu : u ≫ affineLineToC = sT\nhw : w ≫ affineLineToC = sT\nhuw :\n  (ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction *\n      (ConcreteCategory.hom (Scheme.Hom.appTop w)) parameterFunction =\n    1\n⊢ nodeFamily G.source (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate)\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon) ⋯ =\n    DualScaling.map sT ((ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction) ≫\n      outerFamily G.source 1 ⋯ (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) epsilon)\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) coordinate) ⋯",
+    "endPos": {
+      "column": 35,
+      "line": 1796
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1796
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    nodeFamily G.source (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon) _a ⋯ =\n      DualScaling.map sT ((ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction) ≫\n        outerFamily G.source 2 ⋯ (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) epsilon)\n          ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) coordinate) ⋯\nError: Application type mismatch: The argument\n  map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon coordinate\nhas type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) (epsilon * coordinate) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon *\n      (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate\nbut is expected to have type\n  (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) (epsilon * coordinate) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon * _a\nin the application\n  Eq.symm (map_mul (ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon coordinate)\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nT : Scheme\nsT : T ⟶ ComplexBase\nu w : T ⟶ AffineLine\nhu : u ≫ affineLineToC = sT\nhw : w ≫ affineLineToC = sT\nhuw :\n  (ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction *\n      (ConcreteCategory.hom (Scheme.Hom.appTop w)) parameterFunction =\n    1\n⊢ nodeFamily G.source (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) epsilon)\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map u hu))) coordinate) ⋯ =\n    DualScaling.map sT ((ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction) ≫\n      outerFamily G.source 2 ⋯ (toC sT) ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) epsilon)\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (DualThickening.map w hw))) coordinate) ⋯",
+    "endPos": {
+      "column": 35,
+      "line": 1818
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1818
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `presieve₀_mem_precoverage_iff`",
+    "endPos": {
+      "column": 37,
+      "line": 1903
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 1903
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\n⊢ { I₀ := Fin 2, X := fun x => space affineLineToC, f := chartMap }.presieve₀ ∈\n    (Scheme.precoverage IsOpenImmersion).coverings (space P.structureMap)",
+    "endPos": {
+      "column": 44,
+      "line": 1919
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 10,
+      "line": 1902
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a => ratioFunction _a 1 = (ConcreteCategory.hom (Scheme.Hom.appTop w)) parameterFunction\nError: Application type mismatch: The argument\n  this\nhas type\n  IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1))\nbut is expected to have type\n  IsIso (pullSection _a ((projectiveCoordinates 1).coordinate 1))\nin the application\n  @ratioFunction T _a 1 ⋯\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nT : Scheme\nu w : T ⟶ AffineLine\nh : u ≫ ↑(ratioPoint 0) = w ≫ ↑(ratioPoint 1)\nf : T ⟶ ProjectiveLine := u ≫ ↑(ratioPoint 0)\nthis✝ : IsIso (pullSection f ((projectiveCoordinates 1).coordinate 0)) := ratioPull_self_isIso u 0\nthis : IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1)) :=\n  id\n    (Eq.mpr (id (congrArg (fun _a => IsIso (pullSection _a ((projectiveCoordinates 1).coordinate 1))) h))\n      (ratioPull_self_isIso w 1))\nh0 : ratioFunction f 0 = (ConcreteCategory.hom (Scheme.Hom.appTop u)) parameterFunction\n⊢ ratioFunction (u ≫ ↑(ratioPoint 0)) 1 = (ConcreteCategory.hom (Scheme.Hom.appTop w)) parameterFunction",
+    "endPos": {
+      "column": 9,
+      "line": 1936
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 1936
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `scalarSection_mul`",
+    "endPos": {
+      "column": 25,
+      "line": 1948
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 1948
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\ncase refine_2.h₀\nT : Scheme\na b : T ⟶ space affineLineToC\nh : a ≫ chartMap 0 = b ≫ chartMap 1\nhp : (a ≫ projection affineLineToC) ≫ ↑(ratioPoint 0) = (b ≫ projection affineLineToC) ≫ ↑(ratioPoint 1)\nhe : a ≫ parameter affineLineToC = b ≫ parameter affineLineToC\nr : T ⟶ Overlap := pullback.lift (a ≫ projection affineLineToC) (b ≫ projection affineLineToC) hp\nq : T ⟶ space overlapBase := pullback.lift r (a ≫ parameter affineLineToC) ⋯\n⊢ pullback.lift (a ≫ pullback.fst affineLineToC Infinitesimal.dualToC)\n        (b ≫ pullback.fst affineLineToC Infinitesimal.dualToC) ⋯ ≫\n      pullback.snd ↑(ratioPoint 0) ↑(ratioPoint 1) =\n    b ≫ pullback.fst affineLineToC Infinitesimal.dualToC",
+    "endPos": {
+      "column": 93,
+      "line": 2009
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 4,
+      "line": 2006
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize\n  Fintype cover.I₀\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 13,
+      "line": 2056
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2056
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  E₀.overC\nhas type\n  E₀.map ≫ sZ = toC affineLineToC\nbut is expected to have type\n  localMap sZ f E₀ E₁ i ≫ sZ = toC affineLineToC",
+    "endPos": {
+      "column": 18,
+      "line": 2057
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 2057
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 18,
+      "line": 2058
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2058
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "expected token",
+    "endPos": null,
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": true,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2094
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `DeformationGluing.exists_global_of_divisible`",
+    "endPos": {
+      "column": 52,
+      "line": 2134
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 2134
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 84,
+      "line": 2138
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2136
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `DeformationGluing.exists_global_of_divisible`",
+    "endPos": {
+      "column": 52,
+      "line": 2148
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 2148
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 84,
+      "line": 2152
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2150
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  pullLocalSection ?f ?F ?U ((ConcreteCategory.hom (Scheme.Modules.Hom.app ?a ?U)) ?e)\nin the target expression\n  pullLocalSection f F (unop V).left ((ConcreteCategory.hom ((SheafOfModules.Hom.over p U).val.app (op (unop V)))) v) =\n    (ConcreteCategory.hom (Scheme.Modules.Hom.app ((Scheme.Modules.pullback f).map p) (f ⁻¹ᵁ (unop V).left)))\n      (pullLocalSection f E (unop V).left v)\n\nY Z : Scheme\nf : Z ⟶ Y\nU : Y.Opens\nE F : OModule Y\np : E ⟶ F\nV : (Over U)ᵒᵖ\nv : ↑((SheafOfModules.over E U).val.obj V)\n⊢ pullLocalSection f F (unop V).left ((ConcreteCategory.hom ((SheafOfModules.Hom.over p U).val.app (op (unop V)))) v) =\n    (ConcreteCategory.hom (Scheme.Modules.Hom.app ((Scheme.Modules.pullback f).map p) (f ⁻¹ᵁ (unop V).left)))\n      (pullLocalSection f E (unop V).left v)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule f F\n  has type\n    OModule Z\n  but is expected to have type\n    SheafOfModules Z.ringCatSheaf\n  in the application\n    SheafOfModules.over (pullbackModule f F)",
+    "endPos": {
+      "column": 77,
+      "line": 2214
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 24,
+      "line": 2214
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (cotangentSheaf X.structureMap)).map (𝟙 H.openSet).op)) w\nin the target expression\n  (((dualEvaluation (cotangentSheaf X.structureMap)).apply (Over.mk (𝟙 H.openSet)).left) v)\n      ((ConcreteCategory.hom\n          ((Scheme.Modules.presheaf (cotangentSheaf X.structureMap)).map (Over.mk (𝟙 H.openSet)).hom.op))\n        w) =\n    (ConcreteCategory.hom\n        ((SheafOfModules.Hom.over C.sequence.form H.openSet ≫ (frameIso H).inv).val.app (op (Over.mk (𝟙 H.openSet)))))\n      v\n\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nH : AffineLineFrame C.sequence.line\nw : SectionsOn (cotangentSheaf X.structureMap) H.openSet\nhw :\n  ∀ (v : SectionsOn (tangentSheaf X.structureMap) H.openSet),\n    (((dualEvaluation (cotangentSheaf X.structureMap)).apply H.openSet) v) w = localContactValue C H v\nthis✝ : SheafOfModules.IsQuasicoherent (tangentSheaf X.structureMap) :=\n  LocalExtensionSplitting.quasicoherent_of_locallyFreeRank (smooth_tangent_rank X.structureMap (2 * n + 1) X.smooth)\nthis : SheafOfModules.IsQuasicoherent (structureModule X.scheme) :=\n  LocalExtensionSplitting.quasicoherent_of_locallyFreeRank (structureModule_rank X.scheme)\nv : ↑((SheafOfModules.over (dualSheaf (cotangentSheaf X.structureMap)) H.openSet).val.obj (op (Over.mk (𝟙 H.openSet))))\nhid : (ConcreteCategory.hom ((Scheme.Modules.presheaf (cotangentSheaf X.structureMap)).map (𝟙 H.openSet).op)) w = w\n⊢ (((dualEvaluation (cotangentSheaf X.structureMap)).apply (Over.mk (𝟙 H.openSet)).left) v)\n      ((ConcreteCategory.hom\n          ((Scheme.Modules.presheaf (cotangentSheaf X.structureMap)).map (Over.mk (𝟙 H.openSet)).hom.op))\n        w) =\n    (ConcreteCategory.hom\n        ((SheafOfModules.Hom.over C.sequence.form H.openSet ≫ (frameIso H).inv).val.app (op (Over.mk (𝟙 H.openSet)))))\n      v\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    structureModule X.scheme\n  has type\n    OModule X.scheme\n  but is expected to have type\n    SheafOfModules X.scheme.ringCatSheaf\n  in the application\n    SheafOfModules.over (structureModule X.scheme)",
+    "endPos": {
+      "column": 9,
+      "line": 2246
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2246
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom ((pairWith ?b ?U ?w).val.app (op ?V))) ?v\nin the target expression\n  (ConcreteCategory.hom\n        ((pairWith (pullbackPair f (dualEvaluation (cotangentSheaf X.structureMap))) (f ⁻¹ᵁ H.openSet)\n                  (pullLocalSection f (cotangentSheaf X.structureMap) H.openSet w) ≫\n                SheafOfModules.Hom.over (unitPullbackMap f) (f ⁻¹ᵁ H.openSet)).val.app\n          (op (Over.mk (homOfLE hV)))))\n      v =\n    (ConcreteCategory.hom\n        (((SheafOfModules.Hom.over ((Scheme.Modules.pullback f).map C.sequence.form) (f ⁻¹ᵁ H.openSet) ≫\n                  pullOverHom f H.openSet (frameIso H).inv) ≫\n                SheafOfModules.Hom.over (unitPullbackMap f) (f ⁻¹ᵁ H.openSet)).val.app\n          (op (Over.mk (homOfLE hV)))))\n      v\n\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nH : AffineLineFrame C.sequence.line\nw : SectionsOn (cotangentSheaf X.structureMap) H.openSet\nhw :\n  ∀ (v : SectionsOn (tangentSheaf X.structureMap) H.openSet),\n    (((dualEvaluation (cotangentSheaf X.structureMap)).apply H.openSet) v) w = localContactValue C H v\nY : Scheme\nf : Y ⟶ X.scheme\nV : Y.Opens\nhV : V ≤ f ⁻¹ᵁ H.openSet\nv : SectionsOn (pullbackModule f (tangentSheaf X.structureMap)) V\nhe :\n  pairWith (pullbackPair f (dualEvaluation (cotangentSheaf X.structureMap))) (f ⁻¹ᵁ H.openSet)\n      (pullLocalSection f (cotangentSheaf X.structureMap) H.openSet w) =\n    SheafOfModules.Hom.over ((Scheme.Modules.pullback f).map C.sequence.form) (f ⁻¹ᵁ H.openSet) ≫\n      pullOverHom f H.openSet (frameIso H).inv\nhv :\n  (ConcreteCategory.hom\n        ((pairWith (pullbackPair f (dualEvaluation (cotangentSheaf X.structureMap))) (f ⁻¹ᵁ H.openSet)\n                  (pullLocalSection f (cotangentSheaf X.structureMap) H.openSet w) ≫\n                SheafOfModules.Hom.over (unitPullbackMap f) (f ⁻¹ᵁ H.openSet)).val.app\n          (op (Over.mk (homOfLE hV)))))\n      v =\n    (ConcreteCategory.hom\n        (((SheafOfModules.Hom.over ((Scheme.Modules.pullback f).map C.sequence.form) (f ⁻¹ᵁ H.openSet) ≫\n                  pullOverHom f H.openSet (frameIso H).inv) ≫\n                SheafOfModules.Hom.over (unitPullbackMap f) (f ⁻¹ᵁ H.openSet)).val.app\n          (op (Over.mk (homOfLE hV)))))\n      v\n⊢ (coefficientOn H f V hV)\n      ((ConcreteCategory.hom (Scheme.Modules.Hom.app ((Scheme.Modules.pullback f).map C.sequence.form) V)) v) =\n    (((dualEvaluation (pullbackModule f (cotangentSheaf X.structureMap))).apply V)\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app (dualBaseChange f (cotangentSheaf X.structureMap)) V)) v))\n      ((ConcreteCategory.hom\n          ((Scheme.Modules.presheaf (pullbackModule f (cotangentSheaf X.structureMap))).map (homOfLE hV).op))\n        (pullLocalSection f (cotangentSheaf X.structureMap) H.openSet w))",
+    "endPos": {
+      "column": 20,
+      "line": 2274
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2274
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  HomConstruction.Generic.bidualMap E\nof type\n  SheafOfModules.Hom E (HomConstruction.Generic.dual (HomConstruction.Generic.dual E))",
+    "endPos": {
+      "column": 61,
+      "line": 2296
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 58,
+      "line": 2296
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  ConcreteCategory Y.Opens ?m.93\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 64,
+      "line": 2296
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 9,
+      "line": 2295
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\nn : ℕ\nX : ContactFanoManifold n\nf : FreeLine X\nE : Deformation P.structureMap X.variety.structureMap f.curve.map\nthis : IsIso (dualBaseChange E.map (cotangentSheaf X.variety.structureMap)) :=\n  dualBaseChange_isIso E.map (smooth_cotangent_rank X.variety.structureMap (2 * n + 1) X.variety.smooth)\n⊢ dualBaseChange (projection P.structureMap) (cotangentSheaf P.structureMap) ≫ sorry =\n    dualBaseChange (projection P.structureMap) (cotangentSheaf P.structureMap) ≫\n      ContactDerivativeIsoProof.dualMap (relativeCotangent X.variety E)",
+    "endPos": {
+      "column": 86,
+      "line": 2344
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 75,
+      "line": 2341
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch\n  ht\nhas type\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app (targetToRelative X.variety E) (E.map ⁻¹ᵁ H.openSet)))\n      (pullLocalSection E.map (cotangentSheaf X.variety.structureMap) H.openSet\n        (∑ i, a i • (cotangentPresentation X.variety.structureMap).differential.apply H.openSet (b i))) =\n    0\nbut is expected to have type\n  ∑ i,\n      (ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (a i) •\n        (cotangentPresentation (parameter P.structureMap)).differential.apply (E.map ⁻¹ᵁ H.openSet)\n          ((ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (b i)) =\n    0",
+    "endPos": {
+      "column": 10,
+      "line": 2420
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2420
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  HomFirstJet.sourceMap ?P ?p ?sT ?τ ≫ pullback.fst (ProjectiveLineOverC.structureMap ?P) ?sT\nin the target expression\n  (HomFirstJet.sourceMap P marking Infinitesimal.dualToC τ ≫ projection P.structureMap) ≫ P.structureMap =\n    toC Infinitesimal.dualToC\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nτ : HomFirstJet.SourceLift P marking\n⊢ (HomFirstJet.sourceMap P marking Infinitesimal.dualToC τ ≫ projection P.structureMap) ≫ P.structureMap =\n    toC Infinitesimal.dualToC",
+    "endPos": {
+      "column": 51,
+      "line": 2504
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 26,
+      "line": 2504
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  FixedNodeHom.markingSection ?P ?p ?sT ≫ pullback.snd (ProjectiveLineOverC.structureMap ?P) ?sT\nin the target expression\n  (sourceDeformation τ).map ≫ parameter P.structureMap =\n    projection Infinitesimal.dualToC ≫\n      FixedNodeHom.markingSection P marking Infinitesimal.dualToC ≫ parameter P.structureMap\n\nτ : HomFirstJet.SourceLift P marking\n⊢ (sourceDeformation τ).map ≫ parameter P.structureMap =\n    projection Infinitesimal.dualToC ≫\n      FixedNodeHom.markingSection P marking Infinitesimal.dualToC ≫ parameter P.structureMap",
+    "endPos": {
+      "column": 37,
+      "line": 2513
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2513
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "'change' tactic failed, pattern\n  ∑ i,\n      (ConcreteCategory.hom (Scheme.Hom.app j U)) ((ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (a i)) •\n        (ConcreteCategory.hom (Scheme.Modules.Hom.app φ (j ⁻¹ᵁ U)))\n          (pullLocalSection j (cotangentSheaf (parameter P.structureMap)) U\n            ((cotangentPresentation (parameter P.structureMap)).differential.apply U\n              ((ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (b i)))) =\n    0\nis not definitionally equal to target\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app φ (j ⁻¹ᵁ U)))\n      (pullLocalSection j (cotangentSheaf (parameter P.structureMap)) U\n        (∑ x,\n          (ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (a x) •\n            (cotangentPresentation (parameter P.structureMap)).differential.apply (E.map ⁻¹ᵁ H.openSet)\n              ((ConcreteCategory.hom (Scheme.Hom.app E.map H.openSet)) (b x)))) =\n    (ConcreteCategory.hom (Scheme.Modules.Hom.app φ (j ⁻¹ᵁ U)))\n      (pullLocalSection j (cotangentSheaf (parameter P.structureMap)) U 0)",
+    "endPos": {
+      "column": 49,
+      "line": 2556
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2552
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom\n      (functionPullback Infinitesimal.dualToC D.map g ⋯ U ≫\n        MixedFamily.DoubleDual.presheaf.map\n          ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op))\n    a\nin the target expression\n  coefficient Infinitesimal.dualToC ⊤\n      ((ConcreteCategory.hom\n          ((space Infinitesimal.dualToC).presheaf.map\n            ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op))\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a)) =\n    (ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op))\n      (coefficient Infinitesimal.dualToC (g ⁻¹ᵁ U)\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a))\n\nY : Scheme\nsY : Y ⟶ ComplexBase\ng : Infinitesimal.DualScheme ⟶ Y\nD : Deformation Infinitesimal.dualToC sY g\nU : Y.Opens\nhg : ⊤ ≤ g ⁻¹ᵁ U\nhD : ⊤ ≤ D.map ⁻¹ᵁ U\na : RingSections Y U\nhrestrict :\n  functionPullback Infinitesimal.dualToC D.map g ⋯ U ≫\n      MixedFamily.DoubleDual.presheaf.map\n        ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op =\n    Scheme.Hom.appLE D.map U ⊤ hD\nhr :\n  (ConcreteCategory.hom\n        (functionPullback Infinitesimal.dualToC D.map g ⋯ U ≫\n          MixedFamily.DoubleDual.presheaf.map\n            ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op))\n      a =\n    (ConcreteCategory.hom (Scheme.Hom.appLE D.map U ⊤ hD)) a\nhc :\n  coefficient Infinitesimal.dualToC ⊤\n      ((ConcreteCategory.hom\n          ((space Infinitesimal.dualToC).presheaf.map\n            ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op))\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a)) =\n    (ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op))\n      (coefficient Infinitesimal.dualToC (g ⁻¹ᵁ U)\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a))\nhv :\n  reductionCoefficient Infinitesimal.dualToC ⊤\n      ((ConcreteCategory.hom\n          ((space Infinitesimal.dualToC).presheaf.map\n            ((TopologicalSpace.Opens.map (projection Infinitesimal.dualToC).base).map (homOfLE hg)).op))\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a)) =\n    (ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op))\n      (reductionCoefficient Infinitesimal.dualToC (g ⁻¹ᵁ U)\n        ((ConcreteCategory.hom (functionPullback Infinitesimal.dualToC D.map g ⋯ U)) a))\n⊢ MixedJet.sourceZero (toMixed ((ConcreteCategory.hom (Scheme.Hom.appLE D.map U ⊤ hD)) a)) =\n      dualGlobalEquiv ((ConcreteCategory.hom (Scheme.Hom.appLE g U ⊤ hg)) a) ∧\n    MixedJet.sourceDerivative (toMixed ((ConcreteCategory.hom (Scheme.Hom.appLE D.map U ⊤ hD)) a)) =\n      dualGlobalEquiv\n        ((ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op)) (D.onFunction U a))",
+    "endPos": {
+      "column": 8,
+      "line": 2606
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2606
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Type mismatch: After simplification, term\n  hh\n has type\n  @Eq MixedJet.Dual\n    (∑ x,\n      dualGlobalEquiv\n          ((ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op))\n            ((ConcreteCategory.hom (Scheme.Hom.app g U)) (a x))) *\n        dualGlobalEquiv\n          ((ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op)) (D.onFunction U (b x))))\n    0\nbut is expected to have type\n  @Eq MixedJet.Dual\n    (∑ x,\n      dualGlobalEquiv ((ConcreteCategory.hom (Scheme.Hom.appLE g U ⊤ hg)) (a x)) *\n        dualGlobalEquiv\n          ((ConcreteCategory.hom (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op)) (D.onFunction U (b x))))\n    0",
+    "endPos": {
+      "column": 50,
+      "line": 2630
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 2630
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 37,
+      "line": 2642
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 36,
+      "line": 2642
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 70,
+      "line": 2642
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 69,
+      "line": 2642
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`",
+    "endPos": {
+      "column": 32,
+      "line": 2659
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 31,
+      "line": 2659
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`",
+    "endPos": {
+      "column": 68,
+      "line": 2659
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 67,
+      "line": 2659
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ w\nin the target expression\n  (fiberMap X.contact.sequence.form x.map)\n      (localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w) =\n    0\n\nn : ℕ\nX : ContactFanoManifold n\nx : ComplexPoint X.variety\nF : PointFrame X.variety X.contact.sequence.line x\nu : Fiber X.contact.sequence.distribution.sheaf x.map\nw : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\nhw : F.evaluateVector w = F.fiberEquiv ((fiberMap X.contact.sequence.inclusion x.map) u)\nhvalue :\n  localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ w =\n    (fiberMap X.contact.sequence.inclusion x.map) u\n⊢ (fiberMap X.contact.sequence.form x.map)\n      (localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w) =\n    0\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    w\n  has type\n    SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\n  but is expected to have type\n    SectionsOn (intrinsicTangentBundle X.variety).sheaf F.frame.openSet\n  in the application\n    localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w",
+    "endPos": {
+      "column": 35,
+      "line": 2718
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 29,
+      "line": 2718
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  F.fiberEquiv (localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ ?v)\nin the target expression\n  F.fiberEquiv (localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w₀) =\n    F.fiberEquiv ((fiberMap X.contact.sequence.inclusion x.map) u)\n\nn : ℕ\nX : ContactFanoManifold n\nx : ComplexPoint X.variety\nF : PointFrame X.variety X.contact.sequence.line x\nu : Fiber X.contact.sequence.distribution.sheaf x.map\nw : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\nhw : F.evaluateVector w = F.fiberEquiv ((fiberMap X.contact.sequence.inclusion x.map) u)\nhvalue :\n  localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ w =\n    (fiberMap X.contact.sequence.inclusion x.map) u\nhθ : F.evaluation (localContactValue X.contact F.frame w) = 0\nr : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\nhr : localContactValue X.contact F.frame r = 1\nw₀ : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet := ⋯\nhw₀ : localContactValue X.contact F.frame w₀ = 0\nhe : F.evaluateVector w₀ = F.fiberEquiv ((fiberMap X.contact.sequence.inclusion x.map) u)\nhform : (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.form F.frame.openSet)) w₀ = 0\nv : SectionsOn X.contact.sequence.distribution.sheaf F.frame.openSet\nhv : (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.inclusion F.frame.openSet)) v = w₀\n⊢ F.fiberEquiv (localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w₀) =\n    F.fiberEquiv ((fiberMap X.contact.sequence.inclusion x.map) u)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    w₀\n  has type\n    SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\n  but is expected to have type\n    SectionsOn (intrinsicTangentBundle X.variety).sheaf F.frame.openSet\n  in the application\n    localFiberValue x.map (intrinsicTangentBundle X.variety).sheaf F.frame.openSet ⋯ w₀",
+    "endPos": {
+      "column": 24,
+      "line": 2738
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 2738
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  localFiberValue ?x ?F ?U ?hU ((ConcreteCategory.hom (Scheme.Modules.Hom.app ?h ?U)) ?s)\nin the target expression\n  F.fiberEquiv (localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ U) = F.fiberEquiv a\n\nn : ℕ\nX : ContactFanoManifold n\nx : ComplexPoint X.variety\nF : PointFrame X.variety X.contact.sequence.line x\nA : ContactAtPoint X.contact F\na b : TangentFiber X.variety x\nu v : Fiber X.contact.sequence.distribution.sheaf x.map\nhu : (fiberMap X.contact.sequence.inclusion x.map) u = a\nhv : (fiberMap X.contact.sequence.inclusion x.map) v = b\nhn : leviFiberValue X x u v ≠ 0\nu₀ : SectionsOn X.contact.sequence.distribution.sheaf F.frame.openSet\nhu₀ : localFiberValue x.map X.contact.sequence.distribution.sheaf F.frame.openSet ⋯ u₀ = u\nv₀ : SectionsOn X.contact.sequence.distribution.sheaf F.frame.openSet\nhv₀ : localFiberValue x.map X.contact.sequence.distribution.sheaf F.frame.openSet ⋯ v₀ = v\nU : ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet) :=\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.inclusion F.frame.openSet)) u₀\nV : ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet) :=\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.inclusion F.frame.openSet)) v₀\nhU : localContactValue X.contact F.frame U = 0\nhV : localContactValue X.contact F.frame V = 0\n⊢ F.fiberEquiv (localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ U) = F.fiberEquiv a\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    U\n  has type\n    ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet)\n  but is expected to have type\n    SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\n  in the application\n    localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ U",
+    "endPos": {
+      "column": 49,
+      "line": 2761
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 30,
+      "line": 2761
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  localFiberValue ?x ?F ?U ?hU ((ConcreteCategory.hom (Scheme.Modules.Hom.app ?h ?U)) ?s)\nin the target expression\n  F.fiberEquiv (localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ V) = F.fiberEquiv b\n\nn : ℕ\nX : ContactFanoManifold n\nx : ComplexPoint X.variety\nF : PointFrame X.variety X.contact.sequence.line x\nA : ContactAtPoint X.contact F\na b : TangentFiber X.variety x\nu v : Fiber X.contact.sequence.distribution.sheaf x.map\nhu : (fiberMap X.contact.sequence.inclusion x.map) u = a\nhv : (fiberMap X.contact.sequence.inclusion x.map) v = b\nhn : leviFiberValue X x u v ≠ 0\nu₀ : SectionsOn X.contact.sequence.distribution.sheaf F.frame.openSet\nhu₀ : localFiberValue x.map X.contact.sequence.distribution.sheaf F.frame.openSet ⋯ u₀ = u\nv₀ : SectionsOn X.contact.sequence.distribution.sheaf F.frame.openSet\nhv₀ : localFiberValue x.map X.contact.sequence.distribution.sheaf F.frame.openSet ⋯ v₀ = v\nU : ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet) :=\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.inclusion F.frame.openSet)) u₀\nV : ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet) :=\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app X.contact.sequence.inclusion F.frame.openSet)) v₀\nhU : localContactValue X.contact F.frame U = 0\nhV : localContactValue X.contact F.frame V = 0\nheU : F.evaluateVector U = F.fiberEquiv a\n⊢ F.fiberEquiv (localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ V) = F.fiberEquiv b\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    V\n  has type\n    ↑Γ((intrinsicTangentBundle X.variety).sheaf, F.frame.openSet)\n  but is expected to have type\n    SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet\n  in the application\n    localFiberValue x.map (tangentSheaf X.variety.structureMap) F.frame.openSet ⋯ V",
+    "endPos": {
+      "column": 49,
+      "line": 2763
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 30,
+      "line": 2763
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Application type mismatch: The argument\n  Eq.trans (congrArg₂ ?m.331 heU heV) ?m.340\nhas type\n  ?m.331 (F.evaluateVector U) (F.evaluateVector V) = ?m.339\nbut is expected to have type\n  (A.exterior (F.evaluateVector U)) (F.evaluateVector V) = ?m.321\nin the application\n  Eq.trans (Eq.symm (A.exterior_normalized U V)) (Eq.trans (congrArg₂ ?m.331 heU heV) ?m.340)",
+    "endPos": {
+      "column": 48,
+      "line": 2766
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 2766
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul F.ChartRing (RingSections X.variety.scheme F.frame.openSet) ?m.58\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 77,
+      "line": 2786
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 13,
+      "line": 2786
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 65,
+      "line": 2791
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 64,
+      "line": 2791
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 67,
+      "line": 2792
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 66,
+      "line": 2792
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul F.ChartRing (RingSections X.variety.scheme F.frame.openSet) ?m.62\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 77,
+      "line": 2811
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 13,
+      "line": 2811
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 64,
+      "line": 2813
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 63,
+      "line": 2813
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Unknown identifier `i`\n\nNote: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 78,
+      "line": 2813
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 77,
+      "line": 2813
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul F.ChartRing (RingSections X.variety.scheme F.frame.openSet) ?m.61\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 79,
+      "line": 2826
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 15,
+      "line": 2826
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "unsolved goals\ncase h₀\nY Z W : Scheme\nsY : Y ⟶ ComplexBase\nsZ : Z ⟶ ComplexBase\nsW : W ⟶ ComplexBase\nf : Y ⟶ Z\nhf : f ≫ sZ = sY\ng : Z ⟶ W\nhg : g ≫ sW = sZ\n⊢ projection sY ≫ f ≫ g = DualThickening.map f hf ≫ projection sZ ≫ g",
+    "endPos": {
+      "column": 46,
+      "line": 2935
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 2,
+      "line": 2934
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSNodalFixedEnds",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  M₁\nin the target expression\n  MixedFamily.swap ≫ (N₁.pullback epsilonParameter epsilonParameter_over).map = M₂\n\nn : ℕ\nX : ContactFanoManifold n\nD : SuitablePair X\nG : Germ D\nz : G.chart.Tangent\nhz : G.baseDifferential z = 1\nhe : G.endpointDifferential z = 0\nE₁ : FamilyVariation.Deformation P.structureMap X.variety.structureMap D.first.curve.map\nhE₁ : E₁.pullback ↑(CoordinateCharts.ratioPoint 0) ⋯ = BranchCharts.firstNodeDeformation G z hz\nE₂ : FamilyVariation.Deformation P.structureMap X.variety.structureMap D.second.curve.map\nhE₂ : E₂.pullback ↑(CoordinateCharts.ratioPoint 0) ⋯ = BranchCharts.secondNodeDeformation G z hz\nF : Refinement.Jets.PointFrame X.variety X.contact.sequence.line D.node\nA : Refinement.Jets.ContactAtPoint X.contact F\nm : ℕ\na b : Fin m → F.ChartRing\nhab :\n  ∀ (v : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet),\n    localContactValue X.contact F.frame v = ∑ i, sorry\nN₁ : FamilyVariation.Deformation affineLineToC X.variety.structureMap\n  (↑(CoordinateCharts.ratioPoint 0) ≫ D.first.curve.map) :=\n  BranchCharts.firstNodeDeformation G z hz\nN₂ : FamilyVariation.Deformation affineLineToC X.variety.structureMap\n  (↑(CoordinateCharts.ratioPoint 0) ≫ D.second.curve.map) :=\n  BranchCharts.secondNodeDeformation G z hz\nM₁ : DualThickening.space Infinitesimal.dualToC ⟶ X.variety.scheme :=\n  (N₁.pullback epsilonParameter epsilonParameter_over).map\nM₂ : DualThickening.space Infinitesimal.dualToC ⟶ X.variety.scheme :=\n  (N₂.pullback epsilonParameter epsilonParameter_over).map\nhM : M₁ = MixedFamily.swap ≫ M₂\nh₁ : ⊤ ≤ M₁ ⁻¹ᵁ F.frame.openSet\nh₂ : ⊤ ≤ M₂ ⁻¹ᵁ F.frame.openSet\n⊢ MixedFamily.swap ≫ (N₁.pullback epsilonParameter epsilonParameter_over).map = M₂",
+    "endPos": {
+      "column": 8,
+      "line": 3099
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalFixedEnds.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 3099
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom ((pullbackModule p (pullbackModule f L.sheaf)).val.map ?f)) (?r • ?m)\nin the target expression\n  F.lineFiberCoefficient\n      ((ConcreteCategory.hom (Scheme.Modules.Hom.app (compositionPullback p f x.map hx L.sheaf).hom ⊤))\n        ((ConcreteCategory.hom\n            ((Scheme.Modules.presheaf (pullbackModule p (pullbackModule f L.sheaf))).map (homOfLE hp).op))\n          ((ConcreteCategory.hom (Scheme.Hom.app p V)) r • pullLocalSection p (pullbackModule f L.sheaf) V z))) =\n    (ConcreteCategory.hom (Scheme.Hom.appLE p V ⊤ hp)) r *\n      F.lineFiberCoefficient\n        ((fiberComposition f p x.map hx L.sheaf) (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp z))\n\nd : ℕ\nX : SmoothProperComplexVariety d\nL : LineBundle X.scheme\nx : ComplexPoint X\nF : PointFrame X L x\nY : Scheme\nf : Y ⟶ X.scheme\np : ComplexBase ⟶ Y\nhx : p ≫ f = x.map\nV : Y.Opens\nhV : V ≤ f ⁻¹ᵁ F.frame.openSet\nhp : ⊤ ≤ p ⁻¹ᵁ V\na : SectionsOn (pullbackModule f L.sheaf) V\ne : SectionsOn (pullbackModule f L.sheaf) V ≃ₗ[RingSections Y V] RingSections Y V :=\n  LocalFrameJetProof.coefficientOn F.frame f V hV\nb : SectionsOn (pullbackModule f L.sheaf) V :=\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f L.sheaf)).map (homOfLE hV).op))\n    (pullLocalSection f L.sheaf F.frame.openSet (F.frame.coefficient.symm 1))\nhb : e b = 1\nha : a = e a • b\nhpU : ⊤ ≤ p ⁻¹ᵁ f ⁻¹ᵁ F.frame.openSet\nhframe :\n  F.lineFiberCoefficient\n      ((fiberComposition f p x.map hx L.sheaf) (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp b)) =\n    1\nr : RingSections Y V\nz : SectionsOn (pullbackModule f L.sheaf) V\n⊢ F.lineFiberCoefficient\n      ((ConcreteCategory.hom (Scheme.Modules.Hom.app (compositionPullback p f x.map hx L.sheaf).hom ⊤))\n        ((ConcreteCategory.hom\n            ((Scheme.Modules.presheaf (pullbackModule p (pullbackModule f L.sheaf))).map (homOfLE hp).op))\n          ((ConcreteCategory.hom (Scheme.Hom.app p V)) r • pullLocalSection p (pullbackModule f L.sheaf) V z))) =\n    (ConcreteCategory.hom (Scheme.Hom.appLE p V ⊤ hp)) r *\n      F.lineFiberCoefficient\n        ((fiberComposition f p x.map hx L.sheaf) (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp z))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (fiberComposition f p x.map hx L.sheaf) (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp z)\n  has type\n    Fiber L.sheaf x.map\n  but is expected to have type\n    GlobalSections (pullbackModule x.map L.sheaf)\n  in the application\n    F.lineFiberCoefficient\n      ((fiberComposition f p x.map hx L.sheaf) (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp z))",
+    "endPos": {
+      "column": 64,
+      "line": 107
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 107
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field `map_smul`: The environment does not contain `AddMonoidHom.map_smul`, so it is not possible to project the field `map_smul` from an expression\n  AddCommGrpCat.Hom.hom (Scheme.Modules.Hom.app q S.openSet)\nof type\n  ↑Γ(L.sheaf, S.openSet) →+ ↑Γ(M.sheaf, S.openSet)",
+    "endPos": {
+      "column": 40,
+      "line": 156
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 32,
+      "line": 156
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nY : Scheme\nL M : LineBundle Y\nq : L.sheaf ⟶ M.sheaf\nS : AffineLineFrame L\nm : SectionsOn M.sheaf S.openSet ≃ₗ[RingSections Y S.openSet] RingSections Y S.openSet\na : SectionsOn L.sheaf S.openSet\nha : a = S.coefficient a • S.coefficient.symm 1\n⊢ m ((ConcreteCategory.hom (Scheme.Modules.Hom.app q S.openSet)) (S.coefficient a • S.coefficient.symm 1)) =\n    S.coefficient a * multiplier q S m",
+    "endPos": {
+      "column": 61,
+      "line": 156
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 46,
+      "line": 155
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  a\nof type\n  (SheafOfModules.unit Y.ringCatSheaf).Hom L.sheaf",
+    "endPos": {
+      "column": 30,
+      "line": 165
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 27,
+      "line": 165
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    _a ≫ externalTensorMap Y.structureMap q q =\n      ∑ i, externalProductSection Y.structureMap (E.left i ≫ q) (E.right i ≫ q)\nError: Application type mismatch: The argument\n  E\nhas type\n  ExternalExpansion Y L B\nbut is expected to have type\n  ExternalExpansion Y L _a\nin the application\n  E.size\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nd : ℕ\nY : SmoothProperComplexVariety d\nL M : LineBundle Y.scheme\nB : ExternalSquareSections Y L\nE : ExternalExpansion Y L B\nq : L.sheaf ⟶ M.sheaf\n⊢ B ≫ externalTensorMap Y.structureMap q q = ∑ i, externalProductSection Y.structureMap (E.left i ≫ q) (E.right i ≫ q)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (externalSquareLine Y.structureMap L).sheaf\n  has type\n    OModule (SelfProduct Y.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct Y.structureMap).ringCatSheaf\n  in the application\n    @CategoryStruct.comp (SheafOfModules (SelfProduct Y.structureMap).ringCatSheaf)\n      SheafOfModules.instCategory.toCategoryStruct (SheafOfModules.unit (SelfProduct Y.structureMap).ringCatSheaf)\n      (externalSquareLine Y.structureMap L).sheaf",
+    "endPos": {
+      "column": 18,
+      "line": 177
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 177
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (RingSections Y.scheme (frameOn S m).openSet) (RingSections Y.scheme S.openSet) ?m.109\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 27,
+      "line": 209
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 7,
+      "line": 209
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (RingSections Y.scheme (frameOn S m).openSet) (Coefficients Y.structureMap S.openSet) ?m.158\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 58,
+      "line": 214
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 15,
+      "line": 213
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (RingSections (projectiveLineVariety P).scheme (frameOn S m).openSet) (RingSections ProjectiveLine S.openSet)\n    (RingSections (projectiveLineVariety P).scheme (frameOn S m).openSet)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 36,
+      "line": 250
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 6,
+      "line": 250
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (RingSections (projectiveLineVariety P).scheme (frameOn S m).openSet) (RingSections ProjectiveLine S.openSet)\n    (RingSections (projectiveLineVariety P).scheme (frameOn S m).openSet)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 35,
+      "line": 255
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 6,
+      "line": 255
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown identifier `mapped_secondSlotSecond`",
+    "endPos": {
+      "column": 31,
+      "line": 256
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 256
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Type mismatch\n  (mappedExpansion E q).mixedSecond (frameOn S m) u u = ?m.158\nhas type\n  Prop\nof sort `Type` but is expected to have type\n  Type\nof sort `Type 1`",
+    "endPos": {
+      "column": 64,
+      "line": 265
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 9,
+      "line": 265
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Application type mismatch: The argument\n  curveContactVelocity P C f\nhas type\n  tangentSheaf P.structureMap ⟶ pullbackModule f.map C.sequence.line.sheaf\nbut is expected to have type\n  (identityCurveContact P).sequence.line.sheaf ⟶ AlgebraicVectorBundle.sheaf ?m.178\nin the application\n  mappedExpansion (sourceKernel P).expansion (curveContactVelocity P C f)",
+    "endPos": {
+      "column": 83,
+      "line": 327
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 55,
+      "line": 327
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf : RationalCurve P X\nB : ExternalSquareSections X C.sequence.line\nh : CurveKernelIdentity P C f B\nE : ExternalExpansion X C.sequence.line B\nS : AffineLineFrame (identityCurveContact P).sequence.line\nm :\n  SectionsOn (pullbackModule f.map C.sequence.line.sheaf) S.openSet ≃ₗ[RingSections ProjectiveLine S.openSet]\n    RingSections ProjectiveLine S.openSet\nu : SectionsOn (tangentSheaf P.structureMap) S.openSet\nEP : ExternalExpansion (projectiveLineVariety P) (pullbackBundle f.map C.sequence.line)\n  (sourceBivector P ≫ externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)) :=\n  pulledExpansion P C f B h E\n⊢ ∑ i,\n      tangentActs P.structureMap S.openSet u ((frameOn S m).localCoefficient (pullSection f.map (E.left i))) *\n        tangentActs P.structureMap S.openSet u ((frameOn S m).localCoefficient (pullSection f.map (E.right i))) =\n    -2 * m ((ConcreteCategory.hom (Scheme.Modules.Hom.app (curveContactVelocity P C f) S.openSet)) u) ^ 2",
+    "endPos": {
+      "column": 42,
+      "line": 338
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 67,
+      "line": 325
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "omega could not prove the goal:\nNo usable constraints found. You may need to unfold definitions so `omega` can see linear arithmetic facts about `Nat` and `Int`, which may also involve multiplication, division, and modular remainder by constants.",
+    "endPos": {
+      "column": 46,
+      "line": 409
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 41,
+      "line": 409
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\ncase refine_1\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\ny : ComplexPoint (projectiveLineVariety P) := ⋯\nthis : FiniteDimensional ℂ (TangentFiber (projectiveLineVariety P) y) := ⋯\nhd : Module.finrank ℂ (TangentFiber (projectiveLineVariety P) y) = 1\n⊢ Nontrivial sorry",
+    "endPos": {
+      "column": 69,
+      "line": 416
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 49,
+      "line": 402
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  SourceTangent.pointVector ?Z ?z (Charts.AffineTangentLift.push ?f ?hf ?hyz ?τ)\nin the target expression\n  (IntrinsicTangent.chartEvaluation C)\n      (SourceTangent.pointVector X x (Charts.AffineTangentLift.push (HomDeformation.curveAt P H p x t) ⋯ ⋯ tau)) =\n    (IntrinsicTangent.chartEquivalence C)\n      ((SourceTangent.pointDifferential (projectiveLineVariety P) X (HomDeformation.curveAt P H p x t) ⋯\n          { map := p.map, overC := ⋯ } x ⋯)\n        (SourceTangent.pointVector (projectiveLineVariety P) { map := p.map, overC := ⋯ } tau))\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nd : ℕ\nX : SmoothProperComplexVariety d\nH : HomSpacePresentation P X\nx : ComplexPoint X\ntau : HomFirstJet.SourceLift P p\nC : GlobalVelocity.TargetChart X x\nt : PointsOver ComplexBase (𝟙 ComplexBase) (FixedNodeHom.parameter P p H x) (FixedNodeHom.toC P p H x)\n⊢ (IntrinsicTangent.chartEvaluation C)\n      (SourceTangent.pointVector X x (Charts.AffineTangentLift.push (HomDeformation.curveAt P H p x t) ⋯ ⋯ tau)) =\n    (IntrinsicTangent.chartEquivalence C)\n      ((SourceTangent.pointDifferential (projectiveLineVariety P) X (HomDeformation.curveAt P H p x t) ⋯\n          { map := p.map, overC := ⋯ } x ⋯)\n        (SourceTangent.pointVector (projectiveLineVariety P) { map := p.map, overC := ⋯ } tau))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    p.map\n  has type\n    ComplexBase ⟶ ProjectiveLine\n  but is expected to have type\n    ComplexBase ⟶ (projectiveLineVariety P).scheme\n  in the application\n    ComplexPoint.mk p.map",
+    "endPos": {
+      "column": 74,
+      "line": 472
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 44,
+      "line": 472
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown identifier `complexPoint_isClosedImmersion`",
+    "endPos": {
+      "column": 66,
+      "line": 502
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 36,
+      "line": 502
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  LocallyOfFiniteType (toOpen P p H x U ≫ U.ι ≫ H.toC)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 16,
+      "line": 508
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 2,
+      "line": 508
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown constant `Set.eq_empty_of_forall_not_mem`",
+    "endPos": {
+      "column": 38,
+      "line": 597
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 8,
+      "line": 597
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 9,
+      "line": 598
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 598
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (fiberMap ?h ?x) (PositiveFrame.localFiberValue ?x ?E ?U ?hU ?s)\nin the target expression\n  F.evaluation (localContactValue C F.frame u) =\n    (ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).hom)\n      (F.lineFiberCoefficient\n        ((fiberMap C.sequence.form x.map)\n          (PositiveFrame.localFiberValue x.map (tangentSheaf X.structureMap) F.frame.openSet ⋯ u)))\n\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nx : ComplexPoint X\nF : PointFrame X C.sequence.line x\nA : ContactAtPoint C F\nv : TangentFiber X x\nu : SectionsOn (tangentSheaf X.structureMap) F.frame.openSet\nhu : F.evaluateVector u = F.fiberEquiv v\nhv : PositiveFrame.localFiberValue x.map (tangentSheaf X.structureMap) F.frame.openSet ⋯ u = v\n⊢ F.evaluation (localContactValue C F.frame u) =\n    (ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).hom)\n      (F.lineFiberCoefficient\n        ((fiberMap C.sequence.form x.map)\n          (PositiveFrame.localFiberValue x.map (tangentSheaf X.structureMap) F.frame.openSet ⋯ u)))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    localContactValue C F.frame u\n  has type\n    RingSections X.scheme F.frame.openSet\n  but is expected to have type\n    F.ChartRing\n  in the application\n    F.evaluation (localContactValue C F.frame u)",
+    "endPos": {
+      "column": 39,
+      "line": 774
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 774
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field notation: Identifier or numeral expected",
+    "endPos": {
+      "column": 88,
+      "line": 802
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 87,
+      "line": 802
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  pullSection f.map a\nof type\n  (SheafOfModules.unit ProjectiveLine.ringCatSheaf).Hom (pullbackModule f.map C.sequence.line.sheaf)",
+    "endPos": {
+      "column": 39,
+      "line": 805
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 36,
+      "line": 805
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "`simp` made no progress\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    p.map\n  has type\n    ComplexBase ⟶ ProjectiveLine\n  but is expected to have type\n    ComplexBase ⟶ (projectiveLineVariety P).scheme\n  in the application\n    ComplexPoint.mk p.map",
+    "endPos": {
+      "column": 13,
+      "line": 809
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 11,
+      "line": 809
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "No goals to be solved",
+    "endPos": {
+      "column": 13,
+      "line": 1038
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 10,
+      "line": 1038
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul Fp.ChartRing (RingSections X.variety.scheme F.openSet) ?m.216\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 39,
+      "line": 1150
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 4,
+      "line": 1150
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    curvePull P f L _a =\n      ∑ i,\n        externalProductSection (projectiveLineVariety P).structureMap (pullSection f.map (E.left i))\n          (pullSection f.map (E.right i))\nError: Application type mismatch: The argument\n  E\nhas type\n  ExternalExpansion X L B\nbut is expected to have type\n  ExternalExpansion X L _a\nin the application\n  E.size\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf : RationalCurve P X\nL : LineBundle X.scheme\nB : ExternalSquareSections X L\nE : ExternalExpansion X L B\n⊢ curvePull P f L B =\n    ∑ i,\n      externalProductSection (projectiveLineVariety P).structureMap (pullSection f.map (E.left i))\n        (pullSection f.map (E.right i))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackBundle f.map L\n  has type\n    AlgebraicVectorBundle ProjectiveLine 1\n  but is expected to have type\n    LineBundle (projectiveLineVariety P).scheme\n  in the application\n    ExternalSquareSections (projectiveLineVariety P) (pullbackBundle f.map L)",
+    "endPos": {
+      "column": 18,
+      "line": 1201
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 1201
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "`simp` made no progress\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackBundle f.map L\n  has type\n    AlgebraicVectorBundle ProjectiveLine 1\n  but is expected to have type\n    LineBundle (projectiveLineVariety P).scheme\n  in the application\n    @ExternalExpansion.size 1 (projectiveLineVariety P) (pullbackBundle f.map L)",
+    "endPos": {
+      "column": 13,
+      "line": 1222
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 11,
+      "line": 1222
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf : RationalCurve P X\nL : LineBundle X.scheme\nB : ExternalSquareSections X L\nhB : IsSymmetricExternalSection X.structureMap L B\nh2 : VanishesQuadraticallyAlongDiagonal X.structureMap (externalSquareLine X.structureMap L).sheaf B\nhdiag : pullSection (diagonal X.structureMap) B = 0\nhpull : pullSection (diagonal P.structureMap) (pullSection (curveSquareMap P f) B) = 0\n⊢ pullSection (diagonal (projectiveLineVariety P).structureMap) (pullSection (curveSquareMap P f) B) ≫\n      (Scheme.Modules.pullback (diagonal (projectiveLineVariety P).structureMap)).map\n        (inv (curveExternalComparison P f L.sheaf L.sheaf)) =\n    0",
+    "endPos": {
+      "column": 65,
+      "line": 1245
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 96,
+      "line": 1232
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  externalProductSection ?s ?a ?b ≫ externalTensorMap ?s ?q ?q\nin the target expression\n  externalProductSection P.structureMap (pullSection f.map (E.left i) ≫ (Scheme.Modules.pullback f.map).map q)\n      (pullSection f.map (E.right i) ≫ (Scheme.Modules.pullback f.map).map q) =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P f E).left i)\n        ((pulledExpansion P f E).right i) ≫\n      externalTensorMap P.structureMap ((Scheme.Modules.pullback f.map).map q) ((Scheme.Modules.pullback f.map).map q)\n\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf : RationalCurve P X\nL M : LineBundle X.scheme\nq : L.sheaf ⟶ M.sheaf\nB : ExternalSquareSections X L\nE : ExternalExpansion X L B\ni : Fin (pulledExpansion P f (SourceMixedSymbol.mappedExpansion E q)).size\nhi : i ∈ Finset.univ\n⊢ externalProductSection P.structureMap (pullSection f.map (E.left i) ≫ (Scheme.Modules.pullback f.map).map q)\n      (pullSection f.map (E.right i) ≫ (Scheme.Modules.pullback f.map).map q) =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P f E).left i)\n        ((pulledExpansion P f E).right i) ≫\n      externalTensorMap P.structureMap ((Scheme.Modules.pullback f.map).map q) ((Scheme.Modules.pullback f.map).map q)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule f.map L.sheaf\n  has type\n    OModule ProjectiveLine\n  but is expected to have type\n    SheafOfModules ProjectiveLine.ringCatSheaf\n  in the application\n    @CategoryStruct.comp (SheafOfModules ProjectiveLine.ringCatSheaf) SheafOfModules.instCategory.toCategoryStruct\n      (SheafOfModules.unit ProjectiveLine.ringCatSheaf) (pullbackModule f.map L.sheaf)",
+    "endPos": {
+      "column": 48,
+      "line": 1262
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1262
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown identifier `SourceMixedSymbol.mapped_secondSlotSecond`",
+    "endPos": {
+      "column": 45,
+      "line": 1285
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 4,
+      "line": 1285
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nd : ℕ\nY : SmoothProperComplexVariety d\nL M : LineBundle Y.scheme\nB : ExternalSquareSections Y L\nE : ExternalExpansion Y L B\nq : L.sheaf ⟶ M.sheaf\nh2 : VanishesQuadraticallyAlongDiagonal Y.structureMap (externalSquareLine Y.structureMap L).sheaf B\nS : AffineLineFrame L\nm : SectionsOn M.sheaf S.openSet ≃ₗ[RingSections Y.scheme S.openSet] RingSections Y.scheme S.openSet\nu : SectionsOn (tangentSheaf Y.structureMap) S.openSet\n⊢ -(SourceMixedSymbol.mappedExpansion E q).secondSlotSecond (SourceMixedSymbol.frameOn S m) u u =\n    SourceMixedSymbol.multiplier q S m ^ 2 * E.mixedSecond S u u",
+    "endPos": {
+      "column": 6,
+      "line": 1288
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 70,
+      "line": 1282
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (fiberMap ?h ?x) ((fiberComposition ?f ?p ?x ?hx ?E) ?u)\nin the target expression\n  (ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).hom)\n      (F.lineFiberCoefficient\n        ((fiberMap C.sequence.form x.map)\n          ((fiberComposition f.map p.map x.map hx (tangentSheaf X.structureMap))\n            ((fiberMap (differentialOver (projectiveLineVariety P) X f.map ⋯) p.map)\n              (PositiveFrame.localFiberValue p.map (tangentSheaf P.structureMap) S.frame.openSet ⋯ u))))) =\n    S.evaluation\n      ((PointFrame.LocalFrameJetProof.coefficientOn F.frame f.map S.frame.openSet hV)\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app (curveContactVelocity P C f) S.frame.openSet)) u))\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf : RationalCurve P X\nx : ComplexPoint X\nhx : p.map ≫ f.map = x.map\nM : LineBundle ProjectiveLine\nS : PointFrame (projectiveLineVariety P) M { map := p.map, overC := ⋯ }\nF : PointFrame X C.sequence.line x\nA : ContactAtPoint C F\nhV : S.frame.openSet ≤ f.map ⁻¹ᵁ F.frame.openSet\nu : SectionsOn (tangentSheaf P.structureMap) S.frame.openSet\n⊢ (ConcreteCategory.hom (Scheme.ΓSpecIso ↧ℂ).hom)\n      (F.lineFiberCoefficient\n        ((fiberMap C.sequence.form x.map)\n          ((fiberComposition f.map p.map x.map hx (tangentSheaf X.structureMap))\n            ((fiberMap (differentialOver (projectiveLineVariety P) X f.map ⋯) p.map)\n              (PositiveFrame.localFiberValue p.map (tangentSheaf P.structureMap) S.frame.openSet ⋯ u))))) =\n    S.evaluation\n      ((PointFrame.LocalFrameJetProof.coefficientOn F.frame f.map S.frame.openSet hV)\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app (curveContactVelocity P C f) S.frame.openSet)) u))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    p.map\n  has type\n    ComplexBase ⟶ ProjectiveLine\n  but is expected to have type\n    ComplexBase ⟶ (projectiveLineVariety P).scheme\n  in the application\n    Fiber (tangentSheaf (projectiveLineVariety P).structureMap) p.map",
+    "endPos": {
+      "column": 51,
+      "line": 1332
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1332
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field notation: Identifier or numeral expected",
+    "endPos": {
+      "column": 88,
+      "line": 1361
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 87,
+      "line": 1361
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Invalid field `app`: The environment does not contain `SheafOfModules.Hom.app`, so it is not possible to project the field `app` from an expression\n  pullSection f.map a\nof type\n  (SheafOfModules.unit ProjectiveLine.ringCatSheaf).Hom (pullbackModule f.map C.sequence.line.sheaf)",
+    "endPos": {
+      "column": 39,
+      "line": 1364
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.invalidField._namedError",
+    "pos": {
+      "column": 36,
+      "line": 1364
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "`simp` made no progress\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    M\n  has type\n    LineBundle ProjectiveLine\n  but is expected to have type\n    LineBundle (projectiveLineVariety P).scheme\n  in the application\n    @PointFrame.ChartRing 1 (projectiveLineVariety P) M",
+    "endPos": {
+      "column": 19,
+      "line": 1377
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 17,
+      "line": 1377
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rfl` failed: The left-hand side\n  differentialOver (projectiveLineVariety P) (projectiveLineVariety P) (isoCurve P e he).map ⋯ ≫\n    (Scheme.Modules.pullback (isoCurve P e he).map).map (𝟙 (intrinsicTangentBundle (projectiveLineVariety P)).sheaf)\nis not definitionally equal to the right-hand side\n  (derivativeIso P e he).hom\n\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\n⊢ differentialOver (projectiveLineVariety P) (projectiveLineVariety P) (isoCurve P e he).map ⋯ ≫\n      (Scheme.Modules.pullback (isoCurve P e he).map).map (𝟙 (intrinsicTangentBundle (projectiveLineVariety P)).sheaf) =\n    (derivativeIso P e he).hom",
+    "endPos": {
+      "column": 113,
+      "line": 1416
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 110,
+      "line": 1416
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  RingHomInvPair (RingHom.id (RingSections (projectiveLineVariety P).scheme (e.inv ⁻¹ᵁ S.openSet)))\n    (RingHom.id (RingSections (projectiveLineVariety P).scheme (e.inv ⁻¹ᵁ S.openSet)))\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 88,
+      "line": 1431
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 4,
+      "line": 1428
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Application type mismatch: The argument\n  (derivativeIso P e he).inv\nhas type\n  pullbackModule e.hom (tangentSheaf P.structureMap) ⟶ tangentSheaf P.structureMap\nbut is expected to have type\n  (pullbackBundle (isoCurve P e he).map (identityCurveContact P).sequence.line).sheaf ⟶\n    AlgebraicVectorBundle.sheaf ?m.22\nin the application\n  SourceMixedSymbol.mappedExpansion (pulledExpansion P (isoCurve P e he) (SourceMixedSymbol.sourceKernel P).expansion)\n    (derivativeIso P e he).inv",
+    "endPos": {
+      "column": 30,
+      "line": 1453
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1453
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 95,
+      "line": 1471
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "runtime.maxHeartbeats",
+    "pos": {
+      "column": 2,
+      "line": 1469
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  e.hom ≫ P.structureMap\nin the target expression\n  p.map ≫ e.hom ≫ (projectiveLineVariety P).structureMap = 𝟙 ComplexBase\n\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\np : ProjectiveLinePoint P\nS : PointFrame (projectiveLineVariety P) (identityCurveContact P).sequence.line { map := p.map, overC := ⋯ }\nu : SectionsOn (tangentSheaf P.structureMap) S.frame.openSet\n⊢ p.map ≫ e.hom ≫ (projectiveLineVariety P).structureMap = 𝟙 ComplexBase\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    e.hom\n  has type\n    ProjectiveLine ⟶ ProjectiveLine\n  but is expected to have type\n    ProjectiveLine ⟶ (projectiveLineVariety P).scheme\n  in the application\n    CategoryStruct.comp e.hom",
+    "endPos": {
+      "column": 45,
+      "line": 1485
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 43,
+      "line": 1485
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Application type mismatch: The argument\n  q\nhas type\n  pullbackModule e.hom (tangentSheaf P.structureMap) ⟶ tangentSheaf P.structureMap\nbut is expected to have type\n  (pullbackBundle (isoCurve P e he).map (identityCurveContact P).sequence.line).sheaf ⟶\n    AlgebraicVectorBundle.sheaf ?m.359\nin the application\n  mapped_mixed_of_orderTwo EP q",
+    "endPos": {
+      "column": 34,
+      "line": 1508
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 33,
+      "line": 1508
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine R.openSet) (RingSections (projectiveLineVariety P).scheme R.openSet) S.ChartRing\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 51,
+      "line": 1510
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 18,
+      "line": 1510
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown identifier `sourceTransport_orderTwo`",
+    "endPos": {
+      "column": 76,
+      "line": 1549
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 52,
+      "line": 1549
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\np : ProjectiveLinePoint P\nS : PointFrame (projectiveLineVariety P) (identityCurveContact P).sequence.line { map := p.map, overC := ⋯ }\nu v : SectionsOn (tangentSheaf P.structureMap) S.frame.openSet\nE : ExternalExpansion (projectiveLineVariety P) (identityCurveContact P).sequence.line (sourceTransport P e he) :=\n  sourceTransportExpansion P e he\nhu :\n  S.evaluation ((sourceTransportExpansion P e he).secondSlotSecond S.frame u u) =\n    2 * S.evaluation (S.frame.coefficient u) ^ 2\nhv :\n  S.evaluation ((sourceTransportExpansion P e he).secondSlotSecond S.frame v v) =\n    2 * S.evaluation (S.frame.coefficient v) ^ 2\nhuv :\n  S.evaluation\n      (E.secondSlotSecond S.frame u u + E.secondSlotSecond S.frame u v + E.secondSlotSecond S.frame v u +\n        E.secondSlotSecond S.frame v v) =\n    2 * S.evaluation (S.frame.coefficient (u + v)) ^ 2\nhs :\n  E.secondSlotSecond S.frame (u + v) (u + v) =\n    E.secondSlotSecond S.frame u u + E.secondSlotSecond S.frame u v + E.secondSlotSecond S.frame v u +\n      E.secondSlotSecond S.frame v v\n⊢ S.evaluation ((sourceTransportExpansion P e he).secondSlotSecond S.frame u v) =\n    2 * S.evaluation (S.frame.coefficient u) * S.evaluation (S.frame.coefficient v)",
+    "endPos": {
+      "column": 76,
+      "line": 1552
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 89,
+      "line": 1539
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul F.ChartRing (RingSections (projectiveLineVariety P).scheme S.openSet) ?m.222\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 25,
+      "line": 1579
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 6,
+      "line": 1579
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Unknown identifier `sourceTransport_orderTwo`",
+    "endPos": {
+      "column": 63,
+      "line": 1593
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 39,
+      "line": 1593
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Type mismatch: After simplification, term\n  h\n has type\n  curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) ≫\n      externalTensorMap P.structureMap (derivativeIso P e he).inv (derivativeIso P e he).inv ≫\n        externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom =\n    sourceBivector P ≫ externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom\nbut is expected to have type\n  curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) =\n    sourceBivector P ≫ externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom",
+    "endPos": {
+      "column": 86,
+      "line": 1606
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 1605
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  externalProductSection ?s ?a ?b ≫ externalTensorMap ?s ?q ?q\nin the target expression\n  externalProductSection P.structureMap (pullSection e.hom (pullSection f.map (E.left i)))\n        (pullSection e.hom (pullSection f.map (E.right i))) ≫\n      externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom\n        (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P g E).left i)\n      ((pulledExpansion P g E).right i)\n\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nL : LineBundle X.scheme\nB : ExternalSquareSections X L\nE : ExternalExpansion X L B\ni : Fin (pulledExpansion P (isoCurve P e he) (pulledExpansion P f E)).size\nhi : i ∈ Finset.univ\n⊢ externalProductSection P.structureMap (pullSection e.hom (pullSection f.map (E.left i)))\n        (pullSection e.hom (pullSection f.map (E.right i))) ≫\n      externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom\n        (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P g E).left i)\n      ((pulledExpansion P g E).right i)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    externalTensor P.structureMap (pullbackModule g.map L.sheaf) (pullbackModule g.map L.sheaf)\n  has type\n    OModule (SelfProduct P.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct P.structureMap).ringCatSheaf\n  in the application\n    SheafOfModules.unit (SelfProduct P.structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule g.map L.sheaf) (pullbackModule g.map L.sheaf)",
+    "endPos": {
+      "column": 50,
+      "line": 1649
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1649
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (Scheme.Modules.pullback f.map ⋙ Scheme.Modules.pullback e.hom).map C.sequence.form ≫\n    (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf\nin the target expression\n  (derivativeIso P e he).hom ≫\n      (Scheme.Modules.pullback e.hom).map (differentialOver (projectiveLineVariety P) X f.map ⋯) ≫\n        (Scheme.Modules.pullback e.hom).map ((Scheme.Modules.pullback f.map).map C.sequence.form) ≫\n          (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf =\n    differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he ≫\n      (Scheme.Modules.pullback e.hom).map (differentialOver (projectiveLineVariety P) X f.map ⋯) ≫\n        (Scheme.Modules.pullbackComp e.hom f.map).hom.app (tangentSheaf X.structureMap) ≫\n          (Scheme.Modules.pullback (e.hom ≫ f.map)).map C.sequence.form\n\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhgC : (e.hom ≫ f.map) ≫ X.structureMap = P.structureMap\nhgNonconstant : ¬IsConstantOverC P X (e.hom ≫ f.map)\nhn :\n  (Scheme.Modules.pullback f.map ⋙ Scheme.Modules.pullback e.hom).map C.sequence.form ≫\n      (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf =\n    (Scheme.Modules.pullbackComp e.hom f.map).hom.app (intrinsicTangentBundle X).sheaf ≫\n      (Scheme.Modules.pullback (e.hom ≫ f.map)).map C.sequence.form\n⊢ (derivativeIso P e he).hom ≫\n      (Scheme.Modules.pullback e.hom).map (differentialOver (projectiveLineVariety P) X f.map ⋯) ≫\n        (Scheme.Modules.pullback e.hom).map ((Scheme.Modules.pullback f.map).map C.sequence.form) ≫\n          (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf =\n    differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he ≫\n      (Scheme.Modules.pullback e.hom).map (differentialOver (projectiveLineVariety P) X f.map ⋯) ≫\n        (Scheme.Modules.pullbackComp e.hom f.map).hom.app (tangentSheaf X.structureMap) ≫\n          (Scheme.Modules.pullback (e.hom ≫ f.map)).map C.sequence.form\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (Scheme.Modules.pullback (e.hom ≫ f.map)).obj C.sequence.line.sheaf\n  has type\n    ProjectiveLine.Modules\n  but is expected to have type\n    OModule (projectiveLineVariety P).scheme\n  in the application\n    tangentSheaf (projectiveLineVariety P).structureMap ⟶\n      (Scheme.Modules.pullback (e.hom ≫ f.map)).obj C.sequence.line.sheaf",
+    "endPos": {
+      "column": 12,
+      "line": 1678
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 10,
+      "line": 1678
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  curvePull ?P ?f ?M (?B ≫ externalTensorMap (SmoothProperComplexVariety.structureMap ?X) ?q ?q)\nin the target expression\n  curvePull P (isoCurve P e he) (pullbackBundle f.map C.sequence.line)\n        (sourceBivector P ≫\n          externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)) ≫\n      externalTensorMap P.structureMap c c =\n    (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) ≫\n        externalTensorMap P.structureMap qf qf) ≫\n      externalTensorMap P.structureMap c c\n\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nB : ExternalSquareSections X C.sequence.line\nh : CurveKernelIdentity P C f B\nhf :\n  curvePull P f C.sequence.line B =\n    sourceBivector P ≫ externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)\nc : pullbackModule e.hom (pullbackModule f.map C.sequence.line.sheaf) ⟶ pullbackModule g.map C.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ C.sequence.line.sheaf).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) := (derivativeIso P e he).hom\nqf : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map C.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P C f)\nhq : qe ≫ qf ≫ c = curveContactVelocity P C g\n⊢ curvePull P (isoCurve P e he) (pullbackBundle f.map C.sequence.line)\n        (sourceBivector P ≫\n          externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)) ≫\n      externalTensorMap P.structureMap c c =\n    (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) ≫\n        externalTensorMap P.structureMap qf qf) ≫\n      externalTensorMap P.structureMap c c\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    externalTensor P.structureMap (pullbackModule g.map C.sequence.line.sheaf)\n      (pullbackModule g.map C.sequence.line.sheaf)\n  has type\n    OModule (SelfProduct P.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct (projectiveLineVariety P).structureMap).ringCatSheaf\n  in the application\n    SheafOfModules.unit (SelfProduct (projectiveLineVariety P).structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule g.map C.sequence.line.sheaf)\n        (pullbackModule g.map C.sequence.line.sheaf)",
+    "endPos": {
+      "column": 68,
+      "line": 1707
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 55,
+      "line": 1707
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nB : ExternalSquareSections X C.sequence.line\nh : CurveKernelIdentity P C f B\nhf :\n  curvePull P f C.sequence.line B =\n    sourceBivector P ≫ externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)\nc : pullbackModule e.hom (pullbackModule f.map C.sequence.line.sheaf) ⟶ pullbackModule g.map C.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ C.sequence.line.sheaf).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) := (derivativeIso P e he).hom\nqf : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map C.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P C f)\nhq : qe ≫ qf ≫ c = curveContactVelocity P C g\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap qe qe ≫\n        externalTensorMap P.structureMap qf qf ≫ externalTensorMap P.structureMap c c =\n    sourceBivector P ≫ externalTensorMap P.structureMap (qe ≫ qf ≫ c) (qe ≫ qf ≫ c)",
+    "endPos": {
+      "column": 56,
+      "line": 1712
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 91,
+      "line": 1711
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSClassicalActions",
+    "caption": "",
+    "data": "unsolved goals\ncase h₁\nn : ℕ\nX : ContactFanoManifold n\nA : EffectiveContactAction X\nx : PointsOver ComplexBase (𝟙 ComplexBase) X.variety.scheme X.variety.structureMap\ng : PointsOver ComplexBase (𝟙 ComplexBase) A.group.data.scheme A.group.data.toC\n⊢ ↑g ≫ A.group.data.toC ≫ ↑x = ↑x",
+    "endPos": {
+      "column": 62,
+      "line": 68
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSClassicalActions.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 55,
+      "line": 64
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSClassicalActions",
+    "caption": "",
+    "data": "Unknown identifier `TangentEvaluationAt`\n\nNote: It is not possible to treat `TangentEvaluationAt` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 34,
+      "line": 177
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSClassicalActions.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 15,
+      "line": 177
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSClassicalActions",
+    "caption": "",
+    "data": "Unknown identifier `AlgebraicSection`\n\nNote: It is not possible to treat `AlgebraicSection` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 32,
+      "line": 178
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSClassicalActions.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 16,
+      "line": 178
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSClassicalActions",
+    "caption": "",
+    "data": "Unknown identifier `restrictSection`\n\nNote: It is not possible to treat `restrictSection` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+    "endPos": {
+      "column": 27,
+      "line": 179
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSClassicalActions.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 12,
+      "line": 179
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSProductGeometry",
+    "caption": "",
+    "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 51,
+      "line": 104
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSProductGeometry.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "runtime.maxHeartbeats",
+    "pos": {
+      "column": 84,
+      "line": 67
+    },
+    "severity": "error"
+  }
+]

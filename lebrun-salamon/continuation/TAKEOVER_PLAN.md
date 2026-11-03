@@ -10,17 +10,21 @@ The continuation branch is `codex/lebrun-takeover-audit-20261103` in `wajcha2/cl
 
 This is a recovery and admission-boundary audit, with focused mathematical checks of consequential statements. It is not a line-by-line correctness audit of all 103,000 source lines.
 
-## Execution update: first proof batch
+## Point 1 checkpoint — 2026-11-03T22:08:02.671367+00:00
 
-The continuation now has 135 modules and 96 direct admissions, down from 98 at recovery, with no new admissions. The frozen target has not changed.
+This frozen candidate contains **149 Lean source modules and 92 direct `sorry` tokens**. Source token counts are inventories, not counts of accepted published theorems. The immutable target remains byte-identical. The source manifest is `SOURCE.sha256`; the freeze receipt and exact source hashes are in [audit/point1_checkpoint/FREEZE.json](audit/point1_checkpoint/FREEZE.json).
 
-- The actual dual-thickening zero section is proved surjective from the residue map's nilpotent kernel and the pullback carrier theorem. Its native project-level axiom report contains no `sorryAx`.
-- The first-jet restriction theorem is proved through finite-dimensional duality, actual dual-number maps, projective coordinates and the closed immersion. Both new helper modules and the public wrapper have native compilation passes against recovered dependency interfaces.
-- The determinant defect is repaired by isolating the published alternating discriminant theorem on a smooth proper complex base and proving the tensor cancellation and contact specialization. The corrected module and all its current ancestors have fresh CI passes, and a native current-artifact audit confirms its five remaining inputs and the absence of the false original input.
-- The exact frozen statement is importable through the shared foundational definitions. Its topology module is compiled, with a no-`sorryAx` proof that a Wolf homothety transports simple connectedness to its source. The full endpoint is assembled conditionally on an explicitly named simple-connectedness bridge; it is not claimed unconditionally.
-- Independent stock-compiler CI run [41680976758](https://github.com/wajcha2/claude/actions/runs/41680976758) freshly compiled all four modules in the selected foundation/topology graph. The workflow has subsequently been expanded to attempt all 135 modules.
+The latest completed full run, [41714131927](https://github.com/wajcha2/claude/actions/runs/41714131927), checked commit `0e7a654645d92fe82473e358a925b47101305e97`: **97 of 135 modules were accepted for that commit (32 reused with exact receipts and 65 freshly compiled), 5 failed and 33 were blocked**. The final receipt validation invalidated no accepted output. The failures were `LSBranchRamification`, `LSNodalFixedEnds`, `LSConicJets`, `LSClassicalActions` and `LSProductGeometry`; their exact diagnostics are preserved in [audit/ci/41714131927/](audit/ci/41714131927/). The earlier 12000 MB run 41685948946 completed with 32 passes, a Geometry parser failure and 102 blocked modules. That Geometry compatibility repair subsequently passed.
 
-Diagnostic passes against recovered interfaces do not close a cumulative stage. The exact source, dependency and output hashes are recorded in `audit/proof_batch_build/` and `audit/ci/`. The conservative milestone percentage is tracked by the fixed acceptance ledger in [audit/MILESTONE_PROGRESS.md](audit/MILESTONE_PROGRESS.md), independently of source-rewriting counts.
+This candidate includes new proofs and explicit translations for the Step 3c diagonal/projection-formula work, Step 3d fiber-rank work, Step 3e determinant/smooth-cotangent/ampleness work, Step 3f cotangent deformations and dual-thickening normal forms, and Step 3g projective, Laurent and Picard work. Their native helper checks are recorded with their exact tested interfaces. They are **diagnostic proof-development evidence**, not acceptance of the whole current source graph. Compatibility repairs are recorded separately in [audit/ci_compatibility_repairs/](audit/ci_compatibility_repairs/).
+
+The marked projective-line tangent-to-`O(2)` translation also passed a 14.972 s native diagnostic and an 8.175 s transitive audit excluding the former tangent admission. It is integrated into `RecompileSections`, which now contains no direct `sorry`. The audit retains the five inherited inputs of its tested historical interface; it does not certify the newly edited ancestor graph. See [audit/p1_tangent_build/](audit/p1_tangent_build/).
+
+The next full CI run attempts every module in this frozen candidate using the stock pinned compiler with a 12000 MB cap. Its only cache source is run **41714131927**. The cache validator checks source bytes, imports, compiler/runtime identity, output hashes and the entire dependency ancestry; it does not reuse the other 85 old-head outputs merely because they once passed. Twelve outputs still match the current full ancestry at this freeze. The driver revalidates the entire selected batch at the end. No result from this new run is assumed in this checkpoint.
+
+**Point 1 (43 obligations across Steps 3c–3g) remains open.** The remaining work includes the actual vector-bundle exactness translations, internal-Hom/fiber maps, diagonal and normalized source calculations, Hom vanishing, and the required native transitive-boundary and affected-graph checks. An exact primary theorem and a proof of each nondefinitional project specialization are required. A newly renamed admission is not a completed obligation.
+
+The conservative accepted floor remains **30/133 = 22.56%, rounded to 23%**. No additional full acceptance unit is claimed for this candidate. The publication-only milestone, frozen endpoint bridge and eight definition validations remain open.
 
 ## Completion announcements and the evidence recovered
 
@@ -71,11 +75,11 @@ The following counts refer to the 91 obligations recorded after Step 3b. They me
 
 | Step | Subject | Obligations | Current source state |
 |---|---|---:|---|
-| 3c | External tensors, diagonal jets, descent of sections | 6 | Wrapper bodies rewritten; new assumptions require review and kernel checks |
-| 3d | Base change, fibres, pushouts, total spaces | 11 | Wrapper bodies rewritten; new assumptions require review and kernel checks |
-| 3e | Ampleness, determinants, first jets | 7 | Wrapper bodies rewritten; definite determinant defect found and amended provisionally |
-| 3f | Infinitesimal algebra and nodal local models | 11 | Wrapper bodies rewritten; several admitted composites remain |
-| 3g | Projective-line geometry and source normalization | 8 | Wrapper bodies rewritten; normalization and other translations still require proofs |
+| 3c | External tensors, diagonal jets, descent of sections | 6 | Exact-map and diagonal algebra proof work integrated; remaining coordinate bridges and cumulative acceptance pending |
+| 3d | Base change, fibres, pushouts, total spaces | 11 | Actual fiber rank proof integrated; exactness, internal-Hom and scheme constructions still require translation/boundary gates |
+| 3e | Ampleness, determinants, first jets | 7 | Seven project proof translations repaired or implemented; current dependency/reverse-cone and exact-leaf gates pending |
+| 3f | Infinitesimal algebra and nodal local models | 11 | Actual cotangent deformation and normal-form proofs integrated; Hom vanishing and remaining local-model work pending |
+| 3g | Projective-line geometry and source normalization | 8 | Projectivity, splitting, Laurent, Picard and marked tangent translations integrated; normalized bivector calculation and full acceptance remain |
 | 3h | Cotangent sequences and smoothness criteria | 5 | Still directly admitted |
 | 3i | Hom spaces, deformation smoothness, evaluation | 8 | Still directly admitted |
 | 3j | Stable maps, nodal families, global functions | 8 | Still directly admitted |
@@ -85,7 +89,7 @@ The following counts refer to the 91 obligations recorded after Step 3b. They me
 | 3n | Automorphisms, classification, metric recovery | 8 | Still directly admitted |
 | **Total** | | **91** | **43 rewritten wrappers; 48 original direct admissions** |
 
-Those 43 rewritten wrappers are supplied by 42 new admitted declarations. The difference of one comes from deriving finite dimensionality from the rank calculation rather than introducing another admission. The rewritten wrappers do not yet count as 43 accepted proofs. In particular, the remaining workload is not just 48: the 42 new candidate leaves require individual review, and the final-statement bridges are additional explicit work.
+At recovery, those 43 rewritten wrappers were supplied by 42 new admitted declarations. The difference of one comes from deriving finite dimensionality from the rank calculation rather than introducing another admission. The rewritten wrappers do not yet count as 43 accepted proofs. In particular, the remaining workload is not just 48: the 42 new candidate leaves require individual review, and the final-statement bridges are additional explicit work.
 
 Step 3a removed 22 dead admissions, retained the live two-point evaluation theorem, and identified `stageDescription` as a false-positive string match. Accordingly Step 3i has eight surviving obligations, rather than the seven anticipated before deletion triage.
 
@@ -105,20 +109,20 @@ For a concrete counterexample, let \(T\) be a nontrivial two-torsion line bundle
 
 The continuation adds the explicit condition \(b(u,u)=0\) on sections. Its contact application supplies this condition using the existing `intrinsicLevi_alternating` theorem and the tensor universal pairing. The correction introduces no new mathematical assumption on contact manifolds and no additional `sorry`.
 
-The replacement admitted theorem is now `PublishedInputs.Step3e.alternatingDiscriminantTrivial`, restricted to a smooth proper connected complex base. Its source is Asher Auel's [2009 dissertation](https://math.dartmouth.edu/~auel/papers/docs/AUEL_thesisSS.pdf), Proposition 1.10 (trivial discriminant of a regular alternating form) and Definition 1.7 (the underlying discriminant line). The project proves the conversion from triviality of \((L^\vee)^{\otimes n}\otimes\det E\) to \(\det E\simeq L^{\otimes n}\) by tensor associativity, symmetry and evaluation. `RecompileBasePart05A` and its complete current ancestor graph passed fresh stock-compiler CI in run 41682674689. The [current-artifact native audit](audit/current_determinant_build/README.md) confirms the five remaining admitted inputs and excludes the false original theorem. Acceptance of the later reverse-dependency cone remains a separate gate; Part07 hit the first run's memory cap.
+The replacement admitted theorem is now `PublishedInputs.Step3e.alternatingDiscriminantTrivial`, restricted to a smooth proper connected complex base. Its source is Asher Auel's [2009 dissertation](https://math.dartmouth.edu/~auel/papers/docs/AUEL_thesisSS.pdf), Proposition 1.10 (trivial discriminant of a regular alternating form) and Definition 1.7 (the underlying discriminant line). The project proves the conversion from triviality of \((L^\vee)^{\otimes n}\otimes\det E\) to \(\det E\simeq L^{\otimes n}\) by tensor associativity, symmetry and evaluation. `RecompileBasePart05A` and its complete current ancestor graph passed fresh stock-compiler CI in run 41682674689. The [current-artifact native audit](audit/current_determinant_build/README.md) confirms the five remaining admitted inputs and excludes the false original theorem. The 12000 MB replay subsequently passed Part07 without a proof-source change. Acceptance of the current edited reverse-dependency cone remains a separate gate.
 
 ### 3.2 Several obligations were renamed without completing their required proofs
 
 These are concrete examples, not a rejection of the underlying classical mathematics:
 
 - `normalizedSourceBivector` still directly assumes the project's diagonal vanishing and normalized contact symbol. Step 3g requires the calculation on \(\mathbf P^1\times\mathbf P^1\), its normalization, and the actual interface identifications.
-- `laurentExpansionAtPole` combines compactification, a boundary pole, completion of a DVR, a coefficient field, passage to fractions, and negative Laurent order. Its five cited ingredients do not constitute one published theorem with the admitted composite conclusion.
+- At recovery, `laurentExpansionAtPole` admitted a composite of compactification, pole, completion and Laurent-order assertions. The current candidate instead proves the project conclusion from four separately stated field-theoretic inputs, with actual residue and completion maps and the order comparison. Its isolated Mathlib-only proof check passed; exact reference and cumulative acceptance gates remain explicit.
 - `dualThickening_hom_vanishing` explicitly calls itself a derived classical corollary in its comment, while retaining a direct `sorry` and the project-specific `DualThickening` interface.
 - The diagonal second-derivative detection theorem and the formal two-component model likewise require the compositions and coordinate comparisons described in the original plan.
 
 The detailed locations and further examples are in [the published-boundary audit](audit/PUBLISHED_BOUNDARY_AUDIT.md). A `PublishedInputs` namespace is organizational metadata. It does not establish that the admitted statement is a published theorem.
 
-Two identified project admissions have now been replaced by actual proofs: `polarizedEmbedding_firstJets` and `dualThickening_zeroSection_surjective`. Their compiled diagnostic evidence and inherited-assumption scope are recorded separately; the other examples above remain open. An independent primary-source comparison also established publication eligibility for the height-one normal-domain extension leaf and the two affine derivation leaves. That comparison alone is not a kernel or transitive-trust pass.
+The first-jet and zero-section admissions, the Laurent composite, four Base04 Step 3e admissions and several further point-1 translations now have actual proof candidates. Their exact native diagnostic scope is recorded separately. The still-admitted normalized bivector and Hom-vanishing examples remain open; no full stage acceptance is inferred from these partial advances. An independent primary-source comparison also established publication eligibility for the height-one normal-domain extension leaf and the two affine derivation leaves. That comparison alone is not a kernel or transitive-trust pass.
 
 ### 3.3 The frozen target still requires its full endpoint bridge
 
@@ -137,7 +141,7 @@ under the ordinary closed connected positive quaternionic–Kähler hypotheses a
 
 ## 4. Compilation must follow the real dependency graph
 
-At recovery nineteen source modules differed from Step 3b. Their reverse import closure contained 120 modules. The old replay script listed only 21 and omitted 99 affected descendants, including the final target module. The current continuation adds six modules and updates the rebuild plan automatically; see `audit/current/REBUILD_PLAN.json` for current hashes and the full order.
+At recovery nineteen source modules differed from Step 3b. Their reverse import closure contained 120 modules. The old replay script listed only 21 and omitted 99 affected descendants, including the final target module. This frozen continuation has 149 modules and regenerates the rebuild plan from its actual imports; see `audit/current/REBUILD_PLAN.json` for current hashes and the full order.
 
 The old reuse condition recorded only a module's own source and output hashes, not the artifacts of its dependencies. It also restored an old Part04 artifact on every restart. The replacement runner records exact direct dependency hashes, rejects stale artifacts and revalidates the whole selected batch at the end. Twelve simulated bookkeeping cases cover invalidation and source/artifact changes during a run; they are infrastructure tests, not Lean proof evidence.
 

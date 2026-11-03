@@ -1,0 +1,196 @@
+--- RecompileBasePart04.before_remaining_step3e.lean
++++ RecompileBasePart04.after_remaining_step3e.lean
+@@ -1352,11 +1352,61 @@
+   apply ((cotangentPresentation s).universal E).1
+   exact hh.trans (differentialLift_spec D).symm
+ 
++end LeBrunSalamon.PhaseTwentyFive
++
++/- Stacks Project Tags 02G1 and 02G2: the universal differential sheaf of a
++smooth morphism is finite locally free of the relative dimension. The
++chosen project presentation is compared using its proved universal property. -/
++section SmoothCotangentRankProofSection
++set_option backward.isDefEq.respectTransparency false
++open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
++open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseThree
++open LeBrunSalamon.PhaseTwentyFive
++
++namespace LeBrunSalamon.PublishedInputs.Differentials
++
++/-- The universal differential of a smooth morphism of relative dimension d
++is finite locally free of rank d (Stacks 02G1, 02G2). The presentation is
++provided as data; comparison with the project's chosen presentation is proved. -/
++theorem smoothCotangentPresentation {X S : Scheme} (s : X ⟶ S) (d : ℕ)
++    (hs : SmoothOfRelativeDimension d s) :
++    ∃ P : CotangentPresentation s, IsLocallyFreeOfRank P.object d := by
++  sorry
++
++end LeBrunSalamon.PublishedInputs.Differentials
++
++namespace LeBrunSalamon.CotangentRankProof
++
++theorem rank_transport {X : Scheme} {E F : OModule X} {r : ℕ}
++    (e : E ≅ F) (hE : IsLocallyFreeOfRank E r) :
++    IsLocallyFreeOfRank F r := by
++  obtain ⟨q, hq, hr⟩ := hE
++  letI := hq
++  apply SheafTensor.rank_of_free_cover F r q.X q.coversTop
++  intro i
++  exact SheafTensor.localBasisTrivialization q hr i ≪≫
++    (SheafOfModules.overFunctor X.ringCatSheaf (q.X i)).mapIso e
++
++theorem smooth_cotangent_rank {X S : Scheme} (s : X ⟶ S) (d : ℕ)
++    (hs : SmoothOfRelativeDimension d s) :
++    IsLocallyFreeOfRank (cotangentSheaf s) d := by
++  obtain ⟨P, hP⟩ := PublishedInputs.Differentials.smoothCotangentPresentation s d hs
++  obtain ⟨e, _⟩ := cotangentPresentation_unique P (cotangentPresentation s)
++  exact rank_transport e hP
++
++end LeBrunSalamon.CotangentRankProof
++
++end SmoothCotangentRankProofSection
++
++namespace LeBrunSalamon.PhaseTwentyFive
++open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
++open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
++
+ theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.smooth_cotangent_rank
+     {X S : Scheme} (s : X ⟶ S) (d : ℕ)
+     (hs : SmoothOfRelativeDimension d s) :
+     IsLocallyFreeOfRank (cotangentSheaf s) d := by
+-  sorry
++  exact LeBrunSalamon.CotangentRankProof.smooth_cotangent_rank s d hs
+ 
+ /-- Project-facing form of local freeness of relative differentials for a
+ smooth morphism of relative dimension `d`. -/
+@@ -3236,6 +3286,35 @@
+       (anticanonicalLine X).sheaf) := by
+   exact determinantDual_iso (intrinsicCotangentBundle X)
+ 
++/-- Cancel the dual determinant in the generic fundamental exterior map. -/
++theorem determinant_shortExact {X : Scheme} {a b : ℕ}
++    (E : AlgebraicVectorBundle X a) (F : AlgebraicVectorBundle X (a + b))
++    (G : AlgebraicVectorBundle X b)
++    (i : E.sheaf ⟶ F.sheaf) (p : F.sheaf ⟶ G.sheaf)
++    (hz : i ≫ p = 0) (hex : (ShortComplex.mk i p hz).ShortExact) :
++    Nonempty ((determinantLine F).sheaf ≅
++      (tensorLine (determinantLine E) (determinantLine G)).sheaf) := by
++  have hG : IsLocallyFreeOfRank G.sheaf (a + b - a) := by
++    simpa only [Nat.add_sub_cancel_left] using G.locallyFree
++  obtain ⟨δ, hδ⟩ := PublishedInputs.Determinant.lciExteriorMap_isIso
++    E F G.sheaf i p hz hex (Nat.le_add_right a b) hG
++  letI := hδ
++  obtain ⟨d⟩ := determinantDual_iso E
++  let e₀ : (determinantLine G).sheaf ≅
++      tensorSheaf (exteriorSheaf (dualSheaf E.sheaf) a)
++        (determinantLine F).sheaf := by
++    simpa only [determinantLine, Nat.add_sub_cancel_left] using asIso δ
++  let e := e₀ ≪≫ tensorIso d (Iso.refl (determinantLine F).sheaf)
++  obtain ⟨ev⟩ := line_dual_evaluation (determinantLine E)
++  let A := (determinantLine E).sheaf
++  let B := (determinantLine F).sheaf
++  let D := dualSheaf A
++  exact ⟨(TensorConstruction.leftUnitIso B).symm ≪≫
++    tensorIso ev.symm (Iso.refl B) ≪≫
++    tensorIso (TensorConstruction.commIso D A) (Iso.refl B) ≪≫
++    SheafTensor.associativityIso A D B ≪≫
++    tensorIso (Iso.refl A) e.symm⟩
++
+ end LeBrunSalamon.TangentDeterminantProof
+ 
+ end TangentDeterminantProofSection
+@@ -3500,10 +3579,84 @@
+ end
+ 
+ 
++end LeBrunSalamon.PhaseTwentySix
++
++/- Positive tensor powers are ample exactly when the original invertible
++sheaf is ample (Stacks Project 01PR and 01PT). The actual project line-power
++construction is transported to recursive tensor powers in the proved wrapper. -/
++section AmplePowerProofSection
++set_option backward.isDefEq.respectTransparency false
++open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
++open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseThree
++open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
++
++namespace LeBrunSalamon.SheafAmpleness
++
++/-- Nonvanishing of a line section means it locally trivializes the sheaf. -/
++def nonvanishing {X : Scheme} (E : OModule X) (s : AlgebraicSection E) : X.Opens :=
++  sSup {U : X.Opens | IsIso (restrictSection U.ι s)}
++
++/-- Stacks 28.27.1 expressed on the actual sheaf and tensor-power construction. -/
++def IsAmple {X : Scheme} (E : OModule X) : Prop :=
++  CompactSpace X ∧ ∀ x : X,
++    ∃ (m : ℕ) (_ : 0 < m) (s : AlgebraicSection (SheafTensor.tensorPower E m)),
++      x ∈ nonvanishing (SheafTensor.tensorPower E m) s ∧
++      IsAffineOpen (nonvanishing (SheafTensor.tensorPower E m) s)
++
++theorem line_iff {X : Scheme} (L : LineBundle X) :
++    IsAmpleLine L ↔ IsAmple L.sheaf := by
++  unfold IsAmpleLine IsAmple
++  apply and_congr_right
++  intro _
++  apply forall_congr'
++  intro x
++  apply exists_congr
++  intro m
++  apply exists_congr
++  intro _
++  let Q (E : OModule X) : Prop :=
++    ∃ s : AlgebraicSection E,
++      x ∈ nonvanishing E s ∧ IsAffineOpen (nonvanishing E s)
++  change Q (linePower L m).sheaf ↔ Q (SheafTensor.tensorPower L.sheaf m)
++  exact iff_of_eq (congrArg Q (linePower_sheaf_eq_tensorPower L m))
++
++end LeBrunSalamon.SheafAmpleness
++
++namespace LeBrunSalamon.PublishedInputs.Ample
++
++/-- Stacks Project Lemma 28.27.2 (Tag 01PT), for an arbitrary invertible
++module sheaf and a positive tensor power, with the quasi-compact convention
++of Definition 28.27.1 (Tag 01PR). -/
++theorem positive_tensorPower {X : Scheme} (E : OModule X)
++    (hE : IsLocallyFreeOfRank E 1) (m : ℕ) (hm : 0 < m) :
++    SheafAmpleness.IsAmple (SheafTensor.tensorPower E m) ↔
++      SheafAmpleness.IsAmple E := by
++  sorry
++
++end LeBrunSalamon.PublishedInputs.Ample
++
++namespace LeBrunSalamon.AmplePowerProof
++
++theorem ample_positivePower_iff {X : Scheme} (L : LineBundle X)
++    (m : ℕ) (hm : 0 < m) :
++    IsAmpleLine (linePower L m) ↔ IsAmpleLine L := by
++  rw [SheafAmpleness.line_iff, SheafAmpleness.line_iff,
++    linePower_sheaf_eq_tensorPower]
++  exact PublishedInputs.Ample.positive_tensorPower L.sheaf L.locallyFree m hm
++
++end LeBrunSalamon.AmplePowerProof
++
++end AmplePowerProofSection
++
++namespace LeBrunSalamon.PhaseTwentySix
++open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
++open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
++open LeBrunSalamon.PhaseTwentyFive
++
+ theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.ample_positivePower_iff
+     {X : Scheme} (L : LineBundle X) (m : ℕ) (hm : 0 < m) :
+     IsAmpleLine (linePower L m) ↔ IsAmpleLine L := by
+-  sorry
++  exact LeBrunSalamon.AmplePowerProof.ample_positivePower_iff L m hm
+ 
+ /-- Project-facing form of invariance of ampleness under positive tensor
+ powers. -/
+@@ -3522,7 +3675,7 @@
+     (hex : (ShortComplex.mk i p hz).ShortExact) :
+     Nonempty ((determinantLine F).sheaf ≅
+       (tensorLine (determinantLine E) (determinantLine G)).sheaf) := by
+-  sorry
++  exact LeBrunSalamon.TangentDeterminantProof.determinant_shortExact E F G i p hz hex
+ 
+ /-- Project-facing determinant isomorphism for a short exact sequence of
+ finite locally free sheaves. -/

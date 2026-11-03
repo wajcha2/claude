@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-03",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-03T17:43:40.924983+00:00",
+  "recorded_utc": "2026-11-03T22:08:02.671367+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,21 +25,23 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 135,
-    "lines": 104538,
-    "bytes": 5053932,
+    "modules": 149,
+    "lines": 107590,
+    "bytes": 5193545,
     "admissions": {
-      "sorry": 96,
+      "sorry": 92,
       "admit": 0,
       "axiom": 0,
       "opaque": 0
     },
-    "published_namespace_count_not_certification": 48,
+    "published_namespace_count_not_certification": 44,
     "other_direct_admissions": 48,
-    "new_leaf_candidates_since_step3b": 40,
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
-    "static_integrity_passed": true
+    "static_integrity_passed": true,
+    "snapshot_utc": "2026-11-03T22:08:02.671367+00:00",
+    "aggregate_sha256": "677a5de8f411bd9e46821def43d3719fbd954fa57599cb7aaed64e98e10dfcc8",
+    "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
     "path": "target/MainStatement.lean",
@@ -60,18 +62,18 @@
     "sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
     "change": "restrict alternating-discriminant leaf to smooth proper complex bases; prove determinant conversion by tensor cancellation and supply actual Levi alternation",
     "new_sorry": 0,
-    "kernel_status": "passed fresh stock-compiler CI with all current ancestors in run41682674689; later reverse-dependency acceptance blocked at Part07",
+    "kernel_status": "Passed with the original current ancestry in historical CI; subsequent Base04 edits invalidate that ancestry and require a fresh dependency build.",
     "exact_full_scope_published_reference": "Auel 2009 thesis Proposition1.10 and Definition1.7; leaf restricted to smooth proper connected complex bases, determinant conversion proved",
-    "current_native_dependency_audit": "audit/current_determinant_build/DETERMINANT_DEPENDENCY_SUMMARY.json",
+    "current_native_dependency_audit": "audit/current_determinant_build/DETERMINANT_DEPENDENCY_SUMMARY.json (historical exact-source scope; see its source hashes)",
     "old_false_input_in_environment": false,
     "old_false_input_in_dependency_closure": false,
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 25,
-    "affected_modules": 126,
+    "changed_modules": 43,
+    "affected_modules": 140,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 105,
+    "omitted_affected_descendants": 119,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
     "driver": "scripts/replay_checkpoint.py",
@@ -122,7 +124,101 @@
     "absence_of_certificate_proves_work_never_completed": false,
     "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
   },
-  "proof_batch": {
+  "percentage_metric": {
+    "kind": "conservative acceptance-checklist completion floor",
+    "denominator": 133,
+    "accepted": 30,
+    "rounded_percentage": 23,
+    "mathematical_effort_estimate": false,
+    "ledger": "audit/MILESTONE_PROGRESS.json"
+  },
+  "native_current_ci": {
+    "run_id": 41680976758,
+    "commit": "194d98fd9e8bfcd014a9578dd10bfabe74f05cf1",
+    "conclusion": "success",
+    "modules": [
+      "LSNilpotentTopology",
+      "RecompileBasePart01",
+      "LSMilestoneStatement",
+      "LSMilestoneTopology"
+    ],
+    "all_built_fresh": true,
+    "evidence": "audit/ci/41680976758/CI_RECEIPT.json"
+  },
+  "cumulative_ci_attempt": {
+    "status": "awaiting_commit_and_automatic_push_trigger",
+    "result_not_yet_accepted": true,
+    "source_modules_selected": 149,
+    "source_freeze_utc": "2026-11-03T22:08:02.671367+00:00",
+    "compiler_memory_cap_mb": 12000,
+    "strict_cache_source_run_id": 41714131927,
+    "expected_full_ancestry_cache_count": 12,
+    "full_selected_graph_passed": false
+  },
+  "cumulative_ci_attempts": [
+    {
+      "run_id": 41682674689,
+      "commit": "7b624261fff0a5eda25b14a035d637e238e3454a",
+      "compiler_memory_cap_mb": 7200,
+      "conclusion": "failure",
+      "fresh_passed_modules": 19,
+      "failed_modules": [
+        "RecompileBasePart07"
+      ],
+      "blocked_modules": 115,
+      "first_error": "(kernel) excessive memory consumption detected at RecompileBasePart07:264",
+      "total_errors": 54,
+      "memory_cap_errors": 27,
+      "other_errors": "27 subsequent diagnostics, not classified independently before a sufficient-memory replay",
+      "evidence": "audit/ci/41682674689/CI_RECEIPT.json"
+    },
+    {
+      "run_id": 41685948946,
+      "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
+      "source_modules_selected": 135,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "passed": 32,
+        "failed": 1,
+        "blocked": 102
+      },
+      "accepted_count_at_that_commit": 32,
+      "failed_modules": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41685948946/CI_RECEIPT.json",
+      "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
+    },
+    {
+      "run_id": 41714131927,
+      "commit": "0e7a654645d92fe82473e358a925b47101305e97",
+      "source_modules_selected": 135,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "reused": 32,
+        "passed": 65,
+        "failed": 5,
+        "blocked": 33
+      },
+      "accepted_count_at_that_commit": 97,
+      "failed_modules": [
+        "LSBranchRamification",
+        "LSNodalFixedEnds",
+        "LSConicJets",
+        "LSClassicalActions",
+        "LSProductGeometry"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41714131927/CI_RECEIPT.json",
+      "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
+    }
+  ],
+  "proof_batch_previous_checkpoint": {
     "status": "two project admissions replaced by proved code; five native diagnostic passes;19 modules passed fresh cumulative CI before a Part07 memory-cap failure",
     "removed_direct_admissions": [
       "polarizedEmbedding_firstJets",
@@ -167,67 +263,84 @@
       "rank_reference": "audit/PULLBACK_RANK_REFERENCE.md"
     }
   },
-  "percentage_metric": {
-    "kind": "conservative acceptance-checklist completion floor",
-    "denominator": 133,
-    "accepted": 30,
-    "rounded_percentage": 23,
-    "mathematical_effort_estimate": false,
-    "ledger": "audit/MILESTONE_PROGRESS.json"
-  },
-  "native_current_ci": {
-    "run_id": 41680976758,
-    "commit": "194d98fd9e8bfcd014a9578dd10bfabe74f05cf1",
-    "conclusion": "success",
-    "modules": [
-      "LSNilpotentTopology",
-      "RecompileBasePart01",
-      "LSMilestoneStatement",
-      "LSMilestoneTopology"
+  "proof_batch": {
+    "status": "Integrated mathematical translations and compatibility candidates; native diagnostic evidence retained; full current-source replay pending.",
+    "kernel_accepted": false,
+    "accepted_units_added": 0,
+    "evidence_directories": [
+      "audit/step3cd_build",
+      "audit/step3cd_projection_build",
+      "audit/step3cd_kunneth_cover_build",
+      "audit/tangent_determinant_build",
+      "audit/step3e_remaining_build",
+      "audit/step3f_native_batch",
+      "audit/point1_projective_laurent_build",
+      "audit/p1_picard_build",
+      "audit/p1_tangent_build",
+      "audit/ci_compatibility_repairs",
+      "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+      "audit/step3f_nodal_compatibility"
     ],
-    "all_built_fresh": true,
-    "evidence": "audit/ci/41680976758/CI_RECEIPT.json"
+    "point1_obligation_count": 43,
+    "point1_complete": false
   },
-  "cumulative_ci_attempt": {
-    "run_id": 41685948946,
-    "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
-    "source_modules_selected": 135,
-    "historical_seed_reuse": false,
-    "compiler_memory_cap_mb": 12000,
-    "status": "in_progress",
-    "result_not_yet_accepted": true,
-    "lean_source_blobs_identical_to_previous_attempt": true,
-    "status_snapshot": "audit/ci/41685948946/STATUS.json",
-    "status_observed_utc": "2026-11-03T17:42:09Z"
-  },
-  "cumulative_ci_attempts": [
-    {
-      "run_id": 41682674689,
-      "commit": "7b624261fff0a5eda25b14a035d637e238e3454a",
-      "compiler_memory_cap_mb": 7200,
-      "conclusion": "failure",
-      "fresh_passed_modules": 19,
-      "failed_modules": [
-        "RecompileBasePart07"
-      ],
-      "blocked_modules": 115,
-      "first_error": "(kernel) excessive memory consumption detected at RecompileBasePart07:264",
-      "total_errors": 54,
-      "memory_cap_errors": 27,
-      "other_errors": "27 subsequent diagnostics, not classified independently before a sufficient-memory replay",
-      "evidence": "audit/ci/41682674689/CI_RECEIPT.json"
+  "compatibility_repairs": {
+    "scope": "Native diagnostics against the exact frozen 0e7a6546 ancestor outputs from CI 41714131927. Not current-main reverse-cone acceptance.",
+    "modules": {
+      "LSClassicalActions": {
+        "native_status": "passed",
+        "seconds": 4.381,
+        "source_sha256_tested": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
+        "source_sha256_current": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
+        "return_code": 0,
+        "current_source_bytes_match_tested": true
+      },
+      "LSBranchRamification": {
+        "native_status": "passed",
+        "seconds": 5.582,
+        "source_sha256_tested": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
+        "source_sha256_current": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
+        "return_code": 0,
+        "current_source_bytes_match_tested": true
+      },
+      "LSProductGeometry": {
+        "native_status": "timed_out",
+        "seconds": 90.327,
+        "source_sha256_tested": "5f5060059a3614d71700f360b6757ab2362dc745150c053ffa844cb76a26fdd7",
+        "source_sha256_current": "ab7855b00b9fa4651b4360ddccd30f0b2a86aed5f32efcd62a49b13afa48289e",
+        "return_code": 124,
+        "current_source_bytes_match_tested": false,
+        "current_change_since_test": "Status comment only; proof candidate is unchanged.",
+        "remaining_issue": "Elaboration performance unresolved; 90-second bounded principal-affine diagnostic timed out without a source diagnostic."
+      }
     },
-    {
-      "run_id": 41685948946,
-      "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
-      "source_modules_selected": 135,
-      "historical_seed_reuse": false,
-      "compiler_memory_cap_mb": 12000,
-      "status": "in_progress",
-      "result_not_yet_accepted": true,
-      "lean_source_blobs_identical_to_previous_attempt": true,
-      "status_snapshot": "audit/ci/41685948946/STATUS.json",
-      "status_observed_utc": "2026-11-03T17:42:09Z"
-    }
-  ]
+    "compiler_slot": "released to root after 2026-11-03T21:57:52.303487+00:00",
+    "unchanged_theorem_types_and_admissions": true,
+    "full_current_graph_passed": false
+  },
+  "latest_completed_cumulative_ci_attempt": {
+    "run_id": 41714131927,
+    "commit": "0e7a654645d92fe82473e358a925b47101305e97",
+    "source_modules_selected": 135,
+    "compiler_memory_cap_mb": 12000,
+    "status": "completed",
+    "conclusion": "failure",
+    "counts": {
+      "reused": 32,
+      "passed": 65,
+      "failed": 5,
+      "blocked": 33
+    },
+    "accepted_count_at_that_commit": 97,
+    "failed_modules": [
+      "LSBranchRamification",
+      "LSNodalFixedEnds",
+      "LSConicJets",
+      "LSClassicalActions",
+      "LSProductGeometry"
+    ],
+    "full_selected_graph_passed": false,
+    "evidence": "audit/ci/41714131927/CI_RECEIPT.json",
+    "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
+  }
 }

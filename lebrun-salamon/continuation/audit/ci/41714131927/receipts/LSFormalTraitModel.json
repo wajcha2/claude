@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSFormalTraitModel",
+  "key": {
+    "source_sha256": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce",
+    "imports": [
+      "LSStableMapFamily"
+    ],
+    "dependency_artifacts": {
+      "LSStableMapFamily": {
+        "sha256": "c5256faab7e916b94866f1557b884bb4a3f2402273d073aa2ded1240b4aa565a",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSFormalTraitModel.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalTraitModel.lean"
+  ],
+  "started_utc": "2026-11-03T20:46:12.391700+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFormalTraitModel.20261103T204612391670.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFormalTraitModel.20261103T204612391670.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T20:46:15.718286+00:00",
+  "seconds": 3.325,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "94bbb1bcc24e5dc63bdb6e60484432d5350943938b6b3627da7ecb844f59a4cb",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "e33c83223f2fc7590958705c889696f4e29fec1aff62722ac32d92a25c6065be",
+  "evidence_kind": "native_kernel_compilation"
+}

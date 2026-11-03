@@ -14,9 +14,11 @@ through the actual scheme pullback to an actual complex-valued point.
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo
+open LeBrunSalamon.PhaseThree LeBrunSalamon.PhaseTen
 open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight
 open LeBrunSalamon.PhaseThirtyFive
 open LeBrunSalamon.Skeleton
@@ -66,6 +68,7 @@ theorem orbit_point
   rw [← Category.assoc]
   congr 1
   apply pullback.hom_ext <;> simp [Category.assoc, g.property]
+  rw [← Category.assoc, g.property, Category.id_comp]
 
 theorem orbit_range_nonempty
     (x : PointsOver ComplexBase (𝟙 ComplexBase) X.variety.scheme X.variety.structureMap) :

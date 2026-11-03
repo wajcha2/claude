@@ -1,5 +1,6 @@
 import LSNodalTangent
 import LSHamiltonianJets
+import LSAffineFiberDivisibility
 
 /-!
 # The fixed-end first-order smoothing and its actual source maps
@@ -24,11 +25,10 @@ open LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyFour
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton
 open LeBrunSalamon.Construction LeBrunSalamon.Construction.Lines
 
-/-- Classical affine-module corollary of Stacks Project, Lemmas 26.7.1
-(Tag 01I7) and 26.7.3 (Tag 01I9): actual restriction to the coordinate-zero
-point is the quotient M/XM. Consequently a section restricting to zero is
-multiplication by the actual polynomial coordinate. This records the generic
-module fact; it contains no contact or deformation conclusion. -/
+/-- The affine-module divisibility argument is proved using the quotient
+`M/XM` as a separating target. The actual sheaf maps are supplied by the
+tilde/Gamma and pullback/pushforward adjunctions, so the polynomial coordinate
+and the given zero-section restriction retain their original normalization. -/
 theorem LeBrunSalamon.PublishedInputs.Step3f.affineLine_section_divisible
     (E : LeBrunSalamon.PhaseOne.OModule
       LeBrunSalamon.Construction.Smoothing.AffineLine)
@@ -39,7 +39,7 @@ theorem LeBrunSalamon.PublishedInputs.Step3f.affineLine_section_divisible
       (LeBrunSalamon.PhaseTwentyEight.sectionFromValue a) = 0) :
     ∃ b : LeBrunSalamon.PhaseOne.GlobalSections E,
       a = LeBrunSalamon.Construction.Smoothing.parameterFunction • b := by
-  sorry
+  exact LeBrunSalamon.AffineFiberDivisibility.affineLine_section_divisible E a ha
 
 /-- Project-facing specialization of the affine module quotient theorem. -/
 theorem LeBrunSalamon.StandardInputs.affineLine_section_divisible
@@ -120,6 +120,7 @@ theorem canonicalMap_differential {Y S T : Scheme} (f : Y ⟶ S) (g : T ⟶ S)
   rw [ContactDerivativeIsoProof.cotangentMap_differential,
     ContactDerivativeIsoProof.differential_transport,
     CotangentTransitivityRederivedV02.cotangentToRelative_differential]
+  exact pullback.condition
 
 end LeBrunSalamon.CotangentBaseChange
 
@@ -206,7 +207,9 @@ nonzero multiple or a replacement first-order coordinate. -/
 theorem epsilonParameter_function :
     epsilonParameter.appTop parameterFunction =
       (Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv Infinitesimal.epsilon := by
-  rw [epsilonParameter, lift_normalized]
+  change (lift BaseDifferentialProof.baseChart BaseDifferentialProof.unitDirection).map.appTop
+    (show RingSections BaseDifferentialProof.baseChart.scheme ⊤ from parameterFunction) = _
+  rw [lift_normalized]
   congr 1
   have hz : BaseDifferentialProof.baseChart.evaluation parameterFunction = 0 := by
     change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
@@ -259,6 +262,7 @@ def deformedMap (z : G.chart.Tangent) (hz : G.baseDifferential z = 1) :
       pullback.snd G.source.parameter epsilonParameter ≫ Infinitesimal.dualToC := by
   rw [deformedMap, Category.assoc, G.hom.overC]
   simp only [sourceBaseChangeMap, pullback.lift_snd_assoc]
+  rw [Category.assoc]
   rw [← Category.assoc (homLiftMap G z) G.hom.toBase affineLineToC,
     homLiftMap_base G z hz, epsilonParameter_over]
 
@@ -416,8 +420,17 @@ theorem ringPushout :
   · apply CommRingCat.hom_ext
     apply Polynomial.ringHom_ext
     · intro c
-      rfl
-    · change firstOrderParameter = fromDual Infinitesimal.epsilon
+      change Ideal.Quotient.mk nodeInfinitesimalIdeal
+        (Polynomial.eval₂ MvPolynomial.C (MvPolynomial.X 0 * MvPolynomial.X 1)
+          (Polynomial.C c)) = fromDual
+            (Ideal.Quotient.mk Infinitesimal.dualIdeal (Polynomial.C c))
+      rw [Polynomial.eval₂_C]
+      change algebraMap ℂ Ring c = fromDual (algebraMap ℂ Infinitesimal.Dual c)
+      exact (fromDual.commutes c).symm
+    · change Ideal.Quotient.mk nodeInfinitesimalIdeal
+        (Polynomial.eval₂ MvPolynomial.C (MvPolynomial.X 0 * MvPolynomial.X 1)
+          Polynomial.X) = fromDual Infinitesimal.epsilon
+      rw [Polynomial.eval₂_X]
       exact fromDual_epsilon.symm
   · intro T f g h _
     apply CommRingCat.hom_ext
@@ -430,10 +443,14 @@ theorem ringPushout :
         b Infinitesimal.epsilon := by
       have hx := congrArg (fun h : CommRingCat.of (Polynomial ℂ) ⟶ T =>
         h Polynomial.X) h
-      exact hx
+      simpa [AffineNode.nodeParameter, dualQuotient, Infinitesimal.epsilon] using hx
     have hC (c : ℂ) : a (MvPolynomial.C c) = b (algebraMap ℂ Infinitesimal.Dual c) := by
-      exact congrArg (fun h : CommRingCat.of (Polynomial ℂ) ⟶ T =>
+      have hc := congrArg (fun h : CommRingCat.of (Polynomial ℂ) ⟶ T =>
         h (Polynomial.C c)) h
+      have hmk : Ideal.Quotient.mk Infinitesimal.dualIdeal (Polynomial.C c) =
+          algebraMap ℂ Infinitesimal.Dual c :=
+        Ideal.Quotient.mk_algebraMap ℂ Infinitesimal.dualIdeal c
+      simpa [AffineNode.nodeParameter, dualQuotient, hmk] using hc
     have hk : nodeInfinitesimalIdeal ≤ RingHom.ker a.hom := by
       rw [nodeInfinitesimalIdeal, Ideal.span_singleton_le_iff_mem]
       change a ((MvPolynomial.X 0 * MvPolynomial.X 1) ^ 2) = 0
@@ -442,7 +459,8 @@ theorem ringPushout :
       CommRingCat.ofHom (Ideal.Quotient.lift nodeInfinitesimalIdeal a.hom hk)
     refine ⟨l, ?_, ?_⟩
     · apply CommRingCat.hom_ext
-      ext p
+      apply RingHom.ext
+      intro p
       rfl
     · apply CommRingCat.hom_ext
       apply RingHom.ext
@@ -452,8 +470,13 @@ theorem ringPushout :
           b.hom.comp (Ideal.Quotient.mk Infinitesimal.dualIdeal) := by
         apply Polynomial.ringHom_ext
         · intro c
+          change l (fromDual (algebraMap ℂ Infinitesimal.Dual c)) =
+            b (algebraMap ℂ Infinitesimal.Dual c)
+          rw [fromDual.commutes]
           exact hC c
-        · exact hxy
+        · change l (fromDual Infinitesimal.epsilon) = b Infinitesimal.epsilon
+          rw [fromDual_epsilon]
+          exact hxy
       exact congrArg (fun q : Polynomial ℂ →+* T => q p) he
 
 theorem isPullback :
@@ -520,6 +543,7 @@ theorem toPlane_source (F : StandardSource) :
     rw [← modelToChart_inclusion F 0, ← Category.assoc]
     change ((chartIso F 0).hom ≫ (chartIso F 0).inv) ≫ _ = _
     rw [Iso.hom_inv_id, Category.id_comp]
+    rfl
   rw [toPlane, Category.assoc, h]
   exact AlgebraicGeometry.morphismRestrict_ι _ _
 
@@ -545,7 +569,8 @@ instance nodeMap_open (F : StandardSource) : IsOpenImmersion (nodeMap F) := by
 @[reassoc] theorem nodeMap_source (F : StandardSource) :
     nodeMap F ≫ pullback.fst F.parameter epsilonParameter =
       Spec.map EpsilonNode.planeQuotient ≫ modelMap F 0 := by
-  rw [nodeMap, Category.assoc, ← toPlane_source, ← Category.assoc, openIso_plane]
+  change ((openIso F).hom ≫ (nodeOpen F).ι) ≫ inclusion F = _
+  rw [Category.assoc, ← toPlane_source, ← Category.assoc, openIso_plane]
 
 @[reassoc] theorem nodeMap_parameter (F : StandardSource) :
     nodeMap F ≫ pullback.snd F.parameter epsilonParameter =
@@ -562,9 +587,12 @@ def functions {T : Scheme} (sT : T ⟶ ComplexBase)
     CommRingCat.of Infinitesimal.Dual ⟶ Γ(T, ⊤) :=
   CommRingCat.ofHom (Ideal.Quotient.lift Infinitesimal.dualIdeal
     (Polynomial.eval₂RingHom (complexConstants sT) a) (by
-      rw [Infinitesimal.dualIdeal, Ideal.span_singleton_le_iff_mem]
-      change Polynomial.eval₂ (complexConstants sT) a (Polynomial.X ^ 2) = 0
-      simpa only [Polynomial.eval₂_pow, Polynomial.eval₂_X] using ha))
+      have hk : Infinitesimal.dualIdeal ≤
+          RingHom.ker (Polynomial.eval₂RingHom (complexConstants sT) a) := by
+        rw [Infinitesimal.dualIdeal, Ideal.span_singleton_le_iff_mem]
+        change Polynomial.eval₂ (complexConstants sT) a (Polynomial.X ^ 2) = 0
+        simpa only [Polynomial.eval₂_pow, Polynomial.eval₂_X] using ha
+      exact hk))
 
 def point {T : Scheme} (sT : T ⟶ ComplexBase)
     (a : RingSections T ⊤) (ha : a ^ 2 = 0) : T ⟶ Infinitesimal.DualScheme :=
@@ -600,9 +628,12 @@ theorem point_epsilon {T : Scheme} (sT : T ⟶ ComplexBase)
       Γ(Infinitesimal.DualScheme, ⊤) => k c)
     (Scheme.ΓSpecIso_inv_naturality
       (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual)))
+  change (Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
+    (algebraMap ℂ Infinitesimal.Dual c) =
+    Infinitesimal.dualToC.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c) at hc
   rw [← hc, point_apply, ← complexConstants_apply_top]
   change Polynomial.eval₂ (complexConstants sT) a (Polynomial.C c) = _
-  exact Polynomial.eval₂_C _ _ _
+  exact Polynomial.eval₂_C _ _
 
 theorem point_parameter {T : Scheme} (sT : T ⟶ ComplexBase)
     (a : RingSections T ⊤) (ha : a ^ 2 = 0) :
@@ -636,12 +667,20 @@ theorem point_ext {T : Scheme} (sT : T ⟶ ComplexBase)
           Γ(Infinitesimal.DualScheme, ⊤) => k c)
         (Scheme.ΓSpecIso_inv_naturality
           (CommRingCat.ofHom (algebraMap ℂ Infinitesimal.Dual)))
+      change (Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
+        (algebraMap ℂ Infinitesimal.Dual c) =
+        Infinitesimal.dualToC.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c) at hc
       change f.appTop ((Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
           (algebraMap ℂ Infinitesimal.Dual c)) =
         g.appTop ((Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
           (algebraMap ℂ Infinitesimal.Dual c))
-      rw [hc, ← CommRingCat.comp_apply, ← CommRingCat.comp_apply,
-        ← Scheme.Hom.comp_appTop, ← Scheme.Hom.comp_appTop, hf, hg]
+      rw [hc]
+      have hfc := congrArg (fun k : T ⟶ ComplexBase =>
+        k.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c)) hf
+      have hgc := congrArg (fun k : T ⟶ ComplexBase =>
+        k.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c)) hg
+      simp only [Scheme.Hom.comp_appTop, CommRingCat.comp_apply] at hfc hgc
+      exact hfc.trans hgc.symm
     · exact he
   exact congrArg (fun q : Polynomial ℂ →+* RingSections T ⊤ => q p) hp
 
@@ -799,7 +838,7 @@ theorem nodeFamily_natural (F : StandardSource) {T Y : Scheme}
   apply pullback.hom_ext
   · rw [Category.assoc, nodeFamily_source, nodeFamily_source,
       nodeSource_natural F sT sY f hf]
-  · rw [Category.assoc, nodeFamily_parameter, nodeFamily_parameter,
+  · simp only [Category.assoc, nodeFamily_parameter,
       SquareZeroFunction.point_natural sY sT f hf, map_mul]
 
 abbrev AffineDual : Scheme := space affineLineToC
@@ -1009,7 +1048,7 @@ def secondNodeMap : AffineDual ⟶ SourceOver G.source epsilonParameter :=
 theorem firstNodeMap_reduction :
     zeroSection affineLineToC ≫ firstNodeMap G = (ratioPoint 0).val ≫ firstBranch G := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, firstNodeMap, nodeFamily_source]
     change zeroSection affineLineToC ≫
         nodeSource G.source (toC affineLineToC) coordinate epsilon =
       ((ratioPoint 0).val ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter
@@ -1018,11 +1057,11 @@ theorem firstNodeMap_reduction :
       zero_coordinate, zero_epsilon, nodeSource_zero_right G.source G.marks,
       parameter_fromFunction, Category.id_comp]
     simp only [firstBranch, Category.assoc, pullback.lift_fst]
-  · rw [Category.assoc]
+  · rw [Category.assoc, firstNodeMap, nodeFamily_parameter]
     change zeroSection affineLineToC ≫
         SquareZeroFunction.point (toC affineLineToC) (coordinate*epsilon) _ =
       ((ratioPoint 0).val ≫ firstBranch G) ≫ pullback.snd G.source.parameter epsilonParameter
-    rw [SquareZeroFunction.point_natural (toC affineLineToC) affineLineToC
+    simp only [SquareZeroFunction.point_natural (toC affineLineToC) affineLineToC
       (zeroSection affineLineToC) (zeroSection_overC affineLineToC),
       map_mul, zero_epsilon, mul_zero, SquareZeroFunction.point_zero]
     simp only [firstBranch, Category.assoc, pullback.lift_snd]
@@ -1031,7 +1070,7 @@ theorem firstNodeMap_reduction :
 theorem secondNodeMap_reduction :
     zeroSection affineLineToC ≫ secondNodeMap G = (ratioPoint 0).val ≫ secondBranch G := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, secondNodeMap, nodeFamily_source]
     change zeroSection affineLineToC ≫
         nodeSource G.source (toC affineLineToC) epsilon coordinate =
       ((ratioPoint 0).val ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter
@@ -1040,11 +1079,11 @@ theorem secondNodeMap_reduction :
       zero_coordinate, zero_epsilon, nodeSource_zero_left G.source G.marks,
       parameter_fromFunction, Category.id_comp]
     simp only [secondBranch, Category.assoc, pullback.lift_fst]
-  · rw [Category.assoc]
+  · rw [Category.assoc, secondNodeMap, nodeFamily_parameter]
     change zeroSection affineLineToC ≫
         SquareZeroFunction.point (toC affineLineToC) (epsilon*coordinate) _ =
       ((ratioPoint 0).val ≫ secondBranch G) ≫ pullback.snd G.source.parameter epsilonParameter
-    rw [SquareZeroFunction.point_natural (toC affineLineToC) affineLineToC
+    simp only [SquareZeroFunction.point_natural (toC affineLineToC) affineLineToC
       (zeroSection affineLineToC) (zeroSection_overC affineLineToC),
       map_mul, zero_epsilon, zero_mul, SquareZeroFunction.point_zero]
     simp only [secondBranch, Category.assoc, pullback.lift_snd]
@@ -1111,14 +1150,14 @@ theorem nodeMaps_interchange :
       MixedFamily.swap ≫ DualThickening.map epsilonParameter epsilonParameter_over ≫
         secondNodeMap G := by
   unfold firstNodeMap secondNodeMap
-  rw [nodeFamily_natural G.source (toC Infinitesimal.dualToC) (toC affineLineToC)
+  simp only [nodeFamily_natural G.source (toC Infinitesimal.dualToC) (toC affineLineToC)
     (DualThickening.map epsilonParameter epsilonParameter_over)
     (DualThickening.map_overC epsilonParameter epsilonParameter_over),
     nodeFamily_natural G.source (toC Infinitesimal.dualToC) (toC affineLineToC)
     (DualThickening.map epsilonParameter epsilonParameter_over)
     (DualThickening.map_overC epsilonParameter epsilonParameter_over),
     sourceChange_coordinate, sourceChange_epsilon]
-  rw [nodeFamily_natural G.source (toC Infinitesimal.dualToC) (toC Infinitesimal.dualToC)
+  simp only [nodeFamily_natural G.source (toC Infinitesimal.dualToC) (toC Infinitesimal.dualToC)
     MixedFamily.swap MixedFamily.swap_overC, swap_sourceEpsilon, swap_parameterEpsilon]
 
 theorem nodeDeformations_interchange (z : G.chart.Tangent) (hz : G.baseDifferential z = 1) :
@@ -1179,7 +1218,7 @@ theorem secondOuterMap_parameter :
 theorem firstOuterMap_reduction :
     zeroSection affineLineToC ≫ firstOuterMap G = (ratioPoint 1).val ≫ firstBranch G := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, firstOuterMap, outerFamily_source]
     change zeroSection affineLineToC ≫
         outerSource G.source 1 (toC affineLineToC) epsilon coordinate =
       ((ratioPoint 1).val ≫ firstBranch G) ≫ pullback.fst G.source.parameter epsilonParameter
@@ -1195,7 +1234,7 @@ theorem firstOuterMap_reduction :
 theorem secondOuterMap_reduction :
     zeroSection affineLineToC ≫ secondOuterMap G = (ratioPoint 1).val ≫ secondBranch G := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, secondOuterMap, outerFamily_source]
     change zeroSection affineLineToC ≫
         outerSource G.source 2 (toC affineLineToC) epsilon coordinate =
       ((ratioPoint 1).val ≫ secondBranch G) ≫ pullback.fst G.source.parameter epsilonParameter
@@ -1256,7 +1295,7 @@ theorem firstOuterMap_endpoint :
     DualThickening.map (scalarPoint 0) (scalarPoint_overC 0) ≫ firstOuterMap G =
       parameter (𝟙 ComplexBase) ≫ markLift G.source G.marks.first G.marks.first_base := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, firstOuterMap, outerFamily_source]
     change DualThickening.map (scalarPoint 0) (scalarPoint_overC 0) ≫
         outerSource G.source 1 (toC affineLineToC) epsilon coordinate = _
     rw [outerSource_natural G.source 1 (toC (𝟙 ComplexBase)) (toC affineLineToC)
@@ -1272,7 +1311,7 @@ theorem secondOuterMap_endpoint :
     DualThickening.map (scalarPoint 0) (scalarPoint_overC 0) ≫ secondOuterMap G =
       parameter (𝟙 ComplexBase) ≫ markLift G.source G.marks.second G.marks.second_base := by
   apply pullback.hom_ext
-  · rw [Category.assoc]
+  · rw [Category.assoc, secondOuterMap, outerFamily_source]
     change DualThickening.map (scalarPoint 0) (scalarPoint_overC 0) ≫
         outerSource G.source 2 (toC affineLineToC) epsilon coordinate = _
     rw [outerSource_natural G.source 2 (toC (𝟙 ComplexBase)) (toC affineLineToC)
@@ -1321,7 +1360,7 @@ theorem firstOuter_divisible (z : G.chart.Tangent) (hz : G.baseDifferential z = 
   apply LeBrunSalamon.StandardInputs.affineLine_section_divisible
   change pullSection (scalarPoint 0)
     (sectionFromValue (sectionValue ((firstOuterDeformation G z hz).section X.variety))) = 0
-  rw [(sectionEquiv _).symm_apply_apply]
+  rw [sectionFromValue_sectionValue]
   exact (firstOuterDeformation G z hz).fixed_section X.variety
     (scalarPoint 0) (scalarPoint_overC 0) (firstOuter_fixed G z hz he)
 
@@ -1336,7 +1375,7 @@ theorem secondOuter_divisible (z : G.chart.Tangent) (hz : G.baseDifferential z =
   apply LeBrunSalamon.StandardInputs.affineLine_section_divisible
   change pullSection (scalarPoint 0)
     (sectionFromValue (sectionValue ((secondOuterDeformation G z hz).section X.variety))) = 0
-  rw [(sectionEquiv _).symm_apply_apply]
+  rw [sectionFromValue_sectionValue]
   exact (secondOuterDeformation G z hz).fixed_section X.variety
     (scalarPoint 0) (scalarPoint_overC 0) (secondOuter_fixed G z hz he)
 
@@ -1375,6 +1414,7 @@ theorem targetToRelative_differential (E : Deformation sY M.structureMap f)
   rw [ContactDerivativeIsoProof.cotangentMap_differential,
     ContactDerivativeIsoProof.differential_transport,
     CotangentTransitivityRederivedV02.cotangentToRelative_differential]
+  exact E.overC.trans (parameter_overC sY).symm
 
 /-- The source coordinate is held fixed in the dual-number direction.
 The only comparison used is the canonical cotangent base-change map. -/
@@ -1391,7 +1431,7 @@ def relativeDifferential (E : Deformation sY M.structureMap f) :
       pullbackModule E.map (tangentSheaf M.structureMap) := by
   letI := dualBaseChange_isIso E.map (smooth_cotangent_rank M.structureMap d M.smooth)
   exact dualBaseChange (projection sY) (cotangentSheaf sY) ≫
-    dualMap (relativeCotangent M E) ≫ inv (dualBaseChange E.map (cotangentSheaf M.structureMap))
+    ContactDerivativeIsoProof.dualMap (relativeCotangent M E) ≫ inv (dualBaseChange E.map (cotangentSheaf M.structureMap))
 
 /-- On the actual first-order deformation of a degree-one curve, every
 map from the pulled source tangent bundle to the pulled contact line
@@ -1409,7 +1449,7 @@ theorem contactHom_zero {n : ℕ} {X : ContactFanoManifold n} (f : FreeLine X)
     E.reduces X.contact.sequence.line.sheaf
   apply (cancel_mono e.hom).mp
   rw [zero_comp]
-  exact intrinsicContactLine_velocity_zero P marking X.variety X.contact f.curve
+  exact LeBrunSalamon.PhaseThirtyTwo.intrinsicContactLine_velocity_zero P marking X.variety X.contact f.curve
     f.degreeOne (m ≫ e.hom)
 
 /-- Horizontality holds on the entire nonreduced first-order family,
@@ -1451,30 +1491,34 @@ def map (c : RingSections Y ⊤) : space sY ⟶ space sY :=
 
 @[reassoc] theorem map_projection (c : RingSections Y ⊤) :
     map sY c ≫ projection sY = projection sY := by
-  simp [map]
+  simp [map, projection]
 
 @[reassoc] theorem map_overC (c : RingSections Y ⊤) :
     map sY c ≫ toC sY = toC sY := by
   rw [toC, ← Category.assoc, map_projection]
 
+@[reassoc] theorem map_parameter (c : RingSections Y ⊤) :
+    map sY c ≫ parameter sY = SquareZeroFunction.point (toC sY)
+      (globalEpsilon sY * (projection sY).appTop c)
+      (by rw [mul_pow, globalEpsilon_square, zero_mul]) := by
+  simp only [map, parameter, pullback.lift_snd]
+
 theorem map_epsilon (c : RingSections Y ⊤) :
     (map sY c).appTop (globalEpsilon sY) =
       globalEpsilon sY * (projection sY).appTop c := by
-  rw [globalEpsilon, ← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop]
-  change (SquareZeroFunction.point (toC sY)
-    (globalEpsilon sY * (projection sY).appTop c) _).appTop
-      ((Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv Infinitesimal.epsilon) = _
-  exact SquareZeroFunction.point_epsilon _ _ _
+  change (map sY c).appTop ((parameter sY).appTop
+    ((Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv Infinitesimal.epsilon)) = _
+  rw [← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop, map_parameter,
+    SquareZeroFunction.point_epsilon]
 
 @[reassoc] theorem zeroSection_map (c : RingSections Y ⊤) :
     zeroSection sY ≫ map sY c = zeroSection sY := by
   apply pullback.hom_ext
   · change (zeroSection sY ≫ map sY c) ≫ projection sY = zeroSection sY ≫ projection sY
     rw [Category.assoc, map_projection]
-  · change zeroSection sY ≫
-        SquareZeroFunction.point (toC sY)
-          (globalEpsilon sY * (projection sY).appTop c) _ = zeroSection sY ≫ parameter sY
-    rw [SquareZeroFunction.point_natural (toC sY) sY (zeroSection sY) (zeroSection_overC sY),
+  · change (zeroSection sY ≫ map sY c) ≫ parameter sY = zeroSection sY ≫ parameter sY
+    rw [Category.assoc, map_parameter]
+    simp only [SquareZeroFunction.point_natural (toC sY) sY (zeroSection sY) (zeroSection_overC sY),
       map_mul, zero_globalEpsilon, zero_mul, SquareZeroFunction.point_zero,
       zeroSection_parameter]
 
@@ -1506,8 +1550,8 @@ theorem onFunctions_epsilon (c : RingSections Y ⊤) (U : Y.Opens) :
       (map sY c).appTop ≫ (space sY).presheaf.map (homOfLE le_top).op := by
     unfold onFunctions
     rw [Scheme.Hom.map_appLE]
-    change (map sY c).appLE ⊤ (projection sY ⁻¹ᵁ U) _ =
-      (map sY c).appLE ⊤ ⊤ _ ≫ (space sY).presheaf.map (homOfLE le_top).op
+    rw [show (map sY c).appTop = (map sY c).appLE ⊤ ⊤ le_rfl by
+      simp [Scheme.Hom.appLE]]
     rw [Scheme.Hom.appLE_map]
   have h := congrArg (fun q => q (globalEpsilon sY)) hres
   change onFunctions sY c U (epsilonOn sY U) =
@@ -1523,7 +1567,7 @@ theorem onFunctions_normalForm (c : RingSections Y ⊤) (U : Y.Opens)
     onFunctions sY c U (normalForm sY U a b) =
       normalForm sY U a (Y.presheaf.map (homOfLE le_top).op c * b) := by
   simp only [normalForm, map_add, map_mul, onFunctions_projection, onFunctions_epsilon]
-  rw [map_mul, mul_assoc]
+  rw [mul_assoc]
 
 theorem coefficient_onFunctions (c : RingSections Y ⊤) (U : Y.Opens)
     (a : RingSections (space sY) (projection sY ⁻¹ᵁ U)) :
@@ -1545,7 +1589,6 @@ theorem functionPullback_deformation (E : Deformation sY sX f) (c : RingSections
       functionPullback sY E.map f E.reduces U ≫ onFunctions sY c (f ⁻¹ᵁ U) := by
   unfold functionPullback onFunctions deformation
   rw [Scheme.Hom.appLE_comp_appLE]
-  rfl
 
 theorem deformation_onFunction (E : Deformation sY sX f) (c : RingSections Y ⊤)
     (U : X.Opens) (a : RingSections X U) :
@@ -1580,20 +1623,33 @@ theorem homSection_scalar {E : OModule Y} (h : E ⟶ structureModule Y)
     (c : RingSections Y ⊤) :
     TwoChartSections.homSection (h ≫ GlobalScalars.scalarEnd (structureModule Y) c) =
       TwoChartSections.homSection h ≫ GlobalScalars.scalarEnd (dualSheaf E) c := by
-  apply (internalHomPresentation E (structureModule Y)).hom_ext
-  apply ((tensorPresentation (structureModule Y) E).universal (structureModule Y)).injective
-  apply sheafBilinearMap_ext
+  apply ContactDerivativeIsoProof.dual_hom_ext
   intro U r e
+  change RingSections Y U at r
+  let t : RingSections Y U :=
+    Y.presheaf.map (homOfLE (show U ≤ ⊤ from le_top)).op c
+  let hs : SectionsOn (dualSheaf E) U :=
+    Scheme.Modules.Hom.app (TwoChartSections.homSection h) U r
+  have heval : (dualEvaluation E).apply U hs e = r • h.app U e :=
+    homSection_evaluate h U r e
+  have hlinear : (dualEvaluation E).apply U (t • hs) e =
+      t • ((dualEvaluation E).apply U hs e) := by
+    exact congrArg
+      (fun k : SectionsOn E U →ₗ[RingSections Y U] SectionsOn (structureModule Y) U =>
+        k e)
+      (map_smul ((dualEvaluation E).apply U) t hs)
   change (dualEvaluation E).apply U
-      ((TwoChartSections.homSection (h ≫ GlobalScalars.scalarEnd (structureModule Y) c)).app U r) e =
-    (dualEvaluation E).apply U
-      ((GlobalScalars.scalarEnd (dualSheaf E) c).app U
-        ((TwoChartSections.homSection h).app U r)) e
-  rw [homSection_evaluate, GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply,
-    homSection_evaluate]
-  change r * (Y.presheaf.map (homOfLE le_top).op c * h.app U e) =
-    Y.presheaf.map (homOfLE le_top).op c * (r * h.app U e)
-  ring
+      (Scheme.Modules.Hom.app
+        (TwoChartSections.homSection (h ≫ GlobalScalars.scalarEnd (structureModule Y) c)) U r) e =
+    (dualEvaluation E).apply U (t • hs) e
+  calc
+    _ = r • (h ≫ GlobalScalars.scalarEnd (structureModule Y) c).app U e :=
+      homSection_evaluate (h ≫ GlobalScalars.scalarEnd (structureModule Y) c) U r e
+    _ = r • (t • h.app U e) := rfl
+    _ = t • (r • h.app U e) := smul_comm r t (h.app U e)
+    _ = t • ((dualEvaluation E).apply U hs e) :=
+      congrArg (fun z : SectionsOn (structureModule Y) U => t • z) heval.symm
+    _ = _ := hlinear.symm
 
 theorem deformation_section {d : ℕ} (M : SmoothProperComplexVariety d)
     {f : Y ⟶ M.scheme} (E : Deformation sY M.structureMap f) (c : RingSections Y ⊤) :
@@ -1607,7 +1663,9 @@ theorem deformation_section {d : ℕ} (M : SmoothProperComplexVariety d)
 
 theorem deformation_variation {d : ℕ} (M : SmoothProperComplexVariety d)
     {f : Y ⟶ M.scheme} (E : Deformation sY M.structureMap f) (c : RingSections Y ⊤) :
-    (deformation sY E c).variation M = c • E.variation M := by
+    (deformation sY E c).variation M =
+      c • (show GlobalSections (pullbackModule f (tangentSheaf M.structureMap))
+        from E.variation M) := by
   unfold Deformation.variation
   rw [deformation_section, sectionValue_comp, GlobalScalars.scalarEnd_app]
   change (Y.presheaf.map (𝟙 (op ⊤)) c) • sectionValue (E.section M) = _
@@ -1789,7 +1847,7 @@ theorem firstNodeMap_scaled_outer {T : Scheme} (sT : T ⟶ ComplexBase)
       DualScaling.map sT (u.appTop parameterFunction) ≫
         DualThickening.map w hw ≫ firstOuterMap G := by
   unfold firstNodeMap firstOuterMap
-  rw [nodeFamily_natural G.source (toC sT) (toC affineLineToC)
+  simp only [nodeFamily_natural G.source (toC sT) (toC affineLineToC)
       (DualThickening.map u hu) (DualThickening.map_overC u hu),
     outerFamily_natural G.source 1 (by decide) (toC sT) (toC affineLineToC)
       (DualThickening.map w hw) (DualThickening.map_overC w hw),
@@ -1798,7 +1856,7 @@ theorem firstNodeMap_scaled_outer {T : Scheme} (sT : T ⟶ ComplexBase)
     outerFamily_natural G.source 1 (by decide) (toC sT) (toC sT)
       (DualScaling.map sT (u.appTop parameterFunction)) (DualScaling.map_overC _ _),
     DualScaling.map_epsilon, scaling_source_function]
-  rw [mul_comm (DualScaling.globalEpsilon sT)
+  simp only [mul_comm (DualScaling.globalEpsilon sT)
     ((projection sT).appTop (u.appTop parameterFunction))]
   apply nodeFamily_eq_firstOuter
   rw [← map_mul, huw, map_one]
@@ -1811,7 +1869,7 @@ theorem secondNodeMap_scaled_outer {T : Scheme} (sT : T ⟶ ComplexBase)
       DualScaling.map sT (u.appTop parameterFunction) ≫
         DualThickening.map w hw ≫ secondOuterMap G := by
   unfold secondNodeMap secondOuterMap
-  rw [nodeFamily_natural G.source (toC sT) (toC affineLineToC)
+  simp only [nodeFamily_natural G.source (toC sT) (toC affineLineToC)
       (DualThickening.map u hu) (DualThickening.map_overC u hu),
     outerFamily_natural G.source 2 (by decide) (toC sT) (toC affineLineToC)
       (DualThickening.map w hw) (DualThickening.map_overC w hw),
@@ -1900,7 +1958,7 @@ def cover : (space P.structureMap).OpenCover where
   X _ := space affineLineToC
   f := chartMap
   mem₀ := by
-    rw [presieve₀_mem_precoverage_iff]
+    rw [Scheme.presieve₀_mem_precoverage_iff]
     refine ⟨?_, inferInstance⟩
     intro x
     have hx : projection P.structureMap x ∈ (⨆ i : Fin 2, ratioOpen i) := by
@@ -1932,8 +1990,9 @@ theorem ratios_reciprocal {T : Scheme} (u w : T ⟶ AffineLine)
     exact ratioPull_self_isIso w 1
   have h0 : ratioFunction f 0 = u.appTop parameterFunction := ratioFunction_comp u 0
   have h1 : ratioFunction f 1 = w.appTop parameterFunction := by
+    letI := ratioPull_self_isIso w 1
     dsimp [f]
-    rw [h, ratioFunction_comp]
+    simpa only [h] using ratioFunction_comp w 1
   have e0 : scalarSection (ratioFunction f 0) =
       pullSection f ((projectiveCoordinates 1).coordinate 1) ≫
         (asIso (pullSection f ((projectiveCoordinates 1).coordinate 0))).inv := by
@@ -1945,7 +2004,7 @@ theorem ratios_reciprocal {T : Scheme} (u w : T ⟶ AffineLine)
     change sectionFromValue (sectionValue _) = _
     exact sectionFromValue_sectionValue _
   have he : scalarSection (ratioFunction f 0 * ratioFunction f 1) = scalarSection 1 := by
-    rw [scalarSection_mul, e0, e1, scalarSection_one]
+    rw [SourceAffineCharts.scalarSection_mul, e0, e1, scalarSection_one]
     change (asIso (pullSection f ((projectiveCoordinates 1).coordinate 1))).hom ≫
         (asIso (pullSection f ((projectiveCoordinates 1).coordinate 0))).inv ≫
         ((asIso (pullSection f ((projectiveCoordinates 1).coordinate 0))).hom ≫
@@ -2006,7 +2065,7 @@ theorem overlap_factor {T : Scheme}
     · change (q ≫ DualThickening.map overlapSecond overlapSecond_over) ≫
         projection affineLineToC = b ≫ projection affineLineToC
       rw [Category.assoc, DualThickening.map_projection, ← Category.assoc]
-      simp only [q, r, projection, overlapSecond, pullback.lift_fst, pullback.lift_snd_assoc]
+      simp only [q, r, projection, overlapSecond, pullback.lift_fst, pullback.lift_snd, pullback.lift_snd_assoc]
     · change (q ≫ DualThickening.map overlapSecond overlapSecond_over) ≫
         parameter affineLineToC = b ≫ parameter affineLineToC
       rw [Category.assoc, DualThickening.map_parameter]
@@ -2048,14 +2107,17 @@ def gluedMap : space P.structureMap ⟶ Z :=
 theorem gluedMap_over : gluedMap sZ f E₀ E₁ hE ≫ sZ = toC P.structureMap := by
   apply cover.hom_ext
   intro i
+  change Fin 2 at i
   change chartMap i ≫ (gluedMap sZ f E₀ E₁ hE ≫ sZ) = chartMap i ≫ toC P.structureMap
   rw [← Category.assoc, chart_gluedMap]
   have hc := DualThickening.map_overC (ratioPoint i).val (ratioPoint i).property
   change chartMap i ≫ toC P.structureMap = toC affineLineToC at hc
   rw [hc]
   fin_cases i
-  · exact E₀.overC
-  · exact E₁.overC
+  · change E₀.map ≫ sZ = toC affineLineToC
+    exact E₀.overC
+  · change E₁.map ≫ sZ = toC affineLineToC
+    exact E₁.overC
 
 theorem gluedMap_reduces : zeroSection P.structureMap ≫ gluedMap sZ f E₀ E₁ hE = f := by
   apply SourceAffineCharts.projective_maps_ext
@@ -2091,21 +2153,23 @@ specified node-chart map to a global deformation of the original curve. -/
 theorem exists_global_of_divisible {d : ℕ} (M : SmoothProperComplexVariety d)
     (f : ProjectiveLine ⟶ M.scheme) (hf : f ≫ M.structureMap = P.structureMap)
     (E₀ : Deformation affineLineToC M.structureMap ((ratioPoint 0).val ≫ f))
-    (E∞ : Deformation affineLineToC M.structureMap ((ratioPoint 1).val ≫ f))
+    (Einf : Deformation affineLineToC M.structureMap ((ratioPoint 1).val ≫ f))
     (hscaled : (E₀.pullback overlapFirst rfl).map =
       (DualScaling.deformation overlapBase
-        (E∞.pullback overlapSecond overlapSecond_over)
+        (Einf.pullback overlapSecond overlapSecond_over)
         (overlapFirst.appTop parameterFunction)).map)
     (hdiv : ∃ b : GlobalSections (pullbackModule ((ratioPoint 1).val ≫ f)
-      (tangentSheaf M.structureMap)), E∞.variation M = parameterFunction • b) :
+      (tangentSheaf M.structureMap)), Einf.variation M = parameterFunction • b) :
     ∃ E : Deformation P.structureMap M.structureMap f,
       E.pullback (ratioPoint 0).val (ratioPoint 0).property = E₀ := by
   obtain ⟨b, hb⟩ := hdiv
   have hfo : ((ratioPoint 1).val ≫ f) ≫ M.structureMap = affineLineToC := by
     rw [Category.assoc, hf, (ratioPoint 1).property]
   obtain ⟨B, hB⟩ := (Normalization.NodalTangent.variation_bijective M hfo).surjective b
-  have houter : E∞ = DualScaling.deformation affineLineToC B parameterFunction := by
+  have houter : Einf = DualScaling.deformation affineLineToC B parameterFunction := by
     apply (Normalization.NodalTangent.variation_bijective M hfo).injective
+    change Einf.variation M = (DualScaling.deformation affineLineToC B parameterFunction).variation M
+    change B.variation M = b at hB
     rw [DualScaling.deformation_variation, hB]
     exact hb
   have hcompat : (E₀.pullback overlapFirst rfl).map =
@@ -2211,8 +2275,9 @@ theorem pullOver_global {Y Z : Scheme} (f : Z ⟶ Y) (U : Y.Opens)
       (pullLocalSection f E V.unop.left v) =
     ((Scheme.Modules.pullback f).map p).app (f ⁻¹ᵁ V.unop.left)
       (pullLocalSection f E V.unop.left v)
-  rw [pullOverHom_unit, ← ExternalExchangeCoherenceProof.pullLocalSection_map]
-  rfl
+  rw [pullOverHom_unit]
+  change pullLocalSection f F V.unop.left (p.app V.unop.left v) = _
+  exact (ExternalExchangeCoherenceProof.pullLocalSection_map f p V.unop.left v).symm
 
 theorem frameIso_inv_apply {Y : Scheme} {L : LineBundle Y}
     (H : AffineLineFrame L) (s : SectionsOn L.sheaf H.openSet) :
@@ -2242,6 +2307,8 @@ theorem contact_eq_pair {n : ℕ} {X : SmoothProperComplexVariety (2*n+1)}
   apply Skeleton.AdjointContactTransportProof.affine_over_hom_ext H.openSet H.isAffine
   intro v
   rw [pairWith_apply]
+  change (dualEvaluation (cotangentSheaf X.structureMap)).apply H.openSet v
+    ((cotangentSheaf X.structureMap).presheaf.map (𝟙 H.openSet).op w) = _
   have hid : (cotangentSheaf X.structureMap).presheaf.map (𝟙 H.openSet).op w = w := by simp
   rw [hid]
   change (dualEvaluation (cotangentSheaf X.structureMap)).apply H.openSet v w =
@@ -2271,7 +2338,6 @@ theorem pulled_contact_pair {n : ℕ} {X : SmoothProperComplexVariety (2*n+1)}
   have hv := congrArg (fun q =>
     (q ≫ (unitPullbackMap f).over (f ⁻¹ᵁ H.openSet)).val.app
       (op (Over.mk (homOfLE hV))) v) he
-  rw [pairWith_apply] at hv
   change (unitPullbackMap f).app V
       ((pullbackPair f (dualEvaluation (cotangentSheaf X.structureMap))).apply V v
         ((pullbackModule f (cotangentSheaf X.structureMap)).presheaf.map (homOfLE hV).op
@@ -2293,7 +2359,8 @@ theorem section_zero_of_dualPair_zero {Y : Scheme} {E : OModule Y} {r : ℕ}
     HomConstruction.Generic.isIso_bidualMap_of_free_cover E q.X q.coversTop
       (fun _ => Fin r) (fun i => SheafTensor.localBasisTrivialization q hfree i)
   apply (ConcreteCategory.bijective_of_isIso
-    ((HomConstruction.Generic.bidualMap (R := Y.sheaf) E).app U)).injective
+    ((SheafOfModules.evaluation _ (op U)).map
+      (HomConstruction.Generic.bidualMap (R := Y.sheaf) E))).injective
   rw [map_zero]
   apply PresheafOfModules.hom_ext
   intro V
@@ -2320,6 +2387,15 @@ theorem finiteForm_pair {Y : Scheme} (sY : Y ⟶ ComplexBase) (U : Y.Opens)
       ∑ i, a i * tangentActs sY U v (b i) := by
   simp only [finiteForm, map_sum, map_smul, smul_eq_mul]
   rfl
+
+theorem pullLocalSection_sum {Y Z : Scheme} (f : Z ⟶ Y) (E : OModule Y)
+    (U : Y.Opens) {m : ℕ} (v : Fin m → SectionsOn E U) :
+    pullLocalSection f E U (∑ i, v i) = ∑ i, pullLocalSection f E U (v i) := by
+  exact map_sum (((Scheme.Modules.pullbackPushforwardAdjunction f).unit.app E).app U).hom v _
+
+theorem pullLocalSection_zero {Y Z : Scheme} (f : Z ⟶ Y) (E : OModule Y)
+    (U : Y.Opens) : pullLocalSection f E U 0 = 0 := by
+  exact (((Scheme.Modules.pullbackPushforwardAdjunction f).unit.app E).app U).hom.map_zero
 
 end LocalContactCovector
 
@@ -2415,7 +2491,7 @@ theorem differential_sum_zero (f : FreeLine X)
     (pullLocalSection E.map (cotangentSheaf X.variety.structureMap) H.openSet
       (∑ i, a i • (cotangentPresentation X.variety.structureMap).differential.apply
         H.openSet (b i))) = 0 at ht
-  simp only [map_sum, PullbackPairProof.pullLocalSection_smul,
+  simp only [pullLocalSection_sum, map_sum, PullbackPairProof.pullLocalSection_smul,
     Scheme.Modules.Hom.app_smul, targetToRelative_differential] at ht
   exact ht
 
@@ -2501,7 +2577,7 @@ def sourceDeformation : Deformation Infinitesimal.dualToC (toC P.structureMap)
   overC := by
     change HomFirstJet.sourceMap P marking Infinitesimal.dualToC τ ≫
       projection P.structureMap ≫ P.structureMap = toC Infinitesimal.dualToC
-    rw [← Category.assoc, HomFirstJet.sourceMap_fst, Category.assoc, τ.overC,
+    rw [← Category.assoc, projection, HomFirstJet.sourceMap_fst, Category.assoc, τ.overC,
       parameter_overC]
   reduces := HomFirstJet.sourceMap_reduces P marking Infinitesimal.dualToC τ
 
@@ -2510,7 +2586,7 @@ theorem sourceDeformation_relative :
       projection Infinitesimal.dualToC ≫
         (FixedNodeHom.markingSection P marking Infinitesimal.dualToC ≫
           parameter P.structureMap) := by
-  rw [FixedNodeHom.markingSection_snd, Category.comp_id]
+  rw [parameter, FixedNodeHom.markingSection_snd, Category.comp_id]
   exact HomFirstJet.sourceMap_snd P marking Infinitesimal.dualToC τ
 
 theorem sourceDeformation_interchange :
@@ -2547,16 +2623,17 @@ theorem contact_sum_zero (H : AffineLineFrame X.contact.sequence.line)
   have h := congrArg (fun w => φ.app (j ⁻¹ᵁ U)
     (pullLocalSection j (cotangentSheaf (parameter P.structureMap)) U w))
       (InfinitesimalHorizontality.differential_sum_zero f E H a b hab)
-  simp only [map_sum, PullbackPairProof.pullLocalSection_smul,
+  simp only [LocalContactCovector.pullLocalSection_sum, LocalContactCovector.pullLocalSection_zero,
+    map_sum, PullbackPairProof.pullLocalSection_smul,
     Scheme.Modules.Hom.app_smul, map_zero] at h
   change (∑ i, j.app U (E.map.app H.openSet (a i)) •
     φ.app (j ⁻¹ᵁ U)
       (pullLocalSection j (cotangentSheaf (parameter P.structureMap)) U
         ((cotangentPresentation (parameter P.structureMap)).differential.apply U
           (E.map.app H.openSet (b i))))) = 0 at h
-  simp only [φ, RelativeVariation.cotangentHom_differential, smul_eq_mul] at h
+  simp only [φ, U, j, RelativeVariation.cotangentHom_differential, smul_eq_mul] at h
   simpa only [Deformation.postcompose_onFunction, Scheme.Hom.comp_app,
-    CommRingCat.comp_apply, U, j] using h
+    CommRingCat.comp_apply, U, j] using! h
 
 end SourceJetHorizontality
 
@@ -2599,6 +2676,7 @@ theorem actual_coefficients {Y : Scheme} {sY : Y ⟶ ComplexBase}
     rw [Scheme.Hom.appLE_map]
     rfl
   have hr := congrArg (fun q => q a) hrestrict
+  simp only [CommRingCat.comp_apply] at hr
   have hc := coefficient_restrict Infinitesimal.dualToC (homOfLE hg)
     (functionPullback Infinitesimal.dualToC D.map g D.reduces U a)
   have hv := reductionCoefficient_restrict Infinitesimal.dualToC (homOfLE hg)
@@ -2606,10 +2684,10 @@ theorem actual_coefficients {Y : Scheme} {sY : Y ⟶ ComplexBase}
   rw [hr] at hc hv
   rw [reductionCoefficient_functionPullback] at hv
   constructor
-  · rw [sourceZero_toMixed, hv]
-    rfl
-  · rw [sourceDerivative_toMixed, hc]
-    rfl
+  · rw [sourceZero_toMixed]
+    simpa only [Scheme.Hom.appLE, CommRingCat.comp_apply] using! congrArg dualGlobalEquiv hv
+  · rw [sourceDerivative_toMixed]
+    exact congrArg dualGlobalEquiv hc
 
 /-- A horizontal first-order contraction remains horizontal in the
 actual double-jet tensor algebra. No equality of chosen coefficient maps
@@ -2627,7 +2705,7 @@ theorem tensor_sum_zero {Y : Scheme} {sY : Y ⟶ ComplexBase}
   simp only [hv, hd]
   have hh := congrArg (fun z => dualGlobalEquiv
     (Infinitesimal.DualScheme.presheaf.map (homOfLE hg).op z)) h
-  simpa only [map_sum, map_mul, map_zero] using hh
+  simpa only [map_sum, map_mul, map_zero, Scheme.Hom.appLE, CommRingCat.comp_apply] using hh
 
 /-- Subtracting the two differentiated horizontal contractions cancels
 the common mixed coefficient. This is the scalar obstruction to a pair
@@ -2638,8 +2716,8 @@ theorem alternating_sum_zero {A : Type*}
       MixedJet.sourceDerivative (F (b i))) = 0)
     (h₂ : (∑ i, MixedJet.parameterZero (F (a i)) *
       MixedJet.parameterDerivative (F (b i))) = 0) :
-    (∑ i, MixedJet.sourceCoeff (F (a i)) * MixedJet.parameterCoeff (F (b i)) -
-      MixedJet.parameterCoeff (F (a i)) * MixedJet.sourceCoeff (F (b i))) = 0 := by
+    (∑ i, (MixedJet.sourceCoeff (F (a i)) * MixedJet.parameterCoeff (F (b i)) -
+      MixedJet.parameterCoeff (F (a i)) * MixedJet.sourceCoeff (F (b i)))) = 0 := by
   have h₁' := congrArg MixedJet.dualCoefficient h₁
   have h₂' := congrArg MixedJet.dualCoefficient h₂
   simp only [map_sum, map_zero, MixedJet.dualCoefficient_mul] at h₁' h₂'
@@ -2655,15 +2733,15 @@ theorem alternating_sum_zero {A : Type*}
     | add z w hz hw => simp only [map_add, hz, hw]
   simp only [hval, hpar, MixedJet.parameterDerivative_residue,
     ← MixedJet.derivative_exchange] at h₂'
-  change (∑ i, MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
-    MixedJet.sourceCoeff (F (b i)) * MixedJet.parameterCoeff (F (a i))) = 0 at h₁'
-  change (∑ i, MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
-    MixedJet.parameterCoeff (F (b i)) * MixedJet.sourceCoeff (F (a i))) = 0 at h₂'
+  change (∑ i, (MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
+    MixedJet.sourceCoeff (F (b i)) * MixedJet.parameterCoeff (F (a i)))) = 0 at h₁'
+  change (∑ i, (MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
+    MixedJet.parameterCoeff (F (b i)) * MixedJet.sourceCoeff (F (a i)))) = 0 at h₂'
   calc
-    _ = (∑ i, MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
-          MixedJet.parameterCoeff (F (b i)) * MixedJet.sourceCoeff (F (a i))) -
-        (∑ i, MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
-          MixedJet.sourceCoeff (F (b i)) * MixedJet.parameterCoeff (F (a i))) := by
+    _ = (∑ i, (MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
+          MixedJet.parameterCoeff (F (b i)) * MixedJet.sourceCoeff (F (a i)))) -
+        (∑ i, (MixedJet.value (F (a i)) * MixedJet.mixedCoeff (F (b i)) +
+          MixedJet.sourceCoeff (F (b i)) * MixedJet.parameterCoeff (F (a i)))) := by
       rw [← Finset.sum_sub_distrib]
       apply Finset.sum_congr rfl
       intro i hi
@@ -2715,7 +2793,7 @@ theorem distribution_localLift
     F.fiberEquiv.injective ((F.fiberEquiv_local w).trans hw)
   have hθ : F.evaluation (localContactValue X.contact F.frame w) = 0 := by
     apply (localLineFiber_zero_iff F (X.contact.sequence.form.app F.frame.openSet w)).mp
-    rw [localFiberValue_map, hvalue, ← ContactPositive.fiberMap_comp,
+    erw [localFiberValue_map, hvalue, ← ContactPositive.fiberMap_comp,
       X.contact.sequence.comp_zero]
     exact PositiveFrame.fiberMap_zero _ _ _ _
   obtain ⟨r, hr⟩ := localContactValue_unit X.contact F.frame
@@ -2735,7 +2813,7 @@ theorem distribution_localLift
   apply SuitablePairAlgebra.inclusionFiber_injective X x
   rw [← localFiberValue_map, hv]
   apply F.fiberEquiv.injective
-  rw [F.fiberEquiv_local, he]
+  erw [F.fiberEquiv_local, he]
 
 /-- The bracket-defined original Levi pairing is detected by the scalar
 exterior form after the actual fiber/point-derivation comparison. -/
@@ -2758,12 +2836,12 @@ theorem exterior_ne_zero (A : ContactAtPoint X.contact F)
     rw [X.contact.sequence.comp_zero]
     simp
   have heU : F.evaluateVector U = F.fiberEquiv a := by
-    rw [← F.fiberEquiv_local, localFiberValue_map, hu₀, hu]
+    erw [← F.fiberEquiv_local, localFiberValue_map, hu₀, hu]
   have heV : F.evaluateVector V = F.fiberEquiv b := by
-    rw [← F.fiberEquiv_local, localFiberValue_map, hv₀, hv]
+    erw [← F.fiberEquiv_local, localFiberValue_map, hv₀, hv]
   intro hzero
   have hscalar := (A.exterior_normalized U V).symm.trans
-    ((congrArg₂ A.exterior heU heV).trans hzero)
+    ((congrArg₂ (fun u v => A.exterior u v) heU heV).trans hzero)
   simp only [scalarExterior, hU, hV, TangentActionProof.zero_function,
     sub_self, zero_sub, map_neg, neg_eq_zero] at hscalar
   have hfiber : localFiberValue x.map X.contact.sequence.line.sheaf
@@ -2783,13 +2861,13 @@ theorem scalarExterior_finite {m : ℕ}
     (a b : Fin m → F.ChartRing)
     (hab : ∀ v : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet,
       localContactValue X.contact F.frame v =
-        ∑ i, a i * tangentActs X.variety.structureMap F.frame.openSet v (b i))
+        ∑ i, (show RingSections X.variety.scheme F.frame.openSet from a i) * tangentActs X.variety.structureMap F.frame.openSet v (b i))
     (u v : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet) :
     scalarExterior X.contact F u v =
-      ∑ i, tangentActs X.variety.structureMap F.frame.openSet u (a i) *
+      ∑ i, (tangentActs X.variety.structureMap F.frame.openSet u (a i) *
           tangentActs X.variety.structureMap F.frame.openSet v (b i) -
         tangentActs X.variety.structureMap F.frame.openSet v (a i) *
-          tangentActs X.variety.structureMap F.frame.openSet u (b i) := by
+          tangentActs X.variety.structureMap F.frame.openSet u (b i)) := by
   have hsum (w : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet)
       (c : Fin m → F.ChartRing) :
       tangentActs X.variety.structureMap F.frame.openSet w (∑ i, c i) =
@@ -2808,9 +2886,9 @@ theorem exterior_finite (A : ContactAtPoint X.contact F) {m : ℕ}
     (a b : Fin m → F.ChartRing)
     (hab : ∀ v : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet,
       localContactValue X.contact F.frame v =
-        ∑ i, a i * tangentActs X.variety.structureMap F.frame.openSet v (b i))
+        ∑ i, (show RingSections X.variety.scheme F.frame.openSet from a i) * tangentActs X.variety.structureMap F.frame.openSet v (b i))
     (u v : F.Tangent) :
-    A.exterior u v = ∑ i, u.val (a i) * v.val (b i) - v.val (a i) * u.val (b i) := by
+    A.exterior u v = ∑ i, (u.val (a i) * v.val (b i) - v.val (a i) * u.val (b i)) := by
   obtain ⟨u₀, rfl⟩ := F.evaluateVector_surjective u
   obtain ⟨v₀, rfl⟩ := F.evaluateVector_surjective v
   rw [A.exterior_normalized, scalarExterior_finite F a b hab]
@@ -2823,7 +2901,7 @@ theorem finite_expression :
     ∃ (m : ℕ) (a b : Fin m → F.ChartRing),
       ∀ v : SectionsOn (tangentSheaf X.variety.structureMap) F.frame.openSet,
         localContactValue X.contact F.frame v =
-          ∑ i, a i * tangentActs X.variety.structureMap F.frame.openSet v (b i) := by
+          ∑ i, (show RingSections X.variety.scheme F.frame.openSet from a i) * tangentActs X.variety.structureMap F.frame.openSet v (b i) := by
   letI : Algebra.Smooth ℂ F.ChartRing := PointFrame.EvaluateVectorProof.chartRing_smooth F
   obtain ⟨m, a, b, hab⟩ := LeBrunSalamon.Refinement.FiniteCovectorExpression.exists_fin_of_smooth
     (ContactAtPointProof.affineContactCovector X.contact F)
@@ -2933,6 +3011,8 @@ theorem thickening_map_comp {Y Z W : Scheme}
   apply pullback.hom_ext
   · change _ ≫ projection sW = _ ≫ projection sW
     simp only [Category.assoc, map_projection]
+    simpa only [Category.assoc] using
+      (congrArg (fun k => k ≫ g) (DualThickening.map_projection f hf)).symm
   · change _ ≫ parameter sW = _ ≫ parameter sW
     simp only [Category.assoc, map_parameter]
 
@@ -3095,8 +3175,9 @@ theorem contradiction {n : ℕ} {X : ContactFanoManifold n} {D : SuitablePair X}
     DualMixedBridge.actualPullback_support N₂ epsilonParameter epsilonParameter_over
       F.frame.openSet (NodeTensor.branch_support D.second D.node D.secondAtNode F)
   have hJ₁ : (NodeTensor.sourceJet D.first E₁).map = M₂ := by
-    rw [NodeTensor.sourceJet_map, NodeTensor.global_restriction D.first E₁ N₁ hE₁,
-      hM, ← Category.assoc, MixedFamily.swap_involutive, Category.id_comp]
+    rw [NodeTensor.sourceJet_map, NodeTensor.global_restriction D.first E₁ N₁ hE₁]
+    change MixedFamily.swap ≫ M₁ = M₂
+    rw [hM, ← Category.assoc, MixedFamily.swap_involutive, Category.id_comp]
   have hJ₂ : (NodeTensor.sourceJet D.second E₂).map = M₁ := by
     rw [NodeTensor.sourceJet_map, NodeTensor.global_restriction D.second E₂ N₂ hE₂]
     exact hM.symm

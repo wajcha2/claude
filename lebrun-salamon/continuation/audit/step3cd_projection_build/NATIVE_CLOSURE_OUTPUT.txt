@@ -1,0 +1,156 @@
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+MODULE LSProjectionFormula
+SHORTEST_PATH LeBrunSalamon.ProjectionFormulaProof.sections_bijective -> LeBrunSalamon.ProjectionFormulaProof.unit_isIso -> LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+TYPE ∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) (E : LeBrunSalamon.PhaseOne.OModule.{0} Y)
+  (F : LeBrunSalamon.PhaseOne.OModule.{0} X) (q : SheafOfModules.LocalGeneratorsData.{0, 0, 0, 0} E)
+  [SheafOfModules.LocalGeneratorsData.IsLocallyFreeData.{0, 0, 0, 0} q],
+  (∀ (i : SheafOfModules.LocalGeneratorsData.I.{0, 0, 0, 0} q),
+      Finite.{1}
+        (SheafOfModules.GeneratingSections.I.{0, 0, 0}
+          (SheafOfModules.LocalGeneratorsData.generators.{0, 0, 0, 0} q i))) →
+    CategoryTheory.IsIso.{0, 1} (LeBrunSalamon.ProjectionFormulaProof.canonicalMap f E F)
+
+SUMMARY root=LeBrunSalamon.ProjectionFormulaProof.sections_bijective all_constants=20699 project_constants=130 direct_sorry_count=1 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+
+
+PROJECT_CLOSURE
+LeBrunSalamon.PhaseOne.AlgebraicVectorBundle
+LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank
+LeBrunSalamon.PhaseOne.OModule
+LeBrunSalamon.PhaseThree.AlgebraicSection
+LeBrunSalamon.PhaseThree.restrictSection
+LeBrunSalamon.PhaseTwentyEight.pullSection
+LeBrunSalamon.PhaseTwentyEight.pullSection_adjoint
+LeBrunSalamon.PhaseTwentyEight.structurePushforwardMap
+LeBrunSalamon.PhaseTwentyEight.unitPullbackIso
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap_adjoint
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap_isIso
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap_pullSection
+LeBrunSalamon.PhaseTwentyFive.RingSections
+LeBrunSalamon.PhaseTwentyFive.SectionsOn
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap
+LeBrunSalamon.PhaseTwentyFive.TensorSheafPresentation
+LeBrunSalamon.PhaseTwentyFive.sheafBilinearMap_ext
+LeBrunSalamon.PhaseTwentyFive.sheafHom_naturality
+LeBrunSalamon.PhaseTwentyFive.structureModule
+LeBrunSalamon.PhaseTwentyFive.tensorIso
+LeBrunSalamon.PhaseTwentyFive.tensorLift
+LeBrunSalamon.PhaseTwentyFive.tensorLift_pair
+LeBrunSalamon.PhaseTwentyFive.tensorMap
+LeBrunSalamon.PhaseTwentyFive.tensorMap_apply
+LeBrunSalamon.PhaseTwentyFive.tensorMap_comp
+LeBrunSalamon.PhaseTwentyFive.tensorMap_id
+LeBrunSalamon.PhaseTwentyFive.tensorPresentation
+LeBrunSalamon.PhaseTwentyFive.tensorSheaf
+LeBrunSalamon.PhaseTwo.pullbackModule
+LeBrunSalamon.ProjectionFormulaProof.canonicalMap
+LeBrunSalamon.ProjectionFormulaProof.canonicalMap_pair
+LeBrunSalamon.ProjectionFormulaProof.projectionPair
+LeBrunSalamon.ProjectionFormulaProof.sections_bijective
+LeBrunSalamon.ProjectionFormulaProof.unit_comparison
+LeBrunSalamon.ProjectionFormulaProof.unit_isIso
+LeBrunSalamon.Skeleton.pullLocalSection
+LeBrunSalamon.PhaseOne.AlgebraicVectorBundle.locallyFree
+LeBrunSalamon.PhaseOne.AlgebraicVectorBundle.mk
+LeBrunSalamon.PhaseOne.AlgebraicVectorBundle.sheaf
+LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank._proof_1
+LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank._proof_2
+LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank._proof_3
+LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank._proof_4
+LeBrunSalamon.PhaseTwentyEight.structurePushforwardMap._proof_1
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap._proof_1
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap._proof_2
+LeBrunSalamon.PhaseTwentyEight.unitPullbackMap_isIso._proof_1
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.apply
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.casesOn
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.mk
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.naturality
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.rec
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.bilinearToHom
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.commHom
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.commHom_pair
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.commIso
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.flip
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.homToBilinear
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitHom
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitHom_pair
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitInv
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitIso
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presentation
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presheaf
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presheafHomEquiv
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.rightUnitIso
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.rightUnitIso_hom_pair
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.scalarPair
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.sheafHomEquiv
+LeBrunSalamon.PhaseTwentyFive.TensorSheafPresentation.mk
+LeBrunSalamon.PhaseTwentyFive.TensorSheafPresentation.pair
+LeBrunSalamon.PhaseTwentyFive.TensorSheafPresentation.universal
+LeBrunSalamon.PhaseTwentyFive.tensorIso._proof_1
+LeBrunSalamon.PhaseTwentyFive.tensorIso._proof_2
+LeBrunSalamon.PhaseTwentyFive.tensorLift._proof_1
+LeBrunSalamon.PhaseTwentyFive.tensorSheaf._proof_1
+LeBrunSalamon.PhaseTwentyFive.tensorSheaf._proof_2
+LeBrunSalamon.PhaseTwentyFive.tensorSheaf._proof_3
+LeBrunSalamon.PhaseTwentyFive.tensorSheaf._proof_4
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_1
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_10
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_11
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_2
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_3
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_4
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_5
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_6
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_7
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_8
+LeBrunSalamon.ProjectionFormulaProof.projectionPair._proof_9
+LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+LeBrunSalamon.Skeleton.PullbackPairProof.pullLocalSection_add
+LeBrunSalamon.Skeleton.PullbackPairProof.pullLocalSection_restrict
+LeBrunSalamon.Skeleton.PullbackPairProof.pullLocalSection_smul
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_1
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_10
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_2
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_3
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_4
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_5
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_6
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_7
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_8
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.postcompose._proof_9
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_1
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_2
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_3
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_4
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_5
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_6
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_7
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_8
+LeBrunSalamon.PhaseTwentyFive.SheafBilinearMap.precompose._proof_9
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.bilinearToHom._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.commIso._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.commIso._proof_2
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.homToBilinear._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitInv._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitInv._proof_2
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitInv._proof_3
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitInv._proof_4
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitIso._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.leftUnitIso._proof_2
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presentation._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presheafHomEquiv._proof_1
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.presheafHomEquiv._proof_2
+LeBrunSalamon.PhaseTwentyFive.TensorConstruction.scalarPair._proof_1
+
+'LeBrunSalamon.DiagonalLocalProof.kernelPower_app_eq_zero_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+'LeBrunSalamon.DiagonalLocalProof.diagonalThickening_frameSquares_cover' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

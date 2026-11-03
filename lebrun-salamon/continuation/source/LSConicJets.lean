@@ -27,6 +27,10 @@ open LeBrunSalamon.Core LeBrunSalamon.Skeleton
 open LeBrunSalamon.Refinement LeBrunSalamon.Refinement.Jets
 open LeBrunSalamon.Construction LeBrunSalamon.Construction.Lines
 
+-- These are existing type aliases. Expose their projections to rewrite
+-- matching, so the actual chart rings and projective-line scheme agree.
+attribute [local reducible] projectiveLineVariety PointFrame.ChartRing
+
 namespace LeBrunSalamon.StandardInputs
 
 /-- The classical first-jet restriction theorem for 2p, normalized to
@@ -101,7 +105,7 @@ theorem lineFiberCoefficient_composition {d : ℕ} {X : SmoothProperComplexVarie
           (PositiveFrame.localFiberValue p (pullbackModule f L.sheaf) V hp z)) := by
     change F.lineFiberCoefficient
       ((compositionPullback p f x.map hx L.sheaf).hom.app ⊤
-        ((pullbackModule p (pullbackModule f L.sheaf)).presheaf.map (homOfLE hp).op
+        ((pullbackModule p (pullbackModule f L.sheaf)).val.map (homOfLE hp).op
           (pullLocalSection p (pullbackModule f L.sheaf) V (r • z)))) = _
     rw [PullbackPairProof.pullLocalSection_smul,
       (pullbackModule p (pullbackModule f L.sheaf)).val.map_smul,
@@ -126,7 +130,7 @@ namespace LeBrunSalamon.Refinement.ConicJetProof.SourceMixedSymbol
 open Core.ExternalTensorCoordinates
 
 /-- A target-line frame on precisely the source frame's affine open. -/
-def frameOn {Y : Scheme} {L M : LineBundle Y} (S : AffineLineFrame L)
+abbrev frameOn {Y : Scheme} {L M : LineBundle Y} (S : AffineLineFrame L)
     (m : SectionsOn M.sheaf S.openSet ≃ₗ[RingSections Y S.openSet]
       RingSections Y S.openSet) : AffineLineFrame M where
   openSet := S.openSet
@@ -153,7 +157,7 @@ theorem coefficient_map {Y : Scheme} {L M : LineBundle Y}
     _ = m (q.app S.openSet (S.coefficient a • S.coefficient.symm 1)) :=
       congrArg (fun z => m (q.app S.openSet z)) ha
     _ = S.coefficient a * multiplier q S m := by
-      rw [(q.app S.openSet).hom.map_smul, m.map_smul] <;> rfl
+      rw [Scheme.Modules.Hom.app_smul, m.map_smul] <;> rfl
     _ = multiplier q S m * S.coefficient a := mul_comm _ _
 
 theorem localCoefficient_postcompose {Y : Scheme} {L M : LineBundle Y}
@@ -162,7 +166,7 @@ theorem localCoefficient_postcompose {Y : Scheme} {L M : LineBundle Y}
       RingSections Y S.openSet) (a : AlgebraicSection L.sheaf) :
     (frameOn S m).localCoefficient (a ≫ q) =
       multiplier q S m * S.localCoefficient a :=
-  coefficient_map q S m (a.app S.openSet (1 : RingSections Y S.openSet))
+  coefficient_map q S m (Scheme.Modules.Hom.app a S.openSet (1 : RingSections Y S.openSet))
 
 /-- Push the actual finite source expansion through the same line
 morphism in both tensor factors. -/
@@ -174,7 +178,8 @@ def mappedExpansion {d : ℕ} {Y : SmoothProperComplexVariety d}
   left i := E.left i ≫ q
   right i := E.right i ≫ q
   equation := by
-    rw [E.equation, Preadditive.sum_comp]
+    conv_lhs => rw [E.equation]
+    rw [Preadditive.sum_comp]
     apply Finset.sum_congr rfl
     intro i hi
     exact CurveExchangeProof.externalTensorMap_product Y.structureMap L M q
@@ -250,7 +255,7 @@ theorem mapped_source_mixed (P : ProjectiveLineOverC) (M : LineBundle Projective
       -2 * (m (q.app S.openSet u))^2 := by
   let K := sourceKernel P
   let E := K.expansion
-  have htwo := mapped_orderTwo q K.orderTwo
+  have htwo := mapped_orderTwo (M := M) q K.orderTwo
   have hh : (mappedExpansion E q).secondSlotSecond (frameOn S m) u u =
       2 * (m (q.app S.openSet u))^2 := by
     rw [mapped_secondSlotSecond, E.diagonalValue_zero_of_orderTwo K.orderTwo,
@@ -263,7 +268,7 @@ theorem mapped_source_mixed (P : ProjectiveLineOverC) (M : LineBundle Projective
     rw [coefficient_map q S m u]
     ring
   change (mappedExpansion E q).mixedSecond (frameOn S m) u u = _
-  rw [(mappedExpansion E q).mixedSecond_eq_neg_of_orderTwo htwo, hh]
+  rw [(mappedExpansion E q).mixedSecond_eq_neg_of_orderTwo htwo (frameOn S m) u u, hh]
   ring
 
 /-- The actual curve identity holds for every expansion, by the existing
@@ -324,9 +329,11 @@ theorem source_curve_mixed (P : ProjectiveLineOverC) {n : ℕ}
           (pullSection f.map (E.right i)))) =
       -2 * (m ((curveContactVelocity P C f).app S.openSet u))^2 := by
   let EP := pulledExpansion P C f B h E
-  let ES := mappedExpansion (sourceKernel P).expansion (curveContactVelocity P C f)
+  let ES := mappedExpansion (M := pullbackBundle f.map C.sequence.line)
+    (sourceKernel P).expansion (curveContactVelocity P C f)
   let F := frameOn (M := pullbackBundle f.map C.sequence.line) S m
-  have htwo := mapped_orderTwo (curveContactVelocity P C f) (sourceKernel P).orderTwo
+  have htwo := mapped_orderTwo (M := pullbackBundle f.map C.sequence.line)
+    (curveContactVelocity P C f) (sourceKernel P).orderTwo
   change EP.mixedSecond F u u = _
   calc
     _ = -EP.secondSlotSecond F u u := EP.mixedSecond_eq_neg_of_orderTwo htwo F u u
@@ -406,7 +413,8 @@ theorem sourceLift_nonconstant (P : ProjectiveLineOverC) (p : ProjectiveLinePoin
   have hd : Module.finrank ℂ (TangentFiber (projectiveLineVariety P) y) = 1 :=
     fiber_dimension (intrinsicTangentBundle (projectiveLineVariety P)) p.map
   have hn : Nontrivial (TangentFiber (projectiveLineVariety P) y) :=
-    Module.nontrivial_of_finrank_pos (by omega)
+    Module.nontrivial_of_finrank_pos (R := ℂ)
+      (M := TangentFiber (projectiveLineVariety P) y) (by omega)
   letI := hn
   obtain ⟨v, hv⟩ := exists_ne (0 : TangentFiber (projectiveLineVariety P) y)
   obtain ⟨C⟩ := GlobalVelocity.targetChart_exists (projectiveLineVariety P) y
@@ -469,8 +477,11 @@ theorem value_eq_pointDifferential (C : GlobalVelocity.TargetChart X x)
         (HomDeformation.curveAt P H p x t) (HomDeformation.curveAt_overC P H p x t)
         ⟨p.map, p.overC⟩ x (HomDeformation.curveAt_marking P H p x t)
         (SourceTangent.pointVector (projectiveLineVariety P) ⟨p.map, p.overC⟩ tau)) := by
-  rw [value_eq_chartEvaluation, targetLift, SourceTangent.pointVector_push]
-  rfl
+  rw [value_eq_chartEvaluation]
+  exact congrArg (IntrinsicTangent.chartEvaluation C)
+    (SourceTangent.pointVector_push (projectiveLineVariety P) X
+      (HomDeformation.curveAt P H p x t) (HomDeformation.curveAt_overC P H p x t)
+      ⟨p.map, p.overC⟩ x (HomDeformation.curveAt_marking P H p x t) tau)
 
 end ActualHomVelocity
 
@@ -499,11 +510,14 @@ theorem toOpen_overC :
 
 theorem locallyOfFiniteType (hU : Smooth (U.ι ≫ H.toC)) :
     LocallyOfFiniteType ((openSet P p H x U).ι ≫ FixedNodeHom.toC P p H x) := by
-  letI : IsClosedImmersion x.map := complexPoint_isClosedImmersion x
+  letI : IsClosedImmersion x.map := FatPointOpenFactorizationProof.complexPoint_isClosedImmersion x
   letI : LocallyOfFiniteType (FixedNodeHom.inclusion P p H x) := by
     change LocallyOfFiniteType (pullback.fst (FixedNodeHom.markedEvaluation P p H) x.map)
     infer_instance
   letI : Smooth (U.ι ≫ H.toC) := hU
+  haveI : LocallyOfFiniteType (toOpen P p H x U) := by
+    dsimp only [toOpen]
+    infer_instance
   rw [← toOpen_overC]
   infer_instance
 
@@ -594,7 +608,7 @@ theorem function_zero_of_dense_complex_images {Y Z : Scheme}
   letI : JacobsonSpace Y := LocallyOfFiniteType.jacobsonSpace sY
   apply AlgebraicGeometry.eq_zero_of_basicOpen_eq_bot a
   apply TopologicalSpace.Opens.ext
-  apply Set.eq_empty_of_forall_not_mem
+  apply Set.eq_empty_iff_forall_notMem.mpr
   intro z hz
   obtain ⟨w, hw, y, rfl⟩ := hf.inter_open_nonempty
     (Z.basicOpen a : Set Z) (Z.basicOpen a).isOpen ⟨z, hz⟩
@@ -799,10 +813,11 @@ theorem source_curve_mixed_coefficients (P : ProjectiveLineOverC)
         ((curveContactVelocity P C f).app S.frame.openSet u)) ^ 2 := by
   let m := PointFrame.LocalFrameJetProof.coefficientOn F.frame f.map S.frame.openSet hV
   have hc (a : AlgebraicSection C.sequence.line.sheaf) :
-      (SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line) S.frame m).
-        localCoefficient (pullSection f.map a) =
+      (SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line) S.frame m).localCoefficient
+        (pullSection f.map a) =
       f.map.appLE F.frame.openSet S.frame.openSet hV (F.coefficient a) := by
-    change m ((pullSection f.map a).app S.frame.openSet (1 : RingSections ProjectiveLine _)) = _
+    change m (Scheme.Modules.Hom.app (pullSection f.map a)
+      S.frame.openSet (1 : RingSections ProjectiveLine _)) = _
     rw [ScalarSections.section_app_one]
     exact PointFrame.LocalFrameJetProof.coefficientOn_global F.frame f.map S.frame.openSet hV a
   have hs := SourceMixedSymbol.source_curve_mixed P C f B h E S.frame m u
@@ -1035,7 +1050,6 @@ theorem function_zero_on_full_family (P : ProjectiveLineOverC)
       calc
         _ = qZ.val ≫ s := by
           rw [Category.assoc, pullback.condition]
-          rfl
         _ = _ := qZ.property
     let p' : ProjectiveLinePoint P :=
       ⟨z ≫ firstProjection P.structureMap, by
@@ -1198,7 +1212,8 @@ def pulledExpansion (P : ProjectiveLineOverC) {d : ℕ}
   left i := pullSection f.map (E.left i)
   right i := pullSection f.map (E.right i)
   equation := by
-    rw [E.equation, curvePull_sum]
+    conv_lhs => rw [E.equation]
+    rw [curvePull_sum]
     apply Finset.sum_congr rfl
     intro i hi
     exact curvePull_product P f L (E.left i) (E.right i)
@@ -1358,10 +1373,11 @@ theorem pulled_mixed_point (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)
       S.frame.openSet S.pointSupport u)
   let m := PointFrame.LocalFrameJetProof.coefficientOn F.frame f.map S.frame.openSet hV
   have hc (a : AlgebraicSection C.sequence.line.sheaf) :
-      (SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line) S.frame m).
-        localCoefficient (pullSection f.map a) =
+      (SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line) S.frame m).localCoefficient
+        (pullSection f.map a) =
       f.map.appLE F.frame.openSet S.frame.openSet hV (F.coefficient a) := by
-    change m ((pullSection f.map a).app S.frame.openSet (1 : RingSections ProjectiveLine _)) = _
+    change m (Scheme.Modules.Hom.app (pullSection f.map a)
+      S.frame.openSet (1 : RingSections ProjectiveLine _)) = _
     rw [ScalarSections.section_app_one]
     exact PointFrame.LocalFrameJetProof.coefficientOn_global F.frame f.map S.frame.openSet hV a
   have hD (a : F.ChartRing) : (F.fiberEquiv w).val a =
@@ -1413,12 +1429,12 @@ theorem source_contactVelocity (P : ProjectiveLineOverC)
     (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) :
     curveContactVelocity P (identityCurveContact P) (isoCurve P e he) =
       (derivativeIso P e he).hom := by
-  simp only [curveContactVelocity, identityCurveContact, CategoryTheory.Functor.map_id, Category.comp_id] <;> rfl
+  simp [curveContactVelocity, identityCurveContact, isoCurve, derivativeIso]
 
 /-- A source frame is transported to its entire image open using the
 actual differential of the inverse isomorphism. This prevents any
 unrecorded shrinking or frame-change scalar in the normalization test. -/
-def imageFrame (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
+abbrev imageFrame (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
     (he : e.hom ≫ P.structureMap = P.structureMap)
     (S : AffineLineFrame (identityCurveContact P).sequence.line) :
     AffineLineFrame (identityCurveContact P).sequence.line where
@@ -1448,7 +1464,7 @@ def sourceTransportExpansion (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ P
     (he : e.hom ≫ P.structureMap = P.structureMap) :
     ExternalExpansion (projectiveLineVariety P) (identityCurveContact P).sequence.line
       (sourceTransport P e he) :=
-  SourceMixedSymbol.mappedExpansion
+  SourceMixedSymbol.mappedExpansion (M := (identityCurveContact P).sequence.line)
     (pulledExpansion P (isoCurve P e he) (SourceMixedSymbol.sourceKernel P).expansion)
     (derivativeIso P e he).inv
 
@@ -1466,7 +1482,8 @@ theorem sourceTransport_orderTwo (P : ProjectiveLineOverC)
     VanishesQuadraticallyAlongDiagonal P.structureMap
       (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf
       (sourceTransport P e he) :=
-  SourceMixedSymbol.mapped_orderTwo (derivativeIso P e he).inv
+  SourceMixedSymbol.mapped_orderTwo (M := (identityCurveContact P).sequence.line)
+    (derivativeIso P e he).inv
     (curvePull_orderTwo P (isoCurve P e he) _ _
       (SourceMixedSymbol.sourceKernel P).symmetric (SourceMixedSymbol.sourceKernel P).orderTwo)
 
@@ -1482,7 +1499,9 @@ theorem sourceTransport_point_self (P : ProjectiveLineOverC)
     S.evaluation ((sourceTransportExpansion P e he).secondSlotSecond S.frame u u) =
       2 * (S.evaluation (S.frame.coefficient u)) ^ 2 := by
   let x : ComplexPoint (projectiveLineVariety P) :=
-    ⟨p.map ≫ e.hom, by rw [Category.assoc, he, p.overC]⟩
+    ⟨p.map ≫ e.hom, by
+      change (p.map ≫ e.hom) ≫ P.structureMap = 𝟙 ComplexBase
+      rw [Category.assoc, he, p.overC]⟩
   let H := imageFrame P e he S.frame
   have hV : S.frame.openSet ≤ e.hom ⁻¹ᵁ H.openSet := imageFrame_support P e he S.frame
   have hr : Set.range x.map ⊆ Set.range H.openSet.ι := by
@@ -1505,7 +1524,8 @@ theorem sourceTransport_point_self (P : ProjectiveLineOverC)
   have hraw := pulled_mixed_point P p K (isoCurve P e he) (x := x) rfl S F A hV u
   rw [source_contactVelocity] at hraw
   have hmapped := congrArg S.evaluation
-    (mapped_mixed_of_orderTwo EP q h2 R S.frame.coefficient u)
+    (mapped_mixed_of_orderTwo (M := (identityCurveContact P).sequence.line)
+      EP q h2 R S.frame.coefficient u)
   change S.evaluation ((sourceTransportExpansion P e he).mixedSecond S.frame u u) =
     S.evaluation (lambda ^ 2 * EP.mixedSecond R u u) at hmapped
   rw [map_mul, map_pow] at hmapped

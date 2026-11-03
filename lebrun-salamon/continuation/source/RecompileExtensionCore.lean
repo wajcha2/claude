@@ -26,15 +26,35 @@ theorem splitSheaf_rank (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)
     IsLocallyFreeOfRank (splitSheaf P p a) r := by
   exact P1SplitBundles.splitSheaf_rank P p a
 
-/-- **Published input (Birkhoff--Grothendieck).** Every rank-`r`
-algebraic vector bundle on `P¹_ℂ` is a direct sum of line bundles `O(aᵢ)`.
-The statement below records the theorem in the project's actual `P¹`, twist,
-and direct-sum interfaces. -/
+/-- Birkhoff--Grothendieck, in its algebraic direct-sum-of-invertible-sheaves
+form. Primary reference: Hazewinkel--Martin, Journal of Pure and Applied
+Algebra 25 (1982), 207--211, Theorem 4.1 on p.211.
+The theorem is over an arbitrary field; it does not use the project's
+marked point, splitting profile, or O(d) construction.
+-/
+theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLine.splitsIntoInvertibleSheaves (k : Type) [Field k]
+    (r : ℕ) (E : (Proj (MvPolynomial.homogeneousSubmodule (Fin 2) k)).Modules)
+    (hE : IsLocallyFreeOfRank E r) :
+    ∃ L : Fin r → (Proj (MvPolynomial.homogeneousSubmodule (Fin 2) k)).Modules,
+      (∀ i, IsLocallyFreeOfRank (L i) 1) ∧ Nonempty (E ≅ ∐ L) := by
+  sorry
+
+
+/-- Choose the degree of every invertible summand and transport the actual
+finite coproduct through those isomorphisms. The Picard-classification
+prerequisite is a separately audited obligation. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.birkhoffGrothendieck
     (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P) {r : ℕ}
     (E : AlgebraicVectorBundle ProjectiveLine r) :
     ∃ a : TangentSplittingProfile r, RealizesSplitting P p E a := by
-  sorry
+  obtain ⟨L, hL, ⟨e⟩⟩ :=
+    PublishedInputs.ProjectiveLine.splitsIntoInvertibleSheaves ℂ r E.sheaf E.locallyFree
+  have hi (i : Fin r) :
+      ∃ d : ℤ, Nonempty (L i ≅ (projectiveTwist P p d).sheaf) :=
+    (projectiveLineBundle_classification P p ⟨L i, hL i⟩).exists
+  choose d hd using hi
+  refine ⟨⟨d⟩, ?_⟩
+  exact ⟨e ≪≫ Sigma.mapIso (fun i => Classical.choice (hd i))⟩
 
 /-- Project wrapper for Birkhoff--Grothendieck. -/
 theorem birkhoffGrothendieck (P : ProjectiveLineOverC)

@@ -1,5 +1,6 @@
 import LSContactCompletion
 import LSNilpotentTopology
+import LSDualThickeningNormalForm
 
 /-!
 ## Canonical functions on the actual trivial first-order thickening
@@ -161,17 +162,19 @@ theorem dualThickening_zeroSection_surjective
     Function.Surjective (Lines.DualThickening.zeroSection sY) := by
   exact LeBrunSalamon.PublishedInputs.Step3f.dualThickening_zeroSection_surjective sY
 
-/-- DT-02. The canonical normal form on every open is supplied by the
-actual finite locally free algebra O_Y[epsilon]/epsilon². Source: Stacks
-01LX, relative Spec and its canonical pushforward algebra. The pair is
-not being given the usual product-ring multiplication. -/
+/-- DT-02. The actual two-coefficient formula on every open is proved
+from finite free degree-zero base change (Stacks 0CKW). The tensor basis
+uses the original quotient epsilon, and the restriction-square proof
+retains the actual projection and parameter maps. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.dualThickening_normalForm_unique
     {Y : Scheme} (sY : Y ⟶ ComplexBase) (U : Y.Opens)
     (z : RingSections (Lines.DualThickening.space sY)
       ((Lines.DualThickening.projection sY) ⁻¹ᵁ U)) :
     ∃! ab : RingSections Y U × RingSections Y U,
       z = Lines.DualThickening.normalForm sY U ab.1 ab.2 := by
-  sorry
+  exact LeBrunSalamon.DualBaseChangeAlgebra.open_normalForm_unique sY
+    (Lines.DualThickening.projection sY) (Lines.DualThickening.parameter sY)
+    (IsPullback.of_hasPullback sY Infinitesimal.dualToC) U z
 
 /-- Project-facing alias of the canonical relative-Spec normal form. -/
 theorem dualThickening_normalForm_unique

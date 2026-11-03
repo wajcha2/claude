@@ -9,12 +9,14 @@ below keeps the actual tensor-product ring and the actual principal open.
 The contact-specific dominance conclusion is proved by the existing
 ordinary fibre-rigidity argument.
 
-Source preparation only; no compiler has been invoked.
+A focused native diagnostic reached its wall limit. Current-source kernel replay
+is pending; exact receipts are in audit/ci_compatibility_repairs/.
 -/
 
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -56,6 +58,7 @@ variable (D : LegendrianDirections X x C)
 /-- Published component geometry supplies the actual hypotheses of the
 ordinary cone-addition theorem. A witnessed nonzero Levi value makes the
 principal open nonempty; there is no component-spanning hypothesis. -/
+set_option maxHeartbeats 6000000 in
 theorem componentAddition_denseRange
     (K E : D.directions.Component)
     (a b : Fin (dimension (n := n) + 1) → ℂ)
@@ -86,12 +89,10 @@ theorem componentAddition_denseRange
   letI : IsIntegral U.toScheme := isIntegral_of_isOpenImmersion U.ι
   letI : LocallyOfFiniteType (U.ι ≫ affineBaseMap (ProductRing S T)) :=
     locallyOfFiniteType_comp U.ι (affineBaseMap (ProductRing S T))
-  letI : IsLocallyNoetherian (productScheme S T) :=
-    LocallyOfFiniteType.isLocallyNoetherian (affineBaseMap (ProductRing S T))
-  letI : IsNoetherian (productScheme S T) := ⟨⟩
-  letI : NoetherianSpace U.toScheme :=
-    U.ι.isOpenEmbedding.isEmbedding.isInducing.noetherianSpace
-  letI : QuasiCompact (U.ι ≫ affineBaseMap (ProductRing S T)) := inferInstance
+  letI : IsAffine U.toScheme :=
+    IsAffineOpen.Spec_basicOpen (pairingFunction S T (omega X x C))
+  letI : QuasiCompact (U.ι ≫ affineBaseMap (ProductRing S T)) :=
+    (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact)).mpr inferInstance
   have hdimension : (dimension (n := n) + 1 : WithBot ℕ∞) ≤
       topologicalKrullDim U.toScheme := by
     rw [hdim U hU, D.cone_dimension K, D.cone_dimension E]

@@ -1,0 +1,64 @@
+{
+  "schema": "lebrun-step3f-nodal-candidate-v1",
+  "updated_utc": "2026-11-03T21:51:01.566586+00:00",
+  "source": "source/LSNodalFixedEnds.lean",
+  "source_sha256": "e40e974c8600a30b17d07c64305393651877278232a38193c0e62330289336c0",
+  "replaced_source_sha256": "6b06c2cf541bf0614e5a2154e8a79a0c96e33467c74e3f8818e399d7a86f8679",
+  "status": "complete_candidate_current_native_check_pending",
+  "kernel_verified": false,
+  "milestone_acceptance": false,
+  "original_ci_diagnostic_error_count": 84,
+  "last_diagnostic": {
+    "kind": "frozen_head_dependency_interfaces_not_current_ancestry",
+    "frozen_head": "0e7a654645d92fe82473e358a925b47101305e97",
+    "source_sha256": "050219aedd658a81b9da043d7854e2a7a6ef628c153e5878a5c27f8cbaaac377",
+    "status": "failed",
+    "seconds": 157.402,
+    "error_count": 5,
+    "remaining_proof": "Construction.Smoothing.FixedEndsProof.DualScaling.homSection_scalar",
+    "errors": [
+      {
+        "pos": {
+          "column": 57,
+          "line": 1645
+        },
+        "data": "failed to synthesize instance of type class\n  SMul (\u2191\u0393(Y, (unop (op (Over.mk (homOfLE \u22ef)))).left)) (SectionsOn (dualSheaf E) U)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+      },
+      {
+        "pos": {
+          "column": 57,
+          "line": 1645
+        },
+        "data": "failed to synthesize instance of type class\n  SMul (\u2191\u0393(Y, (unop (op (Over.mk (homOfLE \u22ef)))).left))\n    (SectionsOn E U \u2192\u2097[RingSections Y U] SectionsOn (structureModule Y) U)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+      },
+      {
+        "pos": {
+          "column": 67,
+          "line": 1645
+        },
+        "data": "failed to synthesize instance of type class\n  DistribSMul (\u2191\u0393(Y, (unop (op (Over.mk (homOfLE \u22ef)))).left)) (SectionsOn (structureModule Y) U)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+      },
+      {
+        "pos": {
+          "column": 67,
+          "line": 1645
+        },
+        "data": "failed to synthesize\n  SMulCommClass (RingSections Y U) (\u2191\u0393(Y, (unop (op (Over.mk (homOfLE \u22ef)))).left)) (SectionsOn (structureModule Y) U)\n(deterministic) timeout at `typeclass`, maximum number of heartbeats (20000) has been reached\n\nNote: Use `set_option synthInstance.maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command."
+      },
+      {
+        "pos": {
+          "column": 14,
+          "line": 1647
+        },
+        "data": "failed to synthesize instance of type class\n  HMul \u2191(Y.presheaf.obj (op ?m.279)) \u2191\u0393(structureModule Y, U) ?m.313\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+      }
+    ],
+    "receipt": "step3f_nodal_compatibility/last_failed_receipt.json"
+  },
+  "changes_after_last_diagnostic": "Replaced the broad scalar rewrite with dual_hom_ext and explicitly typed local-section scalar actions, evaluation linearity, and scalar commutativity. This final candidate has not yet been compiled.",
+  "scope": "Compatibility repairs for existing definitions and actual maps; preserved the live no-sorry affine-divisibility specialization and the existing unresolved Hom-vanishing admission.",
+  "admissions_added": 0,
+  "admission_token_count_before": 2,
+  "admission_token_count_after": 2,
+  "acceptance_caveat": "Previous diagnostic passes of other locations use frozen CI interfaces. Only a successful exact-current-source dependency replay can accept this module for the current checkpoint."
+}

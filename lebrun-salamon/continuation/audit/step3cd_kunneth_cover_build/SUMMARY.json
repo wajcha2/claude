@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-proof-batch-summary-v1",
+  "scope": "Helper diagnostic against exact fresh CI41685948946 frozen ancestors and pinned Mathlib. Canonical live Base04/Base05C and other ancestors have since changed. This is not cumulative current-graph acceptance.",
+  "rows": [
+    {
+      "module": "LSKunnethDegreeZero",
+      "source_sha256": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+      "native_status": "passed",
+      "seconds": 10.915,
+      "olean_sha256": "ecd9105f052a7dc3a6958cb271e10d7dde3835a9f9c0f624931433c622cc7122",
+      "source_and_dependencies_unchanged": true,
+      "integrated_source": true
+    },
+    {
+      "module": "LSKunnethProjectMapAudit",
+      "source_sha256": "dfcc8128d9019343b72fc0d5688a6699f76eb0fadebf8472986249944aa3e914",
+      "native_status": "passed",
+      "seconds": 5.228,
+      "olean_sha256": "50c6d84b49544017dcf4e6c606643fecf018192e78e8840c420199a17f6865b1",
+      "source_and_dependencies_unchanged": true,
+      "integrated_source": false
+    },
+    {
+      "module": "LSSectionCover",
+      "source_sha256": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+      "native_status": "passed",
+      "seconds": 4.029,
+      "olean_sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+      "source_and_dependencies_unchanged": true,
+      "integrated_source": true
+    },
+    {
+      "module": "LSCharacteristicZeroSeparability",
+      "source_sha256": "da39cac753228c1d526b1ad57591302d2d15c4fc78fd319c6abda4dc775b2833",
+      "native_status": "passed",
+      "seconds": 4.433,
+      "olean_sha256": "c88b654856a96a0fc76d3c0de35defc2e8eb97168b097b95750d6360b572bd68",
+      "source_and_dependencies_unchanged": true,
+      "integrated_source": true
+    }
+  ],
+  "integrated_replacements": [
+    {
+      "file": "source/RecompileBasePart05C.lean",
+      "old_direct_admission": "PublishedInputs.ExternalTensorDiagonal.kunneth_degreeZero_surjective",
+      "replacement": "KunnethDegreeZero.externalSection_finiteSum"
+    },
+    {
+      "file": "source/RecompileExtensionsPart01.lean",
+      "old_direct_admission": "PublishedInputs.ExternalTensorDiagonal.kunneth_degreeZero_injective",
+      "replacement": "globalTensorMap_eq_kunneth followed by lineMap_bijective.injective"
+    }
+  ],
+  "published_boundary": "One new direct admission, PublishedInputs.Kunneth.canonicalMap_bijective, the canonical n=0 separated/quasi-compact case of Stacks33.29.1 Tag0BED. Both old project Kunneth admissions have actual proofs. Full native transitive direct-leaf audit remains queued.",
+  "additional_proofs": "SectionCoverProof.vanishes_iff_squareCover has no direct admission and tests the original restriction on any chosen covering family; the field helper proves algebraic characteristic-zero extensions are separable using pinned Mathlib.",
+  "pending_nonvanishing": "Two focused elaboration failures remain: unitCoefficient composition normalization, and timeout elaborating an iff composition. The failed source is not in the live graph.",
+  "current_graph_status": "Containing Base05C/ExtensionsPart01 and reverse cones require fresh native replay. No acceptance percentage is inferred here."
+}

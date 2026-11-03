@@ -1,4 +1,6 @@
 import RecompileBasePart05B
+import LSProjectionFormula
+import LSKunnethDegreeZero
 
 noncomputable section
 
@@ -675,18 +677,17 @@ theorem symmetricExternal_add {X : Scheme}
     IsSymmetricExternalSection s L (B + C) := by
   exact LeBrunSalamon.PhaseTwentyEight.ExchangeAlgebraProof.symmetricExternal_add (s := s) (L := L) (B := B) (C := C) (hB := hB) (hC := hC)
 
-/-- **Published input (exact).** Degree-zero Künneth for two copies of a
-proper complex scheme and two invertible sheaves: the canonical external-product
-map on global sections is surjective.  This is the `n = 0` component of Stacks
-Project, Lemma 33.29.1 (Tag 0BED), with the displayed external-product map fixed
-by the definitions above. -/
+/-- The project finite-sum statement is proved from the generic canonical
+degree-zero Künneth map (Stacks Project, Lemma33.29.1, Tag0BED).
+The finite pure-tensor expansion, properness/quasi-coherence hypotheses and
+normalization by `sectionValue` are proved in `LSKunnethDegreeZero`. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.kunneth_degreeZero_surjective
     {d : ℕ} (X : SmoothProperComplexVariety d) (L M : LineBundle X.scheme)
     (B : AlgebraicSection (externalTensor X.structureMap L.sheaf M.sheaf)) :
     ∃ (N : ℕ) (a : Fin N → AlgebraicSection L.sheaf)
       (b : Fin N → AlgebraicSection M.sheaf),
       B = ∑ i, externalProductSection X.structureMap (a i) (b i) := by
-  sorry
+  exact LeBrunSalamon.KunnethDegreeZero.externalSection_finiteSum X L M B
 
 /-- Project API wrapper for degree-zero Künneth surjectivity. -/
 theorem externalSection_finiteSum {d : ℕ}
@@ -740,17 +741,17 @@ connected set-theoretic fibres alone suffice. -/
 def HasStructureSheafDescent {X Y : Scheme} (f : X ⟶ Y) : Prop :=
   IsIso (structurePushforwardMap f)
 
-/-- **Published input (exact).** Degree-zero projection formula for a finite
-locally free module, in the case where the canonical comparison
-`O_Y → f_* O_X` is an isomorphism.  This is the global-section form of
-Stacks Project, Lemma 20.54.2 (Tag 01E6), with the canonical pullback map
-identified by `pullSection_adjoint` above. -/
+/-- The global-section descent translation is proved from the generic
+finite-locally-free projection formula (Stacks Tag 01E8). Its canonical
+pairing, tensor-unit comparison, structure-sheaf isomorphism and adjunction
+transports are explicit in ProjectionFormulaProof. The historical name is
+retained for compatibility; this declaration itself is no longer admitted. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.projectionFormula_sections_bijective
     {X Y : Scheme} (f : X ⟶ Y)
     (hf : IsIso (structurePushforwardMap f)) {r : ℕ}
     (E : AlgebraicVectorBundle Y r) :
     Function.Bijective (pullSection f (E := E.sheaf)) := by
-  sorry
+  exact LeBrunSalamon.ProjectionFormulaProof.sections_bijective f hf E
 
 /-- Project API wrapper for the degree-zero projection formula. -/
 theorem locallyFree_sections_descend {X Y : Scheme} (f : X ⟶ Y)

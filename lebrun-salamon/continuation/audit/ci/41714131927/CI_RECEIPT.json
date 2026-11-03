@@ -1,0 +1,1237 @@
+{
+  "schema": "lebrun-github-ci-evidence-v2",
+  "verified_utc": "2026-11-03T21:09:58.829287+00:00",
+  "run": {
+    "id": 41714131927,
+    "name": "LeBrun-Salamon takeover kernel checks",
+    "head_branch": "codex/lebrun-takeover-audit-20261103",
+    "head_sha": "0e7a654645d92fe82473e358a925b47101305e97",
+    "path": ".github/workflows/lebrun-takeover-kernel.yml",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41714131927",
+    "created_at": "2026-11-03T20:36:29Z",
+    "updated_at": "2026-11-03T21:07:07Z",
+    "run_started_at": "2026-11-03T20:36:29Z",
+    "run_attempt": 1
+  },
+  "artifact_id": 13271232648,
+  "artifact_zip_sha256": "00a5b495b0a05e3fd90d81f47d37249f484f0bc8033b146cfd8963e041bc4380",
+  "artifact_zip_verified": true,
+  "compiler_kind": "stock_pinned_frontend",
+  "compiler_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "counts": {
+    "reused": 32,
+    "passed": 65,
+    "failed": 5,
+    "blocked": 33
+  },
+  "accepted_count": 97,
+  "selected_module_count": 135,
+  "full_selected_graph_passed": false,
+  "milestone_met": false,
+  "final_validation": {
+    "checked_utc": "2026-11-03T21:06:56.826851+00:00",
+    "checked_module_count": 97,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "failures": [
+    "LSBranchRamification",
+    "LSNodalFixedEnds",
+    "LSConicJets",
+    "LSClassicalActions",
+    "LSProductGeometry"
+  ],
+  "error_count": 148,
+  "modules": [
+    {
+      "module": "FieldDifferentials",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.07,
+      "source_sha256": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
+      "output_sha256": "befb5e2c0cd09243c49ef83e5db6977e465a03aa79ccdf8d34f838c89f49bbd3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "b389d3e9a6276a333f6997fc90d8340199ab87023c230223c491c373cb857cb2",
+        "restored_utc": "2026-11-03T20:38:42.303437+00:00"
+      }
+    },
+    {
+      "module": "LSConeDiagonal",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.376,
+      "source_sha256": "c3c5d22f623f3e6d3c4586ea2a2250eb24a45f9c8b4d00cc31767ea23e795783",
+      "output_sha256": "5f1200de3483d67d086e55237152f8af0fd4e7a01f74733c41d919bfce2e00e4",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "b0d71350d2ff6c364d58c828187c6cef838e151685508b31b29fb87f90ad9ce2",
+        "restored_utc": "2026-11-03T20:38:42.305892+00:00"
+      }
+    },
+    {
+      "module": "LSConePole",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.625,
+      "source_sha256": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+      "output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "9b436f3ad4e76ff3b52d3395ebad835d42f2b3b841095b35e9cb50718a644d03",
+        "restored_utc": "2026-11-03T20:38:42.308074+00:00"
+      }
+    },
+    {
+      "module": "LSCurveLaurentStandardInputs",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 1.518,
+      "source_sha256": "44b5bcb7e1be86903e5e85bbdb71f41e48aeecc2dfb3d84fd48cb6e39cfa49c8",
+      "output_sha256": "3c843a03dc5e0cb612f333ec4100b24e46bb4c0cf49b72e5863083d54b01b8e5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "33dbad216833d63932c8044303858f88969db4175248be325ae5c601ab5ff793",
+        "restored_utc": "2026-11-03T20:38:42.310776+00:00"
+      }
+    },
+    {
+      "module": "LSNilpotentTopology",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 1.568,
+      "source_sha256": "173e9d4c76d87bdc27eb22b33c9e0546885580a64bc0ef41fda113495d3470da",
+      "output_sha256": "e39a5e90e094034528432c112315cc44b14e0d26b9dfc91b056271aeadc6fd38",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "891a5d5bfc50830d945547533b96cdc0e47aafe461658d54cf928697e7c8282e",
+        "restored_utc": "2026-11-03T20:38:42.311969+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart01",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 35.697,
+      "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+      "output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "720e7bec27255dd316d9f740c35d6fc468541b67beb51106257c905df032d654",
+        "restored_utc": "2026-11-03T20:38:42.320834+00:00"
+      }
+    },
+    {
+      "module": "LSConeArcs",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.623,
+      "source_sha256": "4f08599193b5d13343335ecf7fe3d372ea294c7c9627f5478ae6848454287dc4",
+      "output_sha256": "d69de0baab99b8c9c0f3fcbc1b40892ff89a8135c4d45e1e37671cf755802e2a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "1c1bc975754db942989af55f9a94c0738983b714b7e0802c4588f7646dbb71fb",
+        "restored_utc": "2026-11-03T20:38:42.321749+00:00"
+      }
+    },
+    {
+      "module": "LSLaurentRescaling",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.874,
+      "source_sha256": "9577a8a1e70a03a2e09a37a62ff66483ba44d06bd986de209dbc474a161c131f",
+      "output_sha256": "58e9961d480800c29b253f3f21a54c2d5d32f7c14011f47fb4a1807235bf724f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "7922a1cfbdc0fee6ecdf4f8dd305ad7d8dfd8506bda9b48157c515e4ac7912dd",
+        "restored_utc": "2026-11-03T20:38:42.324036+00:00"
+      }
+    },
+    {
+      "module": "LSMilestoneStatement",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.181,
+      "source_sha256": "2addf811b82f450b83e8c742ad4ab89313ca096c216c7ad716d46b4ff08a3700",
+      "output_sha256": "34f926ae7883a208308f50bc77063221fd0ebc24ae0ab2f1293f01205564f455",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "99f694d9b708d617a5513e5f565b43a2c5f429c65be1ce747f7eb37888d4b01b",
+        "restored_utc": "2026-11-03T20:38:42.325689+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart02",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 18.409,
+      "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "fcef6005254134a92a55587db47a173c3a1875f1a507c5343ffffa7e44031a5c",
+        "restored_utc": "2026-11-03T20:38:42.331358+00:00"
+      }
+    },
+    {
+      "module": "LSConeLocalization",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.773,
+      "source_sha256": "21823af6d39f4c3483445f83c546fe6141c2d02c1ebe310535f72b615c5af6d6",
+      "output_sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "6827aeee9e91aecdb104d344185a1987cae6b0b8041afd02bec4dbb411f80537",
+        "restored_utc": "2026-11-03T20:38:42.332241+00:00"
+      }
+    },
+    {
+      "module": "LSMilestoneTopology",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.423,
+      "source_sha256": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
+      "output_sha256": "8d337cddbd3f00697aa6c496ece31873f381b269bfde0439f6136ce595a545f3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "0b9d3fe6dfe3e4729142c8aef633fb86096eec52c4044ac5016c5f5bb048c27f",
+        "restored_utc": "2026-11-03T20:38:42.332993+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart03",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 130.579,
+      "source_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+      "output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "703d8c6e67085b43328dfc6d18e209ef6834911388800a4c618d01da677776c7",
+        "restored_utc": "2026-11-03T20:38:42.343500+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart04",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 164.41,
+      "source_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308",
+      "output_sha256": "b2949fdabd3adb19db69cc8070275978908397e5209c7f20cffa8fbb249d2cd3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "e996120e536f1c40734b404a8a96cc60d89d7a0ed61a104a45e3bdc03c906fcc",
+        "restored_utc": "2026-11-03T20:38:42.352735+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05A",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 40.466,
+      "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+      "output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "20c264e4e671f25c758c2f11a19dc27fa89a8a2c3c97e2c71098e18edc0616d0",
+        "restored_utc": "2026-11-03T20:38:42.355657+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05B",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 60.712,
+      "source_sha256": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+      "output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "ac0e209abdbd5ae134ea8e40b9eede2d6c32ca1e5bac58918c5c8b8c06e9cefa",
+        "restored_utc": "2026-11-03T20:38:42.359692+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05C",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 108.925,
+      "source_sha256": "7569dc2f03fb0f74c1e4954331a16ff3da00de0e71e552a2c3ba876ef082b4bf",
+      "output_sha256": "62d545d72f2422de312b01ab553953b0d294de9d7ab4629286a590aa1ff2fd12",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "c000e7448e9562f7dfb4d7d662ac1eeae551f0fcd2f57a2b33a439c50755e276",
+        "restored_utc": "2026-11-03T20:38:42.362604+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.273,
+      "source_sha256": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+      "output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "485ad7acb0ab9309e6d27bce191f302b593e809a232647b03e2f3e2787f5a84f",
+        "restored_utc": "2026-11-03T20:38:42.363207+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart06",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 46.071,
+      "source_sha256": "a9889fb45f193eba33118e37d32228724f529b46b546b8fdb6713c2b16640cb5",
+      "output_sha256": "147e5f9295c888d1017737048e55ccaada65f83668168427a889a461040e3d3d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "37dc07141a44eaf3eccffade21993fe088d0a32c409fcdcbd722ae5dd1c129f4",
+        "restored_utc": "2026-11-03T20:38:42.368865+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart07",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 566.455,
+      "source_sha256": "c21282a049066fc4d23737d996e2afcb46a2369d659e7d3dfeac4bead7a0c1f0",
+      "output_sha256": "3a0466d52eec2119914687beca923790528e44a1e1f8d6ad61a7a3d80205a063",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "d2cfd40a3a8f7657ee1087c10a26d2371c9c61967741706643c56f182f1ceac4",
+        "restored_utc": "2026-11-03T20:38:42.374885+00:00"
+      }
+    },
+    {
+      "module": "RecompileBase",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.225,
+      "source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+      "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "75f7e642f79c6734818e148bff6cb1198d1b1f018a4641154dc8b0d64af23252",
+        "restored_utc": "2026-11-03T20:38:42.375560+00:00"
+      }
+    },
+    {
+      "module": "RecompileSections",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 194.477,
+      "source_sha256": "e9196031737170829e09377db30020df65a305a253dd4c9d05453a859c7a7497",
+      "output_sha256": "8789ada7d5c3af28819ccda80d686e1d2009b21cb4c3b938bc94fbfc24910404",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "86fe99d8d6a2b091a21e95adecfc7a145a3d339ab00c1cd2355eb370715f5e39",
+        "restored_utc": "2026-11-03T20:38:42.383715+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionCore",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 39.214,
+      "source_sha256": "0ef56e51e34c6f377bbc2914ba38e12c04a37e44c7280cfc9f6b613ee2310e36",
+      "output_sha256": "632bb3878b69eb63e6b3a8636a0cc71387a51f75b185fbedf9264cd2a972b8e0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "e398b737debd7a3ce6b6d93731d633c1eede0fd4b32cf59f4a504ca20daa8e18",
+        "restored_utc": "2026-11-03T20:38:42.388938+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionsPart01",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 73.741,
+      "source_sha256": "a841941b9b7d3fafc046ce22ea9c3741842d07d22a2b1a6642b772dcc55855d4",
+      "output_sha256": "a038108970a55ae6985837ca162a681ad9f91bcc14fca68ee15841a128aa6b72",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "5ec1332817cfeeccdaad4231d360c289a493885cf3d678f934f82d43c8c58d20",
+        "restored_utc": "2026-11-03T20:38:42.402321+00:00"
+      }
+    },
+    {
+      "module": "LSProjectivityDefinitions",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.28,
+      "source_sha256": "ecd462c2af07c2872af45f7266f36956140b256cf67ffc00c4026648da222e96",
+      "output_sha256": "12b72124d3524ea8174716234c5aa096b1230af86ff5d74c01fc4f02390ef170",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "5440df10426088a70208f64ca8e55966d8e308b7b75dcd60bb845cb7b2c054d7",
+        "restored_utc": "2026-11-03T20:38:42.403051+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionsPart02",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 136.485,
+      "source_sha256": "02c16e89883e6da570473215a9cb1e6c2e1f62e7742f540991e12230d6e48594",
+      "output_sha256": "497aa7eec73be47f712563840ba1782fb5a550d38bac82432c5525ad84547bf4",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "eaa3bcced36b0f30724d8d829861e953c5da7569827ef550729fb6a2d8440eb0",
+        "restored_utc": "2026-11-03T20:38:42.415611+00:00"
+      }
+    },
+    {
+      "module": "LSFirstJetEmbedding",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 6.738,
+      "source_sha256": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
+      "output_sha256": "c91fa4141a9c3f7cb65729ac410685dcce7156ed226a4bb85ecd5223081ea638",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "40bc320b3d167cae91a65bfa10ae40bbb565591a8a01d8e32bb7cbafe627928d",
+        "restored_utc": "2026-11-03T20:38:42.417010+00:00"
+      }
+    },
+    {
+      "module": "LSFormalTraitProjectivity",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.622,
+      "source_sha256": "76efabce398ecdce5f72de365de6b10b28044c3b68a2059da806c5a4965a5fe4",
+      "output_sha256": "31c2bba643368fc5d6c2a5a0673e0a44eb82acb38b0a312d82118e86b2a2aa7f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "775ea5ffefebac18f4b69f07a2f1a213c51a5320390434d70eeffdac3884b188",
+        "restored_utc": "2026-11-03T20:38:42.417983+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionsPart03",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 94.695,
+      "source_sha256": "f050ccb6c30b10fb3d528f2a982a57b2133a6552bdbc5a5beb3aeb72edf4efe7",
+      "output_sha256": "bbc5cabeade224258c32e06249f0c2b367ae124def809445014513d41922e959",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "9053a572e47d0556b5cf6a0ac73336b1775126494573ef288180f5e4d5706647",
+        "restored_utc": "2026-11-03T20:38:42.426053+00:00"
+      }
+    },
+    {
+      "module": "LSConicSplitting",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 10.643,
+      "source_sha256": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9",
+      "output_sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "691682d9701232d51d5e9b543b8ec16d68d01dacd075c7b37dcbffd9cc4f9db9",
+        "restored_utc": "2026-11-03T20:38:42.427714+00:00"
+      }
+    },
+    {
+      "module": "LSProjectiveTransport",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.631,
+      "source_sha256": "ad4c17ab2db7ee454cef7829d79c3f1a42bb81454630aa536c368f9c99880c13",
+      "output_sha256": "7dea6f8a014b84aea2c80e1dd79662ddc6bca0a76f126b487cf7f1f590c3b490",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "7298dbaadf0f644fa6ee0bd15c59fbcfef650eee05e49389928e25ed6574212f",
+        "restored_utc": "2026-11-03T20:38:42.428863+00:00"
+      }
+    },
+    {
+      "module": "LSProperSections",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.379,
+      "source_sha256": "ea037192655ab0ee0fdb95f11cbb4cb93a298a6bea6da1d0def8cce45fffa240",
+      "output_sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41685948946,
+        "source_artifact_name": "lebrun-takeover-kernel-41685948946-1",
+        "prior_receipt_sha256": "746414674542b85e6d24922d3564b4e29c9a65d63626820281fdd65c3a3e1d6d",
+        "restored_utc": "2026-11-03T20:38:42.429886+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionsPart04Geometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 336.134,
+      "source_sha256": "6a026e56a57d9b725ef9acaaeb302a262ef028c7d108c05c3a35b3e17015f587",
+      "output_sha256": "a29fccc4a1fc8a34ff8a59b2bd8a922f4d6e634dbcdd43733a42e8e5e6ecc2e0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingPrefix",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.632,
+      "source_sha256": "22d70feae4bfa53bcc53fb5dbf0a0a85b53a10ea468660c0168f59d87177f9c8",
+      "output_sha256": "60542f544cb40cd834f8dc3ddc50f029f0030b80c1a4ea5a9cdc2d333cd1ee7e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04Gluing",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.62,
+      "source_sha256": "ad5c1c7b4fbdc1734643b0e614af68c2c1dd46b1f082ccef3bf98c14db312c0e",
+      "output_sha256": "a5ff6315c7d5c7afa7e1227815a0b020d19fe9490045a3fb6a58ea2b15e1e656",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingSections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.923,
+      "source_sha256": "8a09576464066fc2da8c74afacae92297e2dc6301518e2711f5b196c1b2f1697",
+      "output_sha256": "8858d9314a224fd2737b21d8450da60cc3dae3b86e9f2606964956ad959a980a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04Nodes",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.075,
+      "source_sha256": "fd11260f301496e9435ca722a7ab2aaf5a45a1a1724a305bb8b54769aa335614",
+      "output_sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 31.041,
+      "source_sha256": "9a989e4bb84ad679a39af81cf79ad1f95fba5929a111245cc840b9c3e087ca8c",
+      "output_sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFlatSectionDescent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 15.763,
+      "source_sha256": "71cc99686042fe923a9f684b00153f5f9dfc6725cf75fe459b98d721f8e7bed8",
+      "output_sha256": "0dec6bd1e657dd4a1dac1d8cdad6b38e66115c639c8157c2375b2a2ff6f1bc82",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLineValueDescent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 37.22,
+      "source_sha256": "2c3d1b3336501b611c19fde0c9f6525d18d57ec495ae1da883fdad3c2c53dc72",
+      "output_sha256": "de78d7a07498d05c1cf4d67581746c553b48086f9a519a9f121f7ac397a14fb6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSMovingPairAssembly",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.376,
+      "source_sha256": "8c115263b78128696b197f7f09df143c388a71e3faf69d50f4b7cc351a37dae7",
+      "output_sha256": "9426013c34b767d2baf6a6efd1219803f4e764f9fd89e89b90bbe30c6e7aeab7",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStableMapFamily",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 8.237,
+      "source_sha256": "0360a40ba6a0fc816bd44e0887350661d51d76c5bad19e6577d94cac9f32d0b2",
+      "output_sha256": "c5256faab7e916b94866f1557b884bb4a3f2402273d073aa2ded1240b4aa565a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFieldParametrization",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.325,
+      "source_sha256": "5ea4ea4b63141840b0b84ab876e34bb72554c899d1908c6c847b7c9f2011e980",
+      "output_sha256": "43679b2b27df70bdba5f81f0e2088ca5fdc4ca177e69158db85f360c0c8f5952",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFormalTraitModel",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.325,
+      "source_sha256": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce",
+      "output_sha256": "e33c83223f2fc7590958705c889696f4e29fec1aff62722ac32d92a25c6065be",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGenericSheets",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 17.511,
+      "source_sha256": "d2745a2ceb1ec5161840629b731532bbe033f75787bc31d8e54bd622e728de86",
+      "output_sha256": "cde57c6caedc0fe4fab8a38ad596b90975ecacc8714fd4e2cfef66e6f393d942",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSReducedCover",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.023,
+      "source_sha256": "c3acb1b5e9a6a04e64cbcaf90ae931a679d2bb07debbfe89f07231431f0585a4",
+      "output_sha256": "8c4f7b0e5a61480f8634c87f3c6191db80a56def8821e492ff206f80d7a562d0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactLineTests",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.881,
+      "source_sha256": "5b192ca414195fb0127f60f63f9974aedead9080bded9712c8d9cf6095f7785a",
+      "output_sha256": "c6803cc490b7e2383caf83e4ac31f08db027bea92a2a02dce9d30528ffa49e2f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGenericGlobalFunctions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.72,
+      "source_sha256": "91a2b160a91a74fb080f0d26c9b156f4a92b72009d217c34ae69112a9729a3f4",
+      "output_sha256": "bd2c5905bc177461dbe74a931c5607b25ed4c53e3cfc907a13360ec228ee8c9e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStableFamilyTraits",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.023,
+      "source_sha256": "8e52c140d75bbd6794e7ded0e4ab498e772900974f9a26285249a08f6f0cf3de",
+      "output_sha256": "1737e57954265efb2b15ddbaa1ca7dd6425412d01dc4afb8b64d203758fc917b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.575,
+      "source_sha256": "0591bcbcde84157eaee7cf93e5fd0d3d13d0c6b9623f48147636440ce68a10fb",
+      "output_sha256": "7191aeab268cda32b213afade1d84366b06872d5ca91e879ed4d54e346a7da4d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSBranchAlgebra",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.473,
+      "source_sha256": "afec61342371b75bf860cb35b6c328660547861ae5d6988620531b7dd7e2bbab",
+      "output_sha256": "b86c156be063ec7f688f9431d70173c8339f2e8d67befafe6db8101d82f3bb9e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveVariation",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.921,
+      "source_sha256": "1bc5f378e1e84aa8c019afb2bf44d4c8570384605303019b5a2a0014495d2d87",
+      "output_sha256": "97d3cf38de5f3c337470422a9c18cc81326fd818eccc96ca8a81af17c3f1c810",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileTail",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.824,
+      "source_sha256": "006e79155c7ad36f5ebe27a38624d7588a8bac9986bced1fc4748b248a58a937",
+      "output_sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSBranchRamification",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 4.075,
+      "source_sha256": "a9a6ab59ffa076411865023d8cd8cc494bcd7f9aa06dae526184dc03cd0c6e9d",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveQuotient",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.522,
+      "source_sha256": "23172c6c41b6ad9d31f69a000d5b127e555073054797fda1eb4d45edaf644cd5",
+      "output_sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSuitableDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 7.337,
+      "source_sha256": "f3618c8de36929722cbbe3711d9b86f9cf238bfa74ea5da1492afb100eefd10a",
+      "output_sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSAffineCurveSelection",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.433,
+      "source_sha256": "f4152399a2e7ed3d56a333cdb5d86ef16941d4a9830d75c5f0e077217d1bdb6c",
+      "output_sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeOpen",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 8.035,
+      "source_sha256": "8054ef2a7b4542de4800fdb27a64c747a89abcd9ae120c8b9e6fc9a188569e23",
+      "output_sha256": "be2860bfbf35b78a73fb795de57b3bc4d7c0ffeb8fd6225f293b235db8a0e434",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeRadial",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.728,
+      "source_sha256": "1896c11c08feb78480f15fda8ce04574ddaf359ccc64a0dd8e42ca5bcbf7c301",
+      "output_sha256": "607a4c8b0ed905536266541e5f1f5e1a6b8a83a58da5399104effd8d89b21356",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveHom",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.571,
+      "source_sha256": "0a3f6907226731c3212492222446abe3736f7a824095ea78bd4e1967d03edc58",
+      "output_sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveSplit",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.571,
+      "source_sha256": "89e32f2db0770965b8e4e3c61447eda445bb063e848e46da3510f8f14424b773",
+      "output_sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSRadialDetection",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.976,
+      "source_sha256": "bd34184918d07090d275ef4a5d3cade86fbeb967ba4147f3b87539db59a00721",
+      "output_sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSuitableLinear",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 9.086,
+      "source_sha256": "8b682e75fbf03c9e8f83f7b8a4a56f99b896cac7f70c89f931581a86ea88dc28",
+      "output_sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeAdditionAlgebra",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.276,
+      "source_sha256": "cc1171ef0e2587e8fe778cbb416ca6756561ffea191a220fdbaa2fa50c24f05a",
+      "output_sha256": "f9c81f0d5464510eb10d57af5afeeb6c491bf822231f405db8ac45df72c9c772",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeIsotropy",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.823,
+      "source_sha256": "455e8b54f26f3a283555b7b345634c12380da6e2e47e7dac957a337f0742b129",
+      "output_sha256": "97db7735130c56e28e5d01c57d4200135b5d612a05302d4c7ac26b9b3c4b9ab1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeTangents",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.124,
+      "source_sha256": "7e053401c5420e27924923ea2f36816860157e0c57f7bd1df0e81dc9aa9243f3",
+      "output_sha256": "dbfcc8647c5454c5a806c40a94aa3dcb877c55a61edf7cf4360d62f225d10921",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactGeneration",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.47,
+      "source_sha256": "d4417afa67b215262ba3e4b2e893bac666e4375f816f133577ef353a0b713164",
+      "output_sha256": "544f474c5c436fc7333dafac3e2201cbe7ff01cf030c8d32fb76d107e87852f3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLeviFiber",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.573,
+      "source_sha256": "720c77d982bcfbb35e3e232f24b2823aeb5013ff4f64a475d8fda48a1e3aaab6",
+      "output_sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveIndependence",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.721,
+      "source_sha256": "f9b58456ade15929afb1b134eca8461d1bf31929650bf3d7571881112289924a",
+      "output_sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveNodeImage",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.571,
+      "source_sha256": "b0e3516ffe0cd9c81e1dcbf4030a925b7b224bcfb4c19c55e07beee87b36ea45",
+      "output_sha256": "348d7a511c941aa0e4da2972043c08a224bd69685dad90f022cae41646792334",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSelectedPair",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.873,
+      "source_sha256": "d278cf33169812b3264a5bf015c93a03d81345dc00f4b046686727b72b3a56c8",
+      "output_sha256": "3324a3b64e57d0322be4fbd2d6ce0a3bb1c24444f3a0b041c532d6f1fec1b49c",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeRescaledArcs",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.327,
+      "source_sha256": "616d82bbef80edf025043854494279c668c56cba4c4efa46d1e79e7fa9a47323",
+      "output_sha256": "0fc3ac313ab05183bf8cc4905924d430d74b6942504012b196c7017187e6cc53",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactHomBaseChange",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.52,
+      "source_sha256": "f086674325c6c1a45b41788eb3504d9e634b061190df61b24b029d714d13936d",
+      "output_sha256": "583cee379a8cb816d4e4009f5e3c234b50ab66cac47187086f0fe35c5a6196c5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactStandardInputs",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.519,
+      "source_sha256": "1d4889fd8584613f592adeaa81a80cca1ed7959e70276981f447a2f68f8c499a",
+      "output_sha256": "0acfd0a11cff0dd15afb85590ca195c8c5c2d6f243365788ef063bf8dfbe1372",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurvePairing",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.773,
+      "source_sha256": "807e452b6c04af9f5dfe6d86685bd0377d8e255ebe178ae77725236c2e8e3bae",
+      "output_sha256": "e323f23472e523880eafd307b353aa3a5c9bcfdf8c73e9e3bfdaacb6c1a267c4",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLeviOpen",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.731,
+      "source_sha256": "231c7c5f1a76ec33d060ef5a860bc3c369681c195fbce2370a3e22ad8f383ff1",
+      "output_sha256": "2fb63492dc838e961326d9b5bbdb4afe1142d0d832af3cd4babf66836cc90013",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSAdditionFiberPresentation",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 8.438,
+      "source_sha256": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
+      "output_sha256": "5d660c1529427514014d1667082461570a3c52f6f538bdc8e22fd72a82478fe5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactHorizontal",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.521,
+      "source_sha256": "b5b8688875a755205d2649c07a84629b21a07c9f4a10ec09c258fb3e766cc440",
+      "output_sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurveFunctionField",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.181,
+      "source_sha256": "78420d6ae6acdd9986fd6ed352759134118f1e568ffd9c781c6f624a002b1887",
+      "output_sha256": "a1ac98d87c747ad546504c7c0776fab461cdd43af1eae5c02e58e21afd0d3c25",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactCompletion",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 12.798,
+      "source_sha256": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
+      "output_sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurveLaurentGeometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.875,
+      "source_sha256": "196da5b6ea3d2d3e2045571a8a16e11c8976350539df97c7dcd9f74b29f21eb7",
+      "output_sha256": "1df262c7e0948e8f772e9feb5c4f7dcfa7f8789cc5c6043f35ae02645a872bfd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeFiberRigidity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.076,
+      "source_sha256": "c6e9c08901f44c5cc07a0e8976d18f02451341a0e188d68d4ac574d515b7b462",
+      "output_sha256": "975b68e5aa1953e18e1ed5642cf905f6fbf080adb03fdf67f23d3f74623b3c0d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHomVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 66.939,
+      "source_sha256": "10aa675e010a4320f167867effd07c7e1b088264851f34c906b7ba448276b0b5",
+      "output_sha256": "e3bfe182fbe3918b97f0d05d117afc0ad68782ae3842b877abb2e72321808549",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGlobalVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 56.062,
+      "source_sha256": "969dbf9f87fd99a830702345f6e12122bdc7c29e1b668d8911ca00a785871e1e",
+      "output_sha256": "217095a26f1fc70c22a35254918f8d611cfba788c847274f6cd41947e7e5109b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSTangentComparison",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 39.62,
+      "source_sha256": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
+      "output_sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactVelocityTarget",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 27.339,
+      "source_sha256": "1d5f39fefa23bee6ca718d49f891c64ce228eb8a2d6d3c710a7c0e818a318d1b",
+      "output_sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHamiltonianJets",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 32.617,
+      "source_sha256": "5cfc2314e4adf51ff5c5dec9e7611d5ada7a13226eed2a2449dbabba4c3f9b2e",
+      "output_sha256": "5f89f1ebdb26963ae2785fde7562f2926bb0eeadf3031c0110369aa6a15b3576",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalTangent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 59.871,
+      "source_sha256": "71f7bb265eec044d08c4c40a831584f5078bb3d4d6803a218124e9d07585ee46",
+      "output_sha256": "d29f1dab4e84796a25a42dc5b53351b70ad81edb501e6d7260271fc236667202",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFirstJetEmbeddingGeometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.484,
+      "source_sha256": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
+      "output_sha256": "91637ea09990bdd64bb4e84e3d5f7d12b4fc3d59fce068f550e858b6e0cee8ff",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSIntrinsicVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 125.835,
+      "source_sha256": "775b1c793d6e8c9ecd8a5b4d70f24993816bf53d29bcc9e75c51de82f5fc9021",
+      "output_sha256": "100d2f65867de243de1278f52b7fe693c835ddcd1e583623c915daff036d1f39",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalFixedEnds",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 265.495,
+      "source_sha256": "2b360c4bfc718c77d354b808378ae56bbbe18bac8665e518fb3e371875c45c2b",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSClassicalReduction",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.622,
+      "source_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+      "output_sha256": "7c79fa5391d49e0afee635a7d558e2d1aff8a9d8d035877cd5afbd4e4a31345d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConicJets",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 222.685,
+      "source_sha256": "f093ff5e8e5474fb5db3556b26a3422dde4a6afe3ee02d998bb99c32db8c96d4",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSRelativeGenericSmoothness",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.381,
+      "source_sha256": "3be612f01220aafc0894e3974f6f9c93cf680e6f3821d5a03f4f9ff8392c69b0",
+      "output_sha256": "abfcc91f832c175d66322504b2c4448e210ccb2ab0a0ec6db16d3c2472a33ed1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSClassicalActions",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 3.027,
+      "source_sha256": "0c764b185604f6fcbca1deb4ad4bcecd285a1dea6c9adc51153da9a69e3440e1",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeDominance",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.175,
+      "source_sha256": "91f34354b40e0f77994b5750c5398c3e9f9ac221257fe1ae986ade590c540452",
+      "output_sha256": "ae68160626973de2142317a8c1b9ce0c62681c27cb15f282243e6ccb6987955a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFiniteTypeDominance",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.923,
+      "source_sha256": "a1ad5018a98ed9c658747326ce2dbcad763a99b7b6a2c39f5198f6c75588f785",
+      "output_sha256": "678d7901b211082426b97a0e36c7a7499f6958f35a7b10a0502b410eb9230703",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHomDegree",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.174,
+      "source_sha256": "a3227fc98c375200bc831f2d74f9b6d92853fc9b5c320d0ef9d5bc75b02dd3c2",
+      "output_sha256": "669561009088c6f9b9f8158117315868e1e499cbea0f742fa1b337b69de39dc6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalConic",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 16.211,
+      "source_sha256": "dca6a462215a4aa53c6d0861945ff5affa50985b81a3ab0d9b815485ccdbc219",
+      "output_sha256": "b465868257d60179c1a7e7dac733b49b69040c1c63ee24e25069d088689bc330",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 7.083,
+      "source_sha256": "a559dc915db6c9bff9c0aa17ea40d7a794208fefc500b442f47bb6f856b92e02",
+      "output_sha256": "e3715d309351c867c24884c3325ad4fcfe72058607b4eff41dd634e1c3cc11f6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPublishedDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.073,
+      "source_sha256": "894b6ab81c1d1ab5906f93aa3796074730a43aed460805862c8d9dab8be371b8",
+      "output_sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProductGeometry",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 112.149,
+      "source_sha256": "1ef2479ef34cbe5ecfeb665d602f43dbc104e964b1a9762cfaf06e09008c358d",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    }
+  ]
+}

@@ -66,6 +66,7 @@ FILLPOOL = int(os.environ.get('FILLPOOL', '1500'))      # random fillings scored
 FILLCHEAP = float(os.environ.get('FILLCHEAP', '1e8'))   # stop enlarging the pool once a filling this cheap (flops) is found
 EVALMEM = int(float(os.environ.get('EVALMEM', str(1 << 23))))  # max float64 elements (64 MB) alive in one flattening evaluation (simulated), else blocks
 STEPCOST = float(os.environ.get('STEPCOST', '2e5'))     # cost (flops) charged per block-dependent pairwise contraction and block
+TALL = int(float(os.environ.get("TALLRANK", str(1 << 27))))                                        # elements: dims() ranks stacks of more rows x columns by random combinations (_tall_rank)
 CHUNK = 1 << 23                                         # elements (float64) of a row chunk when lattice blocks are built
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -514,6 +515,7 @@ class Context:
         if self.only_sources is not None:
             tag += '_src' + hashlib.md5(repr(sorted(self.only_sources)).encode()).hexdigest()[:8]
         self.cache = None if cache is None else os.path.join(cache, tag)
+        self.cache_write = True                     # False: existing cache files are read, new flattenings are not written
         if self.cache:
             os.makedirs(self.cache, exist_ok=True)
         self._vm, self._pm_src, self._pm_tgt, self._basis, self._F = {}, {}, {}, {}, {}
@@ -618,7 +620,7 @@ class Context:
         F = np.empty((len(fills), self.N1[tri[0]], self.K[tri[1:]]), dtype=np.uint32)   # filled in place (no int64 stack)
         for i, f in enumerate(fills):
             eval_F(f, self.vm(r), self.pm(tri), out=F[i])
-        if fn:
+        if fn and self.cache_write:
             tmp = '%s.%d.tmp.npy' % (fn, os.getpid())          # process-unique: parallel workers may share the cache
             np.save(tmp, F); os.replace(tmp, fn)
         if self.verbose and time.time() - t0 > 30:
@@ -943,14 +945,40 @@ class LatticeFamily:
         if key not in self._dims:
             c = min(self.ncols, sum(max(self._dims[(s,)]) for s in key) + EXTRA)
             out = []
-            for r in self.ctx.ranks:
+            for ri, r in enumerate(self.ctx.ranks):
+                if max(self._dims[(s,)][ri] for s in key) >= self.rankcap:
+                    # a summand alone has the largest possible dimension: so has the sum (exact, no rank needed;
+                    # family A of a C^5 source at d = 9, 2026-11-03)
+                    out.append(self.rankcap); continue
                 if out and out[-1] >= self.rankcap:
                     # dims are nondecreasing in r and never exceed rankcap: saturated on a lower rank = saturated on
                     # every higher rank (saves the remaining ranks for the many saturated sums of large lattices)
                     out.append(out[-1]); continue
-                out.append(modrank(np.vstack([self.mats[r][s][:, :c] for s in key])))
+                blocks = [self.mats[r][s][:, :c] for s in key]
+                nrows = sum(b.shape[0] for b in blocks)
+                if nrows > c + EXTRA and nrows * c > TALL:
+                    out.append(self._tall_rank(blocks, c, key, r))
+                else:
+                    out.append(modrank(np.vstack(blocks)))
             self._dims[key] = tuple(out)
         return self._dims[key]
+
+    def _tall_rank(self, blocks, c, key, r):
+        """rank of the stacked blocks (nrows x c, nrows >> c) without stacking them: rank of G @ stack with G a random
+        (c + EXTRA) x nrows matrix, accumulated block by block in row chunks (G seeded by the subset).  Equal to the rank of
+        the stack except with probability < p^-EXTRA.  Family A of a C^5 source at d = 9: the sum of all members stacks
+        ~3e5 rows of 2483 columns (6.7 GB as float64) (2026-11-03)."""
+        t = c + EXTRA
+        seed = [self.ctx.seed, 29, r] + [int(x, 16) for x in hashlib.md5(repr(key).encode()).hexdigest()[:8]]
+        rng = np.random.default_rng(seed)
+        acc = np.zeros((t, c))
+        step = max(1, CHUNK // t)
+        for b in blocks:
+            for i in range(0, b.shape[0], step):
+                Bi = np.asarray(b[i:i + step], dtype=np.float64)
+                acc += fmm(rng.integers(0, p, (t, Bi.shape[0])).astype(np.float64), Bi)
+                np.fmod(acc, p, out=acc)
+        return modrank(acc)
 
     def basis_rows(self, r, s):
         """RREF basis (rows in F_p^ncols, the projected coordinates) of the subspace of (member, level) s for the rank-r

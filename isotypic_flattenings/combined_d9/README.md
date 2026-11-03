@@ -63,6 +63,32 @@ and the OOM killer would have chosen the largest process, i.e. the 8 GB job in t
 raises each job's `oom_score_adj` to (largest hint - its hint) / 14.34 GB x 1000 (it cannot be lowered in this container),
 so an OOM kill hits the job furthest above its own hint (here d9_455_dir1_B_p3: oom_score 1124 against 979).
 
+**Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
+of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
+242).  The two-pass build needs the flattenings of all targets of λ on disk (~100 GB) or in memory, and the thin matrices of
+all members (~30 GB).  Changes to `../combined/` (all opt-in in the library, `comb_search.py` options):
+* `LatticeFamily.skip_saturated` (default in comb_search, `--keepsat` = old): no thin matrices for members saturated at
+  level 1 on the lowest rank (search() drops them anyway).
+* `--single-pass` (`LatticeFamily._build_single`): one pass over the members, ncols = size, each member's flattenings freed
+  after its sketches and thin matrices (same per-member random draws); `--no-cache-write`: nothing written to the cache.
+* `--a-exclude FILE.json | GLOB;GLOB`: family-A members (aux 1) whose level-1 rank on the lowest rank is n1 in family-B
+  summary lines of the same tensors are left out (their flattenings are never computed; rank does not depend on the side
+  the lattice lives on).  From the 5x5x5 B logs (277 of 304 targets): (8,1) 67 of 106, (7,2) 150 of 233, (7,1,1) 186 of 242
+  saturated.  `a_exclude.py` writes the JSON.
+* `dims()`: a sum with a summand of dimension rankcap is rankcap (exact, no rank); stacks of more than 2^27 elements
+  (`TALLRANK`) are ranked as G @ stack with G random (c + 8) x rows, accumulated block by block (`_tall_rank`, exact
+  except with probability < p^-8).
+Validation (every comparison: all summary lines identical, timings aside): C^5 d=5 family A source (3,2) (the hit
+[1^5,221 + 221,1^5] 105/150), 4x5x5 d=9 dir 0 family A (7,1,1) (262 of 269 saturated) and family B (22221|22221,
+32211|22221) against `--keepsat` / the two-pass build; single pass with and without the cache; the (7,1,1) run with
+`--a-exclude` (JSON and logs) tests the same sums (the left-out members' singles aside); `TALLRANK=1` (every stack ranked
+by random combinations) on both family-A cases; `_tall_rank` = `modrank` on 12 random low-rank stacks; `test_comb.py
+quick` 0 failures with the defaults and with `TALLRANK=1` (`logs/test_quick_singlepass_tall.log`,
+`logs/test_quick_tallrank1.log`).  Peak memory of the (7,1,1) lattice: 92 MB instead of 328 MB.
+Queued: d9_555_A1 and d9_455_dir1_A1 (sources (8,1), (7,2), (7,1,1); all named groups, 4000 pairs, 1000 triples, 100
+random subsets; no greedy run: its RREF bases would double the memory), after d9_555_B_big (whose logs complete the
+exclusion list).
+
 ## Plan and flattenings tested
 
 Directions: 4x5x5 dir 0 = the C^4 factor as source (targets in C^5 (x) C^5), dir 1 = a C^5 factor as source (targets in

@@ -37,8 +37,9 @@ ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subs
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
 ap.add_argument('--keepsat', action='store_true', help='build the thin matrices of saturated members too (by default they are skipped: search() drops them anyway, see LatticeFamily.skip_saturated)')
+ap.add_argument('--no-cache-write', action='store_true', help='read existing flattenings from --cache but do not write new ones (with --single-pass: no disk growth)')
 ap.add_argument('--single-pass', action='store_true', help='lattices built in one pass over the members, each member\'s flattenings freed after use (no disk cache needed; see LatticeFamily._build_single)')
-ap.add_argument('--a-exclude', default='', help='family A: JSON file {source: ["mu|nu", ...]} of members known to be saturated at level 1 on the lowest rank (e.g. from family-B logs, same tensors and flattenings): left out of the lattice (search() would drop them)')
+ap.add_argument('--a-exclude', default='', help='family A: JSON file {source: ["mu|nu", ...]}, or GLOB[;GLOB] of family-B logs of the same tensors, of members known to be saturated at level 1 on the lowest rank (e.g. from family-B logs, same tensors and flattenings): left out of the lattice (search() would drop them)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
@@ -59,6 +60,7 @@ if args.sources.startswith('pattern:'):
 elif args.sources:
     only_sources = [parse_lam(s) for s in args.sources.split(';') if s]
 ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes), only_sources=only_sources)
+ctx.cache_write = not args.no_cache_write
 if only_sources is not None:
     print('# restricted to sources %s' % only_sources)
 print('# comb_search n=%s d=%d ranks=%s seed=%d dir=%d fam=%s aux=%s exhaust=%d p=%d: %d sources, %d targets, %d ordered components'
@@ -245,7 +247,29 @@ if DONE:
     print('# resume: %d lattices / components already done' % len(DONE)); sys.stdout.flush()
 
 T0 = time.time()
-AEXCL = json.load(open(args.a_exclude)) if args.a_exclude else {}
+def a_exclude_from_logs(globs):
+    """{source: set of 'mu|nu'} of family-A members saturated at level 1 on the lowest rank according to family-B (aux 1)
+    summary lines of the same tensors ('famB mn=MU|NU ... singles: LAM:[1/g:]d/d ...', d_lowest = n1(LAM)); the rank of
+    a flattening does not depend on the side the lattice lives on (combined_d9/a_exclude.py, 2026-11-03)."""
+    import glob as _g
+    out, seen = {}, set()
+    for f in sorted(x for gl in globs.split(';') for x in _g.glob(gl)):
+        for l in open(f):
+            mm = re.match(r'famB mn=(\S+) members=\d+ .*?singles: (.*?)  named', l)
+            if not mm or mm.group(1) in seen:
+                continue
+            seen.add(mm.group(1))
+            toks, i = mm.group(2).split(), 0
+            while i < len(toks):
+                a = toks[i].split(':')
+                d1, i = (int(a[2].split('/')[0]), i + 2) if len(a) == 3 else (int(a[1].split('/')[0]), i + 1)
+                lam = tuple(int(x) for x in (a[0].split('.') if '.' in a[0] else a[0]))
+                if lam in ctx.sources and d1 >= ctx.n1(lam):
+                    out.setdefault(a[0], set()).add(mm.group(1))
+    print('# --a-exclude: %d family-B targets read from %s' % (len(seen), globs)); sys.stdout.flush()
+    return out
+AEXCL = {} if not args.a_exclude else ({k: set(v) for k, v in json.load(open(args.a_exclude)).items()}
+                                       if args.a_exclude.endswith('.json') else a_exclude_from_logs(args.a_exclude))
 if 'A' in fams:
     only = [tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s) for s in args.only_lam.split(';') if s]
     for lam in sorted(ctx.sources, key=lambda l: ctx.n1(l)):

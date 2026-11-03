@@ -25,9 +25,10 @@ d9_455_dir1_B_p4 @1.5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsu
 # (2026-11-03 00:45, after a container restart) the two other large jobs after the small ones: d9_455_dir1_B_big (@8,
 # 5 lattices left) runs next to the small jobs only; these start when it is done (memory budget 13.5 GB)
 d9_555_B_big @5.5 | 5 9 9,10 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000
-# families A (fixed source, sums over targets; Kronecker spaces on the target side) and E (reshaped single components)
-# for 5x5x5 and 4x5x5 dir 1 (so far only dir 0 had them; the C^5 d=5 family-A hit [1^5,221 + 221,1^5] was 7 vs 8)
-#PENDING (memory probe: family-A lattices of a C^5 source hold ~300 members x up to 2483 x 2483) d9_555_AE @5 | 5 9 9,10 --fam A,E --aux 1 --sources pattern:2 --nrand 100 --greedy 1 --pairs 4000
+# family A (fixed source, sums over targets; so far only dir 0 had it; the C^5 d=5 family-A hit [1^5,221 + 221,1^5] was
+# 7 vs 8) for 5x5x5 and 4x5x5 dir 1, aux 1, a C^5 source: built in one pass without a flattening cache; members saturated per the family-B logs of
+# the same tensors left out (2026-11-03; --greedy 0: the RREF bases of ~100 members of 2483 x 2483 would double the memory)
+d9_555_A1 @9 | 5 9 9,10 --fam A --aux 1 --sources pattern:2 --single-pass --no-cache-write --a-exclude /home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_555_B_part*.log;/home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_555_B_big_part*.log --nrand 100 --greedy 0 --pairs 4000 --triples 1000
+d9_455_dir1_A1 @9 | 4,5,5 9 8,9 --dir 1 --fam A --aux 1 --sources pattern:2 --single-pass --no-cache-write --a-exclude /home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_455_dir1_B_part*.log;/home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_455_dir1_B_big_part*.log --nrand 100 --greedy 0 --pairs 4000 --triples 1000
 d9_455_dir0_B_p3_big @4.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmin 8000 --bmax 15000
-#PENDING (memory probe: family-A lattices of a C^5 source hold ~300 members x up to 2483 x 2483) d9_455_dir1_AE @5 | 4,5,5 9 8,9 --dir 1 --fam A,E --aux 1 --sources pattern:2 --nrand 100 --greedy 1 --pairs 4000
 d9_455_dir0_B_p4_mid @3 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmin 3000 --bmax 6000

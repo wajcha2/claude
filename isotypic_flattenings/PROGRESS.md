@@ -118,3 +118,5 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   rank 6 from 7 at d <= 4 even with projection dimension 12 (so d = 5 stays the lowest Koszul degree for C^4). C^5 d=5 redo running.
 - 2026-11-03 01:34 UTC: container restart killed all workers again; relaunched all seven with RESUME (3 KWEDGE d=7 at 51/187,
   2 generic d=8, stacked d=7, redo chain from C^5 d=5 at 33/40). Only the components in flight were lost.
+- 2026-11-03 06:16 UTC: container restart (third in 30 h) killed all workers; relaunched all seven with RESUME (KWEDGE d=7 at 60/187,
+  redo chain at C^5 d=5 37/40, generic d=8 and stacked d=7 continuing). Only the components in flight were lost.

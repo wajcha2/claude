@@ -46,6 +46,31 @@ def read_json(path):
         return None
 
 
+def runtime_context(root, config):
+    """One identity calculation for replay and strict CI cache restoration."""
+    fingerprint_files = {str(Path(p).resolve()): digest(p)
+                         for p in config.get('fingerprint_files', [])}
+    identity = {
+        'config': config,
+        'fingerprint_files': fingerprint_files,
+        'toolchain_lock_sha256': digest(root / 'TOOLCHAIN.lock.json'),
+    }
+    fingerprint = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+    return identity, fingerprint
+
+
+def source_graph(src):
+    sources = {p.relative_to(src).with_suffix('').as_posix().replace('/', '.'): p
+               for p in src.rglob('*.lean')}
+    imports = {}
+    for name, path in sources.items():
+        imports[name] = [word for line in re.findall(
+            r'(?m)^(?:public\s+)?import\s+([^\n]+)', strip_noncode(path.read_text()))
+                        for word in line.split()]
+    graph = {m: [d for d in imports[m] if d in sources] for m in sources}
+    return sources, imports, graph
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--root', type=Path, default=Path(__file__).resolve().parent.parent)
@@ -69,24 +94,11 @@ def main():
     flags = config.get('flags', ['--json', '-j1', '-DElab.async=false',
                                  '-M7200', '-DmaxErrors=1000', '-DmaxHeartbeats=2000000'])
     external_roots = [Path(p).resolve() for p in config['external_olean_roots']]
-    fingerprint_files = {str(Path(p).resolve()): digest(p)
-                         for p in config.get('fingerprint_files', [])}
-    runtime_identity = {
-        'config': config,
-        'fingerprint_files': fingerprint_files,
-        'toolchain_lock_sha256': digest(root / 'TOOLCHAIN.lock.json'),
-    }
-    runtime_hash = hashlib.sha256(json.dumps(runtime_identity, sort_keys=True).encode()).hexdigest()
+    runtime_identity, runtime_hash = runtime_context(root, config)
+    fingerprint_files = runtime_identity['fingerprint_files']
     if digest(root / 'target/MainStatement.lean') != FROZEN_TARGET_SHA256:
         raise SystemExit('Frozen target hash differs; refusing replay.')
-    sources = {p.relative_to(src).with_suffix('').as_posix().replace('/', '.'): p
-               for p in src.rglob('*.lean')}
-    imports = {}
-    for name, p in sources.items():
-        imports[name] = [word for line in re.findall(
-            r'(?m)^(?:public\s+)?import\s+([^\n]+)', strip_noncode(p.read_text()))
-                        for word in line.split()]
-    graph = {m: [d for d in imports[m] if d in sources] for m in sources}
+    sources, imports, graph = source_graph(src)
     order, cycles = dependency_order(graph)
     if cycles:
         raise SystemExit('Cyclic imports: ' + ', '.join(cycles))

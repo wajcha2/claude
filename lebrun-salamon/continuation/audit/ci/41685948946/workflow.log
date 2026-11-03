@@ -1,0 +1,281 @@
+﻿2026-11-03T17:36:54.1134645Z Current runner version: '2.338.2'
+2026-11-03T17:36:54.1168606Z ##[group]Runner Image Provisioner
+2026-11-03T17:36:54.1170029Z Hosted Compute Agent
+2026-11-03T17:36:54.1171007Z Version: 20261028.624
+2026-11-03T17:36:54.1172194Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-03T17:36:54.1173661Z Build Date: 2026-10-28T21:51:42Z
+2026-11-03T17:36:54.1174876Z Worker ID: {bb14b089-3a94-473c-bf05-01881c355224}
+2026-11-03T17:36:54.1176140Z Region: eastus2
+2026-11-03T17:36:54.1177010Z Cloud: Azure
+2026-11-03T17:36:54.1177971Z ##[endgroup]
+2026-11-03T17:36:54.1179937Z ##[group]Operating System
+2026-11-03T17:36:54.1180925Z Ubuntu
+2026-11-03T17:36:54.1182022Z 24.04.5
+2026-11-03T17:36:54.1183053Z LTS
+2026-11-03T17:36:54.1183960Z ##[endgroup]
+2026-11-03T17:36:54.1184874Z ##[group]Runner Image
+2026-11-03T17:36:54.1185901Z Image: ubuntu-24.04
+2026-11-03T17:36:54.1187012Z Version: 20261101.360.1
+2026-11-03T17:36:54.1189040Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-03T17:36:54.1191696Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+2026-11-03T17:36:54.1193397Z ##[endgroup]
+2026-11-03T17:36:54.1195970Z ##[group]GITHUB_TOKEN Permissions
+2026-11-03T17:36:54.1198866Z Actions: read
+2026-11-03T17:36:54.1200014Z Contents: read
+2026-11-03T17:36:54.1200952Z Metadata: read
+2026-11-03T17:36:54.1201916Z ##[endgroup]
+2026-11-03T17:36:54.1205310Z Secret source: Actions
+2026-11-03T17:36:54.1206894Z Cache mode: write
+2026-11-03T17:36:54.1208553Z Prepare workflow directory
+2026-11-03T17:36:54.1909141Z Prepare all required actions
+2026-11-03T17:36:54.1980809Z Getting action download info
+2026-11-03T17:36:54.3946641Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-03T17:36:54.4758110Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-03T17:36:54.6747479Z Complete job name: kernel
+2026-11-03T17:36:54.7553474Z ##[group]Run actions/checkout@v4
+2026-11-03T17:36:54.7554405Z with:
+2026-11-03T17:36:54.7554868Z   repository: wajcha2/claude
+2026-11-03T17:36:54.7558638Z   token: ***
+2026-11-03T17:36:54.7559092Z   ssh-strict: true
+2026-11-03T17:36:54.7559554Z   ssh-user: git
+2026-11-03T17:36:54.7560018Z   persist-credentials: true
+2026-11-03T17:36:54.7560527Z   clean: true
+2026-11-03T17:36:54.7560984Z   sparse-checkout-cone-mode: true
+2026-11-03T17:36:54.7561508Z   fetch-depth: 1
+2026-11-03T17:36:54.7561952Z   fetch-tags: false
+2026-11-03T17:36:54.7562411Z   show-progress: true
+2026-11-03T17:36:54.7563091Z   lfs: false
+2026-11-03T17:36:54.7563521Z   submodules: false
+2026-11-03T17:36:54.7563979Z   set-safe-directory: true
+2026-11-03T17:36:54.7564498Z   allow-unsafe-pr-checkout: false
+2026-11-03T17:36:54.7565227Z env:
+2026-11-03T17:36:54.7568818Z   GH_TOKEN: ***
+2026-11-03T17:36:54.7569270Z ##[endgroup]
+2026-11-03T17:36:54.9863221Z Syncing repository: wajcha2/claude
+2026-11-03T17:36:54.9867008Z ##[group]Getting Git version info
+2026-11-03T17:36:54.9868354Z Working directory is '/home/runner/work/claude/claude'
+2026-11-03T17:36:54.9870247Z [command]/usr/bin/git version
+2026-11-03T17:36:54.9931373Z git version 2.56.0
+2026-11-03T17:36:54.9953380Z ##[endgroup]
+2026-11-03T17:36:54.9967663Z Temporarily overriding HOME='/home/runner/work/_temp/ab704ef3-8bea-457d-8b30-350c5b33d0ac' before making global git config changes
+2026-11-03T17:36:54.9970287Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-03T17:36:54.9972462Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-03T17:36:55.0025416Z Deleting the contents of '/home/runner/work/claude/claude'
+2026-11-03T17:36:55.0031630Z ##[group]Initializing the repository
+2026-11-03T17:36:55.0036725Z [command]/usr/bin/git init /home/runner/work/claude/claude
+2026-11-03T17:36:55.0141150Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-03T17:36:55.0142926Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-03T17:36:55.0144459Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-03T17:36:55.0145620Z hint: call:
+2026-11-03T17:36:55.0146142Z hint:
+2026-11-03T17:36:55.0146751Z hint: 	git config --global init.defaultBranch <name>
+2026-11-03T17:36:55.0147956Z hint:
+2026-11-03T17:36:55.0149016Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-03T17:36:55.0150736Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-03T17:36:55.0151795Z hint:
+2026-11-03T17:36:55.0152270Z hint: 	git branch -m <name>
+2026-11-03T17:36:55.0153120Z hint:
+2026-11-03T17:36:55.0154278Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-03T17:36:55.0156013Z Initialized empty Git repository in /home/runner/work/claude/claude/.git/
+2026-11-03T17:36:55.0162968Z [command]/usr/bin/git remote add origin https://github.com/wajcha2/claude
+2026-11-03T17:36:55.0213599Z ##[endgroup]
+2026-11-03T17:36:55.0217923Z ##[group]Disabling automatic garbage collection
+2026-11-03T17:36:55.0218776Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-03T17:36:55.0270757Z ##[endgroup]
+2026-11-03T17:36:55.0271923Z ##[group]Setting up auth
+2026-11-03T17:36:55.0278702Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-03T17:36:55.0321746Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-03T17:36:55.0713560Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-03T17:36:55.0768154Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-03T17:36:55.1045941Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-03T17:36:55.1092991Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-03T17:36:55.1361352Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-03T17:36:55.1414683Z ##[endgroup]
+2026-11-03T17:36:55.1416137Z ##[group]Fetching the repository
+2026-11-03T17:36:55.1429293Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +71d2406f3e748649a2b6e65b208e225fbc20cb89:refs/remotes/origin/codex/lebrun-takeover-audit-20261103
+2026-11-03T17:37:00.4213424Z From https://github.com/wajcha2/claude
+2026-11-03T17:37:00.4214276Z  * [new ref]         71d2406f3e748649a2b6e65b208e225fbc20cb89 -> origin/codex/lebrun-takeover-audit-20261103
+2026-11-03T17:37:00.4217512Z ##[endgroup]
+2026-11-03T17:37:00.4218158Z ##[group]Determining the checkout info
+2026-11-03T17:37:00.4219935Z ##[endgroup]
+2026-11-03T17:37:00.4226694Z [command]/usr/bin/git sparse-checkout disable
+2026-11-03T17:37:00.4290985Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-03T17:37:00.4333938Z ##[group]Checking out the ref
+2026-11-03T17:37:00.4347681Z [command]/usr/bin/git checkout --progress --force -B codex/lebrun-takeover-audit-20261103 refs/remotes/origin/codex/lebrun-takeover-audit-20261103
+2026-11-03T17:37:00.5426242Z Switched to a new branch 'codex/lebrun-takeover-audit-20261103'
+2026-11-03T17:37:00.5434220Z branch 'codex/lebrun-takeover-audit-20261103' set up to track 'origin/codex/lebrun-takeover-audit-20261103'.
+2026-11-03T17:37:00.5443479Z ##[endgroup]
+2026-11-03T17:37:00.5499674Z [command]/usr/bin/git log -1 --format=%H
+2026-11-03T17:37:00.5536484Z 71d2406f3e748649a2b6e65b208e225fbc20cb89
+2026-11-03T17:37:00.5773431Z ##[group]Run python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \
+2026-11-03T17:37:00.5774230Z [36;1mpython3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \[0m
+2026-11-03T17:37:00.5775060Z [36;1m  --runtime "$RUNNER_TEMP/lebrun-runtime" \[0m
+2026-11-03T17:37:00.5775514Z [36;1m  --config "$GITHUB_WORKSPACE/runtime-config.json"[0m
+2026-11-03T17:37:00.5800486Z shell: /usr/bin/bash -e {0}
+2026-11-03T17:37:00.5800826Z env:
+2026-11-03T17:37:00.5803736Z   GH_TOKEN: ***
+2026-11-03T17:37:00.5804028Z ##[endgroup]
+2026-11-03T17:37:00.6467269Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-11-03T17:37:00.6468131Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-11-03T17:37:00.6468600Z 
+2026-11-03T17:37:00.7938530Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-03T17:37:00.7939994Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-03T17:37:01.1161429Z 
+2026-11-03T17:37:02.1241856Z   8  577M    8 50.0M    0     0   106M      0  0:00:05 --:--:--  0:00:05  106M
+2026-11-03T17:37:03.1151121Z  49  577M   49  285M    0     0   192M      0  0:00:02  0:00:01  0:00:01  233M
+2026-11-03T17:37:03.3517275Z  93  577M   93  541M    0     0   219M      0  0:00:02  0:00:02 --:--:--  245M
+2026-11-03T17:37:03.3517958Z 100  577M  100  577M    0     0   213M      0  0:00:02  0:00:02 --:--:--  236M
+2026-11-03T17:37:09.5095902Z Lean (version 4.36.0-rc1, x86_64-unknown-linux-gnu, commit c9afcddf514a6772bd4d649f7cfc04eff0b9f15e, Release)
+2026-11-03T17:37:50.3978551Z {"runtime_config": "/home/runner/work/claude/claude/runtime-config.json", "restored": true}
+2026-11-03T17:37:50.4274131Z ##[group]Run python3 - <<'PY'
+2026-11-03T17:37:50.4274599Z [36;1mpython3 - <<'PY'[0m
+2026-11-03T17:37:50.4275035Z [36;1mimport os, shlex, subprocess, pathlib[0m
+2026-11-03T17:37:50.4275570Z [36;1mroot=pathlib.Path('lebrun-salamon/continuation')[0m
+2026-11-03T17:37:50.4276261Z [36;1mcommand=['python3',str(root/'scripts/replay_checkpoint.py'),[0m
+2026-11-03T17:37:50.4276992Z [36;1m         '--root',str(root),'--runtime-config','runtime-config.json',[0m
+2026-11-03T17:37:50.4277669Z [36;1m         '--build-dir','kernel-evidence','--keep-going'][0m
+2026-11-03T17:37:50.4278290Z [36;1mmodules=shlex.split(os.environ['SELECTED_MODULES'])[0m
+2026-11-03T17:37:50.4278822Z [36;1mif modules != ['all']:[0m
+2026-11-03T17:37:50.4279224Z [36;1m    for module in modules:[0m
+2026-11-03T17:37:50.4279648Z [36;1m        command += ['--module',module][0m
+2026-11-03T17:37:50.4280201Z [36;1mraise SystemExit(subprocess.run(command).returncode)[0m
+2026-11-03T17:37:50.4280768Z [36;1mPY[0m
+2026-11-03T17:37:50.4312504Z shell: /usr/bin/bash -e {0}
+2026-11-03T17:37:50.4313035Z env:
+2026-11-03T17:37:50.4317274Z   GH_TOKEN: ***
+2026-11-03T17:37:50.4317610Z   SELECTED_MODULES: all
+2026-11-03T17:37:50.4317950Z ##[endgroup]
+2026-11-03T17:37:52.0407261Z BUILD FieldDifferentials
+2026-11-03T17:37:54.1113672Z PASS FieldDifferentials (2.07s)
+2026-11-03T17:37:54.1128660Z BUILD LSConeDiagonal
+2026-11-03T17:37:59.4908564Z PASS LSConeDiagonal (5.376s)
+2026-11-03T17:37:59.4925040Z BUILD LSConePole
+2026-11-03T17:38:04.1190781Z PASS LSConePole (4.625s)
+2026-11-03T17:38:04.1221614Z BUILD LSCurveLaurentStandardInputs
+2026-11-03T17:38:05.6411072Z PASS LSCurveLaurentStandardInputs (1.518s)
+2026-11-03T17:38:05.6423225Z BUILD LSNilpotentTopology
+2026-11-03T17:38:07.2115469Z PASS LSNilpotentTopology (1.568s)
+2026-11-03T17:38:07.2134192Z BUILD RecompileBasePart01
+2026-11-03T17:38:42.9157482Z PASS RecompileBasePart01 (35.697s)
+2026-11-03T17:38:42.9165400Z BUILD LSConeArcs
+2026-11-03T17:38:46.5412435Z PASS LSConeArcs (3.623s)
+2026-11-03T17:38:46.5433903Z BUILD LSLaurentRescaling
+2026-11-03T17:38:50.4188098Z PASS LSLaurentRescaling (3.874s)
+2026-11-03T17:38:50.4197716Z BUILD LSMilestoneStatement
+2026-11-03T17:38:55.6028214Z PASS LSMilestoneStatement (5.181s)
+2026-11-03T17:38:55.6038321Z BUILD RecompileBasePart02
+2026-11-03T17:39:14.0176344Z PASS RecompileBasePart02 (18.409s)
+2026-11-03T17:39:14.0185615Z BUILD LSConeLocalization
+2026-11-03T17:39:17.7931919Z PASS LSConeLocalization (3.773s)
+2026-11-03T17:39:17.7942374Z BUILD LSMilestoneTopology
+2026-11-03T17:39:21.2183435Z PASS LSMilestoneTopology (3.423s)
+2026-11-03T17:39:21.2195954Z BUILD RecompileBasePart03
+2026-11-03T17:41:31.8063078Z PASS RecompileBasePart03 (130.579s)
+2026-11-03T17:41:31.8076178Z BUILD RecompileBasePart04
+2026-11-03T17:44:16.2243040Z PASS RecompileBasePart04 (164.41s)
+2026-11-03T17:44:16.2254627Z BUILD RecompileBasePart05A
+2026-11-03T17:44:56.6941703Z PASS RecompileBasePart05A (40.466s)
+2026-11-03T17:44:56.6954220Z BUILD RecompileBasePart05B
+2026-11-03T17:45:57.4111204Z PASS RecompileBasePart05B (60.712s)
+2026-11-03T17:45:57.4123902Z BUILD RecompileBasePart05C
+2026-11-03T17:47:46.3402307Z PASS RecompileBasePart05C (108.925s)
+2026-11-03T17:47:46.3416984Z BUILD RecompileBasePart05
+2026-11-03T17:47:49.6166089Z PASS RecompileBasePart05 (3.273s)
+2026-11-03T17:47:49.6179944Z BUILD RecompileBasePart06
+2026-11-03T17:48:35.6942286Z PASS RecompileBasePart06 (46.071s)
+2026-11-03T17:48:35.6956656Z BUILD RecompileBasePart07
+2026-11-03T17:58:02.1555841Z PASS RecompileBasePart07 (566.455s)
+2026-11-03T17:58:02.1571107Z BUILD RecompileBase
+2026-11-03T17:58:05.3842497Z PASS RecompileBase (3.225s)
+2026-11-03T17:58:05.3862134Z BUILD RecompileSections
+2026-11-03T18:01:19.8702332Z PASS RecompileSections (194.477s)
+2026-11-03T18:01:19.8720350Z BUILD RecompileExtensionCore
+2026-11-03T18:01:59.0908925Z PASS RecompileExtensionCore (39.214s)
+2026-11-03T18:01:59.0937970Z BUILD RecompileExtensionsPart01
+2026-11-03T18:03:12.8451450Z PASS RecompileExtensionsPart01 (73.741s)
+2026-11-03T18:03:12.8467932Z BUILD LSProjectivityDefinitions
+2026-11-03T18:03:16.1291019Z PASS LSProjectivityDefinitions (3.28s)
+2026-11-03T18:03:16.1312118Z BUILD RecompileExtensionsPart02
+2026-11-03T18:05:32.6254259Z PASS RecompileExtensionsPart02 (136.485s)
+2026-11-03T18:05:32.6273457Z BUILD LSFirstJetEmbedding
+2026-11-03T18:05:39.3682227Z PASS LSFirstJetEmbedding (6.738s)
+2026-11-03T18:05:39.3700280Z BUILD LSFormalTraitProjectivity
+2026-11-03T18:05:42.9947339Z PASS LSFormalTraitProjectivity (3.622s)
+2026-11-03T18:05:42.9969963Z BUILD RecompileExtensionsPart03
+2026-11-03T18:07:17.6985266Z PASS RecompileExtensionsPart03 (94.695s)
+2026-11-03T18:07:17.7004744Z BUILD LSConicSplitting
+2026-11-03T18:07:28.3467442Z PASS LSConicSplitting (10.643s)
+2026-11-03T18:07:28.3486138Z BUILD LSProjectiveTransport
+2026-11-03T18:07:32.9820078Z PASS LSProjectiveTransport (4.631s)
+2026-11-03T18:07:32.9840284Z BUILD LSProperSections
+2026-11-03T18:07:37.3657315Z PASS LSProperSections (4.379s)
+2026-11-03T18:07:37.3683954Z BUILD RecompileExtensionsPart04Geometry
+2026-11-03T18:13:20.5829850Z FAIL RecompileExtensionsPart04Geometry (343.212s)
+2026-11-03T18:13:21.6611332Z {
+2026-11-03T18:13:21.6611744Z   "schema": "lebrun-native-replay-v1",
+2026-11-03T18:13:21.6612231Z   "started_utc": "2026-11-03T17:37:52.036861+00:00",
+2026-11-03T18:13:21.6613150Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-03T18:13:21.6613852Z   "requested_targets": null,
+2026-11-03T18:13:21.6614235Z   "milestone_met": false,
+2026-11-03T18:13:21.6614608Z   "full_selected_graph_passed": false,
+2026-11-03T18:13:21.6614988Z   "final_validation": {
+2026-11-03T18:13:21.6615357Z     "checked_utc": "2026-11-03T18:13:21.658029+00:00",
+2026-11-03T18:13:21.6615799Z     "checked_module_count": 32,
+2026-11-03T18:13:21.6616171Z     "invalidated_modules": {},
+2026-11-03T18:13:21.6616531Z     "changed_runtime_files": []
+2026-11-03T18:13:21.6616861Z   },
+2026-11-03T18:13:21.6617168Z   "finished_utc": "2026-11-03T18:13:21.658047+00:00",
+2026-11-03T18:13:21.6617579Z   "failures": [
+2026-11-03T18:13:21.6617899Z     "RecompileExtensionsPart04Geometry"
+2026-11-03T18:13:21.6618286Z   ],
+2026-11-03T18:13:21.6618548Z   "verified_module_count": 32
+2026-11-03T18:13:21.6618873Z }
+2026-11-03T18:13:21.6763584Z ##[error]Process completed with exit code 1.
+2026-11-03T18:13:21.6869365Z ##[group]Run actions/upload-artifact@v4
+2026-11-03T18:13:21.6869681Z with:
+2026-11-03T18:13:21.6870139Z   name: lebrun-takeover-kernel-41685948946-1
+2026-11-03T18:13:21.6870480Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-03T18:13:21.6870791Z   if-no-files-found: warn
+2026-11-03T18:13:21.6871041Z   compression-level: 6
+2026-11-03T18:13:21.6871276Z   overwrite: false
+2026-11-03T18:13:21.6871512Z   include-hidden-files: false
+2026-11-03T18:13:21.6871762Z env:
+2026-11-03T18:13:21.6874511Z   GH_TOKEN: ***
+2026-11-03T18:13:21.6874756Z ##[endgroup]
+2026-11-03T18:13:21.8652382Z (node:3023) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-03T18:13:21.8653693Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-03T18:13:21.8970973Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-03T18:13:21.8972230Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-03T18:13:21.8973119Z With the provided path, there will be 133 files uploaded
+2026-11-03T18:13:21.8973913Z Artifact name is valid!
+2026-11-03T18:13:21.8974206Z Root directory input is valid!
+2026-11-03T18:13:22.2599502Z Beginning upload of artifact content to blob storage
+2026-11-03T18:13:23.2215620Z (node:3023) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-03T18:13:23.3893296Z Uploaded bytes 8388608
+2026-11-03T18:13:24.3308091Z Uploaded bytes 16777216
+2026-11-03T18:13:25.1265541Z Uploaded bytes 25165824
+2026-11-03T18:13:25.1664789Z Uploaded bytes 26282280
+2026-11-03T18:13:25.1784880Z Finished uploading artifact content to blob storage!
+2026-11-03T18:13:25.1788182Z SHA256 digest of uploaded artifact zip is 9c69b36f708d1b8bc0ab838b47cf64e6ba3d4792b7eecbe8c9105a988851d89d
+2026-11-03T18:13:25.1790019Z Finalizing artifact upload
+2026-11-03T18:13:25.6427117Z Artifact lebrun-takeover-kernel-41685948946-1.zip successfully finalized. Artifact ID 13256253859
+2026-11-03T18:13:25.6428039Z Artifact lebrun-takeover-kernel-41685948946-1 has been successfully uploaded! Final size is 26282280 bytes. Artifact ID is 13256253859
+2026-11-03T18:13:25.6435107Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41685948946/artifacts/13256253859
+2026-11-03T18:13:25.6718444Z Post job cleanup.
+2026-11-03T18:13:25.7634386Z [command]/usr/bin/git version
+2026-11-03T18:13:25.7679999Z git version 2.56.0
+2026-11-03T18:13:25.7722086Z Temporarily overriding HOME='/home/runner/work/_temp/127d8044-fe2b-4aa3-8e07-182151038c08' before making global git config changes
+2026-11-03T18:13:25.7723674Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-03T18:13:25.7728244Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-03T18:13:25.7776531Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-03T18:13:25.7817901Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-03T18:13:25.8110206Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-03T18:13:25.8140806Z http.https://github.com/.extraheader
+2026-11-03T18:13:25.8152632Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-03T18:13:25.8194060Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-03T18:13:25.8489814Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-03T18:13:25.8539469Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-03T18:13:25.9001939Z Cleaning up orphan processes
+2026-11-03T18:13:25.9406358Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

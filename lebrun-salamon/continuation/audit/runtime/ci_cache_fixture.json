@@ -1,0 +1,148 @@
+{
+  "schema": "lebrun-cache-integrity-fixture-v1",
+  "compiler_kind": "simulated Python fixture; no Lean invoked",
+  "driver_sha256": "92d9a09c519e84f5d9b15433432fc05b3156bd7248038a885d2ba978740de671",
+  "cache_restore_sha256": "4c4f28e4efab36c333bc7cd639e4a81e264c391c3803f63d2fe23cbdccd877f0",
+  "passed": 9,
+  "total": 9,
+  "cases": [
+    {
+      "case": "unchanged",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "rejected_modules": {}
+    },
+    {
+      "case": "ancestor_source",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs."
+        ]
+      }
+    },
+    {
+      "case": "leaf_source",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "B": [
+          "Current source/import/dependency/runtime key differs."
+        ]
+      }
+    },
+    {
+      "case": "output_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Output artifact missing or hash differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs."
+        ]
+      }
+    },
+    {
+      "case": "runtime_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "rejected_modules": {}
+    },
+    {
+      "case": "lock_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "rejected_modules": {}
+    },
+    {
+      "case": "external_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs."
+        ]
+      }
+    },
+    {
+      "case": "log_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Compiler diagnostic log missing or hash differs: stdout"
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs."
+        ]
+      }
+    },
+    {
+      "case": "non_native_receipt",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "B": [
+          "No successful native compiler receipt."
+        ]
+      }
+    }
+  ]
+}

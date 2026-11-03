@@ -1,0 +1,78 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCurveLaurentStandardInputs",
+  "key": {
+    "source_sha256": "44b5bcb7e1be86903e5e85bbdb71f41e48aeecc2dfb3d84fd48cb6e39cfa49c8",
+    "imports": [
+      "Mathlib.Data.Complex.Basic",
+      "Mathlib.RingTheory.FiniteType",
+      "Mathlib.RingTheory.KrullDimension.Basic",
+      "Mathlib.RingTheory.Localization.FractionRing",
+      "Mathlib.RingTheory.LaurentSeries"
+    ],
+    "dependency_artifacts": {
+      "Mathlib.Data.Complex.Basic": {
+        "sha256": "bde77a1e75cf77c67a878f7ead8be6318cb77636eec41fda0b4375981278f1e2",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.FiniteType": {
+        "sha256": "cdbdf315280d9f97b6c29b30cddc30326c27d74836e20d55a8f5dc71c23b32f3",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.KrullDimension.Basic": {
+        "sha256": "c6cf1f90effed7791b148a1880c45e70e173701e84864fa255814284372d6ff6",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Localization.FractionRing": {
+        "sha256": "319f6e1c492162cdfb604836f93ced7502a9570e979bb2eae9b9a23f7e914b9a",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.LaurentSeries": {
+        "sha256": "2443963abcc3a72025d7f1183546c601d1fbb74f1894e7a33d7f80a1b7fd74d1",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCurveLaurentStandardInputs.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCurveLaurentStandardInputs.lean"
+  ],
+  "started_utc": "2026-11-03T17:38:04.121207+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveLaurentStandardInputs.20261103T173804121178.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveLaurentStandardInputs.20261103T173804121178.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T17:38:05.639714+00:00",
+  "seconds": 1.518,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "dafb58c031ab066988f260b8c545a5cd380406ddc310bdad3f954925e3ca3556",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "3c843a03dc5e0cb612f333ec4100b24e46bb4c0cf49b72e5863083d54b01b8e5",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -5621,20 +5621,20 @@ returns the representing data rather than the project-specific `TotalBundle`
 wrapper. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.totalBundle_representation
     {Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) :
-    ∃ (V : Scheme) (π : V ⟶ Z)
-      (τ : AlgebraicSection (pullbackModule π E.sheaf)),
+    ∃ (V : Scheme) (bundleProjection : V ⟶ Z)
+      (τ : AlgebraicSection (pullbackModule bundleProjection E.sheaf)),
       ∀ (T : Scheme) (f : T ⟶ Z),
-        Function.Bijective (fun h : {h : T ⟶ V // h ≫ π = f} =>
+        Function.Bijective (fun h : {h : T ⟶ V // h ≫ bundleProjection = f} =>
           pullSection h.val τ ≫
-            (compositionPullback h.val π f h.property E.sheaf).hom) := by
+            (compositionPullback h.val bundleProjection f h.property E.sheaf).hom) := by
   sorry
 
 /-- Project API wrapper for the total-space representation of a vector bundle. -/
 theorem totalBundle_exists {Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) :
     Nonempty (TotalBundle E) := by
-  obtain ⟨V, π, τ, hV⟩ :=
+  obtain ⟨V, bundleProjection, τ, hV⟩ :=
     LeBrunSalamon.PublishedInputs.BaseChangeFibers.totalBundle_representation E
-  exact ⟨{ space := V, projection := π, tautological := τ, universal := hV }⟩
+  exact ⟨{ space := V, projection := bundleProjection, tautological := τ, universal := hV }⟩
 
 namespace TotalBundle
 

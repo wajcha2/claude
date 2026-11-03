@@ -35,6 +35,24 @@ jobs:
             --runtime "$RUNNER_TEMP/lebrun-runtime" \
             --config "$GITHUB_WORKSPACE/runtime-config.json"
 
+      - name: Download prior native compiler evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-takeover-kernel-41685948946-1
+          run-id: 41685948946
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/lebrun-prior-evidence
+
+      - name: Restore only exact source and runtime matches
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py \
+            --root lebrun-salamon/continuation \
+            --runtime-config runtime-config.json \
+            --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" \
+            --build-dir kernel-evidence \
+            --source-run-id 41685948946 \
+            --source-artifact-name lebrun-takeover-kernel-41685948946-1
+
       - name: Check selected modules and their dependencies
         env:
           SELECTED_MODULES: ${{ inputs.modules || 'all' }}

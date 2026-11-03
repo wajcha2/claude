@@ -1921,3 +1921,31 @@ lam=((5, 3), (4, 3, 1), (3, 2, 1, 1, 1)) g=2 dir 2: n1=4410 n23=1693440 N1=4418 
   . ((4, 3, 1), (5, 3), (3, 2, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 6.48e+12 -> 1.67e+12 (7s)
 lam=((5, 3), (4, 3, 1), (3, 2, 1, 1, 1)) g=2 dir 2: n1=4410 n23=1693440 N1=4418 K=8828  ranks [11, 12, 13]
   . ((4, 3, 1), (5, 3), (3, 2, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 6.48e+12 -> 1.67e+12 (9s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410] V[8820]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (255.2s)
+   done dir 2: ok, 2 cases, 0 hits, wall 697.2s (F 348.5s), peak 3202 MB
+lam=((5, 3), (4, 3, 1), (3, 2, 1, 1, 1)) g=2 dir 3: n1=384 n23=19448100 N1=392 K=776  ranks [11, 12, 13]
+   generic U: r11 H[384, 384] V[768]
+   U_k dims {1: 2, 2: 2, 3: 2, 4: 2, 5: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g
+   line0 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.5s)
+   done dir 3: ok, 2 cases, 0 hits, wall 5.7s (F 2.9s), peak 327 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (3, 3, 1, 1)) g=4 dir 1: n1=1575 n23=2857680 N1=1583 K=6308  ranks [11, 12, 13]
+  . ((5, 1, 1, 1), (4, 2, 1, 1), (3, 3, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 4.91e+12 -> 2.35e+12 (8s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1575, 1575, 1575, 1575] V[3150, 4725, 6300]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 3, 5: 0}  swaps {}  (0.6s)
+   U4                           r11 H[1575, 1575, 1575, 1575] V[3150, 4725, 6300]
+   line0 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (16.2s)
+   line1 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (16.7s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   thru-U40 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (15.9s)
+   in-U40 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (16.4s)
+   done dir 1: ok, 9 cases, 0 hits, wall 451.8s (F 321.0s), peak 567 MB
+lam=((5, 1, 1, 1), (4, 2, 1, 1), (3, 3, 1, 1)) g=4 dir 2: n1=2430 n23=1852200 N1=2438 K=9728  ranks [11, 12, 13]

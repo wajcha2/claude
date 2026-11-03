@@ -12,7 +12,8 @@ Memory budget (2026-11-02, after an OOM loop: the cgroup limit is 14.3 GB and on
 needs > 6.3 GB): `name @GB | args` gives a job's expected peak memory (default 2 GB).  A job is launched only when
 sum over running jobs of max(hint, current RSS) + its hint <= BUDGET_GB (argv[3], default 13.5).  A job blocked by
 memory lets later jobs start only when their hint is <= 2 GB.  With nothing running, the first waiting job starts.  A job of this runner killed by SIGKILL (the OOM killer)
-gets hint max(hint, 1.25 x its peak RSS), kept in logs/jobs/memhints.json.
+gets hint max(hint, 1.25 x its peak RSS), kept in logs/jobs/memhints.json.  Each job's oom_score_adj is raised to
+(largest hint - its hint) / 14.34 GB x 1000, so an OOM kill hits the job furthest above its hint (2026-11-03).
 
 usage: python3 d9_jobs.py JOBFILE [NWORKERS [BUDGET_GB]]"""
 import os, sys, re, time, subprocess, glob, json
@@ -24,6 +25,7 @@ jobfile, nworkers = sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 4
 budget = float(sys.argv[3]) if len(sys.argv) > 3 else 13.5
 HINTS = os.path.join(JOBDIR, 'memhints.json')
 SMALL = 2.0
+LIMIT_GB = 14.34      # memory cgroup limit of the container
 os.makedirs(JOBDIR, exist_ok=True)
 
 def read_jobs():
@@ -37,6 +39,17 @@ def read_jobs():
             jobs.append((name, ' '.join(a.split())))
             hints[name] = max(hint, learned.get(name, 0.0))
     return jobs
+
+def set_oom_adj(pid, adj):
+    """raise /proc/pid/oom_score_adj to adj (it cannot be lowered here, no CAP_SYS_RESOURCE).  The OOM killer's badness is
+    RSS + adj/1000 x limit, so with adj = (largest hint - hint)/limit x 1000 it kills the job furthest above its own hint
+    (RSS - hint largest), not simply the largest job."""
+    adj = int(min(1000, max(0, round(adj))))
+    try:
+        if int(open('/proc/%d/oom_score_adj' % pid).read()) < adj:
+            open('/proc/%d/oom_score_adj' % pid, 'w').write(str(adj))
+    except (OSError, ValueError):
+        pass
 
 def rss_gb(pid):
     try:
@@ -88,8 +101,10 @@ while True:
         peak.pop(name, None)
     ext = external(jobs, {pr.pid for pr in running.values()})
     pids = dict(ext, **{n: pr.pid for n, pr in running.items()})
+    hmax = max(hints.values())
     for n, pid in pids.items():
         peak[n] = max(peak.get(n, 0.0), rss_gb(pid))
+        set_oom_adj(pid, (hmax - hints.get(n, 2.0)) / LIMIT_GB * 1000)
     busy = set(running) | set(ext)
     reserved = sum(max(hints.get(n, 2.0), rss_gb(pid)) for n, pid in pids.items())
     blocked = []

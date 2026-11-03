@@ -58,6 +58,10 @@ killed by SIGKILL gets its hint raised to 1.25 x its peak RSS, `logs/jobs/memhin
 78 lattices left) waits until the other large jobs leave room; nothing of it is lost (flattenings cached, `--resume`).
 After the container restart of 2026-11-03 00:40 the queue order is: d9_455_dir1_B_big next to the small λ1 >= 5 jobs and
 d9_455_dir1_B_p3 (4 workers, 12.5 of 13.5 GB reserved); d9_555_B_big and d9_455_dir0_B_p3_big after them.
+At 02:38 UTC d9_455_dir1_B_p3 (hint 1.5 GB) had grown to 4 GB next to d9_455_dir1_B_big (7.6 GB): 13.4 GB used of 14.3,
+and the OOM killer would have chosen the largest process, i.e. the 8 GB job in the middle of its lattice.  The runner now
+raises each job's `oom_score_adj` to (largest hint - its hint) / 14.34 GB x 1000 (it cannot be lowered in this container),
+so an OOM kill hits the job furthest above its own hint (here d9_455_dir1_B_p3: oom_score 1124 against 979).
 
 ## Plan and flattenings tested
 

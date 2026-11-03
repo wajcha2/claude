@@ -2212,3 +2212,12 @@ lam=((6, 2), (5, 2, 1), (4, 2, 2)) g=2 dims=[4950, 5760, 2520] ok  wall=1128.5s 
   . ((3, 2, 2, 1), (4, 2, 1, 1), (4, 1, 1, 1, 1)) dir 2 r=10 H=[1050, 1050, 1050, 1050, 1050, 1050] V=[1050, 2100, 3150, 4200, 5250, 6300] eval 194s rref 27s
 lam=((4, 2, 1, 1), (4, 1, 1, 1, 1), (3, 2, 2, 1)) g=6 dims=[2430, 315, 1050] ok  wall=264.5s rss=520MB
 # worker 587131 done, 265s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 587133/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list
+  . ((6, 1, 1), (5, 3), (5, 2, 1)) dir 0 r=10 H=[3465, 3465] V=[3465, 6930] eval 245s rref 41s
+  . ((5, 3), (6, 1, 1), (5, 2, 1)) dir 1 r=10: evaluation basis from a pool of 1500 fillings, planned cost 2.08e+12 -> 1.66e+11 (11s)
+  . ((5, 3), (6, 1, 1), (5, 2, 1)) dir 1 r=10 H=[4410, 4410] V=[4410, 8820] eval 43s rref 81s
+  . ((5, 2, 1), (6, 1, 1), (5, 3)) dir 2 r=10: evaluation basis from a pool of 1500 fillings, planned cost 2.69e+12 -> 7.62e+11 (19s)
+  . ((5, 2, 1), (6, 1, 1), (5, 3)) dir 2 r=10 H=[5760, 5760] V=[5760, 11520] eval 150s rref 171s
+lam=((6, 1, 1), (5, 3), (5, 2, 1)) g=2 dims=[3465, 4410, 5760] ok  wall=731.5s rss=1657MB
+# worker 587133 done, 732s
+# rankscan n=6 d=8 r_gen=14 need=[10, 11, 12, 13] rlo=10 seed=5 worker 587135/1 VSTACK=True MEMCAP=33554432 WCAP=67108864: 358 components in list

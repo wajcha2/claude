@@ -710,6 +710,8 @@ class LatticeFamily:
        space of the row block i (generic Psi_i in M_i^* (x) X_i^* (x) C^l; nested in k).
     levels: 'ends' (1 and g), 'all' (1..g) or 'full' (g only)."""
 
+    skip_saturated = False
+
     def __init__(self, ctx, kind, key, aux=1, levels='ends', members=None, tag=0):
         self.ctx, self.kind, self.key, self.aux, self.tag = ctx, kind, key, aux, tag
         if kind == 'A':
@@ -882,9 +884,19 @@ class LatticeFamily:
         for m in self.members:
             for lev in self.levels[m]:
                 self._dims[((m, lev),)] = tuple(sd[r][(m, lev)] for r in ctx.ranks)
-        H = max([sum(sd[r][(m, max(self.levels[m]))] for m in self.members) for r in ctx.ranks], default=0)
+        # skip_saturated (opt-in, set by comb_search.py): no thin matrices for members whose level-1 subspace alone already
+        # has the lattice's maximal dimension (rankcap) on the lowest rank -- every sum containing one is saturated, and
+        # comb_search.search() drops them before testing sums.  ncols then covers the kept members' sums only (the same
+        # injectivity argument), so every dims() of kept members is unchanged.  Family A of a C^5 source at d = 9: ~300
+        # members of up to 2483 x 2483 each (2026-11-03).
+        keep = self.members
+        if self.skip_saturated:
+            r0 = ctx.ranks[0]
+            keep = [m for m in self.members if sd[r0][(m, min(self.levels[m]))] < self.rankcap]
+        self.thin_members = keep
+        H = max([sum(sd[r][(m, max(self.levels[m]))] for m in keep) for r in ctx.ranks], default=0)
         self.ncols = min(self.size, H + EXTRA)
-        for m in self.members:
+        for m in keep:
             for r in ctx.ranks:
                 thin = self._thin(m, r, psis[m], rngs[m], {lev: sd[r][(m, lev)] for lev in self.levels[m]}, self.ncols)
                 for lev in self.levels[m]:

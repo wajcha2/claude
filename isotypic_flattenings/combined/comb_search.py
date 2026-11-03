@@ -35,10 +35,12 @@ ap.add_argument('--sources', default='', help='restrict to these source partitio
 ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subsets of at most this many members (0 = all)')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
+ap.add_argument('--keepsat', action='store_true', help='build the thin matrices of saturated members too (by default they are skipped: search() drops them anyway, see LatticeFamily.skip_saturated)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
 args = ap.parse_args()
+LatticeFamily.skip_saturated = not args.keepsat
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
 fams = args.fam.split(','); auxes = [int(x) for x in args.aux.split(',')]

@@ -202,6 +202,12 @@ even with FSDISK).  Until they are checked, "all separators of 13 vs 14 at d = 6
 The first is queued as the extra job n9_d6_x2 (FSDISK, need 13..29; created 22:20, runner restarted with the workers
 adopted; estimate 11.8 GB with the extra-job allowance).  Extra-job results are not counted in the STATUS coverage
 table (it will keep showing 117 of 119 for 9x9x9 d = 6).
+Result (2026-11-03 04:03; started 22:31 after the container restart of 22:30): saturated at r = 13 in both distinct
+directions -- direction 0 (source (4,1,1)) H = 9240 x 4, V = 9240 k (eval 1.3 h, elimination 1.4 h), direction 1
+(source (3,2,1)) H = 11088 x 4, V = 11088 k up to 44352 (eval 27 min with an evaluation basis 7.3e13 -> 1.05e13,
+elimination 2.4 h); wall 5.5 h, anonymous RSS at most 10.6 GB (MemAvailable >= 3.7 GB).  So 118 of the 119
+components of 9x9x9 d = 6 are checked and none but ((6),(1^6),(1^6)) separates 13 vs 14 (or any r >= 13 vs r + 1);
+the one left is ((3,2,1),(3,2,1),(3,2,1)), g = 5 (~14 GB of elimination, not feasible here).
 The last component, ((3,2,1),(3,2,1),(3,1,1,1)), g = 4, with FSDISK, 2026-11-02 04:58 - 11:16 (6.3 h): direction 0
 H = 11088 x 4, V = 11088 / 22176 / 33264 / 44352 (eval 2.9 h, elimination 2.9 h), direction 2 H = 4620 x 4,
 V = 4620 k (eval 19 min, elimination 13 min).  Memory: anonymous RSS at most ~10.5 GB (estimate 10.8 GB) next to

@@ -20,6 +20,7 @@ Per lattice a summary line: members, number of subsets tested, singles/all/natur
 import sys, os, re, time, itertools, argparse
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import json
 from combflat import Context, LatticeFamily, fmt, p
 
 ap = argparse.ArgumentParser()
@@ -36,11 +37,14 @@ ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subs
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
 ap.add_argument('--keepsat', action='store_true', help='build the thin matrices of saturated members too (by default they are skipped: search() drops them anyway, see LatticeFamily.skip_saturated)')
+ap.add_argument('--single-pass', action='store_true', help='lattices built in one pass over the members, each member\'s flattenings freed after use (no disk cache needed; see LatticeFamily._build_single)')
+ap.add_argument('--a-exclude', default='', help='family A: JSON file {source: ["mu|nu", ...]} of members known to be saturated at level 1 on the lowest rank (e.g. from family-B logs, same tensors and flattenings): left out of the lattice (search() would drop them)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
 args = ap.parse_args()
 LatticeFamily.skip_saturated = not args.keepsat
+LatticeFamily.single_pass = args.single_pass
 ns = tuple(int(x) for x in args.n.split(',')); ns = ns * 3 if len(ns) == 1 else ns
 ranks = [int(x) for x in args.ranks.split(',')]
 fams = args.fam.split(','); auxes = [int(x) for x in args.aux.split(',')]
@@ -241,6 +245,7 @@ if DONE:
     print('# resume: %d lattices / components already done' % len(DONE)); sys.stdout.flush()
 
 T0 = time.time()
+AEXCL = json.load(open(args.a_exclude)) if args.a_exclude else {}
 if 'A' in fams:
     only = [tuple(int(c) for c in s.split('.')) if '.' in s else tuple(int(c) for c in s) for s in args.only_lam.split(';') if s]
     for lam in sorted(ctx.sources, key=lambda l: ctx.n1(l)):
@@ -250,7 +255,14 @@ if 'A' in fams:
             if ('A', aux, fmt(lam)) in DONE:
                 continue
             t0 = time.time()
-            fam = LatticeFamily(ctx, 'A', lam, aux=aux, levels='ends')
+            amem = None
+            if aux == 1 and AEXCL.get(fmt(lam)):      # level-1 saturation of aux 1 (aux 2 has rankcap 2 n1)
+                cand = [mn for mn in ctx.targets if (lam,) + mn in ctx.g]
+                amem = [mn for mn in cand if '%s|%s' % (fmt(mn[0]), fmt(mn[1])) not in AEXCL[fmt(lam)]]
+                print('# famA%s lam=%s: %d of %d members left out (saturated at level 1 on rank %d according to %s)'
+                      % ('' if aux == 1 else '(aux=%d)' % aux, fmt(lam), len(cand) - len(amem), len(cand), ranks[0], args.a_exclude))
+                sys.stdout.flush()
+            fam = LatticeFamily(ctx, 'A', lam, aux=aux, levels='ends', members=amem)
             ctx.drop()                  # the search needs only fam.mats; the flattenings of all targets of lam can be GB
             res = search(fam, np.random.default_rng([args.seed, 21, aux] + list(lam)))
             summary(fam, *res, time.time() - t0)

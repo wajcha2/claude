@@ -711,6 +711,7 @@ class LatticeFamily:
     levels: 'ends' (1 and g), 'all' (1..g) or 'full' (g only)."""
 
     skip_saturated = False
+    single_pass = False
 
     def __init__(self, ctx, kind, key, aux=1, levels='ends', members=None, tag=0):
         self.ctx, self.kind, self.key, self.aux, self.tag = ctx, kind, key, aux, tag
@@ -872,6 +873,8 @@ class LatticeFamily:
         self.cap = self.size if a == 1 else self.ambient
         self._W, self._t0 = [], {}
         psis, rngs, sd = {}, {}, {r: {} for r in ctx.ranks}
+        if self.single_pass:
+            return self._build_single(psis, rngs)
         for m in self.members:
             tri = self.tri(m); top = max(self.levels[m])
             # generic Psi (g, k, l): family A: k = aux, l = level (nested); family B: k = level (nested), l = aux
@@ -901,6 +904,34 @@ class LatticeFamily:
                 thin = self._thin(m, r, psis[m], rngs[m], {lev: sd[r][(m, lev)] for lev in self.levels[m]}, self.ncols)
                 for lev in self.levels[m]:
                     self.mats[r][(m, lev)] = thin[lev]
+        self._W = []
+
+    def _build_single(self, psis, rngs):
+        """single_pass (opt-in, set by comb_search.py --single-pass; meant for family A without a disk cache): one pass over
+        the members, ncols = size (all coordinates; the two-pass build gets the same whenever the sum of the top dims
+        exceeds size - EXTRA, e.g. family A of a C^5 source at d = 9), and each member's flattenings are freed right
+        after its sketches and thin matrices.  Every member keeps its own random generator and draws from it in the same
+        order as in build() (sketches of all ranks, then thin matrices of all ranks), so the thin matrices and all dims
+        are the same as the two-pass build's whenever ncols is.  Memory: one member's flattenings plus the thin
+        matrices; no flattening cache on disk is needed (2026-11-03)."""
+        ctx, a = self.ctx, self.aux
+        self.ncols = self.size
+        r0, keep = ctx.ranks[0], []
+        for m in self.members:
+            tri = self.tri(m); top = max(self.levels[m])
+            psis[m] = ctx.psi(tri, a, top, self.tag) if self.kind == 'A' else ctx.psi(tri, top, a, self.tag)
+            rngs[m] = np.random.default_rng([ctx.seed, 17, ctx.dirn, self.tag, a, 0 if self.kind == 'A' else 1] + ctx.tri_index(tri))
+            d = {r: self._sketch(m, r, psis[m], rngs[m]) for r in ctx.ranks}
+            for lev in self.levels[m]:
+                self._dims[((m, lev),)] = tuple(d[r][lev] for r in ctx.ranks)
+            if not (self.skip_saturated and d[r0][min(self.levels[m])] >= self.rankcap):
+                keep.append(m)
+                for r in ctx.ranks:
+                    thin = self._thin(m, r, psis[m], rngs[m], d[r], self.ncols)
+                    for lev in self.levels[m]:
+                        self.mats[r][(m, lev)] = thin[lev]
+            ctx.drop([tri])
+        self.thin_members = keep
         self._W = []
 
     def dims(self, S):

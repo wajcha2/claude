@@ -10,6 +10,16 @@ The new continuation branch is `codex/lebrun-takeover-audit-20261103` in `wajcha
 
 This is a recovery and admission-boundary audit, with focused mathematical checks of consequential statements. It is not a line-by-line correctness audit of all 103,000 source lines.
 
+## Completion announcements and the evidence recovered
+
+The user was explicitly told that **Steps 3c, 3d, 3e and 3f were finished**. The retrieved original conversation history records a cumulative announcement on 2 November 2026 at 20:35 CET marking 3c, 3d and 3e **"Passed cumulatively"**, followed at 22:46 CET by **"Step 3f completed — PASSED"**. These were completion claims, not merely reports that source editing had started.
+
+The cumulative 3c–3e announcement named `LeBrunSalamon_Cumulative_Steps1_2_3a_3e_20261102.zip`, `LeBrunSalamon_Cumulative_1_2_3a_3e_REPORT.md`, and `LeBrunSalamon_Cumulative_1_2_3a_3e_STATUS.json`. A matching final certificate has not been recovered from the available file and repository searches. This is a statement about recovered evidence; it does not prove that the claimed later work never occurred. In particular, earlier failed or pending records, considered alone, cannot exclude a later successful run.
+
+The surviving Step 3d report is itself inconsistent: it lists all eleven wrappers as proved, while also saying all eleven still contain direct admissions and that the replay and boundary checks did not pass. The Step 3e saved finalizer failed. Separately, the recovered cumulative V2 source contains the concrete mathematical and proof-boundary defects identified in this audit. Those are specific reasons for repair; they should not be conflated with missing historical build evidence.
+
+The working status for **3c–3f is therefore: reported complete; source changes recovered; completion awaiting verification and identified repairs**. Keep the newer cumulative source and all recoverable work. "Step 3b is the last recorded passing incremental stage" describes the verified evidence boundary and does not describe the latest development position or authorize discarding the later work.
+
 ## 1. The precise current state
 
 ### Source and evidence

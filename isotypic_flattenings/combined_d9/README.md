@@ -56,6 +56,8 @@ memory hints (`name @GB | args`, expected peak) and launches a job only when the
 current RSS) plus its hint fits in 13.5 GB (a blocked job lets only jobs with hint <= 2 GB pass it; a job of the runner
 killed by SIGKILL gets its hint raised to 1.25 x its peak RSS, `logs/jobs/memhints.json`).  d9_455_dir1_B_big (@8, 5 of
 78 lattices left) waits until the other large jobs leave room; nothing of it is lost (flattenings cached, `--resume`).
+After the container restart of 2026-11-03 00:40 the queue order is: d9_455_dir1_B_big next to the small λ1 >= 5 jobs and
+d9_455_dir1_B_p3 (4 workers, 12.5 of 13.5 GB reserved); d9_555_B_big and d9_455_dir0_B_p3_big after them.
 
 ## Plan and flattenings tested
 
@@ -77,6 +79,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir1_B_p3 | 4x5x5 source a C^5 factor, B, aux 1, sources λ1 >= 6, every subset at levels 1 and g (`--exhaust 14`) | 142 of 335 targets (size <= 8000); queued 2026-11-02 11:40 |
 | d9_455_dir0_B_p3_big | the 44 dir-0 targets above size 8000 of the λ1 >= 6 pass (`--bmin 8000 --bmax 15000`) | queued 2026-11-02 13:10 |
 | d9_455_dir0_B_p4 | 4x5x5 dir 0, B, aux 1, sources λ1 >= 5 (adds (5,4), (5,3,1), (5,2,2), (5,2,1,1)), every subset of at most 3 members at levels 1 and g (`--exhaust 14 --maxsub 3`) | targets of size <= 3000; queued 2026-11-02 22:28 (low memory, fills the core left free by the memory budget) |
+| d9_555_B_p4, d9_455_dir1_B_p4 | the same λ1 >= 5 pass for 5x5x5 and 4x5x5 dir 1 (11 sources: also (5,1,1,1,1)), targets of size <= 3000 | queued 2026-11-03 00:45 |
 | d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs, one greedy run and (from 2026-10-25, after three container restarts lost the (7,2) aux-2 lattice) 100 random subsets ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0

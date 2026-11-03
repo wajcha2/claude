@@ -15,7 +15,7 @@ does not mention projective space, a marked point, or a chosen twist.
 theorem affineUFD_trivial (R : Type) [CommRing R] [IsDomain R]
     [UniqueFactorizationMonoid R]
     (L : (Spec (CommRingCat.of R)).Modules) (hL : IsLocallyFreeOfRank L 1) :
-    Nonempty (structureModule (Spec (CommRingCat.of R)) ≅ L) := by
+    Nonempty (PhaseTwentyFive.structureModule (Spec (CommRingCat.of R)) ≅ L) := by
   sorry
 
 end LeBrunSalamon.PublishedInputs.Picard

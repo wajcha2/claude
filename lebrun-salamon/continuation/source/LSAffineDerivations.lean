@@ -2,7 +2,11 @@ import RecompileBasePart04
 
 /-! The existing affine derivation correspondence, placed before projective-line
 geometry, and proved intrinsic tangent-action translations. No additional
-admitted statement is introduced by this reordering. -/
+admitted statement is introduced by this reordering.
+
+The two generic 01UO inputs allow arbitrary affine bases. The original
+complex-base public wrappers are proved by specialization through the actual
+structure map and the canonical global-sections isomorphism. -/
 
 noncomputable section
 set_option autoImplicit false
@@ -28,6 +32,37 @@ end LeBrunSalamon.Skeleton
 
 open LeBrunSalamon.Skeleton
 
+namespace LeBrunSalamon.PublishedInputs.AffineDerivations
+
+/-- **Published input.** Stacks Project, Lemma 29.33.4 (Tag 01UO),
+for an arbitrary ring map R → A and any module sheaf on Spec(A).
+Here the affine source is the specified open U and the affine base is S.
+The base-ring action uses the actual restriction of s on functions.
+The conclusion is the ordinary sheaf derivation on every subopen of U.
+https://stacks.math.columbia.edu/tag/01UO -/
+theorem exists_relative {Y S : Scheme} (s : Y ⟶ S) [IsAffine S]
+    (U : Y.Opens) (hU : IsAffineOpen U) (E : OModule Y)
+    (D : RingSections Y U → SectionsOn E U)
+    (h0 : D 0 = 0)
+    (hadd : ∀ a b, D (a + b) = D a + D b)
+    (hmul : ∀ a b, D (a * b) = a • D b + b • D a)
+    (hbase : ∀ a : RingSections S ⊤,
+      D (s.appLE ⊤ U (by simp) a) = 0) :
+    ∃ δ : LocalDerivationProof.LocalDerivation s E U,
+      ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a := by
+  sorry
+
+/-- The injective half of the same exact affine correspondence. The
+coefficient sheaf need not be quasi-coherent. -/
+theorem ext_relative {Y S : Scheme} (s : Y ⟶ S) [IsAffine S]
+    (U : Y.Opens) (hU : IsAffineOpen U) (E : OModule Y)
+    (δ ε : LocalDerivationProof.LocalDerivation s E U)
+    (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :
+    δ = ε := by
+  sorry
+
+end LeBrunSalamon.PublishedInputs.AffineDerivations
+
 namespace LeBrunSalamon.StandardInputs
 
 /-- Stacks Project, Tag 01UO, Lemma 29.33.4: a derivation of the ring of
@@ -46,7 +81,17 @@ theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exist
     (hc : ∀ c : ℂ, D (complexConstant s U c) = 0) :
     ∃ δ : LocalDerivationProof.LocalDerivation s (structureModule Y) U,
       ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a := by
-  sorry
+  apply LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative
+    s U hU (structureModule Y) D h0 hadd hmul
+  intro a
+  have hmap : s.appLE ⊤ U (by simp) =
+      s.appTop ≫ Y.presheaf.map (homOfLE (show U ≤ ⊤ from le_top)).op := by
+    rw [show s.appTop = s.appLE ⊤ ⊤ le_rfl by simp [Scheme.Hom.appLE],
+      Scheme.Hom.appLE_map]
+  have h := hc ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom a)
+  unfold complexConstant at h
+  rw [Iso.hom_inv_id_apply] at h
+  simpa only [hmap, CommRingCat.comp_apply] using h
 
 /-- Project-facing alias of Stacks Project Tag 01UO. -/
 theorem affine_localDerivation_exists {Y : Scheme}
@@ -72,7 +117,8 @@ theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext
     (δ ε : LocalDerivationProof.LocalDerivation s (structureModule Y) U)
     (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :
     δ = ε := by
-  sorry
+  exact LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative
+    s U hU (structureModule Y) δ ε h
 
 /-- Project-facing alias of the injective half of Stacks Project Tag 01UO. -/
 theorem affine_localDerivation_ext {Y : Scheme}

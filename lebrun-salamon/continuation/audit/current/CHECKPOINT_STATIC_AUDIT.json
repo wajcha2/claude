@@ -8,8 +8,8 @@
   "source_manifest_passed": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "frozen_target_matches": true,
-  "source_modules": 149,
-  "source_lines": 107590,
+  "source_modules": 155,
+  "source_lines": 108362,
   "token_counts": {
     "sorry": 92,
     "admit": 0,
@@ -185,9 +185,9 @@
     {
       "file": "LSAffineDerivations.lean",
       "module": "LSAffineDerivations",
-      "sha256": "6a84018873efd234c4b938ae229cf2b5ec44a4d5d3042f720c700fe97c2ef18e",
-      "bytes": 8592,
-      "lines": 184,
+      "sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+      "bytes": 10821,
+      "lines": 230,
       "imports": [
         "RecompileBasePart04"
       ],
@@ -699,14 +699,15 @@
     {
       "file": "LSContactLineTests.lean",
       "module": "LSContactLineTests",
-      "sha256": "5b192ca414195fb0127f60f63f9974aedead9080bded9712c8d9cf6095f7785a",
-      "bytes": 45961,
-      "lines": 951,
+      "sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+      "bytes": 45834,
+      "lines": 949,
       "imports": [
-        "LSGenericSheets"
+        "LSGenericSheets",
+        "LSP1FamilyDegree"
       ],
       "tokens": {
-        "sorry": 2,
+        "sorry": 1,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -871,6 +872,42 @@
       }
     },
     {
+      "file": "LSDualHomVanishing.lean",
+      "module": "LSDualHomVanishing",
+      "sha256": "cdb27623588991f84d99507837eba5ab6dc8575682a95bf4105c629e9d237f88",
+      "bytes": 5554,
+      "lines": 114,
+      "imports": [
+        "LSHomVelocity",
+        "LSProjectionFormula",
+        "LSDualStructureExact",
+        "LSTensorLocallyFreeExact"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSDualStructureExact.lean",
+      "module": "LSDualStructureExact",
+      "sha256": "0c04e2de7608677fd1fe2772136fc4918ee5db0168adf001f67e994185e2d120",
+      "bytes": 10741,
+      "lines": 240,
+      "imports": [
+        "LSEpsilonStructureSequence",
+        "LSSheafSectionExact"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSDualThickeningNormalForm.lean",
       "module": "LSDualThickeningNormalForm",
       "sha256": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422",
@@ -879,6 +916,22 @@
       "imports": [
         "LSFiniteFreeBaseChange",
         "LSDualBaseChangeAlgebra"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSEpsilonStructureSequence.lean",
+      "module": "LSEpsilonStructureSequence",
+      "sha256": "95266571a860b7278b5d211984898a4448ae40413d0079b91ca8175133d38c01",
+      "bytes": 3245,
+      "lines": 78,
+      "imports": [
+        "LSHomVelocity"
       ],
       "tokens": {
         "sorry": 0,
@@ -1587,16 +1640,17 @@
     {
       "file": "LSNodalFixedEnds.lean",
       "module": "LSNodalFixedEnds",
-      "sha256": "e40e974c8600a30b17d07c64305393651877278232a38193c0e62330289336c0",
-      "bytes": 166588,
-      "lines": 3232,
+      "sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+      "bytes": 166559,
+      "lines": 3231,
       "imports": [
         "LSNodalTangent",
         "LSHamiltonianJets",
-        "LSAffineFiberDivisibility"
+        "LSAffineFiberDivisibility",
+        "LSDualHomVanishing"
       ],
       "tokens": {
-        "sorry": 2,
+        "sorry": 1,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -1646,6 +1700,23 @@
       ],
       "tokens": {
         "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSP1FamilyDegree.lean",
+      "module": "LSP1FamilyDegree",
+      "sha256": "f450cd91252d737ff97d810436e4d818f3b34a808e4c56e7600e9dfbaaf4e328",
+      "bytes": 9285,
+      "lines": 186,
+      "imports": [
+        "LSPublishedProjectiveSpace",
+        "RecompileSections"
+      ],
+      "tokens": {
+        "sorry": 1,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -1867,8 +1938,8 @@
     {
       "file": "LSPublishedPicard.lean",
       "module": "LSPublishedPicard",
-      "sha256": "eaba87fe60a286926ae8f2f3647c96cb75c5c5e24557aeb84dbeb36bc6c396b2",
-      "bytes": 767,
+      "sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+      "bytes": 783,
       "lines": 23,
       "imports": [
         "RecompileBasePart04"
@@ -2084,6 +2155,22 @@
       }
     },
     {
+      "file": "LSSheafSectionExact.lean",
+      "module": "LSSheafSectionExact",
+      "sha256": "295f667a338cdc7db59621be6f9224959cf16cc7a40f494a090fd38a4e0ae73d",
+      "bytes": 2088,
+      "lines": 58,
+      "imports": [
+        "RecompileBasePart04"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSSmoothingAssembly.lean",
       "module": "LSSmoothingAssembly",
       "sha256": "efe54e2db4b16243da4f47f523dfe0f66f58259b8a8903a18f0dcd316d435bdc",
@@ -2211,6 +2298,22 @@
       ],
       "tokens": {
         "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSTensorLocallyFreeExact.lean",
+      "module": "LSTensorLocallyFreeExact",
+      "sha256": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
+      "bytes": 2105,
+      "lines": 53,
+      "imports": [
+        "RecompileBasePart04"
+      ],
+      "tokens": {
+        "sorry": 1,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -2652,9 +2755,9 @@
   "admissions": [
     {
       "file": "LSAffineDerivations.lean",
-      "line": 39,
+      "line": 43,
       "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists",
+      "name": "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
       "tokens": [
         "sorry"
       ],
@@ -2662,9 +2765,9 @@
     },
     {
       "file": "LSAffineDerivations.lean",
-      "line": 69,
+      "line": 57,
       "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext",
+      "name": "LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative",
       "tokens": [
         "sorry"
       ],
@@ -2762,23 +2865,13 @@
     },
     {
       "file": "LSContactLineTests.lean",
-      "line": 31,
+      "line": 32,
       "kind": "theorem",
       "name": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
       "tokens": [
         "sorry"
       ],
       "published_namespace": false
-    },
-    {
-      "file": "LSContactLineTests.lean",
-      "line": 41,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.familyDegreeConstant",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": true
     },
     {
       "file": "LSFiniteFreeBaseChange.lean",
@@ -2912,19 +3005,19 @@
     },
     {
       "file": "LSNodalFixedEnds.lean",
-      "line": 64,
+      "line": 129,
       "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_hom_vanishing",
+      "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.cotangentPullback_isIso",
       "tokens": [
         "sorry"
       ],
       "published_namespace": true
     },
     {
-      "file": "LSNodalFixedEnds.lean",
-      "line": 130,
+      "file": "LSP1FamilyDegree.lean",
+      "line": 27,
       "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.cotangentPullback_isIso",
+      "name": "LeBrunSalamon.PublishedInputs.Picard.projectiveBundle_externalLineFactor",
       "tokens": [
         "sorry"
       ],
@@ -3045,6 +3138,16 @@
       "line": 397,
       "kind": "theorem",
       "name": "LeBrunSalamon.PublishedInputs.Step3f.standardConic_fundamentalClass_exists",
+      "tokens": [
+        "sorry"
+      ],
+      "published_namespace": true
+    },
+    {
+      "file": "LSTensorLocallyFreeExact.lean",
+      "line": 46,
+      "kind": "theorem",
+      "name": "LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact",
       "tokens": [
         "sorry"
       ],

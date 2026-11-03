@@ -1,0 +1,29 @@
+{
+  "schema": "lebrun-relative-affine-derivation-v1",
+  "integrated_utc": "2026-11-03T22:09:41.831436+00:00",
+  "source": "source/LSAffineDerivations.lean",
+  "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+  "replaced_source_sha256": "6a84018873efd234c4b938ae229cf2b5ec44a4d5d3042f720c700fe97c2ef18e",
+  "status": "native_diagnostic_passed_current_graph_pending",
+  "current_dependency_closure_verified": false,
+  "admission_count_before": 2,
+  "admission_count_after": 2,
+  "published_inputs": [
+    "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
+    "LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative"
+  ],
+  "proved_preserved_signatures": [
+    "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists",
+    "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext"
+  ],
+  "publication": {
+    "label": "Stacks Project Lemma 29.33.4",
+    "tag": "01UO",
+    "url": "https://stacks.math.columbia.edu/tag/01UO"
+  },
+  "exact_signature_comparison": "The primary theorem treats an arbitrary ring map R→A and an arbitrary module sheaf on Spec(A), with no quasicoherence hypothesis. The Lean affine source is the specified affine open U; the base is an affine scheme S; the ring map is the actual s.appLE ⊤ U. Additivity, Leibniz, and annihilation of this base-ring image are the expanded relative derivation conditions. The target is the ordinary derivation on every subopen, with its global action fixed.",
+  "complex_wrapper_translation": "Every global section of Spec(ℂ) is the image of a scalar under ΓSpecIso.inv. The proved appLE/appTop identity identifies its pullback and restriction with complexConstant; the existing hypotheses therefore discharge the generic base-annihilation condition.",
+  "unchanged": "All existing public complex-base signatures and the complete TangentAffine section are byte-for-byte preserved except the two formerly admitted proof bodies.",
+  "receipt": "step3f_affine_relative/receipt.json",
+  "post_snapshot_note": "Integrated after the immutable 22:08:02 UTC candidate snapshot; that snapshot does not contain this generalization."
+}

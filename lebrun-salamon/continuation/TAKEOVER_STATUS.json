@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-03",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-03T22:08:02.671367+00:00",
+  "recorded_utc": "2026-11-03T22:34:09.806987+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,9 +25,9 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 149,
-    "lines": 107590,
-    "bytes": 5193545,
+    "modules": 155,
+    "lines": 108362,
+    "bytes": 5228652,
     "admissions": {
       "sorry": 92,
       "admit": 0,
@@ -39,8 +39,8 @@
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-03T22:08:02.671367+00:00",
-    "aggregate_sha256": "677a5de8f411bd9e46821def43d3719fbd954fa57599cb7aaed64e98e10dfcc8",
+    "snapshot_utc": "2026-11-03T22:34:09.806987+00:00",
+    "aggregate_sha256": "705c75e748f0195bc9e38dd05bcb3f4c7269d76eef3e8d9b574b83d3e1f91d94",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -70,10 +70,10 @@
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 43,
-    "affected_modules": 140,
+    "changed_modules": 49,
+    "affected_modules": 146,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 119,
+    "omitted_affected_descendants": 125,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
     "driver": "scripts/replay_checkpoint.py",
@@ -148,11 +148,11 @@
   "cumulative_ci_attempt": {
     "status": "awaiting_commit_and_automatic_push_trigger",
     "result_not_yet_accepted": true,
-    "source_modules_selected": 149,
-    "source_freeze_utc": "2026-11-03T22:08:02.671367+00:00",
+    "source_modules_selected": 155,
+    "source_freeze_utc": "2026-11-03T22:34:09.806987+00:00",
     "compiler_memory_cap_mb": 12000,
-    "strict_cache_source_run_id": 41714131927,
-    "expected_full_ancestry_cache_count": 12,
+    "strict_cache_source_run_id": 41728791345,
+    "expected_full_ancestry_cache_count": 28,
     "full_selected_graph_passed": false
   },
   "cumulative_ci_attempts": [
@@ -216,6 +216,27 @@
       "full_selected_graph_passed": false,
       "evidence": "audit/ci/41714131927/CI_RECEIPT.json",
       "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
+    },
+    {
+      "run_id": 41728791345,
+      "commit": "6fa6ee1a25735be73e73be455aed94ad88eae8e1",
+      "source_modules_selected": 149,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "reused": 12,
+        "passed": 17,
+        "failed": 1,
+        "blocked": 119
+      },
+      "accepted_count_at_that_commit": 29,
+      "failed_modules": [
+        "LSPublishedPicard"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41728791345/CI_RECEIPT.json",
+      "scope": "Exact committed source and ancestry only; live affine-derivation edit excluded from the 28 current-safe cache outputs."
     }
   ],
   "proof_batch_previous_checkpoint": {
@@ -264,9 +285,11 @@
     }
   },
   "proof_batch": {
-    "status": "Integrated mathematical translations and compatibility candidates; native diagnostic evidence retained; full current-source replay pending.",
+    "status": "Picard namespace repair and completed Hom/family integrations; exact native diagnostic evidence retained; full frozen-source replay pending.",
     "kernel_accepted": false,
     "accepted_units_added": 0,
+    "point1_obligation_count": 43,
+    "point1_complete": false,
     "evidence_directories": [
       "audit/step3cd_build",
       "audit/step3cd_projection_build",
@@ -279,10 +302,13 @@
       "audit/p1_tangent_build",
       "audit/ci_compatibility_repairs",
       "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-      "audit/step3f_nodal_compatibility"
-    ],
-    "point1_obligation_count": 43,
-    "point1_complete": false
+      "audit/step3f_nodal_compatibility",
+      "audit/step3f_hom_vanishing",
+      "audit/STEP3F_HOM_VANISHING.json",
+      "audit/STEP3F_AFFINE_RELATIVE.json",
+      "audit/p1_family_degree_build",
+      "audit/ci/41728791345"
+    ]
   },
   "compatibility_repairs": {
     "scope": "Native diagnostics against the exact frozen 0e7a6546 ancestor outputs from CI 41714131927. Not current-main reverse-cone acceptance.",
@@ -319,28 +345,47 @@
     "full_current_graph_passed": false
   },
   "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41714131927,
-    "commit": "0e7a654645d92fe82473e358a925b47101305e97",
-    "source_modules_selected": 135,
+    "run_id": 41728791345,
+    "commit": "6fa6ee1a25735be73e73be455aed94ad88eae8e1",
+    "source_modules_selected": 149,
     "compiler_memory_cap_mb": 12000,
     "status": "completed",
     "conclusion": "failure",
     "counts": {
-      "reused": 32,
-      "passed": 65,
-      "failed": 5,
-      "blocked": 33
+      "reused": 12,
+      "passed": 17,
+      "failed": 1,
+      "blocked": 119
     },
-    "accepted_count_at_that_commit": 97,
+    "accepted_count_at_that_commit": 29,
     "failed_modules": [
-      "LSBranchRamification",
-      "LSNodalFixedEnds",
-      "LSConicJets",
-      "LSClassicalActions",
-      "LSProductGeometry"
+      "LSPublishedPicard"
     ],
     "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41714131927/CI_RECEIPT.json",
-    "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
-  }
+    "evidence": "audit/ci/41728791345/CI_RECEIPT.json",
+    "scope": "Exact committed source and ancestry only; live affine-derivation edit excluded from the 28 current-safe cache outputs."
+  },
+  "proof_batch_history": [
+    {
+      "status": "Integrated mathematical translations and compatibility candidates; native diagnostic evidence retained; full current-source replay pending.",
+      "kernel_accepted": false,
+      "accepted_units_added": 0,
+      "evidence_directories": [
+        "audit/step3cd_build",
+        "audit/step3cd_projection_build",
+        "audit/step3cd_kunneth_cover_build",
+        "audit/tangent_determinant_build",
+        "audit/step3e_remaining_build",
+        "audit/step3f_native_batch",
+        "audit/point1_projective_laurent_build",
+        "audit/p1_picard_build",
+        "audit/p1_tangent_build",
+        "audit/ci_compatibility_repairs",
+        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+        "audit/step3f_nodal_compatibility"
+      ],
+      "point1_obligation_count": 43,
+      "point1_complete": false
+    }
+  ]
 }

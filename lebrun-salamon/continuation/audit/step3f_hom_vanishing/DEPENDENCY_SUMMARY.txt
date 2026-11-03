@@ -1,0 +1,51 @@
+SUMMARY root=LeBrunSalamon.SheafSectionExact.shortExact_of_sections all_constants=18821 project_constants=3 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective
+MODULE LSFiniteFreeBaseChange
+SHORTEST_PATH LeBrunSalamon.DualHomVanishing.epsilon_structure_shortExact -> LeBrunSalamon.DualHomVanishing.epsilonInclusionAt_injective -> LeBrunSalamon.DualHomVanishing.normalFormAt_unique -> LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique -> LeBrunSalamon.PublishedInputs.Step3f.dualThickening_normalForm_unique -> LeBrunSalamon.DualBaseChangeAlgebra.open_normalForm_unique -> LeBrunSalamon.DualBaseChangeAlgebra.global_normalForm_unique -> LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective
+TYPE ∀ (K B : Type) [inst : CommRing.{0} K] [inst_1 : CommRing.{0} B] [inst_2 : Algebra.{0, 0} K B]
+  [Module.Free.{0, 0} K B] [Module.Finite.{0, 0} K B] {X Y : AlgebraicGeometry.Scheme.{0}}
+  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧K)) (p : Quiver.Hom.{0, 1} Y X)
+  (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧B))
+  (h :
+    CategoryTheory.IsPullback.{0, 1} p q sX
+      (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} K B)))),
+  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.FiniteFreeBaseChange.globalMap K B sX p q ⋯)
+
+SUMMARY root=LeBrunSalamon.DualHomVanishing.epsilon_structure_shortExact all_constants=34108 project_constants=113 direct_sorry_count=1 missing_count=0 custom_project_axiom_count=0
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact
+MODULE LSTensorLocallyFreeExact
+SHORTEST_PATH LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing -> LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} {r : ℕ} (F : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank F r →
+    ∀ (S : CategoryTheory.ShortComplex.{0, 1} (LeBrunSalamon.PhaseOne.OModule.{0} X)),
+      CategoryTheory.ShortComplex.ShortExact.{0, 1} S →
+        CategoryTheory.ShortComplex.ShortExact.{0, 1}
+          (CategoryTheory.ShortComplex.map.{0, 1, 0, 1} S (LeBrunSalamon.PhaseTwentyFive.tensorLeftFunctor F))
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+MODULE LSProjectionFormula
+SHORTEST_PATH LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing -> LeBrunSalamon.DualHomVanishing.hom_vanishing_of_structure_extension -> LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+TYPE ∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) (E : LeBrunSalamon.PhaseOne.OModule.{0} Y)
+  (F : LeBrunSalamon.PhaseOne.OModule.{0} X) (q : SheafOfModules.LocalGeneratorsData.{0, 0, 0, 0} E)
+  [SheafOfModules.LocalGeneratorsData.IsLocallyFreeData.{0, 0, 0, 0} q],
+  (∀ (i : SheafOfModules.LocalGeneratorsData.I.{0, 0, 0, 0} q),
+      Finite.{1}
+        (SheafOfModules.GeneratingSections.I.{0, 0, 0}
+          (SheafOfModules.LocalGeneratorsData.generators.{0, 0, 0, 0} q i))) →
+    CategoryTheory.IsIso.{0, 1} (LeBrunSalamon.ProjectionFormulaProof.canonicalMap f E F)
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective
+MODULE LSFiniteFreeBaseChange
+SHORTEST_PATH LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing -> LeBrunSalamon.DualHomVanishing.epsilon_structure_shortExact -> LeBrunSalamon.DualHomVanishing.epsilonInclusionAt_injective -> LeBrunSalamon.DualHomVanishing.normalFormAt_unique -> LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique -> LeBrunSalamon.PublishedInputs.Step3f.dualThickening_normalForm_unique -> LeBrunSalamon.DualBaseChangeAlgebra.open_normalForm_unique -> LeBrunSalamon.DualBaseChangeAlgebra.global_normalForm_unique -> LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective
+TYPE ∀ (K B : Type) [inst : CommRing.{0} K] [inst_1 : CommRing.{0} B] [inst_2 : Algebra.{0, 0} K B]
+  [Module.Free.{0, 0} K B] [Module.Finite.{0, 0} K B] {X Y : AlgebraicGeometry.Scheme.{0}}
+  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧K)) (p : Quiver.Hom.{0, 1} Y X)
+  (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧B))
+  (h :
+    CategoryTheory.IsPullback.{0, 1} p q sX
+      (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} K B)))),
+  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.FiniteFreeBaseChange.globalMap K B sX p q ⋯)
+
+SUMMARY root=LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing all_constants=34917 project_constants=228 direct_sorry_count=3 missing_count=0 custom_project_axiom_count=0

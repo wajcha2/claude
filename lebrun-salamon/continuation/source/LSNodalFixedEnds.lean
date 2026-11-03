@@ -1,6 +1,7 @@
 import LSNodalTangent
 import LSHamiltonianJets
 import LSAffineFiberDivisibility
+import LSDualHomVanishing
 
 /-!
 # The fixed-end first-order smoothing and its actual source maps
@@ -54,13 +55,11 @@ theorem LeBrunSalamon.StandardInputs.affineLine_section_divisible
       a = LeBrunSalamon.Construction.Smoothing.parameterFunction • b := by
   exact LeBrunSalamon.PublishedInputs.Step3f.affineLine_section_divisible E a ha
 
-/-- Classical finite-locally-free corollary of the square-zero module
-filtration in Stacks Project, Section 91.4 (Tags 08L3 and 08L5), together
-with the closed-immersion module equivalence of Lemma 29.4.1 (Tag 01QY).
-The Hom sheaf from the pulled bundle E to F has two epsilon-filtration
-subquotients equal to its restriction Hom(E,i*F). Their global sections
-vanish by h, so every actual morphism vanishes. This is a derived classical
-corollary, not a verbatim published lemma; no contact object is used. -/
+/-- The actual epsilon structure sequence is proved sectionwise on every open.
+Tensor exactness for a locally free sheaf and the canonical projection formula
+identify its two filtration terms. Adjunction and the actual zero-section
+retraction reduce both Hom groups to the original vanishing hypothesis.
+The published leaves are generic; this project-specific conclusion is proved. -/
 theorem LeBrunSalamon.PublishedInputs.Step3f.dualThickening_hom_vanishing
     {Y : AlgebraicGeometry.Scheme} (sY : Y ⟶ LeBrunSalamon.PhaseOne.ComplexBase)
     {r q : ℕ}
@@ -74,7 +73,7 @@ theorem LeBrunSalamon.PublishedInputs.Step3f.dualThickening_hom_vanishing
     ∀ m : LeBrunSalamon.PhaseTwo.pullbackModule
         (LeBrunSalamon.Construction.Lines.DualThickening.projection sY) E.sheaf ⟶ F.sheaf,
       m = 0 := by
-  sorry
+  exact LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing sY E F h
 
 /-- Project-facing specialization of the square-zero Hom-filtration vanishing theorem. -/
 theorem LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing

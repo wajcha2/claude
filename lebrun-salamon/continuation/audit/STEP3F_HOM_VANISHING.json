@@ -1,0 +1,112 @@
+{
+  "schema": "lebrun-step3f-hom-v1",
+  "integrated_utc": "2026-11-03T22:18:33.927658+00:00",
+  "status": "native_helper_diagnostics_passed_containing_module_and_current_graph_pending",
+  "current_dependency_closure_verified": false,
+  "milestone_acceptance_increment": 0,
+  "source_files": [
+    {
+      "module": "LSSheafSectionExact",
+      "source": "source/LSSheafSectionExact.lean",
+      "source_sha256": "295f667a338cdc7db59621be6f9224959cf16cc7a40f494a090fd38a4e0ae73d",
+      "native_diagnostic_seconds": 4.3,
+      "output_sha256": "3e9f06b516aca66f7e48e3b0d87620398379ecef995c85cd50368a652837ba1d",
+      "receipt": "step3f_hom_vanishing/LSSheafSectionExact.receipt.json"
+    },
+    {
+      "module": "LSEpsilonStructureSequence",
+      "source": "source/LSEpsilonStructureSequence.lean",
+      "source_sha256": "95266571a860b7278b5d211984898a4448ae40413d0079b91ca8175133d38c01",
+      "native_diagnostic_seconds": 9.677,
+      "output_sha256": "4268040d1a00ec1df0baa2eb4c9cb4dbb1cde62fc4160e500f30ce8b0d6cb471",
+      "receipt": "step3f_hom_vanishing/LSEpsilonStructureSequence.receipt.json"
+    },
+    {
+      "module": "LSDualStructureExact",
+      "source": "source/LSDualStructureExact.lean",
+      "source_sha256": "0c04e2de7608677fd1fe2772136fc4918ee5db0168adf001f67e994185e2d120",
+      "native_diagnostic_seconds": 7.7,
+      "output_sha256": "eac4b14d12c0f432b6b4d45f94656188e07c16cb5f09aa65b6ff935ddb98dfe3",
+      "receipt": "step3f_hom_vanishing/LSDualStructureExact.receipt.json"
+    },
+    {
+      "module": "LSTensorLocallyFreeExact",
+      "source": "source/LSTensorLocallyFreeExact.lean",
+      "source_sha256": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
+      "native_diagnostic_seconds": 4.086,
+      "output_sha256": "1ab25ab5a7312547389b4477ec313f7f3f54e22c5e4b90c622f19b30a213c475",
+      "receipt": "step3f_hom_vanishing/LSTensorLocallyFreeExact.receipt.json"
+    },
+    {
+      "module": "LSDualHomVanishing",
+      "source": "source/LSDualHomVanishing.lean",
+      "source_sha256": "cdb27623588991f84d99507837eba5ab6dc8575682a95bf4105c629e9d237f88",
+      "native_diagnostic_seconds": 4.721,
+      "output_sha256": "5942407ef225bc6773e94d7be014160d172182adcd9d27c5fbb5e2b0dde1e707",
+      "receipt": "step3f_hom_vanishing/LSDualHomVanishing.receipt.json"
+    }
+  ],
+  "containing_module": {
+    "source": "source/LSNodalFixedEnds.lean",
+    "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+    "replaced_source_sha256": "e40e974c8600a30b17d07c64305393651877278232a38193c0e62330289336c0",
+    "native_check": "pending",
+    "signature_preserved": true,
+    "replaced_declaration": "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_hom_vanishing"
+  },
+  "net_admission_change": 0,
+  "removed_composite_direct_admission": "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_hom_vanishing",
+  "new_generic_direct_admission": "LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact",
+  "proved_constructions": [
+    "Sectionwise exactness implies actual sheaf ShortExact",
+    "Actual epsilon injection on arbitrary opens of the dual thickening",
+    "Actual epsilon structure short exact sequence",
+    "Hom vanishing for a short exact sequence",
+    "Adjunction and actual zero-section retraction identify both Hom filtration terms",
+    "Canonical projection-formula specialization",
+    "Original project-specific dualThickening_hom_vanishing with unchanged hypotheses"
+  ],
+  "native_trust_closure": {
+    "root": "LeBrunSalamon.DualHomVanishing.dualThickening_hom_vanishing",
+    "all_constants": 34917,
+    "project_constants": 228,
+    "direct_sorry_count": 3,
+    "missing_count": 0,
+    "custom_project_axiom_count": 0,
+    "direct_sorry_leaves": [
+      "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+      "LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso",
+      "LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact"
+    ],
+    "diagnostic_only": true,
+    "evidence": "step3f_hom_vanishing/DEPENDENCY_SUMMARY.txt"
+  },
+  "source_boundaries": [
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact",
+      "publication": "EGA I, chapitre 0, (5.4.1), printed p.48",
+      "primary_url": "https://numdam.org/item/PMIHES_1960__4__5_0/",
+      "scan_url": "https://www.numdam.org/item/PMIHES_1960__4__5_0.pdf",
+      "comparison": "The original primary text explicitly states that tensoring with a locally free module sheaf is exact. IsLocallyFreeOfRank is the stronger fixed finite-rank specialization; ShortExact is the expanded categorical short exact sequence. The actual tensor functor has its bilinear universal property, and preservation of zero morphisms is proved here. There are no thickening, contact, or Hom-vanishing hypotheses or conclusions in the admitted leaf.",
+      "primary_receipt": "step3cd_primary_sources/EGAI_SOURCE_RECEIPT.json"
+    },
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso",
+      "publication": "Stacks Project, tag 01E8, degree-zero locally-free projection formula",
+      "primary_url": "https://stacks.math.columbia.edu/tag/01E8",
+      "comparison": "Uses the existing normalized canonical map with finite local free generators; the actual zero-section specialization and unit/tensor isomorphisms are proved in the Hom helper."
+    },
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+      "publication": "Stacks Project, tag 0CKW",
+      "primary_url": "https://stacks.math.columbia.edu/tag/0CKW",
+      "comparison": "Existing exact generic finite-free base-change input used by the proved actual dual-number normal form."
+    }
+  ],
+  "limitations": [
+    "The native run used previously compiled frozen project interfaces mixed with newly checked helpers. It is not a full current-source dependency replay.",
+    "The containing LSNodalFixedEnds module has not yet been checked after this replacement.",
+    "No percentage acceptance credit is added by this diagnostic record."
+  ],
+  "post_snapshot_note": "Integrated after the immutable 2026-11-03 22:08:02 UTC candidate snapshot; that snapshot remains unchanged."
+}

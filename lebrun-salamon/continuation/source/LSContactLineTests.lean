@@ -1,4 +1,5 @@
 import LSGenericSheets
+import LSP1FamilyDegree
 
 /-!
 The actual two-axis contact-line family used in the branch test.  Its
@@ -32,12 +33,8 @@ theorem smooth_connected_complex_geometricallyIntegral {Y : Scheme}
     (sY : Y ⟶ ComplexBase) [Smooth sY] [ConnectedSpace Y] :
     GeometricallyIntegral sY := by sorry
 
-/-- **Published input (exact specialization).** In a connected family of
-line bundles on the trivial projective-line family, the fiber degree is
-constant.  This is the projective-line specialization of constancy of Euler
-characteristic in a proper flat finitely presented family (Stacks Project,
-Lemma 36.32.2, Tag 0B9T), together with `χ(O(d)) = d + 1` on `P¹` and the
-Picard classification of `P¹`. -/
+/-- Fiber-degree constancy, proved by the exact generic projective-bundle Picard
+decomposition, the actual base-change isomorphism, and fiber cancellation. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.familyDegreeConstant
     (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)
     {S : Scheme} (sS : S ⟶ ComplexBase)
@@ -54,7 +51,8 @@ theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.familyDegree
         (pullback.lift (𝟙 ProjectiveLine) (P.structureMap ≫ b.val)
           (by simp only [Category.id_comp, Category.assoc, b.property,
             Category.comp_id])) L) := by
-  sorry
+  exact LeBrunSalamon.P1FamilyDegree.familyDegreeConstant P p sS L
+    a.val b.val a.property b.property
 
 /-- Project wrapper for fiber-degree constancy. -/
 theorem projectiveLineFamily_degree_constant

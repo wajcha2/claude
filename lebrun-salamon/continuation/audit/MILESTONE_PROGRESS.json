@@ -1,0 +1,2889 @@
+{
+  "schema": "lebrun-milestone-progress-v1",
+  "recorded_utc": "2026-11-03T17:18:39.770536+00:00",
+  "milestone": "One reproducible current source revision proves the frozen theorem, with sorry proofs only for exact known published theorems.",
+  "metric": {
+    "name": "Conservative evidence-backed acceptance-checklist completion floor",
+    "denominator": 133,
+    "accepted_units": 30,
+    "pending_units": 103,
+    "percentage": 22.55639097744361,
+    "percentage_display": 22.56,
+    "rounded_percentage": 23,
+    "formula": "(22 retired original admissions + 8 historically accepted wrappers) / (121 actual original admissions + 8 definition validations + 4 final gates)",
+    "is_estimate_of_mathematical_effort": false,
+    "is_estimate_of_time_remaining": false,
+    "is_percentage_of_lines_or_rewritten_wrappers": false,
+    "numerator_boundary": "Historical accepted work whose source treatment remains preserved, plus any later fully evidenced original acceptance units. There are currently no newly accepted complete units from the partial checks."
+  },
+  "milestone_met": false,
+  "whole_current_proof_graph_kernel_verified": false,
+  "denominator_basis": {
+    "original_plan_assignment_count": 122,
+    "excluded_false_positive": "LeBrunSalamon.Project.stageDescription",
+    "actual_original_obligations": 121,
+    "retired_in_step3a": 22,
+    "accepted_in_step3b": 8,
+    "remaining_original_obligations": 91,
+    "definition_validations": 8,
+    "final_gates": 4,
+    "retained_deletion_candidate": "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+    "publication_audits_are_extra_units": false,
+    "publication_audit_policy": "Every original obligation includes the approval of all admitted dependencies it uses. Shared leaf reviews may serve several obligations but are not additional numerator/denominator units. Moving or splitting an admission never earns credit by itself.",
+    "scope_revision_policy": "Attach discovered subtasks to the governing original obligation, definition validation, or final gate. Change the fixed denominator only by an explicit recorded scope revision.",
+    "supersedes": "The earlier provisional 153-unit suggestion in TARGET_INTEGRATION.md double-counted 50 leaf reviews and is superseded by this 133-unit ledger."
+  },
+  "acceptance_rule": {
+    "original_obligation": "Either recorded sound retirement as unused, or an implementation preserving the required statement, exact approval of admitted dependencies, proved nondefinitional project translations, and matching changed-module/reverse-dependency evidence. Current whole-graph certification is also required at GATE-02.",
+    "definitions": "All eight named semantic validations remain separate; preserving identical operational definitions is not itself a proof that they match standard notions.",
+    "historical_boundary": "The 22 Step 3a retirements and 8 Step 3b wrappers are credited from their recovered stage-acceptance records and current static preservation. This is not a claim that the whole current graph has been built.",
+    "status_update_rule": "Promote an individual unit only when its evidence meets the rule; do not infer closure from namespace, sorry count, helper compilation, or an unverified completion announcement."
+  },
+  "source_snapshot": {
+    "source_module_count": 135,
+    "aggregate_sha256": "82f024f5ce739874efbbd23a99fea0b1f9bb99e04ba1432d65072477c44aad39",
+    "aggregate_convention": "SHA256 of sorted lines filename + space + file SHA256 + newline; current source only.",
+    "original_csv_sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
+    "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296"
+  },
+  "groups": [
+    {
+      "group": "Step3a retirement",
+      "total": 22,
+      "accepted": 22
+    },
+    {
+      "group": "Step3b sheaf wrappers",
+      "total": 8,
+      "accepted": 8
+    },
+    {
+      "group": "Steps3c–3n original obligations",
+      "total": 91,
+      "accepted": 0
+    },
+    {
+      "group": "Step2 definition validations",
+      "total": 8,
+      "accepted": 0
+    },
+    {
+      "group": "Final gates",
+      "total": 4,
+      "accepted": 0
+    }
+  ],
+  "retired_original_obligations": [
+    {
+      "id": "RET-01",
+      "original_inventory_name": "proper_flat_connectedReduced_globalFunctions",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.StandardInputs.proper_flat_connectedReduced_globalFunctions",
+      "original_file": "LSFormalTraitModel.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-02",
+      "original_inventory_name": "cotangent_openRestriction",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentyFive.cotangent_openRestriction",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-03",
+      "original_inventory_name": "symmetricSheaf_locallyFree",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.symmetricSheaf_locallyFree",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-04",
+      "original_inventory_name": "symmetricSheaf_pullback",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.symmetricSheaf_pullback",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-05",
+      "original_inventory_name": "ample_tensor",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.ample_tensor",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-06",
+      "original_inventory_name": "ample_closedPullback",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.ample_closedPullback",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-07",
+      "original_inventory_name": "ample_affineBasis",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.ample_affineBasis",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-08",
+      "original_inventory_name": "ample_eventualGlobalGeneration",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentySix.ample_eventualGlobalGeneration",
+      "original_file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-09",
+      "original_inventory_name": "firstPrincipalParts_exact",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentyEight.firstPrincipalParts_exact",
+      "original_file": "RecompileBasePart05C.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-10",
+      "original_inventory_name": "principalParts_locallyFree",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentyEight.principalParts_locallyFree",
+      "original_file": "RecompileBasePart05C.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-11",
+      "original_inventory_name": "principalParts_higher_exact",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentyEight.principalParts_higher_exact",
+      "original_file": "RecompileBasePart05C.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-12",
+      "original_inventory_name": "nodeAlgebra_integrallyClosed",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseTwentyNine.nodeAlgebra_integrallyClosed",
+      "original_file": "RecompileBasePart06.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-13",
+      "original_inventory_name": "smooth_cotangent_transitivity_shortExact",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirty.smooth_cotangent_transitivity_shortExact",
+      "original_file": "RecompileBasePart06.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-14",
+      "original_inventory_name": "etale_cotangentMap_isIso",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirty.etale_cotangentMap_isIso",
+      "original_file": "RecompileBasePart06.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-15",
+      "original_inventory_name": "closedImmersion_cotangentMap_epi",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirty.closedImmersion_cotangentMap_epi",
+      "original_file": "RecompileBasePart06.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-16",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.splitting_unique_upToPermutation",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirtyTwo.splitting_unique_upToPermutation",
+      "original_file": "RecompileExtensionCore.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-17",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.ample_positiveDegreeOnCurve",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirtyTwo.ample_positiveDegreeOnCurve",
+      "original_file": "RecompileExtensionsPart01.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-18",
+      "original_inventory_name": "minimalNilpotent_exists",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.Skeleton.minimalNilpotent_exists",
+      "original_file": "RecompileExtensionsPart01.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-19",
+      "original_inventory_name": "Descent.genericDegree_existsUnique",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.Construction.Descent.genericDegree_existsUnique",
+      "original_file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-20",
+      "original_inventory_name": "Descent.genericDegree_positive",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.Construction.Descent.genericDegree_positive",
+      "original_file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-21",
+      "original_inventory_name": "Descent.ramificationIndex_existsUnique",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.Construction.Descent.ramificationIndex_existsUnique",
+      "original_file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    },
+    {
+      "id": "RET-22",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.projectiveTwist_ample_iff",
+      "lexically_qualified_original_declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveTwist_ample_iff",
+      "original_file": "RecompileSections.lean",
+      "status": "accepted_historical_retirement",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3A",
+        "S-CURRENT"
+      ],
+      "current_static_check": "No declaration with this original qualified name or inventory suffix remains.",
+      "credit_kind": "Retired unused admission after recorded liveness checks; not a proof of the deleted theorem."
+    }
+  ],
+  "historically_accepted_step3b_obligations": [
+    {
+      "id": "SHF-01",
+      "declaration": "LeBrunSalamon.PhaseTwentyFive.cotangentPresentation_exists",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+      "recorded_locator": "Definition 29.33.1, Tag 01UQ; Section 29.33, Tag 01UM",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-02",
+      "declaration": "LeBrunSalamon.PhaseTwentyFive.dualSheaf_pullback",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_dual",
+      "recorded_locator": "Section 17.18, Tag 0FNU (duals), together with the finite-locally-free arbitrary-base-change assertion in the proof of Lemma 49.2.10, Tag 0BVF",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-03",
+      "declaration": "LeBrunSalamon.PhaseTwentyFive.tensorSheaf_pullback",
+      "file": "RecompileBasePart03.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_tensorProduct",
+      "recorded_locator": "Lemma 17.16.4, Tag 01CD",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-04",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.exteriorPresentation_exists",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exteriorPresentation",
+      "recorded_locator": "Lemma 17.21.1, Tag 01CG, and Algebra Section 10.13, Tag 00DM",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-05",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.exteriorSheaf_locallyFree",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exterior_locallyFree",
+      "recorded_locator": "Lemma 17.21.5(6), Tag 01CK, and Algebra Lemma 10.13.1, Tag 00DN",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-06",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.exteriorSheaf_pullback",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_exterior",
+      "recorded_locator": "Lemma 17.21.3, Tag 01CI",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-07",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.pullback_locallyFree",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+      "recorded_locator": "Lemma 17.14.3, Tag 01C8",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    },
+    {
+      "id": "SHF-08",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.symmetricPresentation_exists",
+      "file": "RecompileBasePart04.lean",
+      "status": "accepted_historical_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "evidence_ids": [
+        "H3B",
+        "S-CURRENT"
+      ],
+      "current_static_check": {
+        "no_direct_admission": true,
+        "comment_whitespace_normalized_declaration_span_matches_step3b": true,
+        "source_file_sha256": "fef347742972b6c8bd206648e25de31e98d980006400923e79782883d1ab5308"
+      },
+      "recorded_published_leaf": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.symmetricPresentation",
+      "recorded_locator": "Lemma 17.21.1, Tag 01CG, and Algebra Section 10.13, Tag 00DM",
+      "evidence_boundary": "Step 3b recorded two changed-module builds and a compatibility import of 73 prior artifacts. This is not a fresh whole-current-tree build or a new independent re-audit of these eight literature statements."
+    }
+  ],
+  "pending_original_obligations": [
+    {
+      "id": "OBL-001",
+      "csv_data_row_1_based": 1,
+      "csv_file_line_1_based": 2,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum",
+      "original_inventory_name": "externalSection_finiteSum",
+      "file": "RecompileBasePart05C.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-002",
+      "csv_data_row_1_based": 2,
+      "csv_file_line_1_based": 3,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend",
+      "original_inventory_name": "locallyFree_sections_descend",
+      "file": "RecompileBasePart05C.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-003",
+      "csv_data_row_1_based": 3,
+      "csv_file_line_1_based": 4,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback",
+      "original_inventory_name": "LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback",
+      "file": "RecompileBasePart07.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-004",
+      "csv_data_row_1_based": 4,
+      "csv_file_line_1_based": 5,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective",
+      "original_inventory_name": "LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-005",
+      "csv_data_row_1_based": 5,
+      "csv_file_line_1_based": 6,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients",
+      "original_inventory_name": "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-006",
+      "csv_data_row_1_based": 6,
+      "csv_file_line_1_based": 7,
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected",
+      "original_inventory_name": "LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-007",
+      "csv_data_row_1_based": 7,
+      "csv_file_line_1_based": 8,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.StandardInputs.cotangentPullback_isIso",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.cotangentPullback_isIso",
+      "file": "LSNodalFixedEnds.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-008",
+      "csv_data_row_1_based": 8,
+      "csv_file_line_1_based": 9,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+      "original_inventory_name": "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-009",
+      "csv_data_row_1_based": 9,
+      "csv_file_line_1_based": 10,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.fiber_dimension",
+      "original_inventory_name": "LeBrunSalamon.Construction.fiber_dimension",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-010",
+      "csv_data_row_1_based": 10,
+      "csv_file_line_1_based": 11,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.fiber_finite",
+      "original_inventory_name": "LeBrunSalamon.Construction.fiber_finite",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-011",
+      "csv_data_row_1_based": 11,
+      "csv_file_line_1_based": 12,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.vectorBundle_fiber_exact",
+      "original_inventory_name": "LeBrunSalamon.Construction.vectorBundle_fiber_exact",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-012",
+      "csv_data_row_1_based": 12,
+      "csv_file_line_1_based": 13,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact",
+      "file": "RecompileExtensionsPart03.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-013",
+      "csv_data_row_1_based": 13,
+      "csv_file_line_1_based": 14,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree",
+      "file": "RecompileExtensionsPart03.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-014",
+      "csv_data_row_1_based": 14,
+      "csv_file_line_1_based": 15,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso",
+      "file": "RecompileExtensionsPart03.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-015",
+      "csv_data_row_1_based": 15,
+      "csv_file_line_1_based": 16,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-016",
+      "csv_data_row_1_based": 16,
+      "csv_file_line_1_based": 17,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-017",
+      "csv_data_row_1_based": 17,
+      "csv_file_line_1_based": 18,
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Normalization.totalBundle_exists",
+      "original_inventory_name": "totalBundle_exists",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-018",
+      "csv_data_row_1_based": 18,
+      "csv_file_line_1_based": 19,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.polarizedEmbedding_firstJets",
+      "original_inventory_name": "LeBrunSalamon.ClassicalReduction.StandardInputs.polarizedEmbedding_firstJets",
+      "file": "LSClassicalReduction.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-019",
+      "csv_data_row_1_based": 19,
+      "csv_file_line_1_based": 20,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentyFive.smooth_cotangent_rank",
+      "original_inventory_name": "smooth_cotangent_rank",
+      "file": "RecompileBasePart04.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-020",
+      "csv_data_row_1_based": 20,
+      "csv_file_line_1_based": 21,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.tangentDeterminant_anticanonical",
+      "original_inventory_name": "tangentDeterminant_anticanonical",
+      "file": "RecompileBasePart04.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-021",
+      "csv_data_row_1_based": 21,
+      "csv_file_line_1_based": 22,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.ample_positivePower_iff",
+      "original_inventory_name": "ample_positivePower_iff",
+      "file": "RecompileBasePart04.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-022",
+      "csv_data_row_1_based": 22,
+      "csv_file_line_1_based": 23,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.determinant_shortExact",
+      "original_inventory_name": "determinant_shortExact",
+      "file": "RecompileBasePart04.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-023",
+      "csv_data_row_1_based": 23,
+      "csv_file_line_1_based": 24,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySeven.contact_distribution_determinant",
+      "original_inventory_name": "contact_distribution_determinant",
+      "file": "RecompileBasePart05A.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-024",
+      "csv_data_row_1_based": 24,
+      "csv_file_line_1_based": 25,
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding",
+      "original_inventory_name": "contactFano_hasProjectiveEmbedding",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-025",
+      "csv_data_row_1_based": 25,
+      "csv_file_line_1_based": 26,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.formalTrait_twoComponent_lineNormalForm",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.formalTrait_twoComponent_lineNormalForm",
+      "file": "LSFormalTraitModel.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-026",
+      "csv_data_row_1_based": 26,
+      "csv_file_line_1_based": 27,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.formalTrait_smooth_lineNormalForm",
+      "original_inventory_name": "formalTrait_smooth_lineNormalForm",
+      "file": "LSFormalTraitModel.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-027",
+      "csv_data_row_1_based": 27,
+      "csv_file_line_1_based": 28,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_zeroSection_surjective",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_zeroSection_surjective",
+      "file": "LSHomVelocity.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-028",
+      "csv_data_row_1_based": 28,
+      "csv_file_line_1_based": 29,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+      "file": "LSHomVelocity.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-029",
+      "csv_data_row_1_based": 29,
+      "csv_file_line_1_based": 30,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affineLine_section_divisible",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.affineLine_section_divisible",
+      "file": "LSNodalFixedEnds.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-030",
+      "csv_data_row_1_based": 30,
+      "csv_file_line_1_based": 31,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing",
+      "file": "LSNodalFixedEnds.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-031",
+      "csv_data_row_1_based": 31,
+      "csv_file_line_1_based": 32,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.firstOrder_cotangentHom_bijective",
+      "original_inventory_name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.firstOrder_cotangentHom_bijective",
+      "file": "LSNodalTangent.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-032",
+      "csv_data_row_1_based": 32,
+      "csv_file_line_1_based": 33,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
+      "file": "LSStandardConicDifferential.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-033",
+      "csv_data_row_1_based": 33,
+      "csv_file_line_1_based": 34,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_exists",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.affine_localDerivation_exists",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-034",
+      "csv_data_row_1_based": 34,
+      "csv_file_line_1_based": 35,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_ext",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.affine_localDerivation_ext",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-035",
+      "csv_data_row_1_based": 35,
+      "csv_file_line_1_based": 36,
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Refinement.Boundary.regular_of_heightOne",
+      "original_inventory_name": "regular_of_heightOne",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-036",
+      "csv_data_row_1_based": 36,
+      "csv_file_line_1_based": 37,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.StandardInputs.projectiveLineFamily_degree_constant",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.projectiveLineFamily_degree_constant",
+      "file": "LSContactLineTests.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-037",
+      "csv_data_row_1_based": 37,
+      "csv_file_line_1_based": 38,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.CurveStandardInputs.exists_laurent_expansion_with_pole",
+      "original_inventory_name": "LeBrunSalamon.CurveStandardInputs.exists_laurent_expansion_with_pole",
+      "file": "LSCurveLaurentStandardInputs.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-038",
+      "csv_data_row_1_based": 38,
+      "csv_file_line_1_based": 39,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirty.nonconstant_complexCurve_differential_ne_zero",
+      "original_inventory_name": "nonconstant_complexCurve_differential_ne_zero",
+      "file": "RecompileBasePart06.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-039",
+      "csv_data_row_1_based": 39,
+      "csv_file_line_1_based": 40,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.birkhoffGrothendieck",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.birkhoffGrothendieck",
+      "file": "RecompileExtensionCore.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-040",
+      "csv_data_row_1_based": 40,
+      "csv_file_line_1_based": 41,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.Skeleton.sourceBivector_existsUnique",
+      "original_inventory_name": "sourceBivector_existsUnique",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-041",
+      "csv_data_row_1_based": 41,
+      "csv_file_line_1_based": 42,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.Skeleton.projectiveCoordinates_exists",
+      "original_inventory_name": "projectiveCoordinates_exists",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-042",
+      "csv_data_row_1_based": 42,
+      "csv_file_line_1_based": 43,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLineBundle_classification",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.projectiveLineBundle_classification",
+      "file": "RecompileSections.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-043",
+      "csv_data_row_1_based": 43,
+      "csv_file_line_1_based": 44,
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLine_tangent_twist",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.projectiveLine_tangent_twist",
+      "file": "RecompileSections.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-044",
+      "csv_data_row_1_based": 44,
+      "csv_file_line_1_based": 45,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
+      "original_inventory_name": "openImmersion_cotangentMap_isIso",
+      "file": "RecompileBasePart06.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-045",
+      "csv_data_row_1_based": 45,
+      "csv_file_line_1_based": 46,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.PhaseThirty.smoothClosedImmersion_conormal_rank",
+      "original_inventory_name": "smoothClosedImmersion_conormal_rank",
+      "file": "RecompileBasePart06.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-046",
+      "csv_data_row_1_based": 46,
+      "csv_file_line_1_based": 47,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.smooth_differential_surjective",
+      "original_inventory_name": "Charts.smooth_differential_surjective",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-047",
+      "csv_data_row_1_based": 47,
+      "csv_file_line_1_based": 48,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.differential_surjective_implies_smooth",
+      "original_inventory_name": "Charts.differential_surjective_implies_smooth",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-048",
+      "csv_data_row_1_based": 48,
+      "csv_file_line_1_based": 49,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.tangent_dimension_of_smooth",
+      "original_inventory_name": "Charts.tangent_dimension_of_smooth",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-049",
+      "csv_data_row_1_based": 49,
+      "csv_file_line_1_based": 50,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.StandardInputs.homOpen_sourceFirstJet_dominant",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.homOpen_sourceFirstJet_dominant",
+      "file": "LSConicJets.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-050",
+      "csv_data_row_1_based": 50,
+      "csv_file_line_1_based": 51,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Construction.Lines.HomDegree.StandardInputs.degree_open",
+      "original_inventory_name": "LeBrunSalamon.Construction.Lines.HomDegree.StandardInputs.degree_open",
+      "file": "LSHomDegree.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-051",
+      "csv_data_row_1_based": 51,
+      "csv_file_line_1_based": 52,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Skeleton.homSpacePresentation_exists",
+      "original_inventory_name": "homSpacePresentation_exists",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-052",
+      "csv_data_row_1_based": 52,
+      "csv_file_line_1_based": 53,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+      "original_inventory_name": "_root_.LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-053",
+      "csv_data_row_1_based": 53,
+      "csv_file_line_1_based": 54,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Construction.HomNeighborhood.StandardInputs.free_neighborhood",
+      "original_inventory_name": "LeBrunSalamon.Construction.HomNeighborhood.StandardInputs.free_neighborhood",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-054",
+      "csv_data_row_1_based": 54,
+      "csv_file_line_1_based": 55,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.presentation_exists_of_projectiveProduct",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.presentation_exists_of_projectiveProduct",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-055",
+      "csv_data_row_1_based": 55,
+      "csv_file_line_1_based": 56,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.locallyOfFinitePresentation",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.locallyOfFinitePresentation",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-056",
+      "csv_data_row_1_based": 56,
+      "csv_file_line_1_based": 57,
+      "substep": "3i",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.smooth_of_firstCohomology_vanishes",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.smooth_of_firstCohomology_vanishes",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-057",
+      "csv_data_row_1_based": 57,
+      "csv_file_line_1_based": 58,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
+      "file": "LSContactLineTests.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-058",
+      "csv_data_row_1_based": 58,
+      "csv_file_line_1_based": 59,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.proper_flat_normal_generic_globalFunctions",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.proper_flat_normal_generic_globalFunctions",
+      "file": "LSGenericGlobalFunctions.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-059",
+      "csv_data_row_1_based": 59,
+      "csv_file_line_1_based": 60,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.DegreeSpecialization.StandardInputs.degree_near_twoComponent_fibre",
+      "original_inventory_name": "LeBrunSalamon.Construction.Smoothing.DegreeSpecialization.StandardInputs.degree_near_twoComponent_fibre",
+      "file": "LSNodalConic.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-060",
+      "csv_data_row_1_based": 60,
+      "csv_file_line_1_based": 61,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.isNodalCurve_pullback",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.isNodalCurve_pullback",
+      "file": "LSStableFamilyTraits.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-061",
+      "csv_data_row_1_based": 61,
+      "csv_file_line_1_based": 62,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.stableMapSchemeCover_exists",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.stableMapSchemeCover_exists",
+      "file": "LSStableMapFamily.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-062",
+      "csv_data_row_1_based": 62,
+      "csv_file_line_1_based": 63,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.nodalCurveSquare_normal",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.nodalCurveSquare_normal",
+      "file": "LSStableMapFamily.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-063",
+      "csv_data_row_1_based": 63,
+      "csv_file_line_1_based": 64,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.StandardInputs.heightOne_regular_of_formalArcs",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.heightOne_regular_of_formalArcs",
+      "file": "LSStableMapFamily.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-064",
+      "csv_data_row_1_based": 64,
+      "csv_file_line_1_based": 65,
+      "substep": "3j",
+      "declaration": "LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced",
+      "original_inventory_name": "LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-065",
+      "csv_data_row_1_based": 65,
+      "csv_file_line_1_based": 66,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.StandardInputs.proper_automorphism_spreads_with_parameter",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.proper_automorphism_spreads_with_parameter",
+      "file": "LSFiniteTypeSpreading.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-066",
+      "csv_data_row_1_based": 66,
+      "csv_file_line_1_based": 67,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.StandardInputs.finite_generic_trivialization_spreads",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.finite_generic_trivialization_spreads",
+      "file": "LSGenericSheets.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-067",
+      "csv_data_row_1_based": 67,
+      "csv_file_line_1_based": 68,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.FiniteCoverStandardInputs.finite_dominant_genericEtale",
+      "original_inventory_name": "Descent.FiniteCoverStandardInputs.finite_dominant_genericEtale",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-068",
+      "csv_data_row_1_based": 68,
+      "csv_file_line_1_based": 69,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.totalLine_exists",
+      "original_inventory_name": "Descent.totalLine_exists",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-069",
+      "csv_data_row_1_based": 69,
+      "csv_file_line_1_based": 70,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+      "original_inventory_name": "Descent.TotalLine.projection_affine",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-070",
+      "csv_data_row_1_based": 70,
+      "csv_file_line_1_based": 71,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.TotalLine.projection_lfp",
+      "original_inventory_name": "Descent.TotalLine.projection_lfp",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-071",
+      "csv_data_row_1_based": 71,
+      "csv_file_line_1_based": 72,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.normalizedImage_exists",
+      "original_inventory_name": "Descent.normalizedImage_exists",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-072",
+      "csv_data_row_1_based": 72,
+      "csv_file_line_1_based": 73,
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.ramification_le_degree",
+      "original_inventory_name": "Descent.ramification_le_degree",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-073",
+      "csv_data_row_1_based": 73,
+      "csv_file_line_1_based": 74,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.StandardInputs.finite_normal_branch_divisor_formalModel",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.finite_normal_branch_divisor_formalModel",
+      "file": "LSBranchRamification.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-074",
+      "csv_data_row_1_based": 74,
+      "csv_file_line_1_based": 75,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.StandardInputs.smooth_projectiveLineFamily_transverse_divisor",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.smooth_projectiveLineFamily_transverse_divisor",
+      "file": "LSBranchRamification.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-075",
+      "csv_data_row_1_based": 75,
+      "csv_file_line_1_based": 76,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.StandardInputs.finite_curvePullback_normalization_at_dvr",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.finite_curvePullback_normalization_at_dvr",
+      "file": "LSBranchRamification.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-076",
+      "csv_data_row_1_based": 76,
+      "csv_file_line_1_based": 77,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.Construction.Descent.purity_over_contactSquare",
+      "original_inventory_name": "Descent.purity_over_contactSquare",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-077",
+      "csv_data_row_1_based": 77,
+      "csv_file_line_1_based": 78,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.Construction.Descent.finiteEtale_contactSquare_trivial",
+      "original_inventory_name": "Descent.finiteEtale_contactSquare_trivial",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-078",
+      "csv_data_row_1_based": 78,
+      "csv_file_line_1_based": 79,
+      "substep": "3l",
+      "declaration": "LeBrunSalamon.Construction.NormalExtension.extend_from_heightOne",
+      "original_inventory_name": "NormalExtension.extend_from_heightOne",
+      "file": "RecompileExtensionsPart04Geometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-079",
+      "csv_data_row_1_based": 79,
+      "csv_file_line_1_based": 80,
+      "substep": "3m",
+      "declaration": "LeBrunSalamon.StandardInputs.finiteType_nondominant_positiveFiber",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.finiteType_nondominant_positiveFiber",
+      "file": "LSConeDominance.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-080",
+      "csv_data_row_1_based": 80,
+      "csv_file_line_1_based": 81,
+      "substep": "3m",
+      "declaration": "LeBrunSalamon.StandardInputs.finiteType_tensorProduct_geometry",
+      "original_inventory_name": "LeBrunSalamon.StandardInputs.finiteType_tensorProduct_geometry",
+      "file": "LSProductGeometry.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-081",
+      "csv_data_row_1_based": 81,
+      "csv_file_line_1_based": 82,
+      "substep": "3m",
+      "declaration": "LeBrunSalamon.Construction.Lines.PublishedDirections.StandardInputs.general_selectedDirections_span",
+      "original_inventory_name": "LeBrunSalamon.Construction.Lines.PublishedDirections.StandardInputs.general_selectedDirections_span",
+      "file": "LSPublishedDirections.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-082",
+      "csv_data_row_1_based": 82,
+      "csv_file_line_1_based": 83,
+      "substep": "3m",
+      "declaration": "LeBrunSalamon.Construction.Lines.PublishedDirections.StandardInputs.general_legendrianDirections",
+      "original_inventory_name": "LeBrunSalamon.Construction.Lines.PublishedDirections.StandardInputs.general_legendrianDirections",
+      "file": "LSPublishedDirections.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-083",
+      "csv_data_row_1_based": 83,
+      "csv_file_line_1_based": 84,
+      "substep": "3m",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.primitiveContactFano_hasFreeContactLine",
+      "original_inventory_name": "LeBrunSalamon.PhaseThirtyTwo.primitiveContactFano_hasFreeContactLine",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-084",
+      "csv_data_row_1_based": 84,
+      "csv_file_line_1_based": 85,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.ClassicalActions.StandardInputs.contactAutomorphismGroup_localOrbits",
+      "original_inventory_name": "LeBrunSalamon.ClassicalActions.StandardInputs.contactAutomorphismGroup_localOrbits",
+      "file": "LSClassicalActions.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-085",
+      "csv_data_row_1_based": 85,
+      "csv_file_line_1_based": 86,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.nonprimitive_contactLine_embedding",
+      "original_inventory_name": "LeBrunSalamon.ClassicalReduction.StandardInputs.nonprimitive_contactLine_embedding",
+      "file": "LSClassicalReduction.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-086",
+      "csv_data_row_1_based": 86,
+      "csv_file_line_1_based": 87,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.homogeneous_contact_adjointPresentation",
+      "original_inventory_name": "LeBrunSalamon.ClassicalReduction.StandardInputs.homogeneous_contact_adjointPresentation",
+      "file": "LSClassicalReduction.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-087",
+      "csv_data_row_1_based": 87,
+      "csv_file_line_1_based": 88,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.positiveQK_twistorReduction",
+      "original_inventory_name": "LeBrunSalamon.ClassicalReduction.StandardInputs.positiveQK_twistorReduction",
+      "file": "LSClassicalReduction.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-088",
+      "csv_data_row_1_based": 88,
+      "csv_file_line_1_based": 89,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.Skeleton.nilpotent_hasEulerLift",
+      "original_inventory_name": "nilpotent_hasEulerLift",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-089",
+      "csv_data_row_1_based": 89,
+      "csv_file_line_1_based": 90,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.Skeleton.adjointRank_even",
+      "original_inventory_name": "adjointRank_even",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-090",
+      "csv_data_row_1_based": 90,
+      "csv_file_line_1_based": 91,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.Skeleton.globalSymmetries_parallelCurvature",
+      "original_inventory_name": "globalSymmetries_parallelCurvature",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    },
+    {
+      "id": "OBL-091",
+      "csv_data_row_1_based": 91,
+      "csv_file_line_1_based": 92,
+      "substep": "3n",
+      "declaration": "LeBrunSalamon.Skeleton.homothety_parallelCurvature",
+      "original_inventory_name": "homothety_parallelCurvature",
+      "file": "RecompileExtensionsPart01.lean",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "contains_direct_admission",
+      "acceptance_evidence_complete": false,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "S-CURRENT"
+      ]
+    }
+  ],
+  "definition_validations": [
+    {
+      "id": "DEF-01",
+      "name": "smooth endomorphism fields versus smooth endomorphism-bundle sections",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation."
+    },
+    {
+      "id": "DEF-02",
+      "name": "parallel quaternionic rank-three bundle versus holonomy contained in Sp(n)Sp(1) for n >= 2",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation.",
+      "partial_progress": "The operational quaternionic-bundle versus holonomy identification remains relevant to applying the classical simple-connectedness theorem at the frozen endpoint.",
+      "partial_evidence_ids": [
+        "P-TARGET"
+      ]
+    },
+    {
+      "id": "DEF-03",
+      "name": "curvature commutator and sign convention",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation."
+    },
+    {
+      "id": "DEF-04",
+      "name": "extension of tangent vectors to smooth fields and uniqueness of curvature witness",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation."
+    },
+    {
+      "id": "DEF-05",
+      "name": "orthonormal-basis independence of scalar curvature",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation."
+    },
+    {
+      "id": "DEF-06",
+      "name": "parallel-curvature predicate versus nabla Rm = 0",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation."
+    },
+    {
+      "id": "DEF-07",
+      "name": "point symmetries versus the standard globally symmetric-space condition",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation.",
+      "partial_progress": "Current native checks prove that the actual metric homothety is a diffeomorphism/homeomorphism and preserves simple connectedness, and supply point-symmetry map identities. They do not establish the full standard globally symmetric-space equivalence.",
+      "partial_evidence_ids": [
+        "P-CI",
+        "P-TOPOLOGY"
+      ]
+    },
+    {
+      "id": "DEF-08",
+      "name": "Wolf classification of the intrinsic target class",
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1,
+      "evidence_ids": [
+        "H2"
+      ],
+      "acceptance_requirement": "An explicit identification with the standard mathematical notion, with precise admissible published inputs if needed and matching Lean evidence for every nondefinitional translation.",
+      "partial_progress": "The conditional target assembly carries the actual metric homothety into the intrinsic Wolf model once simple connectedness is supplied; it does not identify the intrinsic class with the classical homogeneous Wolf list.",
+      "partial_evidence_ids": [
+        "P-TARGET"
+      ]
+    }
+  ],
+  "final_gates": [
+    {
+      "id": "GATE-01",
+      "name": "Exact frozen theorem endpoint",
+      "acceptance_requirement": "A compiled unconditional theorem with the unchanged frozen hypotheses and both conclusions, including the actual positive metric Wolf homothety; no unproved PositiveQKSimpleConnectedness parameter.",
+      "partial_progress": "Frozen specification preserved and importable statement compiled. Target assembly is conditional, and its full dependency graph is not yet accepted.",
+      "evidence_ids": [
+        "H2",
+        "P-TARGET",
+        "P-CI"
+      ],
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1
+    },
+    {
+      "id": "GATE-02",
+      "name": "Dependency-complete current compilation",
+      "acceptance_requirement": "All required current modules and reverse dependencies compile with exact source/dependency/runtime receipts, including the final target.",
+      "partial_progress": "Four modules passed independent current-source CI; several larger candidates passed baseline-interface diagnostics. The full current graph remains open.",
+      "evidence_ids": [
+        "P-CI",
+        "P-DIAGNOSTICS"
+      ],
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1
+    },
+    {
+      "id": "GATE-03",
+      "name": "Exhaustive final transitive admission audit",
+      "acceptance_requirement": "Native final-theorem dependencies and every source admission agree with the exact published-theorem allowlist; no novel proof, composite application, transport, or hidden extra assumption remains admitted.",
+      "partial_progress": "Static inventories and selected exact-source comparisons exist. A topology transport has an axiom print containing no sorryAx. The final theorem trust audit remains open.",
+      "evidence_ids": [
+        "P-CSV",
+        "P-TOPOLOGY",
+        "P-LEAF-AUDIT"
+      ],
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1
+    },
+    {
+      "id": "GATE-04",
+      "name": "Reproducible locked milestone checkpoint",
+      "acceptance_requirement": "One final source revision packages the frozen specification, source and runtime locks, accepted-unit evidence, whole-graph build receipts, and final trust-audit result in a reproducible checkpoint.",
+      "partial_progress": "Runtime, source-preserving recovery, replay tooling, and targeted CI evidence exist. They are not a completed final milestone checkpoint.",
+      "evidence_ids": [
+        "P-CI",
+        "P-ORIGINAL"
+      ],
+      "status": "pending_acceptance",
+      "accepted": false,
+      "weight": 1
+    }
+  ],
+  "partial_progress_no_additional_credit": [
+    {
+      "id": "PARTIAL-01",
+      "description": "Importable frozen statement and actual homothety/topology transports compiled on current dependencies, independently in CI.",
+      "evidence_ids": [
+        "P-CI",
+        "P-TOPOLOGY"
+      ],
+      "supports": [
+        "DEF-07",
+        "GATE-01",
+        "GATE-02"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-02",
+      "description": "Generic split nilpotent-thickening topology proved in LSNilpotentTopology and compiled on current dependencies. Its project application in LSHomVelocity passed a baseline-interface diagnostic. Native axiom inspection of the actual project theorem contains no sorryAx.",
+      "evidence_ids": [
+        "P-CI",
+        "P-DIAGNOSTICS"
+      ],
+      "supports": [
+        "OBL-027"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-03",
+      "description": "The repaired determinant module RecompileBasePart05A and all its current ancestors passed fresh stock-compiler CI. Its later reverse-dependency acceptance remains blocked at Part07; no whole original unit is promoted.",
+      "evidence_ids": [
+        "P-DIAGNOSTICS",
+        "P-CI-FULL-ATTEMPT",
+        "P-CURRENT-DETERMINANT"
+      ],
+      "supports": [
+        "OBL-023"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-04",
+      "description": "The actual first-jet proof in LSFirstJetEmbedding and LSFirstJetEmbeddingGeometry, and its public application in LSClassicalReduction, all passed pinned native diagnostics against recovered interfaces. Full current dependency and inherited-admission acceptance remain open. The native recursive audit finds exactly one inherited generic pullback-rank admission and excludes old firstjet or determinant dependencies; explicit primary references cover the actual rank-one use.",
+      "evidence_ids": [
+        "P-DIAGNOSTICS",
+        "P-FIRSTJET-TRUST",
+        "P-RANK-REFERENCE"
+      ],
+      "supports": [
+        "OBL-018"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-05",
+      "description": "Three Step3f leaf statements are eligible direct published directions after primary-source comparison. The cotangent-Hom bijection still needs its generic canonical-map/conormal bridge. Publication eligibility alone does not close these original obligations.",
+      "evidence_ids": [
+        "P-LEAF-AUDIT"
+      ],
+      "supports": [
+        "OBL-035",
+        "OBL-033",
+        "OBL-034",
+        "OBL-031"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-06",
+      "description": "No-sorry source assembly reaches the exact frozen endpoint conditionally on PositiveQKSimpleConnectedness. No admitted proof of that full project statement was introduced, and the complete assembly is not yet compiled.",
+      "evidence_ids": [
+        "P-TARGET"
+      ],
+      "supports": [
+        "GATE-01"
+      ],
+      "accepted_units_added": 0
+    }
+  ],
+  "recovered_completion_announcements": {
+    "status": "reported complete; recovered work retained; completion awaiting matching evidence and identified repairs",
+    "reported_stages": [
+      "3c",
+      "3d",
+      "3e",
+      "3f"
+    ],
+    "announcements": {
+      "cumulative_3c_3d_3e": {
+        "reported_at_local": "2026-11-02T20:35:22+01:00",
+        "wording": "Passed cumulatively",
+        "claimed_archive": "LeBrunSalamon_Cumulative_Steps1_2_3a_3e_20261102.zip"
+      },
+      "step3f": {
+        "reported_at_local": "2026-11-02T22:46:26+01:00",
+        "wording": "Step 3f completed — PASSED"
+      }
+    },
+    "recorded_provenance_source": "user confirmation and retrieved original conversation history; matching final certificate not recovered",
+    "later_work_discarded": false,
+    "missing_certificate_proves_work_never_completed": false,
+    "acceptance_credit_from_announcement_alone": 0
+  },
+  "evidence": {
+    "H3A": {
+      "kind": "recovered_historical_record",
+      "archive_member": "lebrun_step3b_final/prior_step3a/STEP3A_STATUS.json",
+      "record_sha256": "7fa8d5e3cb90cdacfc97efc19ae8199d750fc78c8685a2af6ed03c66e21801c4",
+      "recorded_result": {
+        "passed": true,
+        "deleted_admissions": 22,
+        "native_deleted_reference_count": 0
+      },
+      "boundary": "Three compile groups were reused by exact source-hash comparison with prior reported results; the fourth group was rerun. The report records a native scan of 101 artifacts, not a fresh complete current-source build."
+    },
+    "H3B": {
+      "kind": "recovered_historical_record",
+      "archive_member": "lebrun_step3b_final/STEP3B_STATUS.json",
+      "record_sha256": "e6c3fe8c55c211daba630a8c4aea661da79cb6168c806ebcfc8d4bee97a09b1b",
+      "archive_sha256": "5cd10ccfa75b92566913e140ce53c437563a60f5864c6f1c8f56799fd913b03c",
+      "recorded_result": {
+        "passed": true,
+        "changed_modules": [
+          "RecompileBasePart03",
+          "RecompileBasePart04"
+        ],
+        "compatibility_import_count": 73,
+        "project_wrappers_discharged": 8,
+        "exact_published_leaves": 8,
+        "remaining_nonpublished_obligations": 91
+      },
+      "boundary": "Historical incremental stage acceptance, not a clean build of the final current source."
+    },
+    "H2": {
+      "kind": "recovered_historical_record",
+      "archive_member": "lebrun_step2/final/audit/STATEMENT_AUDIT.json",
+      "record_sha256": "1695c3c7f6691c7571b7caf39a96692b9a21ce65242fbcd7e2b0aefa23db76f0",
+      "definition_validation_count": 8,
+      "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+      "boundary": "Step 2 compiled the theorem statement as a definition; this does not prove the theorem or close the eight semantic validations."
+    },
+    "P-CSV": {
+      "kind": "frozen_original_obligation_inventory",
+      "path": "audit/ORIGINAL_OBLIGATIONS.csv",
+      "sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
+      "rows": 91,
+      "id_mapping": "OBL-001 through OBL-091 are the immutable one-based data row order in this CSV; file line equals data row+1."
+    },
+    "P-ORIGINAL": {
+      "kind": "original_acceptance_plan",
+      "path": "audit/ORIGINAL_STEP3_PLAN.md",
+      "sha256": "883e8f4712d004c045480aca4d699d184a7d8044a3221b348f5462860043fe5e",
+      "rule": "Every substep compiles its changed modules and reverse-dependency cone; project translations are proved and remaining admissions must have exact publication/hypothesis audits."
+    },
+    "S-CURRENT": {
+      "kind": "lexical_current_source_comparison",
+      "date_utc": "2026-11-03T17:18:39.759738+00:00",
+      "method": "Comment/string-aware declaration scan with lexical namespaces; compare whole declaration spans after deleting comments and whitespace.",
+      "retired_declarations_still_absent": 22,
+      "step3b_wrapper_spans_unchanged_and_no_direct_admission": 8,
+      "boundary": "Static preservation evidence only; no Lean process was invoked for this ledger."
+    },
+    "P-CI": {
+      "kind": "current_source_native_targeted_ci",
+      "path": "audit/ci/41680976758/CI_RECEIPT.json",
+      "sha256": "46542d1755090181b923e8e991ed6f8b78a108da80a33de1dca74b1f720e0019",
+      "run_id": 41680976758,
+      "head_sha": "194d98fd9e8bfcd014a9578dd10bfabe74f05cf1",
+      "url": "https://github.com/wajcha2/claude/actions/runs/41680976758",
+      "conclusion": "success",
+      "modules": [
+        {
+          "module": "LSNilpotentTopology",
+          "status": "passed",
+          "source_sha256": "173e9d4c76d87bdc27eb22b33c9e0546885580a64bc0ef41fda113495d3470da",
+          "matches_current_source_at_ledger_snapshot": true,
+          "return_code": 0
+        },
+        {
+          "module": "RecompileBasePart01",
+          "status": "passed",
+          "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+          "matches_current_source_at_ledger_snapshot": true,
+          "return_code": 0
+        },
+        {
+          "module": "LSMilestoneStatement",
+          "status": "passed",
+          "source_sha256": "2addf811b82f450b83e8c742ad4ab89313ca096c216c7ad716d46b4ff08a3700",
+          "matches_current_source_at_ledger_snapshot": true,
+          "return_code": 0
+        },
+        {
+          "module": "LSMilestoneTopology",
+          "status": "passed",
+          "source_sha256": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
+          "matches_current_source_at_ledger_snapshot": true,
+          "return_code": 0
+        }
+      ],
+      "boundary": "Native compilation of these four current source modules only. The full theorem graph and milestone are not certified."
+    },
+    "P-DIAGNOSTICS": {
+      "kind": "baseline_interface_diagnostic",
+      "path": "audit/proof_batch_build/DIAGNOSTIC_SCOPE.json",
+      "sha256": "ccf2b7b86e3937613e8f900acdd76e0c3fd830d7351c26b0ea9461efb4572d2d",
+      "boundary": "Candidate proof terms checked against recovered baseline interfaces; not current cumulative dependency acceptance.",
+      "modules": [
+        {
+          "module": "RecompileBasePart05A",
+          "status": "passed",
+          "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+          "matches_current_source_at_ledger_snapshot": true,
+          "scope": "baseline-interface diagnostic; not cumulative dependency-graph acceptance"
+        },
+        {
+          "module": "LSFirstJetEmbedding",
+          "status": "passed",
+          "source_sha256": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
+          "matches_current_source_at_ledger_snapshot": true,
+          "scope": "baseline-interface diagnostic; not cumulative dependency-graph acceptance"
+        },
+        {
+          "module": "LSFirstJetEmbeddingGeometry",
+          "status": "passed",
+          "source_sha256": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
+          "matches_current_source_at_ledger_snapshot": true,
+          "scope": "baseline-interface diagnostic; not cumulative dependency-graph acceptance"
+        },
+        {
+          "module": "LSClassicalReduction",
+          "status": "passed",
+          "source_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+          "matches_current_source_at_ledger_snapshot": true,
+          "scope": "baseline-interface diagnostic; not cumulative dependency-graph acceptance"
+        },
+        {
+          "module": "LSHomVelocity",
+          "status": "passed",
+          "source_sha256": "10aa675e010a4320f167867effd07c7e1b088264851f34c906b7ba448276b0b5",
+          "matches_current_source_at_ledger_snapshot": true,
+          "scope": "baseline-interface diagnostic; not cumulative dependency-graph acceptance"
+        }
+      ]
+    },
+    "P-TOPOLOGY": {
+      "kind": "native_axiom_print",
+      "path": "audit/target_build/LSMilestoneTopology.stdout.jsonl",
+      "sha256": "35cd5c612f6bb626e8da2195b6c303ba1e4f3b58da9176128d6fa95857ef241d",
+      "declaration": "LeBrunSalamon.AuditedStatement.WolfHomothety.source_simplyConnected",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "sorryAx_present": false
+    },
+    "P-TARGET": {
+      "kind": "target_integration_source_audit",
+      "path": "audit/TARGET_INTEGRATION_SOURCE_AUDIT.json",
+      "sha256": "a4c2b2f383b5e081bcee13c12a6afecaf5f1ff8e4a573dd2ea6a60e4aa4f032f",
+      "target_source": "source/LSMilestoneTarget.lean",
+      "target_source_sha256": "a34ed6741b765ccb20131b23211677e9c2f46022c7a093758a413edb9bfc2baf",
+      "full_target_compiled": false,
+      "unconditional_endpoint_proved": false
+    },
+    "P-LEAF-AUDIT": {
+      "kind": "selected_primary_source_comparisons",
+      "path": "audit/STEP3F_ELEMENTARY_LEAF_ELIGIBILITY.json",
+      "sha256": "6249fa7101b956e20fd7e135a18a4f2bc007934b43644a6029a22b0dd96926d5",
+      "eligible_direct_published_directions": 3,
+      "pending_generic_specialization_bridge": 1,
+      "kernel_acceptance_from_this_audit": false
+    },
+    "P-PROOF-AXIOMS": {
+      "kind": "native_axiom_print",
+      "path": "audit/proof_batch_build/AXIOMS.txt",
+      "sha256": "564fa330c17b12dec3e9ebea592f2bfa4efedb6573883a92b0eef113381391c9",
+      "zero_section_surjectivity_sorryAx": false,
+      "firstjet_sorryAx_inherited": true,
+      "scope": "Actual candidate proof terms with recovered baseline dependency interfaces; full current trust audit remains open."
+    },
+    "P-FIRSTJET-TRUST": {
+      "path": "audit/proof_batch_build/FIRST_JET_DEPENDENCY_SUMMARY.json",
+      "sha256": "ab9942aeb945bbb54dfa8e3096fba64ca388b7fc9db45d6e5724efdd4fa8bf8c",
+      "kind": "native_recursive_constant_dependency_audit",
+      "total_constants": 78870,
+      "project_constants": 583,
+      "direct_sorry_declarations": [
+        "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+      ],
+      "missing_constants": 0,
+      "scope": "Candidate checked against recovered interfaces; every constant type and value traversed, including nonproject recursion."
+    },
+    "P-RANK-REFERENCE": {
+      "path": "audit/PULLBACK_RANK_REFERENCE.md",
+      "sha256": "95a787c97e2c78b9c72e3617b61b9c3bbf5307c7ac826b9eecbf46968d273868",
+      "kind": "primary_reference_hypothesis_comparison",
+      "firstjet_actual_rank": 1,
+      "book_reference": "Vakil, The Rising Sea, 2024-07-27, Exercise14.1.B(b)-(c),p402",
+      "all_constant_rank_reference": "Griffith, Maps to Projective Space..., Proposition2.12,p4; author-hosted expository notes"
+    },
+    "P-CI-FULL-ATTEMPT": {
+      "kind": "fresh_current_source_cumulative_ci_attempt",
+      "path": "audit/ci/41682674689/CI_RECEIPT.json",
+      "sha256": "34a7955c3dc9fdd0307bac15932c823c9e67f03f23169eea17060e01ec84abb1",
+      "run_id": 41682674689,
+      "source_modules": 135,
+      "passed": 19,
+      "failed": 1,
+      "blocked": 115,
+      "first_failure": "RecompileBasePart07 kernel memory cap at7200MB",
+      "conclusion": "failure",
+      "scope": "All19 passed modules and their source ancestry are fresh/current; later dependent modules are blocked, not passed."
+    },
+    "P-CURRENT-DETERMINANT": {
+      "kind": "native_current_artifact_dependency_audit",
+      "path": "audit/current_determinant_build/DETERMINANT_DEPENDENCY_SUMMARY.json",
+      "sha256": "3982ab26aeca6c1ed5a6728564c59de2be7ef4655657bff3871da110894ca7af",
+      "current_project_ancestors_validated": 5,
+      "all_constants": 41996,
+      "project_constants": 632,
+      "direct_sorry_count": 5,
+      "missing_constants": 0,
+      "custom_project_axioms": 0,
+      "old_false_input_absent": true,
+      "scope": "Only fresh current-source CI project artifacts plus pinned Mathlib/Lean; no historical baseline project imports."
+    }
+  },
+  "ledger_production": {
+    "source_mutation": false,
+    "lean_invoked": false,
+    "only_written_files": [
+      "audit/MILESTONE_PROGRESS.json",
+      "audit/MILESTONE_PROGRESS.md"
+    ]
+  },
+  "updated_utc": "2026-11-03T17:43:40.927747+00:00"
+}

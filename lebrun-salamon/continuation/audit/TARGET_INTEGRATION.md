@@ -2,7 +2,7 @@
 
 ## Status
 
-Three new Lean modules implement the frozen statement inside the existing import graph, explicit metric-data transports, and the topological part of the final assembly. They introduce **zero** `sorry`, `admit`, custom `axiom`, or `opaque` declarations. They are currently **uncompiled**. Their static source audit is `TARGET_INTEGRATION_SOURCE_AUDIT.json`.
+Three new Lean modules implement the frozen statement inside the existing import graph, explicit metric-data transports, and the topological part of the final assembly. They introduce **zero** `sorry`, `admit`, custom `axiom`, or `opaque` declarations. **`LSMilestoneStatement` and `LSMilestoneTopology` now pass native compilation of their exact current source.** `LSMilestoneTarget` remains uncompiled pending its current project dependencies. The source/build audit is `TARGET_INTEGRATION_SOURCE_AUDIT.json`; copied receipts and logs are in `target_build/`.
 
 The unconditional frozen theorem is **not** proved. The completed source assembly is explicitly conditional on `PositiveQKSimpleConnectedness`, and it continues to inherit the existing proof tree's admissions. No admission has been added to fill the remaining topology gap.
 
@@ -22,15 +22,17 @@ The source hypotheses therefore remain the original compact, connected, inhabite
 
 | Module | Implemented content | Remaining qualification |
 |---|---|---|
-| `LSMilestoneStatement.lean` | Importable exact audited structures and proposition, using the existing identical Riemannian core | Source identity checked; elaboration pending |
-| `LSMilestoneTopology.lean` | Actual mathlib diffeomorphism and homeomorphism from each frozen metric homothety; simple connectedness in both directions; source simple connectedness from a Wolf homothety; actual point-symmetry involution and differential inner-product preservation | No new published theorem is used; elaboration pending |
+| `LSMilestoneStatement.lean` | Importable exact audited structures and proposition, using the existing identical Riemannian core | Native compile passed, 35.022 seconds; source identity checked |
+| `LSMilestoneTopology.lean` | Actual mathlib diffeomorphism and homeomorphism from each frozen metric homothety; simple connectedness in both directions; source simple connectedness from a Wolf homothety; actual point-symmetry involution and differential inner-product preservation | Native compile passed, 30.573 seconds; printed topology root has no `sorryAx` |
 | `LSMilestoneTarget.lean` | Skeleton/Audited space round trips; exact transports of homotheties and point symmetries; assembly of a Wolf model once its simple-connectedness field is supplied; exact reduction of the frozen endpoint to source simple connectedness | Inherits existing project admissions and leaves simple connectedness open |
 
 The metric transports preserve the actual carrier, metric and manifold instances, equivalence and inverse, positive metric-tensor scale, and differential metric equation. They neither relabel an abstract space as a Wolf space nor replace a metric homothety by an existential label.
 
-The new topology proof uses the existing smooth equivalence to construct `Diffeomorph`, then `Homeomorph`, then applies mathlib's `ContinuousMap.HomotopyEquiv.simplyConnectedSpace_iff`. The relevant APIs are documented in [Diffeomorph](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Geometry/Manifold/Diffeomorph.html), [Homotopy.Equiv](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/Equiv.html), and [FundamentalGroupoid.SimplyConnected](https://leanprover-community.github.io/mathlib4_docs/Mathlib/AlgebraicTopology/FundamentalGroupoid/SimplyConnected.html). The pinned-toolchain elaboration remains the authority on the exact available API.
+The new topology proof uses the existing smooth equivalence to construct `Diffeomorph`, then `Homeomorph`, then applies mathlib's `ContinuousMap.HomotopyEquiv.simplyConnectedSpace_iff`. The relevant APIs are documented in [Diffeomorph](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Geometry/Manifold/Diffeomorph.html), [Homotopy.Equiv](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Topology/Homotopy/Equiv.html), and [FundamentalGroupoid.SimplyConnected](https://leanprover-community.github.io/mathlib4_docs/Mathlib/AlgebraicTopology/FundamentalGroupoid/SimplyConnected.html). Exact pinned-toolchain elaboration has now verified this use.
 
-The strongest new assembly statement is:
+`#print axioms LeBrunSalamon.AuditedStatement.WolfHomothety.source_simplyConnected` reports only `propext`, `Classical.choice`, and `Quot.sound`; it contains no `sorryAx`. Both module receipts confirm unchanged source and dependency hashes. `RecompileBasePart01` was safely reused from the recorded baseline with matching current source and dependency evidence. This local trust result does not establish the full project's trust boundary.
+
+The strongest new assembly statement, whose elaboration is still pending, is:
 
 ```lean
 theorem leBrunSalamonStatement_iff_sourceSimpleConnectedness :
@@ -56,8 +58,8 @@ Salamon's own [Quaternion-Kähler Geometry survey](https://archive.intlpress.com
 
 Before installing a permissible exact published input, the relevant Step 2 obligations remain: operational smooth endomorphism fields versus intrinsic smooth sections; the parallel local rank-three quaternionic bundle versus the holonomy formulation; identification and uniqueness of the actual curvature witness and sign convention; scalar contraction/basis independence; and the required compactness-to-completeness specialization. The new topology module proves the homothety transport itself. It does not claim to discharge those geometric definition bridges or the full point-symmetry/distance-isometry equivalence.
 
-## Acceptance checklist proposal
+## Acceptance checklist
 
-A defensible fixed count for the remaining milestone is **153 acceptance units**: the original 91 nonpublished obligations; the 50 published-namespace leaf candidates present at takeover; the eight Step 2 definition-validation obligations; and four final gates (exact frozen endpoint, dependency-complete compilation, transitive trust audit, and reproducible locked checkpoint). Splitting an existing obligation or leaf refines its acceptance test without increasing the denominator. Newly discovered work must be attached to its governing obligation/gate or trigger an explicit scope revision.
+The fixed ledger in [MILESTONE_PROGRESS.md](MILESTONE_PROGRESS.md) uses **133 acceptance units**: the 121 actual original admission obligations (22 retired, eight historically accepted, 91 awaiting acceptance), the eight Step 2 definition validations, and four final gates. This supersedes the earlier provisional 153-unit proposal. Publication audits are part of the obligations they support, so the 50 published-namespace candidates are not counted again as separate units. Splitting an obligation refines its acceptance test without increasing the denominator; new work attaches to its governing obligation or requires an explicit scope revision.
 
-Credit requires the corresponding implementation, exact publication/hypothesis audit where relevant, and matching compiled dependency evidence. The original **43/91** wrappers that were source-refactored are a useful **47.25% source-rewrite indicator**, not 43 accepted milestone units. Likewise the new no-sorry transport modules are concrete progress within the target/definition gates; they do not earn an unconditional endpoint or publication-audit pass while the simple-connectedness bridge and compilation remain open. A final acceptance numerator must be calculated from individually recorded evidence, not line counts or the number of declarations written.
+Credit requires the corresponding implementation, exact publication/hypothesis audit where relevant, and matching compiled dependency evidence. The original **43/91** rewritten wrappers are a **47.25% source-rewrite indicator**, not 43 accepted milestone units. The new topology proofs are concrete progress within the target and definition gates; they do not supply an unconditional endpoint while the simple-connectedness bridge remains open. The ledger's percentage is a conservative acceptance floor and does not estimate the relative mathematical effort of its unequal tasks.

@@ -1,0 +1,133 @@
+{
+  "schema": "lebrun-step3f-publication-eligibility-v1",
+  "scope": "Four specified Step3f leaves only; exact primary-source text and source signatures inspected. No Lean invocation.",
+  "audited_utc_date": "2026-11-03",
+  "eligible_published_leaves": 3,
+  "pending_bridge_leaves": 1,
+  "kernel_verified": false,
+  "milestone_met": false,
+  "eligibility_does_not_imply": [
+    "source elaboration",
+    "transitive trust acceptance",
+    "full milestone completion"
+  ],
+  "entries": [
+    {
+      "file": "source/RecompileExtensionsPart02.lean",
+      "line": 1606,
+      "lexically_scoped_name": "LeBrunSalamon.Refinement.Boundary.LeBrunSalamon.PublishedInputs.Step3f.regular_of_heightOne",
+      "source_file_sha256": "02c16e89883e6da570473215a9cb1e6c2e1f62e7742f540991e12230d6e48594",
+      "signature_sha256": "85dd30edc2d034c1298340643d202ff6a08f60a83dd857d918fd9423c6de2c2e",
+      "signature": "theorem LeBrunSalamon.PublishedInputs.Step3f.regular_of_heightOne\n    (R K : Type*) [CommRing R] [IsDomain R] [IsNoetherianRing R] [IsIntegrallyClosed R]\n    [Field K] [Algebra R K] [IsFractionRing R K] (z : K)\n    (hz : ∀ p : Ideal R, p.IsPrime → p.height = 1 → RegularAtPrime R K p z) :\n    RegularScalar R K z",
+      "kernel_verified": false,
+      "id": "3f-regular-height-one",
+      "publication_eligibility": "eligible_exact_published_direction",
+      "published_source": {
+        "tag": "031T",
+        "label": "Stacks Project, Lemma 10.157.6(2)",
+        "url": "https://stacks.math.columbia.edu/tag/031T"
+      },
+      "hypothesis_comparison": [
+        "CommRing + IsDomain + IsNoetherianRing + IsIntegrallyClosed is a Noetherian normal domain.",
+        "Field K + Algebra R K + IsFractionRing R K is the designated fraction field.",
+        "For every height-one prime p, RegularAtPrime expands to a denominator outside p and z*b=a."
+      ],
+      "conclusion_comparison": "RegularScalar expands to existence of a in R with algebraMap(a)=z, the nontrivial membership direction of R = intersection of height-one localizations.",
+      "translation_status": "Only literal scalar/localization presentations; no contact, boundary geometry, or extra theorem hidden in these predicates.",
+      "separate_issue": "Declaration lacks _root_ inside Refinement.Boundary; lexical namespace is nested. Publication eligibility does not certify native name resolution."
+    },
+    {
+      "file": "source/RecompileExtensionsPart01.lean",
+      "line": 1288,
+      "lexically_scoped_name": "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists",
+      "source_file_sha256": "a841941b9b7d3fafc046ce22ea9c3741842d07d22a2b1a6642b772dcc55855d4",
+      "signature_sha256": "98d98dc8d6033d5e246708369d4cf8dfbaf0a38fe865ddfd79a8bcf810c9ba1e",
+      "signature": "theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_exists\n    {Y : Scheme}\n    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)\n    (D : RingSections Y U → RingSections Y U)\n    (h0 : D 0 = 0)\n    (hadd : ∀ a b, D (a + b) = D a + D b)\n    (hmul : ∀ a b, D (a * b) = a * D b + b * D a)\n    (hc : ∀ c : ℂ, D (complexConstant s U c) = 0) :\n    ∃ δ : LocalDerivationProof.LocalDerivation s (structureModule Y) U,\n      ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a",
+      "kernel_verified": false,
+      "id": "3f-affine-derivation-exists",
+      "publication_eligibility": "eligible_exact_published_direction",
+      "published_source": {
+        "tag": "01UO",
+        "label": "Stacks Project, Lemma 29.33.4",
+        "url": "https://stacks.math.columbia.edu/tag/01UO"
+      },
+      "hypothesis_comparison": [
+        "Use the affine scheme U, base Spec(C), and coefficient sheaf O_U.",
+        "LocalDerivation is explicitly a natural family of additive Leibniz maps on every subopen, killing restrictions of base sections.",
+        "For existence: D is additive, Leibniz, and kills actual structure-morphism C-constants; h0 is harmless redundancy. For extensionality: equality is required on every global function of U."
+      ],
+      "conclusion_comparison": "Surjectivity of restriction to global sections, for the displayed actual derivation map.",
+      "translation_status": "A direct affine restriction/specialization of the published bijection. Expanded sheaf-derivation and C-derivation definitions do not add a new project lemma. No finite-type, smoothness, or quasi-coherence premise is needed by the cited theorem."
+    },
+    {
+      "file": "source/RecompileExtensionsPart01.lean",
+      "line": 1318,
+      "lexically_scoped_name": "LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext",
+      "source_file_sha256": "a841941b9b7d3fafc046ce22ea9c3741842d07d22a2b1a6642b772dcc55855d4",
+      "signature_sha256": "c1fa94a1bf9fd0c9c146e42a8eadaaefcd368f47939b40cdc8457ee165bdf48c",
+      "signature": "theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.affine_localDerivation_ext\n    {Y : Scheme}\n    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)\n    (δ ε : LocalDerivationProof.LocalDerivation s (structureModule Y) U)\n    (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :\n    δ = ε",
+      "kernel_verified": false,
+      "id": "3f-affine-derivation-ext",
+      "publication_eligibility": "eligible_exact_published_direction",
+      "published_source": {
+        "tag": "01UO",
+        "label": "Stacks Project, Lemma 29.33.4",
+        "url": "https://stacks.math.columbia.edu/tag/01UO"
+      },
+      "hypothesis_comparison": [
+        "Use the affine scheme U, base Spec(C), and coefficient sheaf O_U.",
+        "LocalDerivation is explicitly a natural family of additive Leibniz maps on every subopen, killing restrictions of base sections.",
+        "For existence: D is additive, Leibniz, and kills actual structure-morphism C-constants; h0 is harmless redundancy. For extensionality: equality is required on every global function of U."
+      ],
+      "conclusion_comparison": "Injectivity of the same restriction map: equality on global sections determines all subopen actions.",
+      "translation_status": "A direct affine restriction/specialization of the published bijection. Expanded sheaf-derivation and C-derivation definitions do not add a new project lemma. No finite-type, smoothness, or quasi-coherence premise is needed by the cited theorem."
+    },
+    {
+      "file": "source/LSNodalTangent.lean",
+      "line": 32,
+      "lexically_scoped_name": "LeBrunSalamon.PublishedInputs.Step3f.firstOrder_cotangentHom_bijective",
+      "source_file_sha256": "71f7bb265eec044d08c4c40a831584f5078bb3d4d6803a218124e9d07585ee46",
+      "signature_sha256": "3194cd7bcb30bd62878d93d51e1ab71735d6351727c915c936bc92dac737e07e",
+      "signature": "theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.firstOrder_cotangentHom_bijective\n    {Y X : Scheme}\n    (sY : Y ⟶ ComplexBase) (sX : X ⟶ ComplexBase)\n    (f : Y ⟶ X) (hf : f ≫ sX = sY) :\n    Function.Bijective (fun D : Lines.FamilyVariation.Deformation sY sX f =>\n      D.cotangentHom)",
+      "kernel_verified": false,
+      "id": "3f-first-order-cotangent",
+      "publication_eligibility": "pending_generic_specialization_bridge",
+      "published_sources": [
+        {
+          "tag": "02H5",
+          "label": "Stacks Project, Lemma 37.9.2",
+          "url": "https://stacks.math.columbia.edu/tag/02H5"
+        },
+        {
+          "tag": "04FJ",
+          "label": "Stacks Project, Lemma 37.9.5",
+          "url": "https://stacks.math.columbia.edu/tag/04FJ"
+        },
+        {
+          "tag": "04FK",
+          "label": "Stacks Project, Remark 37.9.6",
+          "url": "https://stacks.math.columbia.edu/tag/04FK"
+        }
+      ],
+      "hypothesis_comparison": [
+        "The cited result is the simply transitive cotangent-Hom action for a first-order thickening, with codomain the conormal sheaf.",
+        "Deformation is the actual morphism Y x_C Spec(C[epsilon]/epsilon^2) -> X, over C, reducing to f. The source includes the constructed constant lift.",
+        "No smoothness, properness, finite type, contact, or endpoint parameter occurs in the leaf."
+      ],
+      "conclusion_comparison": "The source asks for bijectivity of one specified epsilon-normalized cotangentHom into O_Y, rather than the generic torsor action into the conormal module.",
+      "already_present": [
+        "Actual dual-number pullback, zeroSection and projection.",
+        "nilpotent-kernel calculation and zeroSection surjectivity.",
+        "epsilon square zero; two-coefficient reconstruction, restriction and multiplication identities.",
+        "constant lift and cotangentHom_differential/unique/constant_cotangentHom normalization proofs."
+      ],
+      "remaining": [
+        "Supply or explicitly identify the generic first-order-thickening/conormal identification C_(Y/Y_epsilon) = O_Y via the actual epsilon.",
+        "Connect the published action/difference map to the displayed cotangentHom using the existing normalization identity; the current source does not contain a generic torsor interface or this application.",
+        "The coefficient construction currently inherits admitted dualThickening_normalForm_unique; its own leaf eligibility is separate."
+      ],
+      "translation_status": "Mathematically the expected generic specialization, not a contact-Fano claim. It is not merely a renamed abbreviation: a conormal identification and canonical-map comparison are needed. Do not count as fully eligible solely from the namespace or broad citations.",
+      "citation_correction": "04BU names the whole section. The stable tag for Lemma 37.9.2 is 02H5."
+    }
+  ]
+}

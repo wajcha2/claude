@@ -1,0 +1,213 @@
+{
+  "schema": "replay-bookkeeping-fixture-v1",
+  "compiler_kind": "simulated; no Lean invoked",
+  "driver_sha256": "5e63ca9ddc23424862ed52157171d62a5c7fd6dab0b9f910da0750db488504a4",
+  "cases": [
+    {
+      "case": "initial builds",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.033s)\nBUILD B\nPASS B (0.033s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:15.797495+00:00\",\n  \"runtime_fingerprint\": \"82fbd9d1e5c09017835b6c73c43c775644ef98205333d5db56b44af3f633633f\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:15.866017+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "unchanged receipts reuse",
+      "passed": true,
+      "expected": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "observed": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "REUSE A\nREUSE B\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:15.908962+00:00\",\n  \"runtime_fingerprint\": \"82fbd9d1e5c09017835b6c73c43c775644ef98205333d5db56b44af3f633633f\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:15.911563+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "ancestor source changes invalidate descendants",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.033s)\nBUILD B\nPASS B (0.033s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:15.965578+00:00\",\n  \"runtime_fingerprint\": \"82fbd9d1e5c09017835b6c73c43c775644ef98205333d5db56b44af3f633633f\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.034637+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "corrupt artifact rebuilt; identical recovered descendant reusable",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "reused"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "reused"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.033s)\nREUSE B\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.074757+00:00\",\n  \"runtime_fingerprint\": \"82fbd9d1e5c09017835b6c73c43c775644ef98205333d5db56b44af3f633633f\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.109864+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "leaf edit keeps ancestor cache",
+      "passed": true,
+      "expected": {
+        "A": "reused",
+        "B": "passed"
+      },
+      "observed": {
+        "A": "reused",
+        "B": "passed"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "REUSE A\nBUILD B\nPASS B (0.034s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.167562+00:00\",\n  \"runtime_fingerprint\": \"82fbd9d1e5c09017835b6c73c43c775644ef98205333d5db56b44af3f633633f\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.205183+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "runtime fingerprint change invalidates all",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.032s)\nBUILD B\nPASS B (0.065s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.246270+00:00\",\n  \"runtime_fingerprint\": \"e522781bbf81e080b659ca4e059a39320ce2f0d291be220679c3514be5114992\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.346217+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "external import change invalidates dependent closure",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": true,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.065s)\nBUILD B\nPASS B (0.034s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.396552+00:00\",\n  \"runtime_fingerprint\": \"e522781bbf81e080b659ca4e059a39320ce2f0d291be220679c3514be5114992\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.499401+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "exit zero without output rejected",
+      "passed": true,
+      "expected": {
+        "A": "failed",
+        "B": "blocked"
+      },
+      "observed": {
+        "A": "failed",
+        "B": "blocked"
+      },
+      "expected_full_graph": false,
+      "observed_full_graph": false,
+      "return_code": 1,
+      "stdout": "BUILD A\nFAIL A (0.033s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.551442+00:00\",\n  \"runtime_fingerprint\": \"90a2e2620a115bceec808582d1afc6609a68f1c9079c97da6edcf273f7b9aeff\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": false,\n  \"finished_utc\": \"2026-11-03T17:03:16.585550+00:00\",\n  \"failures\": [\n    \"A\"\n  ],\n  \"verified_module_count\": 0\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "nonzero with output rejected",
+      "passed": true,
+      "expected": {
+        "A": "failed",
+        "B": "blocked"
+      },
+      "observed": {
+        "A": "failed",
+        "B": "blocked"
+      },
+      "expected_full_graph": false,
+      "observed_full_graph": false,
+      "return_code": 1,
+      "stdout": "BUILD A\nFAIL A (0.033s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.644578+00:00\",\n  \"runtime_fingerprint\": \"4e9b5403f153712553cc107f5d127f03456c37cf11603c2dda3a4a26d42a16f7\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": false,\n  \"finished_utc\": \"2026-11-03T17:03:16.678530+00:00\",\n  \"failures\": [\n    \"A\"\n  ],\n  \"verified_module_count\": 0\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "source edited during own compilation rejected",
+      "passed": true,
+      "expected": {
+        "A": "passed",
+        "B": "failed"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "failed"
+      },
+      "expected_full_graph": false,
+      "observed_full_graph": false,
+      "return_code": 1,
+      "stdout": "BUILD A\nPASS A (0.032s)\nBUILD B\nFAIL B (0.032s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.726398+00:00\",\n  \"runtime_fingerprint\": \"b998c770bce63ff89dc40d3bb82d6c1baa4621588be6e34c5b7481a9efe798cf\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": false,\n  \"finished_utc\": \"2026-11-03T17:03:16.793580+00:00\",\n  \"failures\": [\n    \"B\"\n  ],\n  \"verified_module_count\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "ancestor edit during descendant compile invalidates ancestry",
+      "passed": false,
+      "expected": {
+        "A": "invalidated",
+        "B": "invalidated"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": false,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.065s)\nBUILD B\nPASS B (0.033s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.848454+00:00\",\n  \"runtime_fingerprint\": \"ce7c1ca761709331e70b6ac7906853c82a4f84b7ed9762e01ffda04e09849c71\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:16.949679+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    },
+    {
+      "case": "external edit during later compile invalidates ancestry",
+      "passed": false,
+      "expected": {
+        "A": "invalidated",
+        "B": "invalidated"
+      },
+      "observed": {
+        "A": "passed",
+        "B": "passed"
+      },
+      "expected_full_graph": false,
+      "observed_full_graph": true,
+      "return_code": 0,
+      "stdout": "BUILD A\nPASS A (0.032s)\nBUILD B\nPASS B (0.032s)\n{\n  \"schema\": \"lebrun-native-replay-v1\",\n  \"started_utc\": \"2026-11-03T17:03:16.991838+00:00\",\n  \"runtime_fingerprint\": \"9a31986aa24e8bff60ab22a338b1f5ec63b140a36854489ceb5fc9ce6aa23b91\",\n  \"requested_targets\": [\n    \"B\"\n  ],\n  \"milestone_met\": false,\n  \"full_selected_graph_passed\": true,\n  \"finished_utc\": \"2026-11-03T17:03:17.059064+00:00\",\n  \"failures\": [],\n  \"verified_module_count\": 2\n}\n",
+      "stderr": ""
+    }
+  ],
+  "passed": 10,
+  "total": 12
+}

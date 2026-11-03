@@ -1,0 +1,97 @@
+{
+  "schema": "lebrun-pinned-runtime-restore-v1",
+  "recorded_utc": "2026-11-03T17:01:58.249488+00:00",
+  "lean_version": "4.36.0-rc1",
+  "lean_commit": "c9afcddf514a6772bd4d649f7cfc04eff0b9f15e",
+  "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+  "local_runtime_root": "/workspace/scratch/4deac2cdddbb/lebrun_runtime",
+  "local_config_sha256": "7598a07648740e5f19e913d3481ae4e5c78a1f5860e8a4fd89a4825b7ebb8c68",
+  "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+  "adapter": {
+    "source": "explicit_exec_path.c",
+    "sha256": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+    "binary_sha256": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6",
+    "build_command": "cc -O2 -fPIC -shared explicit_exec_path.c -ldl -o libexplicit_exec_path.so",
+    "purpose": "Supply the explicitly configured absolute executable path only for readlink of the current process own /proc/<pid>/exe. No access is made to that /proc path; other readlink calls delegate to libc."
+  },
+  "archives": [
+    {
+      "component": "official Lean release",
+      "sha256": "26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2",
+      "run_id": 41234129521,
+      "repo": "wajcha2/claude",
+      "artifact_pattern": "lean-toolchain-*"
+    },
+    {
+      "component": "mathlib cache",
+      "sha256": "69d48979417b59f9e5e01f9659f661f70a6bc17c17678c45395c2459f4ad801e",
+      "run_id": 41234129669,
+      "repo": "wajcha2/claude",
+      "artifact_pattern": "mathlib-cache-*"
+    },
+    {
+      "component": "mathlib full IR",
+      "sha256": "fcf02ea9b7380048f6b3c8e82df4ab1d7d4d7d7f3545c3b928199a44dae87982",
+      "run_id": 41309680327,
+      "repo": "wajcha2/claude",
+      "artifact_pattern": "mathlib-full-ir-*"
+    },
+    {
+      "component": "mathlib package native libraries",
+      "sha256": "4020bbef12b19f9ef87f2a5c15ea21ab2372134ec5e95c5c2b87d1008eba42ff",
+      "run_id": 41440059394,
+      "repo": "wajcha2/claude",
+      "artifact_pattern": "mathlib-package-runtime"
+    }
+  ],
+  "fingerprints": {
+    "toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+    "toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+    "mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+    "explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+    "libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6",
+    "mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+    "mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+    "mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+    "mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+    "mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+    "mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+    "mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+    "mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80"
+  },
+  "smoke_tests": [
+    {
+      "source": "SmokeCore.lean",
+      "source_sha256": "1c9046e2027f3bc9bed28f26e48f84d3e60d32d30efb2d7fbd713f95314411b5",
+      "return_code": 0,
+      "olean_sha256": "11d2acf1f626e55274e38ffe353ad3445f55a98bd4b12a3e3830e376e7b1aaca",
+      "kind": "successful proof elaboration"
+    },
+    {
+      "source": "SmokeReject.lean",
+      "source_sha256": "0959fbe9f60f4824e8208387beea62aee3328a54c4a1040cd0b024a03cb877dc",
+      "return_code": 1,
+      "olean_exists": false,
+      "kind": "False rejected by trivial tactic; observed diagnostic, no preserved log"
+    },
+    {
+      "source": "SmokeMathlib.lean",
+      "source_sha256": "77d677a5d88496fa4458db70490f0724dabcfaa2685a97a176e4b7ef02d6e130",
+      "return_code": 0,
+      "olean_exists": true,
+      "seconds": 25.22,
+      "log": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/SmokeMathlib.log",
+      "olean_sha256": "7eb42f10598f4c2950b2e10f1866cd1228c45ec22087e5a7c3778acf8ae15164"
+    }
+  ],
+  "limits": {
+    "local_memory_limit_bytes": 8589934592,
+    "lean_M_megabytes": 7200,
+    "concurrent_heavy_compilers": 1
+  },
+  "exclusions": [
+    "The experimental embedded frontend lean-explicit-root was abandoned and is not used for evidence.",
+    "Smoke acceptance establishes runtime operation, not the mathematical milestone.",
+    "Normal GitHub CI uses the unchanged stock frontend without the local executable-path adapter."
+  ]
+}

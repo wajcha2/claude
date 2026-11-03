@@ -1,0 +1,54 @@
+{
+  "command": [
+    "${RUNTIME}/toolchain/bin/lean",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=${RUNTIME}/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+  ],
+  "flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "external_olean_roots": [
+    "${RUNTIME}/mathlib/packages/LeanSearchClient/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/Qq/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/aesop/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/batteries/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/importGraph/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/mathlib/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/plausible/.lake/build/lib/lean",
+    "${RUNTIME}/mathlib/packages/proofwidgets/.lake/build/lib/lean",
+    "${RUNTIME}/toolchain/lib/lean"
+  ],
+  "environment": {
+    "LD_LIBRARY_PATH": "${RUNTIME}/toolchain/lib/lean:${RUNTIME}/toolchain/lib:${RUNTIME}/mathlib/packages/LeanSearchClient/.lake/build/lib:${RUNTIME}/mathlib/packages/Qq/.lake/build/lib:${RUNTIME}/mathlib/packages/aesop/.lake/build/lib:${RUNTIME}/mathlib/packages/batteries/.lake/build/lib:${RUNTIME}/mathlib/packages/importGraph/.lake/build/lib:${RUNTIME}/mathlib/packages/mathlib/.lake/build/lib:${RUNTIME}/mathlib/packages/plausible/.lake/build/lib:${RUNTIME}/mathlib/packages/proofwidgets/.lake/build/lib",
+    "LD_PRELOAD": "${RUNTIME}/libexplicit_exec_path.so",
+    "LEAN_EXPLICIT_EXECUTABLE": "${RUNTIME}/toolchain/bin/lean"
+  },
+  "fingerprint_files": [
+    "${RUNTIME}/toolchain/bin/lean",
+    "${RUNTIME}/toolchain/lib/lean/libleanshared.so",
+    "${RUNTIME}/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean",
+    "${RUNTIME}/explicit_exec_path.c",
+    "${RUNTIME}/libexplicit_exec_path.so",
+    "${RUNTIME}/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "${RUNTIME}/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "${RUNTIME}/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "${RUNTIME}/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "${RUNTIME}/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "${RUNTIME}/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "${RUNTIME}/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "${RUNTIME}/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+  ],
+  "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+  "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a"
+}

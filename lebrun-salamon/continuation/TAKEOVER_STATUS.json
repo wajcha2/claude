@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-03",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-03T16:57:50.500947+00:00",
+  "recorded_utc": "2026-11-03T17:43:40.924983+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -26,8 +26,8 @@
   },
   "current_source": {
     "modules": 135,
-    "lines": 104532,
-    "bytes": 5053614,
+    "lines": 104538,
+    "bytes": 5053932,
     "admissions": {
       "sorry": 96,
       "admit": 0,
@@ -36,7 +36,7 @@
     },
     "published_namespace_count_not_certification": 48,
     "other_direct_admissions": 48,
-    "new_leaf_candidates_since_step3b": 42,
+    "new_leaf_candidates_since_step3b": 40,
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true
@@ -46,27 +46,36 @@
     "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
     "preserved": true,
     "connected_to_final_theorem": false,
-    "missing_conclusion": "Nonempty (WolfHomothety (closedRiemannianSpace n M))",
+    "missing_conclusion": "Unconditional frozen Wolf-homothety conclusion; conditional assembly now exists.",
     "importable_formulation_present": true,
     "conditional_exact_endpoint_present": true,
-    "remaining_endpoint_bridge": "PositiveQKSimpleConnectedness; exact frozen conclusion is assembled conditionally, not proved unconditionally"
+    "remaining_endpoint_bridge": "PositiveQKSimpleConnectedness; exact frozen conclusion is assembled conditionally, not proved unconditionally",
+    "importable_formulation_kernel_verified": true,
+    "topology_module_kernel_verified": true,
+    "conditional_assembly_kernel_verified": false,
+    "unconditional_endpoint_proved": false
   },
   "repair_candidate": {
     "path": "source/RecompileBasePart05A.lean",
     "sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
     "change": "restrict alternating-discriminant leaf to smooth proper complex bases; prove determinant conversion by tensor cancellation and supply actual Levi alternation",
     "new_sorry": 0,
-    "kernel_status": "not compiled",
-    "exact_full_scope_published_reference": "Auel 2009 thesis Proposition1.10 and Definition1.7; precise leaf audit and kernel checks pending"
+    "kernel_status": "passed fresh stock-compiler CI with all current ancestors in run41682674689; later reverse-dependency acceptance blocked at Part07",
+    "exact_full_scope_published_reference": "Auel 2009 thesis Proposition1.10 and Definition1.7; leaf restricted to smooth proper connected complex bases, determinant conversion proved",
+    "current_native_dependency_audit": "audit/current_determinant_build/DETERMINANT_DEPENDENCY_SUMMARY.json",
+    "old_false_input_in_environment": false,
+    "old_false_input_in_dependency_closure": false,
+    "current_direct_admissions": 5
   },
   "rebuild_plan": {
     "changed_modules": 25,
     "affected_modules": 126,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 99,
+    "omitted_affected_descendants": 105,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
-    "driver": "scripts/replay_checkpoint.py"
+    "driver": "scripts/replay_checkpoint.py",
+    "omitted_affected_descendants_at_recovery": 99
   },
   "remaining_original_batches": {
     "3h": 5,
@@ -84,8 +93,8 @@
     "compile unchecked or invalidated modules against exact dependency receipts",
     "native transitive admission audit of final theorem"
   ],
-  "lean_invoked_during_takeover": false,
-  "proof_completion_percentage": null,
+  "lean_invoked_during_takeover": true,
+  "proof_completion_percentage": 22.56,
   "notes": [
     "Historical running metadata is not evidence of a currently running job.",
     "Namespace admission counts are not counts of verified published theorems.",
@@ -114,7 +123,7 @@
     "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
   },
   "proof_batch": {
-    "status": "source candidates ready for native kernel checks",
+    "status": "two project admissions replaced by proved code; five native diagnostic passes;19 modules passed fresh cumulative CI before a Part07 memory-cap failure",
     "removed_direct_admissions": [
       "polarizedEmbedding_firstJets",
       "dualThickening_zeroSection_surjective"
@@ -133,6 +142,92 @@
       "LSFirstJetEmbeddingGeometry",
       "LSNilpotentTopology"
     ],
-    "ci": "stock pinned compiler check configured; no result yet"
-  }
+    "ci": "run41682674689:19 passed,1 memory-cap failure,115 blocked; retry41685948946 uses12000MB cap on identical135 Lean sources",
+    "native_diagnostic_modules": [
+      "RecompileBasePart05A",
+      "LSFirstJetEmbedding",
+      "LSFirstJetEmbeddingGeometry",
+      "LSClassicalReduction",
+      "LSHomVelocity"
+    ],
+    "native_diagnostic_evidence": "audit/proof_batch_build/DIAGNOSTIC_SCOPE.json",
+    "zero_section_surjectivity_sorryAx": false,
+    "firstjet_direct_inherited_admissions": [
+      "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+    ],
+    "firstjet_dependency_audit": "audit/proof_batch_build/FIRST_JET_DEPENDENCY_SUMMARY.json",
+    "firstjet_dependency_audit_summary": {
+      "all_constants": 78870,
+      "project_constants": 583,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axioms": 0,
+      "historical_firstjet_claim_used": false,
+      "defective_determinant_used": false,
+      "rank_reference": "audit/PULLBACK_RANK_REFERENCE.md"
+    }
+  },
+  "percentage_metric": {
+    "kind": "conservative acceptance-checklist completion floor",
+    "denominator": 133,
+    "accepted": 30,
+    "rounded_percentage": 23,
+    "mathematical_effort_estimate": false,
+    "ledger": "audit/MILESTONE_PROGRESS.json"
+  },
+  "native_current_ci": {
+    "run_id": 41680976758,
+    "commit": "194d98fd9e8bfcd014a9578dd10bfabe74f05cf1",
+    "conclusion": "success",
+    "modules": [
+      "LSNilpotentTopology",
+      "RecompileBasePart01",
+      "LSMilestoneStatement",
+      "LSMilestoneTopology"
+    ],
+    "all_built_fresh": true,
+    "evidence": "audit/ci/41680976758/CI_RECEIPT.json"
+  },
+  "cumulative_ci_attempt": {
+    "run_id": 41685948946,
+    "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
+    "source_modules_selected": 135,
+    "historical_seed_reuse": false,
+    "compiler_memory_cap_mb": 12000,
+    "status": "in_progress",
+    "result_not_yet_accepted": true,
+    "lean_source_blobs_identical_to_previous_attempt": true,
+    "status_snapshot": "audit/ci/41685948946/STATUS.json",
+    "status_observed_utc": "2026-11-03T17:42:09Z"
+  },
+  "cumulative_ci_attempts": [
+    {
+      "run_id": 41682674689,
+      "commit": "7b624261fff0a5eda25b14a035d637e238e3454a",
+      "compiler_memory_cap_mb": 7200,
+      "conclusion": "failure",
+      "fresh_passed_modules": 19,
+      "failed_modules": [
+        "RecompileBasePart07"
+      ],
+      "blocked_modules": 115,
+      "first_error": "(kernel) excessive memory consumption detected at RecompileBasePart07:264",
+      "total_errors": 54,
+      "memory_cap_errors": 27,
+      "other_errors": "27 subsequent diagnostics, not classified independently before a sufficient-memory replay",
+      "evidence": "audit/ci/41682674689/CI_RECEIPT.json"
+    },
+    {
+      "run_id": 41685948946,
+      "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
+      "source_modules_selected": 135,
+      "historical_seed_reuse": false,
+      "compiler_memory_cap_mb": 12000,
+      "status": "in_progress",
+      "result_not_yet_accepted": true,
+      "lean_source_blobs_identical_to_previous_attempt": true,
+      "status_snapshot": "audit/ci/41685948946/STATUS.json",
+      "status_observed_utc": "2026-11-03T17:42:09Z"
+    }
+  ]
 }

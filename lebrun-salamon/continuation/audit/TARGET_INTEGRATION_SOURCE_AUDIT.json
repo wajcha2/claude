@@ -22,7 +22,13 @@
         "axiom": 0,
         "opaque": 0
       },
-      "scope_errors": []
+      "scope_errors": [],
+      "kernel_verified": true,
+      "native_return_code": 0,
+      "compile_seconds": 35.022,
+      "olean_sha256": "34f926ae7883a208308f50bc77063221fd0ebc24ae0ab2f1293f01205564f455",
+      "build_receipt": "audit/target_build/LSMilestoneStatement.receipt.json",
+      "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367"
     },
     {
       "file": "source/LSMilestoneTarget.lean",
@@ -39,13 +45,14 @@
         "axiom": 0,
         "opaque": 0
       },
-      "scope_errors": []
+      "scope_errors": [],
+      "kernel_verified": false
     },
     {
       "file": "source/LSMilestoneTopology.lean",
-      "sha256": "2495ba0ff256cfd53fd5e4dadbfd36161d4bea4933a92ee22d1194e423610e25",
-      "lines": 96,
-      "bytes": 3910,
+      "sha256": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
+      "lines": 97,
+      "bytes": 3929,
       "imports": [
         "LSMilestoneStatement"
       ],
@@ -55,7 +62,13 @@
         "axiom": 0,
         "opaque": 0
       },
-      "scope_errors": []
+      "scope_errors": [],
+      "kernel_verified": true,
+      "native_return_code": 0,
+      "compile_seconds": 30.573,
+      "olean_sha256": "8d337cddbd3f00697aa6c496ece31873f381b269bfde0439f6136ce595a545f3",
+      "build_receipt": "audit/target_build/LSMilestoneTopology.receipt.json",
+      "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367"
     }
   ],
   "transport_contract": [
@@ -78,5 +91,17 @@
   "existing_project_admissions_inherited": true,
   "kernel_verified": false,
   "milestone_met": false,
-  "evidence_scope": "Static text/hash/lexical inspection; new modules have not yet been elaborated under the pinned Lean toolchain."
+  "evidence_scope": "Frozen/core/namespace hash and lexical checks plus native exact-source builds of Statement and Topology. Full LSMilestoneTarget assembly remains uncompiled, pending its current dependency graph.",
+  "compiled_modules": 2,
+  "assembly_module_kernel_verified": false,
+  "topology_root_axiom_check": {
+    "declaration": "LeBrunSalamon.AuditedStatement.WolfHomothety.source_simplyConnected",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "sorryAx_present": false,
+    "log": "audit/target_build/LSMilestoneTopology.stdout.jsonl"
+  }
 }

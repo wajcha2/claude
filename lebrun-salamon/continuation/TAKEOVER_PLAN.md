@@ -6,9 +6,21 @@
 
 Continue from the actual cumulative Step 3g V2 source, preserving Step 3b as the last recorded passing incremental stage. Reopen the unverified parts of Steps 3c–3g. The first milestone is **not met**, and a successful compilation of the recovered source alone would not have met it: the audit found a false admitted determinant statement, several composite or project-specific admissions, and an exported conclusion weaker than the frozen specification.
 
-The new continuation branch is `codex/lebrun-takeover-audit-20261103` in `wajcha2/claude`. Commit `d8749550ace47a9186fcc1d8c2a38fa81d8b3ba0` preserves the recovered 129-module source without modification. The continuation then records a minimal determinant correction, explicitly awaiting kernel verification, together with this audit and plan. Historical branches and reports have been preserved.
+The continuation branch is `codex/lebrun-takeover-audit-20261103` in `wajcha2/claude`. Commit `d8749550ace47a9186fcc1d8c2a38fa81d8b3ba0` preserves the recovered 129-module source without modification. Later commits contain the proof work described below, with separate compiler receipts. Historical branches and reports have been preserved.
 
 This is a recovery and admission-boundary audit, with focused mathematical checks of consequential statements. It is not a line-by-line correctness audit of all 103,000 source lines.
+
+## Execution update: first proof batch
+
+The continuation now has 135 modules and 96 direct admissions, down from 98 at recovery, with no new admissions. The frozen target has not changed.
+
+- The actual dual-thickening zero section is proved surjective from the residue map's nilpotent kernel and the pullback carrier theorem. Its native project-level axiom report contains no `sorryAx`.
+- The first-jet restriction theorem is proved through finite-dimensional duality, actual dual-number maps, projective coordinates and the closed immersion. Both new helper modules and the public wrapper have native compilation passes against recovered dependency interfaces.
+- The determinant defect is repaired by isolating the published alternating discriminant theorem on a smooth proper complex base and proving the tensor cancellation and contact specialization. The corrected module and all its current ancestors have fresh CI passes, and a native current-artifact audit confirms its five remaining inputs and the absence of the false original input.
+- The exact frozen statement is importable through the shared foundational definitions. Its topology module is compiled, with a no-`sorryAx` proof that a Wolf homothety transports simple connectedness to its source. The full endpoint is assembled conditionally on an explicitly named simple-connectedness bridge; it is not claimed unconditionally.
+- Independent stock-compiler CI run [41680976758](https://github.com/wajcha2/claude/actions/runs/41680976758) freshly compiled all four modules in the selected foundation/topology graph. The workflow has subsequently been expanded to attempt all 135 modules.
+
+Diagnostic passes against recovered interfaces do not close a cumulative stage. The exact source, dependency and output hashes are recorded in `audit/proof_batch_build/` and `audit/ci/`. The conservative milestone percentage is tracked by the fixed acceptance ledger in [audit/MILESTONE_PROGRESS.md](audit/MILESTONE_PROGRESS.md), independently of source-rewriting counts.
 
 ## Completion announcements and the evidence recovered
 
@@ -20,7 +32,7 @@ The surviving Step 3d report is itself inconsistent: it lists all eleven wrapper
 
 The working status for **3c–3f is therefore: reported complete; source changes recovered; completion awaiting verification and identified repairs**. Keep the newer cumulative source and all recoverable work. "Step 3b is the last recorded passing incremental stage" describes the verified evidence boundary and does not describe the latest development position or authorize discarding the later work.
 
-## 1. The precise current state
+## 1. The recovered state before this proof batch
 
 ### Source and evidence
 
@@ -35,7 +47,7 @@ The working status for **3c–3f is therefore: reported complete; source changes
 | Latest recorded passing incremental stage | Step 3b, 1 November 2026 |
 | Step 3b accounting | 99 direct admissions; eight recorded published leaves; 91 further proof/refactoring obligations |
 | Cumulative V2 kernel evidence | Pending; the archive contains no module build receipts or compiled outputs |
-| Current takeover correction | One source module amended; 98 direct admissions remain; no new `sorry`; not compiled |
+| Initial takeover correction | One source module amended; 98 direct admissions remained; no new `sorry`; not compiled at that point |
 
 The latest archive checksum matches. All 174 entries in the Step 3b `FILES.sha256` also match. V2's old internal manifest has one stale source hash, for `LSClassicalReduction.lean`, consistent with its documented import change after the earlier manifest was produced. The continuation has a regenerated current source manifest.
 
@@ -77,7 +89,7 @@ Those 43 rewritten wrappers are supplied by 42 new admitted declarations. The di
 
 Step 3a removed 22 dead admissions, retained the live two-point evaluation theorem, and identified `stageDescription` as a false-positive string match. Accordingly Step 3i has eight surviving obligations, rather than the seven anticipated before deletion triage.
 
-## 3. Mathematical findings that change the continuation priorities
+## 3. Mathematical findings and their current repairs
 
 ### 3.1 The determinant input omitted an essential hypothesis
 
@@ -91,15 +103,14 @@ and concludes \(\det E\simeq L^{\otimes n}\). Alternation was missing. Perfectio
 
 For a concrete counterexample, let \(T\) be a nontrivial two-torsion line bundle on a complex elliptic curve. Put \(E=\mathcal O\oplus T\), \(L=\mathcal O\), and choose \(T^{\otimes2}\simeq\mathcal O\). The diagonal symmetric pairing on \(E\) is perfect, but \(\det E=T\) is nontrivial. The admitted conclusion would trivialize \(T\).
 
-The continuation adds the explicit condition \(b(u,u)=0\) on sections. Its contact application supplies this condition using the existing `intrinsicLevi_alternating` theorem and the tensor universal pairing. The correction introduces no new mathematical assumption on contact manifolds and no additional `sorry`. It is still a **source candidate**, not a kernel-verified repair.
+The continuation adds the explicit condition \(b(u,u)=0\) on sections. Its contact application supplies this condition using the existing `intrinsicLevi_alternating` theorem and the tensor universal pairing. The correction introduces no new mathematical assumption on contact manifolds and no additional `sorry`.
 
-The familiar symplectic determinant statement is illustrated precisely by Biswas–Hoffmann, *Some moduli stacks of symplectic bundles on a curve are rational*, §2, equation (1) and the following paragraph: [arXiv:math/0604183v2](https://arxiv.org/pdf/math/0604183). That source treats the bundle statement on curves. The arbitrary-scheme leaf still needs an exact reference at that scope, or a proof from a precise ring-level Pfaffian theorem and gluing. The narrower reference must not silently certify the broader statement.
+The replacement admitted theorem is now `PublishedInputs.Step3e.alternatingDiscriminantTrivial`, restricted to a smooth proper connected complex base. Its source is Asher Auel's [2009 dissertation](https://math.dartmouth.edu/~auel/papers/docs/AUEL_thesisSS.pdf), Proposition 1.10 (trivial discriminant of a regular alternating form) and Definition 1.7 (the underlying discriminant line). The project proves the conversion from triviality of \((L^\vee)^{\otimes n}\otimes\det E\) to \(\det E\simeq L^{\otimes n}\) by tensor associativity, symmetry and evaluation. `RecompileBasePart05A` and its complete current ancestor graph passed fresh stock-compiler CI in run 41682674689. The [current-artifact native audit](audit/current_determinant_build/README.md) confirms the five remaining admitted inputs and excludes the false original theorem. Acceptance of the later reverse-dependency cone remains a separate gate; Part07 hit the first run's memory cap.
 
 ### 3.2 Several obligations were renamed without completing their required proofs
 
 These are concrete examples, not a rejection of the underlying classical mathematics:
 
-- `polarizedEmbedding_firstJets` has the same project-facing embedding/first-jet signature under a new admitted name. Step 3e explicitly requires proving the argument through the actual closed immersion and fat-point restriction.
 - `normalizedSourceBivector` still directly assumes the project's diagonal vanishing and normalized contact symbol. Step 3g requires the calculation on \(\mathbf P^1\times\mathbf P^1\), its normalization, and the actual interface identifications.
 - `laurentExpansionAtPole` combines compactification, a boundary pole, completion of a DVR, a coefficient field, passage to fractions, and negative Laurent order. Its five cited ingredients do not constitute one published theorem with the admitted composite conclusion.
 - `dualThickening_hom_vanishing` explicitly calls itself a derived classical corollary in its comment, while retaining a direct `sorry` and the project-specific `DualThickening` interface.
@@ -107,7 +118,9 @@ These are concrete examples, not a rejection of the underlying classical mathema
 
 The detailed locations and further examples are in [the published-boundary audit](audit/PUBLISHED_BOUNDARY_AUDIT.md). A `PublishedInputs` namespace is organizational metadata. It does not establish that the admitted statement is a published theorem.
 
-### 3.3 The frozen target is not connected to the exported theorem
+Two identified project admissions have now been replaced by actual proofs: `polarizedEmbedding_firstJets` and `dualThickening_zeroSection_surjective`. Their compiled diagnostic evidence and inherited-assumption scope are recorded separately; the other examples above remain open. An independent primary-source comparison also established publication eligibility for the height-one normal-domain extension leaf and the two affine derivation leaves. That comparison alone is not a kernel or transitive-trust pass.
+
+### 3.3 The frozen target still requires its full endpoint bridge
 
 The frozen Step 2 target requires both
 
@@ -118,15 +131,15 @@ IsLocallyRiemannianSymmetric n M ∧
 
 under the ordinary closed connected positive quaternionic–Kähler hypotheses and `2 ≤ n`. Its SHA-256 remains unchanged.
 
-`source/LSCompletedTargets.lean` currently concludes only `IsLocallyRiemannianSymmetric n M`. No recovered source module references `WolfHomothety` or `LeBrunSalamonStatement`. There is a genuine intermediate symmetric-homothety construction, but its target structure does not supply all fields of the frozen Wolf target, including simple connectedness.
+`source/LSCompletedTargets.lean` concludes only `IsLocallyRiemannianSymmetric n M`. At recovery no source module referenced `WolfHomothety` or `LeBrunSalamonStatement`. There is a genuine intermediate symmetric-homothety construction, but its target structure does not supply all fields of the frozen Wolf target, including simple connectedness.
 
-The standalone target and source also overlap in their foundational names. Integration must reuse one set of definitions and prove the necessary identifications; merely importing both files is not a solution. Preserve the immutable target as a specification and prove equivalence of the importable formulation to it. The eight definition-validation obligations recorded in Step 2 remain in scope.
+`LSMilestoneStatement` now imports the shared foundational core and retains the entire frozen `AuditedStatement` namespace byte-for-byte. It and `LSMilestoneTopology` passed a fresh CI build. `LSMilestoneTarget` supplies explicit inverse transports between the old and audited structures and assembles the frozen conclusion conditional on `PositiveQKSimpleConnectedness`. The condition must still be derived from the original positive-QK hypotheses using an exact published theorem and the relevant definition identifications. The eight definition-validation obligations recorded in Step 2 remain in scope; a compiled definition is not itself a completed definition-validation proof.
 
 ## 4. Compilation must follow the real dependency graph
 
-Nineteen recovered source modules differ from Step 3b. Their reverse import closure contains 120 modules. The old replay script lists only 21 and omits 99 affected descendants, including the final target module. It can therefore finish its list without checking the current full argument.
+At recovery nineteen source modules differed from Step 3b. Their reverse import closure contained 120 modules. The old replay script listed only 21 and omitted 99 affected descendants, including the final target module. The current continuation adds six modules and updates the rebuild plan automatically; see `audit/current/REBUILD_PLAN.json` for current hashes and the full order.
 
-The old reuse condition records only a module's own source and output hashes, not the artifacts of its dependencies. It also restores an old Part04 artifact on every restart. Both behaviours can preserve obsolete elaboration after an upstream change. Its absolute paths point into a previous workspace.
+The old reuse condition recorded only a module's own source and output hashes, not the artifacts of its dependencies. It also restored an old Part04 artifact on every restart. The replacement runner records exact direct dependency hashes, rejects stale artifacts and revalidates the whole selected batch at the end. Twelve simulated bookkeeping cases cover invalidation and source/artifact changes during a run; they are infrastructure tests, not Lean proof evidence.
 
 Use the exact locked Lean `v4.36.0-rc1` and mathlib revision `116662aa4c1e9106ab5c609b3214b02f6e11a65a`. At the end of a coherent completed source batch, rebuild its unchecked or invalidated dependency cone in topological order. Reuse an artifact only if its source, toolchain, flags and exact dependency artifacts match its receipt. Unchanged source text alone is insufficient. If the required receipt is absent, the module remains unchecked.
 
@@ -137,7 +150,7 @@ The portable static checker and generated rebuild plan identify the affected sou
 The mathematical subdivision 3a–3o remains useful. The change is to repair its enforcement and expose the endpoint work now.
 
 1. **Recover and preserve the source — completed.** Actual source, frozen target, toolchain lock, hashes, admission inventory and historical evidence are preserved on the continuation branch. The original recovery commit remains available.
-2. **Correct demonstrably invalid assumptions — started.** The determinant hypothesis and its contact application have been amended provisionally. Audit the remaining newly introduced leaf signatures before accepting their compilation as progress. Do not change the main theorem's hypotheses to make an input available.
+2. **Correct demonstrably invalid assumptions — determinant repair implemented and diagnostically compiled.** Its published leaf is now restricted to the applicable scope and its project conversion proved. Audit the remaining newly introduced leaf signatures before accepting a cumulative stage. Do not change the main theorem's hypotheses to make an input available.
 3. **Connect the exact target and audit the difficult geometric inputs in parallel.** Make the frozen Wolf-homothety target importable through shared definitions, and map its missing bridges. Independently audit the high-risk branch/transversality/purity inputs in 3l and the global recovery in 3n, so a substantive obstruction is discovered before polishing all routine wrappers.
 4. **Complete and accept 3c–3g in dependency order.** Start with exact Künneth/projection-formula/diagonal leaves and explicit translations; verify base-change maps; complete the first-jet argument; isolate square-zero and nodal algebra; prove the normalized source calculation. Literature checking and independent proofs may proceed in parallel, while source integration respects imports.
 5. **Continue the remaining 48 original admissions in 3h–3n.** Keep the plan's dependency order for cotangents, Hom deformation, stable maps, finite covers, branch geometry, contact directions and final classification. Record any genuinely new obligation explicitly rather than hiding it in a stronger admitted theorem.
@@ -158,4 +171,4 @@ The milestone will be reported as complete only when one reproducible source rev
 - Lean proofs of every novel argument, composite application and project-specific translation;
 - a transitive assumption audit consistent with that list and no concealed extra assumptions.
 
-At present these conditions are not satisfied. The useful progress from this takeover is a recoverable canonical working source, a corrected understanding of its proof boundary, one explicit mathematical repair candidate, and a dependency-aware continuation plan. A percentage based on source lines or namespace counts would not describe the remaining work accurately.
+At present these conditions are not satisfied. The current batch supplies real compiled proof work and independent CI evidence within explicit scopes. [The progress ledger](audit/MILESTONE_PROGRESS.md) uses fixed acceptance obligations and gives separate credit only when their full gates are met. It is a conservative completion floor, not a prediction of the fraction of mathematical effort or elapsed time remaining.

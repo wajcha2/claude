@@ -1,0 +1,63 @@
+name: LeBrun-Salamon takeover kernel checks
+
+on:
+  push:
+    branches:
+      - codex/lebrun-takeover-audit-20261103
+    paths:
+      - lebrun-salamon/continuation/source/**
+      - lebrun-salamon/continuation/scripts/**
+      - .github/workflows/lebrun-takeover-kernel.yml
+  workflow_dispatch:
+    inputs:
+      modules:
+        description: all, or space-separated target modules with project dependencies included
+        required: true
+        default: all
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  kernel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact source commit
+        uses: actions/checkout@v4
+
+      - name: Restore pinned runtime without rebuilding mathlib
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \
+            --runtime "$RUNNER_TEMP/lebrun-runtime" \
+            --config "$GITHUB_WORKSPACE/runtime-config.json"
+
+      - name: Check selected modules and their dependencies
+        env:
+          SELECTED_MODULES: ${{ inputs.modules || 'all' }}
+        run: |
+          python3 - <<'PY'
+          import os, shlex, subprocess, pathlib
+          root=pathlib.Path('lebrun-salamon/continuation')
+          command=['python3',str(root/'scripts/replay_checkpoint.py'),
+                   '--root',str(root),'--runtime-config','runtime-config.json',
+                   '--build-dir','kernel-evidence','--keep-going']
+          modules=shlex.split(os.environ['SELECTED_MODULES'])
+          if modules != ['all']:
+              for module in modules:
+                  command += ['--module',module]
+          raise SystemExit(subprocess.run(command).returncode)
+          PY
+
+      - name: Preserve compiler diagnostics and receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-takeover-kernel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            kernel-evidence/
+          if-no-files-found: warn

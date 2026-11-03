@@ -1,4 +1,4 @@
-import Mathlib
+import Mathlib.AlgebraicGeometry.PullbackCarrier
 
 /-!
 # Topology of a split nilpotent thickening
@@ -25,7 +25,7 @@ theorem specMap_surjective_of_nilpotent_ker
     (hker : ∀ a : R, f a = 0 → IsNilpotent a) :
     Function.Surjective (Spec.map (CommRingCat.ofHom f)) := by
   change Function.Surjective (PrimeSpectrum.comap f)
-  rw [← Set.range_eq_univ, PrimeSpectrum.range_comap_of_surjective f hf,
+  rw [← Set.range_eq_univ, range_comap_of_surjective S f hf,
     PrimeSpectrum.zeroLocus_eq_univ_iff]
   intro a ha
   exact hker a ha

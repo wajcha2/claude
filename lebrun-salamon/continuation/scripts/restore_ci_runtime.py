@@ -78,7 +78,7 @@ def main():
     assert sha(root_olean)=='cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf'
     config={
       'command':[str(lean/'bin/lean')]+['--load-dynlib='+str(p) for p in dylibs],
-      'flags':['--json','-j1','-DElab.async=false','-M5400','-DmaxErrors=1000','-DmaxHeartbeats=2000000'],
+      'flags':['--json','-j1','-DElab.async=false','-M7200','-DmaxErrors=1000','-DmaxHeartbeats=2000000'],
       'external_olean_roots':[str(pkgs/n/'.lake/build/lib/lean') for n in names]+[str(lean/'lib/lean')],
       'environment':{'LD_LIBRARY_PATH':':'.join([str(lean/'lib/lean'),str(lean/'lib')]+[str(pkgs/n/'.lake/build/lib') for n in names])},
       'fingerprint_files':[str(lean/'bin/lean'),str(lean/'lib/lean/libleanshared.so'),str(root_olean)]+[str(p) for p in dylibs],

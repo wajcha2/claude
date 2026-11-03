@@ -214,6 +214,73 @@ def main():
         print(('PASS ' if passed else 'FAIL ') + m + ' (' + str(rec['seconds']) + 's)', flush=True)
         if not passed and not args.keep_going:
             break
+
+    # A module can finish successfully before one of its source ancestors is
+    # edited by another worker. Recheck the complete accepted snapshot at the
+    # end, including external imports and compiler fingerprints. Direct output
+    # hashes alone do not detect a source edit whose old .olean is still present.
+    def current_digest(path):
+        try:
+            return digest(path)
+        except OSError:
+            return None
+
+    changed_runtime_files = [p for p, expected in fingerprint_files.items()
+                             if current_digest(p) != expected]
+    invalid = {}
+    for m, rec in good.items():
+        reasons = []
+        if current_digest(sources[m]) != rec['key']['source_sha256']:
+            reasons.append('source_changed_after_acceptance')
+        try:
+            current_imports = [word for line in re.findall(
+                r'(?m)^(?:public\s+)?import\s+([^\n]+)',
+                strip_noncode(sources[m].read_text())) for word in line.split()]
+        except OSError:
+            current_imports = None
+        if current_imports != rec['key']['imports']:
+            reasons.append('imports_changed_after_acceptance')
+        artifact = out / Path(*m.split('.')).with_suffix('.olean')
+        if current_digest(artifact) != rec['output_sha256']:
+            reasons.append('output_changed_after_acceptance')
+        for d, expected in rec['key']['dependency_artifacts'].items():
+            rel = Path(*d.split('.')).with_suffix('.olean')
+            if expected['kind'] == 'project':
+                dependency = out / rel
+            else:
+                dependency = next((p / rel for p in external_roots
+                                   if (p / rel).is_file()), None)
+            if dependency is None or current_digest(dependency) != expected['sha256']:
+                reasons.append('dependency_changed_after_acceptance:' + d)
+        if changed_runtime_files:
+            reasons.append('runtime_changed_after_acceptance')
+        if reasons:
+            invalid[m] = reasons
+    while True:
+        newly_invalid = {m: ['invalidated_ancestor:' + d for d in graph[m] if d in invalid]
+                         for m in good if m not in invalid
+                         and any(d in invalid for d in graph[m])}
+        if not newly_invalid:
+            break
+        invalid.update(newly_invalid)
+    summary['final_validation'] = {
+        'checked_utc': utc(), 'checked_module_count': len(good),
+        'invalidated_modules': invalid, 'changed_runtime_files': changed_runtime_files,
+    }
+    for m, reasons in invalid.items():
+        rec = dict(good.pop(m))
+        rec.update({'status': 'invalidated', 'invalidated_utc': utc(),
+                    'invalidation_reasons': reasons})
+        artifact = out / Path(*m.split('.')).with_suffix('.olean')
+        if artifact.exists():
+            stale = build / 'invalidated' / (m + '.final.' + digest(artifact) + '.olean')
+            stale.parent.mkdir(parents=True, exist_ok=True)
+            artifact.replace(stale)
+        write_json(receipts / (m + '.json'), rec)
+        summary['modules'][m] = rec
+        if m not in failures:
+            failures.append(m)
+        print('INVALIDATE ' + m + ': ' + ', '.join(reasons), flush=True)
     summary.update({'finished_utc': utc(), 'failures': failures,
                     'full_selected_graph_passed': len(good) == len(order),
                     'verified_module_count': len(good)})

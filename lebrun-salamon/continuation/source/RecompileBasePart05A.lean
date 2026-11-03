@@ -203,25 +203,96 @@ def ContactFanoManifold.toLegacyCandidate {n : ℕ}
   tangent := intrinsicTangentBundle X.variety
   contactSequence := X.contact.sequence
 
-/-- The determinant identity for a perfect alternating line-valued form.
-Alternation is essential: a perfect symmetric form only identifies the square
-of the determinant with the corresponding even tensor power of the value line.
+/-- Underlying-line consequence of Asher Auel, *Cohomological invariants of
+line bundle-valued symmetric bilinear forms* (Penn dissertation, 2009),
+Proposition 1.10, printed p. 15. Definition 1.7, printed p. 13, identifies
+the discriminant line as (L^dual)^n tensor det(E); Proposition 1.10 gives
+an isometry with the trivial discriminant form, hence this line is trivial.
 
-Repair candidate, 3 November 2026: the missing alternation hypothesis has been
-restored. This generic theorem remains admitted; an exact reference matching
-its full scheme-level scope and kernel replay are still pending. For the curve
-case, see Biswas--Hoffmann, arXiv:math/0604183v2, section 2, equation (1) and
-the subsequent determinant isomorphism; that reference alone does not certify
-this more general formulation. -/
-theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant
-    {X : Scheme} {n : ℕ}
+Source: https://math.dartmouth.edu/~auel/papers/docs/AUEL_thesisSS.pdf .
+The standing assumptions (printed p. 5 and section 1.2, p. 12) are
+noetherian, separated, connected, with 2 invertible. We specialize to a
+smooth proper connected scheme over C, so all these assumptions hold:
+proper implies finite type and separated, C is noetherian, and 1/2 is a
+complex scalar. The source's bilinear-space condition is exactly that
+the adjoint map is an isomorphism (p. 7). Alternation is explicit below.
+The étale formulation has the same underlying locally free module and
+global module isomorphism as the Zariski formulation used here.
+
+This published leaf remains admitted. Its sheaf-level specialization
+and the proved determinant conversion below await kernel replay. -/
+theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.alternatingDiscriminantTrivial
+    {X : Scheme} {n : ℕ} (s : X ⟶ ComplexBase)
+    [Smooth s] [IsProper s] [ConnectedSpace X]
     (E : AlgebraicVectorBundle X (2 * n)) (L : LineBundle X)
     (b : tensorSheaf E.sheaf E.sheaf ⟶ L.sheaf)
     (hperfect : IsIso (currySheaf b))
     (hAlt : ∀ (U : X.Opens) (u : SectionsOn E.sheaf U),
       b.app U ((tensorPresentation E.sheaf E.sheaf).pair.apply U u u) = 0) :
-    Nonempty ((determinantLine E).sheaf ≅ (linePower L n).sheaf) := by
+    Nonempty ((tensorLine (linePower (dualLine L) n) (determinantLine E)).sheaf ≅
+      (trivialLine X).sheaf) := by
   sorry
+
+namespace SymplecticDeterminantProof
+
+/-- Evaluation of inverse tensor powers, proved from the actual line-dual
+evaluation and tensor associativity. No determinant theorem is used here. -/
+theorem dualPower_evaluation {X : Scheme} (L : LineBundle X) (n : ℕ) :
+    Nonempty (tensorSheaf (linePower (dualLine L) n).sheaf (linePower L n).sheaf ≅
+      structureModule X) := by
+  induction n with
+  | zero => exact ⟨TensorConstruction.leftUnitIso (structureModule X)⟩
+  | succ n ih =>
+    obtain ⟨e⟩ := ih
+    obtain ⟨ev⟩ := line_dual_evaluation L
+    let D := (linePower (dualLine L) n).sheaf
+    let P := (linePower L n).sheaf
+    let Q := (dualLine L).sheaf
+    let R := L.sheaf
+    change Nonempty (tensorSheaf (tensorSheaf D Q) (tensorSheaf P R) ≅
+      structureModule X)
+    exact ⟨SheafTensor.associativityIso D Q (tensorSheaf P R) ≪≫
+      tensorIso (Iso.refl D) (SheafTensor.associativityIso Q P R).symm ≪≫
+      tensorIso (Iso.refl D)
+        (tensorIso (TensorConstruction.commIso Q P) (Iso.refl R)) ≪≫
+      tensorIso (Iso.refl D) (SheafTensor.associativityIso P Q R) ≪≫
+      (SheafTensor.associativityIso D P (tensorSheaf Q R)).symm ≪≫
+      tensorIso e ev ≪≫ TensorConstruction.leftUnitIso (structureModule X)⟩
+
+/-- Tensor cancellation converts the trivial discriminant line to the
+determinant identity. This conversion is proved, rather than admitted as
+another version of the published theorem. -/
+theorem determinant_of_discriminantTrivial {X : Scheme} {n : ℕ}
+    (E : AlgebraicVectorBundle X (2 * n)) (L : LineBundle X)
+    (h : Nonempty ((tensorLine (linePower (dualLine L) n) (determinantLine E)).sheaf ≅
+      (trivialLine X).sheaf)) :
+    Nonempty ((determinantLine E).sheaf ≅ (linePower L n).sheaf) := by
+  obtain ⟨q⟩ := h
+  obtain ⟨ev⟩ := dualPower_evaluation L n
+  let D := (linePower (dualLine L) n).sheaf
+  let P := (linePower L n).sheaf
+  let A := (determinantLine E).sheaf
+  exact ⟨(TensorConstruction.leftUnitIso A).symm ≪≫
+    tensorIso ev.symm (Iso.refl A) ≪≫
+    tensorIso (TensorConstruction.commIso D P) (Iso.refl A) ≪≫
+    SheafTensor.associativityIso P D A ≪≫
+    tensorIso (Iso.refl P) q ≪≫ TensorConstruction.rightUnitIso P⟩
+
+end SymplecticDeterminantProof
+
+/-- The determinant identity on the actual class of bases used in the
+contact argument. Properness, smoothness and connectedness are the proved
+projections of X; no unrestricted all-scheme statement is assumed. -/
+theorem symplecticDeterminant {d n : ℕ} (X : SmoothProperComplexVariety d)
+    (E : AlgebraicVectorBundle X.scheme (2 * n)) (L : LineBundle X.scheme)
+    (b : tensorSheaf E.sheaf E.sheaf ⟶ L.sheaf)
+    (hperfect : IsIso (currySheaf b))
+    (hAlt : ∀ (U : X.scheme.Opens) (u : SectionsOn E.sheaf U),
+      b.app U ((tensorPresentation E.sheaf E.sheaf).pair.apply U u u) = 0) :
+    Nonempty ((determinantLine E).sheaf ≅ (linePower L n).sheaf) := by
+  exact SymplecticDeterminantProof.determinant_of_discriminantTrivial E L
+    (LeBrunSalamon.PublishedInputs.Step3e.alternatingDiscriminantTrivial
+      X.structureMap E L b hperfect hAlt)
 
 /-- The contact distribution determinant follows from the alternating-form
 identity. Its alternation premise is supplied by the already proved Levi
@@ -232,7 +303,7 @@ theorem contact_distribution_determinant {n : ℕ}
     (C : IntrinsicContactStructure X) :
     Nonempty ((determinantLine C.sequence.distribution).sheaf ≅
       (linePower C.sequence.line n).sheaf) := by
-  refine LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant
+  refine symplecticDeterminant X
     C.sequence.distribution C.sequence.line (intrinsicLeviMorphism C.sequence)
     C.nondegenerate ?_
   intro U u

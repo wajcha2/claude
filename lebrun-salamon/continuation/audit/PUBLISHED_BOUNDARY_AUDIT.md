@@ -106,3 +106,22 @@ At the root agent's request, a candidate copy is saved as `../repairs/RecompileB
 - Kernel status: **NOT COMPILED**. Exact full-scope published-input audit: **PENDING**.
 
 The repair restores the mathematically necessary hypothesis. It is not yet a certified formalization step or a completed exact published leaf.
+
+## Continuation work after authorization to pursue the milestone
+
+The recovered source and the minimal repair above remain preserved. The following work is in `../continuation/source` and is a candidate until kernel replay succeeds.
+
+### Determinant boundary narrowed and source located
+
+The unrestricted `symplecticDeterminant` admission has been replaced by `PublishedInputs.Step3e.alternatingDiscriminantTrivial`, restricted to a smooth proper connected scheme over the actual complex base. Its source is Asher Auel's 2009 Penn dissertation, *Cohomological invariants of line bundle-valued symmetric bilinear forms*, Proposition 1.10 (printed p. 15), together with Definition 1.7 (p. 13). The admitted conclusion is only the underlying-line part of the published trivial-discriminant statement. The chapter assumes noetherian separated connected schemes (p. 5), and Section 1.2 assumes 2 invertible (p. 12). Smooth proper complex schemes satisfy these conditions; the wrapper supplies their actual structure map and existing instances. The regularity definition (p. 7) is the adjoint-map isomorphism. Source: <https://math.dartmouth.edu/~auel/papers/docs/AUEL_thesisSS.pdf>.
+
+In `RecompileBasePart05A.lean`, `SymplecticDeterminantProof.dualPower_evaluation` constructs the inverse tensor-power evaluation from the already proved line-dual evaluation. `determinant_of_discriminantTrivial` then constructs the desired determinant isomorphism by tensor associativity, commutativity and unit isomorphisms. The theorem `symplecticDeterminant` is now a proved wrapper; the contact caller also proves alternation. There is still exactly one direct `sorry` in Part05A, now at the explicitly sourced discriminant leaf.
+
+### Direct first-jet proof candidate
+
+The direct `sorry` at `PublishedInputs.Step3e.polarizedEmbedding_firstJets` has been removed and replaced by a call to `FirstJetProof.projectiveEmbedding_firstJets`. No admitted helper was added. Two new modules contain the actual argument:
+
+- `LSFirstJetEmbedding.lean`: transports the original sheaf-valued jet map to the existing local coefficient normalization; forms constant linear combinations of actual global sections; proves that projective immersivity of their coefficient tuple supplies every first jet; proves preservation of generating tuples under pullback and universal-coordinate uniqueness on arbitrary test schemes.
+- `LSFirstJetEmbeddingGeometry.lean`: constructs the dual-number map associated to each point derivation through the actual affine chart and its canonical ring comparison. It constructs pulled line frames with their exact coefficients. A radial coordinate derivative is multiplication by the explicit unit `1 + epsilon * k`; the universal quotient therefore identifies the two projective morphisms. The actual closed immersion is a monomorphism, so its tangent kernel vanishes. The finite-contraction lemma produces the original fat-point jets.
+
+This uses the full test-scheme universal property already present in `ProjectiveCoordinates`, including nonreduced schemes. It needs no choice of fixed homogeneous chart or additional projective tangent theorem. The original public target and its wrapper remain unchanged. `LSClassicalReduction` now has three direct admissions rather than four. The local import graph was checked to be acyclic. **These changes are source candidates, not kernel-certified results; diagnostic and full replay receipts must remain distinct.**

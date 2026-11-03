@@ -1,4 +1,5 @@
 import LSContactCompletion
+import LSNilpotentTopology
 
 /-!
 ## Canonical functions on the actual trivial first-order thickening
@@ -34,6 +35,26 @@ theorem origin_overC : Infinitesimal.origin ≫ Infinitesimal.dualToC =
   apply RingHom.ext
   intro c
   exact Infinitesimal.residue.commutes c
+
+/-- The residue map of the actual dual numbers has nilpotent kernel.
+This uses their proved two-coefficient normal form. -/
+theorem residue_kernel_nilpotent (z : Infinitesimal.Dual)
+    (hz : Infinitesimal.residue z = 0) : IsNilpotent z := by
+  obtain ⟨⟨a, b⟩, hab, _⟩ := Infinitesimal.dual_normalForm z
+  have ha : a = 0 := by
+    simpa only [hab, Infinitesimal.residue_normalForm] using hz
+  subst a
+  refine ⟨2, ?_⟩
+  rw [hab, map_zero, zero_add, mul_pow, Infinitesimal.epsilon_square, zero_mul]
+
+/-- Every point of the actual dual-number spectrum is a reduction point.
+The proof uses the nilpotent kernel, not an admitted project wrapper. -/
+theorem origin_surjective : Function.Surjective Infinitesimal.origin := by
+  apply LeBrunSalamon.NilpotentTopology.specMap_surjective_of_nilpotent_ker
+    Infinitesimal.residue.toRingHom
+  · intro c
+    exact ⟨algebraMap ℂ Infinitesimal.Dual c, Infinitesimal.residue.commutes c⟩
+  · exact residue_kernel_nilpotent
 
 abbrev space {Y : Scheme} (sY : Y ⟶ ComplexBase) : Scheme :=
   pullback sY Infinitesimal.dualToC
@@ -125,14 +146,16 @@ end LeBrunSalamon.Construction.Lines.DualThickening
 namespace LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry
 
 /-- DT-01. The canonical nilpotent thickening has the same underlying
-points as its reduction. This asserts no inverse identity of scheme maps.
-Source: Stacks 0BR6, stable under arbitrary base change. -/
+points as its reduction. This is proved from the actual dual-number
+normal form and mathlib's pullback carrier theorem. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.dualThickening_zeroSection_surjective
     {Y : Scheme} (sY : Y ⟶ ComplexBase) :
     Function.Surjective (Lines.DualThickening.zeroSection sY) := by
-  sorry
+  exact LeBrunSalamon.NilpotentTopology.splitSection_surjective
+    sY Infinitesimal.dualToC Infinitesimal.origin
+    Lines.DualThickening.origin_overC Lines.DualThickening.origin_surjective
 
-/-- Project-facing alias of Stacks Project Tag 0BR6 under the actual base change. -/
+/-- Project-facing form of the proved nilpotent base-change theorem. -/
 theorem dualThickening_zeroSection_surjective
     {Y : Scheme} (sY : Y ⟶ ComplexBase) :
     Function.Surjective (Lines.DualThickening.zeroSection sY) := by

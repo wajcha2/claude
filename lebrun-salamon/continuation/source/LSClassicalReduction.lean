@@ -1,4 +1,4 @@
-import RecompileExtensionsPart01
+import LSFirstJetEmbeddingGeometry
 
 noncomputable section
 set_option autoImplicit false
@@ -25,22 +25,19 @@ universe uR
 
 namespace StandardInputs
 
-/- Generic very-ampleness consequence. Hartshorne, Algebraic Geometry,
-II.7.3 and its proof: the embedding coordinates span the value and the
-cotangent space at each point. Thus they span O/m², and the same holds
-for the pullback of O(1). The statement is about actual sheaf pullback
-and the existing fat-point jetRestrictionAt, not a numerical rank.
-The forward implication is the affine-chart/cotangent-quotient argument;
-Stacks 01QN, Lemma 29.2.1 supplies the actual closed-immersion quotient.
-Stacks 0E8S/0E8T are the converse criteria and are not cited as this statement.
--/
+/-- The original first-jet statement is now proved from the actual
+embedding, its polarization, and the universal projective quotient.
+Dual-number tests detect the coordinate derivative; the closed immersion
+is a monomorphism; finite linear combinations then produce every actual
+fat-point jet. Candidate proof awaiting kernel replay, not a new published
+admission. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.polarizedEmbedding_firstJets {d : ℕ}
     (X : SmoothProperComplexVariety d) (L : LineBundle X.scheme)
     (E : PolarizedProjectiveEmbedding X L) : SeparatesFirstJets X L := by
-  sorry
+  exact FirstJetProof.projectiveEmbedding_firstJets X L E.coordinates E.embedding
+    E.closed E.overC E.polarization
 
-/-- Project-facing consequence of the published first-jet separation theorem
-for the actual closed immersion and hyperplane pullback. -/
+/-- Compatibility wrapper for the now proved first-jet separation theorem. -/
 theorem polarizedEmbedding_firstJets {d : ℕ}
     (X : SmoothProperComplexVariety d) (L : LineBundle X.scheme)
     (E : PolarizedProjectiveEmbedding X L) : SeparatesFirstJets X L := by

@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-03",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-03T16:14:32.364903+00:00",
+  "recorded_utc": "2026-11-03T16:57:50.500947+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,16 +25,16 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 129,
-    "lines": 103259,
-    "bytes": 4996594,
+    "modules": 135,
+    "lines": 104532,
+    "bytes": 5053614,
     "admissions": {
-      "sorry": 98,
+      "sorry": 96,
       "admit": 0,
       "axiom": 0,
       "opaque": 0
     },
-    "published_namespace_count_not_certification": 50,
+    "published_namespace_count_not_certification": 48,
     "other_direct_admissions": 48,
     "new_leaf_candidates_since_step3b": 42,
     "rewritten_original_wrappers_awaiting_acceptance": 43,
@@ -46,23 +46,27 @@
     "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
     "preserved": true,
     "connected_to_final_theorem": false,
-    "missing_conclusion": "Nonempty (WolfHomothety (closedRiemannianSpace n M))"
+    "missing_conclusion": "Nonempty (WolfHomothety (closedRiemannianSpace n M))",
+    "importable_formulation_present": true,
+    "conditional_exact_endpoint_present": true,
+    "remaining_endpoint_bridge": "PositiveQKSimpleConnectedness; exact frozen conclusion is assembled conditionally, not proved unconditionally"
   },
   "repair_candidate": {
     "path": "source/RecompileBasePart05A.lean",
-    "sha256": "33a16dfc0235fa9846bc4f71aa085f1863c9554068fd325edf03137608829fa2",
-    "change": "require alternation in symplecticDeterminant and prove the Levi pairing premise in contact_distribution_determinant",
+    "sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+    "change": "restrict alternating-discriminant leaf to smooth proper complex bases; prove determinant conversion by tensor cancellation and supply actual Levi alternation",
     "new_sorry": 0,
     "kernel_status": "not compiled",
-    "exact_full_scope_published_reference": "pending"
+    "exact_full_scope_published_reference": "Auel 2009 thesis Proposition1.10 and Definition1.7; precise leaf audit and kernel checks pending"
   },
   "rebuild_plan": {
-    "changed_modules": 19,
-    "affected_modules": 120,
+    "changed_modules": 25,
+    "affected_modules": 126,
     "old_replay_modules": 21,
     "omitted_affected_descendants": 99,
     "source": "audit/current/REBUILD_PLAN.json",
-    "compiler_driver_replacement_required": true
+    "compiler_driver_replacement_required": false,
+    "driver": "scripts/replay_checkpoint.py"
   },
   "remaining_original_batches": {
     "3h": 5,
@@ -108,5 +112,27 @@
     "later_work_discarded": false,
     "absence_of_certificate_proves_work_never_completed": false,
     "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
+  },
+  "proof_batch": {
+    "status": "source candidates ready for native kernel checks",
+    "removed_direct_admissions": [
+      "polarizedEmbedding_firstJets",
+      "dualThickening_zeroSection_surjective"
+    ],
+    "sorry_before": 98,
+    "sorry_after": 96,
+    "new_admissions": 0,
+    "kernel_accepted": false,
+    "new_target_modules": [
+      "LSMilestoneStatement",
+      "LSMilestoneTopology",
+      "LSMilestoneTarget"
+    ],
+    "new_proof_modules": [
+      "LSFirstJetEmbedding",
+      "LSFirstJetEmbeddingGeometry",
+      "LSNilpotentTopology"
+    ],
+    "ci": "stock pinned compiler check configured; no result yet"
   }
 }

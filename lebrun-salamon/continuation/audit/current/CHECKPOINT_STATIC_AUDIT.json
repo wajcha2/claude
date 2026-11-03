@@ -8,20 +8,116 @@
   "source_manifest_passed": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "frozen_target_matches": true,
-  "source_modules": 129,
-  "source_lines": 103259,
+  "source_modules": 135,
+  "source_lines": 104532,
   "token_counts": {
-    "sorry": 98,
+    "sorry": 96,
     "admit": 0,
     "axiom": 0,
     "opaque": 0
   },
-  "admitted_declarations": 98,
-  "published_namespace_admissions": 50,
+  "admitted_declarations": 96,
+  "published_namespace_admissions": 48,
   "other_admissions": 48,
   "final_statement_integration": {
-    "status": "not_present_in_source",
-    "references": [],
+    "status": "references_present_unverified",
+    "references": [
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 87,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 126,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 137,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 149,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 153,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneStatement.lean",
+        "line": 167,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 112,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 115,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 119,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 123,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 125,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 129,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 175,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 187,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 194,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneTarget.lean",
+        "line": 204,
+        "term": "LeBrunSalamonStatement"
+      },
+      {
+        "file": "LSMilestoneTopology.lean",
+        "line": 87,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTopology.lean",
+        "line": 88,
+        "term": "WolfHomothety"
+      },
+      {
+        "file": "LSMilestoneTopology.lean",
+        "line": 97,
+        "term": "WolfHomothety"
+      }
+    ],
     "proof_verified": false
   },
   "source_files": [
@@ -174,14 +270,14 @@
     {
       "file": "LSClassicalReduction.lean",
       "module": "LSClassicalReduction",
-      "sha256": "85476e875094b63829f118f765e74e9a134224f92ddb3da9f4b94f993ed5ca11",
-      "bytes": 7765,
-      "lines": 157,
+      "sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+      "bytes": 7606,
+      "lines": 154,
       "imports": [
-        "RecompileExtensionsPart01"
+        "LSFirstJetEmbeddingGeometry"
       ],
       "tokens": {
-        "sorry": 4,
+        "sorry": 3,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -816,6 +912,39 @@
       }
     },
     {
+      "file": "LSFirstJetEmbedding.lean",
+      "module": "LSFirstJetEmbedding",
+      "sha256": "617cba9f2510fef7f8c7837e45508f85ce315ee1e8ac0a8289c0d428e19b0182",
+      "bytes": 10270,
+      "lines": 217,
+      "imports": [
+        "RecompileExtensionsPart02"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSFirstJetEmbeddingGeometry.lean",
+      "module": "LSFirstJetEmbeddingGeometry",
+      "sha256": "8b92d0a3f2438cde4f33f7f72b550d8f5181afd018940841030a6e404ceba0b2",
+      "bytes": 19621,
+      "lines": 424,
+      "imports": [
+        "LSFirstJetEmbedding",
+        "LSHamiltonianJets"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSFlatSectionDescent.lean",
       "module": "LSFlatSectionDescent",
       "sha256": "71cc99686042fe923a9f684b00153f5f9dfc6725cf75fe459b98d721f8e7bed8",
@@ -1018,14 +1147,15 @@
     {
       "file": "LSHomVelocity.lean",
       "module": "LSHomVelocity",
-      "sha256": "7d074ae07c2fc3fe20002093918ddb97c092de5991bce8e2732d508b13972dde",
-      "bytes": 145123,
-      "lines": 3041,
+      "sha256": "10aa675e010a4320f167867effd07c7e1b088264851f34c906b7ba448276b0b5",
+      "bytes": 146290,
+      "lines": 3064,
       "imports": [
-        "LSContactCompletion"
+        "LSContactCompletion",
+        "LSNilpotentTopology"
       ],
       "tokens": {
-        "sorry": 2,
+        "sorry": 1,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -1109,6 +1239,55 @@
       "imports": [
         "RecompileExtensionsPart04",
         "LSProperSections"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSMilestoneStatement.lean",
+      "module": "LSMilestoneStatement",
+      "sha256": "2addf811b82f450b83e8c742ad4ab89313ca096c216c7ad716d46b4ff08a3700",
+      "bytes": 7414,
+      "lines": 174,
+      "imports": [
+        "RecompileBasePart01"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSMilestoneTarget.lean",
+      "module": "LSMilestoneTarget",
+      "sha256": "a34ed6741b765ccb20131b23211677e9c2f46022c7a093758a413edb9bfc2baf",
+      "bytes": 8804,
+      "lines": 208,
+      "imports": [
+        "LSCompletedTargets",
+        "LSMilestoneTopology"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSMilestoneTopology.lean",
+      "module": "LSMilestoneTopology",
+      "sha256": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
+      "bytes": 3929,
+      "lines": 97,
+      "imports": [
+        "LSMilestoneStatement"
       ],
       "tokens": {
         "sorry": 0,
@@ -1211,6 +1390,22 @@
       "imports": [
         "LSFormalArcComparison",
         "LSProjectAssembly"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSNilpotentTopology.lean",
+      "module": "LSNilpotentTopology",
+      "sha256": "5962ad166e22b96fc63971257fd1de3a2c19beaf5bd84c57abec1e0cbe1e2482",
+      "bytes": 2256,
+      "lines": 62,
+      "imports": [
+        "Mathlib"
       ],
       "tokens": {
         "sorry": 0,
@@ -1916,9 +2111,9 @@
     {
       "file": "RecompileBasePart05A.lean",
       "module": "RecompileBasePart05A",
-      "sha256": "33a16dfc0235fa9846bc4f71aa085f1863c9554068fd325edf03137608829fa2",
-      "bytes": 60233,
-      "lines": 1280,
+      "sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+      "bytes": 63951,
+      "lines": 1351,
       "imports": [
         "RecompileBasePart04"
       ],
@@ -2250,17 +2445,7 @@
     },
     {
       "file": "LSClassicalReduction.lean",
-      "line": 37,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3e.polarizedEmbedding_firstJets",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": true
-    },
-    {
-      "file": "LSClassicalReduction.lean",
-      "line": 64,
+      "line": 61,
       "kind": "theorem",
       "name": "LeBrunSalamon.ClassicalReduction.StandardInputs.nonprimitive_contactLine_embedding",
       "tokens": [
@@ -2270,7 +2455,7 @@
     },
     {
       "file": "LSClassicalReduction.lean",
-      "line": 91,
+      "line": 88,
       "kind": "theorem",
       "name": "LeBrunSalamon.ClassicalReduction.StandardInputs.homogeneous_contact_adjointPresentation",
       "tokens": [
@@ -2280,7 +2465,7 @@
     },
     {
       "file": "LSClassicalReduction.lean",
-      "line": 115,
+      "line": 112,
       "kind": "theorem",
       "name": "LeBrunSalamon.ClassicalReduction.StandardInputs.positiveQK_twistorReduction",
       "tokens": [
@@ -2400,17 +2585,7 @@
     },
     {
       "file": "LSHomVelocity.lean",
-      "line": 130,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_zeroSection_surjective",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": true
-    },
-    {
-      "file": "LSHomVelocity.lean",
-      "line": 145,
+      "line": 168,
       "kind": "theorem",
       "name": "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_normalForm_unique",
       "tokens": [
@@ -2670,9 +2845,9 @@
     },
     {
       "file": "RecompileBasePart05A.lean",
-      "line": 216,
+      "line": 224,
       "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant",
+      "name": "LeBrunSalamon.PublishedInputs.Step3e.alternatingDiscriminantTrivial",
       "tokens": [
         "sorry"
       ],

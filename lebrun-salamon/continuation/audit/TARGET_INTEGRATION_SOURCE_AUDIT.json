@@ -1,0 +1,82 @@
+{
+  "schema": "lebrun-milestone-target-integration-v2",
+  "frozen_file": "target/MainStatement.lean",
+  "frozen_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+  "frozen_sha256_matches": true,
+  "shared_core_token_identical": true,
+  "shared_core_normalized_sha256": "27fc34de5a8b48f7ec28f0d59f5d705cd5bab12e58b5b6e58d2c8a795eebf233",
+  "audited_statement_namespace_byte_identical": true,
+  "namespace_payload_sha256": "69ec424a6d47486e562316983c2c6c8e187e379c9377989270a1a56a01ccbba3",
+  "new_modules": [
+    {
+      "file": "source/LSMilestoneStatement.lean",
+      "sha256": "2addf811b82f450b83e8c742ad4ab89313ca096c216c7ad716d46b4ff08a3700",
+      "lines": 174,
+      "bytes": 7414,
+      "imports": [
+        "RecompileBasePart01"
+      ],
+      "direct_tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      },
+      "scope_errors": []
+    },
+    {
+      "file": "source/LSMilestoneTarget.lean",
+      "sha256": "a34ed6741b765ccb20131b23211677e9c2f46022c7a093758a413edb9bfc2baf",
+      "lines": 208,
+      "bytes": 8804,
+      "imports": [
+        "LSCompletedTargets",
+        "LSMilestoneTopology"
+      ],
+      "direct_tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      },
+      "scope_errors": []
+    },
+    {
+      "file": "source/LSMilestoneTopology.lean",
+      "sha256": "2495ba0ff256cfd53fd5e4dadbfd36161d4bea4933a92ee22d1194e423610e25",
+      "lines": 96,
+      "bytes": 3910,
+      "imports": [
+        "LSMilestoneStatement"
+      ],
+      "direct_tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      },
+      "scope_errors": []
+    }
+  ],
+  "transport_contract": [
+    "same carrier, smooth and metric instances",
+    "same homothety equivalence and inverse",
+    "same strictly positive metric-tensor scale",
+    "same metric equation and point symmetries"
+  ],
+  "topological_consequences": [
+    "frozen homothety gives actual mathlib Diffeomorph and Homeomorph",
+    "simple connectedness is equivalent for the actual source and target",
+    "WolfHomothety implies source simply connectedness",
+    "point symmetry is involutive as a homeomorphism and preserves differential inner products"
+  ],
+  "conditional_endpoint": "LeBrunSalamon.Milestone.leBrunSalamonStatement_of_simpleConnectedness",
+  "conditional_extra_input": "LeBrunSalamon.Milestone.PositiveQKSimpleConnectedness",
+  "exact_gap_reduction": "LeBrunSalamon.Milestone.leBrunSalamonStatement_iff_sourceSimpleConnectedness",
+  "unconditional_frozen_endpoint_proved": false,
+  "new_admitted_inputs": 0,
+  "existing_project_admissions_inherited": true,
+  "kernel_verified": false,
+  "milestone_met": false,
+  "evidence_scope": "Static text/hash/lexical inspection; new modules have not yet been elaborated under the pinned Lean toolchain."
+}

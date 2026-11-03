@@ -8,13 +8,22 @@ Start with **[TAKEOVER_PLAN.md](TAKEOVER_PLAN.md)**. Machine-readable current st
 
 Steps **3c, 3d, 3e and 3f were reported complete** in the earlier conversation. Their current handover status is **reported complete; recovered source awaiting verification and identified repairs**. The historical evidence boundary at Step 3b must not be confused with the latest development position. The plan records the completion announcements and the distinction between missing certificates and concrete source defects.
 
-## What is established
+## Current proof batch (awaiting kernel checks)
+
+- The first-jet claim now has an explicit closed-immersion proof through actual dual-number maps and projective coordinates.
+- The dual-thickening point-surjectivity claim is proved from its nilpotent residue kernel and the actual pullback.
+- The determinant argument uses a restricted alternating-discriminant leaf and an explicit tensor-cancellation proof.
+- Three new target modules import the frozen statement through shared definitions and assemble its full conclusion conditionally on the explicit simple-connectedness bridge. They do not assert an unconditional final theorem.
+- Direct source admissions have decreased from 98 to 96. This is a source count; neither deletion has yet been accepted by the native kernel.
+- A dependency-aware replay driver and stock-compiler GitHub Actions check have been added.
+
+## Findings at the takeover audit
 
 - The recovered archive has SHA-256 `722c44bc3e21211634732fc92fb0d598b429f886ac85dec3d3699318d4a3fe32`.
 - The last recorded passing incremental stage is Step 3b: eight wrappers discharged to its recorded published-input boundary, with 91 further proof/refactoring obligations. This was not a complete clean build of the final theorem.
 - The recovered V2 has 129 source modules and 98 direct admissions. Fifty are in `PublishedInputs` namespaces; this is a namespace count, not certification of fifty published theorems.
-- The current continuation adds an explicit alternating-form hypothesis to the determinant input and supplies the Levi alternation proof at its contact application. This source repair is **not yet kernel checked**. Its broad literature match is still pending.
-- The current exported theorem concludes local Riemannian symmetry. It has not yet been connected to the separately frozen Wolf-homothety target.
+- The initial continuation added an explicit alternating-form hypothesis to the determinant input and supplies the Levi alternation proof at its contact application. This source repair is **not yet kernel checked**. Its broad literature match is still pending.
+- The legacy exported theorem concludes local Riemannian symmetry. The new conditional assembly makes the additional Wolf-homothety obligation explicit, as described above.
 
 ## Files and evidence
 

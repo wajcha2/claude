@@ -203,26 +203,46 @@ def ContactFanoManifold.toLegacyCandidate {n : ℕ}
   tangent := intrinsicTangentBundle X.variety
   contactSequence := X.contact.sequence
 
-/-- The determinant identity is a theorem, not built into the meaning
-of a contact structure or the Fano assumption. -/
+/-- The determinant identity for a perfect alternating line-valued form.
+Alternation is essential: a perfect symmetric form only identifies the square
+of the determinant with the corresponding even tensor power of the value line.
+
+Repair candidate, 3 November 2026: the missing alternation hypothesis has been
+restored. This generic theorem remains admitted; an exact reference matching
+its full scheme-level scope and kernel replay are still pending. For the curve
+case, see Biswas--Hoffmann, arXiv:math/0604183v2, section 2, equation (1) and
+the subsequent determinant isomorphism; that reference alone does not certify
+this more general formulation. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant
     {X : Scheme} {n : ℕ}
     (E : AlgebraicVectorBundle X (2 * n)) (L : LineBundle X)
     (b : tensorSheaf E.sheaf E.sheaf ⟶ L.sheaf)
-    (hperfect : IsIso (currySheaf b)) :
+    (hperfect : IsIso (currySheaf b))
+    (hAlt : ∀ (U : X.Opens) (u : SectionsOn E.sheaf U),
+      b.app U ((tensorPresentation E.sheaf E.sheaf).pair.apply U u u) = 0) :
     Nonempty ((determinantLine E).sheaf ≅ (linePower L n).sheaf) := by
   sorry
 
-/-- The contact distribution determinant follows from the published
-Pfaffian/determinant identity for a perfect line-valued alternating form. -/
+/-- The contact distribution determinant follows from the alternating-form
+identity. Its alternation premise is supplied by the already proved Levi
+bracket identity, transported through the actual tensor universal pairing.
+The amended proof below is a candidate awaiting kernel replay. -/
 theorem contact_distribution_determinant {n : ℕ}
     (X : SmoothProperComplexVariety (2 * n + 1))
     (C : IntrinsicContactStructure X) :
     Nonempty ((determinantLine C.sequence.distribution).sheaf ≅
       (linePower C.sequence.line n).sheaf) := by
-  exact LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant
-    C.sequence.distribution C.sequence.line (intrinsicLeviMorphism C)
-      C.nondegenerate
+  refine LeBrunSalamon.PublishedInputs.Step3e.symplecticDeterminant
+    C.sequence.distribution C.sequence.line (intrinsicLeviMorphism C.sequence)
+    C.nondegenerate ?_
+  intro U u
+  calc
+    _ = intrinsicLeviValue C.sequence U u u :=
+      congrArg
+        (fun p : SheafBilinearMap C.sequence.distribution.sheaf
+          C.sequence.distribution.sheaf C.sequence.line.sheaf => p.apply U u u)
+        (tensorLift_pair (intrinsicLeviPair C.sequence))
+    _ = 0 := intrinsicLevi_alternating C.sequence U u
 
 theorem contact_anticanonical {n : ℕ}
     (X : SmoothProperComplexVariety (2 * n + 1))

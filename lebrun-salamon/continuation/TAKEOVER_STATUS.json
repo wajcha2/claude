@@ -1,0 +1,90 @@
+{
+  "schema": "lebrun-takeover-status-v1",
+  "date_local": "2026-11-03",
+  "timezone": "Europe/Berlin",
+  "recorded_utc": "2026-11-03T16:14:32.364903+00:00",
+  "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
+  "milestone_met": false,
+  "repository": "wajcha2/claude",
+  "branch": "codex/lebrun-takeover-audit-20261103",
+  "byte_preserving_recovery_commit": "d8749550ace47a9186fcc1d8c2a38fa81d8b3ba0",
+  "recovered_archive": {
+    "name": "LeBrunSalamon_Cumulative_Precompile_Step3g_V2_20261103.zip",
+    "sha256": "722c44bc3e21211634732fc92fb0d598b429f886ac85dec3d3699318d4a3fe32",
+    "source_modules": 129,
+    "source_lines": 103239,
+    "source_bytes": 4995434,
+    "direct_sorry": 98
+  },
+  "last_recorded_passing_incremental_stage": {
+    "stage": "3b",
+    "date": "2026-11-01",
+    "remaining_nonpublished_obligations": 91,
+    "direct_sorry": 99,
+    "published_leaves_accepted_in_that_record": 8,
+    "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
+  },
+  "current_source": {
+    "modules": 129,
+    "lines": 103259,
+    "bytes": 4996594,
+    "admissions": {
+      "sorry": 98,
+      "admit": 0,
+      "axiom": 0,
+      "opaque": 0
+    },
+    "published_namespace_count_not_certification": 50,
+    "other_direct_admissions": 48,
+    "new_leaf_candidates_since_step3b": 42,
+    "rewritten_original_wrappers_awaiting_acceptance": 43,
+    "kernel_verified": false,
+    "static_integrity_passed": true
+  },
+  "frozen_target": {
+    "path": "target/MainStatement.lean",
+    "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+    "preserved": true,
+    "connected_to_final_theorem": false,
+    "missing_conclusion": "Nonempty (WolfHomothety (closedRiemannianSpace n M))"
+  },
+  "repair_candidate": {
+    "path": "source/RecompileBasePart05A.lean",
+    "sha256": "33a16dfc0235fa9846bc4f71aa085f1863c9554068fd325edf03137608829fa2",
+    "change": "require alternation in symplecticDeterminant and prove the Levi pairing premise in contact_distribution_determinant",
+    "new_sorry": 0,
+    "kernel_status": "not compiled",
+    "exact_full_scope_published_reference": "pending"
+  },
+  "rebuild_plan": {
+    "changed_modules": 19,
+    "affected_modules": 120,
+    "old_replay_modules": 21,
+    "omitted_affected_descendants": 99,
+    "source": "audit/current/REBUILD_PLAN.json",
+    "compiler_driver_replacement_required": true
+  },
+  "remaining_original_batches": {
+    "3h": 5,
+    "3i": 8,
+    "3j": 8,
+    "3k": 8,
+    "3l": 6,
+    "3m": 5,
+    "3n": 8
+  },
+  "open_acceptance_requirements": [
+    "complete exact-publication audit of every admitted leaf",
+    "prove project-specific and composite translations",
+    "integrate and prove frozen Wolf-homothety target and definition bridges",
+    "compile unchecked or invalidated modules against exact dependency receipts",
+    "native transitive admission audit of final theorem"
+  ],
+  "lean_invoked_during_takeover": false,
+  "proof_completion_percentage": null,
+  "notes": [
+    "Historical running metadata is not evidence of a currently running job.",
+    "Namespace admission counts are not counts of verified published theorems.",
+    "Source admission names and import graph are lexical inventories pending native Lean confirmation."
+  ]
+}

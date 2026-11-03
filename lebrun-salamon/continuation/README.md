@@ -1,61 +1,27 @@
-# LeBrun–Salamon formalisation: recovered continuation source
+# LeBrun–Salamon formalisation: continuation
 
-**Status: RECOVERED, UNCHECKED — 3 November 2026.**
+**Status on 3 November 2026: working candidate; the published-theorems-only milestone is not met.**
 
-This directory preserves the 129 Lean source modules from
-`LeBrunSalamon_Cumulative_Precompile_Step3g_V2_20261103.zip` byte for byte.
-The archive SHA-256 is
-`722c44bc3e21211634732fc92fb0d598b429f886ac85dec3d3699318d4a3fe32`.
-This source recovery is not a compilation certificate or a proof-completion claim.
+This directory contains the actual source recovered from the cumulative Step 3g V2 checkpoint, the frozen Step 2 target, and the takeover audit. The original recovery commit is `d8749550ace47a9186fcc1d8c2a38fa81d8b3ba0`; it preserves all 129 recovered source modules byte for byte. Subsequent changes are explicit descendants of that commit.
 
-## What is preserved
+Start with **[TAKEOVER_PLAN.md](TAKEOVER_PLAN.md)**. Machine-readable current status is in [TAKEOVER_STATUS.json](TAKEOVER_STATUS.json).
 
-- `source/`: exactly the 129 recovered `.lean` modules; no source edits were made.
-- `SOURCE.sha256`: SHA-256 hashes of those modules, relative to this directory.
-- `target/MainStatement.lean`: the separately frozen Step 2 target statement.
-- `TOOLCHAIN.lock.json`: the unchanged Step 3b toolchain lock.
+## What is established
 
-The target statement SHA-256 is
-`9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296`.
+- The recovered archive has SHA-256 `722c44bc3e21211634732fc92fb0d598b429f886ac85dec3d3699318d4a3fe32`.
+- The last recorded passing incremental stage is Step 3b: eight wrappers discharged to its recorded published-input boundary, with 91 further proof/refactoring obligations. This was not a complete clean build of the final theorem.
+- The recovered V2 has 129 source modules and 98 direct admissions. Fifty are in `PublishedInputs` namespaces; this is a namespace count, not certification of fifty published theorems.
+- The current continuation adds an explicit alternating-form hypothesis to the determinant input and supplies the Levi alternation proof at its contact application. This source repair is **not yet kernel checked**. Its broad literature match is still pending.
+- The current exported theorem concludes local Riemannian symmetry. It has not yet been connected to the separately frozen Wolf-homothety target.
 
-## Evidence boundary
+## Files and evidence
 
-The recovered source has 98 direct `sorry` admissions. The takeover inventory
-records 43 rewritten wrapper declarations; their cumulative compilation and
-their published-input boundary remain to be audited. These rewrites must not
-be counted as certified completed proof obligations.
+- [source/](source/): current Lean candidate, with current hashes in [SOURCE.sha256](SOURCE.sha256).
+- [target/MainStatement.lean](target/MainStatement.lean): immutable Step 2 specification, SHA-256 `9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296`.
+- [TOOLCHAIN.lock.json](TOOLCHAIN.lock.json): exact Lean/mathlib environment.
+- [audit/RECOVERED_V2_SOURCE_AUDIT.md](audit/RECOVERED_V2_SOURCE_AUDIT.md): source, dependency, admission and endpoint findings before the repair.
+- [audit/PUBLISHED_BOUNDARY_AUDIT.md](audit/PUBLISHED_BOUNDARY_AUDIT.md): mathematical checks and examples of unproved project-specific translations.
+- [audit/COMPREHENSIVE_STATIC_AUDIT_V2.json](audit/COMPREHENSIVE_STATIC_AUDIT_V2.json): recovered-source hashes, graph, inventories and original obligation mapping.
+- [audit/ORIGINAL_STEP3_PLAN.md](audit/ORIGINAL_STEP3_PLAN.md): the agreed original plan, preserved unchanged.
 
-Step 3b remains the latest historical accepted incremental batch. Its report
-records 99 direct admissions, eight identified published-input leaves, and
-91 remaining non-published proof/refactoring obligations. Later partial
-reports and this recovered cumulative source do not by themselves advance
-that certified boundary.
-
-The current source theorem's stated conclusion is only the local-symmetry form.
-It has not yet been connected to the stronger frozen target, whose conclusion
-also requires an actual Wolf-space homothety. The target file is preserved
-separately to make this outstanding obligation explicit.
-
-No claim is made that all remaining admitted declarations are exact published
-theorems. Source-specific specialisations, construction steps, definition
-bridges, and novel arguments must receive complete Lean proofs. The first
-milestone permits `sorry` only for exact published theorems, with their
-hypotheses and source citations checked.
-
-## Continuation discipline
-
-Keep this checkpoint and the older stage catalogues as historical evidence.
-Preserve the frozen target and the pinned Lean/mathlib environment. Record
-each subsequent source change and its affected dependency closure. Reuse only
-hash-matched verified artifacts; compile unchecked or changed parts at the
-appropriate validation gate. Report compilation and admission classification
-separately, including transitive dependencies and semantic definition bridges.
-
-The inherited GitHub workflows are restricted to historical branch names;
-this archival commit does not start a project build.
-
-To verify the archived source bytes from this directory:
-
-```bash
-sha256sum --check SOURCE.sha256
-```
+The portable checker in `scripts/check_checkpoint.py` is a static integrity and rebuild-planning tool. It is not a Lean compiler or a mathematical certificate. No successful cumulative kernel build is claimed by this handover.

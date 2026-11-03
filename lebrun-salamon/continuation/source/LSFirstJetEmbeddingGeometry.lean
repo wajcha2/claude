@@ -62,13 +62,13 @@ def frameSection (H : AffineLineFrame L) (f : T ⟶ Y)
 
 theorem frameSection_apply (H : AffineLineFrame L) (f : T ⟶ Y)
     (hU : ⊤ ≤ f ⁻¹ᵁ H.openSet) (a : RingSections T ⊤) :
-    (frameSection H f hU).app ⊤ a = (coefficient H f hU).symm a := by
-  have h1 : (frameSection H f hU).app ⊤ (1 : RingSections T ⊤) =
+    Scheme.Modules.Hom.app (frameSection H f hU) ⊤ a = (coefficient H f hU).symm a := by
+  have h1 : Scheme.Modules.Hom.app (frameSection H f hU) ⊤ (1 : RingSections T ⊤) =
       (coefficient H f hU).symm 1 := sectionFromValue_spec _
   calc
-    _ = a • (frameSection H f hU).app ⊤ (1 : RingSections T ⊤) := by
-      simpa only [smul_eq_mul, mul_one] using
-        ((frameSection H f hU).app ⊤).hom.map_smul a (1 : RingSections T ⊤)
+    _ = a • Scheme.Modules.Hom.app (frameSection H f hU) ⊤ (1 : RingSections T ⊤) := by
+      rw [← Scheme.Modules.Hom.app_smul]
+      simp only [smul_eq_mul, mul_one]
     _ = _ := by
       rw [h1, ← (coefficient H f hU).symm.map_smul]
       simp only [smul_eq_mul, mul_one]
@@ -101,7 +101,7 @@ theorem iso_apply [IsAffine T] (H : AffineLineFrame L) (f : T ⟶ Y)
   have h := congrArg (fun q : structureModule T ⟶ structureModule T =>
     q.app ⊤ (coefficient H f hU a)) (asIso (frameSection H f hU)).hom_inv_id
   change (iso H f hU).hom.app ⊤
-    ((frameSection H f hU).app ⊤ (coefficient H f hU a)) = coefficient H f hU a at h
+    (Scheme.Modules.Hom.app (frameSection H f hU) ⊤ (coefficient H f hU a)) = coefficient H f hU a at h
   rw [frameSection_apply, (coefficient H f hU).symm_apply_apply] at h
   exact h
 
@@ -112,8 +112,7 @@ theorem iso_section [IsAffine T] (H : AffineLineFrame L) (f : T ⟶ Y)
   apply (sectionValue_bijective (structureModule T)).injective
   rw [sectionValue_comp, iso_apply]
   change coefficient H f hU (sectionValue (pullSection f a)) = _
-  simpa only [scalarSection, sectionFromValue_spec, homOfLE_refl, op_id,
-    CategoryTheory.Functor.map_id, ModuleCat.id_apply] using
+  simpa [coefficient, scalarSection, sectionFromValue_spec] using
     coefficientOn_global H f ⊤ hU a
 
 end AffineTestFrame
@@ -214,7 +213,9 @@ theorem appLE (D : F.Tangent) (a : F.ChartRing) :
       (Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
         (algebraMap ℂ Infinitesimal.Dual (F.evaluation a) +
           Infinitesimal.epsilon * algebraMap ℂ Infinitesimal.Dual (D.val a)) := by
-  rw [map, openFactor_appLE]
+  change ((lift F D).map ≫ F.frame.openSet.ι).appLE
+    F.frame.openSet ⊤ (support F D) a = _
+  rw [openFactor_appLE]
   change ((chart F).tangentLiftEquiv (tangent F D)).map.appTop (chartRingIso F a) = _
   rw [(chart F).tangentLiftEquiv_normalized]
   change (Scheme.ΓSpecIso (CommRingCat.of Infinitesimal.Dual)).inv
@@ -235,6 +236,7 @@ theorem frameIso_section (D : F.Tangent) (a : AlgebraicSection L.sheaf) :
             Infinitesimal.epsilon * algebraMap ℂ Infinitesimal.Dual
               (D.val (F.coefficient a)))) := by
   rw [frameIso, AffineTestFrame.iso_section, appLE]
+  rfl
 
 end PointFrameDual
 

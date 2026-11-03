@@ -11,9 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       modules:
-        description: Space-separated target modules, with project dependencies included
+        description: all, or space-separated target modules with project dependencies included
         required: true
-        default: LSNilpotentTopology LSMilestoneTopology
+        default: all
 
 permissions:
   contents: read
@@ -37,7 +37,7 @@ jobs:
 
       - name: Check selected modules and their dependencies
         env:
-          SELECTED_MODULES: ${{ inputs.modules || 'LSNilpotentTopology LSMilestoneTopology' }}
+          SELECTED_MODULES: ${{ inputs.modules || 'all' }}
         run: |
           python3 - <<'PY'
           import os, shlex, subprocess, pathlib
@@ -45,8 +45,10 @@ jobs:
           command=['python3',str(root/'scripts/replay_checkpoint.py'),
                    '--root',str(root),'--runtime-config','runtime-config.json',
                    '--build-dir','kernel-evidence','--keep-going']
-          for module in shlex.split(os.environ['SELECTED_MODULES']):
-              command += ['--module',module]
+          modules=shlex.split(os.environ['SELECTED_MODULES'])
+          if modules != ['all']:
+              for module in modules:
+                  command += ['--module',module]
           raise SystemExit(subprocess.run(command).returncode)
           PY
 

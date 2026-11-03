@@ -19,12 +19,15 @@ Candidate continuation, 3 November 2026: kernel replay is pending.
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseFour LeBrunSalamon.PhaseSeven
+open LeBrunSalamon.PhaseSeventeen LeBrunSalamon.PhaseTwentyTwo
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
 open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight
+open LeBrunSalamon.PhaseThirtyFive
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton
 open LeBrunSalamon.Refinement LeBrunSalamon.Refinement.Jets
 
@@ -43,14 +46,14 @@ theorem separatesJetsAt_iso {d : ℕ} {X : SmoothProperComplexVariety d}
     change F.map s = j ≫ F.map e.inv at hs
     change F.map (s ≫ e.hom) = j
     rw [Functor.map_comp, hs, Category.assoc, ← Functor.map_comp,
-      e.inv_hom_id, Functor.map_id, Category.comp_id]
+      e.inv_hom_id, CategoryTheory.Functor.map_id, Category.comp_id]
   · intro h j
     obtain ⟨s, hs⟩ := h (j ≫ F.map e.hom)
     refine ⟨s ≫ e.inv, ?_⟩
     change F.map s = j ≫ F.map e.hom at hs
     change F.map (s ≫ e.inv) = j
     rw [Functor.map_comp, hs, Category.assoc, ← Functor.map_comp,
-      e.hom_inv_id, Functor.map_id, Category.comp_id]
+      e.hom_inv_id, CategoryTheory.Functor.map_id, Category.comp_id]
 
 /-- The exact local algebra needed for first jets is spanning modulo the
 square of the point ideal, not merely generating the line at the point. -/
@@ -92,6 +95,7 @@ theorem separatesJetsAt_iff_localJet {d : ℕ}
   · intro h j
     obtain ⟨s, hs⟩ := h (F.jetCoordinates.symm j)
     refine ⟨s, ?_⟩
+    change F.localJet (F.coefficient s) = j
     rw [← F.jetCoordinates_global, hs, F.jetCoordinates.apply_symm_apply]
   · intro h j
     obtain ⟨s, hs⟩ := h (F.jetCoordinates j)

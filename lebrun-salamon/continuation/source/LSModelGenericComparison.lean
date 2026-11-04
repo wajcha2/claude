@@ -3,7 +3,9 @@ import LSRegularModelPair
 import LSFamilyBaseChange
 import LSCartesianSourceDifferential
 import LSModelSourceProductTransport
+import LSModelSourceNumerator
 import LSModelGenericParametrization
+import LSModelNumeratorTransport
 
 /-!
 # Whole-generic-square comparison for the actual conic model
@@ -35,32 +37,6 @@ open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 open FamilyBivectors
 
 variable (F : Smoothing.StandardSource) (a : Coefficients)
-
-/-- Actual source-numerator specialization, before any density or
-generic-fibre argument. -/
-theorem sourceNumerator_pullback {T : Scheme} (f : T ⟶ ModelNumerator.Square F a) :
-    pullSection f (modelSourceNumerator F a) ≫
-      (compositionPullback f (modelSourceSquare F a) (ModelBivector.canonicalPair F a f)
-        (canonicalPair_eq F a f)
-        (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf).hom =
-      pullSection f (ModelNumerator.numerator F a) ≫ ModelDifferential.squareVelocity F a f := by
-  have hadd {E : OModule (ModelNumerator.Square F a)} (s t : AlgebraicSection E) :
-      pullSection f (s + t) = pullSection f s + pullSection f t := by
-    simp only [pullSection, restrictSection, Functor.map_add, Preadditive.comp_add]
-  unfold modelSourceNumerator
-  rw [ModelNumerator.numerator, section_scale]
-  simp only [Preadditive.add_comp, Preadditive.sub_comp, Normalization.BundleGluing.pullSection_sub,
-    hadd, Category.assoc, LogVelocity.pullSection_scalar]
-  rw [sourceProduct_pullback, sourceProduct_pullback, sourceProduct_pullback]
-
-def genericSourceNumerator : AlgebraicSection
-    (pullbackModule (ModelBivector.canonicalPair F a (toModelSquare F a))
-      (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf) :=
-  pullSection (toModelSquare F a) (modelSourceNumerator F a) ≫
-    (compositionPullback (toModelSquare F a) (modelSourceSquare F a)
-      (ModelBivector.canonicalPair F a (toModelSquare F a))
-      (canonicalPair_eq F a (toModelSquare F a))
-      (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf).hom
 
 /-- Equality on the dense affine node test extends to the complete
 generic square because the actual target is a line bundle and the

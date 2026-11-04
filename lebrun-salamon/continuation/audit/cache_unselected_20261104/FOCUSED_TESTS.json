@@ -1,0 +1,368 @@
+{
+  "schema": "lebrun-cache-integrity-fixture-v1",
+  "compiler_kind": "simulated Python fixture; no Lean invoked",
+  "driver_sha256": "7da05127ca383df49acf649c4db64442e533addc509d80b996a76949b7c9f485",
+  "cache_restore_sha256": "0a80d7aa04168899968df254525de607f6e3c7d41cc062944cb3f6907c60ac60",
+  "passed": 20,
+  "total": 20,
+  "cases": [
+    {
+      "case": "unchanged",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "legacy_unchanged",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "ancestor_source",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "leaf_source",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "output_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "A": [
+          "Output artifact missing or hash differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "runtime_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "lock_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "external_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "log_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "A": [
+          "Compiler diagnostic log missing or hash differs: stdout"
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "non_native_receipt",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "No successful native compiler receipt."
+        ]
+      }
+    },
+    {
+      "case": "unselected_default",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "unselected_valid",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 1,
+      "rejected_modules": {}
+    },
+    {
+      "case": "unselected_missing_cache",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": "Missing or unsupported completed union record.",
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "unselected_stale_source",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "Unselected cache source binding differs."
+        ]
+      }
+    },
+    {
+      "case": "unselected_altered_output",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "Unselected cache output binding differs."
+        ]
+      }
+    },
+    {
+      "case": "unselected_stale_ancestry",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "Unselected cache recursive ancestry binding differs."
+        ]
+      }
+    },
+    {
+      "case": "unselected_missing_final_check",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": "Completed union runtime or final validation binding differs.",
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "unselected_local_receipt",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "No successful native compiler receipt."
+        ]
+      }
+    },
+    {
+      "case": "unselected_explicit_failure",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {}
+    },
+    {
+      "case": "unselected_bad_provenance",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "unselected_cache_rejection": null,
+      "unselected_cache_copied_count": 0,
+      "rejected_modules": {
+        "B": [
+          "Unselected cache receipt provenance differs."
+        ]
+      }
+    }
+  ]
+}

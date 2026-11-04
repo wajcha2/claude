@@ -77,6 +77,11 @@ def main():
                 "--source-run-id", str(int(item["source_run_id"])),
                 "--source-artifact-name", item["source_artifact_name"],
             ]
+            include_unselected = item.get("include_validated_unselected_cache", False)
+            if not isinstance(include_unselected, bool):
+                raise SystemExit("Unselected-cache option must be a boolean.")
+            if include_unselected:
+                command.append("--include-validated-unselected-cache")
             result = subprocess.run(command, text=True, stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT)
             if result.returncode:
@@ -90,6 +95,9 @@ def main():
                 "validation_sha256": digest(stage / "CACHE_RESTORE.json"),
                 "independently_copied_modules": restored.get("copied_module_count", 0),
                 "global_rejection": restored.get("global_rejection"),
+                "include_validated_unselected_cache": include_unselected,
+                "unselected_cache_copied_count": restored.get("unselected_cache_copied_count", 0),
+                "unselected_cache_rejection": restored.get("unselected_cache_rejection"),
             }
             summary["inputs"].append(record)
             print("CACHE_UNION_INPUT " + json.dumps(record), flush=True)

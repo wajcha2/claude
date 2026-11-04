@@ -1,0 +1,300 @@
+{
+  "schema": "lebrun-exact-model-parametrization-split-v1",
+  "baseline": {
+    "source_sha256": "8db7143781b0e164fc0d17c7ae11c74604a302c935efe5d3361ab83142350538",
+    "git_blob": "c1247acd9b93e33ea032ef428d90febc3e8b004d",
+    "status": "stock whole helper failed with one deterministic whnf timeout in final theorem",
+    "run_id": 41811395706,
+    "job_id": 126511253203
+  },
+  "parametrization": {
+    "module": "LSModelGenericParametrization",
+    "source_sha256": "51aeeee65048a3354af9fa376a634637233b72c8db5aa7fd37760f95d375f1e0",
+    "declarations": 33,
+    "all_original_headers_and_bodies_unchanged": true,
+    "native_status": "uncompiled split candidate",
+    "git_blob": "f7e005ec2e42b655f49ac58eed9a8e9cbc6e25ee"
+  },
+  "numerator": {
+    "module": "LSModelNumeratorTransport",
+    "source_sha256": "dce28b1732f8e0db7dc2ccc0190db455932ec112eb3b558028a7a21eb1d616ad",
+    "declarations": 1,
+    "moved_declaration": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.numerator_transport",
+    "header_and_current_v2_proof_exact": true,
+    "native_status": "uncompiled split candidate",
+    "git_blob": "a345fffa3f4e4bef7ab2f2b7766b70dabac97e05"
+  },
+  "profile": {
+    "module": "LSModelNumeratorTransportProfile",
+    "source_sha256": "4f4026f0147eaa0ea89bd6ec136a984f5f43438b4235d89fa5143ff6c9570370",
+    "proof_changes": "Only run_tac raw-stderr markers plus diagnostic options; not production evidence",
+    "stages": [
+      "ENTER_PROOF",
+      "BEFORE_HP",
+      "AFTER_HP",
+      "AFTER_HADD",
+      "AFTER_HSECTION",
+      "AFTER_UNFOLD",
+      "AFTER_SCALE",
+      "AFTER_ADD_SUB_SCALAR_SIMP",
+      "AFTER_EXPLICIT_PULL_ADD",
+      "AFTER_PRODUCT_MAP_SIMP",
+      "AFTER_HP_REWRITES",
+      "DECLARATION_COMPLETE"
+    ],
+    "native_status": "uncompiled diagnostic",
+    "git_blob": "347a3a8b05f7474dc4dbbc57c063258c3708b6a0"
+  },
+  "moved_block_sha256": "14acf2b698d549d3e520b73d401e28a748494715df0c9c7ca4c1f6668af1fb0a",
+  "exact_reconstruction": true,
+  "all_34_original_headers_preserved": true,
+  "new_admissions": 0,
+  "new_mathematical_assumptions": 0,
+  "canonical_source_changed": false,
+  "point1_190_sources_changed": false,
+  "main_import_owner": "root; must import LSModelNumeratorTransport for the final theorem",
+  "first_pass_sequence": [
+    "Check LSModelGenericParametrization first and preserve its output",
+    "Only if passed, run LSModelNumeratorTransportProfile with raw stdout/stderr saved"
+  ],
+  "header_inventory": [
+    {
+      "kind": "abbrev",
+      "name": "genericBase",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericBase",
+      "header_sha256": "7637064315c27f2593eb04fdc4a04e7b84bdfe84a92fcf04936717cac233e5b2",
+      "header": "abbrev genericBase : GenericPoint ⟶ ComplexBase"
+    },
+    {
+      "kind": "abbrev",
+      "name": "P1Generic",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.P1Generic",
+      "header_sha256": "cf0b3a4a9cb9ec3ac28c1a0bd78c4c1761b4ee1f0060c296a2c75705424d7672",
+      "header": "abbrev P1Generic"
+    },
+    {
+      "kind": "abbrev",
+      "name": "p1Projection",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.p1Projection",
+      "header_sha256": "f6976b536d0fa7bbf9b89552a497dc1c56ebb17749c75c9fd5a0f7869d62fe39",
+      "header": "abbrev p1Projection : P1Generic ⟶ ProjectiveLine"
+    },
+    {
+      "kind": "abbrev",
+      "name": "p1Parameter",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.p1Parameter",
+      "header_sha256": "8fa32909c4f69ae9c3ca3e6635c80750db71682f2703f5aa13dd9639ec8d6fee",
+      "header": "abbrev p1Parameter : P1Generic ⟶ GenericPoint"
+    },
+    {
+      "kind": "def",
+      "name": "productGauge",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.productGauge",
+      "header_sha256": "dd01d12b327a3a192fbf192525edca56ba267440a384c9cc51ba26a358c13588",
+      "header": "def productGauge : P1Generic ≅ P1Generic"
+    },
+    {
+      "kind": "theorem",
+      "name": "productGauge_coordinate",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.productGauge_coordinate",
+      "header_sha256": "a876a74697b6355f8364f48c91fd4e3a78297c4c611c9e487716ae6a6362b0b4",
+      "header": "@[reassoc] theorem productGauge_coordinate : productGauge.hom ≫ p1Projection =\n    p1Projection ≫ P1CoordinateGauge.iso.inv"
+    },
+    {
+      "kind": "theorem",
+      "name": "productGauge_base",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.productGauge_base",
+      "header_sha256": "9ae7999cc784d965776dfcc8350667cde41e7fd4308f6e98ae3ac940aedcda73",
+      "header": "@[reassoc] theorem productGauge_base : productGauge.hom ≫ p1Parameter =\n    p1Parameter"
+    },
+    {
+      "kind": "theorem",
+      "name": "productGauge_inverse_base",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.productGauge_inverse_base",
+      "header_sha256": "8a1ab5a3d05747bf42abed9f734497f5064768f3d3e7bf04b6e3b61aa424fbe5",
+      "header": "@[reassoc] theorem productGauge_inverse_base : productGauge.inv ≫ p1Parameter =\n    p1Parameter"
+    },
+    {
+      "kind": "def",
+      "name": "gaugedTrivialization",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.gaugedTrivialization",
+      "header_sha256": "9e5e85cf78aae3bcbb86875a62fb9ddd03a5049027c9d09ce5c3d379286ff567",
+      "header": "def gaugedTrivialization (ha : a ≠ 0) : source F a ≅ P1Generic"
+    },
+    {
+      "kind": "theorem",
+      "name": "gaugedTrivialization_coordinate",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.gaugedTrivialization_coordinate",
+      "header_sha256": "c41a5e54a986d88078ebd6cfa569cfa7b529806a692ebe0e242a2a9fd8dee806",
+      "header": "@[reassoc] theorem gaugedTrivialization_coordinate (ha : a ≠ 0) :\n    (gaugedTrivialization F a ha).hom ≫ p1Projection =\n      inclusion F a ≫ ModelDifferential.modelPoint F a"
+    },
+    {
+      "kind": "theorem",
+      "name": "gaugedTrivialization_base",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.gaugedTrivialization_base",
+      "header_sha256": "9904ce62144ddb68186b4b893c16751d987b4c632d6275393df2fa9bd6c33c88",
+      "header": "@[reassoc] theorem gaugedTrivialization_base (ha : a ≠ 0) :\n    (gaugedTrivialization F a ha).hom ≫ p1Parameter = projection F a"
+    },
+    {
+      "kind": "theorem",
+      "name": "gaugedTrivialization_inverse_base",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.gaugedTrivialization_inverse_base",
+      "header_sha256": "5afcf2425e3606eca2f64333776e5796b5a9c7b61fd43d1c2dbec384e7b14721",
+      "header": "@[reassoc] theorem gaugedTrivialization_inverse_base (ha : a ≠ 0) :\n    (gaugedTrivialization F a ha).inv ≫ projection F a = p1Parameter"
+    },
+    {
+      "kind": "def",
+      "name": "genericParametrization",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericParametrization",
+      "header_sha256": "c0279cf852d009e77af4c5507dbba99291cafe2a51bea5133e6960967fa65b11",
+      "header": "def genericParametrization (ha : a ≠ 0) : P1Generic ⟶ Model F a"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericParametrization_coordinate",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericParametrization_coordinate",
+      "header_sha256": "57322e9d0fe6f3e07a9993038149415318cceb0589f416235be5f35a9420f684",
+      "header": "@[reassoc] theorem genericParametrization_coordinate (ha : a ≠ 0) :\n    genericParametrization F a ha ≫ ModelDifferential.modelPoint F a = p1Projection"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericParametrization_parameter",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericParametrization_parameter",
+      "header_sha256": "f50f63bf9803aaec39a34880acd779ee4744f164fc55cee74128099a53075977",
+      "header": "@[reassoc] theorem genericParametrization_parameter (ha : a ≠ 0) :\n    genericParametrization F a ha ≫ modelProjection F a = p1Parameter ≫ genericPoint"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericParametrization_isPullback",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericParametrization_isPullback",
+      "header_sha256": "61c4d2a91749c2a2048faf2c1f4a909207fcdf50217e5e0eab9dbd546062e7e8",
+      "header": "theorem genericParametrization_isPullback (ha : a ≠ 0) :\n    IsPullback (genericParametrization F a ha) p1Parameter\n      (modelProjection F a) genericPoint"
+    },
+    {
+      "kind": "def",
+      "name": "parametrizedToGenericSquare",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToGenericSquare",
+      "header_sha256": "8fecde4462fea537b840d8ff32bccfc8ecd642f29fe767e7d46b227b09c104c4",
+      "header": "def parametrizedToGenericSquare (ha : a ≠ 0) :\n    Parametrized.Square Lines.P genericBase ⟶ Square F a"
+    },
+    {
+      "kind": "def",
+      "name": "parametrizedToModelSquare",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToModelSquare",
+      "header_sha256": "8e77ea6ca4745ab41d02012f86fc0bfb7f47248f2bebb17208906a9859ca5f6a",
+      "header": "def parametrizedToModelSquare (ha : a ≠ 0) :\n    Parametrized.Square Lines.P genericBase ⟶ ModelNumerator.Square F a"
+    },
+    {
+      "kind": "theorem",
+      "name": "parametrizedToModelSquare_base",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToModelSquare_base",
+      "header_sha256": "48edbb90c5f4dbbed538f0c7a8c01368f049154a5ba0a45159e541a50fa8a414",
+      "header": "@[reassoc] theorem parametrizedToModelSquare_base (ha : a ≠ 0) :\n    parametrizedToModelSquare F a ha ≫ ModelNumerator.squareProjection F a =\n      (RelativeSquare.left p1Parameter ≫ p1Parameter) ≫ genericPoint"
+    },
+    {
+      "kind": "theorem",
+      "name": "parametrizedToModelSquare_factor",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToModelSquare_factor",
+      "header_sha256": "a3b9970e4c8663a6457e416732e97a6b031a69a139c3747f2e58285b74af3771",
+      "header": "@[reassoc] theorem parametrizedToModelSquare_factor (ha : a ≠ 0) :\n    parametrizedToGenericSquare F a ha ≫ toModelSquare F a =\n      parametrizedToModelSquare F a ha"
+    },
+    {
+      "kind": "theorem",
+      "name": "parametrizedToModelSquare_source",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToModelSquare_source",
+      "header_sha256": "af938140675264e8cbfc372bcdc3be6e85513971e83317d1920118a102f18b18",
+      "header": "@[reassoc] theorem parametrizedToModelSquare_source (ha : a ≠ 0) :\n    parametrizedToModelSquare F a ha ≫ modelSourceSquare F a =\n      Parametrized.sourceSquare Lines.P genericBase"
+    },
+    {
+      "kind": "def",
+      "name": "genericCotangentComparison",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericCotangentComparison",
+      "header_sha256": "fb5ab7eb247a9bb4cb3fb6f741bb720e4a10c0641722650dbc986820230d4683",
+      "header": "def genericCotangentComparison (ha : a ≠ 0) :\n    pullbackModule (genericParametrization F a ha) (cotangentSheaf (modelProjection F a)) ≅\n      cotangentSheaf p1Parameter"
+    },
+    {
+      "kind": "def",
+      "name": "genericForm",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericForm",
+      "header_sha256": "809b03ab57eb303bfd177acb22f31c2cf94417b865f7891da08d136513edfa45",
+      "header": "def genericForm (ha : a ≠ 0) : cotangentSheaf p1Parameter ⟶\n    dualSheaf (pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf)"
+    },
+    {
+      "kind": "def",
+      "name": "genericSourceVelocity",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericSourceVelocity",
+      "header_sha256": "4f1506e536dfb6fdee7a7e5c9b864bb08cc8dfd8590d5ea532b774d4a6c51e45",
+      "header": "def genericSourceVelocity (ha : a ≠ 0) :\n    pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf ⟶\n      pullbackModule p1Projection (tangentSheaf Lines.P.structureMap)"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericSourceVelocity_form",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericSourceVelocity_form",
+      "header_sha256": "cc8df575d2c284ad1542c96f94d0e45da9f1046971353991150a48e56da57361",
+      "header": "theorem genericSourceVelocity_form (ha : a ≠ 0) :\n    genericSourceVelocity F a ha =\n      LogVelocity.fromForm p1Parameter genericBase\n        (pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf)\n        (genericForm F a ha) (projectiveLineVariety Lines.P) p1Projection\n        pullback.condition"
+    },
+    {
+      "kind": "def",
+      "name": "genericEvaluation",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericEvaluation",
+      "header_sha256": "bee93ffd45e346df52db55e6b47f5086ced7843c482f6c7a6e07a60889104934",
+      "header": "def genericEvaluation (ha : a ≠ 0) : P1Generic ⟶ X.scheme"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericEvaluation_over",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericEvaluation_over",
+      "header_sha256": "bcbb4c1e71e7a99a5e53eff754db93a49ac31480740616f9692fcbbaa0feeb1f",
+      "header": "theorem genericEvaluation_over (ha : a ≠ 0) :\n    genericEvaluation F a X e ha ≫ X.structureMap = p1Parameter ≫ genericBase"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericVelocity_factor",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericVelocity_factor",
+      "header_sha256": "d8cab987c2a99dabda8e2567d0e4a05fdede0de56099818ed2e4bdce04050480",
+      "header": "theorem genericVelocity_factor (ha : a ≠ 0) :\n    (Scheme.Modules.pullback (genericParametrization F a ha)).map\n      (LogarithmicSource.velocity F a X e he) ≫\n        (compositionPullback (genericParametrization F a ha) e (genericEvaluation F a X e ha)\n          rfl (tangentSheaf X.structureMap)).hom =\n      genericSourceVelocity F a ha ≫\n        Parametrized.differential Lines.P genericBase X (genericEvaluation F a X e ha)\n          (genericEvaluation_over F a X e he ha)"
+    },
+    {
+      "kind": "theorem",
+      "name": "parametrizedToModelSquare_evaluation",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.parametrizedToModelSquare_evaluation",
+      "header_sha256": "af8d09001b8ae1ae05487c8bb91ff594a62dbc36170856d6eb3c20e133dd17d5",
+      "header": "@[reassoc] theorem parametrizedToModelSquare_evaluation (ha : a ≠ 0) :\n    parametrizedToModelSquare F a ha ≫\n      RelativeSquare.evaluation (modelProjection F a) X.structureMap toC e he =\n      Parametrized.evaluationSquare Lines.P genericBase X\n        (genericEvaluation F a X e ha) (genericEvaluation_over F a X e he ha)"
+    },
+    {
+      "kind": "def",
+      "name": "genericCoefficient",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericCoefficient",
+      "header_sha256": "17572dcb13823efde7e30cbe43307013244de9b1dc564b01c2f8037aefaa7513",
+      "header": "def genericCoefficient (ha : a ≠ 0) :\n    RingSections (Parametrized.Square Lines.P genericBase) ⊤"
+    },
+    {
+      "kind": "theorem",
+      "name": "genericCoefficient_isUnit",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericCoefficient_isUnit",
+      "header_sha256": "0e3392040b7f1e6683ec8126c34c3aa2d27b308bd1e6761781c05113c766456b",
+      "header": "theorem genericCoefficient_isUnit (ha : a ≠ 0) :\n    IsUnit (genericCoefficient F a ha)"
+    },
+    {
+      "kind": "def",
+      "name": "genericCoordinate",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericCoordinate",
+      "header_sha256": "49885c388241f7e8b449e98ad066733c70bcedafe7bc5b369dab2d9b20b92aba",
+      "header": "def genericCoordinate (ha : a ≠ 0) (i j : Fin 2) :\n    AlgebraicSection (pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf)"
+    },
+    {
+      "kind": "def",
+      "name": "genericNumerator",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.genericNumerator",
+      "header_sha256": "7ebcf6581f22586d1fdd9a94ed2f4293a64669a433a05de945e2ed7c02ef4076",
+      "header": "def genericNumerator (ha : a ≠ 0) : AlgebraicSection\n    (RelativeSquare.box p1Parameter\n      (pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf)\n      (pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf))"
+    },
+    {
+      "kind": "theorem",
+      "name": "numerator_transport",
+      "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.numerator_transport",
+      "header_sha256": "5224b312c5b8479f6cc2d1d6530f3c899caa31cdae082e948b70a37576c7afcc",
+      "header": "theorem numerator_transport (ha : a ≠ 0)\n    {Y : Scheme} (sY : Y ⟶ ComplexBase)\n    (eB : Model F a ⟶ Y) (heB : eB ≫ sY = modelProjection F a ≫ toC)\n    (eA : P1Generic ⟶ Y) (heA : eA ≫ sY = p1Parameter ≫ genericBase)\n    (hke : genericParametrization F a ha ≫ eB = eA)\n    {E H : OModule Y}\n    (uB : (modelLine F a).sheaf ⟶ pullbackModule eB E)\n    (vB : (modelLine F a).sheaf ⟶ pullbackModule eB H)\n    (uA : pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf ⟶\n      pullbackModule eA E)\n    (vA : pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf ⟶\n      pullbackModule eA H)\n    (hu : (Scheme.Modules.pullback (genericParametrization F a ha)).map uB ≫\n      (compositionPullback (genericParametrization F a ha) eB eA hke E).hom = uA)\n    (hv : (Scheme.Modules.pullback (genericParametrization F a ha)).map vB ≫\n      (compositionPullback (genericParametrization F a ha) eB eA hke H).hom = vA) :\n    pullSection (parametrizedToModelSquare F a ha)\n      (ModelNumerator.numerator F a ≫\n        RelativeSquare.boxMap (modelProjection F a) uB vB ≫\n          RelativeSquare.comparison (modelProjection F a) sY toC eB heB E H) ≫\n      (compositionPullback (parametrizedToModelSquare F a ha)\n        (RelativeSquare.evaluation (modelProjection F a) sY toC eB heB)\n        (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)\n        (RelativeSquare.map_evaluation p1Parameter (modelProjection F a)\n          (genericParametrization F a ha) genericPoint\n          (genericParametrization_parameter F a ha) sY genericBase toC\n          eA eB heA heB hke) (externalTensor sY E H)).hom =\n      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter uA vA ≫\n        RelativeSquare.comparison p1Parameter sY genericBase eA heA E H"
+    }
+  ]
+}

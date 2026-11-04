@@ -1,4 +1,4 @@
-name: LeBrun-Salamon generic model parametrization retry
+name: LeBrun-Salamon independent model foundations
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  generic-parametrization:
+  source-numerator:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -24,59 +24,56 @@ jobs:
       - name: Restore pinned stock runtime
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41782933633
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-current-full-41782933633-1
-          run-id: 41782933633
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Download verified native cache 2 from 41803587860
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-model-tail-41803587860-1
-          run-id: 41803587860
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/1
-      - name: Download verified native cache 3 from 41802436148
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-cartesian-spreading-41802436148-1
-          run-id: 41802436148
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/2
-      - name: Download verified native cache 4 from 41799583931
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-rational-41799583931-1
-          run-id: 41799583931
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/3
-      - name: Download verified native cache 5 from 41800804867
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-arc-spreading-41800804867-1
-          run-id: 41800804867
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/4
-      - name: Download verified native cache 6 from 41804404180
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-family-smooth-41804404180-1
-          run-id: 41804404180
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/5
-      - name: Download verified native cache 7 from 41809372491
+      - name: Download verified native cache 1 from 41809372491
         uses: actions/download-artifact@v4
         with:
           name: lebrun-reparam-product-transport-41809372491-1
           run-id: 41809372491
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/6
+          path: lebrun-cache-inputs/0
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check targeted original numerator transport repair
+      - name: Check exact first two source-numerator declarations
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelSourceNumerator --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current native frontier evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-model-source-numerator-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+  parametrization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41809372491
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-reparam-product-transport-41809372491-1
+          run-id: 41809372491
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check exact first 33 generic-parametrization declarations
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericParametrization --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
@@ -86,7 +83,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-model-generic-parametrization-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-parametrization-33-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

@@ -26,6 +26,11 @@ def main():
         ('unchanged', ['A', 'B']), ('legacy_unchanged', ['A', 'B']), ('ancestor_source', []), ('leaf_source', ['A']),
         ('output_corruption', []), ('runtime_change', []), ('lock_change', []),
         ('external_change', []), ('log_corruption', []), ('non_native_receipt', ['A']),
+        ('unselected_default', ['A']), ('unselected_valid', ['A', 'B']),
+        ('unselected_missing_cache', ['A']), ('unselected_stale_source', ['A']),
+        ('unselected_altered_output', ['A']), ('unselected_stale_ancestry', ['A']),
+        ('unselected_missing_final_check', ['A']), ('unselected_local_receipt', ['A']),
+        ('unselected_explicit_failure', ['A']), ('unselected_bad_provenance', ['A']),
     ):
         root = workspace / name
         (root / 'source').mkdir(parents=True)
@@ -50,6 +55,46 @@ def main():
                               '--runtime-config', str(config), '--build-dir', str(old)],
                              capture_output=True, text=True)
         assert run.returncode == 0, (name, run.stdout, run.stderr)
+        if name.startswith('unselected_'):
+            status_path = old / 'RUN_STATUS.json'
+            prior = json.loads(status_path.read_text())
+            prior['modules'].pop('B')
+            prior['selected_modules'] = ['A']
+            receipt_path = old / 'receipts/B.json'
+            rec = json.loads(receipt_path.read_text())
+            rec['cache_union_provenance'] = {
+                'source_run_id': 1, 'source_artifact_name': 'SIMULATED_FIXTURE_NOT_CI'}
+            binding = {
+                'source_sha256': rec['key']['source_sha256'],
+                'output_sha256': rec['output_sha256'],
+                'source_ancestry_fingerprint': rec['source_ancestry_fingerprint'],
+                'source_run_id': 1, 'source_artifact_name': 'SIMULATED_FIXTURE_NOT_CI',
+            }
+            cached = {
+                'schema': 'lebrun-ci-cache-union-v1',
+                'current_runtime_fingerprint': prior['runtime_fingerprint'],
+                'all_final_hash_and_runtime_checks_passed': True,
+                'native_kernel_invoked': False, 'acceptance_ledger_modified': False,
+                'copied_modules': {'B': binding}, 'copied_module_count': 1,
+            }
+            if name == 'unselected_stale_source':
+                binding['source_sha256'] = '0' * 64
+            elif name == 'unselected_altered_output':
+                binding['output_sha256'] = '0' * 64
+            elif name == 'unselected_stale_ancestry':
+                binding['source_ancestry_fingerprint'] = '0' * 64
+            elif name == 'unselected_missing_final_check':
+                cached['all_final_hash_and_runtime_checks_passed'] = False
+            elif name == 'unselected_local_receipt':
+                rec['evidence_kind'] = 'local_path_adapter_diagnostic'
+            elif name == 'unselected_explicit_failure':
+                prior['modules']['B'] = {'status': 'failed', 'return_code': 1}
+            elif name == 'unselected_bad_provenance':
+                rec['cache_union_provenance']['source_run_id'] = 999
+            if name != 'unselected_missing_cache':
+                (old / 'CACHE_RESTORE.json').write_text(json.dumps(cached))
+            status_path.write_text(json.dumps(prior))
+            receipt_path.write_text(json.dumps(rec))
         if name == 'legacy_unchanged':
             for path in (old / 'receipts').glob('*.json'):
                 rec = json.loads(path.read_text())
@@ -76,17 +121,20 @@ def main():
             receipt['evidence_kind'] = 'explicit_validated_historical_seed'
             path.write_text(json.dumps(receipt))
         new = root / 'restored'
-        replay = subprocess.run([
+        restore_command = [
             sys.executable, str(restore), '--root', str(root), '--runtime-config', str(config),
             '--artifact-dir', str(root / 'artifact'), '--build-dir', str(new),
             '--source-run-id', '1', '--source-artifact-name', 'SIMULATED_FIXTURE_NOT_CI',
-        ], capture_output=True, text=True)
+        ]
+        if name.startswith('unselected_') and name != 'unselected_default':
+            restore_command.append('--include-validated-unselected-cache')
+        replay = subprocess.run(restore_command, capture_output=True, text=True)
         assert replay.returncode == 0, (name, replay.stdout, replay.stderr)
         result = json.loads((new / 'CACHE_RESTORE.json').read_text())
         copied = list(result['copied_modules'])
         accepted = copied == expected
         reused = None
-        if name in {'unchanged', 'legacy_unchanged'}:
+        if name in {'unchanged', 'legacy_unchanged', 'unselected_valid'}:
             rerun = subprocess.run([sys.executable, str(driver), '--root', str(root),
                                     '--runtime-config', str(config), '--build-dir', str(new)],
                                    capture_output=True, text=True)
@@ -96,6 +144,8 @@ def main():
         results.append({'case': name, 'passed': accepted, 'expected_copied': expected,
                         'copied': copied, 'replayed_statuses': reused,
                         'global_rejection': result['global_rejection'],
+                        'unselected_cache_rejection': result.get('unselected_cache_rejection'),
+                        'unselected_cache_copied_count': result.get('unselected_cache_copied_count', 0),
                         'rejected_modules': result['rejected_modules']})
     report = {'schema': 'lebrun-cache-integrity-fixture-v1',
               'compiler_kind': 'simulated Python fixture; no Lean invoked',

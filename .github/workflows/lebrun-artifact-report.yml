@@ -1,0 +1,153 @@
+name: LeBrun-Salamon artifact validation report
+
+on:
+  push:
+    branches:
+      - codex/lebrun-artifact-report-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact compiled diagnostic source
+        uses: actions/checkout@v4
+        with:
+          ref: 7f01f0026042d5b77f304bcebb379dbe709d4057
+      - name: Validate artifact receipts and expose diagnostics
+        run: |
+          python3 - <<'PYREPORT'
+          from pathlib import Path
+          import hashlib,json,subprocess,sys,zipfile
+          REPO="wajcha2/claude"
+          RUN=41776581766
+          HEAD="7f01f0026042d5b77f304bcebb379dbe709d4057"
+          REFERENCE_ID=13297271203
+          REFERENCE_SHA="545442a93eb8539147b7caa2e1703ec7b5e29d2566687beeb64c1ccb1244891b"
+          ARTIFACT_ID=13297119084
+          ARTIFACT_SHA="9c0b68de950045a6e75b3d0fe66142cba83374002f275bd3524029f580f7b309"
+          def sha(data): return hashlib.sha256(data).hexdigest()
+          def api(path): return json.loads(subprocess.check_output(["gh","api",path]))
+          def download(identifier,expected,name):
+              p=Path(name)
+              with p.open("wb") as out:
+                  subprocess.run(["gh","api",f"repos/{REPO}/actions/artifacts/{identifier}/zip"],stdout=out,check=True)
+              assert sha(p.read_bytes())==expected
+              z=zipfile.ZipFile(p)
+              assert all(not Path(i.filename).is_absolute() and ".." not in Path(i.filename).parts for i in z.infolist())
+              return z
+          def read(z,path): return json.loads(z.read(path))
+          run=api(f"repos/{REPO}/actions/runs/{RUN}")
+          assert run["status"]=="completed" and run["head_sha"]==HEAD
+          assert subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()==HEAD
+          assert subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()==run["head_commit"]["tree_id"]
+          root=Path("lebrun-salamon/continuation")
+          sys.path.insert(0,str(root/"scripts"))
+          from replay_checkpoint import source_graph,dependency_order,source_ancestry_fingerprint
+          reference=download(REFERENCE_ID,REFERENCE_SHA,"reference.zip")
+          current=download(ARTIFACT_ID,ARTIFACT_SHA,"candidate.zip")
+          rs=read(reference,"kernel-evidence/RUN_STATUS.json")
+          status=read(current,"kernel-evidence/RUN_STATUS.json")
+          assert not rs["final_validation"]["invalidated_modules"] and not rs["final_validation"]["changed_runtime_files"]
+          assert status["runtime"]==rs["runtime"]
+          assert status["runtime_fingerprint"]==rs["runtime_fingerprint"]=="9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004"
+          assert status["runtime"]["config"]["compiler_kind"]=="stock_pinned_frontend"
+          assert status["runtime"]["toolchain_lock_sha256"]==sha((root/"TOOLCHAIN.lock.json").read_bytes())=="7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19"
+          assert sha((root/"target/MainStatement.lean").read_bytes())=="9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296"
+          assert not status["final_validation"]["invalidated_modules"] and not status["final_validation"]["changed_runtime_files"]
+          assert sha((root/"source/LSP1BivectorCoordinates.lean").read_bytes())=="433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f"
+          external={}
+          for module,state in rs["modules"].items():
+              if state["status"] not in {"passed","reused","historical_reuse"}: continue
+              rec=read(reference,"kernel-evidence/receipts/"+module+".json")
+              for dep,value in rec["key"]["dependency_artifacts"].items():
+                  if value["kind"]=="external":
+                      assert dep not in external or external[dep]==value
+                      external[dep]=value
+          sources,imports,graph=source_graph(root/"source")
+          order,cycles=dependency_order(graph)
+          assert not cycles and len(sources)==269
+          closure=set()
+          def visit(m):
+              if m in closure:return
+              closure.add(m)
+              for d in graph[m]:visit(d)
+          visit("LSP1BivectorCoordinates")
+          assert len(closure)==80 and set(status["selected_modules"])==closure
+          good={};receipts={};errors=[];reference_differences=[]
+          for module in order:
+              if module not in closure:continue
+              state=status["modules"][module]
+              if state["status"]=="blocked":continue
+              path="kernel-evidence/receipts/"+module+".json"
+              raw=current.read(path);rec=json.loads(raw);key=rec["key"]
+              assert key["source_sha256"]==sha(sources[module].read_bytes()) and key["imports"]==imports[module]
+              assert key["runtime_fingerprint"]==status["runtime_fingerprint"]
+              deps={}
+              for dep in imports[module]:
+                  if dep in sources:
+                      assert dep in good
+                      deps[dep]={"kind":"project","sha256":good[dep]["output_sha256"]}
+                  else:deps[dep]=external[dep]
+              assert key["dependency_artifacts"]==deps
+              for stream in ["stdout","stderr"]:
+                  if stream in rec:
+                      log=current.read("kernel-evidence/logs/"+Path(rec[stream]).name)
+                      assert sha(log)==rec[stream+"_sha256"]
+              if state["status"] not in {"passed","reused","historical_reuse"}:
+                  stdout=current.read("kernel-evidence/logs/"+Path(rec["stdout"]).name).decode()
+                  parsed=[]
+                  for line in stdout.splitlines():
+                      try:item=json.loads(line)
+                      except ValueError:continue
+                      if item.get("severity")=="error":parsed.append(item)
+                  item={"module":module,"status":state["status"],"return_code":rec.get("return_code"),
+                        "seconds":rec.get("seconds"),"source_sha256":key["source_sha256"],
+                        "errors":parsed,"stderr":current.read("kernel-evidence/logs/"+Path(rec["stderr"]).name).decode()}
+                  errors.append(item)
+                  print("NATIVE_DIAGNOSTIC "+json.dumps(item,ensure_ascii=False))
+                  continue
+              assert rec["status"]=="passed" and rec["return_code"]==0 and rec["evidence_kind"]=="native_kernel_compilation"
+              artifact=current.read("kernel-evidence/olean/"+module.replace(".","/")+".olean")
+              assert sha(artifact)==rec["output_sha256"]==state["output_sha256"]
+              stamp=source_ancestry_fingerprint(module,key,{d:good[d]["source_ancestry_fingerprint"] for d in graph[module]})
+              assert stamp==rec["source_ancestry_fingerprint"]
+              good[module]={"key":key,"output_sha256":rec["output_sha256"],"source_ancestry_fingerprint":stamp}
+              record={"module":module,"receipt_sha256":sha(raw),"key":key,"output_sha256":rec["output_sha256"],
+                      "source_ancestry_fingerprint":stamp,"seconds":rec.get("seconds"),
+                      "stdout_sha256":rec.get("stdout_sha256"),"stderr_sha256":rec.get("stderr_sha256")}
+              receipts[module]=record
+              print("NATIVE_RECEIPT "+json.dumps(record,ensure_ascii=False))
+              if module in rs["modules"] and rs["modules"][module]["status"] in {"passed","reused","historical_reuse"}:
+                  old=read(reference,"kernel-evidence/receipts/"+module+".json")
+                  if old["output_sha256"]!=rec["output_sha256"] or old.get("source_ancestry_fingerprint")!=stamp:
+                      reference_differences.append(module)
+          assert len(good)==status["final_validation"]["checked_module_count"]
+          summary={"schema":"lebrun-remote-artifact-validation-v1","run":RUN,"source_head":HEAD,
+                   "artifact_id":ARTIFACT_ID,"artifact_sha256":ARTIFACT_SHA,
+                   "independently_validated_reference_artifact":REFERENCE_ID,"reference_sha256":REFERENCE_SHA,
+                   "selected_modules":80,"accepted_modules":len(good),"failed_modules":[x["module"] for x in errors],
+                   "source_graph_modules":269,"runtime_matches_previously_verified_stock_runtime":True,
+                   "source_git_tree_binding_checked":True,"all_log_output_dependency_recursive_stamps_checked":True,
+                   "reference_context_differences":reference_differences,"candidate_source_sha256":sha((root/"source/LSP1BivectorCoordinates.lean").read_bytes()),
+                   "canonical_source_integrated":False,"whole_current_graph_acceptance":False}
+          report={"summary":summary,"runtime":status["runtime"],"final_validation":status["final_validation"],
+                  "errors":errors,"receipts":receipts}
+          Path("DIAGNOSTIC_REPORT.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n")
+          print("NATIVE_SUMMARY "+json.dumps(summary,ensure_ascii=False))
+          print("NATIVE_RUNTIME "+json.dumps(status["runtime"],ensure_ascii=False))
+          PYREPORT
+      - name: Preserve machine-readable validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-coordinates-artifact-report-${{ github.run_id }}
+          path: DIAGNOSTIC_REPORT.json
+          if-no-files-found: warn

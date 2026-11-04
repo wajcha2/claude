@@ -320,12 +320,17 @@ theorem numerator_transport (ha : a ≠ 0)
   have hadd {V : OModule (ModelNumerator.Square F a)}
       (s t : AlgebraicSection V) : pullSection q (s + t) = pullSection q s + pullSection q t := by
     simp only [pullSection, restrictSection, Functor.map_add, Preadditive.comp_add]
+  have hsection (s t : AlgebraicSection (modelLine F a).sheaf) :
+      RelativeBox.section (modelProjection F a) (L := modelLine F a) s t =
+        RelativeSquare.productSection (modelProjection F a) s t := rfl
   unfold genericNumerator ModelNumerator.numerator
   rw [section_scale]
   simp only [Preadditive.add_comp, Preadditive.sub_comp, Normalization.BundleGluing.pullSection_sub,
-    hadd, Category.assoc, LogVelocity.pullSection_scalar]
-  simp only [RelativeBox.section, ← RelativeSquare.productSection_map]
-  rw [hp, hp, hp]
+    Category.assoc, LogVelocity.pullSection_scalar]
+  erw [hadd]
+  simp only [Preadditive.add_comp, Category.assoc, hsection,
+    RelativeSquare.productSection_map_assoc]
+  erw [hp, hp, hp]
   simp only [genericCoordinate, genericCoefficient, Scheme.Hom.comp_appTop,
     CommRingCat.comp_apply, map_mul, map_ofNat, k, q, Category.assoc]
 

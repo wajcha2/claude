@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent formal arc model transport
+name: LeBrun-Salamon generic model parametrization retry
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  formal-arc-model-transport:
+  generic-parametrization:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -76,9 +76,9 @@ jobs:
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact independent formal arc model transport
+      - name: Check targeted original numerator transport repair
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFormalArcModelTransport --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericParametrization --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -86,7 +86,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-formal-arc-model-transport-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-generic-parametrization-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

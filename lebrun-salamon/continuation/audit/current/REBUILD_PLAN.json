@@ -11,6 +11,8 @@
     "LSAffineFiberDivisibility",
     "LSAffineFrame",
     "LSAffineProductRing",
+    "LSAffineSectionRepresentability",
+    "LSBoundedLines",
     "LSBranchRamification",
     "LSCanonicalSectionBaseChange",
     "LSCartierQuadraticExtraction",
@@ -26,6 +28,7 @@
     "LSConicCotangentExt",
     "LSConicCotangentTools",
     "LSConicFundamentalClassConstruction",
+    "LSConicGeneratingTuples",
     "LSConicJets",
     "LSConicLogAlgebra",
     "LSConicModelSections",
@@ -33,6 +36,7 @@
     "LSConicOverlapCoordinates",
     "LSConicScalarCompatibility",
     "LSConicScalarTransport",
+    "LSConicTupleChange",
     "LSContactLineTests",
     "LSCotangentDeformations",
     "LSCotangentScalarAlgebra",
@@ -55,6 +59,7 @@
     "LSFormalTraitModel",
     "LSFormalTraitParameters",
     "LSFormalTraitRing",
+    "LSFormalTraitSourceComparison",
     "LSFunctionFieldPlaces",
     "LSGeneratingUnitOpens",
     "LSHomFiberInjectivity",
@@ -74,7 +79,12 @@
     "LSNodalLineCohomology",
     "LSNodalLineTriviality",
     "LSNodalTangent",
+    "LSNodalTraitNormalForm",
+    "LSNodalTraitQuadraticPresentation",
     "LSNonvanishingPullback",
+    "LSNormalizedSegre",
+    "LSNormalizedSegrePairs",
+    "LSNormalizedSegreQuotients",
     "LSOpenCotangentScalar",
     "LSOpenModuleCoherence",
     "LSOpenProductCoordinates",
@@ -84,10 +94,13 @@
     "LSP1TangentSections",
     "LSP1TensorSquare",
     "LSP1TensorTaylor",
+    "LSPlaneConicPresentation",
+    "LSPlaneConicZeroPresentation",
     "LSPlaneEmbeddingCartier",
     "LSPlaneFamilyQuadratic",
     "LSPlaneQuadratic",
     "LSPlaneQuadraticBaseChange",
+    "LSPlaneQuadraticEquation",
     "LSPlaneQuadraticPublished",
     "LSPolarizedEmbeddingLift",
     "LSPolarizedOverIso",
@@ -95,15 +108,19 @@
     "LSProductGeometry",
     "LSProjectionFormula",
     "LSProjectiveFibreLineRigidity",
+    "LSProjectiveLinearAction",
     "LSProperLocalTopology",
     "LSPublishedCohomologyBaseChange",
     "LSPublishedPicard",
     "LSPublishedProjectiveSpace",
     "LSQuadraticFibreCartier",
     "LSQuadraticFibreCriteria",
+    "LSQuadraticLinearTransport",
+    "LSQuadraticPolarizedModels",
     "LSQuadraticPolynomial",
     "LSQuadraticPrimitive",
     "LSQuadraticSchemeBaseChange",
+    "LSQuadraticSectionEvaluation",
     "LSQuadraticVeronese",
     "LSReducedPushout",
     "LSRelativeCartier",
@@ -119,8 +136,12 @@
     "LSSheafSectionExact",
     "LSSmoothFibreCartier",
     "LSSmoothFibreComparison",
+    "LSSmoothTraitNormalForm",
+    "LSStandardCentralPlane",
     "LSStandardConicDifferential",
     "LSStandardConicFrames",
+    "LSStandardConicTriple",
+    "LSStandardConicZeroComparison",
     "LSStandardProjectiveBaseChange",
     "LSStandardProjectiveComposition",
     "LSStandardProjectiveNonempty",
@@ -128,9 +149,12 @@
     "LSStandardProjectiveProper",
     "LSStandardProjectiveReduced",
     "LSStandardProjectiveSmooth",
+    "LSStandardSourceBaseChange",
     "LSStandardTautological",
     "LSStandardTautologicalP1",
+    "LSTensorLineTransport",
     "LSTensorLocallyFreeExact",
+    "LSTraitContact",
     "LSTraitFibreCohomology",
     "LSTraitQuadraticPresentation",
     "LSVectorBundlePullback",
@@ -149,7 +173,7 @@
     "RecompileExtensionsPart04Geometry",
     "RecompileSections"
   ],
-  "changed_count": 142,
+  "changed_count": 166,
   "removed_files": [],
   "dependency_graph": {
     "FieldDifferentials": [
@@ -189,6 +213,9 @@
     ],
     "LSAffineProductRing": [
       "LSKunnethDegreeZero"
+    ],
+    "LSAffineSectionRepresentability": [
+      "LSSectionRepresentability"
     ],
     "LSArcParametrization": [
       "LSFormalArcRegularity",
@@ -322,6 +349,9 @@
       "LSOpenModuleCoherence",
       "LSConicScalarCompatibility"
     ],
+    "LSConicGeneratingTuples": [
+      "RecompileExtensionsPart04Geometry"
+    ],
     "LSConicJets": [
       "LSTangentComparison",
       "LSHamiltonianJets",
@@ -356,6 +386,9 @@
     ],
     "LSConicSplitting": [
       "RecompileExtensionsPart03"
+    ],
+    "LSConicTupleChange": [
+      "RecompileExtensionsPart04Geometry"
     ],
     "LSContactCompletion": [
       "LSContactHorizontal",
@@ -536,7 +569,9 @@
       "LSPlaneQuadraticPublished"
     ],
     "LSFormalTraitModel": [
-      "LSFormalTraitParameters"
+      "LSFormalTraitParameters",
+      "LSSmoothTraitNormalForm",
+      "LSNodalTraitNormalForm"
     ],
     "LSFormalTraitParameters": [
       "LSStableMapFamily"
@@ -546,6 +581,10 @@
     ],
     "LSFormalTraitRing": [
       "Mathlib"
+    ],
+    "LSFormalTraitSourceComparison": [
+      "LSFormalTraitParameters",
+      "LSStandardConicZeroComparison"
     ],
     "LSFunctionFieldPlaces": [
       "Mathlib.Analysis.Complex.Polynomial.Basic",
@@ -696,8 +735,33 @@
       "LSTangentComparison",
       "LSCotangentDeformations"
     ],
+    "LSNodalTraitNormalForm": [
+      "LSNodalTraitQuadraticPresentation",
+      "LSFormalTraitSourceComparison",
+      "LSQuadraticPolarizedModels"
+    ],
+    "LSNodalTraitQuadraticPresentation": [
+      "LSFormalTraitParameters",
+      "LSLineCohomologyBaseChange",
+      "LSPlaneFamilyQuadratic",
+      "LSQuadraticFibreCartier",
+      "LSStandardCentralPlane",
+      "LSTraitFibreCohomology",
+      "LSFormalQuadraticConditions"
+    ],
     "LSNonvanishingPullback": [
       "RecompileBasePart05C"
+    ],
+    "LSNormalizedSegre": [
+      "LSStandardTautological",
+      "RecompileExtensionsPart04Geometry"
+    ],
+    "LSNormalizedSegrePairs": [
+      "LSNormalizedSegreQuotients",
+      "LSStandardProjectiveBaseChange"
+    ],
+    "LSNormalizedSegreQuotients": [
+      "LSNormalizedSegre"
     ],
     "LSOpenCotangentScalar": [
       "LSHomVelocity"
@@ -736,6 +800,13 @@
     "LSP1TensorTaylor": [
       "LSP1SourceAlgebra"
     ],
+    "LSPlaneConicPresentation": [
+      "RecompileExtensionsPart04Geometry"
+    ],
+    "LSPlaneConicZeroPresentation": [
+      "LSPlaneQuadraticEquation",
+      "LSPlaneConicPresentation"
+    ],
     "LSPlaneEmbeddingCartier": [
       "LSPolarizedEmbeddingLift",
       "LSStandardProjectiveSmooth",
@@ -755,6 +826,10 @@
     "LSPlaneQuadraticBaseChange": [
       "LSPlaneQuadratic",
       "LSStandardProjectiveBaseChange"
+    ],
+    "LSPlaneQuadraticEquation": [
+      "LSPlaneQuadraticBaseChange",
+      "LSConicGeneratingTuples"
     ],
     "LSPlaneQuadraticPublished": [
       "LSPlaneQuadratic"
@@ -810,6 +885,10 @@
     "LSProjectiveFibreLineRigidity": [
       "LSP1FamilyDegree"
     ],
+    "LSProjectiveLinearAction": [
+      "LSConicTupleChange",
+      "LSStandardProjectiveBaseChange"
+    ],
     "LSProjectiveTransport": [
       "RecompileExtensionsPart03"
     ],
@@ -850,6 +929,15 @@
       "LSPlaneQuadraticPublished",
       "LSFibreIsomorphism"
     ],
+    "LSQuadraticLinearTransport": [
+      "LSQuadraticSectionEvaluation"
+    ],
+    "LSQuadraticPolarizedModels": [
+      "LSQuadraticLinearTransport",
+      "LSComplexQuadraticMatrix",
+      "LSRelativeVeroneseModel",
+      "LSPolarizedOverIso"
+    ],
     "LSQuadraticPolynomial": [
       "LSPlaneQuadratic"
     ],
@@ -860,6 +948,12 @@
     ],
     "LSQuadraticSchemeBaseChange": [
       "LSPlaneQuadraticBaseChange"
+    ],
+    "LSQuadraticSectionEvaluation": [
+      "LSProjectiveLinearAction",
+      "LSPlaneQuadraticBaseChange",
+      "LSAffineFrame",
+      "LSStandardProjectiveSmooth"
     ],
     "LSQuadraticVeronese": [
       "LSStandardTautological"
@@ -948,6 +1042,12 @@
     "LSSmoothFibreComparison": [
       "RecompileExtensionsPart03"
     ],
+    "LSSmoothTraitNormalForm": [
+      "LSFormalTraitParameters",
+      "LSTraitQuadraticPresentation",
+      "LSFormalQuadraticConditions",
+      "LSQuadraticPolarizedModels"
+    ],
     "LSSmoothingAssembly": [
       "LSNodalConic",
       "LSNodalFixedEnds",
@@ -962,6 +1062,12 @@
       "RecompileExtensionsPart04",
       "LSProjectivityDefinitions"
     ],
+    "LSStandardCentralPlane": [
+      "LSStandardConicZeroComparison",
+      "LSPlaneConicZeroPresentation",
+      "LSPolarizedProjectiveEmbedding",
+      "LSNodalFibreComparison"
+    ],
     "LSStandardConicDifferential": [
       "LSNodalFixedEnds",
       "LSStandardConicFrames",
@@ -969,6 +1075,17 @@
     ],
     "LSStandardConicFrames": [
       "LSHomVelocity"
+    ],
+    "LSStandardConicTriple": [
+      "LSNormalizedSegrePairs",
+      "LSConicGeneratingTuples",
+      "LSStandardSourceBaseChange",
+      "LSPlaneConicPresentation",
+      "LSTensorLineTransport"
+    ],
+    "LSStandardConicZeroComparison": [
+      "LSStandardConicTriple",
+      "LSPlaneConicZeroPresentation"
     ],
     "LSStandardProjectiveBaseChange": [
       "LSStandardTautological"
@@ -992,6 +1109,9 @@
     "LSStandardProjectiveSmooth": [
       "LSStandardTautological"
     ],
+    "LSStandardSourceBaseChange": [
+      "RecompileExtensionsPart04Geometry"
+    ],
     "LSStandardTautological": [
       "RecompileSections"
     ],
@@ -1009,6 +1129,9 @@
     ],
     "LSTangentComparison": [
       "LSGlobalVelocity"
+    ],
+    "LSTensorLineTransport": [
+      "RecompileExtensionsPart02"
     ],
     "LSTensorLocallyFreeExact": [
       "RecompileBasePart04"
@@ -1118,6 +1241,7 @@
     ],
     "RecompileExtensionsPart04Geometry": [
       "LSSectionRepresentability",
+      "LSAffineSectionRepresentability",
       "LSGeneratingUnitOpens",
       "RecompileExtensionsPart03",
       "LSConicSplitting"
@@ -1235,6 +1359,8 @@
     "LSHomFiberInjectivity",
     "LSRelativeGeneration",
     "LSSectionRepresentability",
+    "LSTensorLineTransport",
+    "LSAffineSectionRepresentability",
     "LSDualThickeningNormalForm",
     "LSLiftedProjectiveTuple",
     "RecompileExtensionsPart03",
@@ -1245,31 +1371,46 @@
     "LSSmoothFibreComparison",
     "LSPolarizedProjectiveEmbedding",
     "RecompileExtensionsPart04Geometry",
+    "LSConicGeneratingTuples",
     "LSConicOverlapAlgebra",
+    "LSConicTupleChange",
     "LSEffectiveCartierInputs",
+    "LSNormalizedSegre",
+    "LSPlaneConicPresentation",
     "LSPlaneQuadratic",
     "LSPolarizedEmbeddingLift",
+    "LSStandardSourceBaseChange",
     "RecompileExtensionsPart04GluingPrefix",
     "LSComplexQuadraticMatrix",
     "LSConicOverlapCoordinates",
     "LSEffectiveCartierIso",
+    "LSNormalizedSegreQuotients",
     "LSPlaneEmbeddingCartier",
     "LSPlaneQuadraticBaseChange",
     "LSPlaneQuadraticPublished",
+    "LSProjectiveLinearAction",
     "LSQuadraticPolynomial",
     "LSVeroneseZeroModel",
     "RecompileExtensionsPart04Gluing",
     "LSCartierQuadraticExtraction",
+    "LSNormalizedSegrePairs",
+    "LSPlaneQuadraticEquation",
     "LSQuadraticPrimitive",
     "LSQuadraticSchemeBaseChange",
+    "LSQuadraticSectionEvaluation",
     "LSRelativeVeroneseModel",
     "RecompileExtensionsPart04GluingSections",
+    "LSPlaneConicZeroPresentation",
     "LSPlaneFamilyQuadratic",
     "LSQuadraticFibreCartier",
     "LSQuadraticFibreCriteria",
+    "LSQuadraticLinearTransport",
+    "LSStandardConicTriple",
     "RecompileExtensionsPart04Nodes",
     "LSNodalLineCohomology",
+    "LSQuadraticPolarizedModels",
     "LSSmoothFibreCartier",
+    "LSStandardConicZeroComparison",
     "RecompileExtensionsPart04",
     "LSFlatSectionDescent",
     "LSLineValueDescent",
@@ -1285,20 +1426,23 @@
     "LSReducedCover",
     "LSTraitQuadraticPresentation",
     "LSContactLineTests",
-    "LSFormalTraitModel",
+    "LSFormalTraitSourceComparison",
+    "LSSmoothTraitNormalForm",
+    "LSStandardCentralPlane",
     "RecompileExtensions",
     "LSBranchAlgebra",
-    "LSGenericGlobalFunctions",
+    "LSNodalTraitQuadraticPresentation",
     "LSPositiveVariation",
-    "LSStableFamilyTraits",
     "RecompileTail",
     "LSBranchRamification",
+    "LSNodalTraitNormalForm",
     "LSPositiveQuotient",
     "LSSuitableDirections",
     "LSAffineCurveSelection",
     "LSConeOpen",
     "LSConeRadial",
     "LSDescentAssembly",
+    "LSFormalTraitModel",
     "LSPositiveHom",
     "LSPositiveSplit",
     "LSRadialDetection",
@@ -1307,10 +1451,12 @@
     "LSConeIsotropy",
     "LSConeTangents",
     "LSContactGeneration",
+    "LSGenericGlobalFunctions",
     "LSLeviFiber",
     "LSPositiveIndependence",
     "LSPositiveNodeImage",
     "LSSelectedPair",
+    "LSStableFamilyTraits",
     "LSConeRescaledArcs",
     "LSContactHomBaseChange",
     "LSContactStandardInputs",
@@ -1474,6 +1620,8 @@
     "LSHomFiberInjectivity",
     "LSRelativeGeneration",
     "LSSectionRepresentability",
+    "LSTensorLineTransport",
+    "LSAffineSectionRepresentability",
     "LSDualThickeningNormalForm",
     "LSLiftedProjectiveTuple",
     "RecompileExtensionsPart03",
@@ -1484,31 +1632,46 @@
     "LSSmoothFibreComparison",
     "LSPolarizedProjectiveEmbedding",
     "RecompileExtensionsPart04Geometry",
+    "LSConicGeneratingTuples",
     "LSConicOverlapAlgebra",
+    "LSConicTupleChange",
     "LSEffectiveCartierInputs",
+    "LSNormalizedSegre",
+    "LSPlaneConicPresentation",
     "LSPlaneQuadratic",
     "LSPolarizedEmbeddingLift",
+    "LSStandardSourceBaseChange",
     "RecompileExtensionsPart04GluingPrefix",
     "LSComplexQuadraticMatrix",
     "LSConicOverlapCoordinates",
     "LSEffectiveCartierIso",
+    "LSNormalizedSegreQuotients",
     "LSPlaneEmbeddingCartier",
     "LSPlaneQuadraticBaseChange",
     "LSPlaneQuadraticPublished",
+    "LSProjectiveLinearAction",
     "LSQuadraticPolynomial",
     "LSVeroneseZeroModel",
     "RecompileExtensionsPart04Gluing",
     "LSCartierQuadraticExtraction",
+    "LSNormalizedSegrePairs",
+    "LSPlaneQuadraticEquation",
     "LSQuadraticPrimitive",
     "LSQuadraticSchemeBaseChange",
+    "LSQuadraticSectionEvaluation",
     "LSRelativeVeroneseModel",
     "RecompileExtensionsPart04GluingSections",
+    "LSPlaneConicZeroPresentation",
     "LSPlaneFamilyQuadratic",
     "LSQuadraticFibreCartier",
     "LSQuadraticFibreCriteria",
+    "LSQuadraticLinearTransport",
+    "LSStandardConicTriple",
     "RecompileExtensionsPart04Nodes",
     "LSNodalLineCohomology",
+    "LSQuadraticPolarizedModels",
     "LSSmoothFibreCartier",
+    "LSStandardConicZeroComparison",
     "RecompileExtensionsPart04",
     "LSFlatSectionDescent",
     "LSLineValueDescent",
@@ -1524,20 +1687,23 @@
     "LSReducedCover",
     "LSTraitQuadraticPresentation",
     "LSContactLineTests",
-    "LSFormalTraitModel",
+    "LSFormalTraitSourceComparison",
+    "LSSmoothTraitNormalForm",
+    "LSStandardCentralPlane",
     "RecompileExtensions",
     "LSBranchAlgebra",
-    "LSGenericGlobalFunctions",
+    "LSNodalTraitQuadraticPresentation",
     "LSPositiveVariation",
-    "LSStableFamilyTraits",
     "RecompileTail",
     "LSBranchRamification",
+    "LSNodalTraitNormalForm",
     "LSPositiveQuotient",
     "LSSuitableDirections",
     "LSAffineCurveSelection",
     "LSConeOpen",
     "LSConeRadial",
     "LSDescentAssembly",
+    "LSFormalTraitModel",
     "LSPositiveHom",
     "LSPositiveSplit",
     "LSRadialDetection",
@@ -1546,10 +1712,12 @@
     "LSConeIsotropy",
     "LSConeTangents",
     "LSContactGeneration",
+    "LSGenericGlobalFunctions",
     "LSLeviFiber",
     "LSPositiveIndependence",
     "LSPositiveNodeImage",
     "LSSelectedPair",
+    "LSStableFamilyTraits",
     "LSConeRescaledArcs",
     "LSContactHomBaseChange",
     "LSContactStandardInputs",
@@ -1630,7 +1798,7 @@
     "LSCompletedTargets",
     "LSMilestoneTarget"
   ],
-  "affected_count": 237,
+  "affected_count": 259,
   "unaffected_prerequisites": [
     "FieldDifferentials",
     "LSConeDiagonal",
@@ -1650,6 +1818,7 @@
     "LSAffineFiberDivisibility",
     "LSAffineFrame",
     "LSAffineProductRing",
+    "LSAffineSectionRepresentability",
     "LSArcParametrization",
     "LSBoundedLines",
     "LSBranchAlgebra",
@@ -1676,6 +1845,7 @@
     "LSConicCotangentExt",
     "LSConicCotangentTools",
     "LSConicFundamentalClassConstruction",
+    "LSConicGeneratingTuples",
     "LSConicJets",
     "LSConicLogAlgebra",
     "LSConicModelSections",
@@ -1684,6 +1854,7 @@
     "LSConicScalarCompatibility",
     "LSConicScalarTransport",
     "LSConicSplitting",
+    "LSConicTupleChange",
     "LSContactCompletion",
     "LSContactDirections",
     "LSContactGeneration",
@@ -1726,6 +1897,7 @@
     "LSFormalTraitParameters",
     "LSFormalTraitProjectivity",
     "LSFormalTraitRing",
+    "LSFormalTraitSourceComparison",
     "LSFunctionFieldPlaces",
     "LSGeneratingUnitOpens",
     "LSGenericFamilyComparison",
@@ -1759,7 +1931,12 @@
     "LSNodalFibreComparison",
     "LSNodalLineCohomology",
     "LSNodalLineTriviality",
+    "LSNodalTraitNormalForm",
+    "LSNodalTraitQuadraticPresentation",
     "LSNonvanishingPullback",
+    "LSNormalizedSegre",
+    "LSNormalizedSegrePairs",
+    "LSNormalizedSegreQuotients",
     "LSOpenCotangentScalar",
     "LSOpenModuleCoherence",
     "LSOpenProductCoordinates",
@@ -1771,10 +1948,13 @@
     "LSP1TangentSections",
     "LSP1TensorSquare",
     "LSP1TensorTaylor",
+    "LSPlaneConicPresentation",
+    "LSPlaneConicZeroPresentation",
     "LSPlaneEmbeddingCartier",
     "LSPlaneFamilyQuadratic",
     "LSPlaneQuadratic",
     "LSPlaneQuadraticBaseChange",
+    "LSPlaneQuadraticEquation",
     "LSPlaneQuadraticPublished",
     "LSPolarizedEmbeddingLift",
     "LSPolarizedOverIso",
@@ -1789,6 +1969,7 @@
     "LSProjectAssembly",
     "LSProjectionFormula",
     "LSProjectiveFibreLineRigidity",
+    "LSProjectiveLinearAction",
     "LSProjectiveTransport",
     "LSProperLocalTopology",
     "LSProperSections",
@@ -1798,9 +1979,12 @@
     "LSPublishedProjectiveSpace",
     "LSQuadraticFibreCartier",
     "LSQuadraticFibreCriteria",
+    "LSQuadraticLinearTransport",
+    "LSQuadraticPolarizedModels",
     "LSQuadraticPolynomial",
     "LSQuadraticPrimitive",
     "LSQuadraticSchemeBaseChange",
+    "LSQuadraticSectionEvaluation",
     "LSQuadraticVeronese",
     "LSRadialDetection",
     "LSRationalOpenTransport",
@@ -1824,9 +2008,13 @@
     "LSSheafSectionExact",
     "LSSmoothFibreCartier",
     "LSSmoothFibreComparison",
+    "LSSmoothTraitNormalForm",
     "LSSmoothingAssembly",
     "LSStableFamilyTraits",
+    "LSStandardCentralPlane",
     "LSStandardConicFrames",
+    "LSStandardConicTriple",
+    "LSStandardConicZeroComparison",
     "LSStandardProjectiveBaseChange",
     "LSStandardProjectiveComposition",
     "LSStandardProjectiveNonempty",
@@ -1834,12 +2022,14 @@
     "LSStandardProjectiveProper",
     "LSStandardProjectiveReduced",
     "LSStandardProjectiveSmooth",
+    "LSStandardSourceBaseChange",
     "LSStandardTautological",
     "LSStandardTautologicalP1",
     "LSSuitableDirections",
     "LSSuitableLinear",
     "LSSuitablePair",
     "LSTangentComparison",
+    "LSTensorLineTransport",
     "LSTensorLocallyFreeExact",
     "LSTraitContact",
     "LSTraitFibreCohomology",
@@ -1869,8 +2059,9 @@
     "LSAffineFiberDivisibility": "922f424447d60d1c5472ac72eb519065711b9ca88ae6025937ac1b9356f7466c",
     "LSAffineFrame": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
     "LSAffineProductRing": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+    "LSAffineSectionRepresentability": "65f44a7b10490ef6dc5ada997673c70eae6f8f7247af652d239f8f8d0439c0f3",
     "LSArcParametrization": "0c1dc14e79a6647fd9dedfa3a65b211d5ec513f3eced41604a236d21f822964a",
-    "LSBoundedLines": "b67188bc7abba9ed5f5b8f0bf25ebd82252a7fba24e61f88ad9304623a4828c9",
+    "LSBoundedLines": "bbadc1a15a4d01168d544fe671de5bd5036743be1756f2f6b8c526708989c120",
     "LSBranchAlgebra": "afec61342371b75bf860cb35b6c328660547861ae5d6988620531b7dd7e2bbab",
     "LSBranchRamification": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
     "LSCanonicalSectionBaseChange": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0",
@@ -1900,7 +2091,8 @@
     "LSConicCotangentExt": "6956110afde9c57f9dc8c39e85c2f4ad52beb28dda9aeed7af3a42a2dbf31c24",
     "LSConicCotangentTools": "170ab70e55a0bdf8e65f602f1d453e58eaf59d09be442a499503a3383be0a30b",
     "LSConicFundamentalClassConstruction": "ee037a0d9fa6c57a92affb965281f3ccbef07b03f68cefa639bcd390d150414c",
-    "LSConicJets": "ddc72fc7dc54fb658b4ffb59b78c58ce81f52bf84fa275644f89db1d7ed2cc4a",
+    "LSConicGeneratingTuples": "ec96232f67004961c71d9afcf605be2725efdcb8172a35184a5fc4b5929d855b",
+    "LSConicJets": "635f9a33db7f453be91482e647321dda7b712793f66ecd46929f255f322d5a30",
     "LSConicLogAlgebra": "08f9537169e4131de38d375ecd0fdd7269870b31765ad6486838d756747fc7e3",
     "LSConicModelSections": "708427e0debe485311e9b9a1c63f48065ff2b775826518d731575651f85dbf7b",
     "LSConicOverlapAlgebra": "ec66fb60615ba90c3f340c11b7fc9eb7981dece99395a6e404d3e92e4eeb919c",
@@ -1908,6 +2100,7 @@
     "LSConicScalarCompatibility": "f84c31e8ba04c683ffd86998b9befbe901cea0e252483fbf5f7acd0e187a4e51",
     "LSConicScalarTransport": "59200285281d8728bd3c1ecdfa87762208c5813df179807f3cc56a070a4dbb62",
     "LSConicSplitting": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9",
+    "LSConicTupleChange": "0544724de33909412f29e02ccf92f0f6ee577c7f33158a5c8019d59574c32136",
     "LSContactCompletion": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
     "LSContactDirections": "a559dc915db6c9bff9c0aa17ea40d7a794208fefc500b442f47bb6f856b92e02",
     "LSContactGeneration": "d4417afa67b215262ba3e4b2e893bac666e4375f816f133577ef353a0b713164",
@@ -1949,10 +2142,11 @@
     "LSFormalArcRegularity": "ef59b53deffda932a81a85c87bdb36872684b4ee041402bd0e86aba3829c58d8",
     "LSFormalArcSections": "663ded2d21628a0fc0c09126981ef6840b0c05dc98ba8387977955a46eac165b",
     "LSFormalQuadraticConditions": "867c4107793ce01879e3296709f5b19f6dcd0b8963cf1554d7fb2900df1b20c5",
-    "LSFormalTraitModel": "6d9459c5f0b39613382f76bd352728d795e60e90203772a2fe80a7a95a998d3d",
+    "LSFormalTraitModel": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
     "LSFormalTraitParameters": "1247ef2994bd5b318ed787386769ee2ad1774b8ae4c04b64f4079e7bd0eb49f9",
     "LSFormalTraitProjectivity": "76efabce398ecdce5f72de365de6b10b28044c3b68a2059da806c5a4965a5fe4",
     "LSFormalTraitRing": "ec61fbffc146f5d5339c9dabc2111ee617012e4131d4cfed50cb76471753ebec",
+    "LSFormalTraitSourceComparison": "b51cf00c8f1cf214afb202aa36c884ee67c6d2dc2a04598e80031ee820ee615c",
     "LSFunctionFieldPlaces": "e94a492c316f76d29a82fdf26b4a65450b4eed7574315c27ac86d4fd89a20f27",
     "LSGeneratingUnitOpens": "dfe5be9319a3a003740147e7ca9f955a44adaec009b8a396cadc2076daf3a1e4",
     "LSGenericFamilyComparison": "6c27e461fa7bd48862c2139544baf46d13ccbe4946b9d7de365814bf21d22b13",
@@ -1990,7 +2184,12 @@
     "LSNodalLineCohomology": "0b545d129a36b86cedc938583379907cc46dae51870be82bb4427addd05177a5",
     "LSNodalLineTriviality": "957d488c653bcf86be242e4e4c42b9e09e97965cce6bb7e6944182a5a0250dec",
     "LSNodalTangent": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+    "LSNodalTraitNormalForm": "12b4513516789c3edeaa295b1793ee562d48e1094e290594af7ec5ebae782369",
+    "LSNodalTraitQuadraticPresentation": "9e604959b8579330a73a3c162e52259072abfb510aadbde337509ff7b4dfa621",
     "LSNonvanishingPullback": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+    "LSNormalizedSegre": "46dcf1d71fb628aea3c4d7ded246dfe2b59fe26d91267804770262525b6a8040",
+    "LSNormalizedSegrePairs": "d41dd7ecf547191351faaca0871ace7968dffbb93ff013fb81abcea87be02a85",
+    "LSNormalizedSegreQuotients": "666687dcb8e65f48ae9b4fca7b5446da96c9dfcc0efa226299ed40d1d44e22a9",
     "LSOpenCotangentScalar": "6704c7900647941ff2fad13a6142c365640871cc73ec7c28db79be60510d91dd",
     "LSOpenModuleCoherence": "e9a86480e6fdd10755aec1d66ae91e3a6c4bfc09b7b1d82600472e6264eee46d",
     "LSOpenProductCoordinates": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
@@ -2002,10 +2201,13 @@
     "LSP1TangentSections": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
     "LSP1TensorSquare": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
     "LSP1TensorTaylor": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
+    "LSPlaneConicPresentation": "c50bfeec48cf9bf1a0184c8f3db25e27da801901b52e90afdbdb9a8e4d5e1633",
+    "LSPlaneConicZeroPresentation": "95e09de000b768b11b39c6045854c63ebc5dac5b3fd3553b8e32b891db847dfa",
     "LSPlaneEmbeddingCartier": "ab6057d727c03d843a0fc3c4af707fd74b489db503665b9b48836dbc1874b35a",
     "LSPlaneFamilyQuadratic": "608390e3d69e31d7885dbc5afe04c1ac4925e604c7d2d19e7ad64534efdf0132",
     "LSPlaneQuadratic": "38f65cdee7f73a1bb34a567a1e8100ad02ef9b1fa8ead0f9f9fcd08eaa76ddcd",
     "LSPlaneQuadraticBaseChange": "f685642afa419e263dd7cfb9c0ce442cce317039efe24f8b17a2eb025792ef45",
+    "LSPlaneQuadraticEquation": "ae31d2794128277f89eacd0224de900c757e1b56fcf26e195dce764d17a8aab0",
     "LSPlaneQuadraticPublished": "4facda36b2bd75cdc357389b634baafce017d791032aad7ffb7d0dbc73589842",
     "LSPolarizedEmbeddingLift": "150bd6488496698def932978be19ac66290733000f424695bd8ab3127e3f2985",
     "LSPolarizedOverIso": "713640c041c8469f247bf523a1a09637c8c80d19649f4b11d22f91b354ed2504",
@@ -2020,6 +2222,7 @@
     "LSProjectAssembly": "fc8db72be6af28d76ca69d60fb86e81ed6385e92b847c4052bb8b2a00eb10bfd",
     "LSProjectionFormula": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
     "LSProjectiveFibreLineRigidity": "802614ba69f1086b442323164583b0c21cbf11f9fc950f2d32c864c06fe507ec",
+    "LSProjectiveLinearAction": "9b6563902214a51cb54c7632c15857eefb58de37df052a7d4855d7a8d3b91711",
     "LSProjectiveTransport": "ad4c17ab2db7ee454cef7829d79c3f1a42bb81454630aa536c368f9c99880c13",
     "LSProjectivityDefinitions": "ecd462c2af07c2872af45f7266f36956140b256cf67ffc00c4026648da222e96",
     "LSProperLocalTopology": "829d83163fc7c4430515e0fdd97cd3a1ef37057c4271a589a2b8a95f53038bed",
@@ -2030,9 +2233,12 @@
     "LSPublishedProjectiveSpace": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
     "LSQuadraticFibreCartier": "4cce55d26a061fb62d425e2de26751d32f499fef5216ad7a14b8e065287e8765",
     "LSQuadraticFibreCriteria": "5898a799d164c372af4f89b47317078b5ff4690784133a437b450d7ed9a917a5",
+    "LSQuadraticLinearTransport": "4a9d8c9e8d0d9e4e24a6aaab37a0d82bc615437498d28a832328af9d4076e9d7",
+    "LSQuadraticPolarizedModels": "f146d019311efab0cfe940518074d5f08dd8052fb4bdbceb32b07e1d5bfa9d94",
     "LSQuadraticPolynomial": "5688e3d4c3496516fc32b7b6263ac066cc4cd32b72b60906107e9c76d2a1d7df",
     "LSQuadraticPrimitive": "b3e7b5e3662607c2545f652627db1e83bfa261f1d31455a97f9f15eb65008220",
     "LSQuadraticSchemeBaseChange": "e05bff53687491b3db30c5f7324c8f2f91d7e32825e52c5a903b963ca9f47ffe",
+    "LSQuadraticSectionEvaluation": "c1bc967944243b3f09001098d10c9f9463464a981afe7da701f0e4b106a7bd49",
     "LSQuadraticVeronese": "c863dacf661926b90b865f1c187b9b75664fe5ff22d59a1d990fdda85fee7053",
     "LSRadialDetection": "bd34184918d07090d275ef4a5d3cade86fbeb967ba4147f3b87539db59a00721",
     "LSRationalOpenTransport": "0d818fe5252249bb0b4c683586ce309c5227d698019173dbc26fdbff77d4ea00",
@@ -2056,11 +2262,15 @@
     "LSSheafSectionExact": "295f667a338cdc7db59621be6f9224959cf16cc7a40f494a090fd38a4e0ae73d",
     "LSSmoothFibreCartier": "a3669706be437e9fe9dc329b9935bb3acf2e745e9d3fdcecd294a14e7604bfe6",
     "LSSmoothFibreComparison": "d492f9c1e4fec15e68c0b8f3e856144c9f51852c758fb0c721549fbbb1d7002b",
+    "LSSmoothTraitNormalForm": "c3f8812b19c8e60612e7823d6cd631b1d8fa1bbba68fa07b2f64399f0b075a4f",
     "LSSmoothingAssembly": "efe54e2db4b16243da4f47f523dfe0f66f58259b8a8903a18f0dcd316d435bdc",
     "LSStableFamilyTraits": "8e52c140d75bbd6794e7ded0e4ab498e772900974f9a26285249a08f6f0cf3de",
     "LSStableMapFamily": "0360a40ba6a0fc816bd44e0887350661d51d76c5bad19e6577d94cac9f32d0b2",
+    "LSStandardCentralPlane": "acd2aa2b460be4a5c6e2d1c1e281d67b411ca6d55102e34d9b6f1690c34ef249",
     "LSStandardConicDifferential": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
     "LSStandardConicFrames": "18cb96dd1c9030ca8fbbcd412ab2d788e31f8e0815b8c91a9b19d59945ae9172",
+    "LSStandardConicTriple": "e89869f4d5f3296f3951a4cccfa173a91195dd92183b2500d0f4383b7d86c004",
+    "LSStandardConicZeroComparison": "459ab3ba5bbf2dbc6822dc65dc7f25f86dfdd07e5b099293a78eebe2aee89216",
     "LSStandardProjectiveBaseChange": "dcdb5f92af17c0154ceab7dabfda415f7318e72f5d980e29e55db1af9172b674",
     "LSStandardProjectiveComposition": "b9d9f84556d534e9fcdf1fa1e325ce9a09125b970fed0161df378c914b4483e5",
     "LSStandardProjectiveNonempty": "585330bf95310805513d27aa322e05742d4827aa4eeb9adc02722d9cead4d46f",
@@ -2068,14 +2278,16 @@
     "LSStandardProjectiveProper": "926cd5af163ff521ad7881101b24064b1f32b37449da46acd258a4c0b366c1cb",
     "LSStandardProjectiveReduced": "10f0617b71f0490e05b4cfd5e2de2b6e4b62f4548d0c4f98d0e7494490897539",
     "LSStandardProjectiveSmooth": "5c20a72ea1655dd5c457a7b9569de9ce31b6bf981aa5936263badaa020a62d77",
+    "LSStandardSourceBaseChange": "de7eb38a6ab96829dbb8222eece2f4766701cf418f0368865cfac32138178ee4",
     "LSStandardTautological": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
     "LSStandardTautologicalP1": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
     "LSSuitableDirections": "f3618c8de36929722cbbe3711d9b86f9cf238bfa74ea5da1492afb100eefd10a",
     "LSSuitableLinear": "8b682e75fbf03c9e8f83f7b8a4a56f99b896cac7f70c89f931581a86ea88dc28",
     "LSSuitablePair": "6bc000ff919865cfb707e5a3c9d6380048f59c8001d56ac45ce3fda994da8dd6",
     "LSTangentComparison": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
+    "LSTensorLineTransport": "cdffd9d858c6083fed2c3a913c644f70c6622393ccd147ded989ecc427b1fc49",
     "LSTensorLocallyFreeExact": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
-    "LSTraitContact": "8775cf48a185346ce44d636102e3ea74f5360f5be3afc2c0f76a63b7118bedd9",
+    "LSTraitContact": "c7dc03364dc97b00cfe98e492eaaac1c959873b913869eddc5a9f12f98e95424",
     "LSTraitFibreCohomology": "32dec476597e69afae5c6fe18f07d81dc94bd1a08d9636ddde809aa0c1995239",
     "LSTraitQuadraticPresentation": "15426720fa4c9d2b3cee88c4344f87e0fa8e5d6e348ee6c44088a5289853c6a4",
     "LSVectorBundlePullback": "63e1a145e5871bdb4d3627ba835bd0f61cea3a51919ae60dfa5666aef5386d5b",
@@ -2100,7 +2312,7 @@
     "RecompileExtensionsPart02": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
     "RecompileExtensionsPart03": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
     "RecompileExtensionsPart04": "9a989e4bb84ad679a39af81cf79ad1f95fba5929a111245cc840b9c3e087ca8c",
-    "RecompileExtensionsPart04Geometry": "78446f8f6452bcd90f795daa8f6b1e09ed34a734ead0829c8b84037b06d475dd",
+    "RecompileExtensionsPart04Geometry": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
     "RecompileExtensionsPart04Gluing": "ad5c1c7b4fbdc1734643b0e614af68c2c1dd46b1f082ccef3bf98c14db312c0e",
     "RecompileExtensionsPart04GluingPrefix": "22d70feae4bfa53bcc53fb5dbf0a0a85b53a10ea468660c0168f59d87177f9c8",
     "RecompileExtensionsPart04GluingSections": "8a09576464066fc2da8c74afacae92297e2dc6301518e2711f5b196c1b2f1697",

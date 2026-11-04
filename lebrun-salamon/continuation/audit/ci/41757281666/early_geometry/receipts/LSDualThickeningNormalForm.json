@@ -1,0 +1,70 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSDualThickeningNormalForm",
+  "key": {
+    "source_sha256": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422",
+    "imports": [
+      "LSFiniteFreeBaseChange",
+      "LSDualBaseChangeAlgebra"
+    ],
+    "dependency_artifacts": {
+      "LSFiniteFreeBaseChange": {
+        "sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0",
+        "kind": "project"
+      },
+      "LSDualBaseChangeAlgebra": {
+        "sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSDualThickeningNormalForm.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSDualThickeningNormalForm.lean"
+  ],
+  "started_utc": "2026-11-04T01:18:37.374614+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSDualThickeningNormalForm.20261104T011837374583.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSDualThickeningNormalForm.20261104T011837374583.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:18:41.152108+00:00",
+  "seconds": 3.776,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "271ae86d40d0502cdd35e05b122f35157a6eca2e1d49f08023be804443a1cd37",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "b01ec856701648a55f44172afde54898957cff7eaf80256391e75354246303d6",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "36c86aef6904762b5d489de495df573a3ac562550241dd8c2355d251aa077db6",
+  "cache_restore_provenance": {
+    "source_run_id": 41752026450,
+    "source_artifact_name": "lebrun-takeover-kernel-41752026450-1",
+    "prior_receipt_sha256": "b2817ae880f4423bf6bdc1afacd4bd36f83cb2624f3931a204705223fefbe9df",
+    "restored_utc": "2026-11-04T01:56:14.468627+00:00"
+  }
+}

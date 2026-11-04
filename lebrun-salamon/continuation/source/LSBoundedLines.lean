@@ -41,11 +41,11 @@ def markedEvaluation : (openSet X H D).toScheme ⟶ X.variety.scheme :=
 
 instance openSet_finiteType : LocallyOfFiniteType ((openSet X H D).ι ≫ H.toC) :=
   HomDegree.boundedFreeOpen_finiteType P marking X.variety
-    (contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line D
+    (LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line D
 
 instance openSet_quasiCompact : QuasiCompact ((openSet X H D).ι ≫ H.toC) :=
   HomDegree.boundedFreeOpen_quasiCompact P marking X.variety
-    (contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line D
+    (LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line D
 
 instance openSet_noetherian : IsNoetherian (openSet X H D).toScheme := by
   letI : IsLocallyNoetherian (openSet X H D).toScheme :=

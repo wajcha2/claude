@@ -12,7 +12,10 @@ The numerator is a global section on the complete relative square.
 
 noncomputable section
 set_option autoImplicit false
+set_option maxErrors 1
+set_option maxHeartbeats 250000
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -24,6 +27,8 @@ open LeBrunSalamon.PhaseThirtyFour LeBrunSalamon.Skeleton
 open LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.TraitContact
+
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
 
 namespace LineEndomorphisms
 
@@ -51,10 +56,14 @@ theorem scalar_existsUnique {Y : Scheme} (L : LineBundle Y)
     dsimp only [c]
     rw [mapCoefficient_restrict, mapCoefficient_restrict]
     exact endCoefficient_frame_independent _ _ f
+  have hc' : TopCat.Presheaf.IsCompatible
+      (TwoChartSections.sectionSheaf (structureModule Y)).obj q.X c := by
+    change TopCat.Presheaf.IsCompatible (structureModule Y).presheaf q.X c
+    exact hc
   obtain ⟨a, ha, _⟩ :=
     (TwoChartSections.sectionSheaf (structureModule Y)).existsUnique_gluing'
       q.X ⊤ (fun i => homOfLE (show q.X i ≤ ⊤ from le_top))
-      (by rw [hcover]) c hc
+      (by rw [hcover]) c hc'
   have hf : f = GlobalScalars.scalarEnd L.sheaf a := by
     apply P1Ideal.hom_ext_of_localSections q.X hcover
     intro i
@@ -67,6 +76,8 @@ theorem scalar_existsUnique {Y : Scheme} (L : LineBundle Y)
     q.X ⊤ (fun i => homOfLE (show q.X i ≤ ⊤ from le_top)) (by rw [hcover])
   intro i
   have h := congrArg (mapCoefficient (e i) (e i)) (hb.symm.trans hf)
+  change Y.presheaf.map (homOfLE (show q.X i ≤ ⊤ from le_top)).op b =
+    Y.presheaf.map (homOfLE (show q.X i ≤ ⊤ from le_top)).op a
   simpa only [mapCoefficient_scalarEnd] using h
 
 /-- A map between two identified actual line bundles is multiplication
@@ -133,7 +144,8 @@ theorem baseScalar_zero_of_pullback_zero {Y B T : Scheme} (pi : Y ⟶ B)
   have hs : GlobalScalars.scalarEnd (pullbackModule j L.sheaf)
       (j.appTop (pi.appTop a)) = 0 := by
     apply (cancel_mono ((Scheme.Modules.pullback j).mapIso e).hom).mp
-    rw [← scalarEnd_pullback, ← Functor.map_comp, ← hf, hj, zero_comp]
+    rw [← scalarEnd_pullback, Functor.mapIso_hom, ← Functor.map_comp,
+      ← hf, hj, zero_comp]
   exact (scalarEnd_eq_zero_iff (pullbackLine j L) _).mp hs
 
 end LineEndomorphisms
@@ -213,8 +225,14 @@ theorem logMap_baseChange :
       dualBaseChange (toUniversal F a) (cotangentSheaf F.parameter) ≫
       ContactDerivativeIsoProof.dualMap (cotangentComparison F a).inv := by
   unfold logMap fundamentalClass
-  rw [transpose_comp, transpose_dualMap, ← transpose_pullback]
-  rfl
+  rw [transpose_comp]
+  rw [← Category.assoc
+      ((Scheme.Modules.pullback (toUniversal F a)).map
+        (StandardConicDifferential.fundamentalClass F))
+      (dualBaseChange (toUniversal F a) (StandardConicDifferential.line F).sheaf)
+      (ContactDerivativeIsoProof.dualMap (lineComparison F a).inv),
+    transpose_dualMap, ← transpose_pullback]
+  simp only [Category.assoc, StandardConicDifferential.logMap, StandardConicDifferential.logMapFrom]
 
 variable {d : ℕ} (X : SmoothProperComplexVariety d)
     (e : Model F a ⟶ X.scheme)
@@ -458,7 +476,8 @@ theorem framedTensor {T : Scheme} {E G : OModule T}
     (s : AlgebraicSection E) (t : AlgebraicSection G) :
     tensorSection s t ≫
         ((tensorIso e g) ≪≫ TensorConstruction.leftUnitIso (structureModule T)).hom =
-      scalarSection (sectionValue (s ≫ e.hom) * sectionValue (t ≫ g.hom)) := by
+      scalarSection ((show RingSections T ⊤ from sectionValue (s ≫ e.hom)) *
+        (show RingSections T ⊤ from sectionValue (t ≫ g.hom))) := by
   change tensorSection s t ≫ tensorMap e.hom g.hom ≫
     (TensorConstruction.leftUnitIso (structureModule T)).hom = _
   rw [← Category.assoc, tensorSection_map]
@@ -518,7 +537,10 @@ theorem testFrame_numerator {T : Scheme} (f : T ⟶ Square F a)
   have hadd {G : OModule (Square F a)} (s t : AlgebraicSection G) :
       pullSection f (s + t) = pullSection f s + pullSection f t := by
     simp only [pullSection, restrictSection, Functor.map_add, Preadditive.comp_add]
-  rw [numerator, Normalization.pullSection_sub, hadd,
+  have hsub {G : OModule (Square F a)} (s t : AlgebraicSection G) :
+      pullSection f (s - t) = pullSection f s - pullSection f t := by
+    simp only [pullSection, restrictSection, Functor.map_sub, Preadditive.comp_sub]
+  rw [numerator, hsub, hadd,
     Preadditive.sub_comp, Preadditive.add_comp,
     testFrame_box, testFrame_box, Smoothing.StandardSourceProof.pullSection_scalar,
     Smoothing.StandardSourceProof.scalarSection_comp, testFrame_box]
@@ -526,7 +548,6 @@ theorem testFrame_numerator {T : Scheme} (f : T ⟶ Square F a)
   simp only [sub_eq_add_neg, sectionValue_add, sectionValue_neg, sectionValue_comp,
     scalarSection, sectionFromValue_spec, map_sub, map_add, map_mul,
     map_ofNat, Scheme.Hom.comp_appTop, CommRingCat.comp_apply, smul_eq_mul]
-  rfl
 
 /-- On the two node frames, the global section has the literal
 coefficient u*v' + v*u' - 2*a. -/

@@ -1,0 +1,59 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConicCotangentTools",
+  "source_ancestry_fingerprint": "a55cc5017fd99c59ade75426d0dc7433594732ccb36adb657bd8ac081f4db769",
+  "key": {
+    "source_sha256": "170ab70e55a0bdf8e65f602f1d453e58eaf59d09be442a499503a3383be0a30b",
+    "imports": [
+      "LSTangentComparison"
+    ],
+    "dependency_artifacts": {
+      "LSTangentComparison": {
+        "sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSConicCotangentTools.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicCotangentTools.lean"
+  ],
+  "started_utc": "2026-11-04T01:59:10.172413+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicCotangentTools.20261104T015910172388.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicCotangentTools.20261104T015910172388.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:59:14.000446+00:00",
+  "seconds": 3.826,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "7ac9bd5544bd9daeda13105774fd45bcccbc09fef05d383063bba5a728381a02",
+  "evidence_kind": "native_kernel_compilation"
+}

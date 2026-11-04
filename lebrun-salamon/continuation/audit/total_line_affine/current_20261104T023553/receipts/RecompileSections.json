@@ -1,0 +1,48 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "RecompileSections",
+  "key": {
+    "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+    "imports": [
+      "LSPublishedPicard",
+      "LSAffineDerivations",
+      "RecompileBase"
+    ],
+    "dependency_artifacts": {
+      "LSPublishedPicard": {
+        "sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+        "kind": "project"
+      },
+      "LSAffineDerivations": {
+        "sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "kind": "project"
+      },
+      "RecompileBase": {
+        "sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+  "source_ancestry_fingerprint": "7937cc5a95e85e29a21fe9a8cd8bc3970c6fafc7d0cdcf68899da11e586df299",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41752026450,
+    "head_sha": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
+    "original_receipt_sha256": "9758b4ad188ff7f2364687f2bd4bca705493f71575f949bf08e2d7d2f4bbe536",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T01:57:47.207359+00:00"
+}

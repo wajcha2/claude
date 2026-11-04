@@ -1,4 +1,5 @@
 import LSSectionRepresentability
+import LSAffineSectionRepresentability
 import LSGeneratingUnitOpens
 import RecompileExtensionsPart03
 import LSConicSplitting
@@ -1308,7 +1309,12 @@ theorem mapOfSection_naturality {W Y : Scheme}
       (T.mapOfSection f a).property g k hk, T.representedSection_mapOfSection]
   exact congrArg Subtype.val he
 
-theorem projection_affine : IsAffineHom T.projection := by sorry
+/-- The actual represented total line is isomorphic over its base to the
+generic affine representative; its map, tautological section and all-test
+universal property are supplied explicitly to that proved transport. -/
+theorem projection_affine : IsAffineHom T.projection := by
+  exact LeBrunSalamon.SectionRepresentability.affine_of_data L.locallyFree
+    T.projection T.tautological T.universal
 
 /-- Published vector-bundle finite-presentation theorem. The represented functor
 identifies this actual total line with `Spec Sym (L dual)`. Its coefficient

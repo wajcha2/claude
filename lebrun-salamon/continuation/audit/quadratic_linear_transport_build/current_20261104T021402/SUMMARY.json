@@ -1,0 +1,200 @@
+{
+  "schema": "lebrun-quadratic-gl-current-acceptance-v1",
+  "created_utc": "2026-11-04T02:15:37.930793+00:00",
+  "status": "four_no_admission_helpers_integrated_exactly_as_natively_accepted",
+  "scope": "Current project source ancestry checked byte-for-byte against live source after V2 ancestry-stamped replay; no historical project artifact roots. This is the 53-module selected helper cone, not a full-project or final-target acceptance.",
+  "source_root": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_gl_current_20261104/source",
+  "output_root": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_gl_current_20261104/build/olean",
+  "source_manifest": {
+    "LSConicTupleChange": {
+      "source_sha256": "0544724de33909412f29e02ccf92f0f6ee577c7f33158a5c8019d59574c32136",
+      "olean_sha256": "afd2c4358a6502244ee1ee54806707a65b750dee22057194e701e7c4aa40fe34",
+      "seconds": 6.592,
+      "source_ancestry_fingerprint": "d6db8506bfcfe497afe7db532b2fb5a685e3042083bffd402a801fe888439b1a"
+    },
+    "LSProjectiveLinearAction": {
+      "source_sha256": "9b6563902214a51cb54c7632c15857eefb58de37df052a7d4855d7a8d3b91711",
+      "olean_sha256": "4baea24129fddeab6005ff71509fcf5e0a6e9bafa1d659feb0609be5c49a1bde",
+      "seconds": 25.508,
+      "source_ancestry_fingerprint": "1031be4e12bc474c6942cd88ef8bb7c2d1dcae8f756d1a71e6cba4b58f716db7"
+    },
+    "LSQuadraticSectionEvaluation": {
+      "source_sha256": "c1bc967944243b3f09001098d10c9f9463464a981afe7da701f0e4b106a7bd49",
+      "olean_sha256": "7a7d614995ad4c3f803ef639f1d2ecb74ab4227d80acbaaf17c32748a5c7cf6c",
+      "seconds": 6.992,
+      "source_ancestry_fingerprint": "37b923ab0dfbaf8e02ffe4879d88b302f3bea2a673e1858d1cb499ec71876a4d"
+    },
+    "LSQuadraticLinearTransport": {
+      "source_sha256": "4a9d8c9e8d0d9e4e24a6aaab37a0d82bc615437498d28a832328af9d4076e9d7",
+      "olean_sha256": "128cc1c4ba790dd66664599df2da854807060c64b88b88114d8be4c8f09aa7bd",
+      "seconds": 4.128,
+      "source_ancestry_fingerprint": "05353a8392440782f0d4aae52ef467d33a5d3735a1b4496ac362282335530ff8"
+    },
+    "LSQuadraticLinearTransportNativeAudit": {
+      "source_sha256": "8a4e26f1426695d5aa566b2c18593f73d4997798f217392e1c4877c9df040756",
+      "olean_sha256": "757f5f88991f6ba8b04bde46e2af7ef94aef774433fbe609c31d2af8192a0f0c",
+      "seconds": 15.21,
+      "source_ancestry_fingerprint": "fa77cb49a9250def2babfbb4ed756c098e24be755366d853144138e3f16a5634"
+    }
+  },
+  "final_validation": {
+    "checked_utc": "2026-11-04T02:14:02.216002+00:00",
+    "checked_module_count": 53,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "upstream_ci": "41752026450",
+  "native_boundary": [
+    {
+      "root": "LeBrunSalamon.ConicTupleChange.generates_change",
+      "all_constants": 19626,
+      "project_constants": 45,
+      "direct_sorry_count": 0,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": []
+    },
+    {
+      "root": "LeBrunSalamon.ProjectiveLinearAction.iso",
+      "all_constants": 25355,
+      "project_constants": 148,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "module": "LSStandardTautological",
+          "shortest_path": "LeBrunSalamon.ProjectiveLinearAction.iso -> LeBrunSalamon.ProjectiveLinearAction.map_inv_map -> LeBrunSalamon.StandardTautological.chosen -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ), Nonempty.{2} (LeBrunSalamon.StandardTautological.Data R N)"
+        }
+      ]
+    },
+    {
+      "root": "LeBrunSalamon.QuadraticSectionEvaluation.section_transformed",
+      "all_constants": 27523,
+      "project_constants": 462,
+      "direct_sorry_count": 2,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "module": "LSStandardProjectiveSmooth",
+          "shortest_path": "LeBrunSalamon.QuadraticSectionEvaluation.section_transformed -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ),\n  Eq.{1} (⨆ i, LeBrunSalamon.StandardTautological.chart R N i) Top.top.{0} ∧\n    ∀ (i : Fin (HAdd.hAdd.{0, 0, 0} N 1)),\n      ∃ e,\n        Eq.{1}\n          (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} e)\n            (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} MvPolynomial.C.{0, 0})))\n          (CategoryTheory.CategoryStruct.comp.{0, 1}\n            (AlgebraicGeometry.Scheme.Opens.ι.{0} (LeBrunSalamon.StandardTautological.chart R N i))\n            (LeBrunSalamon.StandardTautological.toSpec R N))"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "module": "LSStandardTautological",
+          "shortest_path": "LeBrunSalamon.QuadraticSectionEvaluation.section_transformed -> LeBrunSalamon.StandardTautological.chosen -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ), Nonempty.{2} (LeBrunSalamon.StandardTautological.Data R N)"
+        }
+      ]
+    },
+    {
+      "root": "LeBrunSalamon.QuadraticLinearTransport.iso",
+      "all_constants": 32728,
+      "project_constants": 562,
+      "direct_sorry_count": 4,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "module": "LSStandardTautological",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.PlaneQuadratic.ZeroScheme -> LeBrunSalamon.PlaneQuadratic.quadraticLine -> LeBrunSalamon.StandardTautological.line -> LeBrunSalamon.StandardTautological.chosen -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ), Nonempty.{2} (LeBrunSalamon.StandardTautological.Data R N)"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "module": "LSStandardProjectiveSmooth",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.QuadraticLinearTransport.forward -> LeBrunSalamon.QuadraticLinearTransport.forward._proof_1 -> LeBrunSalamon.QuadraticLinearTransport.forward_zero -> LeBrunSalamon.QuadraticSectionEvaluation.section_transformed -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ),\n  Eq.{1} (⨆ i, LeBrunSalamon.StandardTautological.chart R N i) Top.top.{0} ∧\n    ∀ (i : Fin (HAdd.hAdd.{0, 0, 0} N 1)),\n      ∃ e,\n        Eq.{1}\n          (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} e)\n            (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} MvPolynomial.C.{0, 0})))\n          (CategoryTheory.CategoryStruct.comp.{0, 1}\n            (AlgebraicGeometry.Scheme.Opens.ι.{0} (LeBrunSalamon.StandardTautological.chart R N i))\n            (LeBrunSalamon.StandardTautological.toSpec R N))"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "module": "LSSectionRepresentability",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.PlaneQuadratic.ZeroScheme -> LeBrunSalamon.PlaneQuadratic.total -> LeBrunSalamon.PlaneQuadratic.total._proof_1 -> LeBrunSalamon.Construction.Descent.totalLine_exists -> LeBrunSalamon.SectionRepresentability.represented_section_data -> LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {E : LeBrunSalamon.PhaseOne.OModule.{0} Z} {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    CategoryTheory.Functor.IsRepresentable.{0, 0, 1} (LeBrunSalamon.SectionRepresentability.sectionFunctor E)"
+        },
+        {
+          "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "module": "RecompileExtensionsPart04Geometry",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.QuadraticLinearTransport.iso._proof_1 -> LeBrunSalamon.PlaneQuadratic.inclusion_isClosedImmersion -> LeBrunSalamon.Construction.Smoothing.StandardSourceProof.SectionEquality.inclusion_closed -> LeBrunSalamon.Construction.Descent.TotalLine.graph_closed -> LeBrunSalamon.Construction.Descent.TotalLine.projection_separated -> LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {L : LeBrunSalamon.PhaseOne.LineBundle Z}\n  (T : LeBrunSalamon.Construction.Descent.TotalLine L), AlgebraicGeometry.IsAffineHom.{0} T.projection"
+        }
+      ]
+    },
+    {
+      "root": "LeBrunSalamon.QuadraticLinearTransport.over_base",
+      "all_constants": 32731,
+      "project_constants": 565,
+      "direct_sorry_count": 4,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "module": "LSStandardTautological",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.over_base -> LeBrunSalamon.ProjectiveLinearAction.iso -> LeBrunSalamon.ProjectiveLinearAction.map_inv_map -> LeBrunSalamon.StandardTautological.chosen -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ), Nonempty.{2} (LeBrunSalamon.StandardTautological.Data R N)"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "module": "LSStandardProjectiveSmooth",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.over_base -> LeBrunSalamon.QuadraticLinearTransport.forward_inclusion -> LeBrunSalamon.QuadraticLinearTransport.forward_zero -> LeBrunSalamon.QuadraticSectionEvaluation.section_transformed -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ),\n  Eq.{1} (⨆ i, LeBrunSalamon.StandardTautological.chart R N i) Top.top.{0} ∧\n    ∀ (i : Fin (HAdd.hAdd.{0, 0, 0} N 1)),\n      ∃ e,\n        Eq.{1}\n          (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} e)\n            (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} MvPolynomial.C.{0, 0})))\n          (CategoryTheory.CategoryStruct.comp.{0, 1}\n            (AlgebraicGeometry.Scheme.Opens.ι.{0} (LeBrunSalamon.StandardTautological.chart R N i))\n            (LeBrunSalamon.StandardTautological.toSpec R N))"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "module": "LSSectionRepresentability",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.over_base -> LeBrunSalamon.PlaneQuadratic.ZeroScheme -> LeBrunSalamon.PlaneQuadratic.total -> LeBrunSalamon.PlaneQuadratic.total._proof_1 -> LeBrunSalamon.Construction.Descent.totalLine_exists -> LeBrunSalamon.SectionRepresentability.represented_section_data -> LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {E : LeBrunSalamon.PhaseOne.OModule.{0} Z} {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    CategoryTheory.Functor.IsRepresentable.{0, 0, 1} (LeBrunSalamon.SectionRepresentability.sectionFunctor E)"
+        },
+        {
+          "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "module": "RecompileExtensionsPart04Geometry",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.over_base -> LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.QuadraticLinearTransport.iso._proof_1 -> LeBrunSalamon.PlaneQuadratic.inclusion_isClosedImmersion -> LeBrunSalamon.Construction.Smoothing.StandardSourceProof.SectionEquality.inclusion_closed -> LeBrunSalamon.Construction.Descent.TotalLine.graph_closed -> LeBrunSalamon.Construction.Descent.TotalLine.projection_separated -> LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {L : LeBrunSalamon.PhaseOne.LineBundle Z}\n  (T : LeBrunSalamon.Construction.Descent.TotalLine L), AlgebraicGeometry.IsAffineHom.{0} T.projection"
+        }
+      ]
+    },
+    {
+      "root": "LeBrunSalamon.QuadraticLinearTransport.lineIso",
+      "all_constants": 32729,
+      "project_constants": 563,
+      "direct_sorry_count": 4,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "module": "LSStandardTautological",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.lineIso -> LeBrunSalamon.StandardTautological.line -> LeBrunSalamon.StandardTautological.chosen -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ), Nonempty.{2} (LeBrunSalamon.StandardTautological.Data R N)"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "module": "LSStandardProjectiveSmooth",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.lineIso -> LeBrunSalamon.QuadraticLinearTransport.forward_inclusion -> LeBrunSalamon.QuadraticLinearTransport.forward_zero -> LeBrunSalamon.QuadraticSectionEvaluation.section_transformed -> LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "type": "∀ (R : Type) [inst : CommRing.{0} R] (N : ℕ),\n  Eq.{1} (⨆ i, LeBrunSalamon.StandardTautological.chart R N i) Top.top.{0} ∧\n    ∀ (i : Fin (HAdd.hAdd.{0, 0, 0} N 1)),\n      ∃ e,\n        Eq.{1}\n          (CategoryTheory.CategoryStruct.comp.{0, 1} (CategoryTheory.Iso.hom.{0, 1} e)\n            (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} MvPolynomial.C.{0, 0})))\n          (CategoryTheory.CategoryStruct.comp.{0, 1}\n            (AlgebraicGeometry.Scheme.Opens.ι.{0} (LeBrunSalamon.StandardTautological.chart R N i))\n            (LeBrunSalamon.StandardTautological.toSpec R N))"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "module": "LSSectionRepresentability",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.lineIso -> LeBrunSalamon.PlaneQuadratic.ZeroScheme -> LeBrunSalamon.PlaneQuadratic.total -> LeBrunSalamon.PlaneQuadratic.total._proof_1 -> LeBrunSalamon.Construction.Descent.totalLine_exists -> LeBrunSalamon.SectionRepresentability.represented_section_data -> LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {E : LeBrunSalamon.PhaseOne.OModule.{0} Z} {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    CategoryTheory.Functor.IsRepresentable.{0, 0, 1} (LeBrunSalamon.SectionRepresentability.sectionFunctor E)"
+        },
+        {
+          "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "module": "RecompileExtensionsPart04Geometry",
+          "shortest_path": "LeBrunSalamon.QuadraticLinearTransport.lineIso -> LeBrunSalamon.QuadraticLinearTransport.iso -> LeBrunSalamon.QuadraticLinearTransport.iso._proof_1 -> LeBrunSalamon.PlaneQuadratic.inclusion_isClosedImmersion -> LeBrunSalamon.Construction.Smoothing.StandardSourceProof.SectionEquality.inclusion_closed -> LeBrunSalamon.Construction.Descent.TotalLine.graph_closed -> LeBrunSalamon.Construction.Descent.TotalLine.projection_separated -> LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "type": "∀ {Z : AlgebraicGeometry.Scheme.{0}} {L : LeBrunSalamon.PhaseOne.LineBundle Z}\n  (T : LeBrunSalamon.Construction.Descent.TotalLine L), AlgebraicGeometry.IsAffineHom.{0} T.projection"
+        }
+      ]
+    }
+  ],
+  "known_extra_inherited_leaf": "TotalLine.projection_affine enters only inverse laws via closed-immersion Mono; planned refinement uses literal zero-locus uniqueness to remove this unnecessary dependency. No new admission was added.",
+  "milestone_met": false
+}

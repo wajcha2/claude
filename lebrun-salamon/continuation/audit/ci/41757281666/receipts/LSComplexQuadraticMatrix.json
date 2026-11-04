@@ -1,0 +1,64 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSComplexQuadraticMatrix",
+  "source_ancestry_fingerprint": "c05e313b409de6f5a129e9dfaeb05c72129f6656db7558a898f47b6fc0d2aa99",
+  "key": {
+    "source_sha256": "b10cf3dcbcb1a4deab2a4479a5291f306b55dc3889a13122e264944e236cea34",
+    "imports": [
+      "LSComplexQuadraticCoordinates",
+      "LSPlaneQuadratic"
+    ],
+    "dependency_artifacts": {
+      "LSComplexQuadraticCoordinates": {
+        "sha256": "48596aa7b3753bdda5e8c65b461f2d11b6f014eead59e59240206f947910e4e6",
+        "kind": "project"
+      },
+      "LSPlaneQuadratic": {
+        "sha256": "59643ebe7034d0b3aa8214f9f65c23d2dafe57c34a6f72a2ea61278da631f499",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSComplexQuadraticMatrix.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSComplexQuadraticMatrix.lean"
+  ],
+  "started_utc": "2026-11-04T01:57:50.026007+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSComplexQuadraticMatrix.20261104T015750025979.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSComplexQuadraticMatrix.20261104T015750025979.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:57:56.456827+00:00",
+  "seconds": 6.43,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "369d24824ba5ad1292b0e88e762c9f6fb987bc304023d71dd93314493145f293",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "44c6e99fe568998191f7b9cef57158dcf52635e26d9e4bb66a02858ce4f3d569",
+  "evidence_kind": "native_kernel_compilation"
+}

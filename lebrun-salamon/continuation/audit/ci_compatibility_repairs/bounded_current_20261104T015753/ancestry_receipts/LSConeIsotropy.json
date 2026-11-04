@@ -1,0 +1,48 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConeIsotropy",
+  "key": {
+    "source_sha256": "455e8b54f26f3a283555b7b345634c12380da6e2e47e7dac957a337f0742b129",
+    "imports": [
+      "LSConeRadial",
+      "LSRadialDetection",
+      "LSConeLocalization"
+    ],
+    "dependency_artifacts": {
+      "LSConeRadial": {
+        "sha256": "607a4c8b0ed905536266541e5f1f5e1a6b8a83a58da5399104effd8d89b21356",
+        "kind": "project"
+      },
+      "LSRadialDetection": {
+        "sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d",
+        "kind": "project"
+      },
+      "LSConeLocalization": {
+        "sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "97db7735130c56e28e5d01c57d4200135b5d612a05302d4c7ac26b9b3c4b9ab1",
+  "source_ancestry_fingerprint": "85714b4310814de3999742cb5502b376dac762cba8885e82793ca942e324c7e3",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41752026450,
+    "head_sha": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
+    "original_receipt_sha256": "1e2ada267c647b54daa458e18654399695c1aa306e79149e5b48c02baf9db5f3",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T01:57:47.334535+00:00"
+}

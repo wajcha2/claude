@@ -8,17 +8,17 @@
   "source_manifest_passed": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "frozen_target_matches": true,
-  "source_modules": 246,
-  "source_lines": 119825,
+  "source_modules": 268,
+  "source_lines": 122448,
   "token_counts": {
-    "sorry": 100,
+    "sorry": 99,
     "admit": 0,
     "axiom": 0,
     "opaque": 0
   },
-  "admitted_declarations": 100,
+  "admitted_declarations": 99,
   "published_namespace_admissions": 53,
-  "other_admissions": 47,
+  "other_admissions": 46,
   "final_statement_integration": {
     "status": "references_present_unverified",
     "references": [
@@ -264,6 +264,22 @@
       }
     },
     {
+      "file": "LSAffineSectionRepresentability.lean",
+      "module": "LSAffineSectionRepresentability",
+      "sha256": "65f44a7b10490ef6dc5ada997673c70eae6f8f7247af652d239f8f8d0439c0f3",
+      "bytes": 4087,
+      "lines": 87,
+      "imports": [
+        "LSSectionRepresentability"
+      ],
+      "tokens": {
+        "sorry": 1,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSArcParametrization.lean",
       "module": "LSArcParametrization",
       "sha256": "0c1dc14e79a6647fd9dedfa3a65b211d5ec513f3eced41604a236d21f822964a",
@@ -284,8 +300,8 @@
     {
       "file": "LSBoundedLines.lean",
       "module": "LSBoundedLines",
-      "sha256": "b67188bc7abba9ed5f5b8f0bf25ebd82252a7fba24e61f88ad9304623a4828c9",
-      "bytes": 8166,
+      "sha256": "bbadc1a15a4d01168d544fe671de5bd5036743be1756f2f6b8c526708989c120",
+      "bytes": 8226,
       "lines": 162,
       "imports": [
         "LSHomDegree",
@@ -799,11 +815,27 @@
       }
     },
     {
+      "file": "LSConicGeneratingTuples.lean",
+      "module": "LSConicGeneratingTuples",
+      "sha256": "ec96232f67004961c71d9afcf605be2725efdcb8172a35184a5fc4b5929d855b",
+      "bytes": 4638,
+      "lines": 97,
+      "imports": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSConicJets.lean",
       "module": "LSConicJets",
-      "sha256": "ddc72fc7dc54fb658b4ffb59b78c58ce81f52bf84fa275644f89db1d7ed2cc4a",
-      "bytes": 98676,
-      "lines": 1804,
+      "sha256": "635f9a33db7f453be91482e647321dda7b712793f66ecd46929f255f322d5a30",
+      "bytes": 99727,
+      "lines": 1822,
       "imports": [
         "LSTangentComparison",
         "LSHamiltonianJets",
@@ -929,6 +961,22 @@
       "lines": 497,
       "imports": [
         "RecompileExtensionsPart03"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSConicTupleChange.lean",
+      "module": "LSConicTupleChange",
+      "sha256": "0544724de33909412f29e02ccf92f0f6ee577c7f33158a5c8019d59574c32136",
+      "bytes": 5121,
+      "lines": 114,
+      "imports": [
+        "RecompileExtensionsPart04Geometry"
       ],
       "tokens": {
         "sorry": 0,
@@ -1651,14 +1699,16 @@
     {
       "file": "LSFormalTraitModel.lean",
       "module": "LSFormalTraitModel",
-      "sha256": "6d9459c5f0b39613382f76bd352728d795e60e90203772a2fe80a7a95a998d3d",
-      "bytes": 6473,
-      "lines": 130,
+      "sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
+      "bytes": 6901,
+      "lines": 137,
       "imports": [
-        "LSFormalTraitParameters"
+        "LSFormalTraitParameters",
+        "LSSmoothTraitNormalForm",
+        "LSNodalTraitNormalForm"
       ],
       "tokens": {
-        "sorry": 2,
+        "sorry": 0,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -1704,6 +1754,23 @@
       "lines": 55,
       "imports": [
         "Mathlib"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSFormalTraitSourceComparison.lean",
+      "module": "LSFormalTraitSourceComparison",
+      "sha256": "b51cf00c8f1cf214afb202aa36c884ee67c6d2dc2a04598e80031ee820ee615c",
+      "bytes": 2647,
+      "lines": 58,
+      "imports": [
+        "LSFormalTraitParameters",
+        "LSStandardConicZeroComparison"
       ],
       "tokens": {
         "sorry": 0,
@@ -2343,6 +2410,46 @@
       }
     },
     {
+      "file": "LSNodalTraitNormalForm.lean",
+      "module": "LSNodalTraitNormalForm",
+      "sha256": "12b4513516789c3edeaa295b1793ee562d48e1094e290594af7ec5ebae782369",
+      "bytes": 3887,
+      "lines": 71,
+      "imports": [
+        "LSNodalTraitQuadraticPresentation",
+        "LSFormalTraitSourceComparison",
+        "LSQuadraticPolarizedModels"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSNodalTraitQuadraticPresentation.lean",
+      "module": "LSNodalTraitQuadraticPresentation",
+      "sha256": "9e604959b8579330a73a3c162e52259072abfb510aadbde337509ff7b4dfa621",
+      "bytes": 5202,
+      "lines": 93,
+      "imports": [
+        "LSFormalTraitParameters",
+        "LSLineCohomologyBaseChange",
+        "LSPlaneFamilyQuadratic",
+        "LSQuadraticFibreCartier",
+        "LSStandardCentralPlane",
+        "LSTraitFibreCohomology",
+        "LSFormalQuadraticConditions"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSNonvanishingPullback.lean",
       "module": "LSNonvanishingPullback",
       "sha256": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
@@ -2350,6 +2457,56 @@
       "lines": 261,
       "imports": [
         "RecompileBasePart05C"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSNormalizedSegre.lean",
+      "module": "LSNormalizedSegre",
+      "sha256": "46dcf1d71fb628aea3c4d7ded246dfe2b59fe26d91267804770262525b6a8040",
+      "bytes": 7162,
+      "lines": 169,
+      "imports": [
+        "LSStandardTautological",
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "tokens": {
+        "sorry": 1,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSNormalizedSegrePairs.lean",
+      "module": "LSNormalizedSegrePairs",
+      "sha256": "d41dd7ecf547191351faaca0871ace7968dffbb93ff013fb81abcea87be02a85",
+      "bytes": 6886,
+      "lines": 141,
+      "imports": [
+        "LSNormalizedSegreQuotients",
+        "LSStandardProjectiveBaseChange"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSNormalizedSegreQuotients.lean",
+      "module": "LSNormalizedSegreQuotients",
+      "sha256": "666687dcb8e65f48ae9b4fca7b5446da96c9dfcc0efa226299ed40d1d44e22a9",
+      "bytes": 8118,
+      "lines": 147,
+      "imports": [
+        "LSNormalizedSegre"
       ],
       "tokens": {
         "sorry": 0,
@@ -2539,6 +2696,39 @@
       }
     },
     {
+      "file": "LSPlaneConicPresentation.lean",
+      "module": "LSPlaneConicPresentation",
+      "sha256": "c50bfeec48cf9bf1a0184c8f3db25e27da801901b52e90afdbdb9a8e4d5e1633",
+      "bytes": 6519,
+      "lines": 139,
+      "imports": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSPlaneConicZeroPresentation.lean",
+      "module": "LSPlaneConicZeroPresentation",
+      "sha256": "95e09de000b768b11b39c6045854c63ebc5dac5b3fd3553b8e32b891db847dfa",
+      "bytes": 4889,
+      "lines": 104,
+      "imports": [
+        "LSPlaneQuadraticEquation",
+        "LSPlaneConicPresentation"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSPlaneEmbeddingCartier.lean",
       "module": "LSPlaneEmbeddingCartier",
       "sha256": "ab6057d727c03d843a0fc3c4af707fd74b489db503665b9b48836dbc1874b35a",
@@ -2602,6 +2792,23 @@
       "imports": [
         "LSPlaneQuadratic",
         "LSStandardProjectiveBaseChange"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSPlaneQuadraticEquation.lean",
+      "module": "LSPlaneQuadraticEquation",
+      "sha256": "ae31d2794128277f89eacd0224de900c757e1b56fcf26e195dce764d17a8aab0",
+      "bytes": 5140,
+      "lines": 102,
+      "imports": [
+        "LSPlaneQuadraticBaseChange",
+        "LSConicGeneratingTuples"
       ],
       "tokens": {
         "sorry": 0,
@@ -2847,6 +3054,23 @@
       }
     },
     {
+      "file": "LSProjectiveLinearAction.lean",
+      "module": "LSProjectiveLinearAction",
+      "sha256": "9b6563902214a51cb54c7632c15857eefb58de37df052a7d4855d7a8d3b91711",
+      "bytes": 8190,
+      "lines": 169,
+      "imports": [
+        "LSConicTupleChange",
+        "LSStandardProjectiveBaseChange"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSProjectiveTransport.lean",
       "module": "LSProjectiveTransport",
       "sha256": "ad4c17ab2db7ee454cef7829d79c3f1a42bb81454630aa536c368f9c99880c13",
@@ -3017,6 +3241,41 @@
       }
     },
     {
+      "file": "LSQuadraticLinearTransport.lean",
+      "module": "LSQuadraticLinearTransport",
+      "sha256": "4a9d8c9e8d0d9e4e24a6aaab37a0d82bc615437498d28a832328af9d4076e9d7",
+      "bytes": 6324,
+      "lines": 129,
+      "imports": [
+        "LSQuadraticSectionEvaluation"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSQuadraticPolarizedModels.lean",
+      "module": "LSQuadraticPolarizedModels",
+      "sha256": "f146d019311efab0cfe940518074d5f08dd8052fb4bdbceb32b07e1d5bfa9d94",
+      "bytes": 2981,
+      "lines": 62,
+      "imports": [
+        "LSQuadraticLinearTransport",
+        "LSComplexQuadraticMatrix",
+        "LSRelativeVeroneseModel",
+        "LSPolarizedOverIso"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSQuadraticPolynomial.lean",
       "module": "LSQuadraticPolynomial",
       "sha256": "5688e3d4c3496516fc32b7b6263ac066cc4cd32b72b60906107e9c76d2a1d7df",
@@ -3058,6 +3317,25 @@
       "lines": 113,
       "imports": [
         "LSPlaneQuadraticBaseChange"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSQuadraticSectionEvaluation.lean",
+      "module": "LSQuadraticSectionEvaluation",
+      "sha256": "c1bc967944243b3f09001098d10c9f9463464a981afe7da701f0e4b106a7bd49",
+      "bytes": 12449,
+      "lines": 244,
+      "imports": [
+        "LSProjectiveLinearAction",
+        "LSPlaneQuadraticBaseChange",
+        "LSAffineFrame",
+        "LSStandardProjectiveSmooth"
       ],
       "tokens": {
         "sorry": 0,
@@ -3453,6 +3731,25 @@
       }
     },
     {
+      "file": "LSSmoothTraitNormalForm.lean",
+      "module": "LSSmoothTraitNormalForm",
+      "sha256": "c3f8812b19c8e60612e7823d6cd631b1d8fa1bbba68fa07b2f64399f0b075a4f",
+      "bytes": 2248,
+      "lines": 44,
+      "imports": [
+        "LSFormalTraitParameters",
+        "LSTraitQuadraticPresentation",
+        "LSFormalQuadraticConditions",
+        "LSQuadraticPolarizedModels"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSSmoothingAssembly.lean",
       "module": "LSSmoothingAssembly",
       "sha256": "efe54e2db4b16243da4f47f523dfe0f66f58259b8a8903a18f0dcd316d435bdc",
@@ -3506,6 +3803,25 @@
       }
     },
     {
+      "file": "LSStandardCentralPlane.lean",
+      "module": "LSStandardCentralPlane",
+      "sha256": "acd2aa2b460be4a5c6e2d1c1e281d67b411ca6d55102e34d9b6f1690c34ef249",
+      "bytes": 3932,
+      "lines": 86,
+      "imports": [
+        "LSStandardConicZeroComparison",
+        "LSPlaneConicZeroPresentation",
+        "LSPolarizedProjectiveEmbedding",
+        "LSNodalFibreComparison"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSStandardConicDifferential.lean",
       "module": "LSStandardConicDifferential",
       "sha256": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
@@ -3531,6 +3847,43 @@
       "lines": 148,
       "imports": [
         "LSHomVelocity"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSStandardConicTriple.lean",
+      "module": "LSStandardConicTriple",
+      "sha256": "e89869f4d5f3296f3951a4cccfa173a91195dd92183b2500d0f4383b7d86c004",
+      "bytes": 15024,
+      "lines": 288,
+      "imports": [
+        "LSNormalizedSegrePairs",
+        "LSConicGeneratingTuples",
+        "LSStandardSourceBaseChange",
+        "LSPlaneConicPresentation",
+        "LSTensorLineTransport"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
+      "file": "LSStandardConicZeroComparison.lean",
+      "module": "LSStandardConicZeroComparison",
+      "sha256": "459ab3ba5bbf2dbc6822dc65dc7f25f86dfdd07e5b099293a78eebe2aee89216",
+      "bytes": 2121,
+      "lines": 46,
+      "imports": [
+        "LSStandardConicTriple",
+        "LSPlaneConicZeroPresentation"
       ],
       "tokens": {
         "sorry": 0,
@@ -3653,6 +4006,22 @@
       }
     },
     {
+      "file": "LSStandardSourceBaseChange.lean",
+      "module": "LSStandardSourceBaseChange",
+      "sha256": "de7eb38a6ab96829dbb8222eece2f4766701cf418f0368865cfac32138178ee4",
+      "bytes": 6998,
+      "lines": 136,
+      "imports": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSStandardTautological.lean",
       "module": "LSStandardTautological",
       "sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
@@ -3749,6 +4118,22 @@
       }
     },
     {
+      "file": "LSTensorLineTransport.lean",
+      "module": "LSTensorLineTransport",
+      "sha256": "cdffd9d858c6083fed2c3a913c644f70c6622393ccd147ded989ecc427b1fc49",
+      "bytes": 2332,
+      "lines": 45,
+      "imports": [
+        "RecompileExtensionsPart02"
+      ],
+      "tokens": {
+        "sorry": 0,
+        "admit": 0,
+        "axiom": 0,
+        "opaque": 0
+      }
+    },
+    {
       "file": "LSTensorLocallyFreeExact.lean",
       "module": "LSTensorLocallyFreeExact",
       "sha256": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
@@ -3767,9 +4152,9 @@
     {
       "file": "LSTraitContact.lean",
       "module": "LSTraitContact",
-      "sha256": "8775cf48a185346ce44d636102e3ea74f5360f5be3afc2c0f76a63b7118bedd9",
-      "bytes": 25933,
-      "lines": 551,
+      "sha256": "c7dc03364dc97b00cfe98e492eaaac1c959873b913869eddc5a9f12f98e95424",
+      "bytes": 27148,
+      "lines": 572,
       "imports": [
         "LSFormalTraitModel",
         "LSStandardConicDifferential",
@@ -4195,17 +4580,18 @@
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
       "module": "RecompileExtensionsPart04Geometry",
-      "sha256": "78446f8f6452bcd90f795daa8f6b1e09ed34a734ead0829c8b84037b06d475dd",
-      "bytes": 292482,
-      "lines": 6053,
+      "sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+      "bytes": 292853,
+      "lines": 6059,
       "imports": [
         "LSSectionRepresentability",
+        "LSAffineSectionRepresentability",
         "LSGeneratingUnitOpens",
         "RecompileExtensionsPart03",
         "LSConicSplitting"
       ],
       "tokens": {
-        "sorry": 13,
+        "sorry": 12,
         "admit": 0,
         "axiom": 0,
         "opaque": 0
@@ -4326,6 +4712,16 @@
       "line": 57,
       "kind": "theorem",
       "name": "LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative",
+      "tokens": [
+        "sorry"
+      ],
+      "published_namespace": true
+    },
+    {
+      "file": "LSAffineSectionRepresentability.lean",
+      "line": 36,
+      "kind": "theorem",
+      "name": "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree_affine",
       "tokens": [
         "sorry"
       ],
@@ -4512,26 +4908,6 @@
       "published_namespace": false
     },
     {
-      "file": "LSFormalTraitModel.lean",
-      "line": 40,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.formalTrait_twoComponent_lineNormalForm",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": true
-    },
-    {
-      "file": "LSFormalTraitModel.lean",
-      "line": 94,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.PublishedInputs.Step3f.formalTrait_smooth_lineNormalForm",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": true
-    },
-    {
       "file": "LSFunctionFieldPlaces.lean",
       "line": 34,
       "kind": "theorem",
@@ -4626,6 +5002,16 @@
       "line": 129,
       "kind": "theorem",
       "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.cotangentPullback_isIso",
+      "tokens": [
+        "sorry"
+      ],
+      "published_namespace": true
+    },
+    {
+      "file": "LSNormalizedSegre.lean",
+      "line": 109,
+      "kind": "theorem",
+      "name": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.segreQuadric",
       "tokens": [
         "sorry"
       ],
@@ -5183,7 +5569,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 73,
+      "line": 74,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.HomNeighborhood.StandardInputs.free_neighborhood",
       "tokens": [
@@ -5193,7 +5579,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 673,
+      "line": 674,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.presentation_exists_of_projectiveProduct",
       "tokens": [
@@ -5203,7 +5589,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 687,
+      "line": 688,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.locallyOfFinitePresentation",
       "tokens": [
@@ -5213,7 +5599,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 700,
+      "line": 701,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.smooth_of_firstCohomology_vanishes",
       "tokens": [
@@ -5223,7 +5609,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1150,
+      "line": 1151,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.FiniteCoverStandardInputs.finite_dominant_genericEtale",
       "tokens": [
@@ -5233,17 +5619,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1311,
-      "kind": "theorem",
-      "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
-      "tokens": [
-        "sorry"
-      ],
-      "published_namespace": false
-    },
-    {
-      "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1318,
+      "line": 1324,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_lfp",
       "tokens": [
@@ -5253,7 +5629,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1453,
+      "line": 1459,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.normalizedImage_exists",
       "tokens": [
@@ -5263,7 +5639,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1625,
+      "line": 1631,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.ramification_le_degree",
       "tokens": [
@@ -5273,7 +5649,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1806,
+      "line": 1812,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.purity_over_contactSquare",
       "tokens": [
@@ -5283,7 +5659,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1813,
+      "line": 1819,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.Descent.finiteEtale_contactSquare_trivial",
       "tokens": [
@@ -5293,7 +5669,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 1973,
+      "line": 1979,
       "kind": "theorem",
       "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.spec_pullback_isPushout",
       "tokens": [
@@ -5303,7 +5679,7 @@
     },
     {
       "file": "RecompileExtensionsPart04Geometry.lean",
-      "line": 4954,
+      "line": 4960,
       "kind": "theorem",
       "name": "LeBrunSalamon.Construction.NormalExtension.extend_from_heightOne",
       "tokens": [

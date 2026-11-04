@@ -1,0 +1,43 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSRelativeVeroneseModel",
+  "key": {
+    "source_sha256": "8c65aeef6e9cea7debb1fee948091703b6696947779c84f79127f61780bc575c",
+    "imports": [
+      "LSVeroneseZeroModel",
+      "LSStandardProjectivePicard"
+    ],
+    "dependency_artifacts": {
+      "LSVeroneseZeroModel": {
+        "sha256": "052ca3965cfdadc3fff80db4ef408d0e6a21378076074ffb660a5d505c5ad3fd",
+        "kind": "project"
+      },
+      "LSStandardProjectivePicard": {
+        "sha256": "fbaa2b6af2ab16604649b31263498bae0c40db5da02555e44c7e5d4c03a9ce85",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "a5d7a3c030c8d8697ffe70b791161ac75967c700bf468792120333a34db5ac36",
+  "source_ancestry_fingerprint": "da32a34f14aa2f70f9b945cb7c0073f72cec9cfc1ddf80d3a879566473df614b",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41757281666,
+    "head_sha": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
+    "original_receipt_sha256": "30fa7637613c06c4f2985b70db3d8861547623bda207e5766bdde196ad44ddd4",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T02:27:01.115604+00:00"
+}

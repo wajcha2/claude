@@ -1233,13 +1233,19 @@ theorem curvePull_symmetric (P : ProjectiveLineOverC) {d : ℕ}
   let sigma := ExchangeAlgebraProof.swapSectionAddHom
     (chosenExternalExchange P.structureMap (pullbackBundle f.map L)).identification
   change sigma (curvePull P f L B) = curvePull P f L B
-  rw [EP.equation, map_sum]
   have hs (i : Fin E.size) : sigma
       (externalProductSection P.structureMap (EP.left i) (EP.right i)) =
       externalProductSection P.structureMap (EQ.left i) (EQ.right i) :=
     (chosenExternalExchange P.structureMap (pullbackBundle f.map L)).onProducts _ _
-  simp_rw [hs]
-  exact EQ.equation.symm
+  calc
+    sigma (curvePull P f L B) = sigma
+        (∑ i, externalProductSection P.structureMap (EP.left i) (EP.right i)) :=
+      congrArg sigma EP.equation
+    _ = ∑ i, sigma (externalProductSection P.structureMap (EP.left i) (EP.right i)) :=
+      map_sum sigma _ _
+    _ = ∑ i, externalProductSection P.structureMap (EQ.left i) (EQ.right i) :=
+      Finset.sum_congr rfl (fun i _ => hs i)
+    _ = curvePull P f L B := EQ.equation.symm
 
 theorem curvePull_orderTwo (P : ProjectiveLineOverC) {d : ℕ}
     {X : SmoothProperComplexVariety d} (f : RationalCurve P X)
@@ -1277,8 +1283,11 @@ theorem curvePull_map (P : ProjectiveLineOverC) {d : ℕ}
   intro i hi
   change externalProductSection P.structureMap
       (pullSection f.map (E.left i ≫ q)) (pullSection f.map (E.right i ≫ q)) = _
-  rw [pullSection_naturality, pullSection_naturality,
-    CurveExchangeProof.externalTensorMap_product]
+  rw [pullSection_naturality, pullSection_naturality]
+  exact (CurveExchangeProof.externalTensorMap_product P.structureMap
+    (pullbackBundle f.map L) (pullbackBundle f.map M)
+    ((Scheme.Modules.pullback f.map).map q)
+    (pullSection f.map (E.left i)) (pullSection f.map (E.right i))).symm
 
 theorem externalTensorMap_comp {Y : Scheme} (s : Y ⟶ ComplexBase)
     {E F G : OModule Y} (q : E ⟶ F) (r : F ⟶ G) :
@@ -1422,12 +1431,21 @@ def isoCurve (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
     have hp' : p0.map = pinf.map := (cancel_mono e.hom).mp hp
     exact zero_ne_infinity ((ProjectiveLinePoint.rebase_map_eq_iff P marking infinity).1 hp')
 
+/-- Construct the inverse differential at an abstract variety before
+specializing to the concrete projective-line model. -/
+def differentialIso {d e : ℕ} (X : SmoothProperComplexVariety d)
+    (Y : SmoothProperComplexVariety e) (f : X.scheme ⟶ Y.scheme) [IsIso f]
+    (hf : f ≫ Y.structureMap = X.structureMap) :
+    tangentSheaf X.structureMap ≅ pullbackModule f (tangentSheaf Y.structureMap) := by
+  let d : tangentSheaf X.structureMap ⟶ pullbackModule f (tangentSheaf Y.structureMap) :=
+    differentialOver X Y f hf
+  letI : IsIso d := ContactDerivativeIsoProof.differentialOver_isIso X Y f hf
+  exact asIso d
+
 def derivativeIso (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
     (he : e.hom ≫ P.structureMap = P.structureMap) :
-    tangentSheaf P.structureMap ≅ pullbackModule e.hom (tangentSheaf P.structureMap) := by
-  letI := ContactDerivativeIsoProof.differentialOver_isIso
-    (projectiveLineVariety P) (projectiveLineVariety P) e.hom he
-  exact asIso (differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he)
+    tangentSheaf P.structureMap ≅ pullbackModule e.hom (tangentSheaf P.structureMap) :=
+  differentialIso (projectiveLineVariety P) (projectiveLineVariety P) e.hom he
 
 theorem source_contactVelocity (P : ProjectiveLineOverC)
     (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) :

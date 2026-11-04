@@ -1,4 +1,6 @@
 import LSFormalTraitParameters
+import LSSmoothTraitNormalForm
+import LSNodalTraitNormalForm
 
 /-!
 # Actual models over the complex power-series trait
@@ -32,11 +34,10 @@ section FormalTraitModelName
 local notation "Model" =>
   LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
 
-/-- Classical complete-trait form of a two-component genus-zero family:
-choose two disjoint smooth sections through each special component,
-use the fine moduli space Mbar_0,4 and its universal family, and use
-triviality of a degree-zero line on a tree to identify the line bundle.
-The actual smoothing element is retained, including its unit factor. -/
+/-- The actual two-component trait normal form. The original chosen line
+constructs a relative plane conic; the precise generic quadratic normal
+form and explicit coordinate changes identify the given standard model.
+The complete smoothing element, including its unit factor, is retained. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.formalTrait_twoComponent_lineNormalForm
     (F : Smoothing.StandardSource) {C : Scheme} (pi : C ⟶ Trait)
     [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]
@@ -58,9 +59,15 @@ theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.formalTrait_twoComponent_lin
       ∃ e : C ≅ Model F a,
         e.hom ≫ modelProjection F a = pi ∧
           Nonempty (L.sheaf ≅ pullbackModule e.hom (modelLine F a).sheaf) := by
-  sorry
+  letI : IsClosedImmersion i := hi
+  letI : IsClosedImmersion j := hj
+  letI : SmoothOfRelativeDimension 1 (pullback.snd pi genericPoint) := hsmooth
+  letI : Smooth (pullback.snd pi genericPoint) :=
+    SmoothOfRelativeDimension.smooth (n := 1) _
+  exact LeBrunSalamon.NodalTraitNormalForm.exists_model
+    F pi L i j p q hiover hjover hpushout hidegree hjdegree
 
-/-- Project-facing alias of the quarantined published complete-trait normal form. -/
+/-- Project-facing alias of the constructed two-component trait normal form. -/
 theorem formalTrait_twoComponent_lineNormalForm
     (F : Smoothing.StandardSource) {C : Scheme} (pi : C ⟶ Trait)
     [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]
@@ -88,9 +95,9 @@ theorem formalTrait_twoComponent_lineNormalForm
 
 end FormalTraitModelName
 
-/-- The smooth special-fibre case: three disjoint smooth sections
-trivialize the actual genus-zero family over the complete trait; the
-line of degree two is the pullback of the actual O(2) tensor line. -/
+/-- The smooth special-fibre case, proved by constructing the primitive
+relative quadratic, normalizing its actual coefficients, and transporting
+the original degree-two line through the polarized Veronese comparison. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.formalTrait_smooth_lineNormalForm
     {C : Scheme} (pi : C ⟶ Trait)
     [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]
@@ -105,9 +112,9 @@ theorem _root_.LeBrunSalamon.PublishedInputs.Step3f.formalTrait_smooth_lineNorma
     ∃ e : C ≅ SmoothModel,
       e.hom ≫ smoothProjection = pi ∧
         Nonempty (L.sheaf ≅ pullbackModule e.hom smoothLine.sheaf) := by
-  sorry
+  exact LeBrunSalamon.SmoothTraitNormalForm.exists_model pi L i hiover hidegree
 
-/-- Project-facing alias of the quarantined published smooth-trait normal form. -/
+/-- Project-facing alias of the constructed smooth-trait normal form. -/
 theorem formalTrait_smooth_lineNormalForm
     {C : Scheme} (pi : C ⟶ Trait)
     [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]

@@ -1,0 +1,43 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCartierQuadraticExtraction",
+  "key": {
+    "source_sha256": "a0a882de0523a00494afa75fb43c3b6f875664a998ce7f9ff6648a11d23527fe",
+    "imports": [
+      "LSEffectiveCartierInputs",
+      "LSPlaneQuadraticPublished"
+    ],
+    "dependency_artifacts": {
+      "LSEffectiveCartierInputs": {
+        "sha256": "043709c3832e48510f61729ffb5814098cca4016e7b0a135ca3eda670f34f402",
+        "kind": "project"
+      },
+      "LSPlaneQuadraticPublished": {
+        "sha256": "d85b87bc2d59602b868dbcb53592b558930e4587d0087766cd904d64ecee7a7b",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "550a96f040a694ce76add7d3aa56a12f79d62d61ca69ff651647ee781fe767b9",
+  "source_ancestry_fingerprint": "8ac2c636ae81b3e8fef5b6b53b1969ab74aeec7f845d3a46e2343ff1dcd044d5",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41757281666,
+    "head_sha": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
+    "original_receipt_sha256": "5ad27b343ca9e6844003aaaad855cb1305461278397cf12ee3156d3a0f866c75",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T02:27:01.106855+00:00"
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSLaurentRescaling",
+  "key": {
+    "source_sha256": "9577a8a1e70a03a2e09a37a62ff66483ba44d06bd986de209dbc474a161c131f",
+    "imports": [
+      "LSConePole",
+      "Mathlib.RingTheory.LaurentSeries",
+      "Mathlib.Data.Finset.Lattice.Fold"
+    ],
+    "dependency_artifacts": {
+      "LSConePole": {
+        "sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+        "kind": "project"
+      },
+      "Mathlib.RingTheory.LaurentSeries": {
+        "sha256": "2443963abcc3a72025d7f1183546c601d1fbb74f1894e7a33d7f80a1b7fd74d1",
+        "kind": "external"
+      },
+      "Mathlib.Data.Finset.Lattice.Fold": {
+        "sha256": "d36f157d5396e125dbed9f67d5ed75b3a9790317e7fff50dd8bbb7c288af8fc4",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "58e9961d480800c29b253f3f21a54c2d5d32f7c14011f47fb4a1807235bf724f",
+  "source_ancestry_fingerprint": "1e6c1b68cf5c3aa1e9a7d77ad98043d9d2e26b6a033673515285f377d2a21e61",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41752026450,
+    "head_sha": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
+    "original_receipt_sha256": "0491e5583636a7f271220f94452161d1460a440e356efeb364e0d7db62ec2dc7",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T01:57:47.090821+00:00"
+}

@@ -1,0 +1,74 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSQuadraticFibreCriteria",
+  "source_ancestry_fingerprint": "908e2da0fd1f310e937fe3b074aa83fb925b830b1e97394ae0176759869c318e",
+  "key": {
+    "source_sha256": "5898a799d164c372af4f89b47317078b5ff4690784133a437b450d7ed9a917a5",
+    "imports": [
+      "LSQuadraticSchemeBaseChange",
+      "LSQuadraticPolynomial",
+      "LSPlaneQuadraticPublished",
+      "LSFibreIsomorphism"
+    ],
+    "dependency_artifacts": {
+      "LSQuadraticSchemeBaseChange": {
+        "sha256": "128c8087cc6da7146542b86e9c29b08bdee35def64bfb355ab0e935db1f80c6f",
+        "kind": "project"
+      },
+      "LSQuadraticPolynomial": {
+        "sha256": "c83a98a0383c0f98e45a0a474a86835080876dd4b7c5eb7bbf15038e30ac6b12",
+        "kind": "project"
+      },
+      "LSPlaneQuadraticPublished": {
+        "sha256": "d85b87bc2d59602b868dbcb53592b558930e4587d0087766cd904d64ecee7a7b",
+        "kind": "project"
+      },
+      "LSFibreIsomorphism": {
+        "sha256": "be7f948bf5e72c11c731e5209acfa4a5fb163e6e84ae2ba755b549bbb83cce2a",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSQuadraticFibreCriteria.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSQuadraticFibreCriteria.lean"
+  ],
+  "started_utc": "2026-11-04T01:58:17.707377+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSQuadraticFibreCriteria.20261104T015817707353.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSQuadraticFibreCriteria.20261104T015817707353.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:58:20.731588+00:00",
+  "seconds": 3.023,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "8ab1a660a91a95d57abd9f537c803a147840cbbcf3418634007262075e6f50df",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "e8847b9b1fd28c310ca3fce082c566f642aed3c062cd0dccbbee2155fe543440",
+  "evidence_kind": "native_kernel_compilation"
+}

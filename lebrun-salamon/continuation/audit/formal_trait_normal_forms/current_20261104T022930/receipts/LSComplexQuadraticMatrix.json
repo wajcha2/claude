@@ -1,0 +1,43 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSComplexQuadraticMatrix",
+  "key": {
+    "source_sha256": "b10cf3dcbcb1a4deab2a4479a5291f306b55dc3889a13122e264944e236cea34",
+    "imports": [
+      "LSComplexQuadraticCoordinates",
+      "LSPlaneQuadratic"
+    ],
+    "dependency_artifacts": {
+      "LSComplexQuadraticCoordinates": {
+        "sha256": "48596aa7b3753bdda5e8c65b461f2d11b6f014eead59e59240206f947910e4e6",
+        "kind": "project"
+      },
+      "LSPlaneQuadratic": {
+        "sha256": "59643ebe7034d0b3aa8214f9f65c23d2dafe57c34a6f72a2ea61278da631f499",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "63289809a2d37e43fb7f5e3d671eb1486b1fc0ea5d08e5caf5d84cbb86e59942",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1",
+      "-DmaxHeartbeats=350000"
+    ]
+  },
+  "output_sha256": "44c6e99fe568998191f7b9cef57158dcf52635e26d9e4bb66a02858ce4f3d569",
+  "source_ancestry_fingerprint": "c05e313b409de6f5a129e9dfaeb05c72129f6656db7558a898f47b6fc0d2aa99",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41757281666,
+    "head_sha": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
+    "original_receipt_sha256": "76dee94faa0a3f69bf28c46822104619330319daf8d1561378047b961ff61370",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T02:27:01.096703+00:00"
+}

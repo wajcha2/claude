@@ -1,0 +1,54 @@
+{
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+  ],
+  "flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "external_olean_roots": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean"
+  ],
+  "environment": {
+    "LD_LIBRARY_PATH": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean:/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib:/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib",
+    "LD_PRELOAD": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/libexplicit_exec_path.so",
+    "LEAN_EXPLICIT_EXECUTABLE": "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean"
+  },
+  "fingerprint_files": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/lib/lean/libleanshared.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/explicit_exec_path.c",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/libexplicit_exec_path.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so"
+  ],
+  "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+  "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a"
+}

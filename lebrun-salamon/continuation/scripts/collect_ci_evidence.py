@@ -19,7 +19,7 @@ def main():
     ap.add_argument('--root', type=Path, required=True)
     ap.add_argument('--local-runtime', type=Path, required=True)
     ap.add_argument('--previous-base', type=Path)
-    ap.add_argument('--stage', choices=('full_graph', 'early_ext01', 'early_geometry'), default='full_graph',
+    ap.add_argument('--stage', choices=('full_graph', 'early_ext01', 'early_geometry', 'point1'), default='full_graph',
                     help='Keep completed early-closure evidence separate from the full-run result.')
     args = ap.parse_args()
     base, root = args.base.resolve(), args.root.resolve()
@@ -33,7 +33,8 @@ def main():
     artifacts = read_json(base / 'ARTIFACTS.json')
     artifact_prefix = {'full_graph':'lebrun-takeover-kernel-',
                        'early_ext01':'lebrun-takeover-early-ext01-',
-                       'early_geometry':'lebrun-takeover-early-geometry-'}[args.stage]
+                       'early_geometry':'lebrun-takeover-early-geometry-',
+                       'point1':'lebrun-takeover-point1-'}[args.stage]
     artifact = next(x for x in artifacts['artifacts'] if x['name'].startswith(artifact_prefix))
     if args.stage == 'full_graph':
         assert run['status'] == 'completed', 'The full CI run is still pending.'
@@ -75,9 +76,23 @@ def main():
         assert git_entries.get(prefix + path.relative_to(original).as_posix()) == blob, 'Snapshot bytes differ from committed Git blob: ' + str(path)
     assert set(status['selected_modules']) <= sources.keys()
     if args.stage != 'full_graph':
-        target = {'early_ext01':'RecompileExtensionsPart01',
-                  'early_geometry':'RecompileExtensionsPart04Geometry'}[args.stage]
-        assert status['requested_targets'] == [target]
+        if args.stage == 'point1':
+            manifest_path = original / 'audit/point1_checkpoint/POINT1_MODULE_TARGETS.json'
+            manifest_data = manifest_path.read_bytes()
+            manifest_blob = hashlib.sha1(b'blob ' + str(len(manifest_data)).encode() + b'\0' + manifest_data).hexdigest()
+            assert git_entries.get(prefix + manifest_path.relative_to(original).as_posix()) == manifest_blob
+            manifest = json.loads(manifest_data)
+            assert manifest['schema'] == 'lebrun-fixed-point1-module-targets-v1'
+            rows = manifest['obligations']
+            assert len(rows) == 43
+            assert {row['id'] for row in rows} == {f'OBL-{n:03d}' for n in range(1, 44)}
+            assert set(row['substep'] for row in rows) == {'3c','3d','3e','3f','3g'}
+            targets = sorted({Path(row['file']).stem for row in rows})
+            assert targets == manifest['modules']
+        else:
+            targets = [{'early_ext01':'RecompileExtensionsPart01',
+                        'early_geometry':'RecompileExtensionsPart04Geometry'}[args.stage]]
+        assert status['requested_targets'] == targets
         closure = set()
         def add_ancestors(module):
             if module in closure:
@@ -85,7 +100,8 @@ def main():
             closure.add(module)
             for dependency in graph[module]:
                 add_ancestors(dependency)
-        add_ancestors(target)
+        for target in targets:
+            add_ancestors(target)
         assert set(status['selected_modules']) == closure, 'Early artifact has the wrong dependency closure.'
     external_roots = [local_runtime / p.split('/lebrun-runtime/', 1)[1]
                       for p in config['external_olean_roots']]

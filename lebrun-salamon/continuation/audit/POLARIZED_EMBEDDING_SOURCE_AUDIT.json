@@ -7,13 +7,13 @@
   "sources": [
     {
       "url": "https://sites.math.washington.edu/~jarod/moduli-versions/moduli-8-19-24.pdf",
-      "locator": "Jarod Alper, Stacks and Moduli, draft 2024-08-19, Proposition B.2.10 and proof, printed pp486\u2013487, PDF pages492\u2013493 (zero-based)",
+      "locator": "Jarod Alper, Stacks and Moduli, draft 2024-08-19, Proposition B.2.10 and proof, printed pp486–487, PDF pages492–493 (zero-based)",
       "checked_content": "Very-ampleness clause assumes vanishing of every positive cohomology group. The given proof assumes flatness, lifts a basis of H0 on the fibre to a basis nearby, constructs the map to the corresponding Pn, and shrinks to a closed immersion. It does not state the arbitrary prescribed tuple/H1-only version."
     },
     {
       "url": "https://stacks.math.columbia.edu/tag/05XA",
       "locator": "Lemma76.49.3",
-      "checked_content": "For a commutative X\u2192Y\u2192Z diagram, if X\u2192Z is locally of finite type and universally closed and Y\u2192Z is separated, there is an open locus in Z universally characterized by the actual base-changed X\u2192Y being a closed immersion.",
+      "checked_content": "For a commutative X→Y→Z diagram, if X→Z is locally of finite type and universally closed and Y→Z is separated, there is an open locus in Z universally characterized by the actual base-changed X→Y being a closed immersion.",
       "use": "Admissible exact generic primitive. Prove the local-base specialization and actual projective tuple map outside the admission."
     },
     {
@@ -29,9 +29,9 @@
     "Use the existing canonical polynomial-Proj quotient universal property and prove base-change compatibility with the supplied fibre map.",
     "Apply the generic closed-immersion locus theorem05XA; over a local base, an open containing the closed point is all of SpecA."
   ],
-  "kernel_status": "Separated source/proof audit. Generic tautological data, actual marked-O1 comparison, residue tensor lifting, Yoneda splitting and local-base sections have exact-byte native passes. Remaining H0/constructor adapters and current full graph are pending.",
+  "kernel_status": "Actual H0 restriction and tuple adapters, normalized tautological data, marked-O1 comparison, and normalized public projective-coordinate constructor have exact-byte native receipts. H0 evidence is audit/tautological_lifting_build/h0_complete_20261104T010754; normalized Ext01 and its current ancestors passed CI41752026450. The entire evolving current graph and final target are separately pending.",
   "cohomology_followup": {
-    "status": "Exact primary H1-to-canonical-H0 comparison corollary found and verified in Robert AppendixA.1; actual project adapters remain explicit proof work.",
+    "status": "The precise primary Robert H1-to-canonical-H0 corollary was verified; all required project H0 adapters are now proved and natively checked. No chosen-tuple embedding admission was added.",
     "alper": {
       "url": "https://sites.math.washington.edu/~jarod/moduli-versions/moduli-5-21-24.pdf",
       "locator": "Theorem A.6.8(a)-(b), printed p.452, PDF page index456",
@@ -43,7 +43,7 @@
       "scope": "Proper scheme over a Noetherian local ring; coherent relatively flat sheaf. Vanishing of closed-fibre H^q implies H^q(X,E tensor_A M)=0 for every A-module M.",
       "publication_kind": "Primary author lecture notes; classical cohomology/base-change theorem, not an embedding theorem."
     },
-    "remaining_translation": "Apply degree1 vanishing to the maximal ideal module, prove the actual flat tensor short exact sequence and identify the residue-field restriction map; the cohomology long exact sequence gives H0 restriction surjectivity. Alternatively use canonical base change, coherence and Nakayama before lifting the actual section tuple.",
+    "remaining_translation": "Completed in LSLineStalkFlat and LSLineCohomologyBaseChange: actual coherence, relative flatness, Yoneda-H1, canonical tensor comparison, residue restriction, and finite tuple lifting. Current whole-project acceptance is a separate gate.",
     "no_added_admission": true,
     "robert_exact_h0_corollary": {
       "url": "https://www.math.u-bordeaux.fr/~damienrobert/pro/publications/books/avtheory.pdf",
@@ -58,7 +58,8 @@
         "Relate the project Yoneda H1 predicate to actual H1 by the exact generic Ext comparison and proved splitting adapter.",
         "Identify the actual degree-zero tensor map with section restriction; over a local affine base keep the stalk/global-section normalization explicit.",
         "Apply the zero-admission residue tensor and tuple lifting proof, preserving the supplied tuple."
-      ]
+      ],
+      "formal_transport_status": "Every listed transport is now proved. See h0_complete_20261104T010754 exact native and exhaustive leaf receipts."
     }
   },
   "closed_immersion_locus_signature_review": {
@@ -72,7 +73,7 @@
     "native_status": "Parent reports diagnostic pass5.230s. This independent review is mathematical source eligibility, not a replacement for its compiler receipt or current graph acceptance."
   },
   "standard_tautological_followup": {
-    "status": "Generic normalized tautological Data and actual marked-O1/degree1 adapter both passed native checking against frozen cdf ancestors and are integrated. The normalized public record constructor and full closure/current-graph acceptance remain pending.",
+    "status": "Generic normalized tautological data, actual marked-O1/degree1 adapter, and normalized public record constructor are integrated. Current Ext01 and its entire ancestors passed CI41752026450. No identification with an arbitrary old witness is assumed.",
     "sources": [
       {
         "url": "https://stacks.math.columbia.edu/tag/01MM",
@@ -196,7 +197,7 @@
     "remaining_adapter": "Native-check LSYonedaClassesRepresented and the actual sheaf H1 comparison adapter. The only contemplated comparison input is the general Ext1(O,E)-H1 theorem0B3A; Ext representation itself is proved.",
     "no_chosen_line_embedding_admitted": true
   },
-  "updated_utc": "2026-11-04T01:09:46.604300+00:00",
+  "updated_utc": "2026-11-04T02:21:18.255526+00:00",
   "h0_adapter_work": {
     "status": "First focused native pass completed: LSLocalBaseSections passed11.952s; canonical section base change, finite-rank/cohomology hypotheses and Yoneda class representation have isolated elaboration diagnostics under repair. No current graph acceptance.",
     "drafts": [
@@ -493,5 +494,68 @@
     "source_verdict": "Eligible generic standard Veronese scheme-image statement with actual coefficient base map, canonical line and monomials. The section-graph zero scheme is identified by its proved all-test-scheme universal property, not a point-set equation. Chosen fibre/degree2 line/Cartier transport are separate proofs in LSSmoothFibreCartier.",
     "locator_correction": "Use Exercise7.4.D for the Proj isomorphism. Exercise7.4.E only establishes generation in degree1.",
     "kernel_status": "Independent source review only; root owns native validation. This review does not assert acceptance of the containing current graph."
+  },
+  "generic_plane_quadratic_inputs_review": {
+    "file": "source/LSPlaneQuadraticPublished.lean",
+    "sha256": "4facda36b2bd75cdc357389b634baafce017d791032aad7ffb7d0dbc73589842",
+    "reviewed_utc": "2026-11-04T02:18:35.417819+00:00",
+    "normal_forms": {
+      "primary_url": "https://arxiv.org/pdf/2308.08119",
+      "version": "Hiromu Tanaka, arXiv2308.08119v2, 12May2024",
+      "locators": [
+        "Section2.1(8), printedpp5-6",
+        "Proposition2.9(4), printedpp9-10",
+        "Corollary2.13(2)-(3), printedp12",
+        "Proposition3.12(1), printedp23"
+      ],
+      "checked_scope": "Strictly henselian Noetherian local base, residue characteristic different from2, and actual primitive ternary quadratic. Algebraically closed residue field is a permitted stronger assumption. Reduced-fibre clause explicitly includes c in the maximal ideal iff the closed fibre is nonsmooth; smooth clause explicitly gives diagonal(1). The field criterion requires a nonzero polynomial and works in all characteristics.",
+      "map_check": "Section2.1(8) uses the same row-matrix substitution q(Mx). Lean polynomial, coefficient order, discriminant and actual residue fibre match those displayed formulas. No total-space regularity is required.",
+      "verdict": "Eligible generic normal-form and discriminant inputs. The actual GL action, scheme-zero transport, line comparison and project formal-trait models are proved separately; no project classification is admitted."
+    },
+    "quadratic_sections": {
+      "primary_sources": [
+        {
+          "url": "https://stacks.math.columbia.edu/tag/01XS",
+          "locator": "Lemma30.8.1, preceding monomial-basis paragraph, and Lemma30.8.2 multiplication compatibility"
+        },
+        {
+          "url": "https://stacks.math.columbia.edu/tag/01MT",
+          "locator": "Lemma27.10.3 canonical tensor multiplication isomorphism"
+        }
+      ],
+      "verdict": "The n=2,d=2 canonical polynomial-to-section computation is eligible over an arbitrary commutative ring. StandardTautological frame normalization fixes the actual coordinate sections; the six monomials are x²,y²,z²,yz,zx,xy. Tensor O1 squared is the canonical O2 multiplication realization; sectionValue_bijective supplies the AlgebraicSection presentation."
+    },
+    "kernel_scope": "Independent exact-source eligibility review. Native receipts and final target acceptance are recorded separately; this source review itself is not a kernel pass."
+  },
+  "affine_section_representability_review": {
+    "file": "root_work/LSAffineSectionRepresentability.lean",
+    "sha256": "3fbc50b7b9d2e1b865f2a801461bca62223ea2494cdfff533fca01a2220a7045",
+    "leaf": "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree_affine",
+    "primary_sources": [
+      {
+        "url": "https://numdam.org/item/10.1007/BF02732123.pdf",
+        "locator": "EGA IV(4),18.5.1, printedp125; locally verified original scan page123, zero-based",
+        "scope": "The section functor for finite locally free E is represented by V(E dual), naturally for every scheme over the base."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01M1",
+        "locator": "Definition27.6.1",
+        "scope": "V(E dual) is relative Spec of the symmetric algebra."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01LP",
+        "locator": "Lemma27.3.4(1)",
+        "scope": "Inverse images of affine base opens are affine."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01LV",
+        "locator": "Lemma27.4.4; Definition27.4.5/tag01LW",
+        "scope": "The relative-spectrum construction and its functor representation agree over the base."
+      }
+    ],
+    "source_verdict": "Eligible generic affine representing-object existence, with every sheaf/base hypothesis retained and constant finite rank as a special case. No project-selected total space or arbitrary morphism appears in the admitted conclusion.",
+    "actual_map_review": "representation_of_data proves naturality from sectionPullback_comp. affine_of_data uses the resulting RepresentableBy, uniqueness over the base, and the literal equation of projections; thus transport to the given p is a proof outside the input.",
+    "locator_note": "01LW is Definition27.4.5, not a lemma. 01LV is the preceding explicit canonical representing-object theorem.",
+    "kernel_status": "Independent source/semantic review only. Parent owns native checking and integration; no kernel pass asserted here."
   }
 }

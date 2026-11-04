@@ -1,0 +1,64 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCotangentScalarAlgebra",
+  "source_ancestry_fingerprint": "c3dd0524836c0067a63856e994a8bf157731b00d64649b4408824e3140e08bed",
+  "key": {
+    "source_sha256": "de647af462ed2df5ba56b80c246a3634a66d630f7f862043a4e12ee9b3078978",
+    "imports": [
+      "LSOpenCotangentScalar",
+      "LSConicOverlapAlgebra"
+    ],
+    "dependency_artifacts": {
+      "LSOpenCotangentScalar": {
+        "sha256": "f62d8a9bfcd09cf5b35e81593c269e44eb60cd954d675146cea25fa41c83ab2e",
+        "kind": "project"
+      },
+      "LSConicOverlapAlgebra": {
+        "sha256": "1bc1cf723b175511b302fd26288cbfc3307e56aa6b26f5f09a61ecfdfebfb899",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCotangentScalarAlgebra.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCotangentScalarAlgebra.lean"
+  ],
+  "started_utc": "2026-11-04T01:59:06.742067+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCotangentScalarAlgebra.20261104T015906742044.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCotangentScalarAlgebra.20261104T015906742044.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:59:10.166704+00:00",
+  "seconds": 3.423,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "e13aff39c29181ba1c70e7bf29e6b7a0c1989c8d2b2b2967cfc6f925d1bff9b4",
+  "evidence_kind": "native_kernel_compilation"
+}

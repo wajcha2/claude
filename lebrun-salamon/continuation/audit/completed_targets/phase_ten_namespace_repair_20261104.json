@@ -1,0 +1,65 @@
+{
+  "schema": "completed-targets-selective-namespace-repair-v1",
+  "scope": "Single selective namespace opening for exact ordinary stock missing-identifier error; no Lean invoked.",
+  "target_path": "lebrun-salamon/continuation/source/LSCompletedTargets.lean",
+  "baseline_source_sha256": "39c34956a681b3d8f374feeb6b3e90880ca8350b2d67eed3ee8341b3697a4a63",
+  "baseline_blob": "eae2ae3a2d959949577ebf21930e568652acfce1",
+  "candidate_source_sha256": "46182a1882b3f92b34fa5e89fec5786596b89a2cc4637b38fa214e854c740db1",
+  "candidate_git_blob_sha1": "e93d37221aa82d5c08495f3a8dee5e2660a4ba3c",
+  "patches": [
+    {
+      "before": "open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Skeleton\n",
+      "after": "open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Skeleton\nopen LeBrunSalamon.PhaseTen (TangentEvaluationAt)\n",
+      "match_count": 1
+    }
+  ],
+  "inverse_byte_exact": true,
+  "all3_original_theorem_headers_unchanged": [
+    {
+      "name": "contactFano_firstJetGeneration_target",
+      "sha256": "fa25239fcfa0f5a43ee0f637e62ccd4048f877ed96540a0b3f7de3a43c76ae7a",
+      "unchanged": true
+    },
+    {
+      "name": "contactFano_HamiltonianSpanning_target",
+      "sha256": "27b5944333bd0c35eedbe427f77a4d88c844a8bc04a984fed7c45079871157b2",
+      "unchanged": true
+    },
+    {
+      "name": "leBrunSalamon",
+      "sha256": "86c7abfad84736770fa8ebff32a3a8b69afcea19ee63dc8450f6a4375e66a458",
+      "unchanged": true
+    }
+  ],
+  "all_original_proof_bodies_and_variable_headers_unchanged": true,
+  "imports_and_check_axiom_commands_unchanged": true,
+  "new_assumptions_or_admissions": 0,
+  "identifier_resolution": {
+    "name": "LeBrunSalamon.PhaseTen.TangentEvaluationAt",
+    "owner_module": "RecompileBasePart02",
+    "namespace_start_line": 30,
+    "definition_line": 185,
+    "namespace_end_line": 284,
+    "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+    "native_output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+    "validated_native_source_and_output_hashes_match": true,
+    "native_record": {
+      "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+      "native_receipt_sha256": "c82eac1ccb939141de816a045716f652ebe1862ddb8d4ecc03341467ed98f5ef",
+      "source_ancestry_fingerprint": "381b4fe8f9e6418b907fb028181a7597e922cdd4d13321550713b324db6b5094"
+    },
+    "declaration": "abbrev TangentEvaluationAt\n    (n : ℕ) (X : ContactCandidate n)\n    (x : ComplexPoint X.variety) :=\n  ((Scheme.Modules.pullback x.map).obj\n      (SheafOfModules.unit X.variety.scheme.ringCatSheaf) ⟶\n    (Scheme.Modules.pullback x.map).obj X.tangent.sheaf)"
+  },
+  "trigger": {
+    "run_id": 41887472423,
+    "job_id": 126775695754,
+    "error_line": 41,
+    "error_column": 9,
+    "error": "Unknown identifier TangentEvaluationAt",
+    "seconds": 3.672
+  },
+  "native_status": "Candidate uncompiled; direct stock continuation from305 accepted modules.",
+  "compiler_invoked": false,
+  "canonical_source_or_acceptance_modified": false
+}

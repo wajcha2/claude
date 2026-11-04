@@ -1,7 +1,7 @@
 name: LeBrun final all-current native verification
 on:
   push:
-    branches: [codex/lebrun-final-current-307-v3-20261104]
+    branches: [codex/lebrun-final-current-307-v4-20261104]
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,11 +24,11 @@ jobs:
         timeout-minutes: 12
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41886204364
+      - name: Download verified native cache 1 from 41887472423
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-final-current-native-41886204364-1
-          run-id: 41886204364
+          name: lebrun-final-current-native-41887472423-1
+          run-id: 41887472423
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
       - name: Restore only exact coherent native artifact union
@@ -58,7 +58,7 @@ jobs:
           import hashlib, re
           assert all(re.fullmatch(r"[a-f0-9]{64}  source/.+\.lean", row) for row in rows)
           assert hashlib.sha256(manifest.encode()).hexdigest() == v["source_manifest_sha256"]
-          assert v["source_manifest_sha256"] == "7b5521c9c1e27b498cdc2a6375dc8fdf8240ea88018543e1c2170ee7076ad3ea"
+          assert v["source_manifest_sha256"] == "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0"
           assert v["all_current_sources_kernel_checked"] is True
           assert v["failures"] == []
           assert not any(v["status_counts"].get(k,0) for k in ("failed","blocked","timed_out"))

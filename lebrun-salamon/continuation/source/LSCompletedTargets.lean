@@ -21,6 +21,7 @@ open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
 open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight
 open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Skeleton
+open LeBrunSalamon.PhaseTen (TangentEvaluationAt)
 
 namespace LeBrunSalamon.PhaseTwentyEight
 

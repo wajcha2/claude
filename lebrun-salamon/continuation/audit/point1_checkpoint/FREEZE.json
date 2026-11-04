@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T08:36:19Z",
-  "frozen_utc": "2026-11-04T08:36:19Z",
-  "parent_commit": "6eb7adc25ee056a1d28cc34b2315d15c7543f7ca",
-  "base_tree": "46fbd109bcdca408e19f2b11a4249459e9f454a5",
+  "announced_utc": "2026-11-04T08:44:12Z",
+  "frozen_utc": "2026-11-04T08:44:12Z",
+  "parent_commit": "661744ba632a46ed75e8d6ec40ba49ae521a04d2",
+  "base_tree": "4c5a554b2df4b715145425d9e1b334744d45e641",
   "repository": "wajcha2/claude",
   "branch": "codex/lebrun-model-frontier-20261104",
-  "source_modules": 276,
+  "source_modules": 277,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -91,7 +91,7 @@
     "source/LSFiniteFreeBaseChange.lean": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
     "source/LSFiniteFreeHomBaseChange.lean": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd",
     "source/LSFiniteTypeDominance.lean": "a1ad5018a98ed9c658747326ce2dbcad763a99b7b6a2c39f5198f6c75588f785",
-    "source/LSFiniteTypeSpreading.lean": "c1571d6caf6b22b9daac525dba1a67ae357a1e2602cff24b08850f29e90c64a6",
+    "source/LSFiniteTypeSpreading.lean": "d8abe410ba3abc712370cb762b6f5a0587435e94d075c126c4beae3962e26b3a",
     "source/LSFirstCohomologyIso.lean": "82584e882fdc2efb75a618ee86f17978eb7c770ee8b56b18f5c1d4b158dc1f2b",
     "source/LSFirstJetEmbedding.lean": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
     "source/LSFirstJetEmbeddingGeometry.lean": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
@@ -131,7 +131,7 @@
     "source/LSMilestoneTopology.lean": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
     "source/LSModelBivector.lean": "915ddcde6e905bf18f38a6edf7257043662c22da82607316c7b727fe7a285e7e",
     "source/LSModelDifferential.lean": "5e1f333fb08b4cd48f808acae675b889283e699abb973e41d3c010776d57eb6c",
-    "source/LSModelGenericComparison.lean": "a191261ad57c0cb1ce541cb41772bfac3705abd89f6dbcd78ee6ebae9960822b",
+    "source/LSModelGenericComparison.lean": "908f4b56f113c81fa150813a76cf044fefc87d131684db46ad14c5260411abee",
     "source/LSModelGeometry.lean": "4dabadf3b4fd92b664ec9ed1879330491a30090440e31c50c3137d942acdaf3a",
     "source/LSModuleHomGluing.lean": "2b79f20c2c91b25c3cd3901ad8442a19d7123de1a2cdcc4c09b7410fb17dd1d2",
     "source/LSMovingPairAssembly.lean": "8c115263b78128696b197f7f09df143c388a71e3faf69d50f4b7cc351a37dae7",
@@ -283,19 +283,20 @@
     "source/LSFamilyDescentTransport.lean": "4d2bcfb20815846115d3368087edde9a13f64f3d392d9258cee2f8149e2a888f",
     "source/LSFamilyDescentFibres.lean": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28",
     "source/LSFamilyDescentReparametrization.lean": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4",
-    "source/LSOpenSectionTransport.lean": "2ccfc2b88329ca2a2b0b392e99a0af9a8e338a261136e3e2f97a6fbc2fa8c862"
+    "source/LSOpenSectionTransport.lean": "2ccfc2b88329ca2a2b0b392e99a0af9a8e338a261136e3e2f97a6fbc2fa8c862",
+    "source/LSCartesianSourceDifferential.lean": "764d237726758e71360cbc3f1c6350515b94db90b19535eb3e7caf007c724403"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "candidate_pending_arc_and_spreading_stock_checks",
+  "status": "pending_native_cartesian_and_spreading_frontiers",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "276-source candidate: exact three-site ArcParametrization compatibility repair checked with unchanged independent FiniteTypeSpreading, using265 native prior outputs. ModelGeneric and family reparametrization/tail remain unselected pending focused repairs; no Point1 promotion.",
+  "scope": "Exact Cartesian namespace extraction and minimal spreading namespace fix; native helper and spreading checks only. The factored model main and remaining reverse cone remain pending. Point1 accounting is unchanged at30/133.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -309,5 +310,14 @@
     41799583931
   ],
   "point1_audited_source_boundary_unchanged": 190,
-  "acceptance_ledger_modified": false
+  "acceptance_ledger_modified": false,
+  "retained_accepted_units": 30,
+  "newly_accepted_units": 0,
+  "point1_accepted": false,
+  "whole_source_graph_passed": false,
+  "selected_native_targets": [
+    "LSCartesianSourceDifferential",
+    "LSFiniteTypeSpreading"
+  ],
+  "prior_native_receipt_union": 266
 }

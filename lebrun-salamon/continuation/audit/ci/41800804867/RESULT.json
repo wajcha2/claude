@@ -1,0 +1,54 @@
+{
+  "schema": "lebrun-native-frontier-result-v1",
+  "run_id": 41800804867,
+  "job_id": 126475788992,
+  "commit": "661744ba632a46ed75e8d6ec40ba49ae521a04d2",
+  "summary": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "661744ba632a46ed75e8d6ec40ba49ae521a04d2",
+    "source_modules": 276,
+    "selected_modules": 216,
+    "accepted_modules": 215,
+    "failed_modules": [
+      "LSFiniteTypeSpreading"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 185,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "diagnostics": [
+    {
+      "module": "LSFiniteTypeSpreading",
+      "status": "failed",
+      "source_sha256": "c1571d6caf6b22b9daac525dba1a67ae357a1e2602cff24b08850f29e90c64a6",
+      "return_code": 1,
+      "seconds": 3.423,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Unknown identifier `PointsOver`\n\nNote: It is not possible to treat `PointsOver` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 19,
+            "line": 50
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFiniteTypeSpreading.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 9,
+            "line": 50
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "raw_job_log_sha256": "5eb6e3cd7fa5a50cd34cf05d7856480fb93b553097e0ec5997db86badedd57f4",
+  "acceptance_ledger_modified": false,
+  "scope": "ArcParametrization exact1975 passed; FiniteTypeSpreading failed at the missing PointsOver namespace. This selected216-module result is not whole276-source acceptance."
+}

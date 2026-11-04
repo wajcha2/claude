@@ -14,6 +14,7 @@ set_option backward.isDefEq.respectTransparency false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne
+open LeBrunSalamon.Skeleton
 
 namespace LeBrunSalamon.Construction.FiniteTypeSpreading
 

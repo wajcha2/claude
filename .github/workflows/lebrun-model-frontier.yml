@@ -1,4 +1,4 @@
-name: LeBrun-Salamon current arc and spreading frontiers
+name: LeBrun-Salamon Cartesian and spreading frontiers
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  arc-and-spreading:
+  cartesian-and-spreading:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -45,12 +45,19 @@ jobs:
           run-id: 41799583931
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/2
+      - name: Download exact native cache 4 from 41800804867
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-cartesian-spreading-41800804867-1
+          run-id: 41800804867
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/3
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check current arc and independent spreading modules
+      - name: Check extracted Cartesian helper and independent spreading
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSArcParametrization --module LSFiniteTypeSpreading --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSCartesianSourceDifferential --module LSFiniteTypeSpreading --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py

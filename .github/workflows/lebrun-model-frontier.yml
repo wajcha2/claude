@@ -31,19 +31,19 @@ jobs:
           run-id: 41782933633
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
-      - name: Download the passed203-module model context
+      - name: Download the passed206-module model context
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-model-frontier-41789253692-1
-          run-id: 41789253692
+          name: lebrun-model-frontier-41791217887-1
+          run-id: 41791217887
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/1
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check the independent RegularModelPair and FormalArcSections chain
+      - name: Check the actual Differential candidate and preserved formal-arc closure
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFormalArcSections --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferential --module LSFormalArcSections --keep-going --timeout 180
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py

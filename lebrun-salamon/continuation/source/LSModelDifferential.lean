@@ -512,31 +512,103 @@ def modelVelocity : (modelLine F a).sheaf ⟶
   LogarithmicSource.velocity F a (projectiveLineVariety Lines.P)
     (modelPoint F a) (modelPoint_over F a)
 
+/-- Changing only the base map is handled before specializing any
+module or scheme data. -/
+private theorem fromForm_baseMap_eq {S B : Scheme}
+    (pi : S ⟶ B) (sB sB' : B ⟶ ComplexBase) (h : sB = sB')
+    (M : OModule S) (q : cotangentSheaf pi ⟶ dualSheaf M)
+    {d : ℕ} (X : SmoothProperComplexVariety d) (e : S ⟶ X.scheme)
+    (he : e ≫ X.structureMap = pi ≫ sB)
+    (he' : e ≫ X.structureMap = pi ≫ sB') :
+    LogVelocity.fromForm pi sB M q X e he =
+      LogVelocity.fromForm pi sB' M q X e he' := by
+  cases h
+  rfl
+
+private theorem logarithmicVelocity_fromForm
+    {d : ℕ} (X : SmoothProperComplexVariety d) (e : Model F a ⟶ X.scheme)
+    (he : e ≫ X.structureMap = modelProjection F a ≫ toC) :
+    LogarithmicSource.velocity F a X e he =
+      LogVelocity.fromForm (modelProjection F a) toC (modelLine F a).sheaf
+        (LogarithmicSource.fundamentalClass F a) X e he := by
+  simp only [LogarithmicSource.velocity, LogarithmicSource.targetCotangent,
+    LogVelocity.fromForm, asIso_inv]
+
+private theorem modelFundamentalClass_pulledForm :
+    LogVelocity.pulledForm F.parameter (modelProjection F a)
+      (LogarithmicSource.toUniversal F a) (StandardConicDifferential.line F).sheaf
+      (modelLine F a).sheaf (LogarithmicSource.cotangentComparison F a)
+      (LogarithmicSource.lineComparison F a) (StandardConicDifferential.fundamentalClass F) =
+        LogarithmicSource.fundamentalClass F a := by
+  rfl
+
+/-- Each definitional comparison is kept separate from the actual
+base-map equality, so the final comparison does not rewrite a large
+dependent module expression. -/
+private theorem logarithmicVelocity_baseChange_generic
+    {d : ℕ} (X : SmoothProperComplexVariety d) (e : F.source ⟶ X.scheme)
+    (he : e ≫ X.structureMap = F.parameter ≫ Smoothing.affineLineToC)
+    (he' : (LogarithmicSource.toUniversal F a ≫ e) ≫ X.structureMap =
+      modelProjection F a ≫ toC) :
+    LogarithmicSource.velocity F a X (LogarithmicSource.toUniversal F a ≫ e) he' =
+      (LogarithmicSource.lineComparison F a).inv ≫
+        (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map
+          (LogVelocity.fromForm F.parameter Smoothing.affineLineToC
+            (StandardConicDifferential.line F).sheaf
+            (StandardConicDifferential.fundamentalClass F) X e he) ≫
+          (compositionPullback (LogarithmicSource.toUniversal F a) e
+            (LogarithmicSource.toUniversal F a ≫ e) rfl
+            (tangentSheaf X.structureMap)).hom := by
+  let q := LogVelocity.pulledForm F.parameter (modelProjection F a)
+    (LogarithmicSource.toUniversal F a) (StandardConicDifferential.line F).sheaf
+    (modelLine F a).sheaf (LogarithmicSource.cotangentComparison F a)
+    (LogarithmicSource.lineComparison F a) (StandardConicDifferential.fundamentalClass F)
+  have he_b : (LogarithmicSource.toUniversal F a ≫ e) ≫ X.structureMap =
+      modelProjection F a ≫ (parameterMap a ≫ Smoothing.affineLineToC) :=
+    he'.trans (congrArg (fun b : Trait ⟶ ComplexBase => modelProjection F a ≫ b)
+      (parameterMap_toC a)).symm
+  have h := LogVelocity.fromForm_baseChange F.parameter (modelProjection F a)
+    Smoothing.affineLineToC (LogarithmicSource.toUniversal F a) (parameterMap a)
+    pullback.condition (StandardConicDifferential.line F).sheaf (modelLine F a).sheaf
+    (LogarithmicSource.cotangentComparison F a) rfl (LogarithmicSource.lineComparison F a)
+    (StandardConicDifferential.fundamentalClass F) X e he he_b
+  have hb := fromForm_baseMap_eq (modelProjection F a)
+    (parameterMap a ≫ Smoothing.affineLineToC) toC (parameterMap_toC a)
+    (modelLine F a).sheaf q X (LogarithmicSource.toUniversal F a ≫ e) he_b he'
+  have hq : q = LogarithmicSource.fundamentalClass F a :=
+    modelFundamentalClass_pulledForm F a
+  have hq' := congrArg (fun q : cotangentSheaf (modelProjection F a) ⟶
+      dualSheaf (modelLine F a).sheaf =>
+    LogVelocity.fromForm (modelProjection F a) toC (modelLine F a).sheaf q X
+      (LogarithmicSource.toUniversal F a ≫ e) he') hq
+  calc
+    _ = LogVelocity.fromForm (modelProjection F a) toC (modelLine F a).sheaf
+        (LogarithmicSource.fundamentalClass F a) X
+        (LogarithmicSource.toUniversal F a ≫ e) he' :=
+      logarithmicVelocity_fromForm F a X (LogarithmicSource.toUniversal F a ≫ e) he'
+    _ = LogVelocity.fromForm (modelProjection F a) toC (modelLine F a).sheaf q X
+        (LogarithmicSource.toUniversal F a ≫ e) he' := hq'.symm
+    _ = LogVelocity.fromForm (modelProjection F a)
+        (parameterMap a ≫ Smoothing.affineLineToC) (modelLine F a).sheaf q X
+        (LogarithmicSource.toUniversal F a ≫ e) he_b := hb.symm
+    _ = (LogarithmicSource.lineComparison F a).inv ≫
+        (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map
+          (LogVelocity.fromForm F.parameter Smoothing.affineLineToC
+            (StandardConicDifferential.line F).sheaf
+            (StandardConicDifferential.fundamentalClass F) X e he) ≫
+          (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a) e).hom.app
+            (tangentSheaf X.structureMap) := h
+    _ = _ := by
+      simp only [compositionPullback, Iso.trans_hom, Iso.app_hom,
+        eqToIso_refl, Iso.refl_hom, Category.comp_id]
+
 theorem modelVelocity_baseChange : modelVelocity F a =
     (LogarithmicSource.lineComparison F a).inv ≫
       (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫
         (compositionPullback (LogarithmicSource.toUniversal F a) (universalPoint F)
           (modelPoint F a) rfl (tangentSheaf Lines.P.structureMap)).hom := by
-  have h := LogVelocity.fromForm_baseChange F.parameter (modelProjection F a)
-    Smoothing.affineLineToC (LogarithmicSource.toUniversal F a) (parameterMap a)
-    pullback.condition (StandardConicDifferential.line F).sheaf (modelLine F a).sheaf
-    (LogarithmicSource.cotangentComparison F a) rfl (LogarithmicSource.lineComparison F a)
-    (StandardConicDifferential.fundamentalClass F) (projectiveLineVariety Lines.P)
-    (universalPoint F) (universalPoint_over F)
-    (by
-      change modelPoint F a ≫ Lines.P.structureMap =
-        modelProjection F a ≫ (parameterMap a ≫ Smoothing.affineLineToC)
-      simpa only [parameterMap_toC] using modelPoint_over F a)
-  simp only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,
-    LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,
-    LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,
-    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] at h
-  change modelVelocity F a =
-    (LogarithmicSource.lineComparison F a).inv ≫
-      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫
-        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a)
-          (universalPoint F)).hom.app (tangentSheaf Lines.P.structureMap) at h
-  exact h
+  exact logarithmicVelocity_baseChange_generic F a (projectiveLineVariety Lines.P)
+    (universalPoint F) (universalPoint_over F) (modelPoint_over F a)
 
 /-- The homogeneous coordinate sections use the same canonical line
 base-change comparison as the logarithmic form. -/

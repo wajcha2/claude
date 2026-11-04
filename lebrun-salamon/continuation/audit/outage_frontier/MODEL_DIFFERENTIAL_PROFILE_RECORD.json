@@ -1,0 +1,66 @@
+{
+  "schema": "lebrun-model-differential-bounded-prefix-profile-v1",
+  "created_utc": "2026-11-04T06:59:49.196Z",
+  "base_commit": "369a4e1f6957b123f45bc28ead6e2e623c493677",
+  "base_source_sha256": "665dcd37cfe12f9138825f6ec1585e47b395e0859b8a4fbb9ca8311803d2e830",
+  "base_source_git_blob": "6165f5dd026540e913e3a107fa0ab7fa84f4a5cd",
+  "whole_candidate_result": {
+    "run": 41787648917,
+    "job": 126433366971,
+    "return_code": 124,
+    "seconds": 300.269,
+    "errors": 0
+  },
+  "diagnostic_only_options": [
+    "Elab.async=false (matches existing CLI)",
+    "stderrAsMessages=false",
+    "profiler=true"
+  ],
+  "first_bound": "exact prefix through polynomial_scalar (first4 declarations)",
+  "second_bound": "exact prefix through chartVelocity_baseChange (first30 declarations)",
+  "proof_bodies": "byte-identical original intervals; only diagnostic options/IO markers and namespace closers added",
+  "no_canonical_edits": true,
+  "no_acceptance_promotion": true,
+  "files": [
+    {
+      "file": "LSModelDifferentialFlushSmoke.lean",
+      "git_blob": "5f5fc46ac99664fc90134ca7f4a53aa3d6b77751",
+      "source_sha256": "f5ad985f3cb9e82a3b3dce0ee79835a4521ffe11e9501a70d5b24f9f9a08426d",
+      "bytes": 201,
+      "original_prefix_sha256": null,
+      "original_decl_count": 0,
+      "native_status": "uncompiled_diagnostic",
+      "roundtrip_verified": true
+    },
+    {
+      "file": "LSModelDifferentialProfileScalar.lean",
+      "git_blob": "6653603d1ab3fcc89737005b2f7b32efcb79a01b",
+      "source_sha256": "b232b04be1847a2cf98dde637a09b8dc1c2b62b8f3829aeeda9bde18851a6a0c",
+      "bytes": 4348,
+      "original_prefix_sha256": "63db4c3acca6a698502d22ef7445261fc98acf3f4771aa9beb33d8aa2f0efa1e",
+      "original_decl_count": 4,
+      "native_status": "uncompiled_diagnostic",
+      "original_prefix_exactly_reconstructed": true,
+      "roundtrip_verified": true
+    },
+    {
+      "file": "LSModelDifferentialProfileBaseChange.lean",
+      "git_blob": "fe55f8e0e272ecd7951ac180e7066f9a4dae92c5",
+      "source_sha256": "ccff66eb5d166b04a4635517b91e202e486b6170a12a1d8ec2344da28c9fb8fc",
+      "bytes": 27009,
+      "original_prefix_sha256": "52e20bedaee1421bbaf46498a704c76373868443284003467d720fdf5d0ce917",
+      "original_decl_count": 30,
+      "native_status": "uncompiled_diagnostic",
+      "original_prefix_exactly_reconstructed": true,
+      "roundtrip_verified": true
+    }
+  ],
+  "requested_gates": {
+    "smoke_cap_seconds": 30,
+    "smoke_stderr_marker": "MODEL_DIFFERENTIAL_FLUSH_SMOKE_RAW_STDERR",
+    "require_smoke_success_before_prefixes": true,
+    "prefix_caps_seconds": 180,
+    "preserve_raw_stdout_and_stderr": true
+  },
+  "scope_limit": "Even a prefix native pass certifies only that exact prefix environment. It must never be presented as a pass of the original whole LSModelDifferential module."
+}

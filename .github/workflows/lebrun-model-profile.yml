@@ -1,0 +1,59 @@
+name: LeBrun-Salamon differential bounded profiling
+
+on:
+  push:
+    branches:
+      - codex/lebrun-model-profile-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  profile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out the exact diagnostic snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download the exact validated202-module model context
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-model-frontier-41787648917-1
+          run-id: 41787648917
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/lebrun-prior-evidence
+      - name: Restore only exact current ancestry and runtime matches
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41787648917 --source-artifact-name lebrun-model-frontier-41787648917-1
+      - name: Verify native raw-stderr smoke before prefix checks
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialFlushSmoke --timeout 30
+          python3 lebrun-salamon/continuation/scripts/verify_model_profile_smoke.py
+      - name: Check both exact proof prefixes with bounded profiling
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialProfileScalar --module LSModelDifferentialProfileBaseChange --keep-going --timeout 180
+      - name: Expose complete native profiler and raw marker output
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_model_profile.py
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve differential profile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-model-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn

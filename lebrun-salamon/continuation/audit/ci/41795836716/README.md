@@ -1,0 +1,3 @@
+# Independent current comparison checks
+
+Both stock-native jobs checked commit `6940aa5c9a966bfa5b835cc690c453ae6a450eba` with the unchanged pinned runtime and strict261-module cache union. The formal-arc branch stopped at two identity-simplification errors in `LSOpenSectionTransport` (7.031 seconds). The model branch stopped at one associativity rewrite in `LSFamilyBaseChange` (146.821 seconds). All later selected descendants were blocked; no whole-source or Point1 acceptance is claimed. The exact diagnostics, verification records, official artifact identities and full job-log hashes are preserved alongside this note.

@@ -1,0 +1,61 @@
+{
+  "schema": "lebrun-basechange-association-repair-v2",
+  "created_utc": "2026-11-04T08:04:08.455Z",
+  "source_module": "LSFamilyBaseChange",
+  "baseline_commit": "6940aa5c9a966bfa5b835cc690c453ae6a450eba",
+  "baseline_sha256": "8407e1b1c7918bc96a70c6f3834dfa7afb843f388af563222fdead0dea4e32e9",
+  "baseline_git_blob": "3371836bc37d2378c84077768634e183d2c5a555",
+  "candidate_sha256": "103af662237b7852f746f7b548a118cbc1c7efbefa6f2acb3825f97e67bf64c8",
+  "candidate_git_blob": "1de656f0200be8b986f6fb28b42110b9a26bb97d",
+  "diagnostic_run": 41795836716,
+  "diagnostic_job": 126459601868,
+  "diagnostic": {
+    "seconds": 146.821,
+    "return_code": 1,
+    "error_count": 1,
+    "position": {
+      "line": 236,
+      "column": 6
+    },
+    "cause": "ht has ((A ≫ B) ≫ C) while dualMap's argument is A ≫ (B ≫ C); the original inferred congrArg binder already elaborated"
+  },
+  "patches": [
+    {
+      "id": "reassociate_the_actual_cotangent_comparison_before_dualMap_rewrite",
+      "before": "  simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp] at ht\n  rw [ht, differential_normalized]\n",
+      "after": "  simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp] at ht\n  simp only [Category.assoc] at ht\n  rw [ht, differential_normalized]\n",
+      "expected_matches": 1
+    }
+  ],
+  "public_headers_unchanged": true,
+  "new_admissions": 0,
+  "source_patch_9bf77a8b_review": "Applied only its association-normalization line, the exact current diagnostic. Its optional binder annotation is unnecessary for the observed source and remains unapplied.",
+  "roundtrip_verified": true,
+  "status": "uncompiled repair candidate; stock replay pending",
+  "native_history": {
+    "local_whole_timeout_receipt": "4e3ff984f46a781a19c1bed621de2a1a02648628",
+    "local_generic_prefix_record": "64031d39ddcf1bd9f966d7be9055dbf26fb555a4"
+  },
+  "scope": "No public declaration, assumption, frozen target, Point1 boundary proof or acceptance flag changed.",
+  "scanner_header_count": 12,
+  "public_declarations": [
+    "dual_composition",
+    "dual_composition_normalized",
+    "map",
+    "map_left",
+    "map_right",
+    "map_evaluation",
+    "product_baseChange",
+    "canonicalMap_baseChange",
+    "relativeCotangentMap_baseChange",
+    "relativeCotangent_normalized",
+    "relativeCotangent_baseChange",
+    "differential_baseChange",
+    "vector_baseChange",
+    "contactVector_baseChange",
+    "leftSection_baseChange",
+    "rightSection_baseChange"
+  ],
+  "public_declaration_count": 16,
+  "public_header_guard": "Patch is exactly one new tactic line in the existing differential_baseChange body. Every other byte is preserved from8407e1b1; the scanner also found no changed header. Inline@[reassoc] declarations are listed separately in public_declarations."
+}

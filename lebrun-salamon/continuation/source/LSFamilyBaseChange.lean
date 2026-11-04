@@ -233,6 +233,7 @@ theorem differential_baseChange :
   have ht := congrArg (fun m =>
     (compositionPullback k eB eA hke (cotangentSheaf X.structureMap)).inv ≫ m) hc
   simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp] at ht
+  simp only [Category.assoc] at ht
   rw [ht, differential_normalized]
 
 include hb hk₁ hk₂ in

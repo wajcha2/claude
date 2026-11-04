@@ -1,0 +1,108 @@
+{
+  "commit": "6940aa5c9a966bfa5b835cc690c453ae6a450eba",
+  "run_id": 41795836716,
+  "job_id": 126459602263,
+  "job": "formal",
+  "summary": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "6940aa5c9a966bfa5b835cc690c453ae6a450eba",
+    "source_modules": 276,
+    "selected_modules": 211,
+    "accepted_modules": 209,
+    "failed_modules": [
+      "LSOpenSectionTransport"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 185,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "diagnostics": [
+    {
+      "module": "LSOpenSectionTransport",
+      "status": "failed",
+      "source_sha256": "47a54df3abf6421e44c319f8326d3a0c716375628e478c8cfa3c2ee9e4a4b09c",
+      "return_code": 1,
+      "seconds": 7.031,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Tactic `rfl` failed: The left-hand side\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (𝟙 U).op)) s\nis not definitionally equal to the right-hand side\n  s\n\nY : Scheme\nU : Y.Opens\nE : OModule Y\ns : SectionsOn E U\n⊢ (ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (𝟙 U).op)) s = s",
+          "endPos": {
+            "column": 5,
+            "line": 51
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSOpenSectionTransport.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 2,
+            "line": 51
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rfl` failed: The left-hand side\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (𝟙 (U.ι ''ᵁ ⊤)).op))\n    (sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E))\nis not definitionally equal to the right-hand side\n  sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E)\n\nY : Scheme\nU : Y.Opens\nE : OModule Y\ns : AlgebraicSection (pullbackModule U.ι E)\n⊢ (ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (𝟙 (U.ι ''ᵁ ⊤)).op))\n      (sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E)) =\n    sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E)",
+          "endPos": {
+            "column": 5,
+            "line": 60
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSOpenSectionTransport.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 2,
+            "line": 60
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "job_log_sha256": "7563a6e224ed5653507f3ad72dde6a7d72688a3532bcdc21d63b344ae97e46af",
+  "cache_union": {
+    "schema": "lebrun-ci-cache-union-v1",
+    "started_utc": "2026-11-04T07:59:24.043211+00:00",
+    "current_runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "source_modules": 276,
+    "inputs_sha256": "976bd20433be5d348fd71f8b626642523601c8c814e21b7e5470b148264f3093",
+    "inputs": [
+      {
+        "source_run_id": 41782933633,
+        "source_artifact_name": "lebrun-current-full-41782933633-1",
+        "artifact_dir": "/home/runner/work/claude/claude/lebrun-cache-inputs/0",
+        "validation_sha256": "02a3f1e3e967fe03c6aec50bb5fa2eefd17ddeea965a667c67ca14647e066dd1",
+        "independently_copied_modules": 253,
+        "global_rejection": null
+      },
+      {
+        "source_run_id": 41793572611,
+        "source_artifact_name": "lebrun-model-frontier-41793572611-1",
+        "artifact_dir": "/home/runner/work/claude/claude/lebrun-cache-inputs/1",
+        "validation_sha256": "e882f19c0387cdea95db8214c2c15de96cc8d4ff64921bf86efadbd922e8af30",
+        "independently_copied_modules": 207,
+        "global_rejection": null
+      },
+      {
+        "source_run_id": 41792520758,
+        "source_artifact_name": "lebrun-descent-resource-41792520758-1",
+        "artifact_dir": "/home/runner/work/claude/claude/lebrun-cache-inputs/2",
+        "validation_sha256": "c34f65147f1bf666fd2e8052a87da35924ec935a654dc1208e86fb9e38a49d2d",
+        "independently_copied_modules": 100,
+        "global_rejection": null
+      }
+    ],
+    "native_kernel_invoked": false,
+    "acceptance_ledger_modified": false,
+    "finished_utc": "2026-11-04T07:59:33.156157+00:00",
+    "copied_module_count": 261,
+    "all_final_hash_and_runtime_checks_passed": true
+  },
+  "scope": "Completed stock-native failure evidence. All accepted dependencies and runtime revalidated; failed module has no accepted native output. No Point1 or whole-source promotion."
+}

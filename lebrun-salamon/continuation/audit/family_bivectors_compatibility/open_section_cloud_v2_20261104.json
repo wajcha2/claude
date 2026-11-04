@@ -1,0 +1,18 @@
+{
+  "schema": "guarded-native-diagnostic-repair-v1",
+  "module": "LSOpenSectionTransport",
+  "base_source_sha256": "47a54df3abf6421e44c319f8326d3a0c716375628e478c8cfa3c2ee9e4a4b09c",
+  "candidate_source_sha256": "2ccfc2b88329ca2a2b0b392e99a0af9a8e338a261136e3e2f97a6fbc2fa8c862",
+  "diagnostic_run": 41795836716,
+  "diagnostic_job": 126459602263,
+  "patch": {
+    "old": "eqToHom_refl, CategoryTheory.Functor.map_id]\n  rfl",
+    "new": "eqToHom_refl, CategoryTheory.Functor.map_id]\n  simp only [op_id, CategoryTheory.Functor.map_id] <;> rfl",
+    "expected_occurrences": 2
+  },
+  "reason": "Normalize opposite identity morphisms, then use the actual presheaf identity law in the two section/value inverse equations.",
+  "all_six_original_public_headers_preserved": true,
+  "new_admissions": 0,
+  "inverse_patch_restores_original_bytes": true,
+  "status": "candidate_not_yet_kernel_checked"
+}

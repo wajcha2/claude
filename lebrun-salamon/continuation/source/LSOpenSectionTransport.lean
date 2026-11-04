@@ -48,7 +48,7 @@ theorem value_section {Y : Scheme} (U : Y.Opens) {E : OModule Y}
   simp only [value, fromValue, Category.assoc, Iso.hom_inv_id_app, Category.comp_id,
     sectionFromValue_spec, ← ConcreteCategory.comp_apply, ← Functor.map_comp,
     ← op_comp, eqToHom_trans, eqToHom_refl, CategoryTheory.Functor.map_id]
-  rfl
+  simp only [op_id, CategoryTheory.Functor.map_id] <;> rfl
 
 theorem section_value {Y : Scheme} (U : Y.Opens) {E : OModule Y}
     (s : AlgebraicSection (pullbackModule U.ι E)) : fromValue U (value U s) = s := by
@@ -57,7 +57,7 @@ theorem section_value {Y : Scheme} (U : Y.Opens) {E : OModule Y}
   apply (sectionValue_bijective (E.restrict U.ι)).injective
   simp only [sectionFromValue_spec, value, ← ConcreteCategory.comp_apply,
     ← Functor.map_comp, ← op_comp, eqToHom_trans, eqToHom_refl, CategoryTheory.Functor.map_id]
-  rfl
+  simp only [op_id, CategoryTheory.Functor.map_id] <;> rfl
 
 theorem value_map {Y : Scheme} (U : Y.Opens) {E F : OModule Y}
     (s : AlgebraicSection (pullbackModule U.ι E)) (v : E ⟶ F) :

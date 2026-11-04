@@ -31,6 +31,107 @@ open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.FamilyBivectors
 
+namespace RepackedFieldAccessors
+
+private theorem ring_eq (K : CommRingCat) [hK : Fact (IsField K)] :
+    @CommRingCat.of K.carrier (@Field.toCommRing K.carrier (hK.out.toField)) = K := by
+  cases K
+  rfl
+
+private theorem spec_eq (K : CommRingCat) [hK : Fact (IsField K)] :
+    Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (hK.out.toField))) =
+      Spec K := by
+  exact congrArg (fun R : CommRingCat => Spec R) (ring_eq K)
+
+private theorem base_heq (K : CommRingCat) [hK : Fact (IsField K)]
+    (sK : Spec K ⟶ ComplexBase) :
+    @HEq
+      (Spec (@CommRingCat.of K.carrier
+        (@Field.toCommRing K.carrier (hK.out.toField))) ⟶ ComplexBase) sK
+      (Spec K ⟶ ComplexBase) sK := by
+  rfl
+
+private theorem map_heq (P : ProjectiveLineOverC) (K : CommRingCat)
+    [hK : Fact (IsField K)] (sK : Spec K ⟶ ComplexBase)
+    {Y : Scheme} (f : Parametrized.Source P sK ⟶ Y) :
+    @HEq
+      ((@Parametrized.Source P
+        (Spec (@CommRingCat.of K.carrier
+          (@Field.toCommRing K.carrier (hK.out.toField)))) sK) ⟶ Y) f
+      ((@Parametrized.Source P (Spec K) sK) ⟶ Y) f := by
+  rfl
+
+private theorem iso_heq (P : ProjectiveLineOverC) (K : CommRingCat)
+    [hK : Fact (IsField K)] (sK : Spec K ⟶ ComplexBase)
+    (e : Parametrized.Source P sK ≅ Parametrized.Source P sK) :
+    @HEq
+      ((@Parametrized.Source P
+        (Spec (@CommRingCat.of K.carrier
+          (@Field.toCommRing K.carrier (hK.out.toField)))) sK) ≅
+       (@Parametrized.Source P
+        (Spec (@CommRingCat.of K.carrier
+          (@Field.toCommRing K.carrier (hK.out.toField)))) sK)) e
+      ((@Parametrized.Source P (Spec K) sK) ≅
+       (@Parametrized.Source P (Spec K) sK)) e := by
+  rfl
+
+end RepackedFieldAccessors
+
+namespace FieldReparamTransport
+
+private structure Data (P : ProjectiveLineOverC) {n : ℕ} (X : ContactFanoManifold n)
+    (T : Scheme) where
+  s : T ⟶ ComplexBase
+  f : Parametrized.Source P s ⟶ X.variety.scheme
+  hf : f ≫ X.variety.structureMap = Parametrized.parameter P s ≫ s
+  e : Parametrized.Source P s ≅ Parametrized.Source P s
+  he : e.hom ≫ Parametrized.parameter P s = Parametrized.parameter P s
+  g : Parametrized.Source P s ⟶ X.variety.scheme
+  hg : g ≫ X.variety.structureMap = Parametrized.parameter P s ≫ s
+  hcomp : e.hom ≫ f = g
+
+private theorem data_heq (P : ProjectiveLineOverC) {n : ℕ} (X : ContactFanoManifold n)
+    {T U : Scheme} (hTU : T = U)
+    (sT : T ⟶ ComplexBase) (sU : U ⟶ ComplexBase) (hs : HEq sT sU)
+    (fT : Parametrized.Source P sT ⟶ X.variety.scheme)
+    (fU : Parametrized.Source P sU ⟶ X.variety.scheme) (hF : HEq fT fU)
+    (hfT : fT ≫ X.variety.structureMap = Parametrized.parameter P sT ≫ sT)
+    (hfU : fU ≫ X.variety.structureMap = Parametrized.parameter P sU ≫ sU)
+    (eT : Parametrized.Source P sT ≅ Parametrized.Source P sT)
+    (eU : Parametrized.Source P sU ≅ Parametrized.Source P sU) (hE : HEq eT eU)
+    (heT : eT.hom ≫ Parametrized.parameter P sT = Parametrized.parameter P sT)
+    (heU : eU.hom ≫ Parametrized.parameter P sU = Parametrized.parameter P sU)
+    (gT : Parametrized.Source P sT ⟶ X.variety.scheme)
+    (gU : Parametrized.Source P sU ⟶ X.variety.scheme) (hG : HEq gT gU)
+    (hgT : gT ≫ X.variety.structureMap = Parametrized.parameter P sT ≫ sT)
+    (hgU : gU ≫ X.variety.structureMap = Parametrized.parameter P sU ≫ sU)
+    (hcompT : eT.hom ≫ fT = gT) (hcompU : eU.hom ≫ fU = gU) :
+    @HEq (Data P X T) ⟨sT, fT, hfT, eT, heT, gT, hgT, hcompT⟩
+      (Data P X U) ⟨sU, fU, hfU, eU, heU, gU, hgU, hcompU⟩ := by
+  cases hTU
+  have hs' : sT = sU := eq_of_heq hs
+  cases hs'
+  have hF' : fT = fU := eq_of_heq hF
+  cases hF'
+  have hE' : eT = eU := eq_of_heq hE
+  cases hE'
+  have hG' : gT = gU := eq_of_heq hG
+  cases hG'
+  rfl
+
+universe u v
+
+private theorem predicate_transport {α : Sort u} (F : α → Sort v)
+    (G : (a : α) → F a → Prop)
+    {a b : α} (hab : a = b) {x : F a} {y : F b} (hxy : HEq x y) :
+    G a x ↔ G b y := by
+  cases hab
+  have hxy' : x = y := eq_of_heq hxy
+  cases hxy'
+  rfl
+
+end FieldReparamTransport
+
 private theorem field_equation_transport {T Y Z : Scheme}
     (q q' : T ⟶ Y) (hq : q = q')
     (f f' : Y ⟶ Z) (hf : f = f') (r r' : T ⟶ Z) (hr : r = r')
@@ -135,6 +236,58 @@ private theorem field_right_invariance_transport
     (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (field_right_input_heq Q K sK q)
     (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (field_right_output_heq Q K sK q b hq k hk)).mp hi
 
+private theorem field_left_base_transport
+    (hi : pullSection (@FamilyReparametrization.squareMap P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.leftSection P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (@FamilyReparametrization.squareMap P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.evaluationSquare P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (@ParametrizedContact.evaluationSquare P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (@FamilyReparametrization.squareMap_evaluation P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleLeft X.variety X.contact)).hom = (@ParametrizedContact.leftSection P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))) :
+    pullSection (@FamilyReparametrization.squareMap P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.leftSection P (Spec K) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (@FamilyReparametrization.squareMap P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.evaluationSquare P (Spec K) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (@ParametrizedContact.evaluationSquare P (Spec K) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (@FamilyReparametrization.squareMap_evaluation P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleLeft X.variety X.contact)).hom = (@ParametrizedContact.leftSection P (Spec K) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by
+  exact (FieldReparamTransport.predicate_transport (FieldReparamTransport.Data P X)
+    (fun _ d =>
+      pullSection (FamilyReparametrization.squareMap P d.s d.e d.he)
+        (ParametrizedContact.leftSection P d.s X d.f d.hf) ≫
+        (compositionPullback (FamilyReparametrization.squareMap P d.s d.e d.he)
+          (ParametrizedContact.evaluationSquare P d.s X d.f d.hf)
+          (ParametrizedContact.evaluationSquare P d.s X d.g d.hg)
+          (FamilyReparametrization.squareMap_evaluation P d.s d.e d.he X
+            d.f d.hf d.g d.hg d.hcomp)
+          (movingPairBundleLeft X.variety X.contact)).hom =
+        ParametrizedContact.leftSection P d.s X d.g d.hg)
+    (RepackedFieldAccessors.spec_eq K)
+    (FieldReparamTransport.data_heq P X (RepackedFieldAccessors.spec_eq K)
+      sK sK (RepackedFieldAccessors.base_heq K sK)
+      (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation Q sK q) (RepackedFieldAccessors.map_heq P K sK (SmoothFamily.atPointEvaluation Q sK q))
+      (SmoothFamily.atPointEvaluation_overC Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)
+      (transition Q sK q b hq k hk) (transition Q sK q b hq k hk) (RepackedFieldAccessors.iso_heq P K sK (transition Q sK q b hq k hk))
+      (transition_parameter Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)
+      (evaluation (F := F) sK k) (evaluation (F := F) sK k) (RepackedFieldAccessors.map_heq P K sK (evaluation (F := F) sK k))
+      (evaluation_overC Q sK q b hq k hk) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk))).mp hi
+
+private theorem field_right_base_transport
+    (hi : pullSection (@FamilyReparametrization.squareMap P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.rightSection P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (@FamilyReparametrization.squareMap P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.evaluationSquare P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (@ParametrizedContact.evaluationSquare P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (@FamilyReparametrization.squareMap_evaluation P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleRight X.variety X.contact)).hom = (@ParametrizedContact.rightSection P (Spec (@CommRingCat.of K.carrier (@Field.toCommRing K.carrier (inferInstance : Field K)))) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))) :
+    pullSection (@FamilyReparametrization.squareMap P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.rightSection P (Spec K) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (@FamilyReparametrization.squareMap P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (@ParametrizedContact.evaluationSquare P (Spec K) sK n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (@ParametrizedContact.evaluationSquare P (Spec K) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (@FamilyReparametrization.squareMap_evaluation P (Spec K) sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) n X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleRight X.variety X.contact)).hom = (@ParametrizedContact.rightSection P (Spec K) sK n X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by
+  exact (FieldReparamTransport.predicate_transport (FieldReparamTransport.Data P X)
+    (fun _ d =>
+      pullSection (FamilyReparametrization.squareMap P d.s d.e d.he)
+        (ParametrizedContact.rightSection P d.s X d.f d.hf) ≫
+        (compositionPullback (FamilyReparametrization.squareMap P d.s d.e d.he)
+          (ParametrizedContact.evaluationSquare P d.s X d.f d.hf)
+          (ParametrizedContact.evaluationSquare P d.s X d.g d.hg)
+          (FamilyReparametrization.squareMap_evaluation P d.s d.e d.he X
+            d.f d.hf d.g d.hg d.hcomp)
+          (movingPairBundleRight X.variety X.contact)).hom =
+        ParametrizedContact.rightSection P d.s X d.g d.hg)
+    (RepackedFieldAccessors.spec_eq K)
+    (FieldReparamTransport.data_heq P X (RepackedFieldAccessors.spec_eq K)
+      sK sK (RepackedFieldAccessors.base_heq K sK)
+      (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation Q sK q) (RepackedFieldAccessors.map_heq P K sK (SmoothFamily.atPointEvaluation Q sK q))
+      (SmoothFamily.atPointEvaluation_overC Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)
+      (transition Q sK q b hq k hk) (transition Q sK q b hq k hk) (RepackedFieldAccessors.iso_heq P K sK (transition Q sK q b hq k hk))
+      (transition_parameter Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)
+      (evaluation (F := F) sK k) (evaluation (F := F) sK k) (RepackedFieldAccessors.map_heq P K sK (evaluation (F := F) sK k))
+      (evaluation_overC Q sK q b hq k hk) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk))).mp hi
+
 /-- Comparison over an arbitrary field when an actual Q-point has
 been supplied. Reparametrization is proved by finite-type spreading of
 the actual automorphism, and retains the original family evaluation. -/
@@ -148,6 +301,7 @@ theorem smoothLeft_field :
   letI : LocallyOfFiniteType Q.coverToC := SmoothFamily.cover_locallyOfFiniteType Q
   apply smoothLeft_of_invariance Q sK q b hq k hk a ha
   apply field_left_invariance_transport Q K sK q b hq k hk
+  apply field_left_base_transport Q K sK q b hq k hk
   exact FamilyReparametrization.leftSection_field P Q.coverToC X
     (SmoothFamily.evaluation Q) (SmoothFamily.evaluation_overC Q)
     (SmoothFamily.nonconstantFamily Q) K sK q
@@ -166,6 +320,7 @@ theorem smoothRight_field :
   letI : LocallyOfFiniteType Q.coverToC := SmoothFamily.cover_locallyOfFiniteType Q
   apply smoothRight_of_invariance Q sK q b hq k hk a ha
   apply field_right_invariance_transport Q K sK q b hq k hk
+  apply field_right_base_transport Q K sK q b hq k hk
   exact FamilyReparametrization.rightSection_field P Q.coverToC X
     (SmoothFamily.evaluation Q) (SmoothFamily.evaluation_overC Q)
     (SmoothFamily.nonconstantFamily Q) K sK q

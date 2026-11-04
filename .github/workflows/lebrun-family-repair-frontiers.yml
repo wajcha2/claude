@@ -1,0 +1,141 @@
+name: LeBrun-Salamon repaired family frontiers
+on:
+  push:
+    branches: [codex/lebrun-family-repair-frontiers-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-family-repair-frontiers-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  field_basechange5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41840786344
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-generic-field17-41840786344-1
+          run-id: 41840786344
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check exact independent five field base-change declarations
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrizationFieldBaseChange --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current native frontier evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-field-basechange5-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+  smooth_descent:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41840786344
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-generic-field17-41840786344-1
+          run-id: 41840786344
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check revised actual fifty-declaration descent
+        id: descent50
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothDescent --keep-going --timeout 420
+      - name: Report descent50 exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve descent50 exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-smooth-descent50-repaired-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Profile exact final covered pair
+        id: pair_profile
+        if: steps.descent50.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyCoveredPairProfile --keep-going --timeout 300
+      - name: Report pair_profile exact native scope
+        if: always() && steps.descent50.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose pair_profile receipt-bound raw markers
+        if: always() && steps.descent50.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyCoveredPairProfile --allow-unattempted
+      - name: Preserve pair_profile exact evidence before continuation
+        if: always() && steps.descent50.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-covered-pair-profile-repaired-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual final covered pair
+        id: pair_actual
+        if: steps.descent50.outcome == 'success' && steps.pair_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --keep-going --timeout 300
+      - name: Report pair_actual exact native scope
+        if: always() && steps.descent50.outcome == 'success' && steps.pair_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve pair_actual exact evidence before continuation
+        if: always() && steps.descent50.outcome == 'success' && steps.pair_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-covered-pair-actual-repaired-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require actual prefix and final-pair outcomes
+        if: always()
+        run: |
+          test "${{ steps.descent50.outcome }}" = success
+          test "${{ steps.pair_profile.outcome }}" = success
+          test "${{ steps.pair_actual.outcome }}" = success

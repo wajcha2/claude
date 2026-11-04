@@ -1,0 +1,68 @@
+{
+  "schema": "lebrun-model-offgraph-guarded-repairs-v1",
+  "created_utc": "2026-11-04T05:22:51.570Z",
+  "repository": "wajcha2/claude",
+  "base_ref": "160282d03eb0b46c7a2cb96144539c047ec06a70",
+  "path_prefix": "lebrun-salamon/continuation/source/",
+  "status": "uncompiled_candidates_no_acceptance",
+  "changes": [
+    {
+      "file": "LSModelBivector.lean",
+      "expected_original": "d7de8cbc7ded29bcb3ae829d7359281169c414c15a32073b8add6a525263acb9",
+      "expected_candidate": "2d92746e584b564dac39beef51a82aa0df37ffb7134af8a0f2190a7be26e78fe",
+      "patches": [
+        {
+          "before": "namespace LeBrunSalamon.Construction.TraitContact.ModelBivector\n\n",
+          "after": "namespace LeBrunSalamon.Construction.TraitContact.ModelBivector\n\nlocal notation \"Model\" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model\n\n"
+        }
+      ],
+      "actual_candidate_sha256": "2d92746e584b564dac39beef51a82aa0df37ffb7134af8a0f2190a7be26e78fe",
+      "prior_candidate_hash_reproduced": true,
+      "bytes": 17666,
+      "lines": 340,
+      "admissions_before": 0,
+      "admissions_after": 0,
+      "git_blob_sha": "138c46df78db2fd893d8e897af5fbc002ccc0f83",
+      "remote_roundtrip_verified": true,
+      "public_header_count": 27,
+      "all_public_headers_unchanged": true
+    },
+    {
+      "file": "LSModelDifferential.lean",
+      "expected_original": "f8ce22970da17af51119a2c48ccc2688ff81a709008858a0e3f8e4cf336dd119",
+      "expected_candidate": "3c6b7358542866782b8a69fcc8ff1b619e0586a6403e657e481d728a058d5339",
+      "patches": [
+        {
+          "before": "namespace LeBrunSalamon.Construction.TraitContact.ModelDifferential\n\n",
+          "after": "namespace LeBrunSalamon.Construction.TraitContact.ModelDifferential\n\nlocal notation \"Model\" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model\n\n"
+        },
+        {
+          "before": "      (s.app U 1))) = _",
+          "after": "      (Scheme.Modules.Hom.app s U (1 : RingSections ProjectiveLine U)))) = _"
+        }
+      ],
+      "actual_candidate_sha256": "3c6b7358542866782b8a69fcc8ff1b619e0586a6403e657e481d728a058d5339",
+      "prior_candidate_hash_reproduced": true,
+      "bytes": 42102,
+      "lines": 780,
+      "admissions_before": 0,
+      "admissions_after": 0,
+      "git_blob_sha": "78acc096e55191fec9770e7c27b7b8a81d893416",
+      "remote_roundtrip_verified": true,
+      "public_header_count": 55,
+      "all_public_headers_unchanged": true
+    }
+  ],
+  "unchanged": {
+    "file": "LSModelGeometry.lean",
+    "source_sha256": "fe6f77882b356657002c167255a2c3cb90a1d9bbe981128d63d324d443921854",
+    "reason": "Already in namespace FormalArcs.ModelGeometry; no speculative Model alias change."
+  },
+  "mutations": {
+    "unattached_blobs_only": true,
+    "commits_created": false,
+    "refs_updated": false,
+    "canonical_source_changed": false,
+    "acceptance_flags_changed": false
+  }
+}

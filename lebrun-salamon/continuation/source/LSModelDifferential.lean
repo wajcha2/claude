@@ -67,7 +67,7 @@ theorem polynomial_scalar (s : AlgebraicSection TangentLine.sheaf) (c : ℂ) :
       (constants P.structureMap ⊤ c)) = Polynomial.C c * polynomial s := by
   change chartAlgebraEquiv (frame.coefficient
     ((GlobalScalars.scalarEnd TangentLine.sheaf (constants P.structureMap ⊤ c)).app U
-      (s.app U 1))) = _
+      (Scheme.Modules.Hom.app s U (1 : RingSections ProjectiveLine U)))) = _
   rw [GlobalScalars.scalarEnd_app, constants_restrict, map_smul, smul_eq_mul, map_mul]
   rw [chartAlgebraEquiv.commutes]
   rfl
@@ -348,6 +348,8 @@ theorem coefficient_pullback {Y T : Scheme} [IsAffine Y] [IsAffine T]
 end LeBrunSalamon.Construction.SourceBivectorCoordinates.TestMaps
 
 namespace LeBrunSalamon.Construction.TraitContact.ModelDifferential
+
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
 
 open StableMaps.FormalArcs
 open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts

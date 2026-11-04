@@ -31,6 +31,8 @@ open LeBrunSalamon.P1Charts LeBrunSalamon.P1TwistFrames
 
 namespace LeBrunSalamon.Construction.TraitContact.ModelBivector
 
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
 open StableMaps.FormalArcs
 open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 

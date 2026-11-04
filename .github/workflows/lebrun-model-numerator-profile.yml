@@ -1,0 +1,97 @@
+name: LeBrun-Salamon measured numerator congruence transport
+
+on:
+  push:
+    branches:
+      - codex/lebrun-model-numerator-profile-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  numerator-congruence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41815600585
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-reparametrization-six-41815600585-1
+          run-id: 41815600585
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check the changed typed-congruence proof with raw markers
+        id: profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelNumeratorTransportCongruenceProfile --keep-going --timeout 180
+      - name: Report exact profile native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose complete raw profile streams
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path("kernel-evidence/logs")
+          for suffix in ("stdout.jsonl", "stderr.txt"):
+              p = root / ("LSModelNumeratorTransportCongruenceProfile." + suffix)
+              print("PROFILE_LOG_BEGIN " + suffix, flush=True)
+              if p.exists():
+                  print(p.read_text(), end="", flush=True)
+              else:
+                  print("PROFILE_LOG_NOT_CREATED", flush=True)
+              print("PROFILE_LOG_END " + suffix, flush=True)
+          PY
+      - name: Preserve exact profile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-model-numerator-congruence-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual uninstrumented numerator transport
+        id: actual
+        if: steps.profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelNumeratorTransport --keep-going --timeout 180
+      - name: Report exact actual-module scope
+        if: always() && steps.profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve actual uninstrumented evidence
+        if: always() && steps.profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-model-numerator-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require both proof versions to pass
+        if: always()
+        env:
+          PROFILE_OUTCOME: ${{ steps.profile.outcome }}
+          ACTUAL_OUTCOME: ${{ steps.actual.outcome }}
+        run: |
+          test "$PROFILE_OUTCOME" = success
+          test "$ACTUAL_OUTCOME" = success

@@ -90,9 +90,26 @@ theorem numerator_transport (ha : a ≠ 0)
   erw [hadd]
   simp only [Preadditive.add_comp, Category.assoc, hsection,
     RelativeSquare.productSection_map_assoc]
-  erw [hp, hp, hp]
-  simp only [genericCoordinate, genericCoefficient, Scheme.Hom.comp_appTop,
-    CommRingCat.comp_apply, map_mul, map_ofNat, k, q, Category.assoc]
+  have hcoeff : (parametrizedToModelSquare F a ha).appTop
+      (2 * (ModelNumerator.squareProjection F a).appTop (coefficientSection a)) =
+      2 * genericCoefficient F a ha := by
+    simp only [genericCoefficient, Scheme.Hom.comp_appTop, CommRingCat.comp_apply,
+      map_mul, map_ofNat]
+  simp only [genericCoordinate]
+  refine congrArg₂ (fun x y : AlgebraicSection
+    (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)
+      (externalTensor sY E H)) => x - y) ?_ ?_
+  · exact congrArg₂ (fun x y : AlgebraicSection
+      (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)
+        (externalTensor sY E H)) => x + y)
+      (hp (ModelNumerator.coordinate F a 1 0) (ModelNumerator.coordinate F a 0 1))
+      (hp (ModelNumerator.coordinate F a 0 1) (ModelNumerator.coordinate F a 1 0))
+  · exact congrArg₂
+      (fun (r : RingSections (Parametrized.Square Lines.P genericBase) ⊤)
+        (s : AlgebraicSection
+          (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)
+            (externalTensor sY E H))) => scalarSection r ≫ s)
+      hcoeff (hp (ModelNumerator.coordinate F a 0 0) (ModelNumerator.coordinate F a 0 0))
 
 end LeBrunSalamon.Construction.TraitContact.ModelGenericComparison
 

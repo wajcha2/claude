@@ -1,0 +1,51 @@
+{
+  "schema": "lebrun-model-numerator-typed-congruence-repair-v1",
+  "module": "LSModelNumeratorTransport",
+  "baseline_source_sha256": "4dbfd206545ade7a19fe699a2d489c4a836888ec5cbde778b5b4ba520284d8ba",
+  "baseline_blob": "3761eca6ed7fe304386360a0bd7e0183c41dd09e",
+  "source_sha256": "13e8996518de539a3716d2518ff31054ed4cac62b8fdc8a3f9f5bf77c268ae4b",
+  "profile_sha256": "db168961f06e70996775c33e0ecfb5a3cf13cd0179d5df0ae610fca6b283afcf",
+  "native_status": "uncompiled typed-congruence candidate",
+  "patches": [
+    {
+      "id": "compose_three_product_equalities_under_typed_add_sub_scalar_operations",
+      "expected_matches": 1,
+      "before": "  erw [hp (ModelNumerator.coordinate F a 1 0) (ModelNumerator.coordinate F a 0 1)]\n  erw [hp (ModelNumerator.coordinate F a 0 1) (ModelNumerator.coordinate F a 1 0)]\n  erw [hp (ModelNumerator.coordinate F a 0 0) (ModelNumerator.coordinate F a 0 0)]\n  simp only [genericCoordinate, genericCoefficient, Scheme.Hom.comp_appTop,\n    CommRingCat.comp_apply, map_mul, map_ofNat, k, q, Category.assoc]\n",
+      "after": "  have hcoeff : (parametrizedToModelSquare F a ha).appTop\n      (2 * (ModelNumerator.squareProjection F a).appTop (coefficientSection a)) =\n      2 * genericCoefficient F a ha := by\n    simp only [genericCoefficient, Scheme.Hom.comp_appTop, CommRingCat.comp_apply,\n      map_mul, map_ofNat]\n  simp only [genericCoordinate]\n  refine congrArg₂ (fun x y : AlgebraicSection\n    (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)\n      (externalTensor sY E H)) => x - y) ?_ ?_\n  · exact congrArg₂ (fun x y : AlgebraicSection\n      (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)\n        (externalTensor sY E H)) => x + y)\n      (hp (ModelNumerator.coordinate F a 1 0) (ModelNumerator.coordinate F a 0 1))\n      (hp (ModelNumerator.coordinate F a 0 1) (ModelNumerator.coordinate F a 1 0))\n  · exact congrArg₂\n      (fun (r : RingSections (Parametrized.Square Lines.P genericBase) ⊤)\n        (s : AlgebraicSection\n          (pullbackModule (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)\n            (externalTensor sY E H))) => scalarSection r ≫ s)\n      hcoeff (hp (ModelNumerator.coordinate F a 0 0) (ModelNumerator.coordinate F a 0 0))\n"
+    }
+  ],
+  "public_header": {
+    "kind": "theorem",
+    "name": "numerator_transport",
+    "qualified_name": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.numerator_transport",
+    "header_sha256": "5224b312c5b8479f6cc2d1d6530f3c899caa31cdae082e948b70a37576c7afcc",
+    "header": "theorem numerator_transport (ha : a ≠ 0)\n    {Y : Scheme} (sY : Y ⟶ ComplexBase)\n    (eB : Model F a ⟶ Y) (heB : eB ≫ sY = modelProjection F a ≫ toC)\n    (eA : P1Generic ⟶ Y) (heA : eA ≫ sY = p1Parameter ≫ genericBase)\n    (hke : genericParametrization F a ha ≫ eB = eA)\n    {E H : OModule Y}\n    (uB : (modelLine F a).sheaf ⟶ pullbackModule eB E)\n    (vB : (modelLine F a).sheaf ⟶ pullbackModule eB H)\n    (uA : pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf ⟶\n      pullbackModule eA E)\n    (vA : pullbackModule (genericParametrization F a ha) (modelLine F a).sheaf ⟶\n      pullbackModule eA H)\n    (hu : (Scheme.Modules.pullback (genericParametrization F a ha)).map uB ≫\n      (compositionPullback (genericParametrization F a ha) eB eA hke E).hom = uA)\n    (hv : (Scheme.Modules.pullback (genericParametrization F a ha)).map vB ≫\n      (compositionPullback (genericParametrization F a ha) eB eA hke H).hom = vA) :\n    pullSection (parametrizedToModelSquare F a ha)\n      (ModelNumerator.numerator F a ≫\n        RelativeSquare.boxMap (modelProjection F a) uB vB ≫\n          RelativeSquare.comparison (modelProjection F a) sY toC eB heB E H) ≫\n      (compositionPullback (parametrizedToModelSquare F a ha)\n        (RelativeSquare.evaluation (modelProjection F a) sY toC eB heB)\n        (RelativeSquare.evaluation p1Parameter sY genericBase eA heA)\n        (RelativeSquare.map_evaluation p1Parameter (modelProjection F a)\n          (genericParametrization F a ha) genericPoint\n          (genericParametrization_parameter F a ha) sY genericBase toC\n          eA eB heA heB hke) (externalTensor sY E H)).hom =\n      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter uA vA ≫\n        RelativeSquare.comparison p1Parameter sY genericBase eA heA E H"
+  },
+  "public_header_and_all_other_proof_text_unchanged": true,
+  "new_admissions": 0,
+  "new_assumptions": 0,
+  "accepted_parametrization_source_unchanged": "51aeeee65048a3354af9fa376a634637233b72c8db5aa7fd37760f95d375f1e0",
+  "measured_explicit_profile": {
+    "source_sha256": "fff13379750100a0205c46011064e446fe83b0be5f112fbb4a8ed862ec4390d2",
+    "seconds": 90.664,
+    "return_code": 124,
+    "source_stable": true,
+    "imports_unchanged": true,
+    "emitted_errors": [],
+    "first_explicit_rewrite_seconds_reported": 32,
+    "last_completed_marker": "AFTER_FIRST_HP",
+    "active_step": "second explicit hp rewrite",
+    "evidence_scope": "Values above were returned by completed local runner tool output. Scratch reset destroyed the receipt/log files before durable upload; no missing file hash or whole-module acceptance is claimed.",
+    "raw_goal_observation": "Exactly the sum of the first two hp left endpoints minus scalar postcomposition of the third, with corresponding right endpoints."
+  },
+  "production_change": "Replace rewrite search with explicitly typed congrArg₂ applications for subtraction, addition and scalar postcomposition, using the same three hp instances.",
+  "reconstruction": {
+    "after_scratch_reset": true,
+    "baseline_fetched_from_exact_git_blob": true,
+    "exact_one_match_guard": true,
+    "no_prior_native_pass_claim": true
+  },
+  "source_blob": "83df1286cbfd72c8ceb738a2259d4abb77503975",
+  "profile_blob": "f0a03d4122c9c9b1ddbdb203f110b07025c36b15",
+  "roundtrip_verified": true
+}

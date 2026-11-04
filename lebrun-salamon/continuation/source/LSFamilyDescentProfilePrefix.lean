@@ -28,6 +28,15 @@ open LeBrunSalamon.PhaseTwentyEight.ExternalExchangeCoherenceProof
 
 namespace LeBrunSalamon.Construction.FamilyBivectors
 
+
+-- BEGIN DESCENT_IO_MARKER ENTER_SectionTransport
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_SectionTransport"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_SectionTransport
+
 namespace SectionTransport
 
 theorem pull_sum {Y Z : Scheme} (f : Y ⟶ Z) {E : OModule Z}
@@ -190,9 +199,25 @@ theorem inverse_composition_value {A T Y Z : Scheme}
   rw [← Category.assoc ((Scheme.Modules.pullback q).map _), ← Functor.map_comp]
   simp only [Iso.inv_hom_id, CategoryTheory.Functor.map_id, Category.id_comp]
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_SectionTransport
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_SectionTransport"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_SectionTransport
+
 end SectionTransport
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED SectionTransport"
+
+-- BEGIN DESCENT_IO_MARKER ENTER_RelativeSquare
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_RelativeSquare"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_RelativeSquare
 
 namespace RelativeSquare
 
@@ -366,13 +391,29 @@ theorem product_atCurve (P : ProjectiveLineOverC) {d : ℕ}
   exact (product_normalize P.structureMap X.structureMap (𝟙 ComplexBase)
     f.map (by simpa only [Category.comp_id] using f.overC) a₀ b₀).symm
 
-end RelativeSquare
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED RelativeSquare"
+-- BEGIN DESCENT_IO_MARKER EXIT_RelativeSquare
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_RelativeSquare"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_RelativeSquare
+
+end RelativeSquare
 
 -- Normalize the existing P1/contact carrier aliases for the same actual maps.
 set_option allowUnsafeReducibility true
 attribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle
+
+
+-- BEGIN DESCENT_IO_MARKER ENTER_Curve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_Curve"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_Curve
 
 namespace Curve
 
@@ -445,9 +486,25 @@ theorem rightSection_expansion
   simp only [CategoryTheory.Functor.map_id, Category.comp_id]
   rfl
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_Curve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_Curve"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_Curve
+
 end Curve
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED Curve"
+
+-- BEGIN DESCENT_IO_MARKER ENTER_Parametrized
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_Parametrized"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_Parametrized
 
 namespace Parametrized
 
@@ -584,9 +641,25 @@ def squareAtSection (b : ComplexBase ⟶ B)
       RelativeSquare.evaluation_right, squareAtSection_right_assoc,
       hf, curveSquareMap_second]
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_Parametrized
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_Parametrized"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_Parametrized
+
 end Parametrized
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED Parametrized"
+
+-- BEGIN DESCENT_IO_MARKER ENTER_ParametrizedContact
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_ParametrizedContact"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_ParametrizedContact
 
 namespace ParametrizedContact
 
@@ -650,6 +723,15 @@ theorem rightSection_expansion
   simp only [Preadditive.sum_comp, RelativeSquare.productSection_map_assoc]
   rfl
 
+
+-- BEGIN DESCENT_IO_MARKER ENTER_ParametrizedContact_leftSection_atCurve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_ParametrizedContact_leftSection_atCurve"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_ParametrizedContact_leftSection_atCurve
+
 /-- The family tensor restricts to the original left tensor on the
 entire source square of every complex fibre. -/
 theorem leftSection_atCurve
@@ -681,6 +763,15 @@ theorem leftSection_atCurve
     (E.right i ≫ curveContactVelocity P X.contact f)
     (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.left i))
     (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.right i))
+
+
+-- BEGIN DESCENT_IO_MARKER EXIT_leftSection_atCurve_ENTER_rightSection_atCurve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_leftSection_atCurve_ENTER_rightSection_atCurve"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_leftSection_atCurve_ENTER_rightSection_atCurve
 
 /-- The corresponding whole-square specialization for the right
 tensor, retaining the differential in its second factor. -/
@@ -714,14 +805,48 @@ theorem rightSection_atCurve
     (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.left i))
     (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.right i))
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_ParametrizedContact
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_ParametrizedContact"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_ParametrizedContact
+
+
+-- BEGIN DESCENT_IO_MARKER EXIT_ParametrizedContact_rightSection_atCurve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_ParametrizedContact_rightSection_atCurve"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_ParametrizedContact_rightSection_atCurve
+
 end ParametrizedContact
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED ParametrizedContact"
+
+-- BEGIN DESCENT_IO_MARKER ENTER_Reparametrization
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_Reparametrization"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_Reparametrization
 
 namespace Reparametrization
 
 variable (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
 variable (he : e.hom ≫ P.structureMap = P.structureMap)
+
+
+-- BEGIN DESCENT_IO_MARKER ENTER_Reparametrization_mixedPull_product
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_Reparametrization_mixedPull_product"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_Reparametrization_mixedPull_product
 
 theorem mixedPull_product {E F : OModule ProjectiveLine}
     (a : AlgebraicSection E) (b : AlgebraicSection F) :
@@ -732,6 +857,15 @@ theorem mixedPull_product {E F : OModule ProjectiveLine}
   rw [mixedPull_comparison]
   exact (curveExternalComparison_onProducts P (curve P e he) a b).symm
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_mixedPull_product_ENTER_mixedPull_sum
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_mixedPull_product_ENTER_mixedPull_sum"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_mixedPull_product_ENTER_mixedPull_sum
+
 theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ}
     (a : Fin N → AlgebraicSection (externalTensor P.structureMap E F)) :
     mixedPull P e he E F (∑ i, a i) = ∑ i, mixedPull P e he E F (a i) := by
@@ -739,6 +873,15 @@ theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ}
 
 variable {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety)
 variable (hg : g.map = e.hom ≫ f.map)
+
+
+-- BEGIN DESCENT_IO_MARKER EXIT_mixedPull_sum_ENTER_square_comp
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_mixedPull_sum_ENTER_square_comp"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_mixedPull_sum_ENTER_square_comp
 
 include hg in
 @[reassoc] theorem square_comp :
@@ -754,6 +897,15 @@ include hg in
     change (secondProjection P.structureMap ≫ e.hom) ≫ f.map =
       secondProjection P.structureMap ≫ g.map
     rw [Category.assoc, hg]
+
+
+-- BEGIN DESCENT_IO_MARKER EXIT_square_comp_ENTER_compared_of_expansion
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_square_comp_ENTER_compared_of_expansion"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_square_comp_ENTER_compared_of_expansion
 
 /-- Comparison with the target external bundle commutes with an
 actual source reparametrization. A finite expansion is used only to
@@ -790,6 +942,15 @@ theorem compared_of_expansion {E F : OModule X.variety.scheme}
   simpa only [externalProductSection, externalTensorMap, tensorSection_map,
     pullSection_naturality] using hp
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_compared_of_expansion_ENTER_leftSection
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_compared_of_expansion_ENTER_leftSection"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_compared_of_expansion_ENTER_leftSection
+
 /-- Reparametrization invariance in the actual target bundle, including
 all the canonical composition and external-product comparisons. -/
 theorem leftSection :
@@ -811,6 +972,15 @@ theorem leftSection :
     (Curve.leftRaw P X f) _ _ hB, leftRaw P e he X f g hg]
   rfl
 
+
+-- BEGIN DESCENT_IO_MARKER EXIT_Reparametrization_leftSection_ENTER_rightSection
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_Reparametrization_leftSection_ENTER_rightSection"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_Reparametrization_leftSection_ENTER_rightSection
+
 theorem rightSection :
     pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫
       (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
@@ -830,9 +1000,25 @@ theorem rightSection :
     (Curve.rightRaw P X f) _ _ hB, rightRaw P e he X f g hg]
   rfl
 
-end Reparametrization
 
-run_cmd Lean.logInfo "DESCENT_STAGE_COMPLETED Reparametrization"
+-- BEGIN DESCENT_IO_MARKER EXIT_Reparametrization
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_Reparametrization"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_Reparametrization
+
+
+-- BEGIN DESCENT_IO_MARKER EXIT_Reparametrization_rightSection
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER EXIT_Reparametrization_rightSection"
+  err.flush
+-- END DESCENT_IO_MARKER EXIT_Reparametrization_rightSection
+
+end Reparametrization
 
 
 end LeBrunSalamon.Construction.FamilyBivectors

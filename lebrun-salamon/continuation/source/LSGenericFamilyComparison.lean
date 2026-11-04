@@ -31,6 +31,25 @@ open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.FamilyBivectors
 
+private theorem field_equation_transport {T Y Z : Scheme}
+    (q q' : T ⟶ Y) (hq : q = q')
+    (f f' : Y ⟶ Z) (hf : f = f') (r r' : T ⟶ Z) (hr : r = r')
+    (h : q ≫ f = r) (h' : q' ≫ f' = r') (E : OModule Z)
+    (s : AlgebraicSection (pullbackModule f E))
+    (s' : AlgebraicSection (pullbackModule f' E)) (hs : HEq s s')
+    (t : AlgebraicSection (pullbackModule r E))
+    (t' : AlgebraicSection (pullbackModule r' E)) (ht : HEq t t') :
+    (pullSection q s ≫ (compositionPullback q f r h E).hom = t) ↔
+      (pullSection q' s' ≫ (compositionPullback q' f' r' h' E).hom = t') := by
+  cases hq
+  cases hf
+  cases hr
+  have hs' : s = s' := eq_of_heq hs
+  cases hs'
+  have ht' : t = t' := eq_of_heq ht
+  cases ht'
+  rfl
+
 namespace CartesianParametrization
 
 variable {P : ProjectiveLineOverC} {p : ProjectiveLinePoint P}
@@ -51,6 +70,71 @@ variable (a : Parametrized.Square P sK ⟶ F.smoothSquareOpen.toScheme)
 variable (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.parameter P sK)
   F.parameter k (b ≫ F.smoothOpen.ι) hk.w)
 
+
+private theorem field_square_eq :
+    FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk)
+      (transition_parameter Q sK q b hq k hk) = square Q sK q b hq k hk := by
+  rfl
+
+private theorem field_input_map_eq :
+    ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q)
+      (SmoothFamily.atPointEvaluation_overC Q sK q) =
+      SmoothFamily.atPointSquareEvaluation Q sK q := by
+  rfl
+
+private theorem field_output_map_eq :
+    ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k)
+      (evaluation_overC Q sK q b hq k hk) = squareEvaluation Q sK q b hq k hk := by
+  rfl
+
+private theorem field_left_input_heq :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (movingPairBundleLeft X.variety X.contact)))
+      (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (SmoothFamily.atPointSquareEvaluation Q sK q) (movingPairBundleLeft X.variety X.contact)))
+      (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) := by rfl
+
+private theorem field_left_output_heq :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (movingPairBundleLeft X.variety X.contact)))
+      (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (squareEvaluation Q sK q b hq k hk) (movingPairBundleLeft X.variety X.contact)))
+      (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by rfl
+
+private theorem field_left_invariance_transport
+    (hi : pullSection (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (FamilyReparametrization.squareMap_evaluation P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleLeft X.variety X.contact)).hom = (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))) :
+    pullSection (square Q sK q b hq k hk) (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (square Q sK q b hq k hk) (SmoothFamily.atPointSquareEvaluation Q sK q) (squareEvaluation Q sK q b hq k hk) (square_evaluation Q sK q b hq k hk) (movingPairBundleLeft X.variety X.contact)).hom = (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by
+  exact (field_equation_transport (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (square Q sK q b hq k hk) (field_square_eq Q K sK q b hq k hk)
+    (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (SmoothFamily.atPointSquareEvaluation Q sK q) (field_input_map_eq Q K sK q)
+    (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (squareEvaluation Q sK q b hq k hk) (field_output_map_eq Q K sK q b hq k hk)
+    (FamilyReparametrization.squareMap_evaluation P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (square_evaluation Q sK q b hq k hk) (movingPairBundleLeft X.variety X.contact)
+    (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (ParametrizedContact.leftSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (field_left_input_heq Q K sK q)
+    (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (ParametrizedContact.leftSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (field_left_output_heq Q K sK q b hq k hk)).mp hi
+
+private theorem field_right_input_heq :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (movingPairBundleRight X.variety X.contact)))
+      (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (SmoothFamily.atPointSquareEvaluation Q sK q) (movingPairBundleRight X.variety X.contact)))
+      (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) := by rfl
+
+private theorem field_right_output_heq :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (movingPairBundleRight X.variety X.contact)))
+      (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square P sK) (SelfProduct X.variety.structureMap) (squareEvaluation Q sK q b hq k hk) (movingPairBundleRight X.variety X.contact)))
+      (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by rfl
+
+private theorem field_right_invariance_transport
+    (hi : pullSection (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (FamilyReparametrization.squareMap_evaluation P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (movingPairBundleRight X.variety X.contact)).hom = (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk))) :
+    pullSection (square Q sK q b hq k hk) (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) ≫
+      (compositionPullback (square Q sK q b hq k hk) (SmoothFamily.atPointSquareEvaluation Q sK q) (squareEvaluation Q sK q b hq k hk) (square_evaluation Q sK q b hq k hk) (movingPairBundleRight X.variety X.contact)).hom = (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) := by
+  exact (field_equation_transport (FamilyReparametrization.squareMap P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk)) (square Q sK q b hq k hk) (field_square_eq Q K sK q b hq k hk)
+    (ParametrizedContact.evaluationSquare P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (SmoothFamily.atPointSquareEvaluation Q sK q) (field_input_map_eq Q K sK q)
+    (ParametrizedContact.evaluationSquare P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (squareEvaluation Q sK q b hq k hk) (field_output_map_eq Q K sK q b hq k hk)
+    (FamilyReparametrization.squareMap_evaluation P sK (transition Q sK q b hq k hk) (transition_parameter Q sK q b hq k hk) X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q) (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk) (transition_evaluation Q sK q b hq k hk)) (square_evaluation Q sK q b hq k hk) (movingPairBundleRight X.variety X.contact)
+    (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (ParametrizedContact.rightSection P sK X (SmoothFamily.atPointEvaluation Q sK q) (SmoothFamily.atPointEvaluation_overC Q sK q)) (field_right_input_heq Q K sK q)
+    (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (ParametrizedContact.rightSection P sK X (evaluation (F := F) sK k) (evaluation_overC Q sK q b hq k hk)) (field_right_output_heq Q K sK q b hq k hk)).mp hi
+
 /-- Comparison over an arbitrary field when an actual Q-point has
 been supplied. Reparametrization is proved by finite-type spreading of
 the actual automorphism, and retains the original family evaluation. -/
@@ -63,6 +147,7 @@ theorem smoothLeft_field :
         (evaluation_overC Q sK q b hq k hk) := by
   letI : LocallyOfFiniteType Q.coverToC := SmoothFamily.cover_locallyOfFiniteType Q
   apply smoothLeft_of_invariance Q sK q b hq k hk a ha
+  apply field_left_invariance_transport Q K sK q b hq k hk
   exact FamilyReparametrization.leftSection_field P Q.coverToC X
     (SmoothFamily.evaluation Q) (SmoothFamily.evaluation_overC Q)
     (SmoothFamily.nonconstantFamily Q) K sK q
@@ -80,6 +165,7 @@ theorem smoothRight_field :
         (evaluation_overC Q sK q b hq k hk) := by
   letI : LocallyOfFiniteType Q.coverToC := SmoothFamily.cover_locallyOfFiniteType Q
   apply smoothRight_of_invariance Q sK q b hq k hk a ha
+  apply field_right_invariance_transport Q K sK q b hq k hk
   exact FamilyReparametrization.rightSection_field P Q.coverToC X
     (SmoothFamily.evaluation Q) (SmoothFamily.evaluation_overC Q)
     (SmoothFamily.nonconstantFamily Q) K sK q

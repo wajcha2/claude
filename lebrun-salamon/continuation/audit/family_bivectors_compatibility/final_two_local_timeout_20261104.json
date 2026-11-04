@@ -1,0 +1,62 @@
+{
+  "schema": "lebrun-local-final-two-timeout-v1",
+  "status": "timeout; neither final wrapper checked",
+  "scope": "Local diagnostic only, no stock or downstream acceptance.",
+  "candidate_sha256": "d5e07bfb1d9d3e71883e94ba8ea9e4c5c9e1a737ade1e2dc2ab869d824bc4cda",
+  "unchanged_production_candidate": true,
+  "first_four_original_declarations_already_locally_passed": true,
+  "observation": "Only ENTER_leftSection marker emitted; a zero emitted diagnostic count does not imply earlier proof acceptance or coverage.",
+  "receipt": {
+    "schema": "lebrun-local-diagnostic-v1",
+    "scope": "Local diagnostic only: pinned stock frontend with recorded path adapter and M7200; stock CI remains acceptance authority.",
+    "module": "LSFamilyReparamFinalTwo",
+    "status": "failed",
+    "return_code": 124,
+    "seconds": 121.653,
+    "source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/reparam_diagnostics/LSFamilyReparamFinalTwo.lean",
+    "source_sha256": "c073ea1eb03bae6d12e6dcb56959d5de034e2648e8e2c9078d4a22bdbba0feca",
+    "output_sha256": null,
+    "source_and_runtime_and_direct_dependency_unchanged": true,
+    "direct_dependencies": {
+      "LSFamilyReparamExpansionStages": {
+        "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_final_two/20261104T103700/olean/LSFamilyReparamExpansionStages.olean",
+        "sha256": "4cac25175de2aa505bed1dba0739a05e4aa6c59d832bd5ae27def56b9d31a524"
+      }
+    },
+    "execution_wrapper": "stdbuf -oL -eL (diagnostic log flushing only)",
+    "validated_transitive_import_context": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean",
+    "config_sha256": "704664d3d62bb5757dab27451a33ec8f3e817ad8ffe923f9d6245f07ef18a3b4",
+    "runtime_flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ],
+    "runtime_fingerprint_files": {
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/repository/lebrun-salamon/continuation/audit/runtime/explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6"
+    },
+    "peak_rss_kib": 6036740,
+    "cpu_user_seconds": 94.04222,
+    "cpu_system_seconds": 8.498406,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "830a10225fb93c9e4901c1f76b1d224633df736046d0fa965609bf2787d2f447",
+    "errors": []
+  },
+  "stdout": "",
+  "stderr": "FINAL_TWO_ENTER_leftSection\n",
+  "diagnostic_source": "import LSFamilyReparamExpansionStages\n\nnoncomputable section\nset_option autoImplicit false\nset_option profiler true\nset_option stderrAsMessages false\nset_option backward.isDefEq.respectTransparency false\nset_option backward.isDefEq.respectTransparency.types false\n\nopen CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite\nopen LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree\nopen LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix\nopen LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight\nopen LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyFive\nopen LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement\nopen LeBrunSalamon.PhaseTwentyEight.ExternalExchangeCoherenceProof\n\nnamespace LeBrunSalamon.Construction.FamilyBivectors\n\n\n-- Normalize the existing P1/contact carrier aliases for the same actual maps.\nset_option allowUnsafeReducibility true\nattribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle\n\nnamespace Reparametrization\n\nvariable (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)\nvariable (he : e.hom ≫ P.structureMap = P.structureMap)\n\nvariable {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety)\nvariable (hg : g.map = e.hom ≫ f.map)\n\n#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FINAL_TWO_ENTER_leftSection\"\n  err.flush\n\n/-- Reparametrization invariance in the actual target bundle, including\nall the canonical composition and external-product comparisons. -/\ntheorem leftSection :\n    pullSection (curveSquareMap P (curve P e he)) (Curve.leftSection P X f) ≫\n      (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)\n        (curveSquareMap P g) (square_comp P e he X f g hg)\n        (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X g := by\n  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  have hB : Curve.leftRaw P X f = ∑ i,\n      externalProductSection P.structureMap\n        (E.left i ≫ Curve.differential P X f)\n        (E.right i ≫ curveContactVelocity P X.contact f) := by\n    letI := curveExternalComparison_isIso P f\n      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf\n    apply (cancel_mono (curveExternalComparison P f\n      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf)).mp\n    simpa only [Curve.leftSection, Preadditive.sum_comp] using\n      Curve.leftSection_expansion P X f E\n  rw [Curve.leftSection, compared_of_expansion P e he X f g hg\n    (Curve.leftRaw P X f) _ _ hB, leftRaw P e he X f g hg]\n  rfl\n\n#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FINAL_TWO_EXIT_leftSection\"\n  err.flush\n\n#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FINAL_TWO_ENTER_rightSection\"\n  err.flush\n\ntheorem rightSection :\n    pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫\n      (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)\n        (curveSquareMap P g) (square_comp P e he X f g hg)\n        (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X g := by\n  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  have hB : Curve.rightRaw P X f = ∑ i,\n      externalProductSection P.structureMap\n        (E.left i ≫ curveContactVelocity P X.contact f)\n        (E.right i ≫ Curve.differential P X f) := by\n    letI := curveExternalComparison_isIso P f X.contact.sequence.line.sheaf\n      (tangentSheaf X.variety.structureMap)\n    apply (cancel_mono (curveExternalComparison P f X.contact.sequence.line.sheaf\n      (tangentSheaf X.variety.structureMap))).mp\n    simpa only [Curve.rightSection, Preadditive.sum_comp] using\n      Curve.rightSection_expansion P X f E\n  rw [Curve.rightSection, compared_of_expansion P e he X f g hg\n    (Curve.rightRaw P X f) _ _ hB, rightRaw P e he X f g hg]\n  rfl\n\n#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FINAL_TWO_EXIT_rightSection\"\n  err.flush\n\nend Reparametrization\n\nend LeBrunSalamon.Construction.FamilyBivectors\n\nend\n"
+}

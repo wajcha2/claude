@@ -1,0 +1,63 @@
+[
+  {
+    "module": "LSModelTensorScalar",
+    "status": "failed",
+    "source_sha256": "f917880b95cff3d99e5c65a452cc567bdf7b8f88011e5a99e88191b4ffc8d7e1",
+    "return_code": 1,
+    "seconds": 4.627,
+    "errors": [
+      {
+        "caption": "",
+        "data": "failed to synthesize instance of type class\n  MulActionHomClass ((fun x1 x2 => ↑x1 →+ ↑x2) Γ(tensorSheaf E H, U) Γ(tensorSheaf E' H', U)) ↑Γ(Y, U)\n    ↑Γ(tensorSheaf E H, U) ↑Γ(tensorSheaf E' H', U)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+        "endPos": {
+          "column": 60,
+          "line": 51
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelTensorScalar.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.synthInstanceFailed._namedError",
+        "pos": {
+          "column": 52,
+          "line": 51
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nY : Scheme\nE E' H H' : OModule Y\nr : RingSections Y ⊤\nu : E ⟶ E'\nv : H ⟶ H'\nU : Y.Opens\nx : SectionsOn E U\ny : SectionsOn H U\n⊢ (((tensorPresentation E' H').pair.apply U) ((ConcreteCategory.hom (Scheme.Modules.Hom.app u U)) x))\n      ((ConcreteCategory.hom (Scheme.Modules.Hom.app (GlobalScalars.scalarEnd H r ≫ v) U)) y) =\n    (ConcreteCategory.hom (Y.presheaf.map (homOfLE ⋯).op)) r •\n      (((tensorPresentation E' H').pair.apply U) ((ConcreteCategory.hom (Scheme.Modules.Hom.app u U)) x))\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app v U)) y)\n\nY : Scheme\nE E' H H' : OModule Y\nr : RingSections Y ⊤\nu : E ⟶ E'\nv : H ⟶ H'\nU : Y.Opens\nx : SectionsOn E U\ny : SectionsOn H U\n⊢ MulActionHomClass ((fun x1 x2 => ↑x1 →+ ↑x2) Γ(tensorSheaf E H, U) Γ(tensorSheaf E' H', U)) ↑Γ(Y, U)\n    ↑Γ(tensorSheaf E H, U) ↑Γ(tensorSheaf E' H', U)",
+        "endPos": {
+          "column": 73,
+          "line": 52
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelTensorScalar.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 69,
+          "line": 42
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ?s ≫ GlobalScalars.scalarEnd ?m.160 ?r\nin the target expression\n  (s ≫\n        GlobalScalars.scalarEnd\n          (tensorSheaf (pullbackModule (RelativeSquare.left pi) E) (pullbackModule (RelativeSquare.right pi) H))\n          ((ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.left pi ≫ pi))) r)) ≫\n      tensorMap ((Scheme.Modules.pullback (RelativeSquare.left pi)).map u)\n        ((Scheme.Modules.pullback (RelativeSquare.right pi)).map v) =\n    scalarSection ((ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.left pi ≫ pi))) r) ≫\n      s ≫\n        tensorMap ((Scheme.Modules.pullback (RelativeSquare.left pi)).map u)\n          ((Scheme.Modules.pullback (RelativeSquare.right pi)).map v)\n\nC B : Scheme\npi : C ⟶ B\nE E' H H' : OModule C\nr : RingSections B ⊤\nu : E ⟶ E'\nv : H ⟶ H'\ns : AlgebraicSection (RelativeSquare.box pi E H)\nhr :\n  (ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.right pi)))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop pi)) r) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.left pi ≫ pi))) r\n⊢ (s ≫\n        GlobalScalars.scalarEnd\n          (tensorSheaf (pullbackModule (RelativeSquare.left pi) E) (pullbackModule (RelativeSquare.right pi) H))\n          ((ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.left pi ≫ pi))) r)) ≫\n      tensorMap ((Scheme.Modules.pullback (RelativeSquare.left pi)).map u)\n        ((Scheme.Modules.pullback (RelativeSquare.right pi)).map v) =\n    scalarSection ((ConcreteCategory.hom (Scheme.Hom.appTop (RelativeSquare.left pi ≫ pi))) r) ≫\n      s ≫\n        tensorMap ((Scheme.Modules.pullback (RelativeSquare.left pi)).map u)\n          ((Scheme.Modules.pullback (RelativeSquare.right pi)).map v)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    RelativeSquare.box pi E' H'\n  has type\n    OModule (RelativeSquare.Space pi)\n  but is expected to have type\n    SheafOfModules (RelativeSquare.Space pi).ringCatSheaf\n  in the application\n    SheafOfModules.unit (RelativeSquare.Space pi).ringCatSheaf ⟶ RelativeSquare.box pi E' H'",
+        "endPos": {
+          "column": 31,
+          "line": 75
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelTensorScalar.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 22,
+          "line": 75
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  }
+]

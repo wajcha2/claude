@@ -1,0 +1,23 @@
+{
+  "schema": "model-tensor-scalar-proof-repair-v2",
+  "parent_source_sha256": "f917880b95cff3d99e5c65a452cc567bdf7b8f88011e5a99e88191b4ffc8d7e1",
+  "candidate_source_sha256": "289b800491beddd1d72d16b67646d9ddb91252c1872e31124bbcf88ebaee754b",
+  "native_failure": {
+    "run": 41815600585,
+    "job": 126525436575,
+    "source_sha256": "f917880b95cff3d99e5c65a452cc567bdf7b8f88011e5a99e88191b4ffc8d7e1",
+    "seconds": 4.627,
+    "ordinary_errors": 3
+  },
+  "original_declarations": 6,
+  "changed_proof_bodies": [
+    "TensorScalar.right",
+    "TensorScalar.relative_right"
+  ],
+  "unchanged_public_headers": true,
+  "unchanged_other_four_declarations": true,
+  "exact_reverse_reconstructs_parent": true,
+  "new_admissions": 0,
+  "reason": "Use sheaf morphism app_smul, then actual bilinear LinearMap scalar compatibility; fully instantiate section scalar equality and use elaborator transparency for the existing RelativeSquare.box alias.",
+  "validation": "Uncompiled candidate; exact pinned stock check required."
+}

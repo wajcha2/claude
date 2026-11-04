@@ -48,8 +48,12 @@ theorem right {Y : Scheme} {E E' H H' : OModule Y}
     (tensorMap u v).app U
       ((GlobalScalars.scalarEnd (tensorSheaf E H) r).app U
         ((tensorPresentation E H).pair.apply U x y))
-  rw [tensorMap_apply, GlobalScalars.scalarEnd_app, map_smul, tensorMap_apply]
-  simp only [GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply]
+  rw [tensorMap_apply, GlobalScalars.scalarEnd_app,
+    Scheme.Modules.Hom.app_smul (tensorMap u v), tensorMap_apply]
+  change ((tensorPresentation E' H').pair.apply U (u.app U x))
+    (v.app U ((GlobalScalars.scalarEnd H r).app U y)) = _
+  rw [GlobalScalars.scalarEnd_app, Scheme.Modules.Hom.app_smul v]
+  exact map_smul ((tensorPresentation E' H').pair.apply U (u.app U x)) _ _
 
 theorem «section» {Y : Scheme} {E : OModule Y} (s : AlgebraicSection E)
     (r : RingSections Y ⊤) :
@@ -72,7 +76,9 @@ theorem relative_right {C B : Scheme} (pi : C ⟶ B)
     rw [← pullback.condition]
   unfold RelativeSquare.boxMap
   rw [Functor.map_comp, LineEndomorphisms.scalarEnd_pullback, hr, right,
-    ← Category.assoc, «section»]
+    ← Category.assoc]
+  erw [«section» (E := RelativeSquare.box pi E H) s
+    ((RelativeSquare.left pi ≫ pi).appTop r)]
   simp only [Category.assoc]
 
 theorem relative_left {C B : Scheme} (pi : C ⟶ B)

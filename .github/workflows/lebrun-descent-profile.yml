@@ -34,6 +34,10 @@ jobs:
       - name: Restore only exact current ancestry and runtime matches
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41782933633 --source-artifact-name lebrun-current-full-41782933633-1
+      - name: Verify actual raw-stderr diagnostic markers
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialFlushSmoke --timeout 30
+          python3 lebrun-salamon/continuation/scripts/verify_model_profile_smoke.py
       - name: Check the isolated instrumented proof prefix
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyDescentProfilePrefix --keep-going --timeout 300

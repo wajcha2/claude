@@ -17,6 +17,8 @@ set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 set_option backward.isDefEq.respectTransparency.types false
 set_option profiler true
+set_option stderrAsMessages false
+set_option Elab.async false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -392,6 +394,51 @@ theorem product_atCurve (P : ProjectiveLineOverC) {d : ℕ}
     f.map (by simpa only [Category.comp_id] using f.overC) a₀ b₀).symm
 
 
+-- BEGIN DESCENT_IO_MARKER ENTER_RelativeSquare_sum_products_atCurve
+#eval show IO Unit from do
+  (← IO.getStdout).flush
+  let err ← IO.getStderr
+  err.putStrLn "DESCENT_IO_MARKER ENTER_RelativeSquare_sum_products_atCurve"
+  err.flush
+-- END DESCENT_IO_MARKER ENTER_RelativeSquare_sum_products_atCurve
+
+/-- Finite sums of compared endpoint products restrict along the whole source
+square. All bundles, sections and source/target tensors are parameters. -/
+theorem sum_products_atCurve (P : ProjectiveLineOverC) {d : ℕ}
+    (X : SmoothProperComplexVariety d) (sB : B ⟶ ComplexBase)
+    (e : C ⟶ X.scheme) (he : e ≫ X.structureMap = pi ≫ sB)
+    (j : ProjectiveLine ⟶ C) (f : RationalCurve P X) (hf : j ≫ e = f.map)
+    (k : SelfProduct P.structureMap ⟶ Space pi)
+    (hk₁ : k ≫ left pi = firstProjection P.structureMap ≫ j)
+    (hk₂ : k ≫ right pi = secondProjection P.structureMap ≫ j)
+    (hk : k ≫ evaluation pi X.structureMap sB e he = curveSquareMap P f)
+    {E F : OModule X.scheme} {N : ℕ}
+    (a : Fin N → AlgebraicSection (pullbackModule e E))
+    (b : Fin N → AlgebraicSection (pullbackModule e F))
+    (a₀ : Fin N → AlgebraicSection (pullbackModule f.map E))
+    (b₀ : Fin N → AlgebraicSection (pullbackModule f.map F))
+    (S : AlgebraicSection (pullbackModule (evaluation pi X.structureMap sB e he)
+      (externalTensor X.structureMap E F)))
+    (T : AlgebraicSection (pullbackModule (curveSquareMap P f)
+      (externalTensor X.structureMap E F)))
+    (hS : S = ∑ i, productSection pi (a i) (b i) ≫
+      comparison pi X.structureMap sB e he E F)
+    (hT : T = ∑ i, externalProductSection P.structureMap (a₀ i) (b₀ i) ≫
+      curveExternalComparison P f E F)
+    (ha : ∀ i, pullSection j (a i) ≫
+      (compositionPullback j e f.map hf E).hom = a₀ i)
+    (hb : ∀ i, pullSection j (b i) ≫
+      (compositionPullback j e f.map hf F).hom = b₀ i) :
+    pullSection k S ≫
+      (compositionPullback k (evaluation pi X.structureMap sB e he)
+        (curveSquareMap P f) hk (externalTensor X.structureMap E F)).hom = T := by
+  rw [hS, hT, SectionTransport.pull_sum, Preadditive.sum_comp]
+  apply Finset.sum_congr rfl
+  intro i hi
+  exact product_atCurve pi P X sB e he j f hf k hk₁ hk₂ hk
+    (a i) (b i) (a₀ i) (b₀ i) (ha i) (hb i)
+
+
 -- BEGIN DESCENT_IO_MARKER EXIT_RelativeSquare
 #eval show IO Unit from do
   (← IO.getStdout).flush
@@ -748,21 +795,22 @@ theorem leftSection_atCurve
         (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X f := by
   obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)
     (identityCurveContact P).sequence.line (sourceBivector P)
-  rw [leftSection_expansion P sB X e he E, Curve.leftSection_expansion P X f E,
-    SectionTransport.pull_sum, Preadditive.sum_comp]
-  apply Finset.sum_congr rfl
-  intro i hi
-  exact RelativeSquare.product_atCurve (Parametrized.parameter P sB)
+  exact RelativeSquare.sum_products_atCurve (Parametrized.parameter P sB)
     P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)
     (Parametrized.squareAtSection_left P sB b j hj₂)
     (Parametrized.squareAtSection_right P sB b j hj₂)
     (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)
-    (Parametrized.vector P sB X.variety e he (E.left i))
-    (contactVector P sB X e he (E.right i))
-    (E.left i ≫ Curve.differential P X f)
-    (E.right i ≫ curveContactVelocity P X.contact f)
-    (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.left i))
-    (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.right i))
+    (E := tangentSheaf X.variety.structureMap)
+    (F := X.contact.sequence.line.sheaf) (N := E.size)
+    (fun i => Parametrized.vector P sB X.variety e he (E.left i))
+    (fun i => contactVector P sB X e he (E.right i))
+    (fun i => E.left i ≫ Curve.differential P X f)
+    (fun i => E.right i ≫ curveContactVelocity P X.contact f)
+    (leftSection P sB X e he) (Curve.leftSection P X f)
+    (leftSection_expansion P sB X e he E) (Curve.leftSection_expansion P X f E)
+    (fun i => Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf
+      (E.left i))
+    (fun i => contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.right i))
 
 
 -- BEGIN DESCENT_IO_MARKER EXIT_leftSection_atCurve_ENTER_rightSection_atCurve
@@ -789,21 +837,22 @@ theorem rightSection_atCurve
         (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X f := by
   obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)
     (identityCurveContact P).sequence.line (sourceBivector P)
-  rw [rightSection_expansion P sB X e he E, Curve.rightSection_expansion P X f E,
-    SectionTransport.pull_sum, Preadditive.sum_comp]
-  apply Finset.sum_congr rfl
-  intro i hi
-  exact RelativeSquare.product_atCurve (Parametrized.parameter P sB)
+  exact RelativeSquare.sum_products_atCurve (Parametrized.parameter P sB)
     P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)
     (Parametrized.squareAtSection_left P sB b j hj₂)
     (Parametrized.squareAtSection_right P sB b j hj₂)
     (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)
-    (contactVector P sB X e he (E.left i))
-    (Parametrized.vector P sB X.variety e he (E.right i))
-    (E.left i ≫ curveContactVelocity P X.contact f)
-    (E.right i ≫ Curve.differential P X f)
-    (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.left i))
-    (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.right i))
+    (E := X.contact.sequence.line.sheaf)
+    (F := tangentSheaf X.variety.structureMap) (N := E.size)
+    (fun i => contactVector P sB X e he (E.left i))
+    (fun i => Parametrized.vector P sB X.variety e he (E.right i))
+    (fun i => E.left i ≫ curveContactVelocity P X.contact f)
+    (fun i => E.right i ≫ Curve.differential P X f)
+    (rightSection P sB X e he) (Curve.rightSection P X f)
+    (rightSection_expansion P sB X e he E) (Curve.rightSection_expansion P X f E)
+    (fun i => contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.left i))
+    (fun i => Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf
+      (E.right i))
 
 
 -- BEGIN DESCENT_IO_MARKER EXIT_ParametrizedContact

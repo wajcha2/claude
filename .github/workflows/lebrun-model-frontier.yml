@@ -1,4 +1,4 @@
-name: LeBrun-Salamon actual formal-arc equation transport
+name: LeBrun-Salamon model frontier
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  formal-arc-equation:
+  family-descent-split:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -25,29 +25,58 @@ jobs:
         timeout-minutes: 12
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41825731172
+      - name: Download verified native cache 1 from 41827757215
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-family-equation-transport-actual-41825731172-1
-          run-id: 41825731172
+          name: lebrun-formal-arc-equation-actual-41827757215-1
+          run-id: 41827757215
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check the original formal-arc statements with proved alias transport
+      - name: Check exact original two point-value proofs
+        id: points
+        continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFormalArcModelTransport --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothPointValues --keep-going --timeout 300
+      - name: Report original point-value native evidence
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
+      - name: Upload original point-value output before tail
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-formal-arc-equation-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-family-smooth-point-values-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
+      - name: Check actual remaining 52 descent declarations
+        id: descent
+        if: steps.points.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --keep-going --timeout 300
+      - name: Report actual descent native evidence
+        if: always() && steps.points.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Upload exact descent native evidence
+        if: always() && steps.points.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-descent-tail-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require both actual native stages to pass
+        if: always()
+        env:
+          POINTS_OUTCOME: ${{ steps.points.outcome }}
+          DESCENT_OUTCOME: ${{ steps.descent.outcome }}
+        run: |
+          test "$POINTS_OUTCOME" = success
+          test "$DESCENT_OUTCOME" = success

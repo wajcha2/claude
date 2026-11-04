@@ -1,0 +1,78 @@
+{
+  "schema": "lebrun-smooth-point-values-exact-extraction-and-three-repairs-v1",
+  "module": "LSFamilyBivectorDescent",
+  "baseline_sha256": "a4629d43fdf324dedc9ed053db3ce187becc92ec59ba74873956950183cd36ed",
+  "helper": {
+    "module": "LSFamilySmoothPointValues",
+    "source_sha256": "68f558c26f37dd67fa00b385a3d97462cc075fddda6eaaada51f388ab3f038fa",
+    "git_blob": "2d0446cb4ea7fcee76b1dce5dfed194061eac761",
+    "original_declarations": 2
+  },
+  "tail": {
+    "module": "LSFamilyBivectorDescent",
+    "source_sha256": "12790c948ba3a2bd181275b2049c919f2bf96b5998cfe2b8d1ac56bbc4569c36",
+    "git_blob": "31ecad2e00b41b5240377e0b8b6b597e333be99b",
+    "original_declarations": 52
+  },
+  "moved_block_sha256": "0dee4037b975f2ea7c35c9a01e30f52aa16fc65bd6ee34178df4ed4906dc6329",
+  "proof_body_changes": [
+    {
+      "label": "leftCover_compatible",
+      "before": "  simp only [Category.assoc]\n  rw [SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz\n    (same_evaluation Q q₀ q₁ h) (left Q)]\n  rw [SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz\n    rfl (left Q)]\n  exact left_point_values Q q₀ q₁ h",
+      "after": "  simp only [Category.assoc]\n  exact (SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz\n    (same_evaluation Q q₀ q₁ h) (E := movingPairBundleLeft X.variety X.contact) (left Q)).trans\n    ((left_point_values Q q₀ q₁ h).trans\n      (SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth\n        (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n        (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz\n        rfl (E := movingPairBundleLeft X.variety X.contact) (left Q)).symm)"
+    },
+    {
+      "label": "rightCover_compatible",
+      "before": "  simp only [Category.assoc]\n  rw [SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz\n    (same_evaluation Q q₀ q₁ h) (right Q)]\n  rw [SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz\n    rfl (right Q)]\n  exact right_point_values Q q₀ q₁ h",
+      "after": "  simp only [Category.assoc]\n  exact (SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth\n    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n    (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz\n    (same_evaluation Q q₀ q₁ h) (E := movingPairBundleRight X.variety X.contact) (right Q)).trans\n    ((right_point_values Q q₀ q₁ h).trans\n      (SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth\n        (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)\n        (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz\n        rfl (E := movingPairBundleRight X.variety X.contact) (right Q)).symm)"
+    },
+    {
+      "label": "smooth_commonContact",
+      "before": "  rw [pullSection_naturality, pullSection_naturality]\n  simp only [Category.assoc]\n  rw [Normalization.BundleGluing.compositionPullback_naturality,\n    Normalization.BundleGluing.compositionPullback_naturality,\n    ← Category.assoc, smoothLeft_normalization,\n    ← Category.assoc, smoothRight_normalization]",
+      "after": "  erw [pullSection_naturality Q.parametrizedSquareToSmooth\n      (smoothLeft Q) (MovingPair.leftContact (smoothEvaluation (F := F))),\n    pullSection_naturality Q.parametrizedSquareToSmooth\n      (smoothRight Q) (MovingPair.rightContact (smoothEvaluation (F := F)))]\n  simp only [Category.assoc]\n  erw [Normalization.BundleGluing.compositionPullback_naturality\n      Q.parametrizedSquareToSmooth (smoothEvaluation (F := F)) (parametrizedEvaluation Q)\n      (evaluation_commutes Q) (movingPairContactLeft X.variety X.contact),\n    Normalization.BundleGluing.compositionPullback_naturality\n      Q.parametrizedSquareToSmooth (smoothEvaluation (F := F)) (parametrizedEvaluation Q)\n      (evaluation_commutes Q) (movingPairContactRight X.variety X.contact)]\n  rw [← Category.assoc, smoothLeft_normalization,\n    ← Category.assoc, smoothRight_normalization]"
+    }
+  ],
+  "public_headers": {
+    "original_count": 54,
+    "helper_count": 2,
+    "tail_count": 52,
+    "concatenated_normalized_lexical_headers_identical": true,
+    "native_baseline_type_rebuild_claim": false
+  },
+  "exact_split_inverse_guard": true,
+  "exact_three_edit_inverse_to_original_guard": true,
+  "original_point_values_proof_bytes_unchanged": true,
+  "local_original2_completed_pass": {
+    "receipt_summary": {
+      "module": "LSFamilyOriginalPointValuesProfile",
+      "source_sha256": "268503015f353f58149ed5efdfe7f5658c274f6c4120c4931d1acbe6a688d3e6",
+      "seconds": 110.774,
+      "return_code": 0,
+      "emitted_error_count": 0,
+      "complete_success": true,
+      "all_source_runtime_and_import_hashes_unchanged": true,
+      "output": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T123354048921-LSFamilyOriginalPointValuesProfile/LSFamilyOriginalPointValuesProfile.olean",
+      "output_sha256": "a6535a5490b4556a82c854c019f21a30f0ad8c43dc872a2264f994d5be4a585e",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "d41a8c328f14bcd17a93f999817355f23db906dec4218fdc82057d0edf9c07a9",
+      "direct_import_artifacts": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/native-extra/family-reparam-7d9/LSFamilyDescentReparametrization.olean": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean/LSOpenSectionTransport.olean": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean/LSFamilySmoothCoordinates.olean": "d8549a93bcf0b0f966b920692f25d0afbbe533a8b5381313ac6e5a5900a93fdc"
+      }
+    },
+    "receipt_sha256": "00149822bbafb4351b508a1394c137cfd58771a5e601af263b6433b0aaaea27a",
+    "stdout": "",
+    "stderr": "DESCENT_POINTS_ENTER_left_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.78s\ntype checking took 35.6s\nDESCENT_POINTS_EXIT_left_point_values\nDESCENT_POINTS_ENTER_right_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.76s\ntype checking took 38.2s\nDESCENT_POINTS_EXIT_right_point_values\ncumulative profiling times:\n\tattribute application 0.497ms\n\tcompilation (IR) 1.66ms\n\tcompilation (LCNF base) 16.4ms\n\tcompilation (LCNF impure) 2.22ms\n\tcompilation (LCNF mono) 6.5ms\n\tdeclTypeLinter 1.41ms\n\tdo element elaborator 10.2ms\n\telaboration 182ms\n\tfix level params 0.305ms\n\tinstantiate metavars 0.576ms\n\tinterpretation 0.662ms\n\tlet-to-have transformation 0.0931ms\n\tlinting 24.1ms\n\tparsing 7.67ms\n\tprocess pre-definitions 75.5ms\n\tshare common exprs 1.82ms\n\ttactic execution 3.58s\n\ttacticAnalysis 1.76ms\n\ttype checking 73.8s\n\ttypeclass inference 29.6ms\n"
+  },
+  "prior_timeouts_correction_envelope": "5fef31f7ceba9da5478e04f697631f73ad9b905a",
+  "discarded_transitivity_variant": {
+    "source_sha256": "05e408b461bc2812399cdff5b302b33fa928c7f7de1051fbeea51ff67d91cc72",
+    "blob": "404d8d12dd7a4528a6a906d1ee10eb321b0e830b",
+    "reason": "No measured improvement; the original2 completed within a justified120s local limit"
+  },
+  "new_admissions": 0,
+  "audited190_source_changes": false,
+  "helper_and_tail_stock_native_pending": true,
+  "acceptance": false
+}

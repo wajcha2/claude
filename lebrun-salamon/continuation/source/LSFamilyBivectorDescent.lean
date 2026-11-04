@@ -1,6 +1,7 @@
 import LSFamilyDescentReparametrization
 import LSOpenSectionTransport
 import LSFamilySmoothCoordinates
+import LSFamilySmoothPointValues
 
 /-!
 # Open-section comparison and smooth-family descent of the actual tensors.
@@ -39,65 +40,6 @@ variable {F : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.
 variable (Q : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood
   X.contact.sequence.line 2 F)
 
-/-- The two values on an actual double fibre agree after the canonical
-identification of their target fibres. -/
-theorem left_point_values (t₀ t₁ : Point Q)
-    (h : t₀.val ≫ Q.parametrizedSquareToSmooth =
-      t₁.val ≫ Q.parametrizedSquareToSmooth) :
-    pullSection t₀.val (left Q) ≫
-      (compositionPullback t₀.val (parametrizedEvaluation Q)
-        (t₁.val ≫ parametrizedEvaluation Q) (same_evaluation Q t₀ t₁ h)
-        (movingPairBundleLeft X.variety X.contact)).hom =
-    pullSection t₁.val (left Q) ≫
-      (compositionPullback t₁.val (parametrizedEvaluation Q)
-        (t₁.val ≫ parametrizedEvaluation Q) rfl
-        (movingPairBundleLeft X.variety X.contact)).hom := by
-  let e := Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h)
-  have he : e.hom ≫ P.structureMap = P.structureMap := Q.complexTransition_overC _ _ _
-  have hz₀ := (coordinatePair_evaluation Q t₀).trans (same_evaluation Q t₀ t₁ h)
-  have hz₁ := coordinatePair_evaluation Q t₁
-  rw [point_left Q t₀ _ (same_evaluation Q t₀ t₁ h) hz₀,
-    point_left Q t₁ _ rfl hz₁]
-  exact (SectionTransport.pull_specialization (coordinatePair Q t₀)
-    (curveSquareMap P (Reparametrization.curve P e he))
-    (curveSquareMap P (curve Q (coverPoint Q t₁))) (coordinatePair Q t₁)
-    (curveSquareMap P (curve Q (coverPoint Q t₀))) (t₁.val ≫ parametrizedEvaluation Q)
-    (transition_coordinates Q t₀ t₁ h)
-    (Reparametrization.square_comp P e he X (curve Q (coverPoint Q t₁))
-      (curve Q (coverPoint Q t₀)) (transition_curves Q t₀ t₁ h)) hz₀ hz₁
-    (Curve.leftSection P X (curve Q (coverPoint Q t₁)))
-    (Curve.leftSection P X (curve Q (coverPoint Q t₀)))
-    (Reparametrization.leftSection P e he X (curve Q (coverPoint Q t₁))
-      (curve Q (coverPoint Q t₀)) (transition_curves Q t₀ t₁ h))).symm
-
-theorem right_point_values (t₀ t₁ : Point Q)
-    (h : t₀.val ≫ Q.parametrizedSquareToSmooth =
-      t₁.val ≫ Q.parametrizedSquareToSmooth) :
-    pullSection t₀.val (right Q) ≫
-      (compositionPullback t₀.val (parametrizedEvaluation Q)
-        (t₁.val ≫ parametrizedEvaluation Q) (same_evaluation Q t₀ t₁ h)
-        (movingPairBundleRight X.variety X.contact)).hom =
-    pullSection t₁.val (right Q) ≫
-      (compositionPullback t₁.val (parametrizedEvaluation Q)
-        (t₁.val ≫ parametrizedEvaluation Q) rfl
-        (movingPairBundleRight X.variety X.contact)).hom := by
-  let e := Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h)
-  have he : e.hom ≫ P.structureMap = P.structureMap := Q.complexTransition_overC _ _ _
-  have hz₀ := (coordinatePair_evaluation Q t₀).trans (same_evaluation Q t₀ t₁ h)
-  have hz₁ := coordinatePair_evaluation Q t₁
-  rw [point_right Q t₀ _ (same_evaluation Q t₀ t₁ h) hz₀,
-    point_right Q t₁ _ rfl hz₁]
-  exact (SectionTransport.pull_specialization (coordinatePair Q t₀)
-    (curveSquareMap P (Reparametrization.curve P e he))
-    (curveSquareMap P (curve Q (coverPoint Q t₁))) (coordinatePair Q t₁)
-    (curveSquareMap P (curve Q (coverPoint Q t₀))) (t₁.val ≫ parametrizedEvaluation Q)
-    (transition_coordinates Q t₀ t₁ h)
-    (Reparametrization.square_comp P e he X (curve Q (coverPoint Q t₁))
-      (curve Q (coverPoint Q t₀)) (transition_curves Q t₀ t₁ h)) hz₀ hz₁
-    (Curve.rightSection P X (curve Q (coverPoint Q t₁)))
-    (Curve.rightSection P X (curve Q (coverPoint Q t₀)))
-    (Reparametrization.rightSection P e he X (curve Q (coverPoint Q t₁))
-      (curve Q (coverPoint Q t₀)) (transition_curves Q t₀ t₁ h))).symm
 
 include Q in
 theorem smooth_locallyOfFiniteType : LocallyOfFiniteType (smoothToC (F := F)) := by
@@ -189,15 +131,15 @@ theorem leftCover_compatible :
     (smoothEvaluation (F := F)) (q₁.val ≫ parametrizedEvaluation Q) hz
     (movingPairBundleLeft X.variety X.contact)).hom).mp
   simp only [Category.assoc]
-  rw [SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth
+  exact (SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth
     (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
     (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz
-    (same_evaluation Q q₀ q₁ h) (left Q)]
-  rw [SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth
-    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
-    (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz
-    rfl (left Q)]
-  exact left_point_values Q q₀ q₁ h
+    (same_evaluation Q q₀ q₁ h) (E := movingPairBundleLeft X.variety X.contact) (left Q)).trans
+    ((left_point_values Q q₀ q₁ h).trans
+      (SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth
+        (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
+        (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz
+        rfl (E := movingPairBundleLeft X.variety X.contact) (left Q)).symm)
 
 theorem rightCover_compatible :
     pullSection (pullback.fst Q.parametrizedSquareToSmooth Q.parametrizedSquareToSmooth)
@@ -221,15 +163,15 @@ theorem rightCover_compatible :
     (smoothEvaluation (F := F)) (q₁.val ≫ parametrizedEvaluation Q) hz
     (movingPairBundleRight X.variety X.contact)).hom).mp
   simp only [Category.assoc]
-  rw [SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth
+  exact (SectionTransport.inverse_composition_value q₀.val Q.parametrizedSquareToSmooth
     (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
     (q₁.val ≫ Q.parametrizedSquareToSmooth) h (q₁.val ≫ parametrizedEvaluation Q) hz
-    (same_evaluation Q q₀ q₁ h) (right Q)]
-  rw [SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth
-    (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
-    (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz
-    rfl (right Q)]
-  exact right_point_values Q q₀ q₁ h
+    (same_evaluation Q q₀ q₁ h) (E := movingPairBundleRight X.variety X.contact) (right Q)).trans
+    ((right_point_values Q q₀ q₁ h).trans
+      (SectionTransport.inverse_composition_value q₁.val Q.parametrizedSquareToSmooth
+        (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
+        (q₁.val ≫ Q.parametrizedSquareToSmooth) rfl (q₁.val ≫ parametrizedEvaluation Q) hz
+        rfl (E := movingPairBundleRight X.variety X.contact) (right Q)).symm)
 
 theorem smoothLeft_exists : ∃! s : AlgebraicSection
     (MovingPair.leftBundle (smoothEvaluation (F := F))).sheaf,
@@ -291,11 +233,18 @@ theorem smooth_commonContact :
   apply (cancel_mono (compositionPullback Q.parametrizedSquareToSmooth
     (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
     (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom).mp
-  rw [pullSection_naturality, pullSection_naturality]
+  erw [pullSection_naturality Q.parametrizedSquareToSmooth
+      (smoothLeft Q) (MovingPair.leftContact (smoothEvaluation (F := F))),
+    pullSection_naturality Q.parametrizedSquareToSmooth
+      (smoothRight Q) (MovingPair.rightContact (smoothEvaluation (F := F)))]
   simp only [Category.assoc]
-  rw [Normalization.BundleGluing.compositionPullback_naturality,
-    Normalization.BundleGluing.compositionPullback_naturality,
-    ← Category.assoc, smoothLeft_normalization,
+  erw [Normalization.BundleGluing.compositionPullback_naturality
+      Q.parametrizedSquareToSmooth (smoothEvaluation (F := F)) (parametrizedEvaluation Q)
+      (evaluation_commutes Q) (movingPairContactLeft X.variety X.contact),
+    Normalization.BundleGluing.compositionPullback_naturality
+      Q.parametrizedSquareToSmooth (smoothEvaluation (F := F)) (parametrizedEvaluation Q)
+      (evaluation_commutes Q) (movingPairContactRight X.variety X.contact)]
+  rw [← Category.assoc, smoothLeft_normalization,
     ← Category.assoc, smoothRight_normalization]
   exact ParametrizedContact.commonContact P Q.coverToC X (evaluation Q) (evaluation_overC Q)
 

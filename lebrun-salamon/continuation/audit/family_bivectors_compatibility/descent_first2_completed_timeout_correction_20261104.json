@@ -1,0 +1,48 @@
+{
+  "schema": "lebrun-descent-point-profiles-completed-timeout-envelope-v1",
+  "scope": "Completed local bounded diagnostics, no native acceptance",
+  "records": [
+    {
+      "run": "20261104T122250985322-LSFamilyDescentCoreProfile",
+      "receipt_summary": {
+        "source_sha256": "45c2e872b7ce3e2bb3626983d3c4015fa8898e7c08062b4bf02cc86026752138",
+        "seconds": 90.599,
+        "return_code": 124,
+        "emitted_error_count": 0,
+        "complete_success": false,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "338d92950e5b46657b3894ffd5b9059705b97aa889cf5f5d2ae29e81388f48d7"
+      },
+      "receipt_sha256": "7c9384142f8d2de4b66094e07744665bde993072f7cd1dab0bb846ed354274ee",
+      "stdout": "",
+      "stderr": "DESCENT_CORE_ENTER_left_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.61s\ntype checking took 34.8s\nDESCENT_CORE_EXIT_left_point_values\nDESCENT_CORE_ENTER_right_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.63s\n"
+    },
+    {
+      "run": "20261104T122823664876-LSFamilyPointValuesTransitivityProfile",
+      "receipt_summary": {
+        "source_sha256": "a57b93a8b611d42b9e69129f0f915c44ef2312d492e4a6e6f3ab78729e5ab9d8",
+        "seconds": 90.452,
+        "return_code": 124,
+        "emitted_error_count": 0,
+        "complete_success": false,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "58c106f7890d46404a88cc0c5a5aae9e3a9c76d944bcc0b9efddf0de73b86bcc"
+      },
+      "receipt_sha256": "de135a7c28d63ba24c071a3c6fa61030393d9369edd1382b9ce04196f6749a81",
+      "stdout": "",
+      "stderr": "DESCENT_POINTS_ENTER_left_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.72s\ntype checking took 37s\nDESCENT_POINTS_EXIT_left_point_values\nDESCENT_POINTS_ENTER_right_point_values\ntactic execution of Lean.Parser.Tactic.exact took 1.72s\n"
+    }
+  ],
+  "correction": "Earlier coordination used an intermediate live stderr read and incorrectly said no left declaration EXIT. Both complete receipt-bound stderr streams show left_point_values EXIT, with kernel34.8s/37s, before timing out inside right_point_values. No full prefix success is claimed.",
+  "interpretation": "Measured cumulative cost: import plus two substantial kernel checks. The transitivity variant is not proven faster; it is not adopted as a performance repair.",
+  "source_blobs": {
+    "transitivity_candidate": "404d8d12dd7a4528a6a906d1ee10eb321b0e830b",
+    "transitivity_profile": "1209b2d5552feaa64ab29644f022a605f98d5f97",
+    "guard": "daf81d8f47a3c009710d395dffe2c7371c98f23a"
+  },
+  "native_ledger_modified": false
+}

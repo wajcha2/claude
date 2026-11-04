@@ -1,0 +1,66 @@
+{
+  "schema": "lebrun-model-geometry-actual-map-repair-v1",
+  "source_path": "source/LSModelGeometry.lean",
+  "baseline_commit": "13a3e161",
+  "baseline_git_blob": "afd470f8eed35d5844e41126c6472af3d7a75620",
+  "baseline_sha256": "fe6f77882b356657002c167255a2c3cb90a1d9bbe981128d63d324d443921854",
+  "candidate_sha256": "abde8a4d53459b21bb2983ae0b41b94bdd0866c398a6e9eb42f201c89cfd96db",
+  "patches": [
+    {
+      "id": "MG01_name_actual_model_projection_in_pullback_square",
+      "before": "      rw [Category.assoc, pullback.condition, ← Category.assoc,\n        pullback.condition, Category.assoc, ← genericToPunctured_parameter,\n        Category.assoc])",
+      "after": "      rw [Category.assoc, pullback.condition, ← Category.assoc]\n      change (pullback.fst (modelProjection F a) genericPoint ≫\n        modelProjection F a) ≫ parameterMap a =\n          (genericProjection F a ≫ genericToPunctured a ha) ≫ puncturedParameter.ι\n      rw [pullback.condition]\n      simp only [genericProjection, Category.assoc, genericToPunctured_parameter])"
+    },
+    {
+      "id": "MG02_literal_product_left",
+      "before": "  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫ _ = _\n  rw [PuncturedSourceProof.projection_left]",
+      "after": "  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫\n    PuncturedSourceProof.productLeft = genericLeft F a\n  rw [PuncturedSourceProof.projection_left]"
+    },
+    {
+      "id": "MG03_literal_product_base",
+      "before": "  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫ _ = _\n  rw [PuncturedSourceProof.projection_base]",
+      "after": "  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫\n    PuncturedSourceProof.productBase = genericProjection F a ≫ genericToPunctured a ha\n  rw [PuncturedSourceProof.projection_base]"
+    },
+    {
+      "id": "MG04_unfold_named_trivialization_base_component",
+      "before": "  · simpa only [Iso.refl_hom, Category.comp_id] using\n      (PuncturedSourceProof.projection_base F).symm",
+      "after": "  · simpa only [Iso.refl_hom, Category.comp_id,\n      PuncturedSourceProof.trivialization, PuncturedSourceProof.productBase] using\n      (PuncturedSourceProof.projection_base F).symm"
+    },
+    {
+      "id": "MG05_explicit_proper_base_change",
+      "before": "  letI : IsProper F.parameter := standardSource_proper F\n  exact inferInstance",
+      "after": "  letI : IsProper F.parameter := standardSource_proper F\n  change IsProper (pullback.snd F.parameter (parameterMap a))\n  exact inferInstance"
+    },
+    {
+      "id": "MG06_explicit_flat_base_change",
+      "before": "  letI : Flat F.parameter := standardSource_flat F\n  exact inferInstance",
+      "after": "  letI : Flat F.parameter := standardSource_flat F\n  change Flat (pullback.snd F.parameter (parameterMap a))\n  exact inferInstance"
+    },
+    {
+      "id": "MG07_explicit_finite_presentation_base_change",
+      "before": "  letI : LocallyOfFinitePresentation F.parameter := standardSource_lfp F\n  exact inferInstance",
+      "after": "  letI : LocallyOfFinitePresentation F.parameter := standardSource_lfp F\n  change LocallyOfFinitePresentation (pullback.snd F.parameter (parameterMap a))\n  exact inferInstance"
+    },
+    {
+      "id": "MG08_literal_canonical_fraction_field_base_change_instance",
+      "before": "  letI : GeometricallyIntegral (genericProjection F a) :=\n    generic_geometricallyIntegral F a ha",
+      "after": "  letI : GeometricallyIntegral (pullback.snd (modelProjection F a)\n      (Spec.map (CommRingCat.ofHom\n        (algebraMap (CommRingCat.of Coefficients)\n          (FractionRing (CommRingCat.of Coefficients)))))) :=\n    generic_geometricallyIntegral F a ha"
+    }
+  ],
+  "diagnostic_run": 41785451068,
+  "diagnostic_job": 126426427446,
+  "original_error_lines": [
+    77,
+    110,
+    119,
+    130,
+    171,
+    175,
+    179,
+    189
+  ],
+  "public_headers_changed": false,
+  "new_admissions": 0,
+  "native_status": "uncompiled_candidate",
+  "scope": "Eight proof-body repairs only: actual pullback associativity, named projection carriers, inherited base-change instances and the canonical FractionRing map."
+}

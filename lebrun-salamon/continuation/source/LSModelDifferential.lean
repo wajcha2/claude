@@ -16,8 +16,9 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseSeven LeBrunSalamon.PhaseTwentyFive
 open LeBrunSalamon.PhaseTwentySix LeBrunSalamon.PhaseTwentySeven
-open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyTwo
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
+open LeBrunSalamon.Core.ExternalTensorCoordinates
 open LeBrunSalamon.Refinement.Jets LeBrunSalamon.LocalFrames
 open LeBrunSalamon.P1Charts LeBrunSalamon.P1TwistFrames
 open scoped BigOperators
@@ -111,8 +112,10 @@ theorem pulledCoefficient_pairing {T : Scheme} (f : T ⟶ ProjectiveLine)
     (pullbackModule f TangentLine.sheaf).presheaf.map (homOfLE hU).op
       (pullLocalSection f TangentLine.sheaf U coordinateVector)
   have hv₀ : pulledCoefficient f hU v₀ = 1 := by
-    simpa only [pulledCoefficient, v₀, coordinateVector, map_one] using
-      coefficientOn_local frame f ⊤ hU (1 : RingSections ProjectiveLine U)
+    have hlocal := coefficientOn_local frame f ⊤ hU (1 : RingSections ProjectiveLine U)
+    change pulledCoefficient f hU v₀ =
+      f.appLE U ⊤ hU (1 : RingSections ProjectiveLine U) at hlocal
+    simpa only [map_one] using hlocal
   have hv : v = (pulledCoefficient f hU v) • v₀ := by
     apply (pulledCoefficient f hU).injective
     rw [map_smul, hv₀, smul_eq_mul, mul_one]
@@ -120,12 +123,14 @@ theorem pulledCoefficient_pairing {T : Scheme} (f : T ⟶ ProjectiveLine)
   have hp : b.apply (f ⁻¹ᵁ U)
       (pullLocalSection f TangentLine.sheaf U coordinateVector)
       (pullLocalSection f (cotangentSheaf P.structureMap) U
-        ((cotangentPresentation P.structureMap).differential.apply U coordinate)) = 1 := by
+        ((cotangentPresentation P.structureMap).differential.apply U coordinate)) =
+          (1 : RingSections T (f ⁻¹ᵁ U)) := by
     change (unitPullbackMap f).app (f ⁻¹ᵁ U)
       ((pullbackPair f (dualEvaluation (cotangentSheaf P.structureMap))).apply (f ⁻¹ᵁ U)
-        (pullLocalSection f TangentLine.sheaf U coordinateVector)
+        (pullLocalSection f (dualSheaf (cotangentSheaf P.structureMap)) U coordinateVector)
         (pullLocalSection f (cotangentSheaf P.structureMap) U
-          ((cotangentPresentation P.structureMap).differential.apply U coordinate))) = 1
+          ((cotangentPresentation P.structureMap).differential.apply U coordinate))) =
+            (1 : RingSections T (f ⁻¹ᵁ U))
     rw [pullbackPair_normalized, ContactDerivativeIsoProof.unitPullbackMap_pullLocalSection]
     change f.app U (frame.coefficient coordinateVector) = 1
     rw [coordinateVector_coefficient, map_one]
@@ -133,8 +138,15 @@ theorem pulledCoefficient_pairing {T : Scheme} (f : T ⟶ ProjectiveLine)
     (pullLocalSection f TangentLine.sheaf U coordinateVector)
     (pullLocalSection f (cotangentSheaf P.structureMap) U
       ((cotangentPresentation P.structureMap).differential.apply U coordinate))
+  change T.presheaf.map (homOfLE hU).op
+    (b.apply (f ⁻¹ᵁ U)
+      (pullLocalSection f TangentLine.sheaf U coordinateVector)
+      (pullLocalSection f (cotangentSheaf P.structureMap) U
+        ((cotangentPresentation P.structureMap).differential.apply U coordinate))) =
+      b.apply ⊤ v₀ (coordinateDifferential f hU) at hn
   rw [hp, map_one] at hn
-  have hpair : b.apply ⊤ v₀ (coordinateDifferential f hU) = 1 := hn.symm
+  have hpair : b.apply ⊤ v₀ (coordinateDifferential f hU) =
+      (1 : RingSections T ⊤) := hn.symm
   conv_rhs => rw [hv]
   change _ = b.apply ⊤ ((pulledCoefficient f hU v) • v₀) (coordinateDifferential f hU)
   rw [map_smul, LinearMap.smul_apply, hpair, smul_eq_mul, mul_one]
@@ -201,9 +213,11 @@ theorem fromForm_coefficient {S B : Scheme} [IsAffine S]
             (e.appLE SourceBivectorCoordinates.U ⊤ hU SourceBivectorCoordinates.coordinate)))
           (sectionValue m)) := by
   apply (sectionValue_bijective (structureModule S)).injective
-  simp only [sectionValue_comp, SourceBivectorCoordinates.TestMaps.frameIso_apply,
-    scalarSection, sectionFromValue_spec]
-  rw [SourceBivectorCoordinates.TestMaps.pulledCoefficient_pairing]
+  simp only [sectionValue_comp, scalarSection, sectionFromValue_spec]
+  change (SourceBivectorCoordinates.TestMaps.frameIso e hU).hom.app ⊤
+    ((fromForm pi sB M q (projectiveLineVariety Lines.P) e he).app ⊤ (sectionValue m)) = _
+  rw [SourceBivectorCoordinates.TestMaps.frameIso_apply,
+    SourceBivectorCoordinates.TestMaps.pulledCoefficient_pairing]
   change (unitPullbackMap e).app ⊤
     ((pullbackPair e (dualEvaluation (cotangentSheaf Lines.P.structureMap))).apply ⊤
       ((fromForm pi sB M q (projectiveLineVariety Lines.P) e he).app ⊤ (sectionValue m))
@@ -261,9 +275,9 @@ theorem fromForm_baseChange {S B S' B' : Scheme}
       (RelativeDifferential.cotangent_comp pi' pi X.structureMap r b e sB hr he he')
     rw [← hC] at hc
     simp only [Category.assoc, Iso.hom_inv_id, Category.comp_id] at hc
+    change A.hom ≫ (K' ≫ C.inv) = (Scheme.Modules.pullback r).map K at hc
     apply (cancel_epi A.hom).mp
-    simpa only [A, Ω, K, K', Category.assoc, Iso.hom_inv_id_app,
-      Category.id_comp] using hc
+    simpa only [Category.assoc, Iso.hom_inv_id_assoc] using hc
   have hq : K' ≫ pulledForm pi pi' r M M' C L q =
       (A.inv ≫ ((Scheme.Modules.pullback r).map (K ≫ q) ≫
         dualBaseChange r M)) ≫ dualMap L.inv := by
@@ -281,13 +295,12 @@ theorem fromForm_baseChange {S B S' B' : Scheme}
         ((Scheme.Modules.pullback r).map (transpose (K ≫ q)) ≫
           dualBaseChange r (pullbackModule e Ω)) ≫ dualMap A.inv := by
       rw [transpose_dualMap, transpose_comp, ← transpose_pullback]
-      simp only [Category.assoc]
     _ = (L.inv ≫ (Scheme.Modules.pullback r).map (fromForm pi sB M q X e he) ≫
         (Scheme.Modules.pullbackComp r e).hom.app (tangentSheaf X.structureMap)) ≫
           dualBaseChange (r ≫ e) Ω := by
       simp only [fromForm, Functor.map_comp, Functor.map_inv, Category.assoc]
       rw [dualBaseChange_comp]
-      simp only [Category.assoc, IsIso.inv_hom_id_assoc]
+      simp only [K, Ω, A, Iso.app_inv, Category.assoc, IsIso.inv_hom_id_assoc]
 
 /-- The same-base relative differential is the ordinary cotangent map
 of the source morphism, with the identity-base transports removed. -/
@@ -340,10 +353,10 @@ theorem coefficient_pullback {Y T : Scheme} [IsAffine Y] [IsAffine T]
       (frameIso g hV).hom = scalarSection (p.appTop c) := by
   have hs' : s = scalarSection c ≫ pullSection f coordinateSection := by
     apply (cancel_mono (frameIso f hU).hom).mp
-    rw [hs, frameIso_generator, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+    rw [hs, frameIso_generator f hU, Category.assoc, Iso.inv_hom_id, Category.comp_id]
   rw [hs', LogVelocity.pullSection_scalar]
   rw [Category.assoc, ← Category.assoc (pullSection p (pullSection f coordinateSection)),
-    compositionPullback_sections, frameIso_generator, Iso.inv_hom_id, Category.comp_id]
+    compositionPullback_sections, frameIso_generator g hV, Iso.inv_hom_id, Category.comp_id]
 
 end LeBrunSalamon.Construction.SourceBivectorCoordinates.TestMaps
 
@@ -391,7 +404,21 @@ theorem chartPoint_mem : ⊤ ≤ chartPoint F ⁻¹ᵁ SourceBivectorCoordinates
 theorem chartPoint_coordinate :
     (chartPoint F).appLE SourceBivectorCoordinates.U ⊤ (chartPoint_mem F)
       SourceBivectorCoordinates.coordinate = planeFunction (MvPolynomial.X 0) := by
-  rw [chartPoint_equation, ModelBivector.polynomialPoint_coordinate, polynomialLine_parameter]
+  let value : {g : Plane ⟶ ProjectiveLine //
+      ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U} → RingSections Plane ⊤ :=
+    fun g => g.val.appLE SourceBivectorCoordinates.U ⊤ g.property
+      SourceBivectorCoordinates.coordinate
+  have hvalue := congrArg value
+    (Subtype.ext (chartPoint_equation F) :
+      (⟨chartPoint F, chartPoint_mem F⟩ : {g : Plane ⟶ ProjectiveLine //
+        ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U}) =
+      ⟨polynomialLine (MvPolynomial.X 0) ≫ polynomialChartInclusion 0,
+        ModelBivector.polynomialPoint_mem (polynomialLine (MvPolynomial.X 0))⟩)
+  have hcoord := ModelBivector.polynomialPoint_coordinate
+    (polynomialLine (MvPolynomial.X 0))
+    (ModelBivector.polynomialPoint_mem (polynomialLine (MvPolynomial.X 0)))
+  rw [polynomialLine_parameter] at hcoord
+  exact hvalue.trans hcoord
 
 theorem chartPoint_over : chartPoint F ≫ Lines.P.structureMap =
     (modelMap F 0 ≫ F.parameter) ≫ Smoothing.affineLineToC := by
@@ -420,7 +447,10 @@ theorem chartVelocity_baseChange : chartVelocity F =
     (chartCotangentIso F 0) hC (Iso.refl _)
     (StandardConicDifferential.fundamentalClass F) (projectiveLineVariety Lines.P)
     (universalPoint F) (universalPoint_over F)
-    (by simpa only [Category.id_comp] using chartPoint_over F)
+    (by
+      change chartPoint F ≫ Lines.P.structureMap =
+        (modelMap F 0 ≫ F.parameter) ≫ ((𝟙 Smoothing.AffineLine) ≫ Smoothing.affineLineToC)
+      simpa only [Category.id_comp] using chartPoint_over F)
   simpa only [chartVelocity, universalVelocity, LogVelocity.pulledForm,
     chartForm, Category.id_comp, Iso.refl_inv, dualMap_id, Category.comp_id,
     compositionPullback, Iso.trans_hom, Iso.app_hom, eqToIso_refl,
@@ -435,7 +465,7 @@ theorem chartVelocity_coefficient :
   rw [chartVelocity, LogVelocity.fromForm_coefficient, chartPoint_coordinate]
   change scalarSection (chartCoefficient F (StandardConicDifferential.fundamentalClass F) 0 0) = _
   rw [fundamentalClass_chartCoefficient]
-  simp only [chartLogValue, if_pos rfl]
+  simp only [chartLogValue, if_pos rfl, if_true, if_false]
 
 def chartSection : AlgebraicSection
     (pullbackModule (chartPoint F) (tangentSheaf Lines.P.structureMap)) :=
@@ -450,7 +480,7 @@ theorem chartSection_coefficient :
   have hg : pullSection (modelMap F 0) (StandardConicDifferential.coordinate F 0 0) =
       (chartLineFrame F 0).inv := by
     simpa only [leftIndex, rightIndex, show (0 : Fin 3) ≠ 1 by decide,
-      show (0 : Fin 3) ≠ 2 by decide, if_neg] using chartLineFrame_generator F 0
+      show (0 : Fin 3) ≠ 2 by decide, if_neg, if_true, if_false] using chartLineFrame_generator F 0
   have ht := congrArg (fun k => (chartLineFrame F 0).inv ≫ k ≫
     (SourceBivectorCoordinates.TestMaps.frameIso (chartPoint F) (chartPoint_mem F)).hom)
     (chartVelocity_baseChange F)
@@ -485,7 +515,10 @@ theorem modelVelocity_baseChange : modelVelocity F a =
     (LogarithmicSource.cotangentComparison F a) rfl (LogarithmicSource.lineComparison F a)
     (StandardConicDifferential.fundamentalClass F) (projectiveLineVariety Lines.P)
     (universalPoint F) (universalPoint_over F)
-    (by simpa only [parameterMap_toC] using modelPoint_over F a)
+    (by
+      change modelPoint F a ≫ Lines.P.structureMap =
+        modelProjection F a ≫ (parameterMap a ≫ Smoothing.affineLineToC)
+      simpa only [parameterMap_toC] using modelPoint_over F a)
   simpa only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,
     LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,
     LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,
@@ -502,8 +535,17 @@ theorem lineComparison_coordinate (i k : Fin 2) :
     (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)
     (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)
   rw [StandardConicDifferential.coordinate, ← tensorPullbackComparison_onSections]
+  change (tensorSection
+      (pullSection (LogarithmicSource.toUniversal F a)
+        (pullSection F.left ((projectiveCoordinates 1).coordinate i)))
+      (pullSection (LogarithmicSource.toUniversal F a)
+        (pullSection F.right ((projectiveCoordinates 1).coordinate k))) ≫
+      tensorPullbackComparison (LogarithmicSource.toUniversal F a)
+        (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)
+        (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)) ≫
+      (LogarithmicSource.lineComparison F a).hom = _
   simp only [LogarithmicSource.lineComparison, Iso.trans_hom, Iso.symm_hom,
-    asIso_inv, Category.assoc, IsIso.hom_inv_id_assoc]
+    asIso_inv, tensorIso, Category.assoc, IsIso.hom_inv_id_assoc]
   rw [tensorSection_map, compositionPullback_sections, compositionPullback_sections]
   rfl
 
@@ -532,7 +574,6 @@ def nodeLift {T : Scheme} (j : T ⟶ Model F a) (u v : T ⟶ Smoothing.AffineLin
   refine IsOpenImmersion.lift (modelMap F 0) (j ≫ LogarithmicSource.toUniversal F a) ?_
   have hr : Set.range (modelMap F 0) =
       (chartOpen F (leftIndex 0) (rightIndex 0) : Set F.source) := by
-    change ((modelMap F 0).opensRange : Set F.source) = _
     rw [← modelToChart_inclusion F 0]
     change (((chartIso F 0).inv ≫
       (chartOpen F (leftIndex 0) (rightIndex 0)).ι).opensRange : Set F.source) = _
@@ -542,7 +583,7 @@ def nodeLift {T : Scheme} (j : T ⟶ Model F a) (u v : T ⟶ Smoothing.AffineLin
   change (j ≫ modelLeft F a) t ∈ ratioOpen (leftIndex 0) ∧
     (j ≫ modelRight F a) t ∈ ratioOpen (rightIndex 0)
   simp only [leftIndex, rightIndex, show (0 : Fin 3) ≠ 1 by decide,
-    show (0 : Fin 3) ≠ 2 by decide, if_neg]
+    show (0 : Fin 3) ≠ 2 by decide, if_neg, if_true, if_false]
   rw [hu, hv]
   constructor
   · rw [← ratioPoint_range]
@@ -601,7 +642,7 @@ theorem nodeFrame_generator {T : Scheme} (j : T ⟶ Model F a)
       (ModelBivector.nodeFrame F a j u v hu hv).inv := by
   apply (cancel_mono (ModelBivector.nodeFrame F a j u v hu hv).hom).mp
   rw [ModelBivector.nodeFrame_coordinate, Iso.inv_hom_id]
-  simp only [coefficient, if_pos rfl, one_mul, scalarSection_one]
+  simp only [coefficient, if_pos rfl, if_true, if_false, one_mul, scalarSection_one]
 
 def nodeVelocity {T : Scheme} (j : T ⟶ Model F a) :
     pullbackModule j (modelLine F a).sheaf ⟶
@@ -627,7 +668,8 @@ theorem nodeVelocity_coefficient {T : Scheme} [IsAffine T] (j : T ⟶ Model F a)
   let q := j ≫ r
   let K := tangentSheaf Lines.P.structureMap
   have hq : q ≫ universalPoint F = g := by
-    rw [q, Category.assoc]
+    change (j ≫ LogarithmicSource.toUniversal F a) ≫ universalPoint F = g
+    rw [Category.assoc]
     exact modelPoint_gauged F a j
   have hl := LogVelocity.section_comp j r (universalPoint F) (modelPoint F a) rfl
     q rfl g (modelPoint_gauged F a j) hq (universalSection F)

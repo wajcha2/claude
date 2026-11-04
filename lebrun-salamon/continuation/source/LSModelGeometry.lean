@@ -73,9 +73,12 @@ def toPuncturedModel : GenericModel F a ⟶ PuncturedSourceProof.Star F :=
     (pullback.fst (modelProjection F a) genericPoint ≫
       pullback.fst F.parameter (parameterMap a))
     (genericProjection F a ≫ genericToPunctured a ha) (by
-      rw [Category.assoc, pullback.condition, ← Category.assoc,
-        pullback.condition, Category.assoc, ← genericToPunctured_parameter,
-        Category.assoc])
+      rw [Category.assoc, pullback.condition, ← Category.assoc]
+      change (pullback.fst (modelProjection F a) genericPoint ≫
+        modelProjection F a) ≫ parameterMap a =
+          (genericProjection F a ≫ genericToPunctured a ha) ≫ puncturedParameter.ι
+      rw [pullback.condition]
+      simp only [genericProjection, Category.assoc, genericToPunctured_parameter])
 
 @[reassoc] theorem toPuncturedModel_source :
     toPuncturedModel F a ha ≫ pullback.fst F.parameter puncturedParameter.ι =
@@ -106,7 +109,8 @@ def toPuncturedProduct : GenericModel F a ⟶ PuncturedSourceProof.Product :=
     toPuncturedProduct F a ha ≫
         pullback.fst Lines.P.structureMap PuncturedSourceProof.baseMap =
       genericLeft F a := by
-  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫ _ = _
+  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫
+    PuncturedSourceProof.productLeft = genericLeft F a
   rw [PuncturedSourceProof.projection_left]
   simpa only [genericLeft, modelLeft, Category.assoc] using
     toPuncturedModel_source_assoc F a ha F.left
@@ -115,7 +119,8 @@ def toPuncturedProduct : GenericModel F a ⟶ PuncturedSourceProof.Product :=
     toPuncturedProduct F a ha ≫
         pullback.snd Lines.P.structureMap PuncturedSourceProof.baseMap =
       genericProjection F a ≫ genericToPunctured a ha := by
-  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫ _ = _
+  change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫
+    PuncturedSourceProof.productBase = genericProjection F a ≫ genericToPunctured a ha
   rw [PuncturedSourceProof.projection_base]
   exact toPuncturedModel_base F a ha
 
@@ -127,7 +132,8 @@ theorem toPuncturedProduct_isPullback :
     (Iso.refl _) (PuncturedSourceProof.trivialization F) (Iso.refl _) (Iso.refl _)
   · simp only [Iso.refl_hom, Category.id_comp, toPuncturedProduct]
   · simp only [Iso.refl_hom, Category.id_comp, Category.comp_id]
-  · simpa only [Iso.refl_hom, Category.comp_id] using
+  · simpa only [Iso.refl_hom, Category.comp_id,
+      PuncturedSourceProof.trivialization, PuncturedSourceProof.productBase] using
       (PuncturedSourceProof.projection_base F).symm
   · simp only [Iso.refl_hom, Category.id_comp, Category.comp_id]
 
@@ -168,14 +174,17 @@ theorem generic_geometricallyIntegral :
 
 theorem model_proper : IsProper (modelProjection F a) := by
   letI : IsProper F.parameter := standardSource_proper F
+  change IsProper (pullback.snd F.parameter (parameterMap a))
   exact inferInstance
 
 theorem model_flat : Flat (modelProjection F a) := by
   letI : Flat F.parameter := standardSource_flat F
+  change Flat (pullback.snd F.parameter (parameterMap a))
   exact inferInstance
 
 theorem model_finitePresentation : LocallyOfFinitePresentation (modelProjection F a) := by
   letI : LocallyOfFinitePresentation F.parameter := standardSource_lfp F
+  change LocallyOfFinitePresentation (pullback.snd F.parameter (parameterMap a))
   exact inferInstance
 
 include ha in
@@ -184,7 +193,10 @@ pullback of a unique actual power-series coefficient. -/
 theorem model_globalFunctions : Function.Bijective (modelProjection F a).appTop := by
   letI : IsProper (modelProjection F a) := model_proper F a
   letI : Flat (modelProjection F a) := model_flat F a
-  letI : GeometricallyIntegral (genericProjection F a) :=
+  letI : GeometricallyIntegral (pullback.snd (modelProjection F a)
+      (Spec.map (CommRingCat.ofHom
+        (algebraMap (CommRingCat.of Coefficients)
+          (FractionRing (CommRingCat.of Coefficients)))))) :=
     generic_geometricallyIntegral F a ha
   exact LeBrunSalamon.StandardInputs.proper_flat_normal_generic_globalFunctions
     (CommRingCat.of Coefficients) (modelProjection F a)

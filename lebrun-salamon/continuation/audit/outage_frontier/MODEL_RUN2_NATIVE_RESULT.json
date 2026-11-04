@@ -1,0 +1,768 @@
+{
+  "run_id": 41785451068,
+  "job_id": 126426427446,
+  "commit": "13a3e161bc3155383948ba7dd05990f7390111a6",
+  "summary": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "13a3e161bc3155383948ba7dd05990f7390111a6",
+    "source_modules": 272,
+    "selected_modules": 205,
+    "accepted_modules": 201,
+    "failed_modules": [
+      "LSModelDifferential",
+      "LSModelGeometry"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 185,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "diagnostics": [
+    {
+      "module": "LSModelDifferential",
+      "status": "failed",
+      "source_sha256": "3c6b7358542866782b8a69fcc8ff1b619e0586a6403e657e481d728a058d5339",
+      "return_code": 1,
+      "seconds": 55.27,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants`",
+          "endPos": {
+            "column": 14,
+            "line": 63
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 5,
+            "line": 63
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants`\n\nNote: It is not possible to treat `constants` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 16,
+            "line": 67
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 7,
+            "line": 67
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants`",
+          "endPos": {
+            "column": 58,
+            "line": 69
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 49,
+            "line": 69
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants_restrict`",
+          "endPos": {
+            "column": 53,
+            "line": 71
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 35,
+            "line": 71
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\ns : AlgebraicSection TangentLine.sheaf\nc : ℂ\n⊢ chartAlgebraEquiv\n      (frame.coefficient\n        ((ConcreteCategory.hom (ProjectiveLine.presheaf.map (homOfLE ⋯).op)) sorry •\n          (ConcreteCategory.hom (Scheme.Modules.Hom.app s U)) 1)) =\n    Polynomial.C c * polynomial s",
+          "endPos": {
+            "column": 5,
+            "line": 73
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 73,
+            "line": 67
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants`",
+          "endPos": {
+            "column": 16,
+            "line": 78
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 7,
+            "line": 78
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `constants`",
+          "endPos": {
+            "column": 14,
+            "line": 81
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 5,
+            "line": 81
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  coefficientOn_local frame f ⊤ hU 1\n has type\n  @Eq (RingSections T ⊤)\n    ((coefficientOn frame f ⊤ hU)\n      ((ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f TangentLine.sheaf)).map (homOfLE hU).op))\n        (pullLocalSection f TangentLine.sheaf frame.openSet (frame.coefficient.symm 1))))\n    1\nbut is expected to have type\n  @Eq (RingSections T ⊤)\n    ((coefficientOn frame f ⊤ hU)\n      ((ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f TangentLine.sheaf)).map (homOfLE hU).op))\n        (pullLocalSection f TangentLine.sheaf U (frame.coefficient.symm 1))))\n    1",
+          "endPos": {
+            "column": 74,
+            "line": 115
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 4,
+            "line": 114
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  OfNat (SectionsOn (structureModule T) (f ⁻¹ᵁ U)) 1\nnumerals are polymorphic in Lean, but the numeral `1` cannot be used in a context where the expected type is\n  SectionsOn (structureModule T) (f ⁻¹ᵁ U)\ndue to the absence of the instance above\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 85,
+            "line": 123
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 84,
+            "line": 123
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  OfNat (↑Γ(structureModule T, f ⁻¹ᵁ U)) 1\nnumerals are polymorphic in Lean, but the numeral `1` cannot be used in a context where the expected type is\n  ↑Γ(structureModule T, f ⁻¹ᵁ U)\ndue to the absence of the instance above\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 88,
+            "line": 128
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 87,
+            "line": 128
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (((pullbackPair ?f ?b).apply (?f ⁻¹ᵁ ?U)) (pullLocalSection ?f ?E ?U ?e)) (pullLocalSection ?f ?F ?U ?z)\nin the target expression\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app (unitPullbackMap f) (f ⁻¹ᵁ U)))\n      ((((pullbackPair f (dualEvaluation (cotangentSheaf P.structureMap))).apply (f ⁻¹ᵁ U))\n          (pullLocalSection f TangentLine.sheaf U coordinateVector))\n        (pullLocalSection f (cotangentSheaf P.structureMap) U\n          ((cotangentPresentation P.structureMap).differential.apply U coordinate))) =\n    1\n\nT : Scheme\nf : T ⟶ ProjectiveLine\nhU : ⊤ ≤ f ⁻¹ᵁ U\nv : GlobalSections (pullbackModule f TangentLine.sheaf)\nv₀ : GlobalSections (pullbackModule f TangentLine.sheaf) :=\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f TangentLine.sheaf)).map (homOfLE hU).op))\n    (pullLocalSection f TangentLine.sheaf U coordinateVector)\nhv₀ : (pulledCoefficient f hU) v₀ = 1\nhv : v = (pulledCoefficient f hU) v • v₀\nb : SheafBilinearMap (pullbackModule f (tangentSheaf P.structureMap)) (pullbackModule f (cotangentSheaf P.structureMap))\n  (structureModule T) :=\n  Lines.PositiveVelocityPairing.pulledEvaluation f P.structureMap\n⊢ (ConcreteCategory.hom (Scheme.Modules.Hom.app (unitPullbackMap f) (f ⁻¹ᵁ U)))\n      ((((pullbackPair f (dualEvaluation (cotangentSheaf P.structureMap))).apply (f ⁻¹ᵁ U))\n          (pullLocalSection f TangentLine.sheaf U coordinateVector))\n        (pullLocalSection f (cotangentSheaf P.structureMap) U\n          ((cotangentPresentation P.structureMap).differential.apply U coordinate))) =\n    1\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    coordinateVector\n  has type\n    SectionsOn (tangentSheaf P.structureMap) U\n  but is expected to have type\n    SectionsOn TangentLine.sheaf U\n  in the application\n    pullLocalSection f TangentLine.sheaf U coordinateVector",
+          "endPos": {
+            "column": 31,
+            "line": 129
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 129
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `hp`",
+          "endPos": {
+            "column": 8,
+            "line": 136
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 6,
+            "line": 136
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase refine_1\nT : Scheme\nf : T ⟶ ProjectiveLine\nhU : ⊤ ≤ f ⁻¹ᵁ U\nv : GlobalSections (pullbackModule f TangentLine.sheaf)\nv₀ : GlobalSections (pullbackModule f TangentLine.sheaf) :=\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f TangentLine.sheaf)).map (homOfLE hU).op))\n    (pullLocalSection f TangentLine.sheaf U coordinateVector)\nhv₀ : (pulledCoefficient f hU) v₀ = 1\nhv : v = (pulledCoefficient f hU) v • v₀\nb : SheafBilinearMap (pullbackModule f (tangentSheaf P.structureMap)) (pullbackModule f (cotangentSheaf P.structureMap))\n  (structureModule T) :=\n  Lines.PositiveVelocityPairing.pulledEvaluation f P.structureMap\nhn :\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (structureModule T)).map (homOfLE hU).op))\n      (((b.apply (f ⁻¹ᵁ U)) (pullLocalSection f TangentLine.sheaf U coordinateVector))\n        (pullLocalSection f (cotangentSheaf P.structureMap) U\n          ((cotangentPresentation P.structureMap).differential.apply U coordinate))) =\n    ((b.apply ⊤)\n        ((ConcreteCategory.hom\n            ((Scheme.Modules.presheaf (pullbackModule f (tangentSheaf P.structureMap))).map (homOfLE hU).op))\n          (pullLocalSection f TangentLine.sheaf U coordinateVector)))\n      ((ConcreteCategory.hom\n          ((Scheme.Modules.presheaf (pullbackModule f (cotangentSheaf P.structureMap))).map (homOfLE hU).op))\n        (pullLocalSection f (cotangentSheaf P.structureMap) U\n          ((cotangentPresentation P.structureMap).differential.apply U coordinate)))\n⊢ OfNat (SectionsOn (structureModule T) (f ⁻¹ᵁ U)) 1\n\ncase refine_2\nT : Scheme\nf : T ⟶ ProjectiveLine\nhU : ⊤ ≤ f ⁻¹ᵁ U\nv : GlobalSections (pullbackModule f TangentLine.sheaf)\nv₀ : GlobalSections (pullbackModule f TangentLine.sheaf) :=\n  (ConcreteCategory.hom ((Scheme.Modules.presheaf (pullbackModule f TangentLine.sheaf)).map (homOfLE hU).op))\n    (pullLocalSection f TangentLine.sheaf U coordinateVector)\nhv₀ : (pulledCoefficient f hU) v₀ = 1\nhv : v = (pulledCoefficient f hU) v • v₀\nb : SheafBilinearMap (pullbackModule f (tangentSheaf P.structureMap)) (pullbackModule f (cotangentSheaf P.structureMap))\n  (structureModule T) :=\n  Lines.PositiveVelocityPairing.pulledEvaluation f P.structureMap\nhp :\n  ((b.apply (f ⁻¹ᵁ U)) (pullLocalSection f TangentLine.sheaf U coordinateVector))\n      (pullLocalSection f (cotangentSheaf P.structureMap) U\n        ((cotangentPresentation P.structureMap).differential.apply U coordinate)) =\n    1\n⊢ (pulledCoefficient f hU) v =\n    (((Lines.PositiveVelocityPairing.pulledEvaluation f P.structureMap).apply ⊤) v) (coordinateDifferential f hU)",
+          "endPos": {
+            "column": 66,
+            "line": 140
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 43,
+            "line": 109
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (SourceBivectorCoordinates.TestMaps.pulledCoefficient ?f ?hU) ?v\nin the target expression\n  (ConcreteCategory.hom\n        (Scheme.Modules.Hom.app\n          (fromForm pi sB M q (projectiveLineVariety Lines.P) e he ≫\n            (SourceBivectorCoordinates.TestMaps.frameIso e hU).hom)\n          ⊤))\n      (sectionValue m) =\n    (((dualEvaluation M).apply ⊤)\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app q ⊤))\n          ((cotangentPresentation pi).differential.apply ⊤\n            ((ConcreteCategory.hom (Scheme.Hom.appLE e SourceBivectorCoordinates.U ⊤ hU))\n              SourceBivectorCoordinates.coordinate))))\n      (sectionValue m)\n\nS B : Scheme\ninst✝ : IsAffine S\npi : S ⟶ B\nsB : B ⟶ ComplexBase\nM : OModule S\nq : cotangentSheaf pi ⟶ dualSheaf M\ne : S ⟶ ProjectiveLine\nhe : e ≫ Lines.P.structureMap = pi ≫ sB\nhU : ⊤ ≤ e ⁻¹ᵁ SourceBivectorCoordinates.U\nm : AlgebraicSection M\n⊢ (ConcreteCategory.hom\n        (Scheme.Modules.Hom.app\n          (fromForm pi sB M q (projectiveLineVariety Lines.P) e he ≫\n            (SourceBivectorCoordinates.TestMaps.frameIso e hU).hom)\n          ⊤))\n      (sectionValue m) =\n    (((dualEvaluation M).apply ⊤)\n        ((ConcreteCategory.hom (Scheme.Modules.Hom.app q ⊤))\n          ((cotangentPresentation pi).differential.apply ⊤\n            ((ConcreteCategory.hom (Scheme.Hom.appLE e SourceBivectorCoordinates.U ⊤ hU))\n              SourceBivectorCoordinates.coordinate))))\n      (sectionValue m)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    M\n  has type\n    OModule S\n  but is expected to have type\n    SheafOfModules S.ringCatSheaf\n  in the application\n    @CategoryStruct.comp (SheafOfModules S.ringCatSheaf) SheafOfModules.instCategory.toCategoryStruct M",
+          "endPos": {
+            "column": 66,
+            "line": 206
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 206
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  hc\n has type\n  (Scheme.Modules.pullbackComp r e).hom.app (cotangentSheaf X.structureMap) ≫\n      RelativeDifferential.cotangent pi' X.structureMap (r ≫ e) (b ≫ sB) he' ≫ C.inv =\n    (Scheme.Modules.pullback r).map (RelativeDifferential.cotangent pi X.structureMap e sB he)\nbut is expected to have type\n  ((Scheme.Modules.pullbackComp r e).app (cotangentSheaf X.structureMap)).hom ≫\n      RelativeDifferential.cotangent pi' X.structureMap (r ≫ e) (b ≫ sB) he' ≫ C.inv =\n    ((Scheme.Modules.pullbackComp r e).app (cotangentSheaf X.structureMap)).hom ≫\n      ((Scheme.Modules.pullbackComp r e).app (cotangentSheaf X.structureMap)).inv ≫\n        (Scheme.Modules.pullback r).map (RelativeDifferential.cotangent pi X.structureMap e sB he)",
+          "endPos": {
+            "column": 32,
+            "line": 266
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 4,
+            "line": 265
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "No goals to be solved",
+          "endPos": {
+            "column": 32,
+            "line": 284
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 284
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nS B S' B' : Scheme\npi : S ⟶ B\npi' : S' ⟶ B'\nsB : B ⟶ ComplexBase\nr : S' ⟶ S\nb : B' ⟶ B\nhr : r ≫ pi = pi' ≫ b\nM : OModule S\nM' : OModule S'\nC : pullbackModule r (cotangentSheaf pi) ≅ cotangentSheaf pi'\nhC : C.hom = RelativeDifferential.cotangent pi' pi r b hr\nL : pullbackModule r M ≅ M'\nq : cotangentSheaf pi ⟶ dualSheaf M\nd : ℕ\nX : SmoothProperComplexVariety d\ne : S ⟶ X.scheme\nhe : e ≫ X.structureMap = pi ≫ sB\nhe' : (r ≫ e) ≫ X.structureMap = pi' ≫ b ≫ sB\nΩ : OModule X.scheme := cotangentSheaf X.structureMap\nK : pullbackModule e (cotangentSheaf X.structureMap) ⟶ cotangentSheaf pi :=\n  RelativeDifferential.cotangent pi X.structureMap e sB he\nK' : pullbackModule (r ≫ e) (cotangentSheaf X.structureMap) ⟶ cotangentSheaf pi' :=\n  RelativeDifferential.cotangent pi' X.structureMap (r ≫ e) (b ≫ sB) he'\nA : (Scheme.Modules.pullback e ⋙ Scheme.Modules.pullback r).obj Ω ≅ (Scheme.Modules.pullback (r ≫ e)).obj Ω :=\n  (Scheme.Modules.pullbackComp r e).app Ω\nhk : K' ≫ C.inv = A.inv ≫ (Scheme.Modules.pullback r).map K\nhq :\n  K' ≫ pulledForm pi pi' r M M' C L q =\n    (A.inv ≫ (Scheme.Modules.pullback r).map (K ≫ q) ≫ dualBaseChange r M) ≫ dualMap L.inv\nthis✝ : IsIso (dualBaseChange e (cotangentSheaf X.structureMap)) :=\n  dualBaseChange_isIso e (smooth_cotangent_rank X.structureMap d X.smooth)\nthis : IsIso (dualBaseChange (r ≫ e) (cotangentSheaf X.structureMap)) :=\n  dualBaseChange_isIso (r ≫ e) (smooth_cotangent_rank X.structureMap d X.smooth)\n⊢ L.inv ≫ (Scheme.Modules.pullback r).map (transpose (K ≫ q)) ≫ dualBaseChange r (pullbackModule e Ω) ≫ dualMap A.inv =\n    L.inv ≫\n      (Scheme.Modules.pullback r).map (transpose (RelativeDifferential.cotangent pi X.structureMap e sB he ≫ q)) ≫\n        dualBaseChange r (pullbackModule e (cotangentSheaf X.structureMap)) ≫\n          dualMap ((Scheme.Modules.pullbackComp r e).inv.app (cotangentSheaf X.structureMap))",
+          "endPos": {
+            "column": 56,
+            "line": 290
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 38,
+            "line": 287
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `cotangentMap`\n\nNote: It is not possible to treat `cotangentMap` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 72,
+            "line": 296
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 60,
+            "line": 296
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase hU\nY T : Scheme\ninst✝¹ : IsAffine Y\ninst✝ : IsAffine T\np : T ⟶ Y\nf : Y ⟶ ProjectiveLine\ng : T ⟶ ProjectiveLine\nhg : p ≫ f = g\nhU : ⊤ ≤ f ⁻¹ᵁ U\nhV : ⊤ ≤ g ⁻¹ᵁ U\ns : AlgebraicSection (pullbackModule f TangentLine.sheaf)\nc : RingSections Y ⊤\nhs : s ≫ (frameIso f hU).hom = scalarSection c\n⊢ ⊤ ≤ f ⁻¹ᵁ U",
+          "endPos": {
+            "column": 81,
+            "line": 343
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 70,
+            "line": 341
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase hU\nY T : Scheme\ninst✝¹ : IsAffine Y\ninst✝ : IsAffine T\np : T ⟶ Y\nf : Y ⟶ ProjectiveLine\ng : T ⟶ ProjectiveLine\nhg : p ≫ f = g\nhU : ⊤ ≤ f ⁻¹ᵁ U\nhV : ⊤ ≤ g ⁻¹ᵁ U\ns : AlgebraicSection (pullbackModule f TangentLine.sheaf)\nc : RingSections Y ⊤\nhs : s ≫ (frameIso f hU).hom = scalarSection c\nhs' : s = scalarSection c ≫ pullSection f coordinateSection\n⊢ ⊤ ≤ g ⁻¹ᵁ U",
+          "endPos": {
+            "column": 87,
+            "line": 346
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 58,
+            "line": 340
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    (ConcreteCategory.hom (Scheme.Hom.appLE _a SourceBivectorCoordinates.U ⊤ ⋯)) SourceBivectorCoordinates.coordinate =\n      planeFunction (MvPolynomial.X 0)\nError: Application type mismatch: The argument\n  chartPoint_mem F\nhas type\n  ⊤ ≤ chartPoint F ⁻¹ᵁ SourceBivectorCoordinates.U\nbut is expected to have type\n  ⊤ ≤ _a ⁻¹ᵁ SourceBivectorCoordinates.U\nin the application\n  Scheme.Hom.appLE _a SourceBivectorCoordinates.U ⊤ ⋯\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nF : Smoothing.StandardSource\n⊢ (ConcreteCategory.hom (Scheme.Hom.appLE (chartPoint F) SourceBivectorCoordinates.U ⊤ ⋯))\n      SourceBivectorCoordinates.coordinate =\n    planeFunction (MvPolynomial.X 0)",
+          "endPos": {
+            "column": 25,
+            "line": 394
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 394
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  chartPoint_over F\n has type\n  @Eq (Plane ⟶ ComplexBase) (chartPoint F ≫ Lines.P.structureMap)\n    ((modelMap F 0 ≫ F.parameter) ≫ Smoothing.affineLineToC)\nbut is expected to have type\n  @Eq (Plane ⟶ ComplexBase) ((modelMap F 0 ≫ universalPoint F) ≫ (projectiveLineVariety Lines.P).structureMap)\n    ((modelMap F 0 ≫ F.parameter) ≫ Smoothing.affineLineToC)",
+          "endPos": {
+            "column": 61,
+            "line": 423
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 423
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nF : Smoothing.StandardSource\n⊢ scalarSection\n      (if True then if True then planeFunction (MvPolynomial.X 0) else -planeFunction (MvPolynomial.X 1)\n      else if True then 0 else if 0 = 1 then -1 else 1) =\n    scalarSection (planeFunction (MvPolynomial.X 0))",
+          "endPos": {
+            "column": 39,
+            "line": 438
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 60,
+            "line": 434
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  chartLineFrame_generator F 0\n has type\n  @Eq (AlgebraicSection (pullbackModule (modelMap F 0) (line F).sheaf))\n    (pullSection (modelMap F 0) (coordinate F (if False then 1 else 0) (if False then 1 else 0)))\n    (chartLineFrame F 0).inv\nbut is expected to have type\n  @Eq (AlgebraicSection (pullbackModule (modelMap F 0) (line F).sheaf)) (pullSection (modelMap F 0) (coordinate F 0 0))\n    (chartLineFrame F 0).inv",
+          "endPos": {
+            "column": 80,
+            "line": 453
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 4,
+            "line": 452
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  modelPoint_over F a\n has type\n  @Eq (Model F a ⟶ ComplexBase) (modelPoint F a ≫ Lines.P.structureMap) (modelProjection F a ≫ toC)\nbut is expected to have type\n  @Eq (Model F a ⟶ ComplexBase)\n    ((LogarithmicSource.toUniversal F a ≫ universalPoint F) ≫ (projectiveLineVariety Lines.P).structureMap)\n    (modelProjection F a ≫ toC)",
+          "endPos": {
+            "column": 63,
+            "line": 488
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 488
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  tensorSection ?a ?b ≫ tensorMap ?f ?g\nin the target expression\n  tensorSection\n        (pullSection (LogarithmicSource.toUniversal F a) (pullSection F.left ((projectiveCoordinates 1).coordinate i)))\n        (pullSection (LogarithmicSource.toUniversal F a)\n          (pullSection F.right ((projectiveCoordinates 1).coordinate k))) ≫\n      tensorPullbackComparison (LogarithmicSource.toUniversal F a)\n          (pullbackLine F.left (projectiveCoordinates 1).hyperplane).sheaf\n          (pullbackLine F.right (projectiveCoordinates 1).hyperplane).sheaf ≫\n        inv\n            (tensorPullbackComparison (LogarithmicSource.toUniversal F a)\n              (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)\n              (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)) ≫\n          (tensorIso\n              (compositionPullback (LogarithmicSource.toUniversal F a) F.left (modelLeft F a) ⋯\n                (projectiveCoordinates 1).hyperplane.sheaf)\n              (compositionPullback (LogarithmicSource.toUniversal F a) F.right (modelRight F a) ⋯\n                (projectiveCoordinates 1).hyperplane.sheaf)).hom =\n    ModelNumerator.coordinate F a i k\n\nF : Smoothing.StandardSource\na : Coefficients\ni k : Fin 2\nr : Model F a ⟶ F.source := LogarithmicSource.toUniversal F a\nthis : IsIso\n  (tensorPullbackComparison r (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)) :=\n  tensorPullbackComparison_isIso r (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)\n⊢ tensorSection\n        (pullSection (LogarithmicSource.toUniversal F a) (pullSection F.left ((projectiveCoordinates 1).coordinate i)))\n        (pullSection (LogarithmicSource.toUniversal F a)\n          (pullSection F.right ((projectiveCoordinates 1).coordinate k))) ≫\n      tensorPullbackComparison (LogarithmicSource.toUniversal F a)\n          (pullbackLine F.left (projectiveCoordinates 1).hyperplane).sheaf\n          (pullbackLine F.right (projectiveCoordinates 1).hyperplane).sheaf ≫\n        inv\n            (tensorPullbackComparison (LogarithmicSource.toUniversal F a)\n              (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)\n              (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)) ≫\n          (tensorIso\n              (compositionPullback (LogarithmicSource.toUniversal F a) F.left (modelLeft F a) ⋯\n                (projectiveCoordinates 1).hyperplane.sheaf)\n              (compositionPullback (LogarithmicSource.toUniversal F a) F.right (modelRight F a) ⋯\n                (projectiveCoordinates 1).hyperplane.sheaf)).hom =\n    ModelNumerator.coordinate F a i k\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (modelLine F a).sheaf\n  has type\n    OModule (Model F a)\n  but is expected to have type\n    SheafOfModules (Model F a).ringCatSheaf\n  in the application\n    SheafOfModules.unit (Model F a).ringCatSheaf ⟶ (modelLine F a).sheaf",
+          "endPos": {
+            "column": 23,
+            "line": 507
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 507
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a => ↑(Scheme.Hom.opensRange _a) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))\nError: Application type mismatch: The argument\n  this\nhas type\n  IsOpenImmersion (modelMap F 0)\nbut is expected to have type\n  IsOpenImmersion _a\nin the application\n  @Scheme.Hom.opensRange Plane F.source _a ⋯\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nthis : IsOpenImmersion (modelMap F 0) := modelMap_isOpenImmersion F 0\n⊢ ↑(Scheme.Hom.opensRange (modelMap F 0)) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))",
+          "endPos": {
+            "column": 36,
+            "line": 536
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 536
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (u ≫ ↑(ratioPoint 0)) t ∈ ratioOpen (if False then 1 else 0)\n\ncase left\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nthis : IsOpenImmersion (modelMap F 0) := ⋯\nhr : Set.range ⇑(modelMap F 0) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))\nt : ↥T\n⊢ (u ≫ ↑(ratioPoint 0)) t ∈ ratioOpen (if False then 1 else 0)",
+          "endPos": {
+            "column": 26,
+            "line": 548
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 548
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (v ≫ ↑(ratioPoint 0)) t ∈ ratioOpen (if False then 1 else 0)\n\ncase right\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nthis : IsOpenImmersion (modelMap F 0) := ⋯\nhr : Set.range ⇑(modelMap F 0) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))\nt : ↥T\n⊢ (v ≫ ↑(ratioPoint 0)) t ∈ ratioOpen (if False then 1 else 0)",
+          "endPos": {
+            "column": 26,
+            "line": 550
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 550
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\n⊢ scalarSection\n      ((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n        if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction) =\n    𝟙 (SheafOfModules.unit T.ringCatSheaf)",
+          "endPos": {
+            "column": 65,
+            "line": 604
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 55,
+            "line": 601
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Invalid rewrite argument: Expected an equality or iff proof or definition name, but `q` is a value of type\n  T ⟶ F.source",
+          "endPos": {
+            "column": 9,
+            "line": 630
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 630
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "module": "LSModelGeometry",
+      "status": "failed",
+      "source_sha256": "fe6f77882b356657002c167255a2c3cb90a1d9bbe981128d63d324d443921854",
+      "return_code": 1,
+      "seconds": 5.18,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  pullback.fst ?m.72 ?m.73 ≫ ?m.72\nin the target expression\n  (pullback.fst (modelProjection F a) genericPoint ≫ pullback.snd F.parameter (parameterMap a)) ≫ parameterMap a =\n    (genericProjection F a ≫ genericToPunctured a ha) ≫ puncturedParameter.ι\n\nF : StandardSource\na : Coefficients\nha : a ≠ 0\n⊢ (pullback.fst (modelProjection F a) genericPoint ≫ pullback.snd F.parameter (parameterMap a)) ≫ parameterMap a =\n    (genericProjection F a ≫ genericToPunctured a ha) ≫ puncturedParameter.ι",
+          "endPos": {
+            "column": 26,
+            "line": 77
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 77
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  PuncturedSourceProof.projection ?F ≫ PuncturedSourceProof.productLeft\nin the target expression\n  toPuncturedModel F a ha ≫\n      PuncturedSourceProof.projection F ≫ pullback.fst Lines.P.structureMap PuncturedSourceProof.baseMap =\n    genericLeft F a\n\nF : StandardSource\na : Coefficients\nha : a ≠ 0\n⊢ toPuncturedModel F a ha ≫\n      PuncturedSourceProof.projection F ≫ pullback.fst Lines.P.structureMap PuncturedSourceProof.baseMap =\n    genericLeft F a",
+          "endPos": {
+            "column": 42,
+            "line": 110
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 110
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  PuncturedSourceProof.projection ?F ≫ PuncturedSourceProof.productBase\nin the target expression\n  toPuncturedModel F a ha ≫\n      PuncturedSourceProof.projection F ≫ pullback.snd Lines.P.structureMap PuncturedSourceProof.baseMap =\n    genericProjection F a ≫ genericToPunctured a ha\n\nF : StandardSource\na : Coefficients\nha : a ≠ 0\n⊢ toPuncturedModel F a ha ≫\n      PuncturedSourceProof.projection F ≫ pullback.snd Lines.P.structureMap PuncturedSourceProof.baseMap =\n    genericProjection F a ≫ genericToPunctured a ha",
+          "endPos": {
+            "column": 42,
+            "line": 119
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 119
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  Eq.symm (PuncturedSourceProof.projection_base F)\n has type\n  @Eq (PuncturedSourceProof.Star F ⟶ PuncturedSourceProof.Base) (PuncturedSourceProof.starBase F)\n    (PuncturedSourceProof.projection F ≫ PuncturedSourceProof.productBase)\nbut is expected to have type\n  @Eq (PuncturedSourceProof.Star F ⟶ PuncturedSourceProof.Base) (PuncturedSourceProof.starBase F)\n    ((PuncturedSourceProof.trivialization F).hom ≫ pullback.snd Lines.P.structureMap PuncturedSourceProof.baseMap)",
+          "endPos": {
+            "column": 51,
+            "line": 131
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 4,
+            "line": 130
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  IsProper (modelProjection F a)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 21,
+            "line": 171
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 8,
+            "line": 171
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  Flat (modelProjection F a)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 21,
+            "line": 175
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 8,
+            "line": 175
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  LocallyOfFinitePresentation (modelProjection F a)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 21,
+            "line": 179
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 8,
+            "line": 179
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  GeometricallyIntegral\n    (pullback.snd (modelProjection F a)\n      (Spec.map (CommRingCat.ofHom (algebraMap (↑↧Coefficients) (FractionRing ↑↧Coefficients)))))\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 55,
+            "line": 190
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGeometry.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 8,
+            "line": 189
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "new_native_receipts": [
+    {
+      "module": "LSModelBivector",
+      "receipt_sha256": "032b557c3adbb63bdfa4d5af0d4428c32c5e75e21894167e099fa153a27e9fb2",
+      "key": {
+        "source_sha256": "915ddcde6e905bf18f38a6edf7257043662c22da82607316c7b727fe7a285e7e",
+        "imports": [
+          "LSTraitContact",
+          "LSP1CoordinateGauge"
+        ],
+        "dependency_artifacts": {
+          "LSTraitContact": {
+            "sha256": "4ff43a07d64e24849504aa29ba29b6c2281aa6d5304c3213b296b2821ca73f79",
+            "kind": "project"
+          },
+          "LSP1CoordinateGauge": {
+            "sha256": "9dc2fd1170eca946d7edf285a69148a602ef837e0b0c772c2aa33c55f1df9b93",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "5f04d43c6d3010aa83d3bdc004d1a60ec9f0415b0f37c43032e3465d4e1ec1b6",
+      "source_ancestry_fingerprint": "314e50c00a46028dcbb94b89364344f5fb75400a3e120299ec91de6c84d9af3d",
+      "seconds": 10.294,
+      "stdout_sha256": "cceed12b7f911bf794212c6769a1d568c6af2055a9784dca2d6ffd306fec6a07",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13300977126,
+      "name": "lebrun-model-frontier-41785451068-1",
+      "size_in_bytes": 56364455,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13300977126",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13300977126/zip",
+      "expired": false,
+      "created_at": "2026-11-04T06:28:37Z",
+      "expires_at": "2027-02-02T06:25:43Z",
+      "updated_at": "2026-11-04T06:28:37Z",
+      "digest": "sha256:3e7acd93f3e45b9bc192da73b16b768a047f40d13e5b9034078963f0d2f2e27a",
+      "workflow_run": {
+        "id": 41785451068,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-model-frontier-20261104",
+        "head_sha": "13a3e161bc3155383948ba7dd05990f7390111a6"
+      }
+    }
+  ],
+  "scope": "ModelBivector passed10.294seconds; Differential31 and Geometry8 diagnostics remain. No milestone promotion."
+}

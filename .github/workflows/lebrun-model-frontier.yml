@@ -24,16 +24,16 @@ jobs:
       - name: Restore pinned stock runtime
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download the exact validated200-module model context
+      - name: Download the exact validated201-module model context
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-model-frontier-41784692489-1
-          run-id: 41784692489
+          name: lebrun-model-frontier-41785451068-1
+          run-id: 41785451068
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/lebrun-prior-evidence
       - name: Restore only exact current ancestry and runtime matches
         run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41784692489 --source-artifact-name lebrun-model-frontier-41784692489-1
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41785451068 --source-artifact-name lebrun-model-frontier-41785451068-1
       - name: Check Gauge and all selected model/formal-arc descendants
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferential --module LSModelGeometry --module LSFormalArcSections --keep-going --timeout 300

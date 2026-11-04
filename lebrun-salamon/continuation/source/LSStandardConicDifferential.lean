@@ -12,6 +12,7 @@ frames; it does not choose a coordinate derivation in place of that map.
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -20,6 +21,8 @@ open LeBrunSalamon.PhaseTwentySix LeBrunSalamon.PhaseTwentySeven
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseTwentyNine
 open LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyTwo
 open LeBrunSalamon.PhaseThirtyFour LeBrunSalamon.Skeleton
+
+open LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.TraitContact
 
@@ -35,7 +38,7 @@ abbrev second : Square pi ⟶ S := pullback.snd pi pi
 def line (L : LineBundle S) : LineBundle (Square pi) :=
   tensorLine (pullbackLine (first pi) L) (pullbackLine (second pi) L)
 
-def section {L : LineBundle S} (a b : AlgebraicSection L.sheaf) :
+def «section» {L : LineBundle S} (a b : AlgebraicSection L.sheaf) :
     AlgebraicSection (line pi L).sheaf :=
   tensorSection (pullSection (first pi) a) (pullSection (second pi) b)
 
@@ -55,14 +58,17 @@ def pullIso {T : Scheme} (f : T ⟶ Square pi) (L : LineBundle S) :
 
 theorem pullIso_section {T : Scheme} (f : T ⟶ Square pi) {L : LineBundle S}
     (a b : AlgebraicSection L.sheaf) :
-    pullSection f (section pi a b) ≫ (pullIso pi f L).hom =
+    pullSection f («section» pi a b) ≫ (pullIso pi f L).hom =
       tensorSection (pullSection (f ≫ first pi) a)
         (pullSection (f ≫ second pi) b) := by
   letI := tensorPullbackComparison_isIso f
     (pullbackModule (first pi) L.sheaf) (pullbackModule (second pi) L.sheaf)
-  rw [section, ← tensorPullbackComparison_onSections]
+  rw [«section», ← tensorPullbackComparison_onSections]
+  change (tensorSection _ _ ≫ tensorPullbackComparison f
+    (pullbackModule (first pi) L.sheaf) (pullbackModule (second pi) L.sheaf)) ≫ _ = _
   simp only [pullIso, Iso.trans_hom, Iso.symm_hom, asIso_hom, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
+  change tensorSection _ _ ≫ tensorMap _ _ = _
   rw [tensorSection_map, compositionPullback_sections, compositionPullback_sections]
 
 end RelativeBox
@@ -126,9 +132,15 @@ theorem chartLineFrame_coordinate (k : Fin 3) (i j : Fin 2) :
     (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)
     (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)
   rw [coordinate, ← tensorPullbackComparison_onSections]
+  change (tensorSection _ _ ≫
+    tensorPullbackComparison (modelMap F k)
+      (pullbackModule F.left (projectiveCoordinates 1).hyperplane.sheaf)
+      (pullbackModule F.right (projectiveCoordinates 1).hyperplane.sheaf)) ≫ _ = _
   simp only [chartLineFrame, Iso.trans_hom, Iso.symm_hom, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
-  rw [← Category.assoc, tensorSection_map,
+  rw [← Category.assoc]
+  change (tensorSection _ _ ≫ tensorMap _ _) ≫ _ = _
+  rw [tensorSection_map,
     compositionPullback_sections, compositionPullback_sections]
   change tensorSection _ _ ≫
     (tensorMap (ratioPullFrame _ _).hom (ratioPullFrame _ _).hom ≫
@@ -143,7 +155,7 @@ theorem chartLineFrame_generator (k : Fin 3) :
       (chartLineFrame F k).inv := by
   apply (cancel_mono (chartLineFrame F k).hom).mp
   rw [chartLineFrame_coordinate, Iso.inv_hom_id]
-  simp only [coefficient, if_pos rfl, one_mul, scalarSection_one]
+  simp [coefficient, scalarSection_one]
 
 /-- The source cotangent comparison is the actual differential of the
 open immersion, not a separately supplied identification. -/
@@ -182,6 +194,7 @@ def chartLogValue (k : Fin 3) (i : Fin 2) : RingSections Plane ⊤ :=
     (if i = 0 then planeFunction (MvPolynomial.X 0)
       else -planeFunction (MvPolynomial.X 1))
   else if i = 0 then 0 else if k = 1 then -1 else 1
+
 
 /-- Transpose the actual dual evaluation pairing. Its normalization is
 proved directly from the internal-Hom universal property. -/
@@ -287,12 +300,16 @@ abbrev line : LineBundle (Square F) :=
 /-- The complete-square numerator of a times the canonical genus-zero
 bivector in logarithmic frames. No denominator is used in this definition. -/
 def numerator : AlgebraicSection (line F).sheaf :=
-  RelativeBox.section F.parameter (coordinate F 1 0) (coordinate F 0 1) +
-  RelativeBox.section F.parameter (coordinate F 0 1) (coordinate F 1 0) -
+  RelativeBox.«section» F.parameter (coordinate F 1 0) (coordinate F 0 1) +
+  RelativeBox.«section» F.parameter (coordinate F 0 1) (coordinate F 1 0) -
   sectionFromValue
     ((2 * (squareProjection F).appTop Smoothing.parameterFunction) •
-      sectionValue (RelativeBox.section F.parameter
+      sectionValue (RelativeBox.«section» F.parameter
         (coordinate F 0 0) (coordinate F 0 0)))
+
+/-- Scalar value with its ring-valued codomain made explicit. -/
+def scalarValue {T : Scheme} (s : AlgebraicSection (structureModule T)) :
+    RingSections T ⊤ := sectionValue s
 
 /-- Scalarization of a tensor section by its actual two line frames. -/
 theorem framedTensor {T : Scheme} {E G : OModule T}
@@ -300,7 +317,7 @@ theorem framedTensor {T : Scheme} {E G : OModule T}
     (s : AlgebraicSection E) (t : AlgebraicSection G) :
     tensorSection s t ≫
         ((tensorIso e g) ≪≫ TensorConstruction.leftUnitIso (structureModule T)).hom =
-      scalarSection (sectionValue (s ≫ e.hom) * sectionValue (t ≫ g.hom)) := by
+      scalarSection (scalarValue (s ≫ e.hom) * scalarValue (t ≫ g.hom)) := by
   change tensorSection s t ≫ tensorMap e.hom g.hom ≫
     (TensorConstruction.leftUnitIso (structureModule T)).hom = _
   rw [← Category.assoc, tensorSection_map]
@@ -335,7 +352,7 @@ theorem testFrame_box {T : Scheme} (f : T ⟶ Square F)
     (g : pullbackModule (f ≫ RelativeBox.second F.parameter)
       (StandardConicDifferential.line F).sheaf ≅ structureModule T)
     (i j k l : Fin 2) :
-    pullSection f (RelativeBox.section F.parameter
+    pullSection f (RelativeBox.«section» F.parameter
         (coordinate F i j) (coordinate F k l)) ≫
       (testFrame F f e g).hom =
         scalarSection (firstCoefficient F f e i j * secondCoefficient F f g k l) := by
@@ -360,7 +377,7 @@ theorem testFrame_numerator {T : Scheme} (f : T ⟶ Square F)
   have hadd {G : OModule (Square F)} (s t : AlgebraicSection G) :
       pullSection f (s + t) = pullSection f s + pullSection f t := by
     simp only [pullSection, restrictSection, Functor.map_add, Preadditive.comp_add]
-  rw [numerator, Normalization.pullSection_sub, hadd,
+  rw [numerator, Normalization.BundleGluing.pullSection_sub, hadd,
     Preadditive.sub_comp, Preadditive.add_comp,
     testFrame_box, testFrame_box, Smoothing.StandardSourceProof.pullSection_scalar,
     Smoothing.StandardSourceProof.scalarSection_comp, testFrame_box]
@@ -368,7 +385,6 @@ theorem testFrame_numerator {T : Scheme} (f : T ⟶ Square F)
   simp only [sub_eq_add_neg, sectionValue_add, sectionValue_neg, sectionValue_comp,
     scalarSection, sectionFromValue_spec, map_sub, map_add, map_mul,
     map_ofNat, Scheme.Hom.comp_appTop, CommRingCat.comp_apply, smul_eq_mul]
-  rfl
 
 /-- On the two node frames, the global section has the literal
 coefficient u*v' + v*u' - 2*a. -/
@@ -390,10 +406,10 @@ end Numerator
 
 end LeBrunSalamon.Construction.StandardConicDifferential
 
-/-- Classical hypersurface fundamental-class/adjunction corollary of
-Stacks Project, Lemmas 48.29.1 and 48.29.2 (Tags 0E9Y and 0E9Z), with
-the actual O(1,1) quotient-coordinate frames. This is a source-only
-cotangent statement; its node and outer signs fix the normalization. -/
+/-- The original three prescribed cotangent formulas and their homogeneous
+line frames. This project-specific composite remains admitted here while
+its constructive chart-gluing proof is checked separately. The compatibility
+repairs in this file do not certify or retire this obligation. -/
 theorem LeBrunSalamon.PublishedInputs.Step3f.standardConic_fundamentalClass_exists
     (F : LeBrunSalamon.Construction.Smoothing.StandardSource) :
     ∃ q : LeBrunSalamon.PhaseTwentyFive.cotangentSheaf F.parameter ⟶

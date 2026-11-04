@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSProductPrefixProbe",
+  "key": {
+    "source_sha256": "a68332bb2024ba9cfa43d2851ff1ea3cf124353fe8bf185ccc77072533699053",
+    "imports": [
+      "LSPublishedDirections"
+    ],
+    "dependency_artifacts": {
+      "LSPublishedDirections": {
+        "sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "26e594ca097fd4c566b6ab8ed579377c9dd84834fb48c77de75abf043bd3eb6e",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxHeartbeats=2000000",
+      "-DmaxErrors=1"
+    ]
+  },
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxHeartbeats=2000000",
+    "-DmaxErrors=1",
+    "--root=/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_probes/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_probes/build/olean/LSProductPrefixProbe.olean",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_probes/source/LSProductPrefixProbe.lean"
+  ],
+  "started_utc": "2026-11-04T00:30:32.111757+00:00",
+  "stdout": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_probes/build/logs/LSProductPrefixProbe.20261104T003032111715.stdout.jsonl",
+  "stderr": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_probes/build/logs/LSProductPrefixProbe.20261104T003032111715.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T00:30:36.593170+00:00",
+  "seconds": 4.481,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "17a88eac2c3b518549b17f40b3714accfc2e230db316e15f01c5aa91fe8db261",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "7563daa4ab13767a2555af17668b4522fced6324f1e8e89168ec1ef2d9a8f99d",
+  "evidence_kind": "native_kernel_compilation"
+}

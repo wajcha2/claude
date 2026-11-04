@@ -1,0 +1,59 @@
+{
+  "schema": "lebrun-final-ci-snapshot-v2",
+  "verified_utc": "2026-11-04T01:04:40.230085+00:00",
+  "run": {
+    "id": 41745746489,
+    "name": "LeBrun-Salamon takeover kernel checks",
+    "head_branch": "codex/lebrun-takeover-audit-20261103",
+    "head_sha": "6b976918d73e771813e661711f0395137b94c4f5",
+    "path": ".github/workflows/lebrun-takeover-kernel.yml",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41745746489",
+    "created_at": "2026-11-04T00:17:48Z",
+    "updated_at": "2026-11-04T00:59:59Z",
+    "run_started_at": "2026-11-04T00:17:48Z",
+    "run_attempt": 1
+  },
+  "stage": "full_graph",
+  "artifact_name": "lebrun-takeover-kernel-41745746489-1",
+  "artifact_id": 13286400249,
+  "artifact_zip_sha256": "8ab653a78d519d20a4371845a603d6f03ca2045f1e2f66abad62880332fd7d69",
+  "artifact_zip_verified": true,
+  "compiler_kind": "stock_pinned_frontend",
+  "compiler_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "counts": {
+    "reused": 30,
+    "passed": 109,
+    "failed": 3,
+    "blocked": 30
+  },
+  "accepted_count": 139,
+  "selected_module_count": 172,
+  "full_selected_graph_passed": false,
+  "milestone_met": false,
+  "whole_committed_source_graph_passed": false,
+  "final_validation": {
+    "checked_utc": "2026-11-04T00:59:49.723146+00:00",
+    "checked_module_count": 139,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "failures": [
+    "LSConicJets",
+    "LSStandardConicDifferential",
+    "LSProductGeometry"
+  ],
+  "error_count": 33,
+  "phase": "completed",
+  "validated_seed_count": 46,
+  "seed_file": "VALIDATED_SEEDS.json"
+}

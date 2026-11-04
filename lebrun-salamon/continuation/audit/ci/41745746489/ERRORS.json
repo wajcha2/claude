@@ -1,0 +1,596 @@
+[
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Type mismatch\n  Eq.symm EQ.equation\nhas type\n  ∑ i, externalProductSection (projectiveLineVariety P).structureMap (EQ.left i) (EQ.right i) = curvePull P f L B\nbut is expected to have type\n  ∑ x, externalProductSection P.structureMap (EQ.left x) (EQ.right x) =\n    ∑ x, externalProductSection P.structureMap (EP.left x) (EP.right x)",
+    "endPos": {
+      "column": 24,
+      "line": 1242
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 1242
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  externalProductSection ?s ?a ?b ≫ externalTensorMap ?s ?q ?q\nin the target expression\n  externalProductSection P.structureMap (pullSection f.map (E.left i) ≫ (Scheme.Modules.pullback f.map).map q)\n      (pullSection f.map (E.right i) ≫ (Scheme.Modules.pullback f.map).map q) =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P f E).left i)\n        ((pulledExpansion P f E).right i) ≫\n      externalTensorMap P.structureMap ((Scheme.Modules.pullback f.map).map q) ((Scheme.Modules.pullback f.map).map q)\n\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf : RationalCurve P X\nL M : LineBundle X.scheme\nq : L.sheaf ⟶ M.sheaf\nB : ExternalSquareSections X L\nE : ExternalExpansion X L B\ni : Fin (pulledExpansion P f (SourceMixedSymbol.mappedExpansion E q)).size\nhi : i ∈ Finset.univ\n⊢ externalProductSection P.structureMap (pullSection f.map (E.left i) ≫ (Scheme.Modules.pullback f.map).map q)\n      (pullSection f.map (E.right i) ≫ (Scheme.Modules.pullback f.map).map q) =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P f E).left i)\n        ((pulledExpansion P f E).right i) ≫\n      externalTensorMap P.structureMap ((Scheme.Modules.pullback f.map).map q) ((Scheme.Modules.pullback f.map).map q)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule f.map L.sheaf\n  has type\n    OModule ProjectiveLine\n  but is expected to have type\n    SheafOfModules ProjectiveLine.ringCatSheaf\n  in the application\n    @CategoryStruct.comp (SheafOfModules ProjectiveLine.ringCatSheaf) SheafOfModules.instCategory.toCategoryStruct\n      (SheafOfModules.unit ProjectiveLine.ringCatSheaf) (pullbackModule f.map L.sheaf)",
+    "endPos": {
+      "column": 48,
+      "line": 1281
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 4,
+      "line": 1281
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "`simp` made no progress\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    m\n  has type\n    SectionsOn (pullbackModule f.map C.sequence.line.sheaf)\n        S.frame.openSet ≃ₗ[RingSections ProjectiveLine S.frame.openSet]\n      RingSections ProjectiveLine S.frame.openSet\n  but is expected to have type\n    SectionsOn (pullbackBundle f.map C.sequence.line).sheaf\n        S.frame.openSet ≃ₗ[RingSections ProjectiveLine S.frame.openSet]\n      RingSections ProjectiveLine S.frame.openSet\n  in the application\n    SourceMixedSymbol.frameOn S.frame m",
+    "endPos": {
+      "column": 19,
+      "line": 1397
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 17,
+      "line": 1397
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "(kernel) excessive memory consumption detected",
+    "endPos": {
+      "column": 30,
+      "line": 1432
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 1432
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  RingHomInvPair (RingHom.id (RingSections (projectiveLineVariety P).scheme (e.inv ⁻¹ᵁ S.openSet)))\n    (RingHom.id (RingSections (projectiveLineVariety P).scheme (e.inv ⁻¹ᵁ S.openSet)))\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 88,
+      "line": 1454
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 4,
+      "line": 1451
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  S.evaluation\n    ((pulledExpansion P (isoCurve P e he) K.expansion).mixedSecond\n      (SourceMixedSymbol.frameOn S.frame\n        (PointFrame.LocalFrameJetProof.coefficientOn F.frame (isoCurve P e he).map S.frame.openSet hV))\n      u u)\nin the target expression\n  S.evaluation lambda ^ 2 * S.evaluation (EP.mixedSecond R u u) = -2 * S.evaluation (S.frame.coefficient u) ^ 2\n\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\np : ProjectiveLinePoint P\nS : PointFrame (projectiveLineVariety P) (identityCurveContact P).sequence.line { map := p.map, overC := ⋯ }\nu : SectionsOn (tangentSheaf P.structureMap) S.frame.openSet\nx : ComplexPoint (projectiveLineVariety P) := { map := p.map ≫ e.hom, overC := ⋯ }\nH : AffineLineFrame (identityCurveContact P).sequence.line := imageFrame P e he S.frame\nhV : S.frame.openSet ≤ e.hom ⁻¹ᵁ H.openSet\nhr : Set.range ⇑x.map ⊆ Set.range ⇑H.openSet.ι\nF : PointFrame (projectiveLineVariety P) (identityCurveContact P).sequence.line x :=\n  { frame := H, pointLift := IsOpenImmersion.lift H.openSet.ι x.map hr, overPoint := ⋯ }\nA : ContactAtPoint (identityCurveContact P) F\nK : NormalizedContactKernel (projectiveLineVariety P) (identityCurveContact P) := SourceMixedSymbol.sourceKernel P\nEP : ExternalExpansion (projectiveLineVariety P)\n  (pullbackBundle (isoCurve P e he).map (identityCurveContact P).sequence.line)\n  (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line K.twoPointSection) :=\n  pulledExpansion P (isoCurve P e he) K.expansion\nq : pullbackModule e.hom (tangentSheaf P.structureMap) ⟶ tangentSheaf P.structureMap := (derivativeIso P e he).inv\nm : SectionsOn (pullbackModule e.hom (identityCurveContact P).sequence.line.sheaf)\n    S.frame.openSet ≃ₗ[RingSections ProjectiveLine S.frame.openSet]\n  RingSections ProjectiveLine S.frame.openSet :=\n  PointFrame.LocalFrameJetProof.coefficientOn F.frame e.hom S.frame.openSet hV\nR : AffineLineFrame (pullbackBundle e.hom (identityCurveContact P).sequence.line) := SourceMixedSymbol.frameOn S.frame m\nlambda : RingSections ProjectiveLine R.openSet := SourceMixedSymbol.multiplier q R S.frame.coefficient\nh2 :\n  VanishesQuadraticallyAlongDiagonal P.structureMap\n    (externalSquareLine P.structureMap\n        (pullbackBundle (isoCurve P e he).map (identityCurveContact P).sequence.line)).sheaf\n    (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line K.twoPointSection)\nhraw :\n  S.evaluation\n      ((pulledExpansion P (isoCurve P e he) K.expansion).mixedSecond\n        (SourceMixedSymbol.frameOn S.frame\n          (PointFrame.LocalFrameJetProof.coefficientOn F.frame (isoCurve P e he).map S.frame.openSet hV))\n        u u) =\n    -2 *\n      S.evaluation\n          ((PointFrame.LocalFrameJetProof.coefficientOn F.frame (isoCurve P e he).map S.frame.openSet hV)\n            ((ConcreteCategory.hom (Scheme.Modules.Hom.app (derivativeIso P e he).hom S.frame.openSet)) u)) ^\n        2\nhmapped :\n  S.evaluation ((sourceTransportExpansion P e he).mixedSecond S.frame u u) =\n    S.evaluation lambda ^ 2 * S.evaluation (EP.mixedSecond R u u)\nhdu :\n  (ConcreteCategory.hom (Scheme.Modules.Hom.app q S.frame.openSet))\n      ((ConcreteCategory.hom (Scheme.Modules.Hom.app (derivativeIso P e he).hom S.frame.openSet)) u) =\n    u\nhcoeff :\n  S.frame.coefficient u =\n    lambda * m ((ConcreteCategory.hom (Scheme.Modules.Hom.app (derivativeIso P e he).hom S.frame.openSet)) u)\nhvalue :\n  S.evaluation (S.frame.coefficient u) =\n    S.evaluation lambda *\n      S.evaluation (m ((ConcreteCategory.hom (Scheme.Modules.Hom.app (derivativeIso P e he).hom S.frame.openSet)) u))\n⊢ S.evaluation lambda ^ 2 * S.evaluation (EP.mixedSecond R u u) = -2 * S.evaluation (S.frame.coefficient u) ^ 2\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    R\n  has type\n    AffineLineFrame (pullbackBundle e.hom (identityCurveContact P).sequence.line)\n  but is expected to have type\n    AffineLineFrame (pullbackBundle (isoCurve P e he).map (identityCurveContact P).sequence.line)\n  in the application\n    EP.mixedSecond R",
+    "endPos": {
+      "column": 21,
+      "line": 1563
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 17,
+      "line": 1563
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Type mismatch: After simplification, term\n  h\n has type\n  @Eq\n    (SheafOfModules.unit (SelfProduct P.structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule e.hom (tangentSheaf P.structureMap))\n        (pullbackModule e.hom (tangentSheaf P.structureMap)))\n    (curvePull P (isoCurve P e he) (intrinsicTangentBundle (projectiveLineVariety P)) (sourceBivector P) ≫\n      𝟙\n        (externalTensor P.structureMap (pullbackModule e.hom (tangentSheaf P.structureMap))\n          (pullbackModule e.hom (tangentSheaf P.structureMap))))\n    (sourceBivector P ≫ externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom)\nbut is expected to have type\n  @Eq\n    (ExternalSquareSections (projectiveLineVariety P)\n      (pullbackBundle (isoCurve P e he).map (intrinsicTangentBundle (projectiveLineVariety P))))\n    (curvePull P (isoCurve P e he) (intrinsicTangentBundle (projectiveLineVariety P)) (sourceBivector P))\n    (sourceBivector P ≫ externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom)",
+    "endPos": {
+      "column": 76,
+      "line": 1652
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 2,
+      "line": 1652
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  externalProductSection ?s ?a ?b ≫ externalTensorMap ?s ?q ?q\nin the target expression\n  externalProductSection P.structureMap (pullSection e.hom (pullSection f.map (E.left i)))\n        (pullSection e.hom (pullSection f.map (E.right i))) ≫\n      externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom\n        (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P g E).left i)\n      ((pulledExpansion P g E).right i)\n\nP : ProjectiveLineOverC\nd : ℕ\nX : SmoothProperComplexVariety d\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nL : LineBundle X.scheme\nB : ExternalSquareSections X L\nE : ExternalExpansion X L B\ni : Fin (pulledExpansion P (isoCurve P e he) (pulledExpansion P f E)).size\nhi : i ∈ Finset.univ\n⊢ externalProductSection P.structureMap (pullSection e.hom (pullSection f.map (E.left i)))\n        (pullSection e.hom (pullSection f.map (E.right i))) ≫\n      externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom\n        (compositionPullback e.hom f.map g.map ⋯ L.sheaf).hom =\n    externalProductSection (projectiveLineVariety P).structureMap ((pulledExpansion P g E).left i)\n      ((pulledExpansion P g E).right i)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    externalTensor P.structureMap (pullbackModule g.map L.sheaf) (pullbackModule g.map L.sheaf)\n  has type\n    OModule (SelfProduct P.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct P.structureMap).ringCatSheaf\n  in the application\n    SheafOfModules.unit (SelfProduct P.structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule g.map L.sheaf) (pullbackModule g.map L.sheaf)",
+    "endPos": {
+      "column": 50,
+      "line": 1695
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 6,
+      "line": 1695
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nB : ExternalSquareSections X C.sequence.line\nh : CurveKernelIdentity P C f B\nhf :\n  curvePull P f C.sequence.line B =\n    sourceBivector P ≫ externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)\nc : pullbackModule e.hom (pullbackModule f.map C.sequence.line.sheaf) ⟶ pullbackModule g.map C.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ C.sequence.line.sheaf).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) := (derivativeIso P e he).hom\nqf : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map C.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P C f)\nhq : qe ≫ qf ≫ c = curveContactVelocity P C g\n⊢ (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) ≫\n        externalTensorMap P.structureMap\n          ((Scheme.Modules.pullback (isoCurve P e he).map).map (curveContactVelocity P C f))\n          ((Scheme.Modules.pullback (isoCurve P e he).map).map (curveContactVelocity P C f))) ≫\n      externalTensorMap P.structureMap c c =\n    (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P) ≫\n        externalTensorMap P.structureMap qf qf) ≫\n      externalTensorMap P.structureMap c c",
+    "endPos": {
+      "column": 69,
+      "line": 1758
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 48,
+      "line": 1758
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSConicJets",
+    "caption": "",
+    "data": "unsolved goals\nP : ProjectiveLineOverC\nn : ℕ\nX : SmoothProperComplexVariety (2 * n + 1)\nC : IntrinsicContactStructure X\nf g : RationalCurve P X\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nhg : g.map = e.hom ≫ f.map\nB : ExternalSquareSections X C.sequence.line\nh : CurveKernelIdentity P C f B\nhf :\n  curvePull P f C.sequence.line B =\n    sourceBivector P ≫ externalTensorMap P.structureMap (curveContactVelocity P C f) (curveContactVelocity P C f)\nc : pullbackModule e.hom (pullbackModule f.map C.sequence.line.sheaf) ⟶ pullbackModule g.map C.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ C.sequence.line.sheaf).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) := (derivativeIso P e he).hom\nqf : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map C.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P C f)\nhq : qe ≫ qf ≫ c = curveContactVelocity P C g\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap qe qe ≫\n        externalTensorMap P.structureMap qf qf ≫ externalTensorMap P.structureMap c c =\n    sourceBivector P ≫ externalTensorMap P.structureMap (qe ≫ qf ≫ c) (qe ≫ qf ≫ c)",
+    "endPos": {
+      "column": 56,
+      "line": 1763
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicJets.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 91,
+      "line": 1762
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unexpected token 'section'; expected identifier",
+    "endPos": {
+      "column": 11,
+      "line": 38
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": true,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 3,
+      "line": 38
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown identifier `tensorPullbackComparison_isIso`",
+    "endPos": {
+      "column": 40,
+      "line": 48
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 10,
+      "line": 48
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nS B : Scheme\npi : S ⟶ B\nT : Scheme\nf : T ⟶ Square pi\nL : LineBundle S\n⊢ pullbackModule f (line pi L).sheaf ≅\n    tensorSheaf (pullbackModule (f ≫ first pi) L.sheaf) (pullbackModule (f ≫ second pi) L.sheaf)",
+    "endPos": {
+      "column": 71,
+      "line": 54
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 52,
+      "line": 47
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unexpected token 'section'; expected ')', '↑', '↥', '⇑' or term",
+    "endPos": {
+      "column": 26,
+      "line": 58
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": true,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 19,
+      "line": 58
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unexpected identifier; expected command",
+    "endPos": {
+      "column": 31,
+      "line": 58
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": true,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 30,
+      "line": 58
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unexpected token ','; expected command",
+    "endPos": {
+      "column": 14,
+      "line": 63
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": true,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 13,
+      "line": 63
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unexpected name `RelativeBox` after `end`: The current section is unnamed\n\nHint: Delete the name `RelativeBox` to end the current unnamed scope; outer named scopes can then be closed using additional `end` command(s):\n  end ̵R̵e̵l̵a̵t̵i̵v̵e̵B̵o̵x̵",
+    "endPos": {
+      "column": 15,
+      "line": 68
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 0,
+      "line": 68
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unexpected name `LeBrunSalamon.Construction.TraitContact` after `end`: The current section is unnamed\n\nHint: Delete the name `LeBrunSalamon.Construction.TraitContact` to end the current unnamed scope; outer named scopes can then be closed using additional `end` command(s):\n  end ̵L̵e̵B̵r̵u̵n̵S̵a̵l̵a̵m̵o̵n̵.̵C̵o̵n̵s̵t̵r̵u̵c̵t̵i̵o̵n̵.̵T̵r̵a̵i̵t̵C̵o̵n̵t̵a̵c̵t̵",
+    "endPos": {
+      "column": 43,
+      "line": 70
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 0,
+      "line": 70
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown identifier `tensorPullbackComparison_isIso`",
+    "endPos": {
+      "column": 40,
+      "line": 105
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 10,
+      "line": 105
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nS B : Scheme\npi : S ⟶ B\nF : StandardSource\nk : Fin 3\nc : Plane ⟶ F.source := modelMap F k\nH : OModule (ComplexProjectiveSpace 1) := (projectiveCoordinates 1).hyperplane.sheaf\n⊢ pullbackModule (modelMap F k) (line F).sheaf ≅ structureModule Plane",
+    "endPos": {
+      "column": 71,
+      "line": 117
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 76,
+      "line": 102
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown identifier `tensorPullbackComparison_isIso`",
+    "endPos": {
+      "column": 40,
+      "line": 125
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 10,
+      "line": 125
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nF : StandardSource\nk : Fin 3\ni j : Fin 2\n⊢ pullSection (modelMap F k) (coordinate F i j) ≫ (chartLineFrame F k).hom =\n    scalarSection\n      (coefficient (leftIndex k) i (planeFunction (leftPolynomial k)) *\n        coefficient (rightIndex k) j (planeFunction (rightPolynomial k)))",
+    "endPos": {
+      "column": 55,
+      "line": 138
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 79,
+      "line": 124
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nF : StandardSource\nk : Fin 3\n⊢ scalarSection\n      ((if True then 1 else planeFunction (leftPolynomial k)) * if True then 1 else planeFunction (rightPolynomial k)) =\n    𝟙 (SheafOfModules.unit Plane.ringCatSheaf)",
+    "endPos": {
+      "column": 65,
+      "line": 146
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 34,
+      "line": 143
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown constant `LeBrunSalamon.Construction.TraitContact.RelativeBox.section`",
+    "endPos": {
+      "column": 21,
+      "line": 290
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 2,
+      "line": 290
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown constant `LeBrunSalamon.Construction.TraitContact.RelativeBox.section`",
+    "endPos": {
+      "column": 21,
+      "line": 291
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 2,
+      "line": 291
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown constant `LeBrunSalamon.Construction.TraitContact.RelativeBox.section`",
+    "endPos": {
+      "column": 39,
+      "line": 294
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 20,
+      "line": 294
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  HMul (GlobalSections (structureModule T)) (GlobalSections (structureModule T)) ?m.57\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 72,
+      "line": 303
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 21,
+      "line": 303
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown constant `LeBrunSalamon.Construction.TraitContact.RelativeBox.section`",
+    "endPos": {
+      "column": 38,
+      "line": 338
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 19,
+      "line": 338
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown constant `LeBrunSalamon.Construction.TraitContact.RelativeBox.pullIso_section`",
+    "endPos": {
+      "column": 33,
+      "line": 344
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 6,
+      "line": 344
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nF : StandardSource\nT : Scheme\nf : T ⟶ Square F\ne : pullbackModule (f ≫ first F.parameter) (StandardConicDifferential.line F).sheaf ≅ structureModule T\ng : pullbackModule (f ≫ second F.parameter) (StandardConicDifferential.line F).sheaf ≅ structureModule T\ni j k l : Fin 2\n⊢ (pullSection f sorry ≫ (pullIso F.parameter f (StandardConicDifferential.line F)).hom) ≫\n      (tensorIso e g ≪≫ TensorConstruction.leftUnitIso (structureModule T)).hom =\n    scalarSection (firstCoefficient F f e i j * secondCoefficient F f g k l)",
+    "endPos": {
+      "column": 28,
+      "line": 345
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 84,
+      "line": 341
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "Unknown identifier `Normalization.pullSection_sub`",
+    "endPos": {
+      "column": 46,
+      "line": 363
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 17,
+      "line": 363
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSStandardConicDifferential",
+    "caption": "",
+    "data": "unsolved goals\nF : StandardSource\nT : Scheme\nf : T ⟶ Square F\ne : pullbackModule (f ≫ first F.parameter) (StandardConicDifferential.line F).sheaf ≅ structureModule T\ng : pullbackModule (f ≫ second F.parameter) (StandardConicDifferential.line F).sheaf ≅ structureModule T\nhadd : ∀ {G : OModule (Square F)} (s t : AlgebraicSection G), pullSection f (s + t) = pullSection f s + pullSection f t\n⊢ pullSection f\n        (sorry + sorry -\n          sectionFromValue\n            ((2 * (ConcreteCategory.hom (Scheme.Hom.appTop (squareProjection F))) parameterFunction) •\n              sectionValue sorry)) ≫\n      (testFrame F f e g).hom =\n    scalarSection\n      (firstCoefficient F f e 1 0 * secondCoefficient F f g 0 1 +\n          firstCoefficient F f e 0 1 * secondCoefficient F f g 1 0 -\n        2 * (ConcreteCategory.hom (Scheme.Hom.appTop (f ≫ squareProjection F))) parameterFunction *\n          (firstCoefficient F f e 0 0 * secondCoefficient F f g 0 0))",
+    "endPos": {
+      "column": 5,
+      "line": 371
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardConicDifferential.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "Tactic.unsolvedGoals",
+    "pos": {
+      "column": 75,
+      "line": 359
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSProductGeometry",
+    "caption": "",
+    "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (6000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 51,
+      "line": 105
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSProductGeometry.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "runtime.maxHeartbeats",
+    "pos": {
+      "column": 87,
+      "line": 70
+    },
+    "severity": "error"
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "failed",
+  "module": "LSCanonicalSectionBaseChange",
+  "key": {
+    "source_sha256": "4080dbf5913b695d8170c1fd4e40051612cb8eee08bb724a0a34cff80e57f523",
+    "imports": [
+      "RecompileBasePart05B",
+      "LSResidueTensorLift"
+    ],
+    "dependency_artifacts": {
+      "RecompileBasePart05B": {
+        "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+        "kind": "project"
+      },
+      "LSResidueTensorLift": {
+        "sha256": "d670c8e97e75d7b7d1c4a191f536b3739e85cddf76ecffefe6727f558586db70",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/olean/LSCanonicalSectionBaseChange.olean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/source/LSCanonicalSectionBaseChange.lean"
+  ],
+  "started_utc": "2026-11-04T00:45:46.459382+00:00",
+  "stdout": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/logs/LSCanonicalSectionBaseChange.20261104T004546459344.stdout.jsonl",
+  "stderr": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/logs/LSCanonicalSectionBaseChange.20261104T004546459344.stderr.txt",
+  "return_code": 1,
+  "finished_utc": "2026-11-04T00:45:54.166453+00:00",
+  "seconds": 7.707,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e505b71c0faed5a3a77131f950090a0a3411de8d9f6c9efab524197248d6abbd",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

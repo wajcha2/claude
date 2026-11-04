@@ -10,6 +10,7 @@ import LSSecondDiagonalAlgebra
 import LSSectionCover
 import LSExternalFrameCoefficients
 import LSPublishedProjectiveSpace
+import LSStandardTautologicalP1
 import Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule
 import Mathlib.Topology.Sheaves.SheafCondition.Sites
 
@@ -4679,8 +4680,43 @@ theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.projectiveCo
 theorem projectiveCoordinates_exists (N : ℕ) : Nonempty (ProjectiveCoordinates N) :=
   LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.projectiveCoordinates N
 
-def projectiveCoordinates (N : ℕ) : ProjectiveCoordinates N :=
-  Classical.choice (projectiveCoordinates_exists N)
+/-- The public coordinates use the normalized standard tautological line,
+sections and frames from one common choice. The generic record alone does
+not determine its homogeneous-coordinate normalization. -/
+def projectiveCoordinates (N : ℕ) : ProjectiveCoordinates N where
+  hyperplane := StandardTautological.line ℂ N
+  coordinate := StandardTautological.coordinate ℂ N
+  generates := StandardTautological.generates ℂ N
+  universal := by
+    intro T s F b hb
+    have hmap := (StandardTautological.chosen ℂ N).universal T s F.sheaf F.locallyFree b hb
+    simpa only [PointsOver, StandardTautological.toSpec, StandardTautological.constants,
+      StandardTautological.space, StandardTautological.grading, projectiveBaseMap,
+      constantsToDegreeZero, StandardTautological.coordinate, StandardTautological.line] using hmap
+
+def projectiveCoordinateFrame (N : ℕ) (i : Fin (N + 1)) :
+    LocalFrames.OverFrame (projectiveCoordinates N).hyperplane.sheaf
+      (StandardTautological.chart ℂ N i) :=
+  StandardTautological.frame ℂ N i
+
+theorem projectiveCoordinateFrame_coefficient (N : ℕ) (i j : Fin (N + 1)) :
+    LocalFrames.coordinates (projectiveCoordinateFrame N i)
+      (Scheme.Modules.Hom.app ((projectiveCoordinates N).coordinate j)
+        (StandardTautological.chart ℂ N i)
+        (1 : RingSections (StandardTautological.space ℂ N)
+          (StandardTautological.chart ℂ N i))) =
+      StandardTautological.ratioSection ℂ N i j :=
+  StandardTautological.section_coordinates ℂ N i j
+
+/-- The normalized public hyperplane on P1 is the original marked O(1). -/
+def projectiveCoordinates_markedOneIso (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P) :
+    (projectiveCoordinates 1).hyperplane.sheaf ≅ (projectiveTwist P p 1).sheaf :=
+  StandardTautologicalP1.markedOneIso P p
+
+theorem projectiveCoordinates_hyperplane_degree_one
+    (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P) :
+    projectiveLineDegree P p (projectiveCoordinates 1).hyperplane = 1 :=
+  StandardTautologicalP1.degree_one P p
 
 /-- Homogeneous coordinates are tied to the universal quotient. An
 arbitrary bijection between complex points and lines is not accepted. -/

@@ -9,8 +9,9 @@ below keeps the actual tensor-product ring and the actual principal open.
 The contact-specific dominance conclusion is proved by the existing
 ordinary fibre-rigidity argument.
 
-A focused native diagnostic reached its wall limit. Current-source kernel replay
-is pending; exact receipts are in audit/ci_compatibility_repairs/.
+The scalar-tower finite-type step is proved for abstract algebras before
+specializing to cone coordinate rings. The principal open uses its actual
+specified product ring.
 -/
 
 noncomputable section
@@ -51,11 +52,22 @@ instance affineBaseMap_finiteType (A : Type) [CommRing A] [Algebra ℂ A]
   rw [HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)]
   exact RingHom.finiteType_algebraMap.mpr inferInstance
 
+/-- Keep the scalar-tower proof abstract before specializing to cone
+coordinate rings, so elaboration does not expand their quotient operations. -/
+theorem tensorProduct_finiteType (A B : Type) [CommRing A] [CommRing B]
+    [Algebra ℂ A] [Algebra ℂ B]
+    [Algebra.FiniteType ℂ A] [Algebra.FiniteType ℂ B] :
+    Algebra.FiniteType ℂ (A ⊗[ℂ] B) := by
+  have hbase : Algebra.FiniteType A (A ⊗[ℂ] B) :=
+    Algebra.FiniteType.baseChange (R := ℂ) (A := B) A
+  exact Algebra.FiniteType.trans (R := ℂ) (S := A) (A := A ⊗[ℂ] B)
+    (inferInstance : Algebra.FiniteType ℂ A) hbase
+
 variable {n : ℕ} (X : ContactFanoManifold n) (x : ComplexPoint X.variety)
 variable (C : GlobalVelocity.TargetChart X.variety x)
 variable (D : LegendrianDirections X x C)
 
-set_option maxHeartbeats 6000000 in
+set_option maxHeartbeats 250000 in
 /-- Published component geometry supplies the actual hypotheses of the
 ordinary cone-addition theorem. A witnessed nonzero Levi value makes the
 principal open nonempty; there is no component-spanning hypothesis. -/
@@ -76,11 +88,8 @@ theorem componentAddition_denseRange
   obtain ⟨hdom, hdim⟩ := LeBrunSalamon.StandardInputs.finiteType_tensorProduct_geometry
     (CoordinateRing S) (CoordinateRing T)
   letI : IsDomain (ProductRing S T) := hdom
-  have hbaseChange : Algebra.FiniteType (CoordinateRing S) (ProductRing S T) :=
-    Algebra.FiniteType.baseChange (R := ℂ) (A := CoordinateRing T) (CoordinateRing S)
   letI : Algebra.FiniteType ℂ (ProductRing S T) :=
-    Algebra.FiniteType.trans (R := ℂ) (S := CoordinateRing S) (A := ProductRing S T)
-      (inferInstance : Algebra.FiniteType ℂ (CoordinateRing S)) hbaseChange
+    tensorProduct_finiteType (CoordinateRing S) (CoordinateRing T)
   letI : LocallyOfFiniteType (affineBaseMap (ProductRing S T)) :=
     affineBaseMap_finiteType (ProductRing S T)
   have hU : (U : Set (productScheme S T)).Nonempty :=
@@ -89,8 +98,10 @@ theorem componentAddition_denseRange
   letI : IsIntegral U.toScheme := isIntegral_of_isOpenImmersion U.ι
   letI : LocallyOfFiniteType (U.ι ≫ affineBaseMap (ProductRing S T)) :=
     locallyOfFiniteType_comp U.ι (affineBaseMap (ProductRing S T))
-  letI : IsAffine U.toScheme :=
-    IsAffineOpen.Spec_basicOpen (pairingFunction S T (omega X x C))
+  letI : IsAffine U.toScheme := by
+    change IsAffineOpen (nonorthogonalOpen S T (omega X x C))
+    exact IsAffineOpen.Spec_basicOpen (R := CommRingCat.of (ProductRing S T))
+      (pairingFunction S T (omega X x C))
   letI : QuasiCompact (U.ι ≫ affineBaseMap (ProductRing S T)) :=
     (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact)).mpr inferInstance
   have hdimension : (dimension (n := n) + 1 : WithBot ℕ∞) ≤

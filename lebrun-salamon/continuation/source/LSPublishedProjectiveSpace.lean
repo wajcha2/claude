@@ -1,4 +1,5 @@
 import RecompileBasePart06
+import LSStandardTautological
 
 /-!
 Generic published projective-space inputs and proved coefficient maps.
@@ -63,7 +64,9 @@ theorem universalInvertibleQuotient (R : Type) [CommRing R] (N : ℕ) :
             ∃! f : {f : T ⟶ space R N // f ≫ toSpec R N = s},
               ∃ e : pullbackModule f.val L ≅ F,
                 ∀ i, pullSection f.val (a i) ≫ e.hom = b i := by
-  sorry
+  let d := StandardTautological.chosen R N
+  refine ⟨d.sheaf, d.locallyFree, d.coordinate, d.generates, ?_⟩
+  exact d.universal
 
 end LeBrunSalamon.PublishedInputs.ProjectiveSpace
 

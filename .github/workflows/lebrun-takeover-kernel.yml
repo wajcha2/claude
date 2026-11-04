@@ -38,8 +38,8 @@ jobs:
       - name: Download prior native compiler evidence
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-takeover-kernel-41732181431-1
-          run-id: 41732181431
+          name: lebrun-takeover-kernel-41745746489-1
+          run-id: 41745746489
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/lebrun-prior-evidence
 
@@ -50,8 +50,27 @@ jobs:
             --runtime-config runtime-config.json \
             --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" \
             --build-dir kernel-evidence \
-            --source-run-id 41732181431 \
-            --source-artifact-name lebrun-takeover-kernel-41732181431-1
+            --source-run-id 41745746489 \
+            --source-artifact-name lebrun-takeover-kernel-41745746489-1
+
+      - name: Check current Ext01 interface and its dependencies first
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
+            --root lebrun-salamon/continuation \
+            --runtime-config runtime-config.json \
+            --build-dir kernel-evidence \
+            --module RecompileExtensionsPart01 --keep-going
+
+      - name: Preserve early Ext01 interface evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-takeover-early-ext01-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            kernel-evidence/
+          if-no-files-found: warn
 
       - name: Check selected modules and their dependencies
         env:

@@ -1,0 +1,68 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSStandardTautologicalNativeAudit",
+  "key": {
+    "source_sha256": "2efedb8ebfe570696d47e7afee84da38148ce2f865b17a08b521b84238eb8b60",
+    "imports": [
+      "LSResidueTensorLift",
+      "LSNormalizedProjectiveCoordinates",
+      "Lean.Util.CollectAxioms"
+    ],
+    "dependency_artifacts": {
+      "LSResidueTensorLift": {
+        "sha256": "d670c8e97e75d7b7d1c4a191f536b3739e85cddf76ecffefe6727f558586db70",
+        "kind": "project"
+      },
+      "LSNormalizedProjectiveCoordinates": {
+        "sha256": "4c24ee5d18fe8d97f532bb9750338436c13c0aff8a83f7932d78a96c95979ab3",
+        "kind": "project"
+      },
+      "Lean.Util.CollectAxioms": {
+        "sha256": "60556ab5263a908aa74a5e65620b5e957cac3846aa6e4f05414434b8c12ea7de",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/olean/LSStandardTautologicalNativeAudit.olean",
+    "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/source/LSStandardTautologicalNativeAudit.lean"
+  ],
+  "started_utc": "2026-11-04T00:48:07.366791+00:00",
+  "stdout": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/logs/LSStandardTautologicalNativeAudit.20261104T004807366758.stdout.jsonl",
+  "stderr": "/workspace/scratch/4deac2cdddbb/lebrun_takeover/kernel_tautological/build/logs/LSStandardTautologicalNativeAudit.20261104T004807366758.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T00:48:25.544725+00:00",
+  "seconds": 18.177,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "127af057e2348807ca23a90ff5a2f2fa3a4d9d655e55526c305128f010e7120f",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "ba5e305934b89673971f7bd8efbd31df3da19c0b6e5d990bc09dc1a59b3ac37b",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -318,9 +318,11 @@ theorem node_surjective (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)
     apply (sectionValue_bijective _).injective
     exact ha
   refine ⟨sectionFromValue a, ?_⟩
-  rw [hs]
-  change (v ≫ e.inv) ≫ e.hom = v
-  simp only [Category.assoc, Iso.inv_hom_id, Category.comp_id]
+  change pullSection p.map (sectionFromValue a) ≫ e.hom = v
+  exact (congrArg (fun t : AlgebraicSection (pullbackModule p.map (pullbackModule i E)) =>
+    t ≫ e.hom) hs).trans (by
+      change (v ≫ e.inv) ≫ e.hom = v
+      simp only [Category.assoc, Iso.inv_hom_id, Category.comp_id])
 
 /-- In particular a line of degrees at least (0,-1) on the two rational
 branches has H¹=0. Degree (1,1) satisfies these hypotheses. -/

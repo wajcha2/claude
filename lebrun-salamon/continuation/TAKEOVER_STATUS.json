@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-04",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-04T00:03:44.890500+00:00",
+  "recorded_utc": "2026-11-04T01:05:53.044287+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,22 +25,22 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 172,
-    "lines": 112189,
-    "bytes": 5412244,
+    "modules": 213,
+    "lines": 116379,
+    "bytes": 5612642,
     "admissions": {
-      "sorry": 85,
+      "sorry": 97,
       "admit": 0,
       "axiom": 0,
       "opaque": 0
     },
-    "published_namespace_count_not_certification": 38,
+    "published_namespace_count_not_certification": 50,
     "other_direct_admissions": 47,
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-04T00:03:44.890500+00:00",
-    "aggregate_sha256": "3fcaed9594009b229a092691958a1195b634cf4aeaf994048200cca2f647e952",
+    "snapshot_utc": "2026-11-04T01:05:53.044287+00:00",
+    "aggregate_sha256": "ef0dca74eef6528db3f68bd95d94ca7e87e5a6b5064c957b621ef6c89b6a8382",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -70,10 +70,10 @@
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 67,
-    "affected_modules": 163,
+    "changed_modules": 108,
+    "affected_modules": 204,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 142,
+    "omitted_affected_descendants": 183,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
     "driver": "scripts/replay_checkpoint.py",
@@ -148,11 +148,13 @@
   "cumulative_ci_attempt": {
     "status": "awaiting_commit_and_automatic_push_trigger",
     "result_not_yet_accepted": true,
-    "source_modules_selected": 172,
-    "source_freeze_utc": "2026-11-04T00:03:44.890500+00:00",
+    "source_modules_selected": 213,
+    "source_freeze_utc": "2026-11-04T01:05:53.044287+00:00",
     "compiler_memory_cap_mb": 12000,
-    "strict_cache_source_run_id": 41732181431,
-    "expected_full_ancestry_cache_count": 30,
+    "strict_cache_source_run_id": 41745746489,
+    "expected_full_ancestry_cache_count": 46,
+    "early_interface_target": "RecompileExtensionsPart01",
+    "early_interface_artifact_is_full_graph_acceptance": false,
     "full_selected_graph_passed": false
   },
   "cumulative_ci_attempts": [
@@ -261,6 +263,29 @@
       "full_selected_graph_passed": false,
       "evidence": "audit/ci/41732181431/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
+    },
+    {
+      "run_id": 41745746489,
+      "commit": "6b976918d73e771813e661711f0395137b94c4f5",
+      "source_modules_selected": 172,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "reused": 30,
+        "passed": 109,
+        "failed": 3,
+        "blocked": 30
+      },
+      "accepted_count_at_that_commit": 139,
+      "failed_modules": [
+        "LSConicJets",
+        "LSStandardConicDifferential",
+        "LSProductGeometry"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41745746489/CI_RECEIPT.json",
+      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     }
   ],
   "proof_batch_previous_checkpoint": {
@@ -309,7 +334,7 @@
     }
   },
   "proof_batch": {
-    "status": "Step3c/3d actual-map translations and source-bivector proof integrated with native diagnostic evidence; full frozen-source replay and Point1 acceptance pending.",
+    "status": "Step3c/3d actual-map translations, source-bivector proof, normalized projective coordinates, and checked trait/lifting helpers integrated with native diagnostic evidence; original conclusion assembly, full frozen-source replay, and Point1 acceptance pending.",
     "kernel_accepted": false,
     "accepted_units_added": 0,
     "point1_obligation_count": 43,
@@ -338,7 +363,8 @@
       "audit/step3d_exactness_build/cdf_replay_20261103T233324",
       "audit/step3cd_diagonal_build",
       "audit/p1_source_bivector_work",
-      "audit/ci/41732181431"
+      "audit/ci/41732181431",
+      "audit/ci/41745746489"
     ]
   },
   "compatibility_repairs": {
@@ -363,29 +389,35 @@
       "LSProductGeometry": {
         "schema": "lebrun-compatibility-diagnostic-result-v1",
         "module": "LSProductGeometry",
-        "native_status": "timed_out",
-        "source_sha256": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
-        "return_code": 124,
-        "seconds": 120.35,
-        "finished_utc": "2026-11-03T23:58:44.489015+00:00",
+        "native_status": "passed",
+        "source_sha256": "3c866e6a890dc46b57b98b3ded1803a4578ffb1d2bd571848da861135dcfd774",
+        "previous_source_sha256": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
+        "return_code": 0,
+        "seconds": 5.735,
+        "finished_utc": "2026-11-04T00:52:50.824064+00:00",
+        "output_sha256": "ac3944e75c742603ca9e9e6cc22ed24645462f05e112cac906d6f309a717d9de",
         "compiler_memory_cap_mb": 7200,
-        "wall_time_cap_seconds": 120,
-        "source_diagnostics": 0,
+        "source_heartbeats_bound": 250000,
         "ancestor_count": 81,
         "ancestor_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
         "ancestor_ci_run": 41732181431,
         "final_validation": {
-          "checked_utc": "2026-11-03T23:58:45.674709+00:00",
-          "checked_module_count": 81,
+          "checked_utc": "2026-11-04T00:52:52.202022+00:00",
+          "checked_module_count": 82,
           "invalidated_modules": {},
           "changed_runtime_files": []
         },
-        "source_and_dependencies_unchanged": true,
-        "source_sha256_current": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
+        "source_sha256_current": "3c866e6a890dc46b57b98b3ded1803a4578ffb1d2bd571848da861135dcfd774",
         "current_source_bytes_match_tested": true,
+        "public_theorem_type_unchanged": true,
+        "existing_admitted_theorem_bytes_unchanged": true,
+        "direct_sorry_count": 1,
+        "new_admissions": 0,
         "full_current_graph_passed": false,
-        "scope": "Exact current ProductGeometry candidate over the coherent frozen-cdf ancestors; timeout without diagnostics supplies no native pass and no new concrete source error.",
-        "evidence_directory": "audit/ci_compatibility_repairs/product_cdf_20261103T235845"
+        "accepted_units_added": 0,
+        "evidence_directory": "audit/ci_compatibility_repairs/product_cdf_20261104T005252",
+        "change": "Prove finite-type tensor transitivity for abstract algebras before specializing to cone quotient rings; explicitly identify the principal-open ring and affine-open proposition.",
+        "scope": "Whole ProductGeometry source passes against coherent frozen-cdf ancestors. Current early ancestor changes require the next full graph replay. The existing generic product-geometry admission remains a later Step3m obligation."
       }
     },
     "unchanged_theorem_types_and_admissions": true,
@@ -393,27 +425,26 @@
     "relative_differential_evidence": "audit/STEP3F_RELATIVE_DIFFERENTIAL.json"
   },
   "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41732181431,
-    "commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
-    "source_modules_selected": 155,
+    "run_id": 41745746489,
+    "commit": "6b976918d73e771813e661711f0395137b94c4f5",
+    "source_modules_selected": 172,
     "compiler_memory_cap_mb": 12000,
     "status": "completed",
     "conclusion": "failure",
     "counts": {
-      "reused": 28,
-      "passed": 93,
-      "failed": 4,
+      "reused": 30,
+      "passed": 109,
+      "failed": 3,
       "blocked": 30
     },
-    "accepted_count_at_that_commit": 121,
+    "accepted_count_at_that_commit": 139,
     "failed_modules": [
       "LSConicJets",
-      "LSRelativeDifferential",
       "LSStandardConicDifferential",
       "LSProductGeometry"
     ],
     "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41732181431/CI_RECEIPT.json",
+    "evidence": "audit/ci/41745746489/CI_RECEIPT.json",
     "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
   },
   "proof_batch_history": [
@@ -462,6 +493,39 @@
         "audit/STEP3F_AFFINE_RELATIVE.json",
         "audit/p1_family_degree_build",
         "audit/ci/41728791345"
+      ]
+    },
+    {
+      "status": "Step3c/3d actual-map translations and source-bivector proof integrated with native diagnostic evidence; full frozen-source replay and Point1 acceptance pending.",
+      "kernel_accepted": false,
+      "accepted_units_added": 0,
+      "point1_obligation_count": 43,
+      "point1_complete": false,
+      "step3cd_native_or_exact_source_evidence": 17,
+      "evidence_directories": [
+        "audit/step3cd_build",
+        "audit/step3cd_projection_build",
+        "audit/step3cd_kunneth_cover_build",
+        "audit/tangent_determinant_build",
+        "audit/step3e_remaining_build",
+        "audit/step3f_native_batch",
+        "audit/point1_projective_laurent_build",
+        "audit/p1_picard_build",
+        "audit/p1_tangent_build",
+        "audit/ci_compatibility_repairs",
+        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+        "audit/step3f_nodal_compatibility",
+        "audit/step3f_hom_vanishing",
+        "audit/STEP3F_HOM_VANISHING.json",
+        "audit/STEP3F_AFFINE_RELATIVE.json",
+        "audit/p1_family_degree_build",
+        "audit/ci/41728791345",
+        "audit/STEP3D_INTEGRATION_READY.json",
+        "audit/step3d_transport_build",
+        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
+        "audit/step3cd_diagonal_build",
+        "audit/p1_source_bivector_work",
+        "audit/ci/41732181431"
       ]
     }
   ]

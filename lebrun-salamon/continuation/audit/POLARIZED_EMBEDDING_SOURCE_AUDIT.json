@@ -1,6 +1,6 @@
 {
   "schema": "lebrun-published-leaf-scope-audit-v1",
-  "date_utc": "2026-11-03",
+  "date_utc": "2026-11-04",
   "requested_statement": "For a proper flat scheme over a noetherian local ring, lift an arbitrary specified finite generating tuple inducing a closed immersion of the special fibre, assuming H1 of the fibre line bundle vanishes, preserving the specified projective dimension.",
   "mathematical_verdict": "Valid by cohomology and base change, properness and the projective-space universal property.",
   "published_leaf_eligibility": "The stronger arbitrary-tuple/H1-only packaging is not a literal statement of the checked Alper proposition or its displayed proof. No independent exact numbered theorem for that full packaging was found in this bounded search. It should be proved from smaller exact inputs, or narrowed to a literally documented hypothesis/construction.",
@@ -29,7 +29,7 @@
     "Use the existing canonical polynomial-Proj quotient universal property and prove base-change compatibility with the supplied fibre map.",
     "Apply the generic closed-immersion locus theorem05XA; over a local base, an open containing the closed point is all of SpecA."
   ],
-  "kernel_status": "Separated source/proof audit. Three new helpers have exact-byte native passes against frozen cdf ancestors; pending helpers and current full-graph acceptance are not counted as passed.",
+  "kernel_status": "Separated source/proof audit. Generic tautological data, actual marked-O1 comparison, residue tensor lifting, Yoneda splitting and local-base sections have exact-byte native passes. Remaining H0/constructor adapters and current full graph are pending.",
   "cohomology_followup": {
     "status": "Exact primary H1-to-canonical-H0 comparison corollary found and verified in Robert AppendixA.1; actual project adapters remain explicit proof work.",
     "alper": {
@@ -72,7 +72,7 @@
     "native_status": "Parent reports diagnostic pass5.230s. This independent review is mathematical source eligibility, not a replacement for its compiler receipt or current graph acceptance."
   },
   "standard_tautological_followup": {
-    "status": "Generic normalized tautological data passed native checking. P1 marked-O1 adapter remains pending after short wall caps; longer 90\u2013120s replay queued. Split normalized public constructor is drafted and unchecked.",
+    "status": "Generic normalized tautological Data and actual marked-O1/degree1 adapter both passed native checking against frozen cdf ancestors and are integrated. The normalized public record constructor and full closure/current-graph acceptance remain pending.",
     "sources": [
       {
         "url": "https://stacks.math.columbia.edu/tag/01MM",
@@ -98,17 +98,17 @@
       },
       {
         "file": "published_leaf_work/LSStandardTautologicalP1.lean",
-        "sha256": "150ada97e226eccdaf69426f276042e01928ccd550c89ec58e524e809d93182a",
-        "status": "pending"
+        "sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+        "status": "native_pass_frozen_cdf"
       },
       {
         "file": "published_leaf_work/LSNormalizedProjectiveConstructor.lean",
-        "sha256": "9053e7aa51223c7fcdef874c74f05c835cf0387af7485bf3181ad3a2e210362e",
+        "sha256": "f28f3c732d4118455f57cba2371b7f64e46ec607ee488bfe893dd18b180409e0",
         "status": "pending"
       },
       {
         "file": "published_leaf_work/LSNormalizedProjectiveCoordinates.lean",
-        "sha256": "9f21bfc3ef513a85c8a21cfbe367c1b5291dae3b67282ea1f7d72461b2ca7ff2",
+        "sha256": "2164a687018fa69cfd8d4ccbe42c7a790ab31aaf7326fcb3a2d098111aa5683d",
         "status": "pending"
       },
       {
@@ -118,7 +118,64 @@
       }
     ],
     "full_current_graph_acceptance": false,
-    "native_evidence": "audit/tautological_lifting_build/first_pass_20261103T234611/"
+    "native_evidence": "audit/tautological_lifting_build/first_pass_20261103T234611/",
+    "interrupted_evidence": "audit/tautological_lifting_build/interrupted_20261104T000259/",
+    "interrupted_run_scope": {
+      "started_utc": "2026-11-04T00:02:59Z",
+      "source_sha256": "d76433c776dee9de564ac5e5ec18d413c8c917a4c4e69ea087960226b5abd4cc",
+      "result": "interrupted_no_completion_receipt",
+      "frozen_source": "cdf4d8a5ae81407900431d905634c97bae4c9996 / CI41732181431",
+      "compiler_process_inventory_after_recovery": "No Lean or replay process remained; compiler explicitly released to source worker."
+    },
+    "generic_live_integration": {
+      "file": "source/LSStandardTautological.lean",
+      "sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+      "native_status": "exact-byte frozen-cdf diagnostic pass",
+      "current_graph_status": "pending full replay",
+      "public_constructor_changed": false
+    },
+    "p1_native_evidence": "audit/tautological_lifting_build/p1_pass_20261104T002932/",
+    "p1_live_integration": {
+      "file": "source/LSStandardTautologicalP1.lean",
+      "sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+      "native_seconds": 6.993,
+      "full_current_graph_acceptance": false
+    },
+    "public_normalization_integration": {
+      "RecompileExtensionsPart01": {
+        "sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "declarations": [
+          "LeBrunSalamon.Skeleton.projectiveCoordinates",
+          "LeBrunSalamon.Skeleton.projectiveCoordinateFrame",
+          "LeBrunSalamon.Skeleton.projectiveCoordinateFrame_coefficient",
+          "LeBrunSalamon.Skeleton.projectiveCoordinates_markedOneIso",
+          "LeBrunSalamon.Skeleton.projectiveCoordinates_hyperplane_degree_one"
+        ],
+        "proof_origin": [
+          "LSNormalizedProjectiveConstructor",
+          "LSNormalizedProjectiveCoordinates"
+        ]
+      },
+      "LSPublishedProjectiveSpace": {
+        "sha256": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
+        "declaration": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.universalInvertibleQuotient",
+        "change": "Old direct admission replaced by the passed projection from StandardTautological.chosen; signature unchanged."
+      }
+    },
+    "native_audit_evidence": "audit/tautological_lifting_build/normalized_audit_h0_20261104T004734/",
+    "native_audit_boundary": {
+      "markedOneIso": [
+        "PublishedInputs.ProjectiveSpace.standardTautological"
+      ],
+      "degree_one": [
+        "PublishedInputs.ProjectiveSpace.standardTautological",
+        "PublishedInputs.Picard.affineUFD_trivial",
+        "PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+      ],
+      "old_unnormalized_projective_admissions_in_dependency_closure": false,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    }
   },
   "yoneda_comparison_followup": {
     "primary_sources": [
@@ -139,34 +196,46 @@
     "remaining_adapter": "Native-check LSYonedaClassesRepresented and the actual sheaf H1 comparison adapter. The only contemplated comparison input is the general Ext1(O,E)-H1 theorem0B3A; Ext representation itself is proved.",
     "no_chosen_line_embedding_admitted": true
   },
-  "updated_utc": "2026-11-04T00:00:20.476949+00:00",
+  "updated_utc": "2026-11-04T00:55:02.078179+00:00",
   "h0_adapter_work": {
-    "status": "All below are off-graph candidates; no native pass claimed.",
+    "status": "First focused native pass completed: LSLocalBaseSections passed11.952s; canonical section base change, finite-rank/cohomology hypotheses and Yoneda class representation have isolated elaboration diagnostics under repair. No current graph acceptance.",
     "drafts": [
       {
         "file": "published_leaf_work/LSCanonicalSectionBaseChange.lean",
-        "sha256": "ce8f974e5766280d481baaccf97dd395c83da41a694f9e936923b4681b11f4dc",
+        "sha256": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0",
         "direct_sorry_count": 0
       },
       {
         "file": "published_leaf_work/LSCohomologyHypotheses.lean",
-        "sha256": "9d1108ffbc3d4512fcf3c111af69aceae1c609dcd0efa6c7146ac3a1ed99e192",
+        "sha256": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
         "direct_sorry_count": 0
       },
       {
         "file": "published_leaf_work/LSYonedaClassesRepresented.lean",
-        "sha256": "46933a71452f38f8f8b1a4b99becb09268e43392885ba38c3cf8b0af444d9f25",
+        "sha256": "a303d8d9732391d282369b848c1e6ef7c4d66893cf2d5cbd6645e28b6c350d94",
         "direct_sorry_count": 0
       },
       {
         "file": "published_leaf_work/LSLineStalkFlat.lean",
-        "sha256": "81ab10f248b977f9ffff1028e141390099837e770a11203dd052feb7a4164d9d",
+        "sha256": "0959960d5c2bcea3021589763bad56147babef98255fdba38d396a86c1c9c744",
         "direct_sorry_count": 0
       },
       {
         "file": "published_leaf_work/LSPublishedCohomologyBaseChange.lean",
-        "sha256": "b0c50e8817eecce122856b8def51dcb43e692aade6adeef213029e75218bc032",
+        "sha256": "89ae4aedd9f584f1e9398f1942787d5a39ffc0872e935af4737e6111fab3a556",
         "direct_sorry_count": 3
+      },
+      {
+        "file": "published_leaf_work/LSLocalBaseSections.lean",
+        "sha256": "7a57d5c6807dafb08f6f28e32f67d5a229887cd712998f20ebd114be7d398913",
+        "direct_sorry_count": 0,
+        "status": "native_pass_mathlib_only"
+      },
+      {
+        "file": "published_leaf_work/LSResidueFieldPresentation.lean",
+        "sha256": "237dd68efc84f62f5ab98a9b55102026a85a2f51a3d2ae3a939e05d3b1de792b",
+        "direct_sorry_count": 0,
+        "status": "native_pending"
       }
     ],
     "generic_published_inputs": [
@@ -181,9 +250,51 @@
       "Actual local frame generator gives a stalk linear equivalence by germ representatives",
       "Flat scheme stalk map composed with the free line stalk gives relative flatness",
       "Canonical tensor map is q*(scalar) times actual pullSection and its tensor-with-1 value is the original restriction",
-      "Residue tensor surjectivity lifts the exact supplied finite tuple"
+      "Residue tensor surjectivity lifts the exact supplied finite tuple",
+      "Pure-tensor extensionality uniquely identifies any comparison satisfying the actual coefficient/pullSection formula",
+      "On a local affine base, germ representatives identify global sections with the actual closed-point stalk; no quasi-coherence input is hidden"
     ],
-    "remaining_source_review": "Confirm the local affine/stalk-global beta0 presentation is the actual canonical map; no chosen embedding statement is an admitted leaf."
+    "remaining_source_review": "Robert A.1.1 third corollary explicitly concerns the canonical beta0. Its local affine presentation has source Gamma(X,E) tensor_R k; the candidate canonicalMap is built from actual pullSection and the actual base scalar map. No chosen embedding or arbitrary equivalence is bundled. Native validation and the actual sheaf/stalk presentations remain separately tracked.",
+    "canonical_map_source_review": {
+      "primary_url": "https://www.math.u-bordeaux.fr/~damienrobert/pro/publications/books/avtheory.pdf",
+      "locator": "A.1.1, printedp81 third corollary bullet",
+      "supporting_local_affine_url": "https://math.berkeley.edu/~ogus/Math_256B-2017/Notes/basechange.pdf",
+      "supporting_locator": "Theorem8(2)-(3), printedpp4-5; Proposition6, printedp3 gives the canonical tensor transformation",
+      "verdict": "Generic canonical H0 comparison is a known published theorem with all source hypotheses retained. The proof candidate explicitly checks Noetherian/coherence/stalk-flatness and proves the pullSection tensor formula, residue lifting and original-tuple transport. Source eligibility does not establish native validity of those adapters."
+    },
+    "first_native_evidence": "audit/tautological_lifting_build/h0_first_pass_20261104T002826/",
+    "field_quotient_transport": "The new residue-field presentation proof changes only the fibre base projection through an actual Spec isomorphism. It retains the literal p, its pullSection map, and its H1 predicate; no comparison of different fibre cohomology groups is admitted.",
+    "integrated_native_foundations": {
+      "LSResidueTensorLift": "8431d2f77c020993f7034a71bdf92bebb970ed878271c4c869cabfd34c8cb2dd",
+      "LSYonedaExtensionSplitting": "489e6b14c8028c55aa9c18b5fc69d385fa7cca0c08357ce311d3207adfe42421",
+      "LSYonedaClassesRepresented": "a303d8d9732391d282369b848c1e6ef7c4d66893cf2d5cbd6645e28b6c350d94",
+      "LSResidueFieldPresentation": "237dd68efc84f62f5ab98a9b55102026a85a2f51a3d2ae3a939e05d3b1de792b",
+      "LSCanonicalSectionBaseChange": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0"
+    },
+    "latest_evidence": "audit/tautological_lifting_build/normalized_audit_h0_20261104T004734/",
+    "remaining_native_work": "LSCohomologyHypotheses actual stalk Type coercion repaired off graph, pending retry; then LSLineStalkFlat and generic cohomology specialization adapter. No published H0 input integrated yet.",
+    "pending_native_sources": {
+      "LSCohomologyHypotheses": {
+        "file": "published_leaf_work/LSCohomologyHypotheses.lean",
+        "sha256": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
+        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      },
+      "LSLineStalkFlat": {
+        "file": "published_leaf_work/LSLineStalkFlat.lean",
+        "sha256": "43728dca714878b6b684433f17018ca6aee26e4833bc3a948e638973dd9cf8e7",
+        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      },
+      "LSPublishedCohomologyBaseChange": {
+        "file": "published_leaf_work/LSPublishedCohomologyBaseChange.lean",
+        "sha256": "36377adc98be5111b4c29ba63e49eb8c59bfa137dcea775bfd8e8c362b566412",
+        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      },
+      "LSCohomologyBaseChangeNativeAudit": {
+        "file": "published_leaf_work/LSCohomologyBaseChangeNativeAudit.lean",
+        "sha256": "32cb928f63ccb15d91f4f805b625938c327ec8e730082a67e210d3c030693576",
+        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      }
+    }
   },
   "closed_union_review": {
     "primary_sources": [
@@ -201,5 +312,97 @@
     "eligibility": "The proposed primitive for the literal ideal union is exact. Transport from another supplied pushout must be proved, and the node square must be cartesian over the ambient, not merely a set intersection.",
     "short_exact_sequence_scope": "The displayed sequence is in O_ambient-modules via closed pushforward.",
     "implementation_status": "Parent draft; independent source audit only."
+  },
+  "quadratic_veronese_review": {
+    "file": "root_work/LSQuadraticVeronese.lean",
+    "sha256": "c863dacf661926b90b865f1c187b9b75664fe5ff22d59a1d990fdda85fee7053",
+    "primary_url": "https://math.stanford.edu/~vakil/216blog/FOAGjun2711publicimperfect.pdf",
+    "version": "Ravi Vakil, Foundations of Algebraic Geometry, June27,2011",
+    "locators": [
+      "9.2.6, Exercise9.2.I and Remark9.2.8, printedp198/PDFindex197: quadratic Veronese coordinates and closed immersion",
+      "17.4.1, printedp349: arbitrary-base context; 17.4.5-6, printedp351/PDFindex350: the O(m) linear series and ordered monomials",
+      "Exercise16.2.D, printedp331/PDFindex330: O(m+n) is O(m) tensor O(n)",
+      "Exercise21.1.D, printedp434/PDFindex433: earlier Veronese closed immersion is over arbitrary base rings"
+    ],
+    "verdict": "Eligible generic normalized construction when its standard tautological Data has the actual homogeneous coordinate/frame normalization. The specific binary order and tensor-square line comparison are supplied by the cited linear-series and tensor-product statements. No characteristic restriction is needed. The chosen project line, degree2 classification, and family transport remain outside the input.",
+    "kernel_status": "Independent source eligibility review only; no compiler receipt claimed by this review."
+  },
+  "segre_boundary_review": {
+    "file": "step3f_work/LSNormalizedSegre.lean",
+    "sha256": "195e1dc919366c782a1331075d6ed159c26c102875b3357519848b0da7a7e145",
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01WD",
+        "locator": "Lemma27.13.6, construction and displayed coordinate order",
+        "scope": "Actual O(1,1) and X0Y0,X1Y0,X0Y1,X1Y1 for the binary Segre closed immersion."
+      },
+      {
+        "url": "https://math.stanford.edu/~vakil/0708-216/216class1516.pdf",
+        "locator": "Section5, Exercise5.B and Example5.1, printedpp16-17",
+        "scope": "Arbitrary coefficient ring; scheme image is the 2x2-minor subscheme, with the binary determinant as the single equation."
+      }
+    ],
+    "verdict": "Eligible generic normalized scheme-image boundary. The actual section-graph equalizer retains nonreduced structure; unique quotient-tuple packaging is a separate proved translation. No project conic-family statement is bundled.",
+    "kernel_status": "Independent source review only; source worker owns native checks. Historical cdf TotalLine dependency must remain separately scoped from the current EGA18.5.1 proof translation."
+  },
+  "relative_cartier_review": {
+    "file": "root_work/LSRelativeCartier.lean",
+    "sha256": "7ac89855c3b6a07e7deacc9e94d7dd5d425f23f119f34fa4ff860b65947d22a3",
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/062Y",
+        "locator": "Lemma31.19.9(2)"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01WQ",
+        "locator": "Definition31.14.1"
+      }
+    ],
+    "verdict": "Eligible narrowed local input. Actual cartesian residue fibres and actual kernel ideal are retained. Ambient flatness and local finite presentation, closed-immersion finite presentation (LFP plus automatic QC/QS), and flatness of the composite supply every source premise. Global rank-one kernel follows by a separate proper-local proof, including the complement of the image.",
+    "kernel_status": "Independent source review only; root owns exact native receipts and live integration."
+  },
+  "projective_affine_charts_review": {
+    "file": "root_work/LSStandardProjectiveSmooth.lean",
+    "sha256": "5c20a72ea1655dd5c457a7b9569de9ce31b6bf981aa5936263badaa020a62d77",
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01ND",
+        "locator": "Lemma27.13.3 over Z; relative paragraph after Definition27.13.2"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01O3",
+        "locator": "Lemma27.16.10 arbitrary-base Proj identification"
+      }
+    ],
+    "verdict": "Eligible generic polynomial-Proj chart construction with actual coefficient morphisms. Add the explicit 01O3 locator for arbitrary coefficients; 27.13.3 alone is stated over Z. Relative dimension/smoothness/flatness/LFP are proved outside the leaf from actual chart morphisms.",
+    "kernel_status": "Independent source review only; root owns exact native receipts and live integration."
+  },
+  "effective_cartier_inputs_review": {
+    "file": "root_work/LSEffectiveCartierInputs.lean",
+    "sha256": "2e4cc1785bf56947609136c1cc523fae9dd7e81f021f84375de696dfaff06302",
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/0C4S",
+        "locator": "Definition31.15.1, Lemma31.15.9(2), definition of regular section31.15.6"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01X0",
+        "locator": "Lemma31.15.10(1)-(2)"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/0C4U",
+        "locator": "Lemma31.15.5, Cartier pullback must be defined"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/089X",
+        "locator": "Section33.35.1 first paragraph, nonzero degree-d section regular for n,d>=1"
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01MM",
+        "locator": "Lemma27.10.3 and multiplication27.10.1.1, O(1)^tensor2=O(2) for degree-one-generated polynomial grading"
+      }
+    ],
+    "verdict": "Canonical kernel-dual line and inclusion section match the source definitions. Both actual invertible ideals explicitly supply defined Cartier pullback. SectionEquality graph-fibre-product zero locus is acceptable through its proved universal property, retaining scheme structure. Quadratic regularity is the exact degree-two instance after the standard tensor identification. Citation correction: equation27.10.1.4 is only the graded module action, not the tensor isomorphism; use Lemma27.10.3. All selected-family and quadratic extraction conclusions remain separate proofs.",
+    "kernel_status": "Independent source review only; root owns exact native receipts and live integration."
   }
 }

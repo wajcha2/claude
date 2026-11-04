@@ -65,7 +65,8 @@ theorem tupleGenerates_of_cover {X : Scheme.{0}} {N : ℕ}
       F.map (a i) := by rw [← F.map_comp, Sigma.ι_comp_desc]
   letI : Epi (F.map (Sigma.ι (fun _ : Fin (N+1) => structureModule X) i) ≫ F.map q) :=
     he.symm ▸ inferInstance
-  exact ⟨U, hxi, epi_of_epi _ _⟩
+  exact ⟨U, hxi, epi_of_epi
+    (F.map (Sigma.ι (fun _ : Fin (N+1) => structureModule X) i)) (F.map q)⟩
 
 /-- Coverage after pullback to the actual closed fibre is enough over a
 proper local base. This uses the proved nonvanishing pullback identity. -/

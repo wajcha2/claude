@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSProductGeometry",
+  "key": {
+    "source_sha256": "3c866e6a890dc46b57b98b3ded1803a4578ffb1d2bd571848da861135dcfd774",
+    "imports": [
+      "LSPublishedDirections"
+    ],
+    "dependency_artifacts": {
+      "LSPublishedDirections": {
+        "sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "26e594ca097fd4c566b6ab8ed579377c9dd84834fb48c77de75abf043bd3eb6e",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxHeartbeats=2000000",
+      "-DmaxErrors=1"
+    ]
+  },
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxHeartbeats=2000000",
+    "-DmaxErrors=1",
+    "--root=/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_cdf_check/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_cdf_check/build/olean/LSProductGeometry.olean",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_cdf_check/source/LSProductGeometry.lean"
+  ],
+  "started_utc": "2026-11-04T00:52:45.088436+00:00",
+  "stdout": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_cdf_check/build/logs/LSProductGeometry.20261104T005245088387.stdout.jsonl",
+  "stderr": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/product_cdf_check/build/logs/LSProductGeometry.20261104T005245088387.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T00:52:50.824064+00:00",
+  "seconds": 5.735,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "11315eb371b338ad93e02c93f3dceee189b0436dfe8700e54b2097f399ef8ad3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "ac3944e75c742603ca9e9e6cc22ed24645462f05e112cac906d6f309a717d9de",
+  "evidence_kind": "native_kernel_compilation"
+}

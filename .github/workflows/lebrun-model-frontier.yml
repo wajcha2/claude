@@ -1,4 +1,4 @@
-name: LeBrun-Salamon per-product reparametrization transport
+name: LeBrun-Salamon generic model parametrization
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  reparam-product:
+  generic-parametrization:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -59,33 +59,26 @@ jobs:
           run-id: 41800804867
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/4
-      - name: Download verified native cache 6 from 41804734383
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-family-reparam-41804734383-1
-          run-id: 41804734383
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/5
-      - name: Download verified native cache 7 from 41804404180
+      - name: Download verified native cache 6 from 41804404180
         uses: actions/download-artifact@v4
         with:
           name: lebrun-family-smooth-41804404180-1
           run-id: 41804404180
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/6
-      - name: Download verified native cache 8 from 41808065041
+          path: lebrun-cache-inputs/5
+      - name: Download verified native cache 7 from 41809372491
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-family-scheme-transport-41808065041-1
-          run-id: 41808065041
+          name: lebrun-reparam-product-transport-41809372491-1
+          run-id: 41809372491
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/7
+          path: lebrun-cache-inputs/6
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check actual per-product reparametrization transport
+      - name: Check exact independent generic-parametrization declarations
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparamProductTransport --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericParametrization --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -93,7 +86,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-reparam-product-transport-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-generic-parametrization-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

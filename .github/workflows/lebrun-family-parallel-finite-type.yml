@@ -1,0 +1,228 @@
+name: LeBrun-Salamon parallel finite-type family proofs
+
+on:
+  push:
+    branches:
+      - codex/lebrun-family-parallel-finite-type-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  finite_left:
+    outputs:
+      artifact_id: ${{ steps.evidence.outputs.artifact-id }}
+      artifact_digest: ${{ steps.evidence.outputs.artifact-digest }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41833502528
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-fibres37-41833502528-1
+          run-id: 41833502528
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check exact original left finite-type theorem
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrizationLeftFiniteType --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current native frontier evidence
+        id: evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-left-finite-type-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+  finite_right:
+    outputs:
+      artifact_id: ${{ steps.evidence.outputs.artifact-id }}
+      artifact_digest: ${{ steps.evidence.outputs.artifact-digest }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41833502528
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-fibres37-41833502528-1
+          run-id: 41833502528
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check exact original right finite-type theorem
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrizationRightFiniteType --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current native frontier evidence
+        id: evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-right-finite-type-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+  remaining_eight:
+    needs: [finite_left, finite_right]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41833502528
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-fibres37-41833502528-1
+          run-id: 41833502528
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Verify exact official singleton artifact metadata
+        env:
+          LEFT_ARTIFACT_ID: ${{ needs.finite_left.outputs.artifact_id }}
+          LEFT_ARTIFACT_DIGEST: ${{ needs.finite_left.outputs.artifact_digest }}
+          RIGHT_ARTIFACT_ID: ${{ needs.finite_right.outputs.artifact_id }}
+          RIGHT_ARTIFACT_DIGEST: ${{ needs.finite_right.outputs.artifact_digest }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          base_path='lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json'
+          inputs=json.load(open(base_path))
+          run=int(os.environ['GITHUB_RUN_ID']);attempt=os.environ['GITHUB_RUN_ATTEMPT']
+          checked=[]
+          for i,side in enumerate(['LEFT','RIGHT'],1):
+              aid=int(os.environ[side+'_ARTIFACT_ID'])
+              expected_name='lebrun-family-'+side.lower()+'-finite-type-'+str(run)+'-'+attempt
+              req=urllib.request.Request('https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/artifacts/'+str(aid),headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=60) as response: m=json.load(response)
+              digest=m['digest'].removeprefix('sha256:')
+              assert m['id']==aid and m['name']==expected_name and m['workflow_run']['id']==run and not m['expired']
+              assert digest==os.environ[side+'_ARTIFACT_DIGEST'].removeprefix('sha256:')
+              inputs.append({'artifact_dir':'lebrun-cache-inputs/'+str(i),'source_run_id':run,'source_artifact_name':expected_name,'artifact_id':aid,'artifact_sha256':digest,'include_validated_unselected_cache':True})
+              checked.append({'artifact_id':aid,'run_id':run,'name':expected_name,'sha256':digest})
+          json.dump(inputs,open('join-cache-inputs.json','w'),indent=2)
+          json.dump({'official_metadata_verified':checked},open('JOIN_ARTIFACT_METADATA.json','w'),indent=2)
+          print(json.dumps({'official_metadata_verified':checked}))
+          
+          PY
+      - name: Download exact left finite-type native artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-left-finite-type-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lebrun-cache-inputs/1
+      - name: Download exact right finite-type native artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-right-finite-type-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lebrun-cache-inputs/2
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs join-cache-inputs.json --build-dir kernel-evidence
+      - name: Require both exact stock parent receipts after strict union
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          for module,source in [('LSFamilyReparametrizationLeftFiniteType','1b9026cf28b779492d08e84be958b4cdaf68c35ecbc8fef90a93f3abf387c25d'),('LSFamilyReparametrizationRightFiniteType','38fc4cfa5d29ba69b9b1a491eace1d2f16985c2e4447754a85c4dc8c30f3fc87')]:
+              r=json.load(open('kernel-evidence/receipts/'+module+'.json'))
+              assert r['status']=='passed' and r['evidence_kind']=='native_kernel_compilation'
+              assert r['key']['source_sha256']==source
+              assert r['key']['runtime_fingerprint']=='9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004'
+              assert hashlib.sha256(pathlib.Path('kernel-evidence/olean/'+module+'.olean').read_bytes()).hexdigest()==r['output_sha256']
+              print(json.dumps({'strict_native_parent':module,'source_sha256':source,'output_sha256':r['output_sha256']}))
+          PY
+      - name: Profile remaining8 original field declarations
+        id: tail_profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyFieldRemaining8Profile --keep-going --timeout 300
+      - name: Report tail_profile exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose tail_profile receipt-bound raw markers
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyFieldRemaining8Profile --allow-unattempted
+      - name: Preserve tail_profile exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-remaining8-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            JOIN_ARTIFACT_METADATA.json
+            join-cache-inputs.json
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check uninstrumented original remaining8 field declarations
+        id: tail_actual
+        if: steps.tail_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrization --keep-going --timeout 300
+      - name: Report tail_actual exact native scope
+        if: always() && steps.tail_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve tail_actual exact evidence before continuation
+        if: always() && steps.tail_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-remaining8-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            JOIN_ARTIFACT_METADATA.json
+            join-cache-inputs.json
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require completed native profile and actual gates
+        if: always()
+        env:
+          PROFILE_OUTCOME: ${{ steps.tail_profile.outcome }}
+          ACTUAL_OUTCOME: ${{ steps.tail_actual.outcome }}
+        run: |
+          test "$PROFILE_OUTCOME" = success
+          test "$ACTUAL_OUTCOME" = success

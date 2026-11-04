@@ -1,0 +1,86 @@
+{
+  "run_id": 41799583931,
+  "job_id": 126471773862,
+  "commit": "6eb7adc25ee056a1d28cc34b2315d15c7543f7ca",
+  "job_log_sha256": "8cc680b3c5969977d6f4d79b57eb012958820ad93c72840524e6518dd98828aa",
+  "summary": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "6eb7adc25ee056a1d28cc34b2315d15c7543f7ca",
+    "source_modules": 276,
+    "selected_modules": 215,
+    "accepted_modules": 214,
+    "failed_modules": [
+      "LSArcParametrization"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 185,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "diagnostics": [
+    {
+      "module": "LSArcParametrization",
+      "status": "failed",
+      "source_sha256": "ab5cdc540d596dabc2307316c16fa4a3b5b92de3c93cbe28c64d5d8e023d7eca",
+      "return_code": 1,
+      "seconds": 3.773,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\nn : ℕ\nX : ContactFanoManifold n\nF : ProjectiveNodalFamily Lines.P Lines.marking X.variety X.contact.sequence.line 2\ngamma : PointsOver Trait toC F.Square (F.squareToBase ≫ F.toC)\nM : Scheme\npiM : M ⟶ Trait\nu : Source F (baseArc F gamma) ≅ M\nhu : u.hom ≫ piM = parameter F (baseArc F gamma)\nk : P1 ⟶ M\nhk : IsPullback k projection piM FormalArcs.genericPoint\n⊢ FormalArcs.genericPoint ≫\n      pullback.lift (↑gamma ≫ pullback.fst F.parameter F.parameter) (𝟙 Trait) ⋯ ≫\n        pullback.fst F.parameter ↑(baseArc F gamma) =\n    FormalArcs.genericPoint ≫ ↑gamma ≫ pullback.fst F.parameter F.parameter",
+          "endPos": {
+            "column": 42,
+            "line": 127
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSArcParametrization.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 75,
+            "line": 124
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nn : ℕ\nX : ContactFanoManifold n\nF : ProjectiveNodalFamily Lines.P Lines.marking X.variety X.contact.sequence.line 2\ngamma : PointsOver Trait toC F.Square (F.squareToBase ≫ F.toC)\nM : Scheme\npiM : M ⟶ Trait\nu : Source F (baseArc F gamma) ≅ M\nhu : u.hom ≫ piM = parameter F (baseArc F gamma)\nk : P1 ⟶ M\nhk : IsPullback k projection piM FormalArcs.genericPoint\n⊢ FormalArcs.genericPoint ≫\n      pullback.lift (↑gamma ≫ pullback.snd F.parameter F.parameter) (𝟙 Trait) ⋯ ≫\n        pullback.fst F.parameter ↑(baseArc F gamma) =\n    FormalArcs.genericPoint ≫ ↑gamma ≫ pullback.snd F.parameter F.parameter",
+          "endPos": {
+            "column": 43,
+            "line": 134
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSArcParametrization.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 75,
+            "line": 131
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase piM\nn : ℕ\nX : ContactFanoManifold n\nF : ProjectiveNodalFamily Lines.P Lines.marking X.variety X.contact.sequence.line 2\ngamma : PointsOver Trait toC F.Square (F.squareToBase ≫ F.toC)\nM : Scheme\npiM : M ⟶ Trait\nu : Source F (baseArc F gamma) ≅ M\nhu : u.hom ≫ piM = parameter F (baseArc F gamma)\nk : P1 ⟶ M\nhk : IsPullback k projection piM FormalArcs.genericPoint\n⊢ M ⟶ Trait\n\ncase hu\nn : ℕ\nX : ContactFanoManifold n\nF : ProjectiveNodalFamily Lines.P Lines.marking X.variety X.contact.sequence.line 2\ngamma : PointsOver Trait toC F.Square (F.squareToBase ≫ F.toC)\nM : Scheme\npiM : M ⟶ Trait\nu : Source F (baseArc F gamma) ≅ M\nhu : u.hom ≫ piM = parameter F (baseArc F gamma)\nk : P1 ⟶ M\nhk : IsPullback k projection piM FormalArcs.genericPoint\n⊢ u.hom ≫ ?piM = parameter F (baseArc F gamma)\n\ncase hk\nn : ℕ\nX : ContactFanoManifold n\nF : ProjectiveNodalFamily Lines.P Lines.marking X.variety X.contact.sequence.line 2\ngamma : PointsOver Trait toC F.Square (F.squareToBase ≫ F.toC)\nM : Scheme\npiM : M ⟶ Trait\nu : Source F (baseArc F gamma) ≅ M\nhu : u.hom ≫ piM = parameter F (baseArc F gamma)\nk : P1 ⟶ M\nhk : IsPullback k projection piM FormalArcs.genericPoint\n⊢ IsPullback k projection ?piM FormalArcs.genericPoint",
+          "endPos": {
+            "column": 28,
+            "line": 153
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSArcParametrization.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 50,
+            "line": 149
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "acceptance_ledger_modified": false
+}

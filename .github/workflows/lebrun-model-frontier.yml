@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent rational and arc frontiers
+name: LeBrun-Salamon current arc and spreading frontiers
 
 on:
   push:
@@ -11,16 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  independent-comparisons:
-    name: ${{ matrix.id }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - id: rational
-            target: LSRationalOpenTransport
-          - id: arc-parametrization
-            target: LSArcParametrization
+  arc-and-spreading:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -47,19 +38,19 @@ jobs:
           run-id: 41796955283
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/1
-      - name: Download exact native cache 3 from 41797752870
+      - name: Download exact native cache 3 from 41799583931
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-independent-formal-arc-41797752870-1
-          run-id: 41797752870
+          name: lebrun-independent-rational-41799583931-1
+          run-id: 41799583931
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/2
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check the independent frontier with exact stock dependencies
+      - name: Check current arc and independent spreading modules
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module ${{ matrix.target }} --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSArcParametrization --module LSFiniteTypeSpreading --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -67,7 +58,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-independent-${{ matrix.id }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-arc-spreading-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

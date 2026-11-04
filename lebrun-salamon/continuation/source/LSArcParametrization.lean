@@ -124,14 +124,14 @@ def toFamilySquare : RelativeSquare.Space projection ⟶ F.Square :=
       (genericPoint ≫ gamma.val) ≫ pullback.fst F.parameter F.parameter := by
   rw [toFamily, ← Category.assoc, first_model]
   simp only [Transport.first, inverseSource, Category.assoc, u.hom_inv_id_assoc,
-    firstSection, pullback.lift_fst_assoc]
+    firstSection, pullback.lift_fst, pullback.lift_fst_assoc]
 
 @[reassoc] theorem second_toFamily :
     second F gamma piM u hu k hk ≫ toFamily F gamma u k =
       (genericPoint ≫ gamma.val) ≫ pullback.snd F.parameter F.parameter := by
   rw [toFamily, ← Category.assoc, second_model]
   simp only [Transport.second, inverseSource, Category.assoc, u.hom_inv_id_assoc,
-    secondSection, pullback.lift_fst_assoc]
+    secondSection, pullback.lift_fst, pullback.lift_fst_assoc]
 
 /-- The generic marked pair maps to the original generic arc exactly. -/
 @[reassoc] theorem pair_toFamilySquare :
@@ -149,7 +149,7 @@ def toFamilySquare : RelativeSquare.Space projection ⟶ F.Square :=
         (genericPoint ≫ (baseArc F gamma).val) := by
   rw [ProjectiveNodalFamily.squareToBase, ← Category.assoc,
     toFamilySquare, RelativeSquare.map_left, Category.assoc,
-    toFamily_parameter]
+    toFamily_parameter F gamma piM u hu k hk]
   simp only [Category.assoc]
 
 variable (b : GenericPoint ⟶ F.smoothOpen.toScheme)

@@ -1,0 +1,57 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "RecompileSections",
+  "key": {
+    "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+    "imports": [
+      "LSPublishedPicard",
+      "LSAffineDerivations",
+      "RecompileBase"
+    ],
+    "dependency_artifacts": {
+      "LSPublishedPicard": {
+        "sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+        "kind": "project"
+      },
+      "LSAffineDerivations": {
+        "sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "kind": "project"
+      },
+      "RecompileBase": {
+        "sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "26e594ca097fd4c566b6ab8ed579377c9dd84834fb48c77de75abf043bd3eb6e",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxHeartbeats=2000000",
+      "-DmaxErrors=1"
+    ]
+  },
+  "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+  "source_ancestry_fingerprint": "7937cc5a95e85e29a21fe9a8cd8bc3970c6fafc7d0cdcf68899da11e586df299",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "revalidated_prior_stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292737548,
+    "artifact_zip_sha256": "9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035",
+    "original_receipt_sha256": "0ee98c4d930a902202eac8d4e4144d254f2a9b1a79915f03aff13dc19758d09e",
+    "cache_restore_provenance": {
+      "source_run_id": 41757281666,
+      "source_artifact_name": "lebrun-takeover-kernel-41757281666-1",
+      "prior_receipt_sha256": "8658c0c358fd6f2831b50fd464b092f5b3d30ac380b9838934fd47d3d2b681ab",
+      "restored_utc": "2026-11-04T02:50:30.854228+00:00"
+    },
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:50:22.742672+00:00"
+}

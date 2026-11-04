@@ -1,0 +1,47 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSNodalConic",
+  "key": {
+    "source_sha256": "dca6a462215a4aa53c6d0861945ff5affa50985b81a3ab0d9b815485ccdbc219",
+    "imports": [
+      "LSNodalTangent",
+      "LSRelativeGenericSmoothness"
+    ],
+    "dependency_artifacts": {
+      "LSNodalTangent": {
+        "sha256": "c161eaf44a8800563c4ac60b678f336618979cb46706da0b6efa70c17506588d",
+        "kind": "project"
+      },
+      "LSRelativeGenericSmoothness": {
+        "sha256": "abfcc91f832c175d66322504b2c4448e210ccb2ab0a0ec6db16d3c2472a33ed1",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "b465868257d60179c1a7e7dac733b49b69040c1c63ee24e25069d088689bc330",
+  "source_ancestry_fingerprint": "430685559f1ebf13453a0d943222bb945b8ef7b05a4cfa9efb2c017a3454ff22",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292737548,
+    "artifact_zip_sha256": "9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035",
+    "original_receipt_sha256": "55203820cc4fae68226464f511b20586f99aeb3b5f9a0db75340ce2b6eaf490e",
+    "cache_restore_provenance": null,
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:32:30.385025+00:00"
+}

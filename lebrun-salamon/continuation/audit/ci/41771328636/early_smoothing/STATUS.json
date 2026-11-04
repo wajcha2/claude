@@ -1,0 +1,57 @@
+{
+  "schema": "lebrun-final-ci-snapshot-v2",
+  "verified_utc": "2026-11-04T04:13:11.138539+00:00",
+  "run": {
+    "id": 41771328636,
+    "name": "LeBrun-Salamon targeted smoothing checks",
+    "head_branch": "codex/lebrun-takeover-audit-20261103",
+    "head_sha": "1217e5cc7ccf5dc048218fac3e26bf3d197c287b",
+    "path": ".github/workflows/lebrun-takeover-kernel.yml",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41771328636",
+    "created_at": "2026-11-04T04:08:03Z",
+    "updated_at": "2026-11-04T04:10:24Z",
+    "run_started_at": "2026-11-04T04:08:03Z",
+    "run_attempt": 1
+  },
+  "stage": "early_smoothing",
+  "artifact_name": "lebrun-takeover-early-smoothing-41771328636-1",
+  "artifact_id": 13294633280,
+  "artifact_zip_sha256": "e2aa8ce33ee6c467c149ae8f49a8bd19d2c76a60969d74b186f27ff0b6a4b310",
+  "artifact_zip_verified": true,
+  "compiler_kind": "stock_pinned_frontend",
+  "compiler_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "counts": {
+    "reused": 116,
+    "passed": 1,
+    "failed": 1,
+    "blocked": 2
+  },
+  "accepted_count": 117,
+  "selected_module_count": 120,
+  "full_selected_graph_passed": false,
+  "milestone_met": false,
+  "whole_committed_source_graph_passed": false,
+  "final_validation": {
+    "checked_utc": "2026-11-04T04:10:12.358546+00:00",
+    "checked_module_count": 117,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "failures": [
+    "LSScaledVelocityDifferential"
+  ],
+  "error_count": 1,
+  "phase": "early_smoothing_completed",
+  "validated_seed_count": 117,
+  "seed_file": "VALIDATED_SEEDS.json"
+}

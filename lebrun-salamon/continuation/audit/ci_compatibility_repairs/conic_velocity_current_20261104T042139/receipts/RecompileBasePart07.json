@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "RecompileBasePart07",
+  "key": {
+    "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+    "imports": [
+      "RecompileBasePart06",
+      "LSNonvanishingPullback"
+    ],
+    "dependency_artifacts": {
+      "RecompileBasePart06": {
+        "sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+        "kind": "project"
+      },
+      "LSNonvanishingPullback": {
+        "sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "26e594ca097fd4c566b6ab8ed579377c9dd84834fb48c77de75abf043bd3eb6e",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxHeartbeats=2000000",
+      "-DmaxErrors=1"
+    ]
+  },
+  "output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+  "source_ancestry_fingerprint": "02ae8f98a5f7cf10c9ef6549e95c9530015c23832fb12098e73415b210f2448a",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "revalidated_prior_stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292737548,
+    "artifact_zip_sha256": "9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035",
+    "original_receipt_sha256": "bceb34a6def264f64da34c89f4f9a0a22e33c94b80a4377deb9162b90b92a3ab",
+    "cache_restore_provenance": {
+      "source_run_id": 41757281666,
+      "source_artifact_name": "lebrun-takeover-kernel-41757281666-1",
+      "prior_receipt_sha256": "9841cbad2e174e38ec8c0d155d7f73fa954934ef6adf70abba591b29301f7d8e",
+      "restored_utc": "2026-11-04T02:50:30.845409+00:00"
+    },
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:50:22.723383+00:00"
+}

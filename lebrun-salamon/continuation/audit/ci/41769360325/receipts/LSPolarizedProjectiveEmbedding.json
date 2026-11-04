@@ -1,0 +1,80 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPolarizedProjectiveEmbedding",
+  "key": {
+    "source_sha256": "1c50ec806c54ebf251d5ea1ab2980c1655df4cfca8b62d4e3b9508dc91ed207f",
+    "imports": [
+      "LSStandardProjectiveBaseChange",
+      "LSStandardTautologicalP1",
+      "LSQuadraticVeronese",
+      "LSSmoothFibreComparison"
+    ],
+    "dependency_artifacts": {
+      "LSStandardProjectiveBaseChange": {
+        "sha256": "430a1541757bcbcfe05b1c05454439aa251e94359bf7ead409cf1a42d2d284ab",
+        "kind": "project"
+      },
+      "LSStandardTautologicalP1": {
+        "sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+        "kind": "project"
+      },
+      "LSQuadraticVeronese": {
+        "sha256": "e60d6800452f4f2e12e2c45c588dedaacb9de3dfc859861114a64f45f6cad5c7",
+        "kind": "project"
+      },
+      "LSSmoothFibreComparison": {
+        "sha256": "b67f2731786c9bb3ffd17e41baa164a95b03c429bd82be779feea1efeeb4d5c8",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSPolarizedProjectiveEmbedding.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSPolarizedProjectiveEmbedding.lean"
+  ],
+  "started_utc": "2026-11-04T01:20:12.640306+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPolarizedProjectiveEmbedding.20261104T012012640273.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPolarizedProjectiveEmbedding.20261104T012012640273.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:20:15.465325+00:00",
+  "seconds": 2.823,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "1edcea33c28bab0b16c4e1f23a4995d752138e477db33acc1bff2101cfe4cfbf",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "b769cb97ce89e8f0e52186a8c63ad376897b03e08e61190d5d353a5cc404f26f",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "df61e517ea94a4ab9d10e7b31d0d87ef35b1fba36e850a6eccb62f011da91539",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "9513032d369dd7aaa172f292edb62b37f19d472c3bfb140fc32f9bbb7b60ea79",
+    "restored_utc": "2026-11-04T03:50:44.408663+00:00"
+  }
+}

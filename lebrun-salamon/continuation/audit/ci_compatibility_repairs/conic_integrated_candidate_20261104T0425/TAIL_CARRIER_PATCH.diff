@@ -1,0 +1,126 @@
+--- a/LSConicJets.lean
++++ b/LSConicJets.lean
+@@ -1605,20 +1605,36 @@
+     exact hV (S.pointSupport trivial)
+   let F : PointFrame (projectiveLineVariety P) (identityCurveContact P).sequence.line x :=
+     ⟨H, IsOpenImmersion.lift H.openSet.ι x.map hr, IsOpenImmersion.lift_fac _ _ _⟩
+   obtain ⟨A⟩ := contactAtPoint_exists (identityCurveContact P) F
+   let K := SourceMixedSymbol.sourceKernel P
+-  let EP := pulledExpansion P (isoCurve P e he) K.expansion
+-  let q := (derivativeIso P e he).inv
+-  let m := PointFrame.LocalFrameJetProof.coefficientOn F.frame e.hom S.frame.openSet hV
+-  let R := SourceMixedSymbol.frameOn
+-    (M := pullbackBundle e.hom (identityCurveContact P).sequence.line) S.frame m
++  let EP : ExternalExpansion (projectiveLineVariety P)
++      (pullbackBundle e.hom (identityCurveContact P).sequence.line)
++      (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line
++        K.twoPointSection) :=
++    pulledExpansion P (isoCurve P e he) K.expansion
++  let q : (pullbackBundle e.hom (identityCurveContact P).sequence.line).sheaf ⟶
++      (identityCurveContact P).sequence.line.sheaf := (derivativeIso P e he).inv
++  let m : SectionsOn (pullbackBundle e.hom (identityCurveContact P).sequence.line).sheaf
++      S.frame.openSet ≃ₗ[RingSections ProjectiveLine S.frame.openSet]
++      RingSections ProjectiveLine S.frame.openSet :=
++    PointFrame.LocalFrameJetProof.coefficientOn F.frame e.hom S.frame.openSet hV
++  let R : AffineLineFrame (pullbackBundle e.hom (identityCurveContact P).sequence.line) :=
++    SourceMixedSymbol.frameOn S.frame m
+   let lambda := SourceMixedSymbol.multiplier q R S.frame.coefficient
+-  have h2 := curvePull_orderTwo P (isoCurve P e he)
+-    (identityCurveContact P).sequence.line K.twoPointSection K.symmetric K.orderTwo
++  have h2 : VanishesQuadraticallyAlongDiagonal P.structureMap
++      (externalSquareLine P.structureMap
++        (pullbackBundle e.hom (identityCurveContact P).sequence.line)).sheaf
++      (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line
++        K.twoPointSection) :=
++    curvePull_orderTwo P (isoCurve P e he)
++      (identityCurveContact P).sequence.line K.twoPointSection K.symmetric K.orderTwo
+   have hraw := pulled_mixed_point P p K (isoCurve P e he) (x := x) rfl S F A hV u
+   rw [source_contactVelocity] at hraw
++  change S.evaluation (EP.mixedSecond R u u) =
++    -2 * (S.evaluation
++      (m ((derivativeIso P e he).hom.app S.frame.openSet u))) ^ 2 at hraw
+   have hmapped := congrArg S.evaluation
+     (mapped_mixed_of_orderTwo (M := (identityCurveContact P).sequence.line)
+       EP q h2 R S.frame.coefficient u)
+   change S.evaluation ((sourceTransportExpansion P e he).mixedSecond S.frame u u) =
+     S.evaluation (lambda ^ 2 * EP.mixedSecond R u u) at hmapped
+@@ -1636,12 +1652,20 @@
+   change S.evaluation (S.frame.coefficient u) =
+     S.evaluation (lambda * m ((derivativeIso P e he).hom.app S.frame.openSet u)) at hvalue
+   rw [map_mul] at hvalue
+   have hmix : S.evaluation ((sourceTransportExpansion P e he).mixedSecond S.frame u u) =
+       -2 * (S.evaluation (S.frame.coefficient u)) ^ 2 := by
+-    rw [hmapped, hraw, hvalue]
+-    ring
++    calc
++      _ = S.evaluation lambda ^ 2 * S.evaluation (EP.mixedSecond R u u) := hmapped
++      _ = S.evaluation lambda ^ 2 *
++          (-2 * (S.evaluation
++            (m ((derivativeIso P e he).hom.app S.frame.openSet u))) ^ 2) :=
++        congrArg (fun z : ℂ => S.evaluation lambda ^ 2 * z) hraw
++      _ = -2 * (S.evaluation lambda * S.evaluation
++          (m ((derivativeIso P e he).hom.app S.frame.openSet u))) ^ 2 := by ring
++      _ = -2 * (S.evaluation (S.frame.coefficient u)) ^ 2 :=
++        congrArg (fun z : ℂ => -2 * z ^ 2) hvalue.symm
+   have hh := congrArg S.evaluation
+     ((sourceTransportExpansion P e he).mixedSecond_eq_neg_of_orderTwo
+       (sourceTransport_orderTwo P e he) S.frame u u)
+   rw [map_neg] at hh
+   linear_combination hh - hmix
+@@ -1725,11 +1749,26 @@
+         (derivativeIso P e he).hom =
+       𝟙 (externalTensor P.structureMap
+         (pullbackModule e.hom (tangentSheaf P.structureMap))
+         (pullbackModule e.hom (tangentSheaf P.structureMap))) := by
+     rw [externalTensorMap_comp, (derivativeIso P e he).inv_hom_id, externalTensorMap_id]
+-  simpa only [sourceTransport, Category.assoc, hc, Category.comp_id] using h
++  let Bpull : AlgebraicSection (externalTensor P.structureMap
++      (pullbackModule e.hom (tangentSheaf P.structureMap))
++      (pullbackModule e.hom (tangentSheaf P.structureMap))) :=
++    curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line (sourceBivector P)
++  change (Bpull ≫ externalTensorMap P.structureMap
++      (derivativeIso P e he).inv (derivativeIso P e he).inv) ≫
++      externalTensorMap P.structureMap (derivativeIso P e he).hom
++        (derivativeIso P e he).hom = _ at h
++  change Bpull = _
++  exact (Category.comp_id Bpull).symm.trans
++    ((congrArg (fun k => Bpull ≫ k) hc.symm).trans
++      ((Category.assoc Bpull
++        (externalTensorMap P.structureMap (derivativeIso P e he).inv
++          (derivativeIso P e he).inv)
++        (externalTensorMap P.structureMap (derivativeIso P e he).hom
++          (derivativeIso P e he).hom)).symm.trans h))
+ 
+ theorem curveKernelIdentity_curvePull (P : ProjectiveLineOverC) {n : ℕ}
+     {X : SmoothProperComplexVariety (2*n+1)} (C : IntrinsicContactStructure X)
+     (f : RationalCurve P X) (B : ExternalSquareSections X C.sequence.line) :
+     CurveKernelIdentity P C f B ↔
+@@ -1835,16 +1874,26 @@
+           (sourceBivector P ≫ externalTensorMap P.structureMap
+             (curveContactVelocity P C f) (curveContactVelocity P C f)) ≫
+         externalTensorMap P.structureMap c c := by rw [hf]
+     _ = (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line
+           (sourceBivector P) ≫ externalTensorMap P.structureMap qf qf) ≫
+-        externalTensorMap P.structureMap c c := by rw [curvePull_map]
++        externalTensorMap P.structureMap c c := by rw [curvePull_map]; rfl
+     _ = ((sourceBivector P ≫ externalTensorMap P.structureMap qe qe) ≫
+           externalTensorMap P.structureMap qf qf) ≫
+         externalTensorMap P.structureMap c c := by rw [sourceBivector_curvePull]
+     _ = sourceBivector P ≫ externalTensorMap P.structureMap (qe ≫ qf ≫ c) (qe ≫ qf ≫ c) := by
+-      simp only [Category.assoc, externalTensorMap_comp]
++      have hmaps : externalTensorMap P.structureMap qe qe ≫
++          externalTensorMap P.structureMap qf qf ≫ externalTensorMap P.structureMap c c =
++          externalTensorMap P.structureMap (qe ≫ qf ≫ c) (qe ≫ qf ≫ c) :=
++        (congrArg (fun k => externalTensorMap P.structureMap qe qe ≫ k)
++          (externalTensorMap_comp P.structureMap qf c)).trans
++            (externalTensorMap_comp P.structureMap qe (qf ≫ c))
++      calc
++        _ = sourceBivector P ≫ (externalTensorMap P.structureMap qe qe ≫
++            externalTensorMap P.structureMap qf qf ≫
++              externalTensorMap P.structureMap c c) := by simp only [Category.assoc]
++        _ = _ := congrArg (fun k => sourceBivector P ≫ k) hmaps
+     _ = sourceBivector P ≫ externalTensorMap P.structureMap
+         (curveContactVelocity P C g) (curveContactVelocity P C g) := by rw [hq]
+ 
+ end SourceReparamProof
+ 

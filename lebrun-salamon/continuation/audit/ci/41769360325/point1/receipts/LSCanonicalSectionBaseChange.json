@@ -1,0 +1,70 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCanonicalSectionBaseChange",
+  "key": {
+    "source_sha256": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0",
+    "imports": [
+      "RecompileBasePart05B",
+      "LSResidueTensorLift"
+    ],
+    "dependency_artifacts": {
+      "RecompileBasePart05B": {
+        "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+        "kind": "project"
+      },
+      "LSResidueTensorLift": {
+        "sha256": "d670c8e97e75d7b7d1c4a191f536b3739e85cddf76ecffefe6727f558586db70",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCanonicalSectionBaseChange.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCanonicalSectionBaseChange.lean"
+  ],
+  "started_utc": "2026-11-04T01:15:07.950335+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCanonicalSectionBaseChange.20261104T011507950305.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCanonicalSectionBaseChange.20261104T011507950305.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:15:12.028729+00:00",
+  "seconds": 4.078,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "5e4bda1c104ecf7af86b9c2f5e57b5b19ec1c08374cf3a07949bc994fe9aa744",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "ea6a3370d181d8ce9232105946d47fca72b65e20b9e9487c6709132188fce7bb",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "c5ad54016bfef793a8b75b5f368fc4f8a2e70c4e9faa875adaef46f2582bb8d6",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "500f560bcaab30b18d99cf4ae59623c3b66406372ecf517d4182ca964fc81e4d",
+    "restored_utc": "2026-11-04T03:50:44.304962+00:00"
+  }
+}

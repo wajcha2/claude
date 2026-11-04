@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSRadialDetection",
+  "key": {
+    "source_sha256": "bd34184918d07090d275ef4a5d3cade86fbeb967ba4147f3b87539db59a00721",
+    "imports": [
+      "LSSuitableDirections",
+      "LSConeDiagonal",
+      "LSConePole"
+    ],
+    "dependency_artifacts": {
+      "LSSuitableDirections": {
+        "sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+        "kind": "project"
+      },
+      "LSConeDiagonal": {
+        "sha256": "5f1200de3483d67d086e55237152f8af0fd4e7a01f74733c41d919bfce2e00e4",
+        "kind": "project"
+      },
+      "LSConePole": {
+        "sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d",
+  "source_ancestry_fingerprint": "283dbf48f93228bd68edc402a35da0b0731cbc647e9a4db5e6cbe12c3349f208",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292737548,
+    "artifact_zip_sha256": "9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035",
+    "original_receipt_sha256": "8e9fd0fada700c21787b533d76273c21606a04db70930abf7501e8b34655f0ca",
+    "cache_restore_provenance": null,
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:32:30.288567+00:00"
+}

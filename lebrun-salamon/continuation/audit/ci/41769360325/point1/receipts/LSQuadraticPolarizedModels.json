@@ -1,0 +1,80 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSQuadraticPolarizedModels",
+  "source_ancestry_fingerprint": "6886342e3caae04e46f71bb214d22b61e34a722bdf200812079ae7f60a8d09b8",
+  "key": {
+    "source_sha256": "f146d019311efab0cfe940518074d5f08dd8052fb4bdbceb32b07e1d5bfa9d94",
+    "imports": [
+      "LSQuadraticLinearTransport",
+      "LSComplexQuadraticMatrix",
+      "LSRelativeVeroneseModel",
+      "LSPolarizedOverIso"
+    ],
+    "dependency_artifacts": {
+      "LSQuadraticLinearTransport": {
+        "sha256": "128cc1c4ba790dd66664599df2da854807060c64b88b88114d8be4c8f09aa7bd",
+        "kind": "project"
+      },
+      "LSComplexQuadraticMatrix": {
+        "sha256": "44c6e99fe568998191f7b9cef57158dcf52635e26d9e4bb66a02858ce4f3d569",
+        "kind": "project"
+      },
+      "LSRelativeVeroneseModel": {
+        "sha256": "a5d7a3c030c8d8697ffe70b791161ac75967c700bf468792120333a34db5ac36",
+        "kind": "project"
+      },
+      "LSPolarizedOverIso": {
+        "sha256": "ec999999210055bad4cb2573229e76342c36975defb434161ae7005059cd94c7",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSQuadraticPolarizedModels.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSQuadraticPolarizedModels.lean"
+  ],
+  "started_utc": "2026-11-04T02:59:10.746847+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSQuadraticPolarizedModels.20261104T025910746819.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSQuadraticPolarizedModels.20261104T025910746819.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T02:59:13.071355+00:00",
+  "seconds": 2.323,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "d22a93e3ebe3c1feeabdf63f48f06304218c275a6d3a6ee81b43839701692105",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "276fdf1dc1f8af031c1e4acf1b1c4acdfd434df99d0c8cc6338d8380e2635a62",
+    "restored_utc": "2026-11-04T03:50:44.458727+00:00"
+  }
+}

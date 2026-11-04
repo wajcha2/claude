@@ -1,0 +1,135 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "RecompileExtensionsPart01",
+  "key": {
+    "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+    "imports": [
+      "LSP1TangentSections",
+      "LSP1SourceAlgebra",
+      "LSP1TensorSquare",
+      "LSP1TensorTaylor",
+      "LSAffineFrame",
+      "LSAffineDerivations",
+      "RecompileExtensionCore",
+      "LSConePole",
+      "LSSecondDiagonalAlgebra",
+      "LSSectionCover",
+      "LSExternalFrameCoefficients",
+      "LSPublishedProjectiveSpace",
+      "LSStandardTautologicalP1",
+      "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule",
+      "Mathlib.Topology.Sheaves.SheafCondition.Sites"
+    ],
+    "dependency_artifacts": {
+      "LSP1TangentSections": {
+        "sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e",
+        "kind": "project"
+      },
+      "LSP1SourceAlgebra": {
+        "sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+        "kind": "project"
+      },
+      "LSP1TensorSquare": {
+        "sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf",
+        "kind": "project"
+      },
+      "LSP1TensorTaylor": {
+        "sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76",
+        "kind": "project"
+      },
+      "LSAffineFrame": {
+        "sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+        "kind": "project"
+      },
+      "LSAffineDerivations": {
+        "sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "kind": "project"
+      },
+      "RecompileExtensionCore": {
+        "sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+        "kind": "project"
+      },
+      "LSConePole": {
+        "sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+        "kind": "project"
+      },
+      "LSSecondDiagonalAlgebra": {
+        "sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+        "kind": "project"
+      },
+      "LSSectionCover": {
+        "sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+        "kind": "project"
+      },
+      "LSExternalFrameCoefficients": {
+        "sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9",
+        "kind": "project"
+      },
+      "LSPublishedProjectiveSpace": {
+        "sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66",
+        "kind": "project"
+      },
+      "LSStandardTautologicalP1": {
+        "sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+        "kind": "project"
+      },
+      "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule": {
+        "sha256": "3e80ea517b07ba9b2703a1d1297d52851eac73e28bc387f076fd97eee2b73caf",
+        "kind": "external"
+      },
+      "Mathlib.Topology.Sheaves.SheafCondition.Sites": {
+        "sha256": "5e91ca06c95bc5e5b738d878d3111d7d83a79dacd956bbc88fbb59079e88c86f",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/RecompileExtensionsPart01.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/RecompileExtensionsPart01.lean"
+  ],
+  "started_utc": "2026-11-04T01:12:34.274324+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/RecompileExtensionsPart01.20261104T011234274300.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/RecompileExtensionsPart01.20261104T011234274300.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:14:46.149819+00:00",
+  "seconds": 131.875,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "9f66e22094f5bb5aefd91167e5da0fb51184430f61e65bdb6c82e557b520dbc9",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "4d358b9a5c7920194ffa23fb6d41265fbd43348f4bc58b46c3c033f67658b73b",
+  "cache_restore_provenance": {
+    "source_run_id": 41769360325,
+    "source_artifact_name": "lebrun-takeover-early-smoothing-41769360325-1",
+    "prior_receipt_sha256": "d819a45a183a69d3213baf022a5328a38ddc03de7f9ca80a31abde97739306f8",
+    "restored_utc": "2026-11-04T04:09:51.703722+00:00"
+  }
+}

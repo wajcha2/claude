@@ -1,0 +1,1205 @@
+﻿2026-11-04T03:48:29.1272810Z Current runner version: '2.338.2'
+2026-11-04T03:48:29.1294780Z ##[group]Runner Image Provisioner
+2026-11-04T03:48:29.1295570Z Hosted Compute Agent
+2026-11-04T03:48:29.1296333Z Version: 20261021.618
+2026-11-04T03:48:29.1296848Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-04T03:48:29.1297519Z Build Date: 2026-10-21T00:45:21Z
+2026-11-04T03:48:29.1298093Z Worker ID: {3acc1e06-3feb-4ac1-9332-a3bd7a0eb49b}
+2026-11-04T03:48:29.1298760Z Region: westus3
+2026-11-04T03:48:29.1299254Z Cloud: Azure
+2026-11-04T03:48:29.1299694Z ##[endgroup]
+2026-11-04T03:48:29.1300917Z ##[group]Operating System
+2026-11-04T03:48:29.1301453Z Ubuntu
+2026-11-04T03:48:29.1301940Z 24.04.5
+2026-11-04T03:48:29.1302427Z LTS
+2026-11-04T03:48:29.1302886Z ##[endgroup]
+2026-11-04T03:48:29.1303396Z ##[group]Runner Image
+2026-11-04T03:48:29.1303919Z Image: ubuntu-24.04
+2026-11-04T03:48:29.1304470Z Version: 20261025.353.1
+2026-11-04T03:48:29.1305544Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-04T03:48:29.1307070Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-11-04T03:48:29.1307870Z ##[endgroup]
+2026-11-04T03:48:29.1308957Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T03:48:29.1310548Z Actions: read
+2026-11-04T03:48:29.1311099Z Contents: read
+2026-11-04T03:48:29.1311593Z Metadata: read
+2026-11-04T03:48:29.1312068Z ##[endgroup]
+2026-11-04T03:48:29.1313922Z Secret source: Actions
+2026-11-04T03:48:29.1314777Z Cache mode: write
+2026-11-04T03:48:29.1315409Z Prepare workflow directory
+2026-11-04T03:48:29.1778859Z Prepare all required actions
+2026-11-04T03:48:29.1818889Z Getting action download info
+2026-11-04T03:48:29.5161251Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-04T03:48:29.6076189Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-11-04T03:48:30.2928335Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-04T03:48:30.5704061Z Complete job name: kernel
+2026-11-04T03:48:30.6547456Z ##[group]Run actions/checkout@v4
+2026-11-04T03:48:30.6548671Z with:
+2026-11-04T03:48:30.6549379Z   repository: wajcha2/claude
+2026-11-04T03:48:30.6556833Z   token: ***
+2026-11-04T03:48:30.6557550Z   ssh-strict: true
+2026-11-04T03:48:30.6558287Z   ssh-user: git
+2026-11-04T03:48:30.6559023Z   persist-credentials: true
+2026-11-04T03:48:30.6559836Z   clean: true
+2026-11-04T03:48:30.6560582Z   sparse-checkout-cone-mode: true
+2026-11-04T03:48:30.6561453Z   fetch-depth: 1
+2026-11-04T03:48:30.6562171Z   fetch-tags: false
+2026-11-04T03:48:30.6562906Z   show-progress: true
+2026-11-04T03:48:30.6563680Z   lfs: false
+2026-11-04T03:48:30.6564425Z   submodules: false
+2026-11-04T03:48:30.6565171Z   set-safe-directory: true
+2026-11-04T03:48:30.6566102Z   allow-unsafe-pr-checkout: false
+2026-11-04T03:48:30.6567134Z env:
+2026-11-04T03:48:30.6573960Z   GH_TOKEN: ***
+2026-11-04T03:48:30.6574703Z ##[endgroup]
+2026-11-04T03:48:30.8649642Z Syncing repository: wajcha2/claude
+2026-11-04T03:48:30.8653145Z ##[group]Getting Git version info
+2026-11-04T03:48:30.8654814Z Working directory is '/home/runner/work/claude/claude'
+2026-11-04T03:48:30.8657600Z [command]/usr/bin/git version
+2026-11-04T03:48:30.8710682Z git version 2.56.0
+2026-11-04T03:48:30.8729800Z ##[endgroup]
+2026-11-04T03:48:30.8743262Z Temporarily overriding HOME='/home/runner/work/_temp/da02aa4b-d29f-4208-a574-99ca5f9c535a' before making global git config changes
+2026-11-04T03:48:30.8747008Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T03:48:30.8749882Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-04T03:48:30.8797356Z Deleting the contents of '/home/runner/work/claude/claude'
+2026-11-04T03:48:30.8801827Z ##[group]Initializing the repository
+2026-11-04T03:48:30.8816617Z [command]/usr/bin/git init /home/runner/work/claude/claude
+2026-11-04T03:48:30.8901197Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-04T03:48:30.8903936Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-04T03:48:30.8908304Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-04T03:48:30.8911124Z hint: call:
+2026-11-04T03:48:30.8912532Z hint:
+2026-11-04T03:48:30.8914177Z hint: 	git config --global init.defaultBranch <name>
+2026-11-04T03:48:30.8915946Z hint:
+2026-11-04T03:48:30.8917416Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-04T03:48:30.8919844Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-04T03:48:30.8921715Z hint:
+2026-11-04T03:48:30.8922803Z hint: 	git branch -m <name>
+2026-11-04T03:48:30.8924069Z hint:
+2026-11-04T03:48:30.8925937Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-04T03:48:30.8928396Z Initialized empty Git repository in /home/runner/work/claude/claude/.git/
+2026-11-04T03:48:30.8932523Z [command]/usr/bin/git remote add origin https://github.com/wajcha2/claude
+2026-11-04T03:48:30.8973357Z ##[endgroup]
+2026-11-04T03:48:30.8975487Z ##[group]Disabling automatic garbage collection
+2026-11-04T03:48:30.8977333Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-04T03:48:30.9009311Z ##[endgroup]
+2026-11-04T03:48:30.9011282Z ##[group]Setting up auth
+2026-11-04T03:48:30.9014223Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T03:48:30.9053008Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T03:48:30.9373315Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T03:48:30.9419927Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T03:48:30.9633861Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T03:48:30.9674682Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T03:48:30.9891164Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T03:48:30.9935945Z ##[endgroup]
+2026-11-04T03:48:30.9937576Z ##[group]Fetching the repository
+2026-11-04T03:48:30.9948555Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d660456c481c27fcd49666f306222521034f1616:refs/remotes/origin/codex/lebrun-takeover-audit-20261103
+2026-11-04T03:48:34.5109276Z From https://github.com/wajcha2/claude
+2026-11-04T03:48:34.5110609Z  * [new ref]         d660456c481c27fcd49666f306222521034f1616 -> origin/codex/lebrun-takeover-audit-20261103
+2026-11-04T03:48:34.5112983Z ##[endgroup]
+2026-11-04T03:48:34.5113531Z ##[group]Determining the checkout info
+2026-11-04T03:48:34.5114322Z ##[endgroup]
+2026-11-04T03:48:34.5119737Z [command]/usr/bin/git sparse-checkout disable
+2026-11-04T03:48:34.5173946Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-04T03:48:34.5211110Z ##[group]Checking out the ref
+2026-11-04T03:48:34.5215487Z [command]/usr/bin/git checkout --progress --force -B codex/lebrun-takeover-audit-20261103 refs/remotes/origin/codex/lebrun-takeover-audit-20261103
+2026-11-04T03:48:34.8845942Z Switched to a new branch 'codex/lebrun-takeover-audit-20261103'
+2026-11-04T03:48:34.8848052Z branch 'codex/lebrun-takeover-audit-20261103' set up to track 'origin/codex/lebrun-takeover-audit-20261103'.
+2026-11-04T03:48:34.8869409Z ##[endgroup]
+2026-11-04T03:48:34.8923985Z [command]/usr/bin/git log -1 --format=%H
+2026-11-04T03:48:34.8949933Z d660456c481c27fcd49666f306222521034f1616
+2026-11-04T03:48:34.9145368Z ##[group]Run python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \
+2026-11-04T03:48:34.9146075Z [36;1mpython3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \[0m
+2026-11-04T03:48:34.9146458Z [36;1m  --runtime "$RUNNER_TEMP/lebrun-runtime" \[0m
+2026-11-04T03:48:34.9146773Z [36;1m  --config "$GITHUB_WORKSPACE/runtime-config.json"[0m
+2026-11-04T03:48:34.9167576Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:48:34.9167813Z env:
+2026-11-04T03:48:34.9169921Z   GH_TOKEN: ***
+2026-11-04T03:48:34.9170114Z ##[endgroup]
+2026-11-04T03:48:34.9717124Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-11-04T03:48:34.9717966Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-11-04T03:48:34.9718307Z 
+2026-11-04T03:48:35.2212276Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-04T03:48:35.2212844Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-04T03:48:35.2452757Z 
+2026-11-04T03:48:36.2289862Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-04T03:48:37.2301496Z  10  577M   10 62.1M    0     0  49.4M      0  0:00:11  0:00:01  0:00:10 63.1M
+2026-11-04T03:48:38.2283881Z  11  577M   11 68.6M    0     0  30.3M      0  0:00:19  0:00:02  0:00:17 34.5M
+2026-11-04T03:48:39.2279057Z  24  577M   24  140M    0     0  43.2M      0  0:00:13  0:00:03  0:00:10 47.1M
+2026-11-04T03:48:40.2277577Z  32  577M   32  190M    0     0  44.6M      0  0:00:12  0:00:04  0:00:08 47.7M
+2026-11-04T03:48:41.2273329Z  36  577M   36  210M    0     0  39.9M      0  0:00:14  0:00:05  0:00:09 42.1M
+2026-11-04T03:48:42.2297516Z  44  577M   44  259M    0     0  41.4M      0  0:00:13  0:00:06  0:00:07 39.4M
+2026-11-04T03:48:43.2289977Z  50  577M   50  293M    0     0  40.4M      0  0:00:14  0:00:07  0:00:07 44.9M
+2026-11-04T03:48:44.2339689Z  55  577M   55  321M    0     0  38.9M      0  0:00:14  0:00:08  0:00:06 36.0M
+2026-11-04T03:48:45.2425232Z  64  577M   64  373M    0     0  40.2M      0  0:00:14  0:00:09  0:00:05 36.6M
+2026-11-04T03:48:46.2342698Z  72  577M   72  420M    0     0  40.8M      0  0:00:14  0:00:10  0:00:04 41.8M
+2026-11-04T03:48:47.2317570Z  74  577M   74  428M    0     0  38.0M      0  0:00:15  0:00:11  0:00:04 33.7M
+2026-11-04T03:48:48.2316737Z  79  577M   79  456M    0     0  37.2M      0  0:00:15  0:00:12  0:00:03 32.6M
+2026-11-04T03:48:49.2272438Z  84  577M   84  490M    0     0  36.9M      0  0:00:15  0:00:13  0:00:02 33.7M
+2026-11-04T03:48:49.5894304Z  94  577M   94  547M    0     0  38.4M      0  0:00:15  0:00:14  0:00:01 34.9M
+2026-11-04T03:48:49.5894922Z 100  577M  100  577M    0     0  39.5M      0  0:00:14  0:00:14 --:--:-- 36.2M
+2026-11-04T03:49:00.0985565Z Lean (version 4.36.0-rc1, x86_64-unknown-linux-gnu, commit c9afcddf514a6772bd4d649f7cfc04eff0b9f15e, Release)
+2026-11-04T03:50:39.6264320Z {"runtime_config": "/home/runner/work/claude/claude/runtime-config.json", "restored": true}
+2026-11-04T03:50:39.6744040Z ##[group]Run actions/download-artifact@v4
+2026-11-04T03:50:39.6744293Z with:
+2026-11-04T03:50:39.6744493Z   name: lebrun-takeover-kernel-41763014879-1
+2026-11-04T03:50:39.6744726Z   run-id: 41763014879
+2026-11-04T03:50:39.6746984Z   github-token: ***
+2026-11-04T03:50:39.6747228Z   path: /home/runner/work/_temp/lebrun-prior-evidence
+2026-11-04T03:50:39.6747488Z   merge-multiple: false
+2026-11-04T03:50:39.6747677Z   repository: wajcha2/claude
+2026-11-04T03:50:39.6747878Z env:
+2026-11-04T03:50:39.6749775Z   GH_TOKEN: ***
+2026-11-04T03:50:39.6749951Z ##[endgroup]
+2026-11-04T03:50:39.8672775Z Downloading single artifact
+2026-11-04T03:50:39.8763900Z (node:2183) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T03:50:39.8764904Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T03:50:39.8952947Z (node:2183) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T03:50:40.1856643Z Preparing to download the following artifacts:
+2026-11-04T03:50:40.1857652Z - lebrun-takeover-kernel-41763014879-1 (ID: 13292737548, Size: 60193992, Expected Digest: sha256:9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035)
+2026-11-04T03:50:40.1888862Z Downloading artifact '13292737548' from 'wajcha2/claude'
+2026-11-04T03:50:40.5012322Z Redirecting to blob download url: https://productionresultssa17.blob.core.windows.net/actions-results/86bdcae0-317e-8d59-9b61-a08436cb707f/workflow-job-run-40304ae9-5e24-52e1-b2d8-017e87c447fa/artifacts/7296707de0c5ff251541ce051e1127b0df298c21befd8a66e20e0a67abdca5d7.zip
+2026-11-04T03:50:40.5014009Z Starting download of artifact to: /home/runner/work/_temp/lebrun-prior-evidence
+2026-11-04T03:50:40.7812995Z (node:2183) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-11-04T03:50:42.7651631Z SHA256 digest of downloaded artifact is 9d6811b8c7d07e3d1c2469e97752dba4a623136ad549da46535f4eb759ea1035
+2026-11-04T03:50:42.7652812Z Artifact download completed successfully.
+2026-11-04T03:50:42.7653438Z Total of 1 artifact(s) downloaded
+2026-11-04T03:50:42.7659567Z Download artifact has finished successfully
+2026-11-04T03:50:42.7846530Z ##[group]Run python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py \
+2026-11-04T03:50:42.7847289Z [36;1mpython3 lebrun-salamon/continuation/scripts/restore_replay_cache.py \[0m
+2026-11-04T03:50:42.7847811Z [36;1m  --root lebrun-salamon/continuation \[0m
+2026-11-04T03:50:42.7848205Z [36;1m  --runtime-config runtime-config.json \[0m
+2026-11-04T03:50:42.7848669Z [36;1m  --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" \[0m
+2026-11-04T03:50:42.7849103Z [36;1m  --build-dir kernel-evidence \[0m
+2026-11-04T03:50:42.7849445Z [36;1m  --source-run-id 41763014879 \[0m
+2026-11-04T03:50:42.7849926Z [36;1m  --source-artifact-name lebrun-takeover-kernel-41763014879-1[0m
+2026-11-04T03:50:42.7868140Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:50:42.7868368Z env:
+2026-11-04T03:50:42.7870405Z   GH_TOKEN: ***
+2026-11-04T03:50:42.7870586Z ##[endgroup]
+2026-11-04T03:50:44.6029457Z {
+2026-11-04T03:50:44.6029800Z   "schema": "lebrun-ci-cache-restore-v1",
+2026-11-04T03:50:44.6030262Z   "checked_utc": "2026-11-04T03:50:43.153879+00:00",
+2026-11-04T03:50:44.6030532Z   "source_run_id": 41763014879,
+2026-11-04T03:50:44.6030808Z   "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+2026-11-04T03:50:44.6031433Z   "current_runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T03:50:44.6032008Z   "global_rejection": null,
+2026-11-04T03:50:44.6032255Z   "native_kernel_invoked": false,
+2026-11-04T03:50:44.6032638Z   "copied_module_count": 240,
+2026-11-04T03:50:44.6032924Z   "finished_utc": "2026-11-04T03:50:44.601076+00:00"
+2026-11-04T03:50:44.6033234Z }
+2026-11-04T03:50:44.6137626Z ##[group]Run python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
+2026-11-04T03:50:44.6138119Z [36;1mpython3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \[0m
+2026-11-04T03:50:44.6138458Z [36;1m  --root lebrun-salamon/continuation \[0m
+2026-11-04T03:50:44.6138718Z [36;1m  --runtime-config runtime-config.json \[0m
+2026-11-04T03:50:44.6138980Z [36;1m  --build-dir kernel-evidence \[0m
+2026-11-04T03:50:44.6139277Z [36;1m  --module LSSmoothingAssembly --keep-going --timeout 900[0m
+2026-11-04T03:50:44.6158040Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:50:44.6158242Z env:
+2026-11-04T03:50:44.6160341Z   GH_TOKEN: ***
+2026-11-04T03:50:44.6160528Z ##[endgroup]
+2026-11-04T03:50:45.9953229Z REUSE FieldDifferentials
+2026-11-04T03:50:45.9963338Z REUSE LSConeDiagonal
+2026-11-04T03:50:45.9974609Z REUSE LSConePole
+2026-11-04T03:50:46.0006384Z REUSE LSFunctionFieldPlaces
+2026-11-04T03:50:46.0011779Z REUSE LSNilpotentTopology
+2026-11-04T03:50:46.0023199Z REUSE LSP1SourceAlgebra
+2026-11-04T03:50:46.0031635Z REUSE LSP1TensorSquare
+2026-11-04T03:50:46.0049195Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T03:50:46.0092935Z REUSE RecompileBasePart01
+2026-11-04T03:50:46.0096238Z REUSE LSConeArcs
+2026-11-04T03:50:46.0114727Z REUSE LSCurveLaurentStandardInputs
+2026-11-04T03:50:46.0127870Z REUSE LSLaurentRescaling
+2026-11-04T03:50:46.0131022Z REUSE LSP1TensorTaylor
+2026-11-04T03:50:46.0157737Z REUSE RecompileBasePart02
+2026-11-04T03:50:46.0160484Z REUSE LSConeLocalization
+2026-11-04T03:50:46.0211735Z REUSE RecompileBasePart03
+2026-11-04T03:50:46.0257856Z REUSE RecompileBasePart04
+2026-11-04T03:50:46.0261862Z REUSE LSAffineDerivations
+2026-11-04T03:50:46.0263884Z REUSE LSPublishedPicard
+2026-11-04T03:50:46.0266468Z REUSE LSSheafSectionExact
+2026-11-04T03:50:46.0268772Z REUSE LSTensorLocallyFreeExact
+2026-11-04T03:50:46.0281474Z REUSE RecompileBasePart05A
+2026-11-04T03:50:46.0300358Z REUSE RecompileBasePart05B
+2026-11-04T03:50:46.0305544Z REUSE LSKunnethDegreeZero
+2026-11-04T03:50:46.0312075Z REUSE LSProjectionFormula
+2026-11-04T03:50:46.0317232Z REUSE LSAffineProductRing
+2026-11-04T03:50:46.0330390Z REUSE RecompileBasePart05C
+2026-11-04T03:50:46.0334678Z REUSE LSNonvanishingPullback
+2026-11-04T03:50:46.0337878Z REUSE LSSectionCover
+2026-11-04T03:50:46.0339770Z REUSE RecompileBasePart05
+2026-11-04T03:50:46.0367315Z REUSE RecompileBasePart06
+2026-11-04T03:50:46.0396224Z REUSE RecompileBasePart07
+2026-11-04T03:50:46.0398164Z REUSE RecompileBase
+2026-11-04T03:50:46.0441075Z REUSE RecompileSections
+2026-11-04T03:50:46.0449465Z REUSE LSAffineFrame
+2026-11-04T03:50:46.0452596Z REUSE LSP1TangentSections
+2026-11-04T03:50:46.0457846Z REUSE LSStandardTautological
+2026-11-04T03:50:46.0482287Z REUSE RecompileExtensionCore
+2026-11-04T03:50:46.0485098Z REUSE LSClosedIdealCoefficients
+2026-11-04T03:50:46.0488196Z REUSE LSPublishedProjectiveSpace
+2026-11-04T03:50:46.0491222Z REUSE LSStandardTautologicalP1
+2026-11-04T03:50:46.0495104Z REUSE LSVectorBundlePullback
+2026-11-04T03:50:46.0502184Z REUSE LSOpenProductCoordinates
+2026-11-04T03:50:46.0508859Z REUSE LSExternalFrameCoefficients
+2026-11-04T03:50:46.0588051Z REUSE RecompileExtensionsPart01
+2026-11-04T03:50:46.0594863Z REUSE LSFiniteFreeHomBaseChange
+2026-11-04T03:50:46.0599581Z REUSE LSGeneratingUnitOpens
+2026-11-04T03:50:46.0664867Z REUSE RecompileExtensionsPart02
+2026-11-04T03:50:46.0668089Z REUSE LSDualBaseChangeAlgebra
+2026-11-04T03:50:46.0670783Z REUSE LSFiniteFreeBaseChange
+2026-11-04T03:50:46.0673822Z REUSE LSHomFiberInjectivity
+2026-11-04T03:50:46.0677524Z REUSE LSSectionRepresentability
+2026-11-04T03:50:46.0679998Z REUSE LSAffineSectionRepresentability
+2026-11-04T03:50:46.0683986Z REUSE LSDualThickeningNormalForm
+2026-11-04T03:50:46.0722515Z REUSE RecompileExtensionsPart03
+2026-11-04T03:50:46.0729125Z REUSE LSConicSplitting
+2026-11-04T03:50:46.0733140Z REUSE LSProjectiveTransport
+2026-11-04T03:50:46.0736965Z REUSE LSProperSections
+2026-11-04T03:50:46.0804223Z REUSE RecompileExtensionsPart04Geometry
+2026-11-04T03:50:46.0807846Z REUSE RecompileExtensionsPart04GluingPrefix
+2026-11-04T03:50:46.0808844Z REUSE RecompileExtensionsPart04Gluing
+2026-11-04T03:50:46.0812327Z REUSE RecompileExtensionsPart04GluingSections
+2026-11-04T03:50:46.0816768Z REUSE RecompileExtensionsPart04Nodes
+2026-11-04T03:50:46.0839249Z REUSE RecompileExtensionsPart04
+2026-11-04T03:50:46.0843043Z REUSE LSLineValueDescent
+2026-11-04T03:50:46.0852346Z REUSE LSGenericSheets
+2026-11-04T03:50:46.0854111Z REUSE RecompileExtensions
+2026-11-04T03:50:46.0865359Z REUSE RecompileTail
+2026-11-04T03:50:46.0867315Z REUSE LSPositiveQuotient
+2026-11-04T03:50:46.0873646Z REUSE LSSuitableDirections
+2026-11-04T03:50:46.0889061Z REUSE LSAffineCurveSelection
+2026-11-04T03:50:46.0894197Z REUSE LSConeOpen
+2026-11-04T03:50:46.0899195Z REUSE LSConeRadial
+2026-11-04T03:50:46.0901018Z REUSE LSPositiveHom
+2026-11-04T03:50:46.0902731Z REUSE LSPositiveSplit
+2026-11-04T03:50:46.0907747Z REUSE LSRadialDetection
+2026-11-04T03:50:46.0913190Z REUSE LSSuitableLinear
+2026-11-04T03:50:46.0915697Z REUSE LSConeIsotropy
+2026-11-04T03:50:46.0917792Z REUSE LSContactGeneration
+2026-11-04T03:50:46.0919525Z REUSE LSLeviFiber
+2026-11-04T03:50:46.0921763Z REUSE LSPositiveIndependence
+2026-11-04T03:50:46.0923536Z REUSE LSPositiveNodeImage
+2026-11-04T03:50:46.0928438Z REUSE LSSelectedPair
+2026-11-04T03:50:46.0943288Z REUSE LSConeRescaledArcs
+2026-11-04T03:50:46.0944964Z REUSE LSContactHomBaseChange
+2026-11-04T03:50:46.0946973Z REUSE LSContactStandardInputs
+2026-11-04T03:50:46.0951032Z REUSE LSCurvePairing
+2026-11-04T03:50:46.0956361Z REUSE LSAdditionFiberPresentation
+2026-11-04T03:50:46.0958335Z REUSE LSContactHorizontal
+2026-11-04T03:50:46.0974746Z REUSE LSCurveFunctionField
+2026-11-04T03:50:46.0980325Z REUSE LSContactCompletion
+2026-11-04T03:50:46.0983980Z REUSE LSCurveLaurentGeometry
+2026-11-04T03:50:46.0988447Z REUSE LSConeFiberRigidity
+2026-11-04T03:50:46.1014857Z REUSE LSHomVelocity
+2026-11-04T03:50:46.1019646Z REUSE LSAffineFiberDivisibility
+2026-11-04T03:50:46.1024202Z REUSE LSCotangentDeformations
+2026-11-04T03:50:46.1026762Z REUSE LSEpsilonStructureSequence
+2026-11-04T03:50:46.1058486Z REUSE LSGlobalVelocity
+2026-11-04T03:50:46.1064058Z REUSE LSDualStructureExact
+2026-11-04T03:50:46.1079573Z REUSE LSTangentComparison
+2026-11-04T03:50:46.1099358Z REUSE LSContactVelocityTarget
+2026-11-04T03:50:46.1102237Z REUSE LSDualHomVanishing
+2026-11-04T03:50:46.1119084Z REUSE LSHamiltonianJets
+2026-11-04T03:50:46.1131982Z REUSE LSNodalTangent
+2026-11-04T03:50:46.1144503Z REUSE LSIntrinsicVelocity
+2026-11-04T03:50:46.1176987Z REUSE LSNodalFixedEnds
+2026-11-04T03:50:46.1182570Z REUSE LSRelativeGenericSmoothness
+2026-11-04T03:50:46.1187568Z REUSE LSConeDominance
+2026-11-04T03:50:46.1194011Z REUSE LSFiniteTypeDominance
+2026-11-04T03:50:46.1198367Z REUSE LSHomDegree
+2026-11-04T03:50:46.1212779Z REUSE LSNodalConic
+2026-11-04T03:50:46.1219739Z REUSE LSContactDirections
+2026-11-04T03:50:46.1223042Z REUSE LSPublishedDirections
+2026-11-04T03:50:46.1225986Z REUSE LSProductGeometry
+2026-11-04T03:50:46.1229233Z REUSE LSBoundedLines
+2026-11-04T03:50:46.1239554Z BUILD LSScaledVelocities
+2026-11-04T03:50:58.4225309Z PASS LSScaledVelocities (12.297s)
+2026-11-04T03:50:58.4233947Z BUILD LSVelocityAdditionFamily
+2026-11-04T03:52:35.3907695Z FAIL LSVelocityAdditionFamily (96.966s)
+2026-11-04T03:52:36.7700899Z {
+2026-11-04T03:52:36.7702790Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T03:52:36.7703215Z   "started_utc": "2026-11-04T03:50:45.992441+00:00",
+2026-11-04T03:52:36.7703754Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T03:52:36.7704304Z   "requested_targets": [
+2026-11-04T03:52:36.7704583Z     "LSSmoothingAssembly"
+2026-11-04T03:52:36.7704845Z   ],
+2026-11-04T03:52:36.7705073Z   "milestone_met": false,
+2026-11-04T03:52:36.7705370Z   "full_selected_graph_passed": false,
+2026-11-04T03:52:36.7705711Z   "final_validation": {
+2026-11-04T03:52:36.7706206Z     "checked_utc": "2026-11-04T03:52:36.768487+00:00",
+2026-11-04T03:52:36.7706568Z     "checked_module_count": 116,
+2026-11-04T03:52:36.7707212Z     "invalidated_modules": {},
+2026-11-04T03:52:36.7707513Z     "changed_runtime_files": []
+2026-11-04T03:52:36.7707805Z   },
+2026-11-04T03:52:36.7707999Z   "finished_utc": "2026-11-04T03:52:36.768504+00:00",
+2026-11-04T03:52:36.7708219Z   "failures": [
+2026-11-04T03:52:36.7708400Z     "LSVelocityAdditionFamily"
+2026-11-04T03:52:36.7708587Z   ],
+2026-11-04T03:52:36.7708735Z   "verified_module_count": 116
+2026-11-04T03:52:36.7708916Z }
+2026-11-04T03:52:36.7775597Z ##[error]Process completed with exit code 1.
+2026-11-04T03:52:36.7841935Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T03:52:36.7842172Z with:
+2026-11-04T03:52:36.7842383Z   name: lebrun-takeover-early-smoothing-41769360325-1
+2026-11-04T03:52:36.7842671Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-04T03:52:36.7842911Z   if-no-files-found: warn
+2026-11-04T03:52:36.7843105Z   compression-level: 6
+2026-11-04T03:52:36.7843288Z   overwrite: false
+2026-11-04T03:52:36.7843467Z   include-hidden-files: false
+2026-11-04T03:52:36.7843834Z env:
+2026-11-04T03:52:36.7846054Z   GH_TOKEN: ***
+2026-11-04T03:52:36.7846248Z ##[endgroup]
+2026-11-04T03:52:36.9258043Z (node:2261) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T03:52:36.9258754Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T03:52:37.0323392Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T03:52:37.0325876Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T03:52:37.0326659Z With the provided path, there will be 970 files uploaded
+2026-11-04T03:52:37.0331431Z Artifact name is valid!
+2026-11-04T03:52:37.0332057Z Root directory input is valid!
+2026-11-04T03:52:37.3716002Z Beginning upload of artifact content to blob storage
+2026-11-04T03:52:38.2913588Z (node:2261) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T03:52:38.9791943Z Uploaded bytes 8388608
+2026-11-04T03:52:39.2056385Z Uploaded bytes 16777216
+2026-11-04T03:52:39.9398494Z Uploaded bytes 25165824
+2026-11-04T03:52:40.6284207Z Uploaded bytes 33554432
+2026-11-04T03:52:41.3091976Z Uploaded bytes 41943040
+2026-11-04T03:52:41.9943639Z Uploaded bytes 50331648
+2026-11-04T03:52:42.7097133Z Uploaded bytes 58720256
+2026-11-04T03:52:42.7959387Z Uploaded bytes 60475925
+2026-11-04T03:52:42.8536125Z Finished uploading artifact content to blob storage!
+2026-11-04T03:52:42.8538054Z SHA256 digest of uploaded artifact zip is 707793be45308f2c9e4b9229f7dab282e492e2eda082cda020ff172fd33eaf4b
+2026-11-04T03:52:42.8539899Z Finalizing artifact upload
+2026-11-04T03:52:43.4356650Z Artifact lebrun-takeover-early-smoothing-41769360325-1.zip successfully finalized. Artifact ID 13293768879
+2026-11-04T03:52:43.4357754Z Artifact lebrun-takeover-early-smoothing-41769360325-1 has been successfully uploaded! Final size is 60475925 bytes. Artifact ID is 13293768879
+2026-11-04T03:52:43.4363614Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41769360325/artifacts/13293768879
+2026-11-04T03:52:43.4559949Z ##[group]Run python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
+2026-11-04T03:52:43.4560437Z [36;1mpython3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \[0m
+2026-11-04T03:52:43.4560793Z [36;1m  --root lebrun-salamon/continuation \[0m
+2026-11-04T03:52:43.4561069Z [36;1m  --runtime-config runtime-config.json \[0m
+2026-11-04T03:52:43.4561342Z [36;1m  --build-dir kernel-evidence \[0m
+2026-11-04T03:52:43.4561649Z [36;1m  --module RecompileExtensionsPart01 --keep-going --timeout 900[0m
+2026-11-04T03:52:43.4581089Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:52:43.4581299Z env:
+2026-11-04T03:52:43.4583305Z   GH_TOKEN: ***
+2026-11-04T03:52:43.4583495Z ##[endgroup]
+2026-11-04T03:52:44.8367960Z REUSE LSConePole
+2026-11-04T03:52:44.8378486Z REUSE LSP1SourceAlgebra
+2026-11-04T03:52:44.8386914Z REUSE LSP1TensorSquare
+2026-11-04T03:52:44.8404705Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T03:52:44.8448488Z REUSE RecompileBasePart01
+2026-11-04T03:52:44.8451746Z REUSE LSP1TensorTaylor
+2026-11-04T03:52:44.8477951Z REUSE RecompileBasePart02
+2026-11-04T03:52:44.8528819Z REUSE RecompileBasePart03
+2026-11-04T03:52:44.8574328Z REUSE RecompileBasePart04
+2026-11-04T03:52:44.8578389Z REUSE LSAffineDerivations
+2026-11-04T03:52:44.8580249Z REUSE LSPublishedPicard
+2026-11-04T03:52:44.8592755Z REUSE RecompileBasePart05A
+2026-11-04T03:52:44.8611368Z REUSE RecompileBasePart05B
+2026-11-04T03:52:44.8617582Z REUSE LSKunnethDegreeZero
+2026-11-04T03:52:44.8623810Z REUSE LSProjectionFormula
+2026-11-04T03:52:44.8628896Z REUSE LSAffineProductRing
+2026-11-04T03:52:44.8641799Z REUSE RecompileBasePart05C
+2026-11-04T03:52:44.8646041Z REUSE LSNonvanishingPullback
+2026-11-04T03:52:44.8649283Z REUSE LSSectionCover
+2026-11-04T03:52:44.8650991Z REUSE RecompileBasePart05
+2026-11-04T03:52:44.8678243Z REUSE RecompileBasePart06
+2026-11-04T03:52:44.8706656Z REUSE RecompileBasePart07
+2026-11-04T03:52:44.8708489Z REUSE RecompileBase
+2026-11-04T03:52:44.8750878Z REUSE RecompileSections
+2026-11-04T03:52:44.8758905Z REUSE LSAffineFrame
+2026-11-04T03:52:44.8761967Z REUSE LSP1TangentSections
+2026-11-04T03:52:44.8767134Z REUSE LSStandardTautological
+2026-11-04T03:52:44.8791370Z REUSE RecompileExtensionCore
+2026-11-04T03:52:44.8794264Z REUSE LSClosedIdealCoefficients
+2026-11-04T03:52:44.8797302Z REUSE LSPublishedProjectiveSpace
+2026-11-04T03:52:44.8800270Z REUSE LSStandardTautologicalP1
+2026-11-04T03:52:44.8807279Z REUSE LSOpenProductCoordinates
+2026-11-04T03:52:44.8813355Z REUSE LSExternalFrameCoefficients
+2026-11-04T03:52:44.8890003Z REUSE RecompileExtensionsPart01
+2026-11-04T03:52:45.6067814Z {
+2026-11-04T03:52:45.6068142Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T03:52:45.6068545Z   "started_utc": "2026-11-04T03:52:44.834885+00:00",
+2026-11-04T03:52:45.6069105Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T03:52:45.6069683Z   "requested_targets": [
+2026-11-04T03:52:45.6069957Z     "RecompileExtensionsPart01"
+2026-11-04T03:52:45.6070242Z   ],
+2026-11-04T03:52:45.6070468Z   "milestone_met": false,
+2026-11-04T03:52:45.6070762Z   "full_selected_graph_passed": true,
+2026-11-04T03:52:45.6071065Z   "final_validation": {
+2026-11-04T03:52:45.6071357Z     "checked_utc": "2026-11-04T03:52:45.605686+00:00",
+2026-11-04T03:52:45.6071704Z     "checked_module_count": 34,
+2026-11-04T03:52:45.6071989Z     "invalidated_modules": {},
+2026-11-04T03:52:45.6072270Z     "changed_runtime_files": []
+2026-11-04T03:52:45.6072544Z   },
+2026-11-04T03:52:45.6072792Z   "finished_utc": "2026-11-04T03:52:45.605704+00:00",
+2026-11-04T03:52:45.6073108Z   "failures": [],
+2026-11-04T03:52:45.6073334Z   "verified_module_count": 34
+2026-11-04T03:52:45.6073607Z }
+2026-11-04T03:52:45.6179563Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T03:52:45.6179821Z with:
+2026-11-04T03:52:45.6180022Z   name: lebrun-takeover-early-ext01-41769360325-1
+2026-11-04T03:52:45.6180316Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-04T03:52:45.6180561Z   if-no-files-found: warn
+2026-11-04T03:52:45.6180760Z   compression-level: 6
+2026-11-04T03:52:45.6180966Z   overwrite: false
+2026-11-04T03:52:45.6181153Z   include-hidden-files: false
+2026-11-04T03:52:45.6181352Z env:
+2026-11-04T03:52:45.6183331Z   GH_TOKEN: ***
+2026-11-04T03:52:45.6183524Z ##[endgroup]
+2026-11-04T03:52:45.7596046Z (node:2283) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T03:52:45.7596948Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T03:52:45.8529342Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T03:52:45.8531517Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T03:52:45.8532432Z With the provided path, there will be 970 files uploaded
+2026-11-04T03:52:45.8538321Z Artifact name is valid!
+2026-11-04T03:52:45.8538940Z Root directory input is valid!
+2026-11-04T03:52:46.2041757Z Beginning upload of artifact content to blob storage
+2026-11-04T03:52:47.1064947Z (node:2283) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T03:52:47.7810629Z Uploaded bytes 8388608
+2026-11-04T03:52:48.0556218Z Uploaded bytes 16777216
+2026-11-04T03:52:48.7241959Z Uploaded bytes 25165824
+2026-11-04T03:52:49.4460182Z Uploaded bytes 33554432
+2026-11-04T03:52:50.0836665Z Uploaded bytes 41943040
+2026-11-04T03:52:50.7633548Z Uploaded bytes 50331648
+2026-11-04T03:52:51.4363559Z Uploaded bytes 58720256
+2026-11-04T03:52:51.5492130Z Uploaded bytes 60470607
+2026-11-04T03:52:51.6073036Z Finished uploading artifact content to blob storage!
+2026-11-04T03:52:51.6075185Z SHA256 digest of uploaded artifact zip is f0d6f347ef0b478a8798061d4ed1011f412ccb371a2c64ac718f40aec23ef010
+2026-11-04T03:52:51.6077727Z Finalizing artifact upload
+2026-11-04T03:52:52.1950816Z Artifact lebrun-takeover-early-ext01-41769360325-1.zip successfully finalized. Artifact ID 13293958644
+2026-11-04T03:52:52.1951929Z Artifact lebrun-takeover-early-ext01-41769360325-1 has been successfully uploaded! Final size is 60470607 bytes. Artifact ID is 13293958644
+2026-11-04T03:52:52.1958228Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41769360325/artifacts/13293958644
+2026-11-04T03:52:52.2160335Z ##[group]Run python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
+2026-11-04T03:52:52.2160822Z [36;1mpython3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \[0m
+2026-11-04T03:52:52.2161175Z [36;1m  --root lebrun-salamon/continuation \[0m
+2026-11-04T03:52:52.2161460Z [36;1m  --runtime-config runtime-config.json \[0m
+2026-11-04T03:52:52.2161789Z [36;1m  --build-dir kernel-evidence \[0m
+2026-11-04T03:52:52.2162155Z [36;1m  --module RecompileExtensionsPart04Geometry --keep-going --timeout 900[0m
+2026-11-04T03:52:52.2179657Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:52:52.2179872Z env:
+2026-11-04T03:52:52.2181864Z   GH_TOKEN: ***
+2026-11-04T03:52:52.2182064Z ##[endgroup]
+2026-11-04T03:52:53.5833064Z REUSE LSConePole
+2026-11-04T03:52:53.5843117Z REUSE LSP1SourceAlgebra
+2026-11-04T03:52:53.5851208Z REUSE LSP1TensorSquare
+2026-11-04T03:52:53.5868561Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T03:52:53.5911740Z REUSE RecompileBasePart01
+2026-11-04T03:52:53.5914659Z REUSE LSP1TensorTaylor
+2026-11-04T03:52:53.5940729Z REUSE RecompileBasePart02
+2026-11-04T03:52:53.5991282Z REUSE RecompileBasePart03
+2026-11-04T03:52:53.6036756Z REUSE RecompileBasePart04
+2026-11-04T03:52:53.6040311Z REUSE LSAffineDerivations
+2026-11-04T03:52:53.6041862Z REUSE LSPublishedPicard
+2026-11-04T03:52:53.6054132Z REUSE RecompileBasePart05A
+2026-11-04T03:52:53.6072643Z REUSE RecompileBasePart05B
+2026-11-04T03:52:53.6078558Z REUSE LSKunnethDegreeZero
+2026-11-04T03:52:53.6084461Z REUSE LSProjectionFormula
+2026-11-04T03:52:53.6089199Z REUSE LSAffineProductRing
+2026-11-04T03:52:53.6101827Z REUSE RecompileBasePart05C
+2026-11-04T03:52:53.6105554Z REUSE LSNonvanishingPullback
+2026-11-04T03:52:53.6108685Z REUSE LSSectionCover
+2026-11-04T03:52:53.6109990Z REUSE RecompileBasePart05
+2026-11-04T03:52:53.6136842Z REUSE RecompileBasePart06
+2026-11-04T03:52:53.6164950Z REUSE RecompileBasePart07
+2026-11-04T03:52:53.6166617Z REUSE RecompileBase
+2026-11-04T03:52:53.6209134Z REUSE RecompileSections
+2026-11-04T03:52:53.6216910Z REUSE LSAffineFrame
+2026-11-04T03:52:53.6219706Z REUSE LSP1TangentSections
+2026-11-04T03:52:53.6224373Z REUSE LSStandardTautological
+2026-11-04T03:52:53.6248639Z REUSE RecompileExtensionCore
+2026-11-04T03:52:53.6251185Z REUSE LSClosedIdealCoefficients
+2026-11-04T03:52:53.6253612Z REUSE LSPublishedProjectiveSpace
+2026-11-04T03:52:53.6256421Z REUSE LSStandardTautologicalP1
+2026-11-04T03:52:53.6259815Z REUSE LSVectorBundlePullback
+2026-11-04T03:52:53.6266307Z REUSE LSOpenProductCoordinates
+2026-11-04T03:52:53.6272014Z REUSE LSExternalFrameCoefficients
+2026-11-04T03:52:53.6348173Z REUSE RecompileExtensionsPart01
+2026-11-04T03:52:53.6353598Z REUSE LSFiniteFreeHomBaseChange
+2026-11-04T03:52:53.6357905Z REUSE LSGeneratingUnitOpens
+2026-11-04T03:52:53.6421516Z REUSE RecompileExtensionsPart02
+2026-11-04T03:52:53.6424293Z REUSE LSHomFiberInjectivity
+2026-11-04T03:52:53.6427618Z REUSE LSSectionRepresentability
+2026-11-04T03:52:53.6429738Z REUSE LSAffineSectionRepresentability
+2026-11-04T03:52:53.6467645Z REUSE RecompileExtensionsPart03
+2026-11-04T03:52:53.6473568Z REUSE LSConicSplitting
+2026-11-04T03:52:53.6539811Z REUSE RecompileExtensionsPart04Geometry
+2026-11-04T03:52:54.5872079Z {
+2026-11-04T03:52:54.5872457Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T03:52:54.5872900Z   "started_utc": "2026-11-04T03:52:53.581401+00:00",
+2026-11-04T03:52:54.5873519Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T03:52:54.5874419Z   "requested_targets": [
+2026-11-04T03:52:54.5874766Z     "RecompileExtensionsPart04Geometry"
+2026-11-04T03:52:54.5875072Z   ],
+2026-11-04T03:52:54.5875244Z   "milestone_met": false,
+2026-11-04T03:52:54.5875469Z   "full_selected_graph_passed": true,
+2026-11-04T03:52:54.5875693Z   "final_validation": {
+2026-11-04T03:52:54.5876136Z     "checked_utc": "2026-11-04T03:52:54.586043+00:00",
+2026-11-04T03:52:54.5876395Z     "checked_module_count": 44,
+2026-11-04T03:52:54.5876614Z     "invalidated_modules": {},
+2026-11-04T03:52:54.5877022Z     "changed_runtime_files": []
+2026-11-04T03:52:54.5877226Z   },
+2026-11-04T03:52:54.5877422Z   "finished_utc": "2026-11-04T03:52:54.586062+00:00",
+2026-11-04T03:52:54.5877677Z   "failures": [],
+2026-11-04T03:52:54.5877870Z   "verified_module_count": 44
+2026-11-04T03:52:54.5878072Z }
+2026-11-04T03:52:54.5977559Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T03:52:54.5977824Z with:
+2026-11-04T03:52:54.5978060Z   name: lebrun-takeover-early-geometry-41769360325-1
+2026-11-04T03:52:54.5978355Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-04T03:52:54.5978607Z   if-no-files-found: warn
+2026-11-04T03:52:54.5978809Z   compression-level: 6
+2026-11-04T03:52:54.5978997Z   overwrite: false
+2026-11-04T03:52:54.5979187Z   include-hidden-files: false
+2026-11-04T03:52:54.5979390Z env:
+2026-11-04T03:52:54.5981460Z   GH_TOKEN: ***
+2026-11-04T03:52:54.5981664Z ##[endgroup]
+2026-11-04T03:52:54.7432334Z (node:2298) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T03:52:54.7433234Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T03:52:54.8459645Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T03:52:54.8461920Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T03:52:54.8462664Z With the provided path, there will be 970 files uploaded
+2026-11-04T03:52:54.8468397Z Artifact name is valid!
+2026-11-04T03:52:54.8468752Z Root directory input is valid!
+2026-11-04T03:52:55.1775300Z Beginning upload of artifact content to blob storage
+2026-11-04T03:52:56.0835661Z (node:2298) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T03:52:56.7417085Z Uploaded bytes 8388608
+2026-11-04T03:52:56.9767330Z Uploaded bytes 16777216
+2026-11-04T03:52:57.6983123Z Uploaded bytes 25165824
+2026-11-04T03:52:58.3818386Z Uploaded bytes 33554432
+2026-11-04T03:52:59.0557110Z Uploaded bytes 41943040
+2026-11-04T03:52:59.7299460Z Uploaded bytes 50331648
+2026-11-04T03:53:00.4290323Z Uploaded bytes 58720256
+2026-11-04T03:53:00.5151173Z Uploaded bytes 60471162
+2026-11-04T03:53:00.5734604Z Finished uploading artifact content to blob storage!
+2026-11-04T03:53:00.5737145Z SHA256 digest of uploaded artifact zip is 4b5a9db63aa00efc5e6c8ade183c9efacd1991d1b5ad3ef22a5fa2c09c77843e
+2026-11-04T03:53:00.5739261Z Finalizing artifact upload
+2026-11-04T03:53:01.1531766Z Artifact lebrun-takeover-early-geometry-41769360325-1.zip successfully finalized. Artifact ID 13293958677
+2026-11-04T03:53:01.1532907Z Artifact lebrun-takeover-early-geometry-41769360325-1 has been successfully uploaded! Final size is 60471162 bytes. Artifact ID is 13293958677
+2026-11-04T03:53:01.1538421Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41769360325/artifacts/13293958677
+2026-11-04T03:53:01.1749829Z ##[group]Run python3 - <<'PYPOINT1'
+2026-11-04T03:53:01.1750125Z [36;1mpython3 - <<'PYPOINT1'[0m
+2026-11-04T03:53:01.1750383Z [36;1mimport json, pathlib, subprocess[0m
+2026-11-04T03:53:01.1750691Z [36;1mroot=pathlib.Path('lebrun-salamon/continuation')[0m
+2026-11-04T03:53:01.1751157Z [36;1mmanifest=json.loads((root/'audit/point1_checkpoint/POINT1_MODULE_TARGETS.json').read_text())[0m
+2026-11-04T03:53:01.1751843Z [36;1massert manifest['schema'] == 'lebrun-fixed-point1-module-targets-v1'[0m
+2026-11-04T03:53:01.1752201Z [36;1massert len(manifest['obligations']) == 43[0m
+2026-11-04T03:53:01.1752595Z [36;1mmodules=sorted({pathlib.Path(row['file']).stem for row in manifest['obligations']})[0m
+2026-11-04T03:53:01.1752975Z [36;1massert modules == manifest['modules'][0m
+2026-11-04T03:53:01.1753314Z [36;1mcommand=['python3',str(root/'scripts/replay_checkpoint.py'),[0m
+2026-11-04T03:53:01.1753713Z [36;1m         '--root',str(root),'--runtime-config','runtime-config.json',[0m
+2026-11-04T03:53:01.1754096Z [36;1m         '--build-dir','kernel-evidence','--keep-going','--timeout','900'][0m
+2026-11-04T03:53:01.1754416Z [36;1mfor module in modules:[0m
+2026-11-04T03:53:01.1754651Z [36;1m    command += ['--module',module][0m
+2026-11-04T03:53:01.1754950Z [36;1mraise SystemExit(subprocess.run(command).returncode)[0m
+2026-11-04T03:53:01.1755232Z [36;1mPYPOINT1[0m
+2026-11-04T03:53:01.1772531Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:53:01.1772746Z env:
+2026-11-04T03:53:01.1774915Z   GH_TOKEN: ***
+2026-11-04T03:53:01.1775119Z ##[endgroup]
+2026-11-04T03:53:02.5880343Z REUSE LSClosedImmersionLocus
+2026-11-04T03:53:02.5891485Z REUSE LSComplexQuadraticCoordinates
+2026-11-04T03:53:02.5902600Z REUSE LSConePole
+2026-11-04T03:53:02.5912246Z REUSE LSConicLogAlgebra
+2026-11-04T03:53:02.5919459Z REUSE LSFibreIsomorphism
+2026-11-04T03:53:02.5927689Z REUSE LSFormalTraitRing
+2026-11-04T03:53:02.5959101Z REUSE LSFunctionFieldPlaces
+2026-11-04T03:53:02.5964318Z REUSE LSNilpotentTopology
+2026-11-04T03:53:02.5975482Z REUSE LSP1SourceAlgebra
+2026-11-04T03:53:02.5983630Z REUSE LSP1TensorSquare
+2026-11-04T03:53:02.5992667Z REUSE LSProperLocalTopology
+2026-11-04T03:53:02.5999456Z REUSE LSReducedPushout
+2026-11-04T03:53:02.6007779Z REUSE LSResidueFieldPresentation
+2026-11-04T03:53:02.6016875Z REUSE LSResidueTensorLift
+2026-11-04T03:53:02.6034071Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T03:53:02.6042826Z REUSE LSYonedaExtensionSplitting
+2026-11-04T03:53:02.6086016Z REUSE RecompileBasePart01
+2026-11-04T03:53:02.6103255Z REUSE LSCurveLaurentStandardInputs
+2026-11-04T03:53:02.6106318Z REUSE LSP1TensorTaylor
+2026-11-04T03:53:02.6108739Z REUSE LSResidueFibreGeometry
+2026-11-04T03:53:02.6110974Z REUSE LSYonedaClassesRepresented
+2026-11-04T03:53:02.6137135Z REUSE RecompileBasePart02
+2026-11-04T03:53:02.6187650Z REUSE RecompileBasePart03
+2026-11-04T03:53:02.6232942Z REUSE RecompileBasePart04
+2026-11-04T03:53:02.6236756Z REUSE LSAffineDerivations
+2026-11-04T03:53:02.6238595Z REUSE LSPublishedPicard
+2026-11-04T03:53:02.6241109Z REUSE LSSheafSectionExact
+2026-11-04T03:53:02.6243243Z REUSE LSTensorLocallyFreeExact
+2026-11-04T03:53:02.6256057Z REUSE RecompileBasePart05A
+2026-11-04T03:53:02.6259609Z REUSE LSAffineCotangentHom
+2026-11-04T03:53:02.6278324Z REUSE RecompileBasePart05B
+2026-11-04T03:53:02.6283337Z REUSE LSCanonicalSectionBaseChange
+2026-11-04T03:53:02.6288066Z REUSE LSCohomologyHypotheses
+2026-11-04T03:53:02.6293224Z REUSE LSKunnethDegreeZero
+2026-11-04T03:53:02.6299692Z REUSE LSProjectionFormula
+2026-11-04T03:53:02.6304462Z REUSE LSAffineProductRing
+2026-11-04T03:53:02.6317391Z REUSE RecompileBasePart05C
+2026-11-04T03:53:02.6321500Z REUSE LSNonvanishingPullback
+2026-11-04T03:53:02.6324631Z REUSE LSSectionCover
+2026-11-04T03:53:02.6326646Z REUSE RecompileBasePart05
+2026-11-04T03:53:02.6353524Z REUSE RecompileBasePart06
+2026-11-04T03:53:02.6381953Z REUSE RecompileBasePart07
+2026-11-04T03:53:02.6387888Z REUSE LSModuleHomGluing
+2026-11-04T03:53:02.6389691Z REUSE RecompileBase
+2026-11-04T03:53:02.6432497Z REUSE RecompileSections
+2026-11-04T03:53:02.6439961Z REUSE LSAffineFrame
+2026-11-04T03:53:02.6443831Z REUSE LSLineStalkFlat
+2026-11-04T03:53:02.6447005Z REUSE LSP1TangentSections
+2026-11-04T03:53:02.6449705Z REUSE LSPolarizedOverIso
+2026-11-04T03:53:02.6452237Z REUSE LSRelativeCartier
+2026-11-04T03:53:02.6457394Z REUSE LSStandardTautological
+2026-11-04T03:53:02.6481490Z REUSE RecompileExtensionCore
+2026-11-04T03:53:02.6484444Z REUSE LSClosedIdealCoefficients
+2026-11-04T03:53:02.6487570Z REUSE LSPublishedCohomologyBaseChange
+2026-11-04T03:53:02.6490314Z REUSE LSPublishedProjectiveSpace
+2026-11-04T03:53:02.6492320Z REUSE LSQuadraticVeronese
+2026-11-04T03:53:02.6496689Z REUSE LSStandardProjectiveBaseChange
+2026-11-04T03:53:02.6499486Z REUSE LSStandardProjectiveNonempty
+2026-11-04T03:53:02.6501842Z REUSE LSStandardProjectiveProper
+2026-11-04T03:53:02.6504027Z REUSE LSStandardProjectiveSmooth
+2026-11-04T03:53:02.6507125Z REUSE LSStandardTautologicalP1
+2026-11-04T03:53:02.6510892Z REUSE LSVectorBundlePullback
+2026-11-04T03:53:02.6513196Z REUSE LSLineCohomologyBaseChange
+2026-11-04T03:53:02.6520069Z REUSE LSOpenProductCoordinates
+2026-11-04T03:53:02.6523274Z REUSE LSP1FamilyDegree
+2026-11-04T03:53:02.6525691Z REUSE LSStandardProjectiveComposition
+2026-11-04T03:53:02.6527853Z REUSE LSStandardProjectiveReduced
+2026-11-04T03:53:02.6533776Z REUSE LSExternalFrameCoefficients
+2026-11-04T03:53:02.6536166Z REUSE LSProjectiveFibreLineRigidity
+2026-11-04T03:53:02.6538522Z REUSE LSStandardProjectivePicard
+2026-11-04T03:53:02.6615067Z REUSE RecompileExtensionsPart01
+2026-11-04T03:53:02.6621049Z REUSE LSFiniteFreeHomBaseChange
+2026-11-04T03:53:02.6625400Z REUSE LSGeneratingUnitOpens
+2026-11-04T03:53:02.6630012Z REUSE LSP1PointTransport
+2026-11-04T03:53:02.6631937Z REUSE LSProjectivityDefinitions
+2026-11-04T03:53:02.6696208Z REUSE RecompileExtensionsPart02
+2026-11-04T03:53:02.6698811Z REUSE LSDualBaseChangeAlgebra
+2026-11-04T03:53:02.6701366Z REUSE LSFiniteFreeBaseChange
+2026-11-04T03:53:02.6705925Z REUSE LSFirstJetEmbedding
+2026-11-04T03:53:02.6709084Z REUSE LSHomFiberInjectivity
+2026-11-04T03:53:02.6712303Z REUSE LSRelativeGeneration
+2026-11-04T03:53:02.6716747Z REUSE LSSectionRepresentability
+2026-11-04T03:53:02.6718754Z REUSE LSTensorLineTransport
+2026-11-04T03:53:02.6721159Z REUSE LSAffineSectionRepresentability
+2026-11-04T03:53:02.6724938Z REUSE LSDualThickeningNormalForm
+2026-11-04T03:53:02.6727509Z REUSE LSLiftedProjectiveTuple
+2026-11-04T03:53:02.6765528Z REUSE RecompileExtensionsPart03
+2026-11-04T03:53:02.6771846Z REUSE LSConicSplitting
+2026-11-04T03:53:02.6774188Z REUSE LSFirstCohomologyIso
+2026-11-04T03:53:02.6777897Z REUSE LSProperSections
+2026-11-04T03:53:02.6779880Z REUSE LSSmoothFibreComparison
+2026-11-04T03:53:02.6783271Z REUSE LSPolarizedProjectiveEmbedding
+2026-11-04T03:53:02.6849964Z REUSE RecompileExtensionsPart04Geometry
+2026-11-04T03:53:02.6857348Z REUSE LSConicGeneratingTuples
+2026-11-04T03:53:02.6860732Z REUSE LSConicOverlapAlgebra
+2026-11-04T03:53:02.6863946Z REUSE LSConicTupleChange
+2026-11-04T03:53:02.6866345Z REUSE LSEffectiveCartierInputs
+2026-11-04T03:53:02.6869547Z REUSE LSNormalizedSegre
+2026-11-04T03:53:02.6873175Z REUSE LSPlaneConicPresentation
+2026-11-04T03:53:02.6876702Z REUSE LSPlaneQuadratic
+2026-11-04T03:53:02.6880878Z REUSE LSPolarizedEmbeddingLift
+2026-11-04T03:53:02.6884038Z REUSE LSStandardSourceBaseChange
+2026-11-04T03:53:02.6886149Z REUSE RecompileExtensionsPart04GluingPrefix
+2026-11-04T03:53:02.6897518Z REUSE LSComplexQuadraticMatrix
+2026-11-04T03:53:02.6900415Z REUSE LSConicOverlapCoordinates
+2026-11-04T03:53:02.6902400Z REUSE LSEffectiveCartierIso
+2026-11-04T03:53:02.6905433Z REUSE LSNormalizedSegreQuotients
+2026-11-04T03:53:02.6907842Z REUSE LSPlaneEmbeddingCartier
+2026-11-04T03:53:02.6910524Z REUSE LSPlaneQuadraticBaseChange
+2026-11-04T03:53:02.6912694Z REUSE LSPlaneQuadraticPublished
+2026-11-04T03:53:02.6916739Z REUSE LSProjectiveLinearAction
+2026-11-04T03:53:02.6922372Z REUSE LSQuadraticPolynomial
+2026-11-04T03:53:02.6924628Z REUSE LSVeroneseZeroModel
+2026-11-04T03:53:02.6927077Z REUSE RecompileExtensionsPart04Gluing
+2026-11-04T03:53:02.6929233Z REUSE LSCartierQuadraticExtraction
+2026-11-04T03:53:02.6932298Z REUSE LSNormalizedSegrePairs
+2026-11-04T03:53:02.6936102Z REUSE LSPlaneQuadraticEquation
+2026-11-04T03:53:02.6939037Z REUSE LSQuadraticPrimitive
+2026-11-04T03:53:02.6942054Z REUSE LSQuadraticSchemeBaseChange
+2026-11-04T03:53:02.6947673Z REUSE LSQuadraticSectionEvaluation
+2026-11-04T03:53:02.6950054Z REUSE LSRelativeVeroneseModel
+2026-11-04T03:53:02.6953677Z REUSE RecompileExtensionsPart04GluingSections
+2026-11-04T03:53:02.6956417Z REUSE LSPlaneConicZeroPresentation
+2026-11-04T03:53:02.6959183Z REUSE LSPlaneFamilyQuadratic
+2026-11-04T03:53:02.6961383Z REUSE LSQuadraticFibreCartier
+2026-11-04T03:53:02.6963451Z REUSE LSQuadraticFibreCriteria
+2026-11-04T03:53:02.6966163Z REUSE LSQuadraticLinearTransport
+2026-11-04T03:53:02.6973010Z REUSE LSStandardConicTriple
+2026-11-04T03:53:02.6977409Z REUSE RecompileExtensionsPart04Nodes
+2026-11-04T03:53:02.6981658Z REUSE LSNodalLineCohomology
+2026-11-04T03:53:02.6983848Z REUSE LSQuadraticPolarizedModels
+2026-11-04T03:53:02.6986159Z REUSE LSSmoothFibreCartier
+2026-11-04T03:53:02.6988320Z REUSE LSStandardConicZeroComparison
+2026-11-04T03:53:02.7010497Z REUSE RecompileExtensionsPart04
+2026-11-04T03:53:02.7014034Z REUSE LSLineValueDescent
+2026-11-04T03:53:02.7017586Z REUSE LSNodalLineTriviality
+2026-11-04T03:53:02.7034361Z REUSE LSStableMapFamily
+2026-11-04T03:53:02.7036778Z REUSE LSTraitFibreCohomology
+2026-11-04T03:53:02.7039668Z REUSE LSFormalQuadraticConditions
+2026-11-04T03:53:02.7042120Z REUSE LSFormalTraitParameters
+2026-11-04T03:53:02.7051340Z REUSE LSGenericSheets
+2026-11-04T03:53:02.7054764Z REUSE LSNodalFibreComparison
+2026-11-04T03:53:02.7057271Z REUSE LSTraitQuadraticPresentation
+2026-11-04T03:53:02.7065378Z REUSE LSContactLineTests
+2026-11-04T03:53:02.7068056Z REUSE LSFormalTraitSourceComparison
+2026-11-04T03:53:02.7070200Z REUSE LSSmoothTraitNormalForm
+2026-11-04T03:53:02.7072703Z REUSE LSStandardCentralPlane
+2026-11-04T03:53:02.7074526Z REUSE RecompileExtensions
+2026-11-04T03:53:02.7078024Z REUSE LSNodalTraitQuadraticPresentation
+2026-11-04T03:53:02.7089071Z REUSE RecompileTail
+2026-11-04T03:53:02.7092081Z REUSE LSNodalTraitNormalForm
+2026-11-04T03:53:02.7093778Z REUSE LSPositiveQuotient
+2026-11-04T03:53:02.7100221Z REUSE LSSuitableDirections
+2026-11-04T03:53:02.7102789Z REUSE LSFormalTraitModel
+2026-11-04T03:53:02.7104553Z REUSE LSPositiveHom
+2026-11-04T03:53:02.7106399Z REUSE LSPositiveSplit
+2026-11-04T03:53:02.7111765Z REUSE LSSuitableLinear
+2026-11-04T03:53:02.7113553Z REUSE LSContactGeneration
+2026-11-04T03:53:02.7115334Z REUSE LSLeviFiber
+2026-11-04T03:53:02.7117703Z REUSE LSPositiveIndependence
+2026-11-04T03:53:02.7119396Z REUSE LSPositiveNodeImage
+2026-11-04T03:53:02.7121087Z REUSE LSContactHomBaseChange
+2026-11-04T03:53:02.7122779Z REUSE LSContactStandardInputs
+2026-11-04T03:53:02.7124619Z REUSE LSContactHorizontal
+2026-11-04T03:53:02.7130144Z REUSE LSContactCompletion
+2026-11-04T03:53:02.7155699Z REUSE LSHomVelocity
+2026-11-04T03:53:02.7160260Z REUSE LSAffineFiberDivisibility
+2026-11-04T03:53:02.7164542Z REUSE LSCotangentDeformations
+2026-11-04T03:53:02.7167287Z REUSE LSEpsilonStructureSequence
+2026-11-04T03:53:02.7198611Z REUSE LSGlobalVelocity
+2026-11-04T03:53:02.7202029Z REUSE LSOpenCotangentScalar
+2026-11-04T03:53:02.7206036Z REUSE LSOpenModuleCoherence
+2026-11-04T03:53:02.7208751Z REUSE LSStandardConicFrames
+2026-11-04T03:53:02.7211144Z REUSE LSCotangentScalarAlgebra
+2026-11-04T03:53:02.7216608Z REUSE LSDualStructureExact
+2026-11-04T03:53:02.7231749Z REUSE LSTangentComparison
+2026-11-04T03:53:02.7234825Z REUSE LSConicCotangentTools
+2026-11-04T03:53:02.7237794Z REUSE LSDualHomVanishing
+2026-11-04T03:53:02.7254689Z REUSE LSHamiltonianJets
+2026-11-04T03:53:02.7267532Z REUSE LSNodalTangent
+2026-11-04T03:53:02.7270206Z REUSE LSConicChartDerivations
+2026-11-04T03:53:02.7272325Z REUSE LSConicCotangentExt
+2026-11-04T03:53:02.7278918Z REUSE LSFirstJetEmbeddingGeometry
+2026-11-04T03:53:02.7282068Z REUSE LSLineEvaluation
+2026-11-04T03:53:02.7314552Z REUSE LSNodalFixedEnds
+2026-11-04T03:53:02.7316744Z REUSE LSClassicalReduction
+2026-11-04T03:53:02.7319713Z REUSE LSConicScalarTransport
+2026-11-04T03:53:02.7323112Z REUSE LSConicScalarCompatibility
+2026-11-04T03:53:02.7330224Z REUSE LSConicFundamentalClassConstruction
+2026-11-04T03:53:02.7335455Z REUSE LSStandardConicDifferential
+2026-11-04T03:53:04.2841087Z {
+2026-11-04T03:53:04.2841435Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T03:53:04.2842254Z   "started_utc": "2026-11-04T03:53:02.586356+00:00",
+2026-11-04T03:53:04.2842823Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T03:53:04.2843374Z   "requested_targets": [
+2026-11-04T03:53:04.2843650Z     "LSClassicalReduction",
+2026-11-04T03:53:04.2843947Z     "LSContactLineTests",
+2026-11-04T03:53:04.2844246Z     "LSCurveLaurentStandardInputs",
+2026-11-04T03:53:04.2844577Z     "LSFormalTraitModel",
+2026-11-04T03:53:04.2844838Z     "LSHomVelocity",
+2026-11-04T03:53:04.2845100Z     "LSNodalFixedEnds",
+2026-11-04T03:53:04.2845375Z     "LSNodalTangent",
+2026-11-04T03:53:04.2845653Z     "LSStandardConicDifferential",
+2026-11-04T03:53:04.2846148Z     "RecompileBasePart04",
+2026-11-04T03:53:04.2846423Z     "RecompileBasePart05A",
+2026-11-04T03:53:04.2846709Z     "RecompileBasePart05C",
+2026-11-04T03:53:04.2846977Z     "RecompileBasePart06",
+2026-11-04T03:53:04.2847257Z     "RecompileBasePart07",
+2026-11-04T03:53:04.2847542Z     "RecompileExtensionCore",
+2026-11-04T03:53:04.2847846Z     "RecompileExtensionsPart01",
+2026-11-04T03:53:04.2848153Z     "RecompileExtensionsPart02",
+2026-11-04T03:53:04.2848461Z     "RecompileExtensionsPart03",
+2026-11-04T03:53:04.2848783Z     "RecompileExtensionsPart04Geometry",
+2026-11-04T03:53:04.2849122Z     "RecompileSections"
+2026-11-04T03:53:04.2849368Z   ],
+2026-11-04T03:53:04.2849591Z   "milestone_met": false,
+2026-11-04T03:53:04.2849877Z   "full_selected_graph_passed": true,
+2026-11-04T03:53:04.2850168Z   "final_validation": {
+2026-11-04T03:53:04.2850477Z     "checked_utc": "2026-11-04T03:53:04.282197+00:00",
+2026-11-04T03:53:04.2850823Z     "checked_module_count": 190,
+2026-11-04T03:53:04.2851118Z     "invalidated_modules": {},
+2026-11-04T03:53:04.2851405Z     "changed_runtime_files": []
+2026-11-04T03:53:04.2851683Z   },
+2026-11-04T03:53:04.2851949Z   "finished_utc": "2026-11-04T03:53:04.282214+00:00",
+2026-11-04T03:53:04.2852343Z   "failures": [],
+2026-11-04T03:53:04.2852630Z   "verified_module_count": 190
+2026-11-04T03:53:04.2958819Z }
+2026-11-04T03:53:04.2999741Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T03:53:04.3000000Z with:
+2026-11-04T03:53:04.3000208Z   name: lebrun-takeover-point1-41769360325-1
+2026-11-04T03:53:04.3000496Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-04T03:53:04.3000748Z   if-no-files-found: warn
+2026-11-04T03:53:04.3000958Z   compression-level: 6
+2026-11-04T03:53:04.3001150Z   overwrite: false
+2026-11-04T03:53:04.3001346Z   include-hidden-files: false
+2026-11-04T03:53:04.3001552Z env:
+2026-11-04T03:53:04.3003547Z   GH_TOKEN: ***
+2026-11-04T03:53:04.3003754Z ##[endgroup]
+2026-11-04T03:53:04.4383646Z (node:2315) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T03:53:04.4384224Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T03:53:04.5410864Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T03:53:04.5413013Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T03:53:04.5413858Z With the provided path, there will be 970 files uploaded
+2026-11-04T03:53:04.5418462Z Artifact name is valid!
+2026-11-04T03:53:04.5419074Z Root directory input is valid!
+2026-11-04T03:53:04.8876458Z Beginning upload of artifact content to blob storage
+2026-11-04T03:53:05.7854718Z (node:2315) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T03:53:06.4554402Z Uploaded bytes 8388608
+2026-11-04T03:53:06.6917535Z Uploaded bytes 16777216
+2026-11-04T03:53:07.3825423Z Uploaded bytes 25165824
+2026-11-04T03:53:08.1493013Z Uploaded bytes 33554432
+2026-11-04T03:53:08.7594063Z Uploaded bytes 41943040
+2026-11-04T03:53:09.4221652Z Uploaded bytes 50331648
+2026-11-04T03:53:10.0966903Z Uploaded bytes 58720256
+2026-11-04T03:53:10.2089078Z Uploaded bytes 60479073
+2026-11-04T03:53:10.2668746Z Finished uploading artifact content to blob storage!
+2026-11-04T03:53:10.2671271Z SHA256 digest of uploaded artifact zip is 3b7312e1824e8bc9750c87d15a70c175fd12499767a379068523cea7a201a118
+2026-11-04T03:53:10.2672599Z Finalizing artifact upload
+2026-11-04T03:53:11.1294838Z Artifact lebrun-takeover-point1-41769360325-1.zip successfully finalized. Artifact ID 13293943748
+2026-11-04T03:53:11.1296088Z Artifact lebrun-takeover-point1-41769360325-1 has been successfully uploaded! Final size is 60479073 bytes. Artifact ID is 13293943748
+2026-11-04T03:53:11.1302592Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41769360325/artifacts/13293943748
+2026-11-04T03:53:11.1511991Z ##[group]Run python3 - <<'PY'
+2026-11-04T03:53:11.1512294Z [36;1mpython3 - <<'PY'[0m
+2026-11-04T03:53:11.1512554Z [36;1mimport os, shlex, subprocess, pathlib[0m
+2026-11-04T03:53:11.1512882Z [36;1mroot=pathlib.Path('lebrun-salamon/continuation')[0m
+2026-11-04T03:53:11.1513278Z [36;1mcommand=['python3',str(root/'scripts/replay_checkpoint.py'),[0m
+2026-11-04T03:53:11.1513683Z [36;1m         '--root',str(root),'--runtime-config','runtime-config.json',[0m
+2026-11-04T03:53:11.1514077Z [36;1m         '--build-dir','kernel-evidence','--keep-going','--timeout','900'][0m
+2026-11-04T03:53:11.1514460Z [36;1mmodules=shlex.split(os.environ['SELECTED_MODULES'])[0m
+2026-11-04T03:53:11.1514758Z [36;1mif modules != ['all']:[0m
+2026-11-04T03:53:11.1514992Z [36;1m    for module in modules:[0m
+2026-11-04T03:53:11.1515250Z [36;1m        command += ['--module',module][0m
+2026-11-04T03:53:11.1515562Z [36;1mraise SystemExit(subprocess.run(command).returncode)[0m
+2026-11-04T03:53:11.1516093Z [36;1mPY[0m
+2026-11-04T03:53:11.1533065Z shell: /usr/bin/bash -e {0}
+2026-11-04T03:53:11.1533284Z env:
+2026-11-04T03:53:11.1535343Z   GH_TOKEN: ***
+2026-11-04T03:53:11.1535639Z   SELECTED_MODULES: all
+2026-11-04T03:53:11.1535959Z ##[endgroup]
+2026-11-04T03:53:12.5565007Z REUSE FieldDifferentials
+2026-11-04T03:53:12.5572484Z REUSE LSCharacteristicZeroSeparability
+2026-11-04T03:53:12.5580885Z REUSE LSClosedImmersionLocus
+2026-11-04T03:53:12.5592940Z REUSE LSComplexQuadraticCoordinates
+2026-11-04T03:53:12.5604143Z REUSE LSConeDiagonal
+2026-11-04T03:53:12.5615244Z REUSE LSConePole
+2026-11-04T03:53:12.5624787Z REUSE LSConicLogAlgebra
+2026-11-04T03:53:12.5631856Z REUSE LSFibreIsomorphism
+2026-11-04T03:53:12.5640202Z REUSE LSFormalTraitRing
+2026-11-04T03:53:12.5671904Z REUSE LSFunctionFieldPlaces
+2026-11-04T03:53:12.5677500Z REUSE LSNilpotentTopology
+2026-11-04T03:53:12.5688659Z REUSE LSP1SourceAlgebra
+2026-11-04T03:53:12.5697998Z REUSE LSP1TensorSquare
+2026-11-04T03:53:12.5706189Z REUSE LSProperLocalTopology
+2026-11-04T03:53:12.5712544Z REUSE LSReducedPushout
+2026-11-04T03:53:12.5721358Z REUSE LSResidueFieldPresentation
+2026-11-04T03:53:12.5730585Z REUSE LSResidueTensorLift
+2026-11-04T03:53:12.5748019Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T03:53:12.5756605Z REUSE LSYonedaExtensionSplitting
+2026-11-04T03:53:12.5800059Z REUSE RecompileBasePart01
+2026-11-04T03:53:12.5803015Z REUSE LSConeArcs
+2026-11-04T03:53:12.5820467Z REUSE LSCurveLaurentStandardInputs
+2026-11-04T03:53:12.5833078Z REUSE LSLaurentRescaling
+2026-11-04T03:53:12.5839719Z REUSE LSMilestoneStatement
+2026-11-04T03:53:12.5842833Z REUSE LSP1TensorTaylor
+2026-11-04T03:53:12.5845440Z REUSE LSResidueFibreGeometry
+2026-11-04T03:53:12.5847949Z REUSE LSYonedaClassesRepresented
+2026-11-04T03:53:12.5874292Z REUSE RecompileBasePart02
+2026-11-04T03:53:12.5877324Z REUSE LSConeLocalization
+2026-11-04T03:53:12.5879702Z REUSE LSMilestoneTopology
+2026-11-04T03:53:12.5930592Z REUSE RecompileBasePart03
+2026-11-04T03:53:12.5976190Z REUSE RecompileBasePart04
+2026-11-04T03:53:12.5979970Z REUSE LSAffineDerivations
+2026-11-04T03:53:12.5981844Z REUSE LSPublishedPicard
+2026-11-04T03:53:12.5984255Z REUSE LSSheafSectionExact
+2026-11-04T03:53:12.5986570Z REUSE LSTensorLocallyFreeExact
+2026-11-04T03:53:12.5999201Z REUSE RecompileBasePart05A
+2026-11-04T03:53:12.6002895Z REUSE LSAffineCotangentHom
+2026-11-04T03:53:12.6021590Z REUSE RecompileBasePart05B
+2026-11-04T03:53:12.6026687Z REUSE LSCanonicalSectionBaseChange
+2026-11-04T03:53:12.6031302Z REUSE LSCohomologyHypotheses
+2026-11-04T03:53:12.6036684Z REUSE LSKunnethDegreeZero
+2026-11-04T03:53:12.6042925Z REUSE LSProjectionFormula
+2026-11-04T03:53:12.6048022Z REUSE LSAffineProductRing
+2026-11-04T03:53:12.6060935Z REUSE RecompileBasePart05C
+2026-11-04T03:53:12.6064875Z REUSE LSNonvanishingPullback
+2026-11-04T03:53:12.6068249Z REUSE LSSectionCover
+2026-11-04T03:53:12.6069961Z REUSE RecompileBasePart05
+2026-11-04T03:53:12.6097077Z REUSE RecompileBasePart06
+2026-11-04T03:53:12.6125588Z REUSE RecompileBasePart07
+2026-11-04T03:53:12.6131778Z REUSE LSModuleHomGluing
+2026-11-04T03:53:12.6132905Z REUSE RecompileBase
+2026-11-04T03:53:12.6175553Z REUSE RecompileSections
+2026-11-04T03:53:12.6183531Z REUSE LSAffineFrame
+2026-11-04T03:53:12.6187458Z REUSE LSLineStalkFlat
+2026-11-04T03:53:12.6190586Z REUSE LSP1TangentSections
+2026-11-04T03:53:12.6193238Z REUSE LSPolarizedOverIso
+2026-11-04T03:53:12.6195659Z REUSE LSRelativeCartier
+2026-11-04T03:53:12.6200922Z REUSE LSStandardTautological
+2026-11-04T03:53:12.6225072Z REUSE RecompileExtensionCore
+2026-11-04T03:53:12.6228249Z REUSE LSClosedIdealCoefficients
+2026-11-04T03:53:12.6231029Z REUSE LSPublishedCohomologyBaseChange
+2026-11-04T03:53:12.6233739Z REUSE LSPublishedProjectiveSpace
+2026-11-04T03:53:12.6245258Z REUSE LSQuadraticVeronese
+2026-11-04T03:53:12.6245677Z REUSE LSStandardProjectiveBaseChange
+2026-11-04T03:53:12.6246260Z REUSE LSStandardProjectiveNonempty
+2026-11-04T03:53:12.6246655Z REUSE LSStandardProjectiveProper
+2026-11-04T03:53:12.6247708Z REUSE LSStandardProjectiveSmooth
+2026-11-04T03:53:12.6250727Z REUSE LSStandardTautologicalP1
+2026-11-04T03:53:12.6254507Z REUSE LSVectorBundlePullback
+2026-11-04T03:53:12.6256961Z REUSE LSLineCohomologyBaseChange
+2026-11-04T03:53:12.6263783Z REUSE LSOpenProductCoordinates
+2026-11-04T03:53:12.6267140Z REUSE LSP1FamilyDegree
+2026-11-04T03:53:12.6269689Z REUSE LSStandardProjectiveComposition
+2026-11-04T03:53:12.6271634Z REUSE LSStandardProjectiveReduced
+2026-11-04T03:53:12.6277894Z REUSE LSExternalFrameCoefficients
+2026-11-04T03:53:12.6280217Z REUSE LSProjectiveFibreLineRigidity
+2026-11-04T03:53:12.6282401Z REUSE LSStandardProjectivePicard
+2026-11-04T03:53:12.6359611Z REUSE RecompileExtensionsPart01
+2026-11-04T03:53:12.6365383Z REUSE LSFiniteFreeHomBaseChange
+2026-11-04T03:53:12.6370009Z REUSE LSGeneratingUnitOpens
+2026-11-04T03:53:12.6374459Z REUSE LSP1PointTransport
+2026-11-04T03:53:12.6376710Z REUSE LSProjectivityDefinitions
+2026-11-04T03:53:12.6441692Z REUSE RecompileExtensionsPart02
+2026-11-04T03:53:12.6444381Z REUSE LSDualBaseChangeAlgebra
+2026-11-04T03:53:12.6447145Z REUSE LSFiniteFreeBaseChange
+2026-11-04T03:53:12.6451723Z REUSE LSFirstJetEmbedding
+2026-11-04T03:53:12.6454931Z REUSE LSFormalTraitProjectivity
+2026-11-04T03:53:12.6458072Z REUSE LSHomFiberInjectivity
+2026-11-04T03:53:12.6461431Z REUSE LSRelativeGeneration
+2026-11-04T03:53:12.6464859Z REUSE LSSectionRepresentability
+2026-11-04T03:53:12.6467026Z REUSE LSTensorLineTransport
+2026-11-04T03:53:12.6469345Z REUSE LSAffineSectionRepresentability
+2026-11-04T03:53:12.6473264Z REUSE LSDualThickeningNormalForm
+2026-11-04T03:53:12.6475655Z REUSE LSLiftedProjectiveTuple
+2026-11-04T03:53:12.6514059Z REUSE RecompileExtensionsPart03
+2026-11-04T03:53:12.6520377Z REUSE LSConicSplitting
+2026-11-04T03:53:12.6522848Z REUSE LSFirstCohomologyIso
+2026-11-04T03:53:12.6526931Z REUSE LSProjectiveTransport
+2026-11-04T03:53:12.6530553Z REUSE LSProperSections
+2026-11-04T03:53:12.6532396Z REUSE LSSmoothFibreComparison
+2026-11-04T03:53:12.6535926Z REUSE LSPolarizedProjectiveEmbedding
+2026-11-04T03:53:12.6602521Z REUSE RecompileExtensionsPart04Geometry
+2026-11-04T03:53:12.6609867Z REUSE LSConicGeneratingTuples
+2026-11-04T03:53:12.6613215Z REUSE LSConicOverlapAlgebra
+2026-11-04T03:53:12.6616670Z REUSE LSConicTupleChange
+2026-11-04T03:53:12.6619050Z REUSE LSEffectiveCartierInputs
+2026-11-04T03:53:12.6622257Z REUSE LSNormalizedSegre
+2026-11-04T03:53:12.6625965Z REUSE LSPlaneConicPresentation
+2026-11-04T03:53:12.6629439Z REUSE LSPlaneQuadratic
+2026-11-04T03:53:12.6633562Z REUSE LSPolarizedEmbeddingLift
+2026-11-04T03:53:12.6636810Z REUSE LSStandardSourceBaseChange
+2026-11-04T03:53:12.6638692Z REUSE RecompileExtensionsPart04GluingPrefix
+2026-11-04T03:53:12.6650231Z REUSE LSComplexQuadraticMatrix
+2026-11-04T03:53:12.6652935Z REUSE LSConicOverlapCoordinates
+2026-11-04T03:53:12.6654855Z REUSE LSEffectiveCartierIso
+2026-11-04T03:53:12.6658223Z REUSE LSNormalizedSegreQuotients
+2026-11-04T03:53:12.6660323Z REUSE LSPlaneEmbeddingCartier
+2026-11-04T03:53:12.6663026Z REUSE LSPlaneQuadraticBaseChange
+2026-11-04T03:53:12.6665553Z REUSE LSPlaneQuadraticPublished
+2026-11-04T03:53:12.6669312Z REUSE LSProjectiveLinearAction
+2026-11-04T03:53:12.6674890Z REUSE LSQuadraticPolynomial
+2026-11-04T03:53:12.6677299Z REUSE LSVeroneseZeroModel
+2026-11-04T03:53:12.6679069Z REUSE RecompileExtensionsPart04Gluing
+2026-11-04T03:53:12.6681819Z REUSE LSCartierQuadraticExtraction
+2026-11-04T03:53:12.6684834Z REUSE LSNormalizedSegrePairs
+2026-11-04T03:53:12.6688708Z REUSE LSPlaneQuadraticEquation
+2026-11-04T03:53:12.6691484Z REUSE LSQuadraticPrimitive
+2026-11-04T03:53:12.6694591Z REUSE LSQuadraticSchemeBaseChange
+2026-11-04T03:53:12.6700193Z REUSE LSQuadraticSectionEvaluation
+2026-11-04T03:53:12.6702855Z REUSE LSRelativeVeroneseModel
+2026-11-04T03:53:12.6706040Z REUSE RecompileExtensionsPart04GluingSections
+2026-11-04T03:53:12.6709093Z REUSE LSPlaneConicZeroPresentation
+2026-11-04T03:53:12.6711755Z REUSE LSPlaneFamilyQuadratic
+2026-11-04T03:53:12.6713904Z REUSE LSQuadraticFibreCartier
+2026-11-04T03:53:12.6716084Z REUSE LSQuadraticFibreCriteria
+2026-11-04T03:53:12.6718778Z REUSE LSQuadraticLinearTransport
+2026-11-04T03:53:12.6725601Z REUSE LSStandardConicTriple
+2026-11-04T03:53:12.6729965Z REUSE RecompileExtensionsPart04Nodes
+2026-11-04T03:53:12.6734243Z REUSE LSNodalLineCohomology
+2026-11-04T03:53:12.6736673Z REUSE LSQuadraticPolarizedModels
+2026-11-04T03:53:12.6738893Z REUSE LSSmoothFibreCartier
+2026-11-04T03:53:12.6740904Z REUSE LSStandardConicZeroComparison
+2026-11-04T03:53:12.6763384Z REUSE RecompileExtensionsPart04
+2026-11-04T03:53:12.6768458Z REUSE LSFlatSectionDescent
+2026-11-04T03:53:12.6772250Z REUSE LSLineValueDescent
+2026-11-04T03:53:12.6776590Z REUSE LSMovingPairAssembly
+2026-11-04T03:53:12.6779927Z REUSE LSNodalLineTriviality
+2026-11-04T03:53:12.6796824Z REUSE LSStableMapFamily
+2026-11-04T03:53:12.6798700Z REUSE LSTraitFibreCohomology
+2026-11-04T03:53:12.6801961Z REUSE LSFieldParametrization
+2026-11-04T03:53:12.6805050Z REUSE LSFormalQuadraticConditions
+2026-11-04T03:53:12.6808665Z REUSE LSFormalTraitParameters
+2026-11-04T03:53:12.6817696Z REUSE LSGenericSheets
+2026-11-04T03:53:12.6821340Z REUSE LSNodalFibreComparison
+2026-11-04T03:53:12.6828127Z REUSE LSReducedCover
+2026-11-04T03:53:12.6830367Z REUSE LSTraitQuadraticPresentation
+2026-11-04T03:53:12.6838629Z REUSE LSContactLineTests
+2026-11-04T03:53:12.6841182Z REUSE LSFormalTraitSourceComparison
+2026-11-04T03:53:12.6843308Z REUSE LSSmoothTraitNormalForm
+2026-11-04T03:53:12.6845623Z REUSE LSStandardCentralPlane
+2026-11-04T03:53:12.6847595Z REUSE RecompileExtensions
+2026-11-04T03:53:12.6850512Z REUSE LSBranchAlgebra
+2026-11-04T03:53:12.6853099Z REUSE LSNodalTraitQuadraticPresentation
+2026-11-04T03:53:12.6856205Z REUSE LSPositiveVariation
+2026-11-04T03:53:12.6867392Z REUSE RecompileTail
+2026-11-04T03:53:12.6875685Z REUSE LSBranchRamification
+2026-11-04T03:53:12.6878870Z REUSE LSNodalTraitNormalForm
+2026-11-04T03:53:12.6880461Z REUSE LSPositiveQuotient
+2026-11-04T03:53:12.6887026Z REUSE LSSuitableDirections
+2026-11-04T03:53:12.6901676Z REUSE LSAffineCurveSelection
+2026-11-04T03:53:12.6906887Z REUSE LSConeOpen
+2026-11-04T03:53:12.6911589Z REUSE LSConeRadial
+2026-11-04T03:53:12.6913427Z REUSE LSDescentAssembly
+2026-11-04T03:53:12.6916150Z REUSE LSFormalTraitModel
+2026-11-04T03:53:12.6917860Z REUSE LSPositiveHom
+2026-11-04T03:53:12.6919538Z REUSE LSPositiveSplit
+2026-11-04T03:53:12.6924186Z REUSE LSRadialDetection
+2026-11-04T03:53:12.6929824Z REUSE LSSuitableLinear
+2026-11-04T03:53:12.6942792Z REUSE LSConeAdditionAlgebra
+2026-11-04T03:53:12.6945125Z REUSE LSConeIsotropy
+2026-11-04T03:53:12.6948522Z REUSE LSConeTangents
+2026-11-04T03:53:12.6950142Z REUSE LSContactGeneration
+2026-11-04T03:53:12.6951992Z REUSE LSGenericGlobalFunctions
+2026-11-04T03:53:12.6953785Z REUSE LSLeviFiber
+2026-11-04T03:53:12.6956109Z REUSE LSPositiveIndependence
+2026-11-04T03:53:12.6957841Z REUSE LSPositiveNodeImage
+2026-11-04T03:53:12.6961331Z REUSE LSSelectedPair
+2026-11-04T03:53:12.6967477Z REUSE LSStableFamilyTraits
+2026-11-04T03:53:12.6982113Z REUSE LSConeRescaledArcs
+2026-11-04T03:53:12.6983914Z REUSE LSContactHomBaseChange
+2026-11-04T03:53:12.6985963Z REUSE LSContactStandardInputs
+2026-11-04T03:53:12.6990014Z REUSE LSCurvePairing
+2026-11-04T03:53:12.6993316Z REUSE LSLeviOpen
+2026-11-04T03:53:12.6998597Z REUSE LSAdditionFiberPresentation
+2026-11-04T03:53:12.7000532Z REUSE LSContactHorizontal
+2026-11-04T03:53:12.7016681Z REUSE LSCurveFunctionField
+2026-11-04T03:53:12.7022001Z REUSE LSContactCompletion
+2026-11-04T03:53:12.7025514Z REUSE LSCurveLaurentGeometry
+2026-11-04T03:53:12.7029834Z REUSE LSConeFiberRigidity
+2026-11-04T03:53:12.7055465Z REUSE LSHomVelocity
+2026-11-04T03:53:12.7059960Z REUSE LSAffineFiberDivisibility
+2026-11-04T03:53:12.7064249Z REUSE LSCotangentDeformations
+2026-11-04T03:53:12.7067036Z REUSE LSEpsilonStructureSequence
+2026-11-04T03:53:12.7098236Z REUSE LSGlobalVelocity
+2026-11-04T03:53:12.7101737Z REUSE LSOpenCotangentScalar
+2026-11-04T03:53:12.7105575Z REUSE LSOpenModuleCoherence
+2026-11-04T03:53:12.7108483Z REUSE LSStandardConicFrames
+2026-11-04T03:53:12.7110789Z REUSE LSCotangentScalarAlgebra
+2026-11-04T03:53:12.7116232Z REUSE LSDualStructureExact
+2026-11-04T03:53:12.7131325Z REUSE LSTangentComparison
+2026-11-04T03:53:12.7134500Z REUSE LSConicCotangentTools
+2026-11-04T03:53:12.7154102Z REUSE LSContactVelocityTarget
+2026-11-04T03:53:12.7157171Z REUSE LSDualHomVanishing
+2026-11-04T03:53:12.7173940Z REUSE LSHamiltonianJets
+2026-11-04T03:53:12.7186595Z REUSE LSNodalTangent
+2026-11-04T03:53:12.7189309Z REUSE LSConicChartDerivations
+2026-11-04T03:53:12.7191364Z REUSE LSConicCotangentExt
+2026-11-04T03:53:12.7198144Z REUSE LSFirstJetEmbeddingGeometry
+2026-11-04T03:53:12.7210434Z REUSE LSIntrinsicVelocity
+2026-11-04T03:53:12.7223621Z REUSE LSLineEvaluation
+2026-11-04T03:53:12.7255375Z REUSE LSNodalFixedEnds
+2026-11-04T03:53:12.7258261Z REUSE LSClassicalReduction
+2026-11-04T03:53:12.7273433Z BUILD LSConicJets
+2026-11-04T03:59:29.9290354Z FAIL LSConicJets (377.2s)
+2026-11-04T03:59:29.9292914Z REUSE LSConicScalarTransport
+2026-11-04T03:59:29.9297308Z REUSE LSRelativeDifferential
+2026-11-04T03:59:29.9303241Z REUSE LSRelativeGenericSmoothness
+2026-11-04T03:59:29.9307171Z REUSE LSClassicalActions
+2026-11-04T03:59:29.9311934Z REUSE LSConeDominance
+2026-11-04T03:59:29.9315489Z REUSE LSConicScalarCompatibility
+2026-11-04T03:59:29.9322344Z REUSE LSFiniteTypeDominance
+2026-11-04T03:59:29.9326683Z REUSE LSHomDegree
+2026-11-04T03:59:29.9341373Z REUSE LSNodalConic
+2026-11-04T03:59:29.9348657Z REUSE LSConicFundamentalClassConstruction
+2026-11-04T03:59:29.9355373Z REUSE LSContactDirections
+2026-11-04T03:59:29.9358934Z REUSE LSPublishedDirections
+2026-11-04T03:59:29.9364205Z REUSE LSStandardConicDifferential
+2026-11-04T03:59:29.9367335Z REUSE LSConicModelSections
+2026-11-04T03:59:29.9369924Z REUSE LSProductGeometry
+2026-11-04T03:59:29.9377686Z REUSE LSTraitContact
+2026-11-04T03:59:29.9380959Z REUSE LSBoundedLines
+2026-11-04T03:59:29.9387885Z REUSE LSScaledVelocities
+2026-11-04T03:59:29.9405225Z BUILD LSVelocityAdditionFamily
+2026-11-04T04:01:07.0192482Z FAIL LSVelocityAdditionFamily (97.077s)
+2026-11-04T04:01:08.7862295Z {
+2026-11-04T04:01:08.7862673Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T04:01:08.7863105Z   "started_utc": "2026-11-04T03:53:12.553431+00:00",
+2026-11-04T04:01:08.7863682Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T04:01:08.7864248Z   "requested_targets": null,
+2026-11-04T04:01:08.7864864Z   "milestone_met": false,
+2026-11-04T04:01:08.7865167Z   "full_selected_graph_passed": false,
+2026-11-04T04:01:08.7865491Z   "final_validation": {
+2026-11-04T04:01:08.7865986Z     "checked_utc": "2026-11-04T04:01:08.783907+00:00",
+2026-11-04T04:01:08.7866353Z     "checked_module_count": 241,
+2026-11-04T04:01:08.7866678Z     "invalidated_modules": {},
+2026-11-04T04:01:08.7866968Z     "changed_runtime_files": []
+2026-11-04T04:01:08.7867255Z   },
+2026-11-04T04:01:08.7867504Z   "finished_utc": "2026-11-04T04:01:08.783925+00:00",
+2026-11-04T04:01:08.7867836Z   "failures": [
+2026-11-04T04:01:08.7868080Z     "LSConicJets",
+2026-11-04T04:01:08.7868343Z     "LSVelocityAdditionFamily"
+2026-11-04T04:01:08.7868852Z   ],
+2026-11-04T04:01:08.7869089Z   "verified_module_count": 241
+2026-11-04T04:01:08.7869358Z }
+2026-11-04T04:01:08.7981721Z ##[error]Process completed with exit code 1.
+2026-11-04T04:01:08.8033525Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T04:01:08.8033787Z with:
+2026-11-04T04:01:08.8034021Z   name: lebrun-takeover-kernel-41769360325-1
+2026-11-04T04:01:08.8034312Z   path: runtime-config.json
+kernel-evidence/
+
+2026-11-04T04:01:08.8034581Z   if-no-files-found: warn
+2026-11-04T04:01:08.8034803Z   compression-level: 6
+2026-11-04T04:01:08.8035007Z   overwrite: false
+2026-11-04T04:01:08.8035204Z   include-hidden-files: false
+2026-11-04T04:01:08.8035423Z env:
+2026-11-04T04:01:08.8037665Z   GH_TOKEN: ***
+2026-11-04T04:01:08.8037872Z ##[endgroup]
+2026-11-04T04:01:08.9656699Z (node:2423) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T04:01:08.9657611Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T04:01:09.1059904Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T04:01:09.1062351Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T04:01:09.1063334Z With the provided path, there will be 975 files uploaded
+2026-11-04T04:01:09.1070090Z Artifact name is valid!
+2026-11-04T04:01:09.1070429Z Root directory input is valid!
+2026-11-04T04:01:09.4497677Z Beginning upload of artifact content to blob storage
+2026-11-04T04:01:10.3560368Z (node:2423) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T04:01:11.0236715Z Uploaded bytes 8388608
+2026-11-04T04:01:11.2662969Z Uploaded bytes 16777216
+2026-11-04T04:01:11.9902377Z Uploaded bytes 25165824
+2026-11-04T04:01:12.6676083Z Uploaded bytes 33554432
+2026-11-04T04:01:13.3541647Z Uploaded bytes 41943040
+2026-11-04T04:01:14.0551914Z Uploaded bytes 50331648
+2026-11-04T04:01:14.7056684Z Uploaded bytes 58720256
+2026-11-04T04:01:14.8220825Z Uploaded bytes 60491525
+2026-11-04T04:01:14.8798135Z Finished uploading artifact content to blob storage!
+2026-11-04T04:01:14.8799904Z SHA256 digest of uploaded artifact zip is b0b161be7058d838a2aa0d9f8756a887c028511059c650978533b2d1377ccaf4
+2026-11-04T04:01:14.8801819Z Finalizing artifact upload
+2026-11-04T04:01:15.4603678Z Artifact lebrun-takeover-kernel-41769360325-1.zip successfully finalized. Artifact ID 13294513083
+2026-11-04T04:01:15.4604760Z Artifact lebrun-takeover-kernel-41769360325-1 has been successfully uploaded! Final size is 60491525 bytes. Artifact ID is 13294513083
+2026-11-04T04:01:15.4611293Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41769360325/artifacts/13294513083
+2026-11-04T04:01:15.4915569Z Post job cleanup.
+2026-11-04T04:01:15.7500959Z [command]/usr/bin/git version
+2026-11-04T04:01:15.7544318Z git version 2.56.0
+2026-11-04T04:01:15.7585028Z Temporarily overriding HOME='/home/runner/work/_temp/6968c749-97cc-4b1d-ae8c-4d843360ad1f' before making global git config changes
+2026-11-04T04:01:15.7586443Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T04:01:15.7597817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-04T04:01:15.7653286Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T04:01:15.7690000Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T04:01:15.8152612Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T04:01:15.8200961Z http.https://github.com/.extraheader
+2026-11-04T04:01:15.8217873Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T04:01:15.8416012Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T04:01:15.8692984Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T04:01:15.8739060Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T04:01:15.9189994Z Cleaning up orphan processes
+2026-11-04T04:01:16.0529358Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

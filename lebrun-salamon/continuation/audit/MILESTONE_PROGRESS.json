@@ -40,12 +40,12 @@
     "status_update_rule": "Promote an individual unit only when its evidence meets the rule; do not infer closure from namespace, sorry count, helper compilation, or an unverified completion announcement."
   },
   "source_snapshot": {
-    "source_module_count": 268,
-    "aggregate_sha256": "16071c8e40ebf53480ff45ec6e1089af9568c8e9c6cb5c21a2ff5b83fc50080c",
+    "source_module_count": 269,
+    "aggregate_sha256": "e167ba8f5851aa2c0de439f53d3fe64a5b126f41c81931f28e6fb74669d38f4e",
     "aggregate_convention": "SHA256 of sorted lines filename + space + file SHA256 + newline; current source only.",
     "original_csv_sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
     "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
-    "snapshot_utc": "2026-11-04T04:04:55.242417+00:00"
+    "snapshot_utc": "2026-11-04T04:42:58.979865+00:00"
   },
   "groups": [
     {
@@ -59,7 +59,7 @@
       "accepted": 8
     },
     {
-      "group": "Steps3c\u20133n original obligations",
+      "group": "Steps3c–3n original obligations",
       "total": 91,
       "accepted": 0
     },
@@ -1649,7 +1649,7 @@
         "P-ORIGINAL",
         "S-CURRENT"
       ],
-      "current_source_file_sha256": "d39903a720e580f70a85d422002069d4266deda7521006defd86122c8ce6c3b0"
+      "current_source_file_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d"
     },
     {
       "id": "OBL-050",
@@ -2836,6 +2836,17 @@
         "GATE-02"
       ],
       "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T04:42:58.979865+00:00",
+      "description": "All 43 original Point1 roots plus OBL-069 have passed their current native/publication boundary across 50 actual eligible leaves; the original required reverse-cone compilation gate remains open.",
+      "evidence_ids": [
+        "P-CI-41769360325"
+      ],
+      "supports": [
+        "GATE-02"
+      ],
+      "accepted_units_added": 0
     }
   ],
   "recovered_completion_announcements": {
@@ -2854,7 +2865,7 @@
       },
       "step3f": {
         "reported_at_local": "2026-11-02T22:46:26+01:00",
-        "wording": "Step 3f completed \u2014 PASSED"
+        "wording": "Step 3f completed — PASSED"
       }
     },
     "recorded_provenance_source": "user confirmation and retrieved original conversation history; matching final certificate not recovered",
@@ -3133,6 +3144,16 @@
       "blocked": 26,
       "source_commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
       "current_source_full_graph_verified": false
+    },
+    "P-CI-41769360325": {
+      "path": "audit/ci/41769360325/CI_RECEIPT.json",
+      "sha256": "9f7b8f73c6f5a211b7af4c80a4584447666983726b1b5e2bf54499b47518cf4a",
+      "kind": "historical_exact_commit_native_ci",
+      "accepted_modules": 241,
+      "failed": 2,
+      "blocked": 25,
+      "source_commit": "d660456c481c27fcd49666f306222521034f1616",
+      "current_source_full_graph_verified": false
     }
   },
   "ledger_production": {
@@ -3143,29 +3164,28 @@
       "audit/MILESTONE_PROGRESS.md"
     ]
   },
-  "updated_utc": "2026-11-04T04:04:55.242417+00:00",
+  "updated_utc": "2026-11-04T04:42:58.979865+00:00",
   "checkpoint_update": {
     "source_freeze": "audit/point1_checkpoint/FREEZE.json",
     "latest_full_ci": {
-      "run_id": 41763014879,
-      "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+      "run_id": 41769360325,
+      "commit": "d660456c481c27fcd49666f306222521034f1616",
       "source_modules_selected": 268,
       "compiler_memory_cap_mb": 12000,
       "status": "completed",
       "conclusion": "failure",
       "counts": {
-        "reused": 200,
-        "passed": 40,
+        "reused": 241,
         "failed": 2,
-        "blocked": 26
+        "blocked": 25
       },
-      "accepted_count_at_that_commit": 240,
+      "accepted_count_at_that_commit": 241,
       "failed_modules": [
         "LSConicJets",
-        "LSScaledVelocities"
+        "LSVelocityAdditionFamily"
       ],
       "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
+      "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     },
     "new_full_ci": "pending",
@@ -3177,7 +3197,61 @@
     "whole_current_proof_graph_kernel_verified": false,
     "accepted_units_added": 0,
     "retained_accepted_units": 30,
-    "total_units": 133
+    "total_units": 133,
+    "current_compatible_native_frontier": {
+      "schema": "lebrun-current-native-frontier-v1",
+      "validated_utc": "2026-11-04T04:40:49.413040+00:00",
+      "current_source_modules": 269,
+      "accepted_compatible_modules": 247,
+      "remaining_modules": 22,
+      "scope": "Exact current-source native union. The remaining current reverse-dependency cone is pending, and no original milestone unit is promoted here.",
+      "seed_inventory": "audit/ci_compatibility_repairs/current_frontier_20261104T044154/CURRENT_VALIDATED_SEEDS_V2.json",
+      "seed_inventory_sha256": "3a1e30d2d169bcb887cd2e38a3cbabfadffcf320a4a7a2b713e3a9e956e7403f",
+      "base_full_ci_run": 41769360325,
+      "base_full_ci_accepted_modules": 241,
+      "whole_current_graph_passed": false,
+      "original_point1_boundary_unchanged": true,
+      "accepted_milestone_units": 30,
+      "denominator": 133,
+      "new_local_passes": [
+        {
+          "module": "LSProjectiveLineReparametrization",
+          "seconds": 26.009,
+          "evidence": "audit/ci_compatibility_repairs/conic_velocity_current_20261104T042139",
+          "source_sha256": "edeb936371687e45db0fc2ca13f56e71b6e6a3214cf95c965ee3a006cbd4383b"
+        },
+        {
+          "module": "LSConicJets",
+          "seconds": 186.003,
+          "evidence": "audit/ci_compatibility_repairs/conic_current_pass_20261104T0432",
+          "source_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d"
+        },
+        {
+          "module": "LSVelocityAdditionFamily",
+          "seconds": 30.362,
+          "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
+          "source_sha256": "c04edfdb2d6936c0cada7ab90e8aa8e296be0bb85ef491fee50a643fe158cbb7"
+        },
+        {
+          "module": "LSScaledVelocityDifferential",
+          "seconds": 33.222,
+          "evidence": "audit/scaled_branch_compatibility/current_20261104T041556",
+          "source_sha256": "08d08abcdea910eaf33677360020ff3fe412dc1f986d8b54eb3044188006b93b"
+        },
+        {
+          "module": "LSSuitablePair",
+          "seconds": 33.87,
+          "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
+          "source_sha256": "2e32c83ef6fabb9a99dfa3d5c7a90f3a097e02302c61f8e5fce12190b05ac9f6"
+        },
+        {
+          "module": "LSSmoothingAssembly",
+          "seconds": 25.451,
+          "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
+          "source_sha256": "e22946cef90f27e548a5fb8388027c72aabc69e619455493446c0f9d5ca2478c"
+        }
+      ]
+    }
   },
   "targeted_smoothing_replay": {
     "source_module": "LSVelocityAdditionFamily",
@@ -3189,6 +3263,32 @@
     "accepted_units_added": 0,
     "accepted_units_retained": 30,
     "denominator": 133,
-    "evidence": "audit/point1_checkpoint/TARGETED_SMOOTHING_SCOPE.json"
+    "evidence": "audit/point1_checkpoint/TARGETED_SMOOTHING_SCOPE.json",
+    "run_id": 41771328636,
+    "commit": "1217e5cc7ccf5dc048218fac3e26bf3d197c287b",
+    "status": "in_progress"
+  },
+  "latest_verified_full_graph": {
+    "run_id": 41769360325,
+    "commit": "d660456c481c27fcd49666f306222521034f1616",
+    "source_modules_selected": 268,
+    "compiler_memory_cap_mb": 12000,
+    "status": "completed",
+    "conclusion": "failure",
+    "counts": {
+      "reused": 241,
+      "failed": 2,
+      "blocked": 25
+    },
+    "accepted_count_at_that_commit": 241,
+    "failed_modules": [
+      "LSConicJets",
+      "LSVelocityAdditionFamily"
+    ],
+    "full_selected_graph_passed": false,
+    "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
+    "scope": "Exact committed source and complete ancestry only; later VelocityAdditionFamily repair is checked separately.",
+    "fresh_native_across_run": 1,
+    "prior_cached_across_run": 240
   }
 }

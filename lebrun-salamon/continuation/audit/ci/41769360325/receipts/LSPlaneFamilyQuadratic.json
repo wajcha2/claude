@@ -1,0 +1,80 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPlaneFamilyQuadratic",
+  "source_ancestry_fingerprint": "3eeda8ef1c07103c2a8a4bd0bce0841e3de43df9f07e6f38ef111ea9e398a506",
+  "key": {
+    "source_sha256": "608390e3d69e31d7885dbc5afe04c1ac4925e604c7d2d19e7ad64534efdf0132",
+    "imports": [
+      "LSStandardProjectivePicard",
+      "LSPlaneEmbeddingCartier",
+      "LSCartierQuadraticExtraction",
+      "LSQuadraticPrimitive"
+    ],
+    "dependency_artifacts": {
+      "LSStandardProjectivePicard": {
+        "sha256": "fbaa2b6af2ab16604649b31263498bae0c40db5da02555e44c7e5d4c03a9ce85",
+        "kind": "project"
+      },
+      "LSPlaneEmbeddingCartier": {
+        "sha256": "7fc115d55d2ebf35f5f2337997e0b95487e4934e3f345f8388a634909f99bad0",
+        "kind": "project"
+      },
+      "LSCartierQuadraticExtraction": {
+        "sha256": "550a96f040a694ce76add7d3aa56a12f79d62d61ca69ff651647ee781fe767b9",
+        "kind": "project"
+      },
+      "LSQuadraticPrimitive": {
+        "sha256": "4fa989358649ba4070829388226ba829467c8fe33d618847a82a9e7fb059b7be",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSPlaneFamilyQuadratic.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSPlaneFamilyQuadratic.lean"
+  ],
+  "started_utc": "2026-11-04T02:58:43.538869+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneFamilyQuadratic.20261104T025843538845.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneFamilyQuadratic.20261104T025843538845.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T02:58:46.261481+00:00",
+  "seconds": 2.721,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "3023aaeadf780f645e0f0ba60a574ed868c20d50b73ca815a3b1ea8a29e4842c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "f5266dd1e5cf8884ad0d5121c8eea34f60656499130eea5db2399806e15cd6b9",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "2149503577f3309dd7bf4364f7cb92dcef63ef463fa85b43a23d257325bbcf2e",
+    "restored_utc": "2026-11-04T03:50:44.451422+00:00"
+  }
+}

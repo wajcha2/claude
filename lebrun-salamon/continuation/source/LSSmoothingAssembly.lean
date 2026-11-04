@@ -19,6 +19,7 @@ set_option autoImplicit false
 
 open CategoryTheory AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseSeven LeBrunSalamon.PhaseTwentySeven
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
 open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Core LeBrunSalamon.Skeleton

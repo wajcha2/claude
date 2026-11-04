@@ -13,6 +13,7 @@ Source preparation only; compilation remains deferred to the final check.
 
 noncomputable section
 set_option autoImplicit false
+set_option allowUnsafeReducibility true
 set_option backward.isDefEq.respectTransparency false
 set_option backward.isDefEq.respectTransparency.types false
 
@@ -40,6 +41,10 @@ def homOfScaled
   ⟨k.val ≫ (ScaledVelocities.asFixedHom X H D x).val, by
     rw [Category.assoc, (ScaledVelocities.asFixedHom X H D x).property, k.property]⟩
 
+section
+
+attribute [local reducible] Charts.PointedAffine.Ring SectionAlgebra.Functions
+
 /-- Pullback of the constructed global scaled coordinate is its literal
 scalar function times the actual universal velocity comorphism. -/
 theorem pull_scaledCoordinate
@@ -50,10 +55,8 @@ theorem pull_scaledCoordinate
         ScaledVelocityDifferential.coordinate H x C A (homOfScaled X H D x A k) i := by
   rw [ScaledVelocities.coordinates, map_mul]
   congr 1
-  simp only [ScaledVelocities.unscaledFunctions, AlgHom.comp_apply,
-    GlobalCoordinates.comorphism_apply, ScaledVelocities.velocity,
-    ScaledVelocityDifferential.coordinate, velocityFunctions, schemeComorphism_apply,
-    chartVelocity, homOfScaled, Scheme.Hom.comp_appTop, CommRingCat.comp_apply]
+
+end
 
 theorem scaled_point_is_freeLine
     (k : PointsOver A.scheme A.toC (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x)) :
@@ -106,11 +109,14 @@ theorem sumComorphism_X (i : Fin (dimension (n := n) + 1)) :
         (MvPolynomial.X i)) =
       (firstParameter X H D x C A j).val.appTop (ScaledVelocities.coordinates X H D x C i) +
       (secondParameter X H D x C A j).val.appTop (ScaledVelocities.coordinates X H D x C i) := by
-    simp only [VelocityAdditionFamily.morphism, Scheme.Hom.comp_appTop, CommRingCat.comp_apply,
-      GlobalCoordinates.map_X, VelocityAdditionFamily.sumCoordinates, map_add,
+    simp only [VelocityAdditionFamily.morphism, Scheme.Hom.comp_appTop, CommRingCat.comp_apply]
+    erw [GlobalCoordinates.map_X (VelocityAdditionFamily.pairToC X H D x)
+      (VelocityAdditionFamily.sumCoordinates X H D x C) i]
+    simp only [VelocityAdditionFamily.sumCoordinates, map_add,
       VelocityAdditionFamily.firstCoordinates, VelocityAdditionFamily.secondCoordinates,
       SectionAlgebra.onFunctionsTop_apply, firstParameter, secondParameter,
-      VelocityAdditionFamily.firstScaled, VelocityAdditionFamily.secondScaled]
+      VelocityAdditionFamily.firstScaled, VelocityAdditionFamily.secondScaled,
+      Scheme.Hom.comp_appTop, CommRingCat.comp_apply]
   rw [h, pull_scaledCoordinate, pull_scaledCoordinate]
   rfl
 
@@ -151,7 +157,7 @@ theorem center_nonorthogonal :
     apply Eq.trans _ (congrArg A.evaluation he)
     simp only [p, GlobalCoordinates.evaluation, VelocityAdditionFamily.firstCoordinates,
       SectionAlgebra.onFunctionsTop_apply, firstParameter, VelocityAdditionFamily.firstScaled,
-      Scheme.Hom.comp_appTop, CommRingCat.comp_apply, Charts.PointedAffine.evaluation]
+      Scheme.Hom.comp_appTop, CommRingCat.comp_apply, Charts.PointedAffine.evaluation] <;> rfl
   have hsecond (i : Fin (dimension (n := n) + 1)) :
       GlobalCoordinates.evaluation p (VelocityAdditionFamily.secondCoordinates X H D x C i) =
         A.evaluation (secondScalar X H D x C A j *
@@ -160,12 +166,18 @@ theorem center_nonorthogonal :
     apply Eq.trans _ (congrArg A.evaluation he)
     simp only [p, GlobalCoordinates.evaluation, VelocityAdditionFamily.secondCoordinates,
       SectionAlgebra.onFunctionsTop_apply, secondParameter, VelocityAdditionFamily.secondScaled,
-      Scheme.Hom.comp_appTop, CommRingCat.comp_apply, Charts.PointedAffine.evaluation]
+      Scheme.Hom.comp_appTop, CommRingCat.comp_apply, Charts.PointedAffine.evaluation] <;> rfl
   have hpair : ConePairing.pairing (omega X x C)
       (contactFrame X x C (A.evaluation (firstScalar X H D x C A j) • ScaledVelocities.nodeVector X x f hf))
       (contactFrame X x C (A.evaluation (secondScalar X H D x C A j) • ScaledVelocities.nodeVector X x g hg)) ≠ 0 := by
     unfold VelocityAdditionFamily.pairingFunction at hne
     rw [ConePairing.pairing_map] at hne
+    have hscale (r : ℂ) (v : contactPlane X x) :
+        contactFrame X x C (r • v) = (fun i => r * contactFrame X x C v i) := by
+      funext i
+      simpa only [Pi.smul_apply, smul_eq_mul] using
+        congrFun (map_smul (contactFrame X x C) r v) i
+    rw [hscale, hscale]
     simpa only [hfirst, hsecond, map_mul,
       ScaledVelocityDifferential.coordinate_value H x C A (firstHom X H D x C A j) f hf hatf,
       ScaledVelocityDifferential.coordinate_value H x C A (secondHom X H D x C A j) g hg hatg,
@@ -175,12 +187,18 @@ theorem center_nonorthogonal :
     (LeviFiberGeometry.lineFiberFrame X x)
     (A.evaluation (firstScalar X H D x C A j) • ScaledVelocities.nodeVector X x f hf)
     (A.evaluation (secondScalar X H D x C A j) • ScaledVelocities.nodeVector X x g hg)).mp hpair
+  change NonzeroLeviPair X x
+    (A.evaluation (firstScalar X H D x C A j) •
+      nodeDifferential f x hf (SourceTangent.sourceVector marking))
+    (A.evaluation (secondScalar X H D x C A j) •
+      nodeDifferential g x hg (SourceTangent.sourceVector marking)) at hlevi
   simpa only [map_smul] using hlevi
 
 /-- Smoothness of the actual sum supplies all contact directions. Each
 of its two differentiated summands lands in the original positive space. -/
 def from_smooth_chart (hs : Smooth (j.val ≫ VelocityAdditionFamily.morphism X H D x C)) :
     SuitablePair X := by
+  apply Classical.choice
   obtain ⟨f, hf, hatf⟩ := scaled_point_is_freeLine X H D x A (firstParameter X H D x C A j)
   obtain ⟨g, hg, hatg⟩ := scaled_point_is_freeLine X H D x A (secondParameter X H D x C A j)
   let d₁ := ScaledVelocityDifferential.differential H x C A (firstHom X H D x C A j) f hf hatf
@@ -204,14 +222,14 @@ def from_smooth_chart (hs : Smooth (j.val ≫ VelocityAdditionFamily.morphism X 
       ScaledVelocityDifferential.differential_coordinate, ← map_add]
     rw [← sumComorphism_X]
     exact (congrArg (fun z : Infinitesimal.Tangent _ _ => z.val (MvPolynomial.X i)) ht).trans (hE i)
-  exact SuitablePairAlgebra.suitablePair_of_surjective_variation x f g hf hg
+  exact ⟨SuitablePairAlgebra.suitablePair_of_surjective_variation x f g hf hg
     (A.evaluation (firstScalar X H D x C A j) • SourceTangent.sourceVector marking)
     (A.evaluation (secondScalar X H D x C A j) • SourceTangent.sourceVector marking)
     (center_nonorthogonal X H D x C A j f g hf hg hatf hatg) d₁ d₂
     (ScaledVelocityDifferential.differential_positive H x C A (firstHom X H D x C A j) f hf hatf
       (firstScalar X H D x C A j))
     (ScaledVelocityDifferential.differential_positive H x C A (secondHom X H D x C A j) g hg hatg
-      (secondScalar X H D x C A j)) hsum
+      (secondScalar X H D x C A j)) hsum⟩
 
 /-- A nonzero actual selected vector belongs to one of the genuine
 projective components. No component is assumed to span the contact plane. -/
@@ -252,9 +270,9 @@ theorem of_spanning_legendrian
     rw [pairing_omega]
     exact fun he => hab ((LeviFiberGeometry.scalarLevi_eq_zero_iff X x
       (LeviFiberGeometry.lineFiberFrame X x) a b).mp he)
-  obtain ⟨H⟩ := homSpacePresentation_exists P X.variety (contactFano_hasProjectiveEmbedding X)
+  obtain ⟨H⟩ := homSpacePresentation_exists P X.variety (LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding X)
   obtain ⟨D⟩ := HomDegree.StandardInputs.degree_open P marking X.variety
-    (contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line (contactFano_contactLine_ample X) 1
+    (LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding X) H X.contact.sequence.line (contactFano_contactLine_ample X) 1
   have hdom := VelocityAdditionFamily.morphism_denseRange X H D x C V K E
     (contactFrame X x C a) (contactFrame X x C b) hK hE hpair
   obtain ⟨A, j, hj⟩ := SuitableAffineSource.exists_smooth_chart
@@ -304,6 +322,8 @@ end LeBrunSalamon.Construction.Lines.SuitablePairProof
 end
 
 namespace LeBrunSalamon.Construction.Lines
+
+open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseThirtyTwo
 
 /-- Manuscript claim; prove via the covering line family, corrected
 Legendrian direction theorem, and lines:cone-addition, including n=1. -/

@@ -1,0 +1,65 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCohomologyHypotheses",
+  "key": {
+    "source_sha256": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
+    "imports": [
+      "RecompileBasePart05B"
+    ],
+    "dependency_artifacts": {
+      "RecompileBasePart05B": {
+        "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCohomologyHypotheses.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCohomologyHypotheses.lean"
+  ],
+  "started_utc": "2026-11-04T01:15:12.030194+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCohomologyHypotheses.20261104T011512030166.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCohomologyHypotheses.20261104T011512030166.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:15:22.779104+00:00",
+  "seconds": 10.748,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "69589b24745072689df88764ac5b6a9431ae14f589080a427f61b47a9274ee8d",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "09a3d03fe12343e667f8890b5a8042a314106854e73ae4284994fa45912d86ce",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "45192574573edf9ea076a5800754dcc2a6f6f2db8316897e53a996591e5f80be",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "cfa74b45cbbe1bfbd610da352327a9a28dcb063c2cb1a0325db91ca85aa4cdc8",
+    "restored_utc": "2026-11-04T03:50:44.306085+00:00"
+  }
+}

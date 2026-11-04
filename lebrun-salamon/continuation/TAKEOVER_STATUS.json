@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-04",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-04T03:38:48.057058+00:00",
+  "recorded_utc": "2026-11-04T04:42:58.979865+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,9 +25,9 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 268,
-    "lines": 122561,
-    "bytes": 5914902,
+    "modules": 269,
+    "lines": 122693,
+    "bytes": 5921585,
     "admissions": {
       "sorry": 99,
       "admit": 0,
@@ -39,8 +39,8 @@
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-04T04:04:55.242417+00:00",
-    "aggregate_sha256": "16071c8e40ebf53480ff45ec6e1089af9568c8e9c6cb5c21a2ff5b83fc50080c",
+    "snapshot_utc": "2026-11-04T04:42:58.979865+00:00",
+    "aggregate_sha256": "e167ba8f5851aa2c0de439f53d3fe64a5b126f41c81931f28e6fb74669d38f4e",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -70,10 +70,10 @@
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 167,
-    "affected_modules": 259,
+    "changed_modules": 172,
+    "affected_modules": 260,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 238,
+    "omitted_affected_descendants": 239,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
     "driver": "scripts/replay_checkpoint.py",
@@ -117,7 +117,7 @@
     },
     "step3f": {
       "reported_at_local": "2026-11-02T22:46:26+01:00",
-      "wording": "Step 3f completed \u2014 PASSED"
+      "wording": "Step 3f completed — PASSED"
     },
     "working_status": "reported complete; source changes recovered; completion awaiting verification and identified repairs",
     "later_work_discarded": false,
@@ -147,21 +147,22 @@
   },
   "cumulative_ci_attempt": {
     "status": "awaiting_commit_and_automatic_push_trigger",
-    "mode": "targeted_smoothing",
-    "requested_targets": [
-      "LSSmoothingAssembly"
-    ],
-    "source_modules_available": 268,
-    "source_modules_selected": 120,
-    "source_freeze_utc": "2026-11-04T04:04:55.242417+00:00",
+    "result_not_yet_accepted": true,
+    "source_modules_selected": 269,
+    "source_freeze_utc": "2026-11-04T04:42:58.979865+00:00",
     "compiler_memory_cap_mb": 12000,
     "compiler_timeout_seconds_per_module": 900,
+    "cache_source_stage": "full_graph",
     "strict_cache_source_run_id": 41769360325,
-    "cache_source_stage": "early_smoothing",
-    "expected_full_ancestry_cache_count": 116,
-    "whole_source_graph_selected": false,
-    "full_selected_graph_passed": false,
-    "result_not_yet_accepted": true
+    "expected_full_ancestry_cache_count": 241,
+    "first_early_target": "LSSmoothingAssembly",
+    "early_smoothing_timeout_seconds_per_module": 900,
+    "early_interface_target": "RecompileExtensionsPart01",
+    "second_early_interface_target": "RecompileExtensionsPart04Geometry",
+    "point1_closure_target_manifest": "audit/point1_checkpoint/POINT1_MODULE_TARGETS.json",
+    "point1_target_module_count": 19,
+    "early_interface_artifact_is_full_graph_acceptance": false,
+    "full_selected_graph_passed": false
   },
   "cumulative_ci_attempts": [
     {
@@ -291,6 +292,27 @@
       "full_selected_graph_passed": false,
       "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
+    },
+    {
+      "run_id": 41769360325,
+      "commit": "d660456c481c27fcd49666f306222521034f1616",
+      "source_modules_selected": 268,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "reused": 241,
+        "failed": 2,
+        "blocked": 25
+      },
+      "accepted_count_at_that_commit": 241,
+      "failed_modules": [
+        "LSConicJets",
+        "LSVelocityAdditionFamily"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
+      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     }
   ],
   "proof_batch_previous_checkpoint": {
@@ -339,7 +361,7 @@
     }
   },
   "proof_batch": {
-    "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
+    "status": "All 43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with 50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
     "kernel_accepted": false,
     "accepted_units_added": 0,
     "point1_obligation_count": 43,
@@ -376,7 +398,8 @@
       "audit/ci/41732181431",
       "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
       "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
-      "audit/ci/41763014879"
+      "audit/ci/41763014879",
+      "audit/ci/41769360325"
     ]
   },
   "compatibility_repairs": {
@@ -437,25 +460,24 @@
     "relative_differential_evidence": "audit/STEP3F_RELATIVE_DIFFERENTIAL.json"
   },
   "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41763014879,
-    "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_id": 41769360325,
+    "commit": "d660456c481c27fcd49666f306222521034f1616",
     "source_modules_selected": 268,
     "compiler_memory_cap_mb": 12000,
     "status": "completed",
     "conclusion": "failure",
     "counts": {
-      "reused": 200,
-      "passed": 40,
+      "reused": 241,
       "failed": 2,
-      "blocked": 26
+      "blocked": 25
     },
-    "accepted_count_at_that_commit": 240,
+    "accepted_count_at_that_commit": 241,
     "failed_modules": [
       "LSConicJets",
-      "LSScaledVelocities"
+      "LSVelocityAdditionFamily"
     ],
     "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
+    "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
     "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
   },
   "proof_batch_history": [
@@ -579,6 +601,47 @@
         "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
         "audit/ci/41763014879"
       ]
+    },
+    {
+      "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
+      "kernel_accepted": false,
+      "accepted_units_added": 0,
+      "point1_obligation_count": 43,
+      "point1_complete": false,
+      "point1_native_and_publication_roots_passed": 43,
+      "additional_inherited_roots_passed": 1,
+      "actual_eligible_leaf_count": 50,
+      "point1_dependency_closure_native_modules": 190,
+      "required_reverse_cone_passed": false,
+      "step3cd_native_or_exact_source_evidence": 17,
+      "evidence_directories": [
+        "audit/step3cd_build",
+        "audit/step3cd_projection_build",
+        "audit/step3cd_kunneth_cover_build",
+        "audit/tangent_determinant_build",
+        "audit/step3e_remaining_build",
+        "audit/step3f_native_batch",
+        "audit/point1_projective_laurent_build",
+        "audit/p1_picard_build",
+        "audit/p1_tangent_build",
+        "audit/ci_compatibility_repairs",
+        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+        "audit/step3f_nodal_compatibility",
+        "audit/step3f_hom_vanishing",
+        "audit/STEP3F_HOM_VANISHING.json",
+        "audit/STEP3F_AFFINE_RELATIVE.json",
+        "audit/p1_family_degree_build",
+        "audit/ci/41728791345",
+        "audit/STEP3D_INTEGRATION_READY.json",
+        "audit/step3d_transport_build",
+        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
+        "audit/step3cd_diagonal_build",
+        "audit/p1_source_bivector_work",
+        "audit/ci/41732181431",
+        "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
+        "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
+        "audit/ci/41763014879"
+      ]
     }
   ],
   "targeted_compatibility_repair": {
@@ -587,5 +650,60 @@
     "native_seconds": 30.362,
     "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
     "whole_reverse_cone_passed": false
+  },
+  "updated_utc": "2026-11-04T04:10:51.568985+00:00",
+  "current_compatible_native_frontier": {
+    "schema": "lebrun-current-native-frontier-v1",
+    "validated_utc": "2026-11-04T04:40:49.413040+00:00",
+    "current_source_modules": 269,
+    "accepted_compatible_modules": 247,
+    "remaining_modules": 22,
+    "scope": "Exact current-source native union. The remaining current reverse-dependency cone is pending, and no original milestone unit is promoted here.",
+    "seed_inventory": "audit/ci_compatibility_repairs/current_frontier_20261104T044154/CURRENT_VALIDATED_SEEDS_V2.json",
+    "seed_inventory_sha256": "3a1e30d2d169bcb887cd2e38a3cbabfadffcf320a4a7a2b713e3a9e956e7403f",
+    "base_full_ci_run": 41769360325,
+    "base_full_ci_accepted_modules": 241,
+    "whole_current_graph_passed": false,
+    "original_point1_boundary_unchanged": true,
+    "accepted_milestone_units": 30,
+    "denominator": 133,
+    "new_local_passes": [
+      {
+        "module": "LSProjectiveLineReparametrization",
+        "seconds": 26.009,
+        "evidence": "audit/ci_compatibility_repairs/conic_velocity_current_20261104T042139",
+        "source_sha256": "edeb936371687e45db0fc2ca13f56e71b6e6a3214cf95c965ee3a006cbd4383b"
+      },
+      {
+        "module": "LSConicJets",
+        "seconds": 186.003,
+        "evidence": "audit/ci_compatibility_repairs/conic_current_pass_20261104T0432",
+        "source_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d"
+      },
+      {
+        "module": "LSVelocityAdditionFamily",
+        "seconds": 30.362,
+        "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
+        "source_sha256": "c04edfdb2d6936c0cada7ab90e8aa8e296be0bb85ef491fee50a643fe158cbb7"
+      },
+      {
+        "module": "LSScaledVelocityDifferential",
+        "seconds": 33.222,
+        "evidence": "audit/scaled_branch_compatibility/current_20261104T041556",
+        "source_sha256": "08d08abcdea910eaf33677360020ff3fe412dc1f986d8b54eb3044188006b93b"
+      },
+      {
+        "module": "LSSuitablePair",
+        "seconds": 33.87,
+        "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
+        "source_sha256": "2e32c83ef6fabb9a99dfa3d5c7a90f3a097e02302c61f8e5fce12190b05ac9f6"
+      },
+      {
+        "module": "LSSmoothingAssembly",
+        "seconds": 25.451,
+        "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
+        "source_sha256": "e22946cef90f27e548a5fb8388027c72aabc69e619455493446c0f9d5ca2478c"
+      }
+    ]
   }
 }

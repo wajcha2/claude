@@ -1,0 +1,80 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPlaneEmbeddingCartier",
+  "key": {
+    "source_sha256": "ab6057d727c03d843a0fc3c4af707fd74b489db503665b9b48836dbc1874b35a",
+    "imports": [
+      "LSPolarizedEmbeddingLift",
+      "LSStandardProjectiveSmooth",
+      "LSRelativeCartier",
+      "LSResidueFieldPresentation"
+    ],
+    "dependency_artifacts": {
+      "LSPolarizedEmbeddingLift": {
+        "sha256": "86caa8aba32d1cc12a4a63ad0144c6c42e5e696716bed908fc89d807730fa688",
+        "kind": "project"
+      },
+      "LSStandardProjectiveSmooth": {
+        "sha256": "e59aa149b04f1ce30e74267c80e4e7159e46ae0fd9546abb52ef7f66c2f45116",
+        "kind": "project"
+      },
+      "LSRelativeCartier": {
+        "sha256": "a2b8e9350a472b90792a9c270e927bedce42642ce80dc9c644c504d2a61ce87a",
+        "kind": "project"
+      },
+      "LSResidueFieldPresentation": {
+        "sha256": "5f77c6f39da6c6296c0e4fa6cabd474628c9563c7537725d365f16fde1248736",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSPlaneEmbeddingCartier.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSPlaneEmbeddingCartier.lean"
+  ],
+  "started_utc": "2026-11-04T01:25:03.449750+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneEmbeddingCartier.20261104T012503449725.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneEmbeddingCartier.20261104T012503449725.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:25:05.725740+00:00",
+  "seconds": 2.274,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "c6df272c023d61f88646652f42fcc921343afd7f4ad94fc51232d6be91a4db9b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "7fc115d55d2ebf35f5f2337997e0b95487e4934e3f345f8388a634909f99bad0",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "ecaedd2782570eeef78c7754b6637e17aeb8f6548d68c6870a3b806b0dc3b822",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "e704c47914b5c2be91d9496e4ed70581377f8e32b3eabeb34a3e6a9b07561d7b",
+    "restored_utc": "2026-11-04T03:50:44.435618+00:00"
+  }
+}

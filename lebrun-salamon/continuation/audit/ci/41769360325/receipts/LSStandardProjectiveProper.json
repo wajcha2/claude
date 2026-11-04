@@ -1,0 +1,65 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSStandardProjectiveProper",
+  "key": {
+    "source_sha256": "926cd5af163ff521ad7881101b24064b1f32b37449da46acd258a4c0b366c1cb",
+    "imports": [
+      "LSStandardTautological"
+    ],
+    "dependency_artifacts": {
+      "LSStandardTautological": {
+        "sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSStandardProjectiveProper.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSStandardProjectiveProper.lean"
+  ],
+  "started_utc": "2026-11-04T01:15:39.211604+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSStandardProjectiveProper.20261104T011539211576.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSStandardProjectiveProper.20261104T011539211576.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:15:41.633778+00:00",
+  "seconds": 2.421,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "385fd63f007fe70654c5d8bfda66ce00afe7464f26879e75db3a2564fce6d6fc",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "e730e8b7ca45da5cd91261ddbaafe7c55de27678a6483ada4f62d75d0dd171dc",
+  "evidence_kind": "native_kernel_compilation",
+  "source_ancestry_fingerprint": "9b12c25e140a9f64ef48c7724f39a9dbf9e5c2122ebb97ffe1bec92040b1770a",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "84d218a0aebeaf2f6ecd1f583bd6d52269ab3066efcce2bab1aaa0421bc6aa31",
+    "restored_utc": "2026-11-04T03:50:44.350783+00:00"
+  }
+}

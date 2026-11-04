@@ -78,7 +78,8 @@ theorem coordinate_value (i : Fin (dimension (n := n) + 1)) :
       (contactCoordinateBasis X x C) q
       (ContactVelocityTarget.imageEquiv X x C (ScaledVelocities.nodeVector X x f hf)) hv)
     (MvPolynomial.X i)
-  simpa only [AlgHom.comp_apply, MvPolynomial.aeval_X] using h
+  simpa only [q, coordinate, contactFrame, LinearEquiv.trans_apply,
+    AlgHom.comp_apply, MvPolynomial.aeval_X] using h
 
 def scalarDifferential (r : A.Ring) : A.Tangent →ₗ[ℂ] ℂ where
   toFun D := D.val r

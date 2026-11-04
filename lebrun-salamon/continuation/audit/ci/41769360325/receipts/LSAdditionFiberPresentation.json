@@ -1,0 +1,75 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSAdditionFiberPresentation",
+  "source_ancestry_fingerprint": "e57ad92a4d17ef12432c0171e28c84b7a95aaebda68fb6ba4f35cab72942d169",
+  "key": {
+    "source_sha256": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
+    "imports": [
+      "LSAffineCurveSelection",
+      "LSConeRescaledArcs",
+      "LSConeOpen"
+    ],
+    "dependency_artifacts": {
+      "LSAffineCurveSelection": {
+        "sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216",
+        "kind": "project"
+      },
+      "LSConeRescaledArcs": {
+        "sha256": "0fc3ac313ab05183bf8cc4905924d430d74b6942504012b196c7017187e6cc53",
+        "kind": "project"
+      },
+      "LSConeOpen": {
+        "sha256": "be2860bfbf35b78a73fb795de57b3bc4d7c0ffeb8fd6225f293b235db8a0e434",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSAdditionFiberPresentation.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSAdditionFiberPresentation.lean"
+  ],
+  "started_utc": "2026-11-04T03:09:27.777828+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSAdditionFiberPresentation.20261104T030927777800.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSAdditionFiberPresentation.20261104T030927777800.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T03:09:33.908329+00:00",
+  "seconds": 6.129,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "69a789f5d0be7a720e5de7457b335975733720af9736746667792a5fd35905b7",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "5d660c1529427514014d1667082461570a3c52f6f538bdc8e22fd72a82478fe5",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41763014879,
+    "source_artifact_name": "lebrun-takeover-kernel-41763014879-1",
+    "prior_receipt_sha256": "b477968d56c8c25d90591de8d0b99919d89367cdc33690cc9f9b1e4f459d5b56",
+    "restored_utc": "2026-11-04T03:50:44.525380+00:00"
+  }
+}

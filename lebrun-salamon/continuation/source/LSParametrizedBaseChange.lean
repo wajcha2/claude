@@ -54,7 +54,7 @@ theorem map_isPullback {C A D B : Scheme} (piA : C ⟶ A) (piB : D ⟶ B)
       simpa only [Category.assoc] using h₁
     let l₁ := hk.lift (a ≫ left piB) c h₁
     let l₂ := hk.lift (a ≫ right piB) c h₂
-    let l := pullback.lift l₁ l₂ (by
+    let l : T ⟶ Space piA := pullback.lift l₁ l₂ (by
       simp only [l₁, l₂, IsPullback.lift_snd])
     refine ⟨l, ?_, ?_⟩
     · apply pullback.hom_ext

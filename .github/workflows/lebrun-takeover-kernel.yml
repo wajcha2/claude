@@ -1,4 +1,4 @@
-name: LeBrun-Salamon takeover kernel checks
+name: LeBrun-Salamon targeted smoothing checks
 
 on:
   push:
@@ -9,11 +9,6 @@ on:
       - lebrun-salamon/continuation/scripts/**
       - .github/workflows/lebrun-takeover-kernel.yml
   workflow_dispatch:
-    inputs:
-      modules:
-        description: all, or space-separated target modules with project dependencies included
-        required: true
-        default: all
 
 permissions:
   contents: read
@@ -38,8 +33,8 @@ jobs:
       - name: Download prior native compiler evidence
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-takeover-kernel-41763014879-1
-          run-id: 41763014879
+          name: lebrun-takeover-early-smoothing-41769360325-1
+          run-id: 41769360325
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/lebrun-prior-evidence
 
@@ -50,11 +45,10 @@ jobs:
             --runtime-config runtime-config.json \
             --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" \
             --build-dir kernel-evidence \
-            --source-run-id 41763014879 \
-            --source-artifact-name lebrun-takeover-kernel-41763014879-1
+            --source-run-id 41769360325 \
+            --source-artifact-name lebrun-takeover-early-smoothing-41769360325-1
 
-      - name: Check current smoothing closure first
-        continue-on-error: true
+      - name: Check only the current smoothing closure
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
             --root lebrun-salamon/continuation \
@@ -72,96 +66,3 @@ jobs:
             kernel-evidence/
           if-no-files-found: warn
 
-      - name: Check current Ext01 interface and its dependencies
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
-            --root lebrun-salamon/continuation \
-            --runtime-config runtime-config.json \
-            --build-dir kernel-evidence \
-            --module RecompileExtensionsPart01 --keep-going --timeout 900
-
-      - name: Preserve early Ext01 interface evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-takeover-early-ext01-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            kernel-evidence/
-          if-no-files-found: warn
-
-      - name: Check current Geometry interface and its dependencies next
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
-            --root lebrun-salamon/continuation \
-            --runtime-config runtime-config.json \
-            --build-dir kernel-evidence \
-            --module RecompileExtensionsPart04Geometry --keep-going --timeout 900
-
-      - name: Preserve early Geometry interface evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-takeover-early-geometry-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            kernel-evidence/
-          if-no-files-found: warn
-
-      - name: Check the fixed Point1 obligation closure
-        continue-on-error: true
-        run: |
-          python3 - <<'PYPOINT1'
-          import json, pathlib, subprocess
-          root=pathlib.Path('lebrun-salamon/continuation')
-          manifest=json.loads((root/'audit/point1_checkpoint/POINT1_MODULE_TARGETS.json').read_text())
-          assert manifest['schema'] == 'lebrun-fixed-point1-module-targets-v1'
-          assert len(manifest['obligations']) == 43
-          modules=sorted({pathlib.Path(row['file']).stem for row in manifest['obligations']})
-          assert modules == manifest['modules']
-          command=['python3',str(root/'scripts/replay_checkpoint.py'),
-                   '--root',str(root),'--runtime-config','runtime-config.json',
-                   '--build-dir','kernel-evidence','--keep-going','--timeout','900']
-          for module in modules:
-              command += ['--module',module]
-          raise SystemExit(subprocess.run(command).returncode)
-          PYPOINT1
-
-      - name: Preserve Point1 closure evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-takeover-point1-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            kernel-evidence/
-          if-no-files-found: warn
-
-      - name: Check selected modules and their dependencies
-        env:
-          SELECTED_MODULES: ${{ inputs.modules || 'all' }}
-        run: |
-          python3 - <<'PY'
-          import os, shlex, subprocess, pathlib
-          root=pathlib.Path('lebrun-salamon/continuation')
-          command=['python3',str(root/'scripts/replay_checkpoint.py'),
-                   '--root',str(root),'--runtime-config','runtime-config.json',
-                   '--build-dir','kernel-evidence','--keep-going','--timeout','900']
-          modules=shlex.split(os.environ['SELECTED_MODULES'])
-          if modules != ['all']:
-              for module in modules:
-                  command += ['--module',module]
-          raise SystemExit(subprocess.run(command).returncode)
-          PY
-
-      - name: Preserve compiler diagnostics and receipts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-takeover-kernel-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            kernel-evidence/
-          if-no-files-found: warn

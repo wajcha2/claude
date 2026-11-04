@@ -73,6 +73,10 @@ These units record removal of unused admitted declarations. They do not claim a 
 
 The exact historical publication locators, source checks, and evidence boundaries appear in the companion [JSON ledger](MILESTONE_PROGRESS.json). They are not represented here as 8 fresh literature audits.
 
+## Current targeted compatibility replay
+
+The new VelocityAdditionFamily repair has an exact current native pass (30.362s) and no new admissions. A separate120-module smoothing replay is queued with116 strictly validated prior outputs. This run excludes Conic and does not establish the full reverse-cone gate. Accepted progress remains30/133. See [the scoped checkpoint](point1_checkpoint/TARGETED_SMOOTHING_SCOPE.json).
+
 ## New work with partial credit only — checkpoint — 2026-11-04T03:38:48.057058+00:00
 
 **The proof and publication boundary is checked for all 43 original Steps 3c–3g obligations; the required current reverse-dependency compilation gate is still open.** The separately inherited affine-projection obligation OBL-069 is also checked. This checkpoint adds no accepted checklist units before the original plan's complete gate passes.

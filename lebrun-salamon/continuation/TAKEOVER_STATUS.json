@@ -26,8 +26,8 @@
   },
   "current_source": {
     "modules": 268,
-    "lines": 122536,
-    "bytes": 5913639,
+    "lines": 122561,
+    "bytes": 5914902,
     "admissions": {
       "sorry": 99,
       "admit": 0,
@@ -39,8 +39,8 @@
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-04T03:38:48.057058+00:00",
-    "aggregate_sha256": "61f610c63ac681cbb0e66cb369ed84dae03838cd472b2b0c4f9c92164f9bede5",
+    "snapshot_utc": "2026-11-04T04:04:55.242417+00:00",
+    "aggregate_sha256": "16071c8e40ebf53480ff45ec6e1089af9568c8e9c6cb5c21a2ff5b83fc50080c",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -117,7 +117,7 @@
     },
     "step3f": {
       "reported_at_local": "2026-11-02T22:46:26+01:00",
-      "wording": "Step 3f completed — PASSED"
+      "wording": "Step 3f completed \u2014 PASSED"
     },
     "working_status": "reported complete; source changes recovered; completion awaiting verification and identified repairs",
     "later_work_discarded": false,
@@ -147,22 +147,21 @@
   },
   "cumulative_ci_attempt": {
     "status": "awaiting_commit_and_automatic_push_trigger",
-    "result_not_yet_accepted": true,
-    "source_modules_selected": 268,
-    "source_freeze_utc": "2026-11-04T03:38:48.057058+00:00",
+    "mode": "targeted_smoothing",
+    "requested_targets": [
+      "LSSmoothingAssembly"
+    ],
+    "source_modules_available": 268,
+    "source_modules_selected": 120,
+    "source_freeze_utc": "2026-11-04T04:04:55.242417+00:00",
     "compiler_memory_cap_mb": 12000,
     "compiler_timeout_seconds_per_module": 900,
-    "cache_source_stage": "full_graph",
-    "strict_cache_source_run_id": 41763014879,
-    "expected_full_ancestry_cache_count": 240,
-    "first_early_target": "LSSmoothingAssembly",
-    "early_smoothing_timeout_seconds_per_module": 900,
-    "early_interface_target": "RecompileExtensionsPart01",
-    "second_early_interface_target": "RecompileExtensionsPart04Geometry",
-    "point1_closure_target_manifest": "audit/point1_checkpoint/POINT1_MODULE_TARGETS.json",
-    "point1_target_module_count": 19,
-    "early_interface_artifact_is_full_graph_acceptance": false,
-    "full_selected_graph_passed": false
+    "strict_cache_source_run_id": 41769360325,
+    "cache_source_stage": "early_smoothing",
+    "expected_full_ancestry_cache_count": 116,
+    "whole_source_graph_selected": false,
+    "full_selected_graph_passed": false,
+    "result_not_yet_accepted": true
   },
   "cumulative_ci_attempts": [
     {
@@ -581,5 +580,12 @@
         "audit/ci/41763014879"
       ]
     }
-  ]
+  ],
+  "targeted_compatibility_repair": {
+    "module": "LSVelocityAdditionFamily",
+    "source_sha256": "c04edfdb2d6936c0cada7ab90e8aa8e296be0bb85ef491fee50a643fe158cbb7",
+    "native_seconds": 30.362,
+    "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
+    "whole_reverse_cone_passed": false
+  }
 }

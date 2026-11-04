@@ -133,9 +133,9 @@ instance toC_finiteType : LocallyOfFiniteType (toC X H D x C) := by
   infer_instance
 
 instance toC_quasiCompact : QuasiCompact (toC X H D x C) := by
-  letI : NoetherianSpace (parameter X H D x C) :=
+  letI : TopologicalSpace.NoetherianSpace (parameter X H D x C) :=
     (nonorthogonalOpen X H D x C).ι.isOpenEmbedding.isEmbedding.isInducing.noetherianSpace
-  infer_instance
+  exact (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact)).mpr inferInstance
 
 def firstScaled : parameter X H D x C ⟶ ScaledVelocities.parameter X H D x :=
   (nonorthogonalOpen X H D x C).ι ≫ first X H D x
@@ -162,24 +162,29 @@ theorem pairPoint_firstCoordinates
       (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x)) (i : Index (n := n)) :
     GlobalCoordinates.evaluation (pairPoint X H D x t u) (firstCoordinates X H D x C i) =
       GlobalCoordinates.evaluation t (ScaledVelocities.coordinates X H D x C i) := by
-  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
-      ((pairPoint X H D x t u).val.appTop
-        ((first X H D x).appTop (ScaledVelocities.coordinates X H D x C i))) = _
-  rw [← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop]
-  simp only [pairPoint, first, pullback.lift_fst]
-  rfl
+  change GlobalCoordinates.evaluation (pairPoint X H D x t u)
+    (onFunctionsTop (sY := pairToC X H D x) (first X H D x) rfl
+      (ScaledVelocities.coordinates X H D x C i)) = _
+  rw [GlobalCoordinates.evaluation_precompose]
+  apply congrArg (fun z : PointsOver ComplexBase (𝟙 ComplexBase)
+    (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x) =>
+      GlobalCoordinates.evaluation z (ScaledVelocities.coordinates X H D x C i))
+  apply Subtype.ext
+  exact pullback.lift_fst _ _ _
 
 theorem pairPoint_secondCoordinates
     (t u : PointsOver ComplexBase (𝟙 ComplexBase)
       (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x)) (i : Index (n := n)) :
     GlobalCoordinates.evaluation (pairPoint X H D x t u) (secondCoordinates X H D x C i) =
       GlobalCoordinates.evaluation u (ScaledVelocities.coordinates X H D x C i) := by
-  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
-      ((pairPoint X H D x t u).val.appTop
-        ((second X H D x).appTop (ScaledVelocities.coordinates X H D x C i))) = _
-  rw [← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop]
-  simp only [pairPoint, second, pullback.lift_snd]
-  rfl
+  change GlobalCoordinates.evaluation (pairPoint X H D x t u)
+    (onFunctionsTop (second X H D x) (second_overC X H D x) (ScaledVelocities.coordinates X H D x C i)) = _
+  rw [GlobalCoordinates.evaluation_precompose]
+  apply congrArg (fun z : PointsOver ComplexBase (𝟙 ComplexBase)
+    (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x) =>
+      GlobalCoordinates.evaluation z (ScaledVelocities.coordinates X H D x C i))
+  apply Subtype.ext
+  exact pullback.lift_snd _ _ _
 
 theorem pairPoint_pairing
     (t u : PointsOver ComplexBase (𝟙 ComplexBase)
@@ -238,15 +243,29 @@ theorem conePair_covered
   have ha0 : a ≠ 0 := by
     intro h
     apply hab
-    rw [h, ConePairing.pairing_zero_left]
+    rw [h]
+    exact ConePairing.pairing_zero_left (omega X x C) b
   have hb0 : b ≠ 0 := by
     intro h
     apply hab
-    rw [h, ConePairing.pairing_zero_right]
-  have hva0 : (contactFrame X x C).symm a ≠ 0 := fun h => ha0
-    (by simpa only [LinearEquiv.apply_symm_apply, map_zero] using congrArg (contactFrame X x C) h)
-  have hvb0 : (contactFrame X x C).symm b ≠ 0 := fun h => hb0
-    (by simpa only [LinearEquiv.apply_symm_apply, map_zero] using congrArg (contactFrame X x C) h)
+    rw [h]
+    exact ConePairing.pairing_zero_right (omega X x C) a
+  have hva0 : (contactFrame X x C).symm a ≠ 0 := by
+    intro h
+    apply ha0
+    calc
+      a = (contactFrame X x C) ((contactFrame X x C).symm a) :=
+        ((contactFrame X x C).apply_symm_apply a).symm
+      _ = (contactFrame X x C) 0 := congrArg (contactFrame X x C) h
+      _ = 0 := map_zero (contactFrame X x C)
+  have hvb0 : (contactFrame X x C).symm b ≠ 0 := by
+    intro h
+    apply hb0
+    calc
+      b = (contactFrame X x C) ((contactFrame X x C).symm b) :=
+        ((contactFrame X x C).apply_symm_apply b).symm
+      _ = (contactFrame X x C) 0 := congrArg (contactFrame X x C) h
+      _ = 0 := map_zero (contactFrame X x C)
   have hsa := componentVector_is_actual (fun _ : FreeLine X => True) x (contactFrame X x C)
     V.directions V.realizes K ((contactFrame X x C).symm a) hva0
     ((mem_componentConePoints_iff V.directions (contactFrame X x C) K a).mp ha)
@@ -268,6 +287,12 @@ theorem morphism_denseRange
   let S := V.directions.componentConePoints (contactFrame X x C) K
   let T := V.directions.componentConePoints (contactFrame X x C) E
   let U := ConeGeometry.nonorthogonalOpen S T (omega X x C)
+  letI : Algebra.FiniteType ℂ (ProductRing S T) :=
+    ProductGeometry.tensorProduct_finiteType (CoordinateRing S) (CoordinateRing T)
+  letI : LocallyOfFiniteType (affineBaseMap (ProductRing S T)) :=
+    ProductGeometry.affineBaseMap_finiteType (ProductRing S T)
+  letI : LocallyOfFiniteType (U.ι ≫ affineBaseMap (ProductRing S T)) :=
+    locallyOfFiniteType_comp U.ι (affineBaseMap (ProductRing S T))
   apply GlobalCoordinates.denseRange_of_point_coverage
     (U.ι ≫ affineBaseMap (ProductRing S T)) (toC X H D x C)
     (nonorthogonalAddition S T (omega X x C))

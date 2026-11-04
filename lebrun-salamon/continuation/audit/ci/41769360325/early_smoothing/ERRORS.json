@@ -1,0 +1,164 @@
+[
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "Unknown identifier `NoetherianSpace`",
+    "endPos": {
+      "column": 24,
+      "line": 136
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.unknownIdentifier._namedError",
+    "pos": {
+      "column": 9,
+      "line": 136
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "failed to synthesize instance of type class\n  QuasiCompact (toC X H D x C)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "endPos": {
+      "column": 16,
+      "line": 138
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "lean.synthInstanceFailed._namedError",
+    "pos": {
+      "column": 2,
+      "line": 138
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  Scheme.Hom.appTop ?g ≫ Scheme.Hom.appTop ?f\nin the target expression\n  (ConcreteCategory.hom (Scheme.Hom.appTop ↑(pairPoint X H D x t u) ≫ (Scheme.ΓSpecIso ↧ℂ).hom))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (first X H D x))) (ScaledVelocities.coordinates X H D x C i)) =\n    (GlobalCoordinates.evaluation t) (ScaledVelocities.coordinates X H D x C i)\n\nn : ℕ\nX : ContactFanoManifold n\nH : HomSpacePresentation P X.variety\nD : HomDegree.Open P marking X.variety H X.contact.sequence.line 1\nx : ComplexPoint X.variety\nC : GlobalVelocity.TargetChart X.variety x\nt u : PointsOver ComplexBase (𝟙 ComplexBase) (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x)\ni : Index\n⊢ (ConcreteCategory.hom (Scheme.Hom.appTop ↑(pairPoint X H D x t u) ≫ (Scheme.ΓSpecIso ↧ℂ).hom))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (first X H D x))) (ScaledVelocities.coordinates X H D x C i)) =\n    (GlobalCoordinates.evaluation t) (ScaledVelocities.coordinates X H D x C i)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    ScaledVelocities.coordinates X H D x C i\n  has type\n    Functions (ScaledVelocities.toC X H D x) ⊤\n  but is expected to have type\n    ↑Γ(ScaledVelocities.parameter X H D x, ⊤)\n  in the application\n    (ConcreteCategory.hom (Scheme.Hom.appTop (first X H D x))) (ScaledVelocities.coordinates X H D x C i)",
+    "endPos": {
+      "column": 56,
+      "line": 168
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 32,
+      "line": 168
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  Scheme.Hom.appTop ?g ≫ Scheme.Hom.appTop ?f\nin the target expression\n  (ConcreteCategory.hom (Scheme.Hom.appTop ↑(pairPoint X H D x t u) ≫ (Scheme.ΓSpecIso ↧ℂ).hom))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (second X H D x))) (ScaledVelocities.coordinates X H D x C i)) =\n    (GlobalCoordinates.evaluation u) (ScaledVelocities.coordinates X H D x C i)\n\nn : ℕ\nX : ContactFanoManifold n\nH : HomSpacePresentation P X.variety\nD : HomDegree.Open P marking X.variety H X.contact.sequence.line 1\nx : ComplexPoint X.variety\nC : GlobalVelocity.TargetChart X.variety x\nt u : PointsOver ComplexBase (𝟙 ComplexBase) (ScaledVelocities.parameter X H D x) (ScaledVelocities.toC X H D x)\ni : Index\n⊢ (ConcreteCategory.hom (Scheme.Hom.appTop ↑(pairPoint X H D x t u) ≫ (Scheme.ΓSpecIso ↧ℂ).hom))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (second X H D x))) (ScaledVelocities.coordinates X H D x C i)) =\n    (GlobalCoordinates.evaluation u) (ScaledVelocities.coordinates X H D x C i)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    ScaledVelocities.coordinates X H D x C i\n  has type\n    Functions (ScaledVelocities.toC X H D x) ⊤\n  but is expected to have type\n    ↑Γ(ScaledVelocities.parameter X H D x, ⊤)\n  in the application\n    (ConcreteCategory.hom (Scheme.Hom.appTop (second X H D x))) (ScaledVelocities.coordinates X H D x C i)",
+    "endPos": {
+      "column": 56,
+      "line": 180
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 32,
+      "line": 180
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ConePairing.pairing ?ω (fun x => 0) ?b\nin the target expression\n  ConePairing.pairing (omega X x C) 0 b = 0\n\nn : ℕ\nX : ContactFanoManifold n\nH : HomSpacePresentation P X.variety\nD : HomDegree.Open P marking X.variety H X.contact.sequence.line 1\nx : ComplexPoint X.variety\nC : GlobalVelocity.TargetChart X.variety x\nV : PublishedDirections.LegendrianDirections X x C\nK E : V.directions.Component\np :\n  PointsOver ComplexBase (𝟙 ComplexBase)\n    (↑(ConeGeometry.nonorthogonalOpen (V.directions.componentConePoints (contactFrame X x C) K)\n        (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C)))\n    ((ConeGeometry.nonorthogonalOpen (V.directions.componentConePoints (contactFrame X x C) K)\n          (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C)).ι ≫\n      affineBaseMap\n        (ProductRing (V.directions.componentConePoints (contactFrame X x C) K)\n          (V.directions.componentConePoints (contactFrame X x C) E)))\na b : Fin (dimension + 1) → ℂ\nha : a ∈ V.directions.componentConePoints (contactFrame X x C) K\nhb : b ∈ V.directions.componentConePoints (contactFrame X x C) E\nhab : ConePairing.pairing (omega X x C) a b ≠ 0\nhp :\n  ↑p ≫\n      nonorthogonalAddition (V.directions.componentConePoints (contactFrame X x C) K)\n        (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C) =\n    coordinatePoint (a + b)\nh : a = 0\n⊢ ConePairing.pairing (omega X x C) 0 b = 0",
+    "endPos": {
+      "column": 40,
+      "line": 241
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 11,
+      "line": 241
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ConePairing.pairing ?ω ?a fun x => 0\nin the target expression\n  ConePairing.pairing (omega X x C) a 0 = 0\n\nn : ℕ\nX : ContactFanoManifold n\nH : HomSpacePresentation P X.variety\nD : HomDegree.Open P marking X.variety H X.contact.sequence.line 1\nx : ComplexPoint X.variety\nC : GlobalVelocity.TargetChart X.variety x\nV : PublishedDirections.LegendrianDirections X x C\nK E : V.directions.Component\np :\n  PointsOver ComplexBase (𝟙 ComplexBase)\n    (↑(ConeGeometry.nonorthogonalOpen (V.directions.componentConePoints (contactFrame X x C) K)\n        (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C)))\n    ((ConeGeometry.nonorthogonalOpen (V.directions.componentConePoints (contactFrame X x C) K)\n          (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C)).ι ≫\n      affineBaseMap\n        (ProductRing (V.directions.componentConePoints (contactFrame X x C) K)\n          (V.directions.componentConePoints (contactFrame X x C) E)))\na b : Fin (dimension + 1) → ℂ\nha : a ∈ V.directions.componentConePoints (contactFrame X x C) K\nhb : b ∈ V.directions.componentConePoints (contactFrame X x C) E\nhab : ConePairing.pairing (omega X x C) a b ≠ 0\nhp :\n  ↑p ≫\n      nonorthogonalAddition (V.directions.componentConePoints (contactFrame X x C) K)\n        (V.directions.componentConePoints (contactFrame X x C) E) (omega X x C) =\n    coordinatePoint (a + b)\nha0 : a ≠ 0\nh : b = 0\n⊢ ConePairing.pairing (omega X x C) a 0 = 0",
+    "endPos": {
+      "column": 41,
+      "line": 245
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 11,
+      "line": 245
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "failed to synthesize\n  ZeroHomClass (↥(contactPlane X x) ≃ₗ[ℂ] Fin (dimension + 1) → ℂ) ?m.270 ?m.271\n(deterministic) timeout at `typeclass`, maximum number of heartbeats (20000) has been reached\n\nNote: Use `set_option synthInstance.maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 97,
+      "line": 247
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 247
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "failed to synthesize\n  HopfAlgebraStruct ℂ (CoordinatePolynomial (Fin (dimension + 1)))\n(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 24,
+      "line": 275
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "[anonymous]",
+    "pos": {
+      "column": 8,
+      "line": 271
+    },
+    "severity": "error"
+  },
+  {
+    "module": "LSVelocityAdditionFamily",
+    "caption": "",
+    "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+    "endPos": {
+      "column": 40,
+      "line": 276
+    },
+    "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSVelocityAdditionFamily.lean",
+    "isSilent": false,
+    "keepFullRange": false,
+    "kind": "runtime.maxHeartbeats",
+    "pos": {
+      "column": 50,
+      "line": 267
+    },
+    "severity": "error"
+  }
+]

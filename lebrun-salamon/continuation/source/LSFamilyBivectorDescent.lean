@@ -160,7 +160,7 @@ theorem compatible_of_point_values {T Y : Scheme}
   let q₁ : PointsOver ComplexBase (𝟙 ComplexBase) T (f ≫ sY) :=
     ⟨z.val ≫ pullback.snd f f, by
       rw [← Category.assoc, ← h]
-      simpa only [Category.assoc] using q₀.property⟩
+      simpa only [q₀, Category.assoc] using q₀.property⟩
   let A := compositionPullback z.val (pullback.snd f f) q₁.val rfl
     (pullbackModule f E.sheaf)
   let B := compositionPullback q₁.val f (q₁.val ≫ f) rfl E.sheaf
@@ -265,7 +265,10 @@ theorem product_pullback {X T : Scheme} (sX : X ⟶ ComplexBase)
   letI := tensorPullbackComparison_isIso r
     (pullbackModule (firstProjection sX) E)
     (pullbackModule (secondProjection sX) F)
-  rw [product_comparison, ← Category.assoc, SectionTransport.tensor_pullback]
+  rw [product_comparison, ← Category.assoc]
+  erw [SectionTransport.tensor_pullback q (evaluation pi sX sB e he) r hqr
+    (E := pullbackModule (firstProjection sX) E)
+    (F := pullbackModule (secondProjection sX) F)]
   simp only [SectionTransport.tensor, Descent.LineValue.externalAlongIso,
     Iso.trans_inv, Iso.symm_inv, tensorIso, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
@@ -308,9 +311,13 @@ theorem product_normalize {X : Scheme} (sX : X ⟶ ComplexBase)
     Iso.trans_inv, Iso.symm_inv, tensorIso, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
   rw [tensorSection_map]
-  congr 1 <;> apply congrArg (fun k => _ ≫ k)
-  · simp [pullbackSquareIso, compositionPullback, Category.assoc]
-  · simp [pullbackSquareIso, compositionPullback, Category.assoc]
+  congr 1
+  · rw [Category.assoc]
+    apply congrArg (fun k => pullSection (left pi) a ≫ k)
+    simp [pullbackSquareIso, compositionPullback, Category.assoc]
+  · rw [Category.assoc]
+    apply congrArg (fun k => pullSection (right pi) b ≫ k)
+    simp [pullbackSquareIso, compositionPullback, Category.assoc]
 
 /-- If the two endpoint sections specialize along an entire source
 curve, their compared tensor specializes along the whole source square.
@@ -358,6 +365,10 @@ theorem product_atCurve (P : ProjectiveLineOverC) {d : ℕ}
 
 end RelativeSquare
 
+-- Normalize the existing P1/contact carrier aliases for the same actual maps.
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle
+
 namespace Curve
 
 variable (P : ProjectiveLineOverC) {n : ℕ} (X : ContactFanoManifold n)
@@ -372,7 +383,8 @@ theorem leftSection_expansion
         (E.right i ≫ curveContactVelocity P X.contact f) ≫
       curveExternalComparison P f (tangentSheaf X.variety.structureMap)
         X.contact.sequence.line.sheaf := by
-  rw [leftSection, leftRaw, E.equation]
+  rw [leftSection, leftRaw]
+  conv_lhs => rw [E.equation]
   simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
     tensorSection_map, pullSection_naturality]
 
@@ -385,7 +397,8 @@ theorem rightSection_expansion
         (E.right i ≫ differential P X f) ≫
       curveExternalComparison P f X.contact.sequence.line.sheaf
         (tangentSheaf X.variety.structureMap) := by
-  rw [rightSection, rightRaw, E.equation]
+  rw [rightSection, rightRaw]
+  conv_lhs => rw [E.equation]
   simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
     tensorSection_map, pullSection_naturality]
 
@@ -399,8 +412,12 @@ theorem rightSection_expansion
       (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf) ≫
     (Scheme.Modules.pullback (curveSquareMap P f)).map
       (externalTensorMap X.variety.structureMap X.contact.sequence.form (𝟙 _)) = _
-  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality,
-    ← Category.assoc, RelativeSquare.boxMap_comp]
+  simp only [Category.assoc]
+  erw [← RelativeSquare.comparison_naturality P.structureMap
+    X.variety.structureMap (𝟙 ComplexBase) f.map
+    (by simpa only [Category.comp_id] using f.overC)
+    X.contact.sequence.form (𝟙 X.contact.sequence.line.sheaf)]
+  rw [RelativeSquare.boxMap_comp_assoc]
   simp only [CategoryTheory.Functor.map_id, Category.comp_id]
   rfl
 
@@ -414,8 +431,12 @@ theorem rightSection_expansion
       X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap)) ≫
     (Scheme.Modules.pullback (curveSquareMap P f)).map
       (externalTensorMap X.variety.structureMap (𝟙 _) X.contact.sequence.form) = _
-  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality,
-    ← Category.assoc, RelativeSquare.boxMap_comp]
+  simp only [Category.assoc]
+  erw [← RelativeSquare.comparison_naturality P.structureMap
+    X.variety.structureMap (𝟙 ComplexBase) f.map
+    (by simpa only [Category.comp_id] using f.overC)
+    (𝟙 X.contact.sequence.line.sheaf) X.contact.sequence.form]
+  rw [RelativeSquare.boxMap_comp_assoc]
   simp only [CategoryTheory.Functor.map_id, Category.comp_id]
   rfl
 
@@ -435,12 +456,23 @@ theorem bivector_expansion
       (pullSection (projection P sB) (E.left i))
       (pullSection (projection P sB) (E.right i)) := by
   letI := sourceComparison_isIso P sB
+  have hp (i : Fin E.size) :
+      RelativeSquare.productSection (parameter P sB)
+        (pullSection (projection P sB) (E.left i))
+        (pullSection (projection P sB) (E.right i)) ≫ sourceComparison P sB =
+      pullSection (sourceSquare P sB)
+        (externalProductSection P.structureMap (E.left i) (E.right i)) :=
+    RelativeSquare.comparison_onProducts (parameter P sB) P.structureMap sB
+      (projection P sB) (pullback.condition (f := P.structureMap) (g := sB))
+      (E.left i) (E.right i)
+  have h := congrArg (fun a :
+      AlgebraicSection (externalTensor P.structureMap
+        (tangentSheaf P.structureMap) (tangentSheaf P.structureMap)) =>
+    pullSection (sourceSquare P sB) a) E.equation
+  rw [SectionTransport.pull_sum] at h
   apply (cancel_mono (sourceComparison P sB)).mp
   rw [bivector_comparison, Preadditive.sum_comp]
-  simp_rw [sourceComparison, RelativeSquare.comparison_onProducts]
-  have h := congrArg (fun a => pullSection (sourceSquare P sB) a) E.equation
-  simpa only [pullSection, restrictSection, Functor.map_sum,
-    Preadditive.comp_sum] using h
+  exact h.trans (Finset.sum_congr rfl (fun i _ => (hp i).symm))
 
 /-- A global vector field on P1 gives its actual relative derivative
 along the parametrized family. -/
@@ -591,7 +623,7 @@ theorem leftSection_expansion
         X.variety.structureMap sB e he (tangentSheaf X.variety.structureMap)
           X.contact.sequence.line.sheaf := by
   rw [leftSection, Parametrized.bivector_expansion P sB E]
-  simp only [Preadditive.sum_comp, RelativeSquare.productSection_map]
+  simp only [Preadditive.sum_comp, RelativeSquare.productSection_map_assoc]
   rfl
 
 /-- The same expansion with the tangent and contact factors exchanged. -/
@@ -606,7 +638,7 @@ theorem rightSection_expansion
         X.variety.structureMap sB e he X.contact.sequence.line.sheaf
           (tangentSheaf X.variety.structureMap) := by
   rw [rightSection, Parametrized.bivector_expansion P sB E]
-  simp only [Preadditive.sum_comp, RelativeSquare.productSection_map]
+  simp only [Preadditive.sum_comp, RelativeSquare.productSection_map_assoc]
   rfl
 
 /-- The family tensor restricts to the original left tensor on the
@@ -686,7 +718,8 @@ theorem mixedPull_product {E F : OModule ProjectiveLine}
       externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) := by
   letI := curveExternalComparison_isIso P (curve P e he) E F
   apply (cancel_mono (curveExternalComparison P (curve P e he) E F)).mp
-  rw [mixedPull_comparison, curveExternalComparison_onProducts]
+  rw [mixedPull_comparison]
+  exact (curveExternalComparison_onProducts P (curve P e he) a b).symm
 
 theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ}
     (a : Fin N → AlgebraicSection (externalTensor P.structureMap E F)) :
@@ -759,7 +792,8 @@ theorem leftSection :
       externalProductSection P.structureMap
         (E.left i ≫ Curve.differential P X f)
         (E.right i ≫ curveContactVelocity P X.contact f) := by
-    rw [Curve.leftRaw, E.equation]
+    rw [Curve.leftRaw]
+    conv_lhs => rw [E.equation]
     simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
       tensorSection_map, pullSection_naturality]
   rw [Curve.leftSection, compared_of_expansion P e he X f g hg
@@ -777,7 +811,8 @@ theorem rightSection :
       externalProductSection P.structureMap
         (E.left i ≫ curveContactVelocity P X.contact f)
         (E.right i ≫ Curve.differential P X f) := by
-    rw [Curve.rightRaw, E.equation]
+    rw [Curve.rightRaw]
+    conv_lhs => rw [E.equation]
     simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
       tensorSection_map, pullSection_naturality]
   rw [Curve.rightSection, compared_of_expansion P e he X f g hg

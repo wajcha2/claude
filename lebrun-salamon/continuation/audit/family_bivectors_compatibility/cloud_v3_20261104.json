@@ -1,0 +1,99 @@
+{
+  "schema": "lebrun-family-cloud-candidate-v3",
+  "recorded_utc": "2026-11-04T05:43:39.353Z",
+  "repository": "wajcha2/claude",
+  "base_ref": "d26720b29459cb3ab9318ac8740e8399b6cb41fe",
+  "base_path": "lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+  "prior_source_sha256": "311fe4f51e9a194ea404b67d4d4f5e4e39cfb9e11966d308dc05e8ecf5cd7842",
+  "candidate_source_sha256": "4d73f36e6dfe9ba0a5fb24613dcddae007bc6e40b2bbf9a8030999fa4ea48539",
+  "candidate_blob": "1567f0c2548f2cc9298e63f5eb61992abfe143a8",
+  "source_direct_admission_tokens": 0,
+  "candidate_kernel_verified": false,
+  "candidate_accepted": false,
+  "original_declaration_headers": 55,
+  "original_headers_preserved": true,
+  "header_evidence_scope": "The two guarded replacements are confined to the proof bodies; the previous 55-header lexical comparison is preserved. This is not a separate elaborated-type comparison.",
+  "prior_native": {
+    "run_id": 41780261463,
+    "job_id": 126409942110,
+    "commit": "d26720b29459cb3ab9318ac8740e8399b6cb41fe",
+    "job_log_sha256": "b36c7a2920b6a93594ca9f625a15dcb9c435370a7c5b0a92ddf031b4156af3d5",
+    "diagnostic": {
+      "module": "LSFamilyBivectors",
+      "status": "failed",
+      "source_sha256": "311fe4f51e9a194ea404b67d4d4f5e4e39cfb9e11966d308dc05e8ecf5cd7842",
+      "return_code": 1,
+      "seconds": 191.205,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nn : ℕ\nX : ContactFanoManifold n\nf g : RationalCurve P X.variety\nhg : g.map = e.hom ≫ f.map\nhS :\n  mixedPull P e he (identityCurveContact P).sequence.line.sheaf (identityCurveContact P).sequence.line.sheaf\n      (sourceBivector P) =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) :=\n  (SourceReparamProof.derivativeIso P e he).hom\nqT : (Scheme.Modules.pullback e.hom).obj (tangentSheaf (projectiveLineVariety P).structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map (tangentSheaf X.variety.structureMap)) :=\n  (Scheme.Modules.pullback e.hom).map (Curve.differential P X f)\nqL : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map X.contact.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)\ncT : pullbackModule e.hom (pullbackModule f.map (tangentSheaf X.variety.structureMap)) ⟶\n  pullbackModule g.map (tangentSheaf X.variety.structureMap) :=\n  (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\ncL : pullbackModule e.hom (pullbackModule f.map X.contact.sequence.line.sheaf) ⟶\n  pullbackModule g.map X.contact.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\nhT : qe ≫ qT ≫ cT = Curve.differential P X g\nhL : qe ≫ qL ≫ cL = curveContactVelocity P X.contact g\nhmaps :\n  externalTensorMap P.structureMap qe qe ≫\n      externalTensorMap P.structureMap qT qL ≫ externalTensorMap P.structureMap cT cL =\n    externalTensorMap P.structureMap (Curve.differential P X g) (curveContactVelocity P X.contact g)\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f))\n            ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)) ≫\n          externalTensorMap P.structureMap\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\n            (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap qe qe ≫\n        externalTensorMap P.structureMap qT qL ≫ externalTensorMap P.structureMap cT cL",
+          "endPos": {
+            "column": 32,
+            "line": 583
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 53,
+            "line": 582
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nn : ℕ\nX : ContactFanoManifold n\nf g : RationalCurve P X.variety\nhg : g.map = e.hom ≫ f.map\nhS :\n  mixedPull P e he (identityCurveContact P).sequence.line.sheaf (identityCurveContact P).sequence.line.sheaf\n      (sourceBivector P) =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom\nqe : tangentSheaf P.structureMap ⟶ pullbackModule e.hom (tangentSheaf P.structureMap) :=\n  (SourceReparamProof.derivativeIso P e he).hom\nqT : (Scheme.Modules.pullback e.hom).obj (tangentSheaf (projectiveLineVariety P).structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map (tangentSheaf X.variety.structureMap)) :=\n  (Scheme.Modules.pullback e.hom).map (Curve.differential P X f)\nqL : (Scheme.Modules.pullback e.hom).obj (tangentSheaf P.structureMap) ⟶\n  (Scheme.Modules.pullback e.hom).obj (pullbackModule f.map X.contact.sequence.line.sheaf) :=\n  (Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)\ncT : pullbackModule e.hom (pullbackModule f.map (tangentSheaf X.variety.structureMap)) ⟶\n  pullbackModule g.map (tangentSheaf X.variety.structureMap) :=\n  (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\ncL : pullbackModule e.hom (pullbackModule f.map X.contact.sequence.line.sheaf) ⟶\n  pullbackModule g.map X.contact.sequence.line.sheaf :=\n  (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\nhT : qe ≫ qT ≫ cT = Curve.differential P X g\nhL : qe ≫ qL ≫ cL = curveContactVelocity P X.contact g\nhmaps :\n  externalTensorMap P.structureMap qe qe ≫\n      externalTensorMap P.structureMap qL qT ≫ externalTensorMap P.structureMap cL cT =\n    externalTensorMap P.structureMap (curveContactVelocity P X.contact g) (Curve.differential P X g)\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f))\n            ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f)) ≫\n          externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap qe qe ≫\n        externalTensorMap P.structureMap qL qT ≫ externalTensorMap P.structureMap cL cT",
+          "endPos": {
+            "column": 32,
+            "line": 632
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 53,
+            "line": 631
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    },
+    "summary": {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "d26720b29459cb3ab9318ac8740e8399b6cb41fe",
+      "source_modules": 270,
+      "selected_modules": 142,
+      "accepted_modules": 139,
+      "failed_modules": [
+        "LSFamilyBivectors"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 93,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  },
+  "operations": [
+    {
+      "before": "          externalTensorMap P.structureMap cT cL) := by\n      simp only [Category.assoc]\n",
+      "after": "          externalTensorMap P.structureMap cT cL) := by\n      simp only [qe, qT, qL, cT, cL, Category.assoc]\n"
+    },
+    {
+      "before": "          externalTensorMap P.structureMap cL cT) := by\n      simp only [Category.assoc]\n",
+      "after": "          externalTensorMap P.structureMap cL cT) := by\n      simp only [qe, qT, qL, cT, cL, Category.assoc]\n"
+    }
+  ],
+  "reason": "Both typed map-level chain-rule composites and the final typed congrArg elaborated successfully. The only remaining goals compare the explicit maps with the five local let abbreviations. The simp-only lists now explicitly unfold those local lets.",
+  "prohibited_changes_absent": [
+    "No new admission",
+    "No original statement or definition change",
+    "No target change",
+    "No ref mutation"
+  ]
+}

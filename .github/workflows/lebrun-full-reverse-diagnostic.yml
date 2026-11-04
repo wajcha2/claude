@@ -1,0 +1,66 @@
+name: LeBrun-Salamon coherent full reverse-cone replay
+
+on:
+  push:
+    branches:
+      - codex/lebrun-full-reverse-diagnostic-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  all-current-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out the exact immutable source
+        uses: actions/checkout@v4
+      - name: Verify source and target manifests
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download validated cache 1 from run 41775309669
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-takeover-kernel-41775309669-1
+          run-id: 41775309669
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Download validated cache 2 from run 41781102177
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-frontier-41781102177-1
+          run-id: 41781102177
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/1
+      - name: Download validated cache 3 from run 41781254614
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-coordinates-refined-41781254614-1
+          run-id: 41781254614
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/2
+      - name: Restore only a coherent native cache union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Replay every current source module
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --keep-going --timeout 300
+      - name: Expose final native receipts and exact failure frontiers
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve the coherent current full replay
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-current-full-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn

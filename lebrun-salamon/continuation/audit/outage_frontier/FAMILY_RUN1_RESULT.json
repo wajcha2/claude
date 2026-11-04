@@ -1,0 +1,193 @@
+{
+  "schema": "lebrun-remote-native-summary-v1",
+  "run_id": 41779014061,
+  "job_id": 126406003648,
+  "commit": "3e387831e0caeecf9a2b3965ee4a7da754f09ece",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "3e387831e0caeecf9a2b3965ee4a7da754f09ece",
+      "source_modules": 270,
+      "selected_modules": 142,
+      "accepted_modules": 139,
+      "failed_modules": [
+        "LSFamilyBivectors"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 93,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSFamilyBivectors",
+      "status": "failed",
+      "source_sha256": "631d53ec434ebdb24efb811adf7b0c3961d46a0ff542457639dbb69e53aa8777",
+      "return_code": 1,
+      "seconds": 187.783,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nE E' F F' : OModule ProjectiveLine\na : E ⟶ E'\nb : F ⟶ F'\n⊢ tensorMap\n        (pullbackSquareIso (firstProjection P.structureMap) e.hom (curveSquareMap P (curve P e he))\n            (firstProjection P.structureMap) ⋯ E).hom\n        (pullbackSquareIso (secondProjection P.structureMap) e.hom (curveSquareMap P (curve P e he))\n            (secondProjection P.structureMap) ⋯ F).hom ≫\n      tensorPullbackComparison (curveSquareMap P (curve P e he)) (pullbackModule (firstProjection P.structureMap) E)\n          (pullbackModule (secondProjection P.structureMap) F) ≫\n        (Scheme.Modules.pullback (curveSquareMap P (curve P e he))).map\n          (tensorMap ((Scheme.Modules.pullback (firstProjection P.structureMap)).map a)\n            ((Scheme.Modules.pullback (secondProjection P.structureMap)).map b)) =\n    tensorMap\n        (pullbackSquareIso (firstProjection P.structureMap) (curve P e he).map (curveSquareMap P (curve P e he))\n            (firstProjection P.structureMap) ⋯ E).hom\n        (pullbackSquareIso (secondProjection P.structureMap) (curve P e he).map (curveSquareMap P (curve P e he))\n            (secondProjection P.structureMap) ⋯ F).hom ≫\n      tensorPullbackComparison (curveSquareMap P (curve P e he)) (pullbackModule (firstProjection P.structureMap) E)\n          (pullbackModule (secondProjection P.structureMap) F) ≫\n        (Scheme.Modules.pullback (curveSquareMap P (curve P e he))).map\n          (tensorMap ((Scheme.Modules.pullback (firstProjection P.structureMap)).map a)\n            ((Scheme.Modules.pullback (secondProjection P.structureMap)).map b))",
+          "endPos": {
+            "column": 28,
+            "line": 511
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 52,
+            "line": 506
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (SourceReparamProof.derivativeIso P e he).hom ≫\n    (Scheme.Modules.pullback e.hom).map (Curve.differential P X f) ≫\n      (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\nin the target expression\n  sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f))\n            ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)) ≫\n          externalTensorMap P.structureMap\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\n            (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom =\n    Curve.leftRaw P X g\n\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nn : ℕ\nX : ContactFanoManifold n\nf g : RationalCurve P X.variety\nhg : g.map = e.hom ≫ f.map\nhS :\n  mixedPull P e he (identityCurveContact P).sequence.line.sheaf (identityCurveContact P).sequence.line.sheaf\n      (sourceBivector P) =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f))\n            ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)) ≫\n          externalTensorMap P.structureMap\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom\n            (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom =\n    Curve.leftRaw P X g\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    externalTensor P.structureMap (pullbackModule g.map (tangentSheaf X.variety.structureMap))\n      (pullbackModule g.map X.contact.sequence.line.sheaf)\n  has type\n    OModule (SelfProduct P.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct P.structureMap).ringCatSheaf\n  in the application\n    SheafOfModules.unit (SelfProduct P.structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule g.map (tangentSheaf X.variety.structureMap))\n        (pullbackModule g.map X.contact.sequence.line.sheaf)",
+          "endPos": {
+            "column": 45,
+            "line": 560
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 560
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (SourceReparamProof.derivativeIso P e he).hom ≫\n    (Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f) ≫\n      (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\nin the target expression\n  sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f))\n            ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f)) ≫\n          externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom =\n    Curve.rightRaw P X g\n\nP : ProjectiveLineOverC\ne : ProjectiveLine ≅ ProjectiveLine\nhe : e.hom ≫ P.structureMap = P.structureMap\nn : ℕ\nX : ContactFanoManifold n\nf g : RationalCurve P X.variety\nhg : g.map = e.hom ≫ f.map\nhS :\n  mixedPull P e he (identityCurveContact P).sequence.line.sheaf (identityCurveContact P).sequence.line.sheaf\n      (sourceBivector P) =\n    sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom\n⊢ sourceBivector P ≫\n      externalTensorMap P.structureMap (SourceReparamProof.derivativeIso P e he).hom\n          (SourceReparamProof.derivativeIso P e he).hom ≫\n        externalTensorMap P.structureMap ((Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f))\n            ((Scheme.Modules.pullback e.hom).map (Curve.differential P X f)) ≫\n          externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map ⋯ X.contact.sequence.line.sheaf).hom\n            (compositionPullback e.hom f.map g.map ⋯ (tangentSheaf X.variety.structureMap)).hom =\n    Curve.rightRaw P X g\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    externalTensor P.structureMap (pullbackModule g.map X.contact.sequence.line.sheaf)\n      (pullbackModule g.map (tangentSheaf X.variety.structureMap))\n  has type\n    OModule (SelfProduct P.structureMap)\n  but is expected to have type\n    SheafOfModules (SelfProduct P.structureMap).ringCatSheaf\n  in the application\n    SheafOfModules.unit (SelfProduct P.structureMap).ringCatSheaf ⟶\n      externalTensor P.structureMap (pullbackModule g.map X.contact.sequence.line.sheaf)\n        (pullbackModule g.map (tangentSheaf X.variety.structureMap))",
+          "endPos": {
+            "column": 74,
+            "line": 580
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 580
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "new_passes": [
+    {
+      "module": "LSFamilyDerivativeRestriction",
+      "receipt_sha256": "976cc000528d33cc84e035e69d6fe11310568ba5345fcc7ea3ea461d376a299a",
+      "key": {
+        "source_sha256": "b326245d700446323c2e1943e2bf082cdf3b330619aa10fdfa18bb5fb3e5b6bc",
+        "imports": [
+          "LSRelativeDifferential"
+        ],
+        "dependency_artifacts": {
+          "LSRelativeDifferential": {
+            "sha256": "e4daa3b3ffa9a75d2b4872882347e1f80ca66f83f6c1962ccf20547682f10772",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "196ace6698d16f5b60d7a913d9d9049acf05d8dd0eecf97b624ed03e7ccc83a4",
+      "source_ancestry_fingerprint": "9f07e92c56c299da8dbc1703b475419a473d1e3d2f1ba3ddbb1e67486223467f",
+      "seconds": 3.323,
+      "stdout_sha256": "a75dff20e64d00223b56053890db3f1374f06aafda93d554727461b9081c6eb5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProjectAssembly",
+      "receipt_sha256": "c7eb4524519cf2740894c38c938b1da5a577e20a3ac62fe9fd54e917834f2328",
+      "key": {
+        "source_sha256": "2c3457445f96248a8a07f940c0b98d1376f6784084a76f84b8f287b512e59a96",
+        "imports": [
+          "LSDescentAssembly",
+          "LSSmoothingAssembly",
+          "LSConicJets",
+          "LSClassicalActions",
+          "LSClassicalReduction"
+        ],
+        "dependency_artifacts": {
+          "LSDescentAssembly": {
+            "sha256": "af0a4bd5656029775cdfb716117f4e4b0de5852755801d9a5e7c9f0b28b36f81",
+            "kind": "project"
+          },
+          "LSSmoothingAssembly": {
+            "sha256": "d7d4d8447e65ed98b7dbc2e68e5b05df656b85290cf8500af891ecfd139b7c19",
+            "kind": "project"
+          },
+          "LSConicJets": {
+            "sha256": "60c6eb49fd0f46f3f0c59e08ca555b4a55398d4aca0371e226114ac90fc7ad38",
+            "kind": "project"
+          },
+          "LSClassicalActions": {
+            "sha256": "18b908c63cce701113f33a5d7c3ef86e33b3e9f922cf0aaabfeed8e78d908d12",
+            "kind": "project"
+          },
+          "LSClassicalReduction": {
+            "sha256": "7c79fa5391d49e0afee635a7d558e2d1aff8a9d8d035877cd5afbd4e4a31345d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "50dcf23b4520ac27c590fc92cbf2db01d13d29c95b60571b7ac7366c35b1b79b",
+      "source_ancestry_fingerprint": "29eb02b311b172533ac79cce1bf173ea9e274ec02aa930ccd7f8f00405b98cf8",
+      "seconds": 3.126,
+      "stdout_sha256": "ec96afb958f62c11aaa027bfde551538ee08479afc220ecd875701b4054e789d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13298651044,
+      "name": "lebrun-family-frontier-41779014061-1",
+      "size_in_bytes": 62496840,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13298651044",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13298651044/zip",
+      "expired": false,
+      "created_at": "2026-11-04T05:28:36Z",
+      "expires_at": "2027-02-02T05:24:05Z",
+      "updated_at": "2026-11-04T05:28:36Z",
+      "digest": "sha256:2b164d7e7ec5b3568980831d5b1fe840138966e321523d912e871b8c41007e3b",
+      "workflow_run": {
+        "id": 41779014061,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-frontier-diagnostic-20261104",
+        "head_sha": "3e387831e0caeecf9a2b3965ee4a7da754f09ece"
+      }
+    }
+  ],
+  "scope": "139 of142 selected accepted; Family failed at three exact sites, Descent and BaseChange blocked. No milestone promotion."
+}

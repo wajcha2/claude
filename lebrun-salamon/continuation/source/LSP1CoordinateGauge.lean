@@ -22,6 +22,7 @@ open LeBrunSalamon.PhaseSeven LeBrunSalamon.PhaseTwentyFive
 open LeBrunSalamon.PhaseTwentySix LeBrunSalamon.PhaseTwentySeven
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.P1Charts
+open LeBrunSalamon.Construction.Smoothing
 open LeBrunSalamon.Construction.Smoothing.CoordinateCharts
 open LeBrunSalamon.Construction.Smoothing.SourceAffineCharts
 open scoped LaurentPolynomial
@@ -80,6 +81,13 @@ theorem fromUnit_apply {Y : Scheme} (sY : Y ⟶ ComplexBase)
     (ΓSpecIso_inv_ΓSpec_adjunction_homEquiv (CommRingCat.ofHom
       (LaurentPolynomial.eval₂ (complexConstants sY) u)))
 
+private theorem fromFunction_app_polynomial {Y : Scheme} (sY : Y ⟶ ComplexBase)
+    (a : RingSections Y ⊤) (p : Polynomial ℂ) :
+    ((Scheme.ΓSpecIso (CommRingCat.of (Polynomial ℂ))).inv ≫
+      Scheme.Γ.map (fromFunction sY a).op).hom p =
+        Polynomial.eval₂ (complexConstants sY) a p := by
+  exact fromFunction_apply sY a p
+
 theorem fromUnit_zero {Y : Scheme} (sY : Y ⟶ ComplexBase)
     (u : (RingSections Y ⊤)ˣ) :
     fromUnit sY u ≫ polynomialOverlapToZero = fromFunction sY u := by
@@ -90,11 +98,11 @@ theorem fromUnit_zero {Y : Scheme} (sY : Y ⟶ ComplexBase)
     change (fromUnit sY u).appTop
       (polynomialOverlapToZero.appTop
         ((Scheme.ΓSpecIso (CommRingCat.of (Polynomial ℂ))).inv (Polynomial.C c))) = _
-    rw [overlapZero_apply, fromUnit_apply, fromFunction_apply,
+    rw [overlapZero_apply, fromUnit_apply, fromFunction_app_polynomial,
       LaurentPolynomial.eval₂_toLaurent]
   · change (fromUnit sY u).appTop
         (polynomialOverlapToZero.appTop parameterFunction) = _
-    rw [parameterFunction, overlapZero_apply, fromUnit_apply, fromFunction_apply,
+    rw [parameterFunction, overlapZero_apply, fromUnit_apply, fromFunction_app_polynomial,
       LaurentPolynomial.eval₂_toLaurent]
 
 theorem fromUnit_one {Y : Scheme} (sY : Y ⟶ ComplexBase)
@@ -107,11 +115,11 @@ theorem fromUnit_one {Y : Scheme} (sY : Y ⟶ ComplexBase)
     change (fromUnit sY u).appTop
       (polynomialOverlapToOne.appTop
         ((Scheme.ΓSpecIso (CommRingCat.of (Polynomial ℂ))).inv (Polynomial.C c))) = _
-    rw [overlapOne_apply, fromUnit_apply, fromFunction_apply]
+    rw [overlapOne_apply, fromUnit_apply, fromFunction_app_polynomial]
     simp
   · change (fromUnit sY u).appTop
         (polynomialOverlapToOne.appTop parameterFunction) = _
-    rw [parameterFunction, overlapOne_apply, fromUnit_apply, fromFunction_apply]
+    rw [parameterFunction, overlapOne_apply, fromUnit_apply, fromFunction_app_polynomial]
     simp
 
 /-- The reciprocal identity in the canonical Proj charts, including
@@ -184,8 +192,9 @@ theorem ratioFunction_product {Y : Scheme} (f : Y ⟶ ProjectiveLine)
       scalarSection (1 : RingSections Y ⊤) := by
     rw [scalarSection_mul]
     simp only [ratioFunction, other, if_pos rfl, show (1 : Fin 2) ≠ 0 by decide,
-      if_neg, scalarSection, sectionFromValue_sectionValue,
-      Category.assoc, Iso.inv_hom_id_assoc, Iso.hom_inv_id]
+      if_neg, if_true, if_false, scalarSection, sectionFromValue_sectionValue,
+      Category.assoc, Iso.inv_hom_id_assoc, Iso.hom_inv_id,
+      asIso_inv, IsIso.inv_hom_id_assoc, IsIso.hom_inv_id]
     exact (scalarSection_one Y).symm
   simpa only [scalarSection, sectionFromValue_spec] using congrArg sectionValue hs
 
@@ -208,8 +217,8 @@ def canonicalCover : ProjectiveLine.OpenCover where
   X i := (chartOpen i).toScheme
   f i := (chartOpen i).ι
   mem₀ := by
-    rw [presieve₀_mem_precoverage_iff]
-    refine ⟨?_, inferInstance⟩
+    rw [Scheme.presieve₀_mem_precoverage_iff]
+    refine ⟨?_, fun i => inferInstance⟩
     intro x
     have hx : x ∈ (⨆ i : Fin 2, chartOpen i) := by rw [chartOpen_cover]; trivial
     obtain ⟨i, hi⟩ := TopologicalSpace.Opens.mem_iSup.mp hx
@@ -220,8 +229,8 @@ def quotientCover : ProjectiveLine.OpenCover where
   X i := (ratioOpen i).toScheme
   f i := (ratioOpen i).ι
   mem₀ := by
-    rw [presieve₀_mem_precoverage_iff]
-    refine ⟨?_, inferInstance⟩
+    rw [Scheme.presieve₀_mem_precoverage_iff]
+    refine ⟨?_, fun i => inferInstance⟩
     intro x
     have hx : x ∈ (⨆ i : Fin 2, ratioOpen i) := by rw [ratioOpen_cover]; trivial
     obtain ⟨i, hi⟩ := TopologicalSpace.Opens.mem_iSup.mp hx
@@ -350,11 +359,14 @@ theorem iso_over : iso.hom ≫ P.structureMap = P.structureMap := by
     (ratioPoint i).property]
   have h := congrArg (fun f => (polynomialChartIso i).hom ≫ f)
     (polynomialChartInclusion_baseMap i)
+  change (polynomialChartIso i).hom ≫
+      Spec.map (CommRingCat.ofHom (Polynomial.C : ℂ →+* Polynomial ℂ)) =
+    (chartOpen i).ι ≫ canonicalBaseMap
   simpa only [polynomialChartInclusion, Category.assoc, Iso.hom_inv_id_assoc] using h.symm
 
 theorem iso_inverse_over : iso.inv ≫ P.structureMap = P.structureMap := by
-  rw [← iso_over]
-  simp only [← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+  have h := congrArg (fun f => iso.inv ≫ f) iso_over
+  simpa only [← Category.assoc, Iso.inv_hom_id, Category.id_comp] using h.symm
 
 end LeBrunSalamon.Construction.P1CoordinateGauge
 

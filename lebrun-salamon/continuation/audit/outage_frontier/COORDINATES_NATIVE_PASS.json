@@ -1,0 +1,83 @@
+{
+  "schema": "lebrun-coordinates-current-native-pass-v1",
+  "recorded_utc": "2026-11-04T05:59:32.340Z",
+  "repository": "wajcha2/claude",
+  "commit": "286e74c942c1ad23310a5d1e360189ef9d80161b",
+  "run_id": 41781254614,
+  "job_id": 126413075236,
+  "source_path": "lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+  "source_git_blob_sha": "c489c4a93e8f56054c64361a9b399f25e7129452",
+  "source_sha256": "32e799bc50a231811ca218bfc26154d7066d92bfe494e336c9aa6477eae1c634",
+  "source_change_record_blob": "af9163525a9895c4691e4c7442c4a4e5fdefd835",
+  "native_receipt": {
+    "module": "LSP1BivectorCoordinates",
+    "receipt_sha256": "c1ec059780d3ff13060e7863c3352e44f08702dfa042c581fa9b4581b172480e",
+    "key": {
+      "source_sha256": "32e799bc50a231811ca218bfc26154d7066d92bfe494e336c9aa6477eae1c634",
+      "imports": [
+        "LSConicJets",
+        "LSFrameTransport",
+        "LSTangentFrameCoordinates"
+      ],
+      "dependency_artifacts": {
+        "LSConicJets": {
+          "sha256": "60c6eb49fd0f46f3f0c59e08ca555b4a55398d4aca0371e226114ac90fc7ad38",
+          "kind": "project"
+        },
+        "LSFrameTransport": {
+          "sha256": "80e7f8f691269b0947c7865facee380530d3f906ef96b82dbcad51d94dbe3678",
+          "kind": "project"
+        },
+        "LSTangentFrameCoordinates": {
+          "sha256": "7b5cb850af7a53fb16a4526420baee1169c20a786cae75870670d014c6e8c4cb",
+          "kind": "project"
+        }
+      },
+      "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ]
+    },
+    "output_sha256": "f53beddbf65ef4764ec6b39e430f8c62f8ab14f4f2f75fbc7aefb996df1d7fa6",
+    "source_ancestry_fingerprint": "45e4aa4f6eb67d47698fb0e41eaeea9591ec7583929e9736f347fa1f61d29fb0",
+    "seconds": 17.715,
+    "stdout_sha256": "92d0633cd93e8731afb0f1a8dd46d5d381817206dbb7283c7bb79a38b0803a4a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cache_restore_provenance": null
+  },
+  "current_graph_scope": "The native source module passed against the coherent cloud247 ancestry and both verified generic helpers. The selected199-module closure had195 accepted modules; Gauge was the next failed module and three model modules remained blocked.",
+  "original_public_declarations": 45,
+  "original_public_binders_changed": 0,
+  "lexical_header_annotations": [
+    {
+      "name": "polynomialMap_eq_aeval",
+      "before": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate)",
+      "after": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (R"
+    },
+    {
+      "name": "coefficient_evaluation",
+      "before": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (f.appLE U ⊤ hU coordinate) (polynomial a)",
+      "after": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (R"
+    },
+    {
+      "name": "frameSection_apply",
+      "before": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a",
+      "after": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a"
+    }
+  ],
+  "header_scope": "42 original headers are lexically unchanged after whitespace normalization; two explicit coefficient-algebra type parameters and one actual Hom.app qualification repair formerly unelaborated header expressions. This is not a retrospective kernel comparison against the original failed source.",
+  "new_admissions": 0,
+  "new_custom_axioms": 0,
+  "declaration_unsafe_tokens": 0,
+  "separate_transitive_axiom_audit_performed_for_this_module": false,
+  "point1_original_190_source_hashes_unchanged": true,
+  "full_graph_native_acceptance": false,
+  "canonical_integration": false,
+  "milestone_acceptance_change": 0,
+  "next_frontier": "LSP1CoordinateGauge, then LSModelBivector/LSModelDifferential/LSModelGeometry"
+}

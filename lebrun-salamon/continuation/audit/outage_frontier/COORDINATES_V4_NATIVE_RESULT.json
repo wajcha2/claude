@@ -1,0 +1,730 @@
+{
+  "schema": "lebrun-remote-native-summary-v1",
+  "run_id": 41781254614,
+  "job_id": 126413075236,
+  "commit": "286e74c942c1ad23310a5d1e360189ef9d80161b",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "286e74c942c1ad23310a5d1e360189ef9d80161b",
+      "source_modules": 272,
+      "selected_modules": 199,
+      "accepted_modules": 195,
+      "failed_modules": [
+        "LSP1CoordinateGauge"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 185,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSP1CoordinateGauge",
+      "status": "failed",
+      "source_sha256": "2346d8e5b7a2cf4afcc1fdef0fe083735badc93f27578a0c316b830784122e3b",
+      "return_code": 1,
+      "seconds": 4.576,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 52,
+            "line": 57
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 35,
+            "line": 57
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 55,
+            "line": 58
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 38,
+            "line": 58
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`",
+          "endPos": {
+            "column": 23,
+            "line": 59
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 6,
+            "line": 59
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\n⊢ (ConcreteCategory.hom (Scheme.Hom.appTop polynomialOverlapToZero)) sorry *\n      (ConcreteCategory.hom (Scheme.Hom.appTop polynomialOverlapToOne)) sorry =\n    1",
+          "endPos": {
+            "column": 10,
+            "line": 66
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 63,
+            "line": 58
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom (Scheme.Hom.appTop (fromFunction ?sT ?a)))\n    ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv) ?p)\nin the target expression\n  (LaurentPolynomial.eval₂ (complexConstants sY) u) (Polynomial.toLaurent (Polynomial.C c)) =\n    (CommRingCat.Hom.hom ((Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u).op))\n      (Polynomial.C c)\n\ncase h₁\nY : Scheme\nsY : Y ⟶ ComplexBase\nu : (RingSections Y ⊤)ˣ\nc : ℂ\n⊢ (LaurentPolynomial.eval₂ (complexConstants sY) u) (Polynomial.toLaurent (Polynomial.C c)) =\n    (CommRingCat.Hom.hom ((Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u).op))\n      (Polynomial.C c)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    Scheme.Γ.map (fromFunction sY ↑u).op\n  has type\n    Functor.obj.{0, 0, 1, 1} Scheme.Γ (op (Spec ↧(Polynomial ℂ))) ⟶ Scheme.Γ.obj (op Y)\n  but is expected to have type\n    Functor.obj.{0, 0, 0, 1} (Spec ↧(Polynomial ℂ)).presheaf (op ⊤) ⟶ Scheme.Γ.obj (op Y)\n  in the application\n    (Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u).op",
+          "endPos": {
+            "column": 61,
+            "line": 93
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 43,
+            "line": 93
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`",
+          "endPos": {
+            "column": 57,
+            "line": 96
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 40,
+            "line": 96
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (ConcreteCategory.hom (Scheme.Hom.appTop (fromFunction ?sT ?a)))\n    ((ConcreteCategory.hom (Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv) ?p)\nin the target expression\n  (LaurentPolynomial.eval₂ (complexConstants sY) u) (LaurentPolynomial.invert (Polynomial.toLaurent (Polynomial.C c))) =\n    (CommRingCat.Hom.hom ((Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u⁻¹).op))\n      (Polynomial.C c)\n\ncase h₁\nY : Scheme\nsY : Y ⟶ ComplexBase\nu : (RingSections Y ⊤)ˣ\nc : ℂ\n⊢ (LaurentPolynomial.eval₂ (complexConstants sY) u) (LaurentPolynomial.invert (Polynomial.toLaurent (Polynomial.C c))) =\n    (CommRingCat.Hom.hom ((Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u⁻¹).op))\n      (Polynomial.C c)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    Scheme.Γ.map (fromFunction sY ↑u⁻¹).op\n  has type\n    Functor.obj.{0, 0, 1, 1} Scheme.Γ (op (Spec ↧(Polynomial ℂ))) ⟶ Scheme.Γ.obj (op Y)\n  but is expected to have type\n    Functor.obj.{0, 0, 0, 1} (Spec ↧(Polynomial ℂ)).presheaf (op ⊤) ⟶ Scheme.Γ.obj (op Y)\n  in the application\n    (Scheme.ΓSpecIso ↧(Polynomial ℂ)).inv ≫ Scheme.Γ.map (fromFunction sY ↑u⁻¹).op",
+          "endPos": {
+            "column": 60,
+            "line": 110
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 42,
+            "line": 110
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`",
+          "endPos": {
+            "column": 56,
+            "line": 113
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 39,
+            "line": 113
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 25,
+            "line": 120
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 15,
+            "line": 120
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 25,
+            "line": 120
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 15,
+            "line": 120
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`\n\nNote: It is not possible to treat `affineLineToC` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 50,
+            "line": 120
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 37,
+            "line": 120
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`\n\nNote: It is not possible to treat `affineLineToC` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 27,
+            "line": 121
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 14,
+            "line": 121
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 37,
+            "line": 122
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 20,
+            "line": 122
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 66,
+            "line": 122
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 49,
+            "line": 122
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 68,
+            "line": 139
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 58,
+            "line": 139
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 68,
+            "line": 139
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 58,
+            "line": 139
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 68,
+            "line": 169
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 58,
+            "line": 169
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 68,
+            "line": 169
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 58,
+            "line": 169
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 30,
+            "line": 171
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 13,
+            "line": 171
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 59,
+            "line": 171
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 42,
+            "line": 171
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch\n  Eq.symm (scalarSection_one Y)\nhas type\n  𝟙 (structureModule Y) = scalarSection 1\nbut is expected to have type\n  pullSection f ((projectiveCoordinates 1).coordinate (if True then 1 else 0)) ≫\n      (asIso (pullSection f ((projectiveCoordinates 1).coordinate 0))).inv ≫\n        pullSection f ((projectiveCoordinates 1).coordinate (if False then 1 else 0)) ≫\n          (asIso (pullSection f ((projectiveCoordinates 1).coordinate 1))).inv =\n    sectionFromValue 1",
+          "endPos": {
+            "column": 36,
+            "line": 189
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 4,
+            "line": 189
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 64,
+            "line": 192
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 54,
+            "line": 192
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `AffineLine`\n\nNote: It is not possible to treat `AffineLine` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 64,
+            "line": 192
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 54,
+            "line": 192
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 30,
+            "line": 194
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 13,
+            "line": 194
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `parameterFunction`\n\nNote: It is not possible to treat `parameterFunction` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 59,
+            "line": 194
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 42,
+            "line": 194
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `presieve₀_mem_precoverage_iff`",
+          "endPos": {
+            "column": 37,
+            "line": 211
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 8,
+            "line": 211
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\n⊢ { I₀ := Fin 2, X := fun i => ↑(P1Charts.chartOpen i), f := fun i => (P1Charts.chartOpen i).ι }.presieve₀ ∈\n    (Scheme.precoverage IsOpenImmersion).coverings ProjectiveLine",
+          "endPos": {
+            "column": 29,
+            "line": 216
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 10,
+            "line": 210
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `presieve₀_mem_precoverage_iff`",
+          "endPos": {
+            "column": 37,
+            "line": 223
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 8,
+            "line": 223
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\n⊢ { I₀ := Fin 2, X := fun i => ↑(ratioOpen i), f := fun i => (ratioOpen i).ι }.presieve₀ ∈\n    (Scheme.precoverage IsOpenImmersion).coverings ProjectiveLine",
+          "endPos": {
+            "column": 29,
+            "line": 228
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 10,
+            "line": 222
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`",
+          "endPos": {
+            "column": 31,
+            "line": 249
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 18,
+            "line": 249
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`",
+          "endPos": {
+            "column": 31,
+            "line": 252
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 18,
+            "line": 252
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `canonical_overlap_product`",
+          "endPos": {
+            "column": 40,
+            "line": 255
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 15,
+            "line": 255
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`",
+          "endPos": {
+            "column": 31,
+            "line": 278
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 18,
+            "line": 278
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `affineLineToC`",
+          "endPos": {
+            "column": 31,
+            "line": 280
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 18,
+            "line": 280
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `canonical_reciprocal`",
+          "endPos": {
+            "column": 35,
+            "line": 282
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 15,
+            "line": 282
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  Eq.symm h\n has type\n  @Eq (↑(P1Charts.chartOpen i) ⟶ Spec ↧ℂ) ((polynomialChartIso i).hom ≫ Spec.map (CommRingCat.ofHom Polynomial.C))\n    ((P1Charts.chartOpen i).ι ≫ canonicalBaseMap)\nbut is expected to have type\n  @Eq (↑(P1Charts.chartOpen i) ⟶ ComplexBase) ((polynomialChartIso i).hom ≫ Smoothing.affineLineToC)\n    ((P1Charts.chartOpen i).ι ≫ P.structureMap)",
+          "endPos": {
+            "column": 90,
+            "line": 353
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 2,
+            "line": 353
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\n⊢ P.structureMap = iso.hom ≫ P.structureMap",
+          "endPos": {
+            "column": 64,
+            "line": 357
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 72,
+            "line": 355
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "new_passes": [
+    {
+      "module": "LSP1BivectorCoordinates",
+      "receipt_sha256": "c1ec059780d3ff13060e7863c3352e44f08702dfa042c581fa9b4581b172480e",
+      "key": {
+        "source_sha256": "32e799bc50a231811ca218bfc26154d7066d92bfe494e336c9aa6477eae1c634",
+        "imports": [
+          "LSConicJets",
+          "LSFrameTransport",
+          "LSTangentFrameCoordinates"
+        ],
+        "dependency_artifacts": {
+          "LSConicJets": {
+            "sha256": "60c6eb49fd0f46f3f0c59e08ca555b4a55398d4aca0371e226114ac90fc7ad38",
+            "kind": "project"
+          },
+          "LSFrameTransport": {
+            "sha256": "80e7f8f691269b0947c7865facee380530d3f906ef96b82dbcad51d94dbe3678",
+            "kind": "project"
+          },
+          "LSTangentFrameCoordinates": {
+            "sha256": "7b5cb850af7a53fb16a4526420baee1169c20a786cae75870670d014c6e8c4cb",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f53beddbf65ef4764ec6b39e430f8c62f8ab14f4f2f75fbc7aefb996df1d7fa6",
+      "source_ancestry_fingerprint": "45e4aa4f6eb67d47698fb0e41eaeea9591ec7583929e9736f347fa1f61d29fb0",
+      "seconds": 17.715,
+      "stdout_sha256": "92d0633cd93e8731afb0f1a8dd46d5d381817206dbb7283c7bb79a38b0803a4a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13299012870,
+      "name": "lebrun-coordinates-refined-41781254614-1",
+      "size_in_bytes": 55478341,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13299012870",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13299012870/zip",
+      "expired": false,
+      "created_at": "2026-11-04T05:47:58Z",
+      "expires_at": "2027-02-02T05:46:03Z",
+      "updated_at": "2026-11-04T05:47:58Z",
+      "digest": "sha256:581924b77d088df56a5ed10f65d7065399db42a5796e40dd8e0184ed523072a2",
+      "workflow_run": {
+        "id": 41781254614,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-coordinates-refined-20261104",
+        "head_sha": "286e74c942c1ad23310a5d1e360189ef9d80161b"
+      }
+    }
+  ],
+  "scope": "Coordinates v4 passed17.715seconds. Gauge remains the actual frontier;195/199 selected validated, no invalidations; no acceptance promotion."
+}

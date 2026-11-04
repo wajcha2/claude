@@ -1,0 +1,55 @@
+{
+  "schema": "lebrun-conditional-native-gates-v1",
+  "clean_production_commit": "be5a1deb6924c1bdc459969f2027b8b59c50da37",
+  "production_source_modules": 306,
+  "diagnostic_modules": [
+    "LSGenericFamilyComparisonFieldProfile",
+    "LSFormalArcFamilyComparisonProfile"
+  ],
+  "cache": [
+    {
+      "artifact_dir": "lebrun-cache-inputs/0",
+      "source_run_id": 41856517767,
+      "source_artifact_name": "lebrun-covered-pair-actual-41856517767-1",
+      "artifact_id": 13337333551,
+      "artifact_sha256": "496ae46e2541f7d209e0a40d6354933a8371e2cffbb1ea60b02c136d854db05e",
+      "include_validated_unselected_cache": true
+    }
+  ],
+  "stages": [
+    {
+      "id": "generic_profile",
+      "module": "LSGenericFamilyComparisonFieldProfile",
+      "sha256": "5b31ee603f933c208283a3e7aaef4749945096c4e5419b0b21ae163c8962ead6",
+      "diagnostic_only": true,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "generic_actual",
+      "module": "LSGenericFamilyComparison",
+      "sha256": "94c9256ac20688924655f9eda4c4493bf39575e9e3834b0b35d51ae9f9619923",
+      "requires": "generic_profile completed native rc0",
+      "timeout_seconds": 300
+    },
+    {
+      "id": "arc_profile",
+      "module": "LSFormalArcFamilyComparisonProfile",
+      "sha256": "e95a6d58c450e3ab7687b711bf96790a96f69191c774579900443023fe738d78",
+      "requires": "generic_actual completed native rc0",
+      "diagnostic_only": true,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "arc_actual",
+      "module": "LSFormalArcFamilyComparison",
+      "sha256": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
+      "requires": "arc_profile completed native rc0",
+      "timeout_seconds": 300
+    }
+  ],
+  "every_stage_has_distinct_report_and_artifact": true,
+  "marker_modules_excluded_from_production_native_counts": true,
+  "actions_step_conclusion_is_not_acceptance": true,
+  "accepted_obligation_units": 30,
+  "total_obligation_units": 133
+}

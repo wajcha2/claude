@@ -1,0 +1,124 @@
+name: LeBrun generic field and formal arc gates
+on:
+  push:
+    branches: [codex/lebrun-generic-field4-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-generic-field4-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  generic_arc_gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41856517767
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-covered-pair-actual-41856517767-1
+          run-id: 41856517767
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Profile the exact generic field proof candidate
+        id: generic_profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyComparisonFieldProfile --keep-going --timeout 300
+      - name: Report generic_profile exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose generic_profile receipt-bound raw markers
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSGenericFamilyComparisonFieldProfile --allow-unattempted
+      - name: Preserve generic_profile exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-generic-field4-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual generic field comparison
+        id: generic_actual
+        if: steps.generic_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyComparison --keep-going --timeout 300
+      - name: Report generic_actual exact native scope
+        if: always() && steps.generic_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve generic_actual exact evidence before continuation
+        if: always() && steps.generic_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-generic-field4-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Profile unchanged formal arc family comparison
+        id: arc_profile
+        if: steps.generic_actual.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFormalArcFamilyComparisonProfile --keep-going --timeout 300
+      - name: Report arc_profile exact native scope
+        if: always() && steps.generic_actual.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose arc_profile receipt-bound raw markers
+        if: always() && steps.generic_actual.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFormalArcFamilyComparisonProfile --allow-unattempted
+      - name: Preserve arc_profile exact evidence before continuation
+        if: always() && steps.generic_actual.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-formal-arc-family4-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual formal arc family comparison
+        id: arc_actual
+        if: steps.arc_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFormalArcFamilyComparison --keep-going --timeout 300
+      - name: Report arc_actual exact native scope
+        if: always() && steps.arc_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve arc_actual exact evidence before continuation
+        if: always() && steps.arc_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-formal-arc-family4-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require all actual gate outcomes
+        if: always()
+        run: |
+          test "${{ steps.generic_profile.outcome }}" = success
+          test "${{ steps.generic_actual.outcome }}" = success
+          test "${{ steps.arc_profile.outcome }}" = success
+          test "${{ steps.arc_actual.outcome }}" = success

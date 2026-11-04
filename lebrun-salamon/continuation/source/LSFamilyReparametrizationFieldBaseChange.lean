@@ -52,6 +52,9 @@ theorem sourceMap_comp {A B C : Scheme}
   apply pullback.hom_ext
   · simp only [Category.assoc, rationalSourceMap, pullback.lift_fst, inclusion_projection]
   · simp only [Category.assoc, rationalSourceMap, pullback.lift_snd, inclusion_parameter]
+    change inclusion P sA t ≫ parameter P sA ≫ u.val =
+      P.structureMap ≫ t.val ≫ u.val
+    exact inclusion_parameter_assoc P sA t u.val
 
 theorem pulledEvaluation_overC {A B : Scheme}
     (sA : A ⟶ ComplexBase) (sB : B ⟶ ComplexBase)

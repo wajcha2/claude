@@ -1,0 +1,19 @@
+{
+  "schema": "lebrun-family-field-basechange-inclusion-assoc-repair-v1",
+  "parent_source_sha256": "738ab9ebefaf12a230e0d5dab622020e5c2732d1138ed9a65dd1105a3ff67985",
+  "source_sha256": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2",
+  "declaration": "inclusion_sourceMap",
+  "old_body_fragment": "  · simp only [Category.assoc, rationalSourceMap, pullback.lift_snd, inclusion_parameter]",
+  "new_body_fragment": "  · simp only [Category.assoc, rationalSourceMap, pullback.lift_snd, inclusion_parameter]\n    change inclusion P sA t ≫ parameter P sA ≫ u.val =\n      P.structureMap ≫ t.val ≫ u.val\n    exact inclusion_parameter_assoc P sA t u.val",
+  "all_five_headers_and_scoped_contexts_unchanged": true,
+  "other_four_original_bodies_exact": true,
+  "inverse_restoration_exact": true,
+  "diagnostic": {
+    "profile": "3fe1a8de7bfda63783b844d0f84bf2c96c8aaaea55d21fa22966ab4e13e2a6f8",
+    "return_code": 1,
+    "seconds": 50.277,
+    "real_production_error_count": 1,
+    "scope": "Other six errors were missing includes in private control hypotheses; no original production error there."
+  },
+  "native_acceptance": false
+}

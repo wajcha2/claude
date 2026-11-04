@@ -1,0 +1,91 @@
+{
+  "schema": "lebrun-field-basechange5-native-frontier-v1",
+  "commit": "4b4706547ebef65fdabcb042ead50147051338b0",
+  "run_id": 41844677441,
+  "job_id": 126624980169,
+  "diagnostics": [
+    {
+      "module": "LSFamilyReparametrizationFieldBaseChange",
+      "status": "failed",
+      "source_sha256": "738ab9ebefaf12a230e0d5dab622020e5c2732d1138ed9a65dd1105a3ff67985",
+      "return_code": 1,
+      "seconds": 3.726,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase h₁\nP : ProjectiveLineOverC\nA B : Scheme\nsA : A ⟶ ComplexBase\nsB : B ⟶ ComplexBase\nu : PointsOver A sA B sB\nt : BasePoint sA\n⊢ inclusion P sA t ≫ pullback.snd P.structureMap sA ≫ ↑u = P.structureMap ≫ ↑t ≫ ↑u",
+          "endPos": {
+            "column": 89,
+            "line": 54
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationFieldBaseChange.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 2,
+            "line": 54
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "4b4706547ebef65fdabcb042ead50147051338b0",
+      "source_modules": 304,
+      "selected_modules": 112,
+      "accepted_modules": 111,
+      "failed_modules": [
+        "LSFamilyReparametrizationFieldBaseChange"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 88,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "decoded_job_log_sha256": "c42fb2f934c8e5babcbc0ec6c30a700caab1c4cbb215fee416f96619dfbe8c73",
+  "independent_ancestry_comparison": {
+    "schema": "lebrun-current-native-union-comparison-v1",
+    "source_manifest_sha256": "4cf078266466b4be9500f80b02b5beae9159d44a43a357a8aaae4ea54f5c0566",
+    "source_modules": 304,
+    "source_manifest_freeze_binding_verified": true,
+    "verified_native_module_union": 290,
+    "duplicate_context_comparisons": 111,
+    "conflicts": [],
+    "source_dependency_problems": [],
+    "all_recursive_ancestry_fingerprints_recomputed": true,
+    "point1_native_ancestor_comparisons": 190,
+    "point1_changes": [],
+    "whole_source_graph_passed": false,
+    "point1_acceptance": false,
+    "accepted_obligation_units": 30,
+    "total_obligation_units": 133,
+    "pending_modules": [
+      "LSCompletedTargets",
+      "LSFamilyBivectorDescent",
+      "LSFamilyCoveredPairProfile",
+      "LSFamilyReparametrization",
+      "LSFamilyReparametrizationFieldBaseChange",
+      "LSFamilyReparametrizationLeftFiniteType",
+      "LSFamilyReparametrizationRightFiniteType",
+      "LSFamilySmoothDescent",
+      "LSFormalArcComparison",
+      "LSGenericFamilyComparison",
+      "LSMilestoneTarget",
+      "LSModelGenericComparison",
+      "LSModelNumeratorTransport",
+      "LSMovingPairConstruction"
+    ]
+  },
+  "repair_source_sha256": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2",
+  "repair_guard_blob": "b67046ae6a55780aa1293c2d468a6cd06ee0ebe9",
+  "point1_acceptance": false,
+  "accepted_obligation_units": 30
+}

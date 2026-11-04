@@ -1,0 +1,197 @@
+{
+  "schema": "lebrun-model-differential-guarded-repair-v3",
+  "created_utc": "2026-11-04T06:44:24.178Z",
+  "repository": "wajcha2/claude",
+  "path": "lebrun-salamon/continuation/source/LSModelDifferential.lean",
+  "base_commit": "634f5a07e97dc1abf26741d69c85d36c6e761f0b",
+  "base_git_blob": "a0e017bd648aad53d5465e6721c06abc82f730bd",
+  "base_sha256": "eabc0359d6aac8d339ea3ae825271fe26a4ef92800cfbe2aa9160a6ca1d5410b",
+  "candidate_git_blob": "6165f5dd026540e913e3a107fa0ab7fa84f4a5cd",
+  "sha256": "665dcd37cfe12f9138825f6ec1585e47b395e0859b8a4fbb9ca8311803d2e830",
+  "bytes": 45696,
+  "headers": 55,
+  "lines": 839,
+  "admissions": 0,
+  "all_public_headers_unchanged": true,
+  "remote_roundtrip_verified": true,
+  "native_status": "uncompiled_candidate",
+  "diagnostic_run": 41786683448,
+  "diagnostic_job": 126430316773,
+  "diagnostic": {
+    "module": "LSModelDifferential",
+    "status": "failed",
+    "source_sha256": "eabc0359d6aac8d339ea3ae825271fe26a4ef92800cfbe2aa9160a6ca1d5410b",
+    "return_code": 1,
+    "seconds": 61.329,
+    "errors": [
+      {
+        "caption": "",
+        "data": "failed to synthesize instance of type class\n  SMul (↑Γ(ProjectiveLine, U)) (SectionsOn TangentLine.sheaf frame.openSet)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+        "endPos": {
+          "column": 63,
+          "line": 72
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.synthInstanceFailed._namedError",
+        "pos": {
+          "column": 55,
+          "line": 72
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "failed to synthesize instance of type class\n  SMul (↑Γ(ProjectiveLine, U)) (RingSections ProjectiveLine frame.openSet)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+        "endPos": {
+          "column": 63,
+          "line": 72
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.synthInstanceFailed._namedError",
+        "pos": {
+          "column": 55,
+          "line": 72
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  chartAlgebraEquiv ((algebraMap ℂ (Coefficients P.structureMap U)) ?r)\nin the target expression\n  chartAlgebraEquiv ((constants P.structureMap U) c) *\n      chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app s U)) 1)) =\n    Polynomial.C c * polynomial s\n\ns : AlgebraicSection TangentLine.sheaf\nc : ℂ\n⊢ chartAlgebraEquiv ((constants P.structureMap U) c) *\n      chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app s U)) 1)) =\n    Polynomial.C c * polynomial s\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (constants P.structureMap U) c\n  has type\n    RingSections ProjectiveLine U\n  but is expected to have type\n    Coefficients P.structureMap U\n  in the application\n    chartAlgebraEquiv ((constants P.structureMap U) c)",
+        "endPos": {
+          "column": 32,
+          "line": 73
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 73
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  h\n has type\n  @Eq\n    (pullbackModule (modelMap F 0) (line F).sheaf ⟶\n      pullbackModule (modelMap F 0 ≫ universalPoint F) (tangentSheaf (projectiveLineVariety Lines.P).structureMap))\n    (LogVelocity.fromForm (modelMap F 0 ≫ F.parameter) Smoothing.affineLineToC\n      (pullbackModule (modelMap F 0) (line F).sheaf)\n      ((chartCotangentIso F 0).inv ≫\n        (Scheme.Modules.pullback (modelMap F 0)).map (fundamentalClass F) ≫\n          dualBaseChange (modelMap F 0) (line F).sheaf)\n      (projectiveLineVariety Lines.P) (modelMap F 0 ≫ universalPoint F) ⋯)\n    ((Scheme.Modules.pullback (modelMap F 0)).map\n        (LogVelocity.fromForm F.parameter Smoothing.affineLineToC (line F).sheaf (fundamentalClass F)\n          (projectiveLineVariety Lines.P) (universalPoint F) ⋯) ≫\n      (Scheme.Modules.pullbackComp (modelMap F 0) (universalPoint F)).hom.app\n        (tangentSheaf (projectiveLineVariety Lines.P).structureMap))\nbut is expected to have type\n  @Eq (pullbackModule (modelMap F 0) (line F).sheaf ⟶ pullbackModule (chartPoint F) (tangentSheaf Lines.P.structureMap))\n    (LogVelocity.fromForm (modelMap F 0 ≫ F.parameter) Smoothing.affineLineToC\n      (pullbackModule (modelMap F 0) (line F).sheaf)\n      ((chartCotangentIso F 0).inv ≫\n        (Scheme.Modules.pullback (modelMap F 0)).map (fundamentalClass F) ≫\n          dualBaseChange (modelMap F 0) (line F).sheaf)\n      (projectiveLineVariety Lines.P) (chartPoint F) ⋯)\n    ((Scheme.Modules.pullback (modelMap F 0)).map\n        (LogVelocity.fromForm F.parameter Smoothing.affineLineToC (line F).sheaf (fundamentalClass F)\n          (projectiveLineVariety Lines.P) (universalPoint F) ⋯) ≫\n      (Scheme.Modules.pullbackComp (modelMap F 0) (universalPoint F)).hom.app (tangentSheaf Lines.P.structureMap))",
+        "endPos": {
+          "column": 25,
+          "line": 457
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 454
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  h\n has type\n  @Eq\n    ((modelLine F a).sheaf ⟶\n      pullbackModule (LogarithmicSource.toUniversal F a ≫ universalPoint F)\n        (tangentSheaf (projectiveLineVariety Lines.P).structureMap))\n    (transpose\n        (RelativeDifferential.cotangent (modelProjection F a) (projectiveLineVariety Lines.P).structureMap\n            (LogarithmicSource.toUniversal F a ≫ universalPoint F) toC ⋯ ≫\n          (LogarithmicSource.cotangentComparison F a).inv ≫\n            (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (fundamentalClass F) ≫\n              dualBaseChange (LogarithmicSource.toUniversal F a) (line F).sheaf ≫\n                dualMap (LogarithmicSource.lineComparison F a).inv) ≫\n      inv\n        (dualBaseChange (LogarithmicSource.toUniversal F a ≫ universalPoint F)\n          (cotangentSheaf (projectiveLineVariety Lines.P).structureMap)))\n    ((LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map\n          (transpose\n              (RelativeDifferential.cotangent F.parameter (projectiveLineVariety Lines.P).structureMap\n                  (universalPoint F) Smoothing.affineLineToC ⋯ ≫\n                fundamentalClass F) ≫\n            inv (dualBaseChange (universalPoint F) (cotangentSheaf (projectiveLineVariety Lines.P).structureMap))) ≫\n        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a) (universalPoint F)).hom.app\n          (tangentSheaf (projectiveLineVariety Lines.P).structureMap))\nbut is expected to have type\n  @Eq ((modelLine F a).sheaf ⟶ pullbackModule (modelPoint F a) (tangentSheaf Lines.P.structureMap))\n    (transpose\n        (RelativeDifferential.cotangent (modelProjection F a) (projectiveLineVariety Lines.P).structureMap\n            (modelPoint F a) toC ⋯ ≫\n          (LogarithmicSource.cotangentComparison F a).inv ≫\n            (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (fundamentalClass F) ≫\n              dualBaseChange (LogarithmicSource.toUniversal F a) (line F).sheaf ≫\n                dualMap (LogarithmicSource.lineComparison F a).inv) ≫\n      inv (dualBaseChange (modelPoint F a) (cotangentSheaf (projectiveLineVariety Lines.P).structureMap)))\n    ((LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map\n          (transpose\n              (RelativeDifferential.cotangent F.parameter (projectiveLineVariety Lines.P).structureMap\n                  (universalPoint F) Smoothing.affineLineToC ⋯ ≫\n                fundamentalClass F) ≫\n            inv (dualBaseChange (universalPoint F) (cotangentSheaf (projectiveLineVariety Lines.P).structureMap))) ≫\n        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a) (universalPoint F)).hom.app\n          (tangentSheaf Lines.P.structureMap))",
+        "endPos": {
+          "column": 85,
+          "line": 525
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 522
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (u ≫ ↑(ratioPoint 0)) t ∈ ratioOpen 0\n\ncase left\nF : Smoothing.StandardSource\na : StableMaps.FormalArcs.Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nthis : IsOpenImmersion (modelMap F 0) := ⋯\nhr : Set.range ⇑(modelMap F 0) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))\nt : ↥T\n⊢ (u ≫ ↑(ratioPoint 0)) t ∈ ratioOpen 0",
+        "endPos": {
+          "column": 26,
+          "line": 589
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 8,
+          "line": 589
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (v ≫ ↑(ratioPoint 0)) t ∈ ratioOpen 0\n\ncase right\nF : Smoothing.StandardSource\na : StableMaps.FormalArcs.Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nthis : IsOpenImmersion (modelMap F 0) := ⋯\nhr : Set.range ⇑(modelMap F 0) = ↑(Smoothing.SourceAffineCharts.chartOpen F (leftIndex 0) (rightIndex 0))\nt : ↥T\n⊢ (v ≫ ↑(ratioPoint 0)) t ∈ ratioOpen 0",
+        "endPos": {
+          "column": 26,
+          "line": 591
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelDifferential.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 8,
+          "line": 591
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  },
+  "changes": [
+    {
+      "id": "MD21_scalar_map_at_literal_chart_carrier",
+      "before": "  change chartAlgebraEquiv (frame.coefficient\n    ((GlobalScalars.scalarEnd TangentLine.sheaf (constants P.structureMap ⊤ c)).app U\n      (Scheme.Modules.Hom.app s U (1 : RingSections ProjectiveLine U)))) = _\n  rw [GlobalScalars.scalarEnd_app, constants_restrict, map_smul, smul_eq_mul, map_mul]\n  rw [chartAlgebraEquiv.commutes]\n  rfl",
+      "after": "  let lc : SectionsOn TangentLine.sheaf U ≃ₗ[RingSections ProjectiveLine U]\n      RingSections ProjectiveLine U := frame.coefficient\n  change polynomialChartRingEquiv 0 (lc\n    ((GlobalScalars.scalarEnd TangentLine.sheaf (constants P.structureMap ⊤ c)).app U\n      (Scheme.Modules.Hom.app s U (1 : RingSections ProjectiveLine U)))) = _\n  rw [GlobalScalars.scalarEnd_app, constants_restrict, map_smul, smul_eq_mul, map_mul]\n  have hc : polynomialChartRingEquiv 0 (constants P.structureMap U c) = Polynomial.C c :=\n    polynomialChartRingEquiv_canonical_constant 0 c\n  exact congrArg (fun z : Polynomial ℂ => z * polynomial s) hc",
+      "match_count": 1
+    },
+    {
+      "id": "MD22_typed_chart_velocity_comparison",
+      "before": "  simpa only [chartVelocity, universalVelocity, LogVelocity.pulledForm,\n    chartForm, Category.id_comp, Iso.refl_inv, dualMap_id, Category.comp_id,\n    compositionPullback, Iso.trans_hom, Iso.app_hom, eqToIso_refl,\n    Iso.refl_hom] using h",
+      "after": "  simp only [chartVelocity, universalVelocity, LogVelocity.pulledForm,\n    chartForm, Category.id_comp, Iso.refl_inv, dualMap_id, Category.comp_id,\n    compositionPullback, Iso.trans_hom, Iso.app_hom, eqToIso_refl,\n    Iso.refl_hom] at h\n  change chartVelocity F =\n    (Scheme.Modules.pullback (modelMap F 0)).map (universalVelocity F) ≫\n      (Scheme.Modules.pullbackComp (modelMap F 0) (universalPoint F)).hom.app\n        (tangentSheaf Lines.P.structureMap) at h\n  exact h",
+      "match_count": 1
+    },
+    {
+      "id": "MD23_typed_model_velocity_comparison",
+      "before": "  simpa only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,\n    LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,\n    LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,\n    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] using h",
+      "after": "  simp only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,\n    LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,\n    LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,\n    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] at h\n  change modelVelocity F a =\n    (LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫\n        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a)\n          (universalPoint F)).hom.app (tangentSheaf Lines.P.structureMap) at h\n  exact h",
+      "match_count": 1
+    },
+    {
+      "id": "MD24_left_point_membership_as_actual_set",
+      "before": "  · rw [← ratioPoint_range]\n    exact ⟨u t, rfl⟩",
+      "after": "  · change (ratioPoint 0).val (u t) ∈ (ratioOpen 0 : Set ProjectiveLine)\n    rw [← ratioPoint_range 0]\n    exact ⟨u t, rfl⟩",
+      "match_count": 1
+    },
+    {
+      "id": "MD25_right_point_membership_as_actual_set",
+      "before": "  · rw [← ratioPoint_range]\n    exact ⟨v t, rfl⟩",
+      "after": "  · change (ratioPoint 0).val (v t) ∈ (ratioOpen 0 : Set ProjectiveLine)\n    rw [← ratioPoint_range 0]\n    exact ⟨v t, rfl⟩",
+      "match_count": 1
+    }
+  ],
+  "semantic_scope": "Five exact remaining proof sites only: typed local coefficient linear equivalence and the already-proved canonical constant map; named actual chart/model velocity carriers after simplifying the generic base-change equation; and point membership explicitly on the underlying open set. No statement, binder, assumption or mathematical map changed.",
+  "mutations": {
+    "unattached_blobs_only": true,
+    "commits_created": false,
+    "refs_updated": false,
+    "canonical_source_changed": false,
+    "acceptance_flags_changed": false
+  },
+  "companion_geometry": {
+    "candidate_git_blob": "4dd40dde2136ca7671e801331420cbcc21c8adc2",
+    "source_sha256": "4dabadf3b4fd92b664ec9ed1879330491a30090440e31c50c3137d942acdaf3a",
+    "guarded_patch_blob": "cadece5f758eef0266102edd33dff95d98d694fb",
+    "public_headers_unchanged": 17,
+    "admissions": 0,
+    "native_status": "uncompiled_candidate"
+  }
+}

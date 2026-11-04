@@ -112,7 +112,7 @@ def toPuncturedProduct : GenericModel F a ⟶ PuncturedSourceProof.Product :=
   change toPuncturedModel F a ha ≫ PuncturedSourceProof.projection F ≫
     PuncturedSourceProof.productLeft = genericLeft F a
   rw [PuncturedSourceProof.projection_left]
-  simpa only [genericLeft, modelLeft, Category.assoc] using
+  simpa only [genericLeft, modelLeft, PuncturedSourceProof.starSource, Category.assoc] using
     toPuncturedModel_source_assoc F a ha F.left
 
 @[reassoc] theorem toPuncturedProduct_base :

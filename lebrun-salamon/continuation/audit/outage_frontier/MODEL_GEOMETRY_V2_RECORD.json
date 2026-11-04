@@ -1,0 +1,19 @@
+{
+  "schema": "lebrun-model-geometry-final-projection-alias-repair-v1",
+  "source_path": "source/LSModelGeometry.lean",
+  "baseline_commit": "634f5a07e97dc1abf26741d69c85d36c6e761f0b",
+  "baseline_git_blob": "0c5fdfa31160181099b7c9edadf4401ffa7828c2",
+  "baseline_sha256": "abde8a4d53459b21bb2983ae0b41b94bdd0866c398a6e9eb42f201c89cfd96db",
+  "candidate_sha256": "4dabadf3b4fd92b664ec9ed1879330491a30090440e31c50c3137d942acdaf3a",
+  "patches": [
+    {
+      "before": "  simpa only [genericLeft, modelLeft, Category.assoc] using\n    toPuncturedModel_source_assoc F a ha F.left",
+      "after": "  simpa only [genericLeft, modelLeft, PuncturedSourceProof.starSource, Category.assoc] using\n    toPuncturedModel_source_assoc F a ha F.left",
+      "match_count": 1
+    }
+  ],
+  "diagnostic_job": 126430316773,
+  "native_status": "uncompiled_candidate",
+  "public_headers_changed": false,
+  "new_admissions": 0
+}

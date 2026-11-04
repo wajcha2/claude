@@ -66,12 +66,15 @@ def coordinateSection : AlgebraicSection TangentLine.sheaf :=
 theorem polynomial_scalar (s : AlgebraicSection TangentLine.sheaf) (c : ℂ) :
     polynomial (s ≫ GlobalScalars.scalarEnd TangentLine.sheaf
       (constants P.structureMap ⊤ c)) = Polynomial.C c * polynomial s := by
-  change chartAlgebraEquiv (frame.coefficient
+  let lc : SectionsOn TangentLine.sheaf U ≃ₗ[RingSections ProjectiveLine U]
+      RingSections ProjectiveLine U := frame.coefficient
+  change polynomialChartRingEquiv 0 (lc
     ((GlobalScalars.scalarEnd TangentLine.sheaf (constants P.structureMap ⊤ c)).app U
       (Scheme.Modules.Hom.app s U (1 : RingSections ProjectiveLine U)))) = _
   rw [GlobalScalars.scalarEnd_app, constants_restrict, map_smul, smul_eq_mul, map_mul]
-  rw [chartAlgebraEquiv.commutes]
-  rfl
+  have hc : polynomialChartRingEquiv 0 (constants P.structureMap U c) = Polynomial.C c :=
+    polynomialChartRingEquiv_canonical_constant 0 c
+  exact congrArg (fun z : Polynomial ℂ => z * polynomial s) hc
 
 theorem coordinateSection_polynomial : polynomial coordinateSection = 1 := by
   change chartAlgebraEquiv ((ScalarSections.coefficientAddHom frame)
@@ -451,10 +454,15 @@ theorem chartVelocity_baseChange : chartVelocity F =
       change chartPoint F ≫ Lines.P.structureMap =
         (modelMap F 0 ≫ F.parameter) ≫ ((𝟙 Smoothing.AffineLine) ≫ Smoothing.affineLineToC)
       simpa only [Category.id_comp] using chartPoint_over F)
-  simpa only [chartVelocity, universalVelocity, LogVelocity.pulledForm,
+  simp only [chartVelocity, universalVelocity, LogVelocity.pulledForm,
     chartForm, Category.id_comp, Iso.refl_inv, dualMap_id, Category.comp_id,
     compositionPullback, Iso.trans_hom, Iso.app_hom, eqToIso_refl,
-    Iso.refl_hom] using h
+    Iso.refl_hom] at h
+  change chartVelocity F =
+    (Scheme.Modules.pullback (modelMap F 0)).map (universalVelocity F) ≫
+      (Scheme.Modules.pullbackComp (modelMap F 0) (universalPoint F)).hom.app
+        (tangentSheaf Lines.P.structureMap) at h
+  exact h
 
 /-- The actual chart velocity sends the chosen O(1,1) generator to
 u times the canonical d/du frame. -/
@@ -519,10 +527,16 @@ theorem modelVelocity_baseChange : modelVelocity F a =
       change modelPoint F a ≫ Lines.P.structureMap =
         modelProjection F a ≫ (parameterMap a ≫ Smoothing.affineLineToC)
       simpa only [parameterMap_toC] using modelPoint_over F a)
-  simpa only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,
+  simp only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,
     LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,
     LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,
-    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] using h
+    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] at h
+  change modelVelocity F a =
+    (LogarithmicSource.lineComparison F a).inv ≫
+      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫
+        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a)
+          (universalPoint F)).hom.app (tangentSheaf Lines.P.structureMap) at h
+  exact h
 
 /-- The homogeneous coordinate sections use the same canonical line
 base-change comparison as the logarithmic form. -/
@@ -586,9 +600,11 @@ def nodeLift {T : Scheme} (j : T ⟶ Model F a) (u v : T ⟶ Smoothing.AffineLin
     show (0 : Fin 3) ≠ 2 by decide, if_neg, if_true, if_false]
   rw [hu, hv]
   constructor
-  · rw [← ratioPoint_range]
+  · change (ratioPoint 0).val (u t) ∈ (ratioOpen 0 : Set ProjectiveLine)
+    rw [← ratioPoint_range 0]
     exact ⟨u t, rfl⟩
-  · rw [← ratioPoint_range]
+  · change (ratioPoint 0).val (v t) ∈ (ratioOpen 0 : Set ProjectiveLine)
+    rw [← ratioPoint_range 0]
     exact ⟨v t, rfl⟩
 
 theorem nodeLift_spec {T : Scheme} (j : T ⟶ Model F a)

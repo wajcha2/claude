@@ -1,4 +1,5 @@
 import LSFormalArcModelNormalization
+import LSParametrizedBaseChange
 
 /-!
 # Regularity of the descended moving pair on every actual formal arc

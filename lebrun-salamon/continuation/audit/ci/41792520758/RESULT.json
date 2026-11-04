@@ -1,0 +1,85 @@
+{
+  "schema": "lebrun-descent-split-stock-result-v1",
+  "commit": "c13290e1d8ba9f1785b26226da1cd79360bbfb9a",
+  "tree": "b573db9ee574c938d4653c2141c103aa96ef3505",
+  "run_id": 41792520758,
+  "job_id": 126448962246,
+  "source_modules": 275,
+  "early_selected": 98,
+  "early_accepted": 98,
+  "final_selected": 105,
+  "final_accepted": 100,
+  "passed_new_modules": [
+    {
+      "module": "LSFamilyDescentTransport",
+      "source_sha256": "4d2bcfb20815846115d3368087edde9a13f64f3d392d9258cee2f8149e2a888f",
+      "output_sha256": "62817e6f18d3be9507f62da2128f3aa81e7bb7c7ad97c4dc369d7942040741fc",
+      "receipt_sha256": "32c7d73c88f90312ac6c488ba5e9d86c70d1d82ac2b7e9d33b6809a12d693ff7",
+      "source_ancestry_fingerprint": "cb60c2f2d6d42e5bff9f330ded1819b17822943d5371602ab82e133c7b255204",
+      "seconds": 131.998
+    },
+    {
+      "module": "LSFamilyDescentFibres",
+      "source_sha256": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28",
+      "output_sha256": "e4222af5b7902df30ff49eaf41040ced1098197cdb864a89eb2d964d4578e977",
+      "receipt_sha256": "1ab049ca1f0cc910f6e4c9e04af6343eb3cfb56354bfa0030a38c2c65b3063b3",
+      "source_ancestry_fingerprint": "9010aa3484d392a75992eb8c1eb23bae378cbbeef089a90ff24af51fbccc6d29",
+      "seconds": 187.787
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSFamilyDescentReparametrization",
+      "status": "failed",
+      "source_sha256": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4",
+      "return_code": 124,
+      "seconds": 600.492,
+      "errors": [],
+      "stderr": ""
+    }
+  ],
+  "full_job_log_sha256": "15133eb877f49d749957b36ab9c0ce7343b27931a40768e431c507b84009c678",
+  "artifacts": [
+    {
+      "id": 13305211583,
+      "name": "lebrun-descent-resource-41792520758-1",
+      "size_in_bytes": 63341359,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13305211583",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13305211583/zip",
+      "expired": false,
+      "created_at": "2026-11-04T07:45:31Z",
+      "expires_at": "2027-02-02T07:28:35Z",
+      "updated_at": "2026-11-04T07:45:31Z",
+      "digest": "sha256:6b1ac191f8eccc7c4f29e30cc068c7bca6f68d2824a50a2144e3626d13b38403",
+      "workflow_run": {
+        "id": 41792520758,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-descent-resource-20261104",
+        "head_sha": "c13290e1d8ba9f1785b26226da1cd79360bbfb9a"
+      }
+    },
+    {
+      "id": 13304590653,
+      "name": "lebrun-descent-prefix-41792520758-1",
+      "size_in_bytes": 63338894,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13304590653",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13304590653/zip",
+      "expired": false,
+      "created_at": "2026-11-04T07:35:15Z",
+      "expires_at": "2027-02-02T07:28:35Z",
+      "updated_at": "2026-11-04T07:35:15Z",
+      "digest": "sha256:69f315fc10e0281da44c24e6b99b01d867e63338676afe284311974b2943821e",
+      "workflow_run": {
+        "id": 41792520758,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-descent-resource-20261104",
+        "head_sha": "c13290e1d8ba9f1785b26226da1cd79360bbfb9a"
+      }
+    }
+  ],
+  "scope": "Two exact namespace modules passed by pinned stock Lean; the six-declaration Reparametrization module hit its 600-second wall-clock limit without diagnostics. The original tail and downstream family modules remain blocked. No whole-source or Point1 acceptance promotion.",
+  "acceptance_ledger_modified": false,
+  "collected_utc": "2026-11-04T07:50:53Z"
+}

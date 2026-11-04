@@ -1,0 +1,42 @@
+{
+  "schema": "open-section-dependency-factoring-v1",
+  "base_split_commit": "c13290e1",
+  "reason": "FormalArcRegularity uses the six generic OpenSection operations and dominant pullback injectivity, but not SmoothFamily or Reparametrization.",
+  "original_tail_sha256": "d07b3b6ba3e53648f6ad7a127e888a17c1afb9db29d85d69cab83dff15816313",
+  "new_tail_sha256": "b611f20a1f0a9148b2d0c4981b72221b1c37cc026ddd904d3be4b2506ec11c04",
+  "open_section_module_sha256": "47a54df3abf6421e44c319f8326d3a0c716375628e478c8cfa3c2ee9e4a4b09c",
+  "open_section_block_sha256": "99b4b3a5058af536b298af9cd2c5cfa4388cc0f4bb31710a572ee9f9f00454bf",
+  "moved_existing_declarations": [
+    "value",
+    "fromValue",
+    "value_section",
+    "section_value",
+    "value_map",
+    "value_pullSection"
+  ],
+  "moved_block_byte_identical": true,
+  "smooth_family_tail_byte_identical": true,
+  "new_declarations": 0,
+  "new_admissions": 0,
+  "tail_guarded_patches": [
+    {
+      "old": "import LSFamilyDescentReparametrization\n",
+      "new": "import LSFamilyDescentReparametrization\nimport LSOpenSectionTransport\n"
+    },
+    {
+      "old": "namespace OpenSection\n\n/-- A section on the pulled-back module over an open subscheme gives\nthe actual section of the original sheaf on that open. -/\ndef value {Y : Scheme} (U : Y.Opens) {E : OModule Y}\n    (s : AlgebraicSection (pullbackModule U.ι E)) : SectionsOn E U :=\n  E.presheaf.map (eqToHom U.ι_image_top.symm).op\n    (sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E))\n\n/-- The inverse construction retains the canonical open pullback. -/\ndef fromValue {Y : Scheme} (U : Y.Opens) {E : OModule Y}\n    (s : SectionsOn E U) : AlgebraicSection (pullbackModule U.ι E) :=\n  sectionFromValue (E.presheaf.map (eqToHom U.ι_image_top).op s) ≫\n    (Scheme.Modules.restrictFunctorIsoPullback U.ι).hom.app E\n\ntheorem value_section {Y : Scheme} (U : Y.Opens) {E : OModule Y}\n    (s : SectionsOn E U) : value U (fromValue U s) = s := by\n  simp only [value, fromValue, Category.assoc, Iso.hom_inv_id_app, Category.comp_id,\n    sectionFromValue_spec, ← ConcreteCategory.comp_apply, ← Functor.map_comp,\n    ← op_comp, eqToHom_trans, eqToHom_refl, CategoryTheory.Functor.map_id]\n  rfl\n\ntheorem section_value {Y : Scheme} (U : Y.Opens) {E : OModule Y}\n    (s : AlgebraicSection (pullbackModule U.ι E)) : fromValue U (value U s) = s := by\n  apply (cancel_mono ((Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E)).mp\n  simp only [fromValue, Category.assoc, Iso.hom_inv_id_app, Category.comp_id]\n  apply (sectionValue_bijective (E.restrict U.ι)).injective\n  simp only [sectionFromValue_spec, value, ← ConcreteCategory.comp_apply,\n    ← Functor.map_comp, ← op_comp, eqToHom_trans, eqToHom_refl, CategoryTheory.Functor.map_id]\n  rfl\n\ntheorem value_map {Y : Scheme} (U : Y.Opens) {E F : OModule Y}\n    (s : AlgebraicSection (pullbackModule U.ι E)) (v : E ⟶ F) :\n    value U (s ≫ (Scheme.Modules.pullback U.ι).map v) = v.app U (value U s) := by\n  unfold value\n  rw [Category.assoc, (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.naturality,\n    ← Category.assoc, sectionValue_comp]\n  exact sheafHom_naturality v (eqToHom U.ι_image_top.symm)\n    (sectionValue (s ≫ (Scheme.Modules.restrictFunctorIsoPullback U.ι).inv.app E))\n\ntheorem value_pullSection {Y : Scheme} (U : Y.Opens) {E : OModule Y}\n    (s : AlgebraicSection E) :\n    value U (pullSection U.ι s) =\n      E.presheaf.map (homOfLE (show U ≤ ⊤ from le_top)).op (sectionValue s) := by\n  rw [← FrameEvaluation.restrictedSection_to_pullSection]\n  simp only [value, Category.assoc, Iso.hom_inv_id_app, Category.comp_id,\n    FrameEvaluation.restrictedSection_value, ← ConcreteCategory.comp_apply,\n    ← Functor.map_comp, ← op_comp]\n  rfl\n\nend OpenSection\n\nnamespace SmoothFamily",
+      "new": "namespace SmoothFamily"
+    }
+  ],
+  "formal_arc_regularity": {
+    "original_sha256": "ef59b53deffda932a81a85c87bdb36872684b4ee041402bd0e86aba3829c58d8",
+    "candidate_sha256": "33a4498505e544335efcc0201209fbe966471636f5ee35641b37bc573f7c052d",
+    "patch": {
+      "old": "import LSFamilyBivectorDescent\n",
+      "new": "import LSOpenSectionTransport\n"
+    },
+    "all_proof_and_header_bytes_unchanged": true
+  },
+  "point1_audited190_sources_changed": 0,
+  "status": "candidates_not_yet_kernel_checked"
+}

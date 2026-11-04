@@ -1,4 +1,4 @@
-import LSFamilyBivectorDescent
+import LSFamilyDescentFibres
 
 /-!
 # Arbitrary base change of parametrized-family derivatives

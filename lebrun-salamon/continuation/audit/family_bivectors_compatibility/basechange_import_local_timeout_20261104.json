@@ -1,0 +1,49 @@
+{
+  "schema": "lebrun-published-local-diagnostic-v1",
+  "module": "LSFamilyBaseChange",
+  "source_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/source/LSFamilyBaseChange.lean",
+  "source_sha256": "8407e1b1c7918bc96a70c6f3834dfa7afb843f388af563222fdead0dea4e32e9",
+  "source_after_sha256": "8407e1b1c7918bc96a70c6f3834dfa7afb843f388af563222fdead0dea4e32e9",
+  "source_stable": true,
+  "direct_imports": {
+    "LSFamilyDescentFibres": {
+      "path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-current/olean/LSFamilyDescentFibres.olean",
+      "sha256": "e4222af5b7902df30ff49eaf41040ced1098197cdb864a89eb2d964d4578e977"
+    }
+  },
+  "imports_unchanged": true,
+  "runtime_config": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/runtime-config-local-diagnostic.json",
+  "runtime_config_sha256": "704664d3d62bb5757dab27451a33ec8f3e817ad8ffe923f9d6245f07ef18a3b4",
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/workspace/scratch/4deac2cdddbb/published_leaf_recovery/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/build/LSFamilyBaseChange_20261104T074951/LSFamilyBaseChange.olean",
+    "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/source/LSFamilyBaseChange.lean"
+  ],
+  "seconds": 90.582,
+  "return_code": 124,
+  "timed_out": true,
+  "native_errors": [],
+  "stdout_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/build/LSFamilyBaseChange_20261104T074951/stdout.jsonl",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/build/LSFamilyBaseChange_20261104T074951/stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_path": null,
+  "output_sha256": null,
+  "scope": "Local native diagnostic against independently validated frozen cloud imports; no current-graph acceptance, seed rewrite, or milestone promotion."
+}

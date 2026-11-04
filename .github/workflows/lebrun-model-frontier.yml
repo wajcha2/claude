@@ -1,4 +1,4 @@
-name: LeBrun-Salamon model and formal-arc frontier
+name: LeBrun-Salamon independent current comparison frontiers
 
 on:
   push:
@@ -11,49 +11,88 @@ permissions:
   actions: read
 
 jobs:
-  models:
+  independent-comparisons:
+    name: ${{ matrix.id }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: model
+            early: LSFamilyBaseChange
+            target: LSModelGenericComparison
+          - id: formal-arc
+            early: LSFormalArcRegularity
+            target: LSRationalOpenTransport
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Check out the exact diagnostic snapshot
+      - name: Check out the exact immutable source snapshot
         uses: actions/checkout@v4
       - name: Verify exact source manifest
         run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
       - name: Restore pinned stock runtime
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download the full verified253-module context
+      - name: Download exact native cache 1 from 41782933633
         uses: actions/download-artifact@v4
         with:
           name: lebrun-current-full-41782933633-1
           run-id: 41782933633
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
-      - name: Download the passed206-module model context
+      - name: Download exact native cache 2 from 41793572611
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-model-frontier-41791217887-1
-          run-id: 41791217887
+          name: lebrun-model-frontier-41793572611-1
+          run-id: 41793572611
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/1
+      - name: Download exact native cache 3 from 41792520758
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-descent-resource-41792520758-1
+          run-id: 41792520758
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/2
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check the actual Differential candidate and preserved formal-arc closure
+      - name: Check the independent early prerequisite
+        id: early
+        continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferential --module LSFormalArcSections --keep-going --timeout 180
-      - name: Expose exact native diagnostics and revalidated receipts
-        if: always()
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module ${{ matrix.early }} --keep-going --timeout 300
+      - name: Verify early native results and expose exact diagnostics
+        id: early_report
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve model frontier evidence
+      - name: Preserve early native evidence immediately
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-independent-${{ matrix.id }}-early-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: error
+      - name: Check the dependent comparison
+        if: steps.early.outcome == 'success'
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module ${{ matrix.target }} --keep-going --timeout 300
+      - name: Expose exact final diagnostics and revalidated receipts
+        if: always() && steps.early_report.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current native comparison evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-model-frontier-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-independent-${{ matrix.id }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
+      - name: Keep an unsuccessful prerequisite visible in the job result
+        if: always()
+        run: test "${{ steps.early.outcome }}" = success

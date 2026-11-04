@@ -1,0 +1,157 @@
+{
+  "schema": "lebrun-gauge-guarded-repair-v2",
+  "created_utc": "2026-11-04T06:13:19.975Z",
+  "repository": "wajcha2/claude",
+  "path": "lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+  "base_commit": "edbda8d3177c49303b3afc0e09bdaed0a2babd79",
+  "base_sha256": "dbccc916cb5e430adb7263b88fe0aa9715710c35675583244ef7c07b8960becd",
+  "base_git_blob": "0c3b70662b9c1ea06a77b4fa4d80e78ccf236c15",
+  "candidate_git_blob": "d48cc63cc5daabc6bc1d89107efcc81a2deab98e",
+  "source_sha256": "5ba08e335ed561f039bd7b7db10c9410503650aa51ecb4b0ae3a86f617913024",
+  "bytes": 18794,
+  "lines": 394,
+  "public_header_count": 32,
+  "all_public_headers_unchanged": true,
+  "admissions": 0,
+  "remote_roundtrip_verified": true,
+  "native_status": "uncompiled_candidate",
+  "diagnostic_source": {
+    "run_id": 41782933633,
+    "job_id": 126418426373,
+    "seconds": 13.244,
+    "return_code": 1,
+    "errors": [
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a => ratioFunction _a 1 = (ConcreteCategory.hom (Scheme.Hom.appTop b)) parameterFunction\nError: Application type mismatch: The argument\n  this\nhas type\n  IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1))\nbut is expected to have type\n  IsIso (pullSection _a ((projectiveCoordinates 1).coordinate 1))\nin the application\n  @ratioFunction Y _a 1 ⋯\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nY : Scheme\na b : Y ⟶ AffineLine\nh : a ≫ ↑(ratioPoint 0) = b ≫ ↑(ratioPoint 1)\nthis✝¹ : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 0)) := ratioPull_self_isIso a 0\nthis✝ : IsIso (pullSection (b ≫ ↑(ratioPoint 1)) ((projectiveCoordinates 1).coordinate 1)) := ratioPull_self_isIso b 1\nhi : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1))\nthis : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1)) := hi\nhp : (ConcreteCategory.hom (Scheme.Hom.appTop a)) parameterFunction * ratioFunction (a ≫ ↑(ratioPoint 0)) 1 = 1\n⊢ ratioFunction (a ≫ ↑(ratioPoint 0)) 1 = (ConcreteCategory.hom (Scheme.Hom.appTop b)) parameterFunction",
+        "endPos": {
+          "column": 44,
+          "line": 212
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 43,
+          "line": 212
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  polynomialChartInclusion ?i ≫ canonicalBaseMap\nin the target expression\n  a ≫ (polynomialChartIso 0).hom ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(P1Charts.chartOpen i)\nb✝ : Y ⟶ ↑(P1Charts.chartOpen j)\nh✝ : a✝ ≫ (P1Charts.chartOpen i).ι = b✝ ≫ (P1Charts.chartOpen j).ι\nT : Scheme\na : T ⟶ ↑(P1Charts.chartOpen 0)\nb : T ⟶ ↑(P1Charts.chartOpen 1)\nh : a ≫ (P1Charts.chartOpen 0).ι = b ≫ (P1Charts.chartOpen 1).ι\nu : T ⟶ Spec ↧(Polynomial ℂ) := a ≫ (polynomialChartIso 0).hom\nv : T ⟶ Spec ↧(Polynomial ℂ) := b ≫ (polynomialChartIso 1).hom\nhuv : u ≫ polynomialChartInclusion 0 = v ≫ polynomialChartInclusion 1\n⊢ a ≫ (polynomialChartIso 0).hom ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap",
+        "endPos": {
+          "column": 58,
+          "line": 259
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 26,
+          "line": 259
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  polynomialChartInclusion ?i ≫ canonicalBaseMap\nin the target expression\n  b ≫ (polynomialChartIso 1).hom ≫ affineLineToC = (v ≫ polynomialChartInclusion 1) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(P1Charts.chartOpen i)\nb✝ : Y ⟶ ↑(P1Charts.chartOpen j)\nh✝ : a✝ ≫ (P1Charts.chartOpen i).ι = b✝ ≫ (P1Charts.chartOpen j).ι\nT : Scheme\na : T ⟶ ↑(P1Charts.chartOpen 0)\nb : T ⟶ ↑(P1Charts.chartOpen 1)\nh : a ≫ (P1Charts.chartOpen 0).ι = b ≫ (P1Charts.chartOpen 1).ι\nu : T ⟶ Spec ↧(Polynomial ℂ) := a ≫ (polynomialChartIso 0).hom\nv : T ⟶ Spec ↧(Polynomial ℂ) := b ≫ (polynomialChartIso 1).hom\nhuv : u ≫ polynomialChartInclusion 0 = v ≫ polynomialChartInclusion 1\nhu : u ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap\n⊢ b ≫ (polynomialChartIso 1).hom ≫ affineLineToC = (v ≫ polynomialChartInclusion 1) ≫ P.structureMap",
+        "endPos": {
+          "column": 63,
+          "line": 262
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 31,
+          "line": 262
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioPoint 0) ≫ Lines.P.structureMap\nin the target expression\n  a ≫ (ratioOpenIso 0).hom ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(ratioOpen i)\nb✝ : Y ⟶ ↑(ratioOpen j)\nh✝ : a✝ ≫ (ratioOpen i).ι = b✝ ≫ (ratioOpen j).ι\nT : Scheme\na : T ⟶ ↑(ratioOpen 0)\nb : T ⟶ ↑(ratioOpen 1)\nh : a ≫ (ratioOpen 0).ι = b ≫ (ratioOpen 1).ι\nu : T ⟶ AffineLine := a ≫ (ratioOpenIso 0).hom\nv : T ⟶ AffineLine := b ≫ (ratioOpenIso 1).hom\nhuv : u ≫ ↑(ratioPoint 0) = v ≫ ↑(ratioPoint 1)\n⊢ a ≫ (ratioOpenIso 0).hom ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap",
+        "endPos": {
+          "column": 49,
+          "line": 288
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 26,
+          "line": 288
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioPoint 1) ≫ Lines.P.structureMap\nin the target expression\n  b ≫ (ratioOpenIso 1).hom ≫ affineLineToC = (v ≫ ↑(ratioPoint 1)) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(ratioOpen i)\nb✝ : Y ⟶ ↑(ratioOpen j)\nh✝ : a✝ ≫ (ratioOpen i).ι = b✝ ≫ (ratioOpen j).ι\nT : Scheme\na : T ⟶ ↑(ratioOpen 0)\nb : T ⟶ ↑(ratioOpen 1)\nh : a ≫ (ratioOpen 0).ι = b ≫ (ratioOpen 1).ι\nu : T ⟶ AffineLine := a ≫ (ratioOpenIso 0).hom\nv : T ⟶ AffineLine := b ≫ (ratioOpenIso 1).hom\nhuv : u ≫ ↑(ratioPoint 0) = v ≫ ↑(ratioPoint 1)\nhu : u ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap\n⊢ b ≫ (ratioOpenIso 1).hom ≫ affineLineToC = (v ≫ ↑(ratioPoint 1)) ≫ P.structureMap",
+        "endPos": {
+          "column": 54,
+          "line": 290
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 31,
+          "line": 290
+        },
+        "severity": "error"
+      }
+    ]
+  },
+  "changes": [
+    {
+      "id": "G09_dependent_ratio_subtype_congruence",
+      "before": "  have hb : ratioFunction (a ≫ (ratioPoint 0).val) 1 =\n      b.appTop parameterFunction := by rw [h, ratioFunction_comp]",
+      "after": "  have hb : ratioFunction (a ≫ (ratioPoint 0).val) 1 =\n      b.appTop parameterFunction := by\n    let ratio : {f : Y ⟶ ProjectiveLine //\n        IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1))} →\n        RingSections Y ⊤ :=\n      fun f => @ratioFunction Y f.val 1 f.property\n    have hr := congrArg ratio\n      (Subtype.ext h :\n        (⟨a ≫ (ratioPoint 0).val, inferInstance⟩ : {f : Y ⟶ ProjectiveLine //\n          IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1))}) =\n        ⟨b ≫ (ratioPoint 1).val, inferInstance⟩)\n    exact hr.trans (ratioFunction_comp b 1)",
+      "match_count": 1
+    },
+    {
+      "id": "G10_typed_canonical_chart_zero_base",
+      "before": "    have hu : u ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by\n      rw [Category.assoc, polynomialChartInclusion_baseMap]\n      rfl",
+      "after": "    have hu : u ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by\n      change u ≫ Spec.map (CommRingCat.ofHom (Polynomial.C : ℂ →+* Polynomial ℂ)) =\n        (u ≫ polynomialChartInclusion 0) ≫ canonicalBaseMap\n      exact ((Category.assoc u (polynomialChartInclusion 0) canonicalBaseMap).trans\n        (congrArg (fun k => u ≫ k) (polynomialChartInclusion_baseMap 0))).symm",
+      "match_count": 1
+    },
+    {
+      "id": "G11_typed_canonical_chart_one_base",
+      "before": "    have hv : v ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by\n      rw [huv, Category.assoc, polynomialChartInclusion_baseMap]\n      rfl",
+      "after": "    have hv : v ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by\n      rw [huv]\n      change v ≫ Spec.map (CommRingCat.ofHom (Polynomial.C : ℂ →+* Polynomial ℂ)) =\n        (v ≫ polynomialChartInclusion 1) ≫ canonicalBaseMap\n      exact ((Category.assoc v (polynomialChartInclusion 1) canonicalBaseMap).trans\n        (congrArg (fun k => v ≫ k) (polynomialChartInclusion_baseMap 1))).symm",
+      "match_count": 1
+    },
+    {
+      "id": "G12_typed_ratio_chart_zero_base",
+      "before": "    have hu : u ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by\n      rw [Category.assoc, (ratioPoint 0).property]",
+      "after": "    have hu : u ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by\n      change u ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ Lines.P.structureMap\n      exact ((Category.assoc u (ratioPoint 0).val Lines.P.structureMap).trans\n        (congrArg (fun k => u ≫ k) (ratioPoint 0).property)).symm",
+      "match_count": 1
+    },
+    {
+      "id": "G13_typed_ratio_chart_one_base",
+      "before": "    have hv : v ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by\n      rw [huv, Category.assoc, (ratioPoint 1).property]",
+      "after": "    have hv : v ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by\n      rw [huv]\n      change v ≫ affineLineToC = (v ≫ (ratioPoint 1).val) ≫ Lines.P.structureMap\n      exact ((Category.assoc v (ratioPoint 1).val Lines.P.structureMap).trans\n        (congrArg (fun k => v ≫ k) (ratioPoint 1).property)).symm",
+      "match_count": 1
+    }
+  ],
+  "semantic_scope": "Five exact compiler compatibility sites only. All original binders, assumptions and conclusions retained. The dependent ratio proof uses the same subtype-congruence pattern as the accepted CoordinateCharts.ratioPoint_mono. The four composition proofs precompose existing map identities with their literal scheme-morphism carriers.",
+  "mutations": {
+    "unattached_blobs_only": true,
+    "commits_created": false,
+    "refs_updated": false,
+    "canonical_source_changed": false,
+    "acceptance_flags_changed": false
+  },
+  "passed_dependencies_preserved": [
+    "LSP1BivectorCoordinates32e799bc",
+    "LSFrameTransport17910cf5",
+    "LSTangentFrameCoordinates08e394c7"
+  ],
+  "point1_scope": "All190 existing Point1 source/import graph nodes remain unchanged; no native acceptance claimed for this candidate."
+}

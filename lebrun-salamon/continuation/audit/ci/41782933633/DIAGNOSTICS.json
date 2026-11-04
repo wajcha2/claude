@@ -1,0 +1,106 @@
+[
+  {
+    "module": "LSP1CoordinateGauge",
+    "status": "failed",
+    "source_sha256": "dbccc916cb5e430adb7263b88fe0aa9715710c35675583244ef7c07b8960becd",
+    "return_code": 1,
+    "seconds": 13.244,
+    "errors": [
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a => ratioFunction _a 1 = (ConcreteCategory.hom (Scheme.Hom.appTop b)) parameterFunction\nError: Application type mismatch: The argument\n  this\nhas type\n  IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1))\nbut is expected to have type\n  IsIso (pullSection _a ((projectiveCoordinates 1).coordinate 1))\nin the application\n  @ratioFunction Y _a 1 ⋯\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nY : Scheme\na b : Y ⟶ AffineLine\nh : a ≫ ↑(ratioPoint 0) = b ≫ ↑(ratioPoint 1)\nthis✝¹ : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 0)) := ratioPull_self_isIso a 0\nthis✝ : IsIso (pullSection (b ≫ ↑(ratioPoint 1)) ((projectiveCoordinates 1).coordinate 1)) := ratioPull_self_isIso b 1\nhi : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1))\nthis : IsIso (pullSection (a ≫ ↑(ratioPoint 0)) ((projectiveCoordinates 1).coordinate 1)) := hi\nhp : (ConcreteCategory.hom (Scheme.Hom.appTop a)) parameterFunction * ratioFunction (a ≫ ↑(ratioPoint 0)) 1 = 1\n⊢ ratioFunction (a ≫ ↑(ratioPoint 0)) 1 = (ConcreteCategory.hom (Scheme.Hom.appTop b)) parameterFunction",
+        "endPos": {
+          "column": 44,
+          "line": 212
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 43,
+          "line": 212
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  polynomialChartInclusion ?i ≫ canonicalBaseMap\nin the target expression\n  a ≫ (polynomialChartIso 0).hom ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(P1Charts.chartOpen i)\nb✝ : Y ⟶ ↑(P1Charts.chartOpen j)\nh✝ : a✝ ≫ (P1Charts.chartOpen i).ι = b✝ ≫ (P1Charts.chartOpen j).ι\nT : Scheme\na : T ⟶ ↑(P1Charts.chartOpen 0)\nb : T ⟶ ↑(P1Charts.chartOpen 1)\nh : a ≫ (P1Charts.chartOpen 0).ι = b ≫ (P1Charts.chartOpen 1).ι\nu : T ⟶ Spec ↧(Polynomial ℂ) := a ≫ (polynomialChartIso 0).hom\nv : T ⟶ Spec ↧(Polynomial ℂ) := b ≫ (polynomialChartIso 1).hom\nhuv : u ≫ polynomialChartInclusion 0 = v ≫ polynomialChartInclusion 1\n⊢ a ≫ (polynomialChartIso 0).hom ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap",
+        "endPos": {
+          "column": 58,
+          "line": 259
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 26,
+          "line": 259
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  polynomialChartInclusion ?i ≫ canonicalBaseMap\nin the target expression\n  b ≫ (polynomialChartIso 1).hom ≫ affineLineToC = (v ≫ polynomialChartInclusion 1) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(P1Charts.chartOpen i)\nb✝ : Y ⟶ ↑(P1Charts.chartOpen j)\nh✝ : a✝ ≫ (P1Charts.chartOpen i).ι = b✝ ≫ (P1Charts.chartOpen j).ι\nT : Scheme\na : T ⟶ ↑(P1Charts.chartOpen 0)\nb : T ⟶ ↑(P1Charts.chartOpen 1)\nh : a ≫ (P1Charts.chartOpen 0).ι = b ≫ (P1Charts.chartOpen 1).ι\nu : T ⟶ Spec ↧(Polynomial ℂ) := a ≫ (polynomialChartIso 0).hom\nv : T ⟶ Spec ↧(Polynomial ℂ) := b ≫ (polynomialChartIso 1).hom\nhuv : u ≫ polynomialChartInclusion 0 = v ≫ polynomialChartInclusion 1\nhu : u ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap\n⊢ b ≫ (polynomialChartIso 1).hom ≫ affineLineToC = (v ≫ polynomialChartInclusion 1) ≫ P.structureMap",
+        "endPos": {
+          "column": 63,
+          "line": 262
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 31,
+          "line": 262
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioPoint 0) ≫ Lines.P.structureMap\nin the target expression\n  a ≫ (ratioOpenIso 0).hom ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(ratioOpen i)\nb✝ : Y ⟶ ↑(ratioOpen j)\nh✝ : a✝ ≫ (ratioOpen i).ι = b✝ ≫ (ratioOpen j).ι\nT : Scheme\na : T ⟶ ↑(ratioOpen 0)\nb : T ⟶ ↑(ratioOpen 1)\nh : a ≫ (ratioOpen 0).ι = b ≫ (ratioOpen 1).ι\nu : T ⟶ AffineLine := a ≫ (ratioOpenIso 0).hom\nv : T ⟶ AffineLine := b ≫ (ratioOpenIso 1).hom\nhuv : u ≫ ↑(ratioPoint 0) = v ≫ ↑(ratioPoint 1)\n⊢ a ≫ (ratioOpenIso 0).hom ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap",
+        "endPos": {
+          "column": 49,
+          "line": 288
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 26,
+          "line": 288
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioPoint 1) ≫ Lines.P.structureMap\nin the target expression\n  b ≫ (ratioOpenIso 1).hom ≫ affineLineToC = (v ≫ ↑(ratioPoint 1)) ≫ P.structureMap\n\nY : Scheme\ni j : Fin 2\na✝ : Y ⟶ ↑(ratioOpen i)\nb✝ : Y ⟶ ↑(ratioOpen j)\nh✝ : a✝ ≫ (ratioOpen i).ι = b✝ ≫ (ratioOpen j).ι\nT : Scheme\na : T ⟶ ↑(ratioOpen 0)\nb : T ⟶ ↑(ratioOpen 1)\nh : a ≫ (ratioOpen 0).ι = b ≫ (ratioOpen 1).ι\nu : T ⟶ AffineLine := a ≫ (ratioOpenIso 0).hom\nv : T ⟶ AffineLine := b ≫ (ratioOpenIso 1).hom\nhuv : u ≫ ↑(ratioPoint 0) = v ≫ ↑(ratioPoint 1)\nhu : u ≫ affineLineToC = (u ≫ ↑(ratioPoint 0)) ≫ P.structureMap\n⊢ b ≫ (ratioOpenIso 1).hom ≫ affineLineToC = (v ≫ ↑(ratioPoint 1)) ≫ P.structureMap",
+        "endPos": {
+          "column": 54,
+          "line": 290
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1CoordinateGauge.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 31,
+          "line": 290
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  },
+  {
+    "module": "LSFamilyBivectorDescent",
+    "status": "failed",
+    "source_sha256": "60d77d7c6950275445d18f9ee00d16a33527813b9a48ab4b5e8be7e6a17f2cdc",
+    "return_code": 124,
+    "seconds": 300.34,
+    "errors": [],
+    "stderr": ""
+  }
+]

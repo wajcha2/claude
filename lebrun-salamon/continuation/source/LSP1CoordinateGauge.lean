@@ -209,7 +209,17 @@ theorem ratio_overlap_product {Y : Scheme} (a b : Y ⟶ AffineLine)
   have hp := ratioFunction_product (a ≫ (ratioPoint 0).val)
   rw [ratioFunction_comp] at hp
   have hb : ratioFunction (a ≫ (ratioPoint 0).val) 1 =
-      b.appTop parameterFunction := by rw [h, ratioFunction_comp]
+      b.appTop parameterFunction := by
+    let ratio : {f : Y ⟶ ProjectiveLine //
+        IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1))} →
+        RingSections Y ⊤ :=
+      fun f => @ratioFunction Y f.val 1 f.property
+    have hr := congrArg ratio
+      (Subtype.ext h :
+        (⟨a ≫ (ratioPoint 0).val, inferInstance⟩ : {f : Y ⟶ ProjectiveLine //
+          IsIso (pullSection f ((projectiveCoordinates 1).coordinate 1))}) =
+        ⟨b ≫ (ratioPoint 1).val, inferInstance⟩)
+    exact hr.trans (ratioFunction_comp b 1)
   simpa only [hb] using hp
 
 def canonicalCover : ProjectiveLine.OpenCover where
@@ -256,11 +266,16 @@ theorem forwardChart_compatible {Y : Scheme} (i j : Fin 2)
       simpa only [u, v, polynomialChartInclusion, Category.assoc,
         Iso.hom_inv_id_assoc] using h
     have hu : u ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by
-      rw [Category.assoc, polynomialChartInclusion_baseMap]
-      rfl
+      change u ≫ Spec.map (CommRingCat.ofHom (Polynomial.C : ℂ →+* Polynomial ℂ)) =
+        (u ≫ polynomialChartInclusion 0) ≫ canonicalBaseMap
+      exact ((Category.assoc u (polynomialChartInclusion 0) canonicalBaseMap).trans
+        (congrArg (fun k => u ≫ k) (polynomialChartInclusion_baseMap 0))).symm
     have hv : v ≫ affineLineToC = (u ≫ polynomialChartInclusion 0) ≫ P.structureMap := by
-      rw [huv, Category.assoc, polynomialChartInclusion_baseMap]
-      rfl
+      rw [huv]
+      change v ≫ Spec.map (CommRingCat.ofHom (Polynomial.C : ℂ →+* Polynomial ℂ)) =
+        (v ≫ polynomialChartInclusion 1) ≫ canonicalBaseMap
+      exact ((Category.assoc v (polynomialChartInclusion 1) canonicalBaseMap).trans
+        (congrArg (fun k => v ≫ k) (polynomialChartInclusion_baseMap 1))).symm
     have hp := canonical_overlap_product u v huv
     have hc := Smoothing.PuncturedSourceProof.reciprocal_ratios
       ((u ≫ polynomialChartInclusion 0) ≫ P.structureMap) v u hv hu
@@ -285,9 +300,14 @@ theorem inverseChart_compatible {Y : Scheme} (i j : Fin 2)
     have huv : u ≫ (ratioPoint 0).val = v ≫ (ratioPoint 1).val := by
       simpa only [u, v, ratioOpenIso, Category.assoc, openToRatio_point] using h
     have hu : u ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by
-      rw [Category.assoc, (ratioPoint 0).property]
+      change u ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ Lines.P.structureMap
+      exact ((Category.assoc u (ratioPoint 0).val Lines.P.structureMap).trans
+        (congrArg (fun k => u ≫ k) (ratioPoint 0).property)).symm
     have hv : v ≫ affineLineToC = (u ≫ (ratioPoint 0).val) ≫ P.structureMap := by
-      rw [huv, Category.assoc, (ratioPoint 1).property]
+      rw [huv]
+      change v ≫ affineLineToC = (v ≫ (ratioPoint 1).val) ≫ Lines.P.structureMap
+      exact ((Category.assoc v (ratioPoint 1).val Lines.P.structureMap).trans
+        (congrArg (fun k => v ≫ k) (ratioPoint 1).property)).symm
     have hc := canonical_reciprocal ((u ≫ (ratioPoint 0).val) ≫ P.structureMap)
       u v hu hv (ratio_overlap_product u v huv)
     simpa only [inverseChart, u, v, Category.assoc] using hc

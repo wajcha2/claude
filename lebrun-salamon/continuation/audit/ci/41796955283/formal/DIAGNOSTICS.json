@@ -1,0 +1,80 @@
+[
+  {
+    "module": "LSFormalArcRegularity",
+    "status": "failed",
+    "source_sha256": "33a4498505e544335efcc0201209fbe966471636f5ee35641b37bc573f7c052d",
+    "return_code": 1,
+    "seconds": 3.425,
+    "errors": [
+      {
+        "caption": "",
+        "data": "Unknown constant `Set.image_range`",
+        "endPos": {
+          "column": 21,
+          "line": 49
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcRegularity.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.unknownIdentifier._namedError",
+        "pos": {
+          "column": 6,
+          "line": 49
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nU : Trait.Opens\nhU : Dense ↑U\nx : ↥↑U\n⊢ U.ι x ∈ closure (⇑U.ι '' Set.range ⇑(genericToOpen U hU))",
+        "endPos": {
+          "column": 48,
+          "line": 52
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcRegularity.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 44,
+          "line": 46
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Unknown identifier `pullbackBundle`",
+        "endPos": {
+          "column": 25,
+          "line": 69
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcRegularity.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.unknownIdentifier._namedError",
+        "pos": {
+          "column": 11,
+          "line": 69
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nY : Scheme\nr : ℕ\nE : AlgebraicVectorBundle Y r\ns : NormalExtension.RationalSection E.sheaf\ngamma : Trait ⟶ Y\nhU : Dense ↑(gamma ⁻¹ᵁ s.domain)\nw : AlgebraicSection (pullbackModule gamma E.sheaf)\nh :\n  pullSection (genericToOpen (gamma ⁻¹ᵁ s.domain) hU) (pullSection (gamma ⁻¹ᵁ s.domain).ι w) =\n    pullSection (genericToOpen (gamma ⁻¹ᵁ s.domain) hU)\n      (OpenSection.fromValue (gamma ⁻¹ᵁ s.domain) (pullLocalSection gamma E.sheaf s.domain s.value))\nU : Trait.Opens := gamma ⁻¹ᵁ s.domain\n⊢ Regular s gamma",
+        "endPos": {
+          "column": 28,
+          "line": 78
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcRegularity.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 23,
+          "line": 67
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  }
+]

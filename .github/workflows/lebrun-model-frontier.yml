@@ -17,9 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: model
-            early: LSFamilyBaseChange
-            target: LSModelGenericComparison
           - id: formal-arc
             early: LSFormalArcRegularity
             target: LSRationalOpenTransport
@@ -56,6 +53,13 @@ jobs:
           run-id: 41792520758
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/2
+      - name: Download the passed OpenSection and formal-arc dependency context
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-independent-formal-arc-41796955283-1
+          run-id: 41796955283
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/3
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence

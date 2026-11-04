@@ -46,7 +46,7 @@ theorem genericToOpen_dense (U : Trait.Opens) (hU : Dense (U : Set Trait)) :
     DenseRange (genericToOpen U hU).base := by
   apply U.ι.isOpenEmbedding.isEmbedding.isInducing.dense_iff.mpr
   intro x
-  rw [Set.image_range]
+  rw [← Set.range_comp]
   change U.ι x ∈ closure (Set.range (genericToOpen U hU ≫ U.ι))
   rw [genericToOpen_inclusion]
   exact TraitPullback.genericPoint_dense (U.ι x)
@@ -66,7 +66,8 @@ theorem regular_of_generic_comparison {Y : Scheme} {r : ℕ}
           (pullLocalSection gamma E.sheaf s.domain s.value))) :
     Regular s gamma := by
   let U := gamma ⁻¹ᵁ s.domain
-  let B := pullbackBundle U.ι (pullbackBundle gamma E)
+  let B := LeBrunSalamon.PhaseThirtyFive.pullbackBundle U.ι
+    (LeBrunSalamon.PhaseThirtyFive.pullbackBundle gamma E)
   letI : IsReduced Trait := inferInstance
   letI : IsReduced U.toScheme := isReduced_of_isOpenImmersion U.ι
   have heq : pullSection U.ι w =

@@ -1,9 +1,9 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T08:06:16Z",
-  "frozen_utc": "2026-11-04T08:06:16Z",
-  "parent_commit": "6940aa5c9a966bfa5b835cc690c453ae6a450eba",
-  "base_tree": "33ec54f8df008066cd08916eccff1eae2b9ad8fc",
+  "announced_utc": "2026-11-04T08:12:36Z",
+  "frozen_utc": "2026-11-04T08:12:36Z",
+  "parent_commit": "d7b9526da91d6e2848695b4b8ed60b0e6925fb3c",
+  "base_tree": "ea15a5324e6fe0bbebb1302b16731daccd5edaa8",
   "repository": "wajcha2/claude",
   "branch": "codex/lebrun-model-frontier-20261104",
   "source_modules": 276,
@@ -97,7 +97,7 @@
     "source/LSFirstJetEmbeddingGeometry.lean": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
     "source/LSFlatSectionDescent.lean": "71cc99686042fe923a9f684b00153f5f9dfc6725cf75fe459b98d721f8e7bed8",
     "source/LSFormalArcComparison.lean": "71384ed60c55e1cabcd10ea2df54e89800b2684c8815eee74f09bd990be391b4",
-    "source/LSFormalArcRegularity.lean": "33a4498505e544335efcc0201209fbe966471636f5ee35641b37bc573f7c052d",
+    "source/LSFormalArcRegularity.lean": "dfb4e62d36259b9709b539bfca175e2cdb4e091c9eb66659733de3c4ceb50431",
     "source/LSFormalArcSections.lean": "701af4edf15458cfa0ad573d1f11cba61c2be69a41c2545e50120a267172f379",
     "source/LSFormalQuadraticConditions.lean": "867c4107793ce01879e3296709f5b19f6dcd0b8963cf1554d7fb2900df1b20c5",
     "source/LSFormalTraitModel.lean": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
@@ -289,24 +289,25 @@
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "candidate_pending_independent_stock_checks",
+  "status": "candidate_pending_formal_arc_stock_retry",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "276-source candidate with two exact native-guided compatibility repairs: open-section identity normalization and the cotangent-comparison association. Passed261 native cache modules unchanged. Both independent comparison branches require stock replay; Point1 and whole-source gates remain pending.",
+  "scope": "276-source candidate: exact Regularity API fixes; passed OpenSection and261 previous native modules preserved. Formal-arc retry only; unchanged model branch continues under its own immutable prior run. Point1 and whole-source gates remain pending.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
     41782933633,
     41791217887
   ],
-  "strict_cache_union_modules": 261,
+  "strict_cache_union_modules": 262,
   "cache_union_runs": [
     41782933633,
     41793572611,
-    41792520758
+    41792520758,
+    41796955283
   ],
   "point1_audited_source_boundary_unchanged": 190,
   "acceptance_ledger_modified": false

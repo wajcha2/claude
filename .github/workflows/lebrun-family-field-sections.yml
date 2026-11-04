@@ -1,0 +1,95 @@
+name: LeBrun-Salamon field sections after verified finite-type parents
+on:
+  push:
+    branches: [codex/lebrun-family-field-sections-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-field-sections-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  family_field_sections:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41845595535
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-field-basechange5-repaired-41845595535-1
+          run-id: 41845595535
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Download verified native cache 2 from 41846412074
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-finite-left-normalized-41846412074-1
+          run-id: 41846412074
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/1
+      - name: Download verified native cache 3 from 41846412074
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-finite-right-normalized-41846412074-1
+          run-id: 41846412074
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/2
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check exact original three field-section declarations with raw markers
+        id: field3_profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyFieldSectionsProfile --keep-going --timeout 300
+      - name: Report field3_profile exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose field3_profile receipt-bound raw markers
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyFieldSectionsProfile --allow-unattempted
+      - name: Preserve field3_profile exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-field-sections-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual original three field-section declarations
+        id: field3_actual
+        if: steps.field3_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrization --keep-going --timeout 300
+      - name: Report field3_actual exact native scope
+        if: always() && steps.field3_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve field3_actual exact evidence before continuation
+        if: always() && steps.field3_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-field-sections-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require completed profile and actual field-section checks
+        if: always()
+        run: |
+          test "${{ steps.field3_profile.outcome }}" = success
+          test "${{ steps.field3_actual.outcome }}" = success

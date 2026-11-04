@@ -1,0 +1,31 @@
+{
+  "schema": "lebrun-numerator-source-iff-named-cases-v1",
+  "baseline_blob": "a3963b85f594307c763d08b79465d0df859055ab",
+  "source_sha256": "a901bd114adc2d73c5754dd09aa09298e92e8bde0aac926015c71bc0dc08062b",
+  "profile_sha256": "f177bbf0c73dc55597925be03799123eb6e2f3c0f15955a7d32414b038c09e87",
+  "closed_prefix_sha256": "7917d0fbede2977d0c6c4ec1cb061f62cf720307325f1c0185be782b14e0ed85",
+  "closed_prefix_profile_sha256": "33201727241967811cbbb4e19b10d0a846420303bad58197a300f5b3c912a22e",
+  "patches": [
+    {
+      "expected_matches": 1,
+      "before": "  have hk' : k = k' := eq_of_heq hk\n  subst k'\n  have hr' : r = r' := eq_of_heq hr\n  subst r'\n  have ht' : t = t' := eq_of_heq ht\n  subst t'\n  rfl",
+      "after": "  have hk' : k = k' := eq_of_heq hk\n  cases hk'\n  have hr' : r = r' := eq_of_heq hr\n  cases hr'\n  have ht' : t = t' := eq_of_heq ht\n  cases ht'\n  rfl"
+    }
+  ],
+  "reason": "subst r' selected the separate composition equation h', changing the dependent endpoint to k≫f; cases on the named equality uses exactly the intended arrow equality.",
+  "new_admissions": 0,
+  "new_assumptions": 0,
+  "original_public_header_unchanged": true,
+  "prefix_scope": "All closed ingredients through the original-carrier product and coefficient. The original public numerator theorem and remaining expansion/assembly stages are excluded.",
+  "native_status": "Completed local closed-prefix diagnostic passed; full source and original public theorem still pending.",
+  "local_completed_prefix": {
+    "source_sha256": "33201727241967811cbbb4e19b10d0a846420303bad58197a300f5b3c912a22e",
+    "seconds": 37.734,
+    "return_code": 0,
+    "errors": 0,
+    "output_sha256": "0935b8e6928b34d77f85bfbfc2e7249ff25aefb4e690839bdc046a89f66b1996",
+    "receipt_sha256": "0944867b4333e28d5b5c206291f66f663107796d60160caa8bf7a11856f5606d",
+    "evidence_blob": "0fec45300f7b4e0dd871824c71fd86822b0a31ae"
+  },
+  "stock_acceptance": false
+}

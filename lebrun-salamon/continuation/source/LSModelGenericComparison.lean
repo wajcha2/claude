@@ -7,6 +7,7 @@ import LSModelSourceNumerator
 import LSModelGenericParametrization
 import LSModelNumeratorTransport
 import LSModelGenericNormalization
+import LSModelTensorScalar
 
 /-!
 # Whole-generic-square comparison for the actual conic model
@@ -86,70 +87,6 @@ theorem genericNumerator_source (ha : a ≠ 0) :
   rw [hcoef] at h
   simpa only [genericSourceNumerator, modelSourceNumerator, modelSourceMorphism,
     Parametrized.sourceComparison, q, j, c, Category.assoc] using h
-
-namespace TensorScalar
-
-theorem right {Y : Scheme} {E E' H H' : OModule Y}
-    (r : RingSections Y ⊤) (u : E ⟶ E') (v : H ⟶ H') :
-    tensorMap u (GlobalScalars.scalarEnd H r ≫ v) =
-      GlobalScalars.scalarEnd (tensorSheaf E H) r ≫ tensorMap u v := by
-  apply ((tensorPresentation E H).universal _).1
-  apply sheafBilinearMap_ext
-  intro U x y
-  change (tensorMap u (GlobalScalars.scalarEnd H r ≫ v)).app U
-      ((tensorPresentation E H).pair.apply U x y) =
-    (tensorMap u v).app U
-      ((GlobalScalars.scalarEnd (tensorSheaf E H) r).app U
-        ((tensorPresentation E H).pair.apply U x y))
-  rw [tensorMap_apply, GlobalScalars.scalarEnd_app, map_smul, tensorMap_apply]
-  simp only [GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply]
-
-theorem «section» {Y : Scheme} {E : OModule Y} (s : AlgebraicSection E)
-    (r : RingSections Y ⊤) :
-    s ≫ GlobalScalars.scalarEnd E r = scalarSection r ≫ s := by
-  rw [← section_scale]
-  apply (sectionValue_bijective E).injective
-  rw [sectionValue_comp, sectionFromValue_spec]
-  simp only [GlobalScalars.scalarEnd_app, homOfLE_refl, op_id,
-    CategoryTheory.Functor.map_id, CommRingCat.id_apply]
-
-theorem relative_right {C B : Scheme} (pi : C ⟶ B)
-    {E E' H H' : OModule C} (r : RingSections B ⊤)
-    (u : E ⟶ E') (v : H ⟶ H') (s : AlgebraicSection (RelativeSquare.box pi E H)) :
-    s ≫ RelativeSquare.boxMap pi u (GlobalScalars.scalarEnd H (pi.appTop r) ≫ v) =
-      scalarSection ((RelativeSquare.left pi ≫ pi).appTop r) ≫
-        s ≫ RelativeSquare.boxMap pi u v := by
-  have hr : (RelativeSquare.right pi).appTop (pi.appTop r) =
-      (RelativeSquare.left pi ≫ pi).appTop r := by
-    change (RelativeSquare.right pi ≫ pi).appTop r = _
-    rw [← pullback.condition]
-  unfold RelativeSquare.boxMap
-  rw [Functor.map_comp, LineEndomorphisms.scalarEnd_pullback, hr, right,
-    ← Category.assoc, «section»]
-  simp only [Category.assoc]
-
-theorem relative_left {C B : Scheme} (pi : C ⟶ B)
-    {E E' H H' : OModule C} (r : RingSections B ⊤)
-    (u : E ⟶ E') (v : H ⟶ H') (s : AlgebraicSection (RelativeSquare.box pi E H)) :
-    s ≫ RelativeSquare.boxMap pi (GlobalScalars.scalarEnd E (pi.appTop r) ≫ u) v =
-      scalarSection ((RelativeSquare.left pi ≫ pi).appTop r) ≫
-        s ≫ RelativeSquare.boxMap pi u v := by
-  rw [ScalarTensor.relative_move, relative_right]
-
-end TensorScalar
-
-def genericBaseCoefficient : RingSections GenericPoint ⊤ :=
-  genericPoint.appTop (coefficientSection a)
-
-theorem genericCoefficient_base (ha : a ≠ 0) :
-    (RelativeSquare.left p1Parameter ≫ p1Parameter).appTop (genericBaseCoefficient a) =
-      genericCoefficient F a ha := by
-  change ((RelativeSquare.left p1Parameter ≫ p1Parameter) ≫ genericPoint).appTop
-    (coefficientSection a) = _
-  have hm : (RelativeSquare.left p1Parameter ≫ p1Parameter) ≫ genericPoint =
-      parametrizedToModelSquare F a ha ≫ ModelNumerator.squareProjection F a :=
-    (parametrizedToModelSquare_base F a ha).symm
-  exact congrArg (fun k => k.appTop (coefficientSection a)) hm
 
 section Contact
 

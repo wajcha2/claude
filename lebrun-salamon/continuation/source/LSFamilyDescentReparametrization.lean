@@ -1,6 +1,9 @@
 import LSFamilyDescentFibres
 import LSFamilyExternalProductMap
 import LSFamilyCurveProductDirect
+import LSFamilyReparamProductTransport
+import LSFamilyAdditiveExpansion
+import LSFamilySectionSums
 
 /-!
 # Source reparametrization and its canonical external comparison.
@@ -67,6 +70,136 @@ include hg in
       secondProjection P.structureMap ≫ g.map
     rw [Category.assoc, hg]
 
+namespace ExpansionProof
+
+variable {E F : OModule X.variety.scheme}
+
+def leftAction (q : AlgebraicSection (externalTensor P.structureMap
+      (pullbackModule f.map E) (pullbackModule f.map F))) :
+    AlgebraicSection (pullbackModule (curveSquareMap P g)
+      (externalTensor X.variety.structureMap E F)) :=
+  pullSection (curveSquareMap P (curve P e he))
+    (q ≫ curveExternalComparison P f E F) ≫
+    (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
+      (curveSquareMap P g) (square_comp P e he X f g hg)
+      (externalTensor X.variety.structureMap E F)).hom
+
+def rightAction (hfg : e.hom ≫ f.map = g.map) (q : AlgebraicSection (externalTensor P.structureMap
+      (pullbackModule f.map E) (pullbackModule f.map F))) :
+    AlgebraicSection (pullbackModule (curveSquareMap P g)
+      (externalTensor X.variety.structureMap E F)) :=
+  (mixedPull P e he (pullbackModule f.map E) (pullbackModule f.map F) q ≫
+    externalTensorMap P.structureMap
+      (compositionPullback e.hom f.map g.map hfg E).hom
+      (compositionPullback e.hom f.map g.map hfg F).hom) ≫
+    curveExternalComparison P g E F
+
+abbrev literalLeftAction (q : AlgebraicSection (externalTensor P.structureMap
+      (pullbackModule f.map E) (pullbackModule f.map F))) :
+    AlgebraicSection (pullbackModule (curveSquareMap P g)
+      (externalTensor X.variety.structureMap E F)) :=
+  @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+    (curveSquareMap P (curve P e he))
+    (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F))
+    (q ≫ curveExternalComparison P f E F) ≫
+    (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+      (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he))
+      (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg)
+      (externalTensor X.variety.structureMap E F)).hom
+
+theorem leftAction_eq_literal (q : AlgebraicSection (externalTensor P.structureMap
+      (pullbackModule f.map E) (pullbackModule f.map F))) :
+    leftAction P e he X f g hg q = literalLeftAction P e he X f g hg q := by
+  exact FamilySchemeTransport.projective_pull_comp P
+    (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g)
+    (square_comp P e he X f g hg) (externalTensor X.variety.structureMap E F)
+    (q ≫ curveExternalComparison P f E F)
+
+theorem literal_left_sum {N : ℕ} (z : Fin N → AlgebraicSection
+    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
+    literalLeftAction P e he X f g hg (∑ i, z i) =
+      ∑ i, literalLeftAction P e he X f g hg (z i) := by
+  exact @SectionSums.pull_map_post_sum
+    (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+    (curveSquareMap P (curve P e he))
+    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))
+    (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F))
+    (pullbackModule (curveSquareMap P g) (externalTensor X.variety.structureMap E F))
+    (curveExternalComparison P f E F)
+    (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+      (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he))
+      (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg)
+      (externalTensor X.variety.structureMap E F)).hom N z
+
+theorem left_sum {N : ℕ} (z : Fin N → AlgebraicSection
+    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
+    leftAction P e he X f g hg (∑ i, z i) =
+      ∑ i, leftAction P e he X f g hg (z i) := by
+  calc
+    leftAction P e he X f g hg (∑ i, z i) =
+        literalLeftAction P e he X f g hg (∑ i, z i) :=
+      leftAction_eq_literal P e he X f g hg _
+    _ = ∑ i, literalLeftAction P e he X f g hg (z i) :=
+      literal_left_sum P e he X f g hg z
+    _ = ∑ i, leftAction P e he X f g hg (z i) :=
+      Finset.sum_congr rfl (fun i _ => (leftAction_eq_literal P e he X f g hg (z i)).symm)
+
+theorem right_sum {N : ℕ} (z : Fin N → AlgebraicSection
+    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
+    rightAction P e he X f g hg.symm (∑ i, z i) =
+      ∑ i, rightAction P e he X f g hg.symm (z i) := by
+  simp only [rightAction, mixedPull_sum, Preadditive.sum_comp]
+
+theorem product_comparison (a : AlgebraicSection (pullbackModule f.map E))
+    (b : AlgebraicSection (pullbackModule f.map F)) :
+    leftAction P e he X f g hg (externalProductSection P.structureMap a b) =
+      (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫
+        externalTensorMap P.structureMap
+          (compositionPullback e.hom f.map g.map hg.symm E).hom
+          (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
+        curveExternalComparison P g E F := by
+  exact ReparametrizationProductTransport.comparison P e he X f g hg
+    (square_comp P e he X f g hg) a b
+
+theorem product_right (a : AlgebraicSection (pullbackModule f.map E))
+    (b : AlgebraicSection (pullbackModule f.map F)) :
+    rightAction P e he X f g hg.symm (externalProductSection P.structureMap a b) =
+      (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫
+        externalTensorMap P.structureMap
+          (compositionPullback e.hom f.map g.map hg.symm E).hom
+          (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
+        curveExternalComparison P g E F := by
+  exact congrArg
+    (fun q : AlgebraicSection (externalTensor P.structureMap
+        (pullbackModule e.hom (pullbackModule f.map E))
+        (pullbackModule e.hom (pullbackModule f.map F))) =>
+      (q ≫ externalTensorMap P.structureMap
+        (compositionPullback e.hom f.map g.map hg.symm E).hom
+        (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
+        curveExternalComparison P g E F)
+    (mixedPull_product P e he a b)
+
+theorem product (a : AlgebraicSection (pullbackModule f.map E))
+    (b : AlgebraicSection (pullbackModule f.map F)) :
+    leftAction P e he X f g hg (externalProductSection P.structureMap a b) =
+      rightAction P e he X f g hg.symm (externalProductSection P.structureMap a b) := by
+  exact (product_comparison P e he X f g hg a b).trans
+    (product_right P e he X f g hg a b).symm
+
+theorem expanded (B : AlgebraicSection (externalTensor P.structureMap
+      (pullbackModule f.map E) (pullbackModule f.map F)))
+    {N : ℕ} (a : Fin N → AlgebraicSection (pullbackModule f.map E))
+    (b : Fin N → AlgebraicSection (pullbackModule f.map F))
+    (hB : B = ∑ i, externalProductSection P.structureMap (a i) (b i)) :
+    leftAction P e he X f g hg B = rightAction P e he X f g hg.symm B := by
+  exact AdditiveExpansion.eq_of_sum
+    (leftAction P e he X f g hg) (rightAction P e he X f g hg.symm)
+    (fun i => externalProductSection P.structureMap (a i) (b i)) B hB
+    (left_sum P e he X f g hg _) (right_sum P e he X f g hg _)
+    (fun i => product P e he X f g hg (a i) (b i))
+
+end ExpansionProof
+
 /-- Comparison with the target external bundle commutes with an
 actual source reparametrization. A finite expansion is used only to
 prove canonical tensor coherence; the tensor itself remains fixed. -/
@@ -86,34 +219,7 @@ theorem compared_of_expansion {E F : OModule X.variety.scheme}
           (compositionPullback e.hom f.map g.map hg.symm E).hom
           (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
         curveExternalComparison P g E F := by
-  rw [hB, mixedPull_sum]
-  simp only [Preadditive.sum_comp, SectionTransport.pull_sum, mixedPull_product]
-  apply Finset.sum_congr rfl
-  intro i hi
-  let k : SelfProduct P.structureMap ⟶ SelfProduct P.structureMap :=
-    curveSquareMap P (curve P e he)
-  have hk₁ : k ≫ firstProjection P.structureMap =
-      firstProjection P.structureMap ≫ e.hom :=
-    curveSquareMap_first P (curve P e he)
-  have hk₂ : k ≫ secondProjection P.structureMap =
-      secondProjection P.structureMap ≫ e.hom :=
-    curveSquareMap_second P (curve P e he)
-  have hk : k ≫ curveSquareMap P f = curveSquareMap P g :=
-    square_comp P e he X f g hg
-  have hp := CurveProductDirect.product_atCurve P X.variety f g e.hom
-    hg.symm k hk₁ hk₂ hk (a i) (b i)
-    (pullSection e.hom (a i) ≫ (compositionPullback e.hom f.map g.map hg.symm E).hom)
-    (pullSection e.hom (b i) ≫ (compositionPullback e.hom f.map g.map hg.symm F).hom)
-    rfl rfl
-  have hm := congrArg
-    (fun q : AlgebraicSection (externalTensor P.structureMap
-        (pullbackModule g.map E) (pullbackModule g.map F)) =>
-      q ≫ curveExternalComparison P g E F)
-    (ExternalProductFunctoriality.product_map P.structureMap
-      (pullSection e.hom (a i)) (pullSection e.hom (b i))
-      (compositionPullback e.hom f.map g.map hg.symm E).hom
-      (compositionPullback e.hom f.map g.map hg.symm F).hom)
-  exact hp.trans hm.symm
+  exact ExpansionProof.expanded P e he X f g hg B a b hB
 
 /-- Reparametrization invariance in the actual target bundle, including
 all the canonical composition and external-product comparisons. -/

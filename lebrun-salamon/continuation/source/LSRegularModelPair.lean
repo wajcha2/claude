@@ -52,7 +52,8 @@ theorem move {Y : Scheme} {E E' F F' : OModule Y}
       (f.app U ((GlobalScalars.scalarEnd E a).app U x)) (g.app U y) =
     (tensorPresentation E' F').pair.apply U (f.app U x)
       (g.app U ((GlobalScalars.scalarEnd F a).app U y))
-  simp only [GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply]
+  simp only [GlobalScalars.scalarEnd_app, Scheme.Modules.Hom.app_smul,
+    map_smul, LinearMap.smul_apply]
 
 /-- On the relative square, both appearances of a base function are
 the same regular function.  This equality is the precise reason that
@@ -116,7 +117,7 @@ theorem dividedContact_exists
   refine ⟨c, ?_⟩
   rw [hh, hc, dividedContact]
   have hm : coefficientSection (a * c) = coefficientSection a * coefficientSection c :=
-    map_mul (Scheme.ΓSpecIso (CommRingCat.of Coefficients)).inv a c
+    map_mul (Scheme.ΓSpecIso (CommRingCat.of Coefficients)).inv.hom a c
   rw [hm, map_mul, GlobalScalars.scalarEnd_mul, Category.assoc]
 
 variable (ell : (modelLine F a).sheaf ≅ pullbackModule e X.contact.sequence.line.sheaf)
@@ -194,8 +195,9 @@ theorem commonContact
   simp only [Category.assoc]
   rw [← RelativeSquare.comparison_naturality,
     ← RelativeSquare.comparison_naturality]
-  simp only [← Category.assoc, RelativeSquare.boxMap_comp,
-    CategoryTheory.Functor.map_id, Category.comp_id]
+  simp only [CategoryTheory.Functor.map_id]
+  rw [RelativeSquare.boxMap_comp_assoc, RelativeSquare.boxMap_comp_assoc]
+  simp only [Category.comp_id, Category.id_comp]
   change ModelNumerator.numerator F a ≫
       RelativeSquare.boxMap (modelProjection F a)
         (ContactScalar.morphism X F a e he)

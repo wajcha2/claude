@@ -1,0 +1,32 @@
+{
+  "schema": "guarded-native-diagnostic-repair-v1",
+  "module": "LSRegularModelPair",
+  "base_commit": "369a4e1f6957b123f45bc28ead6e2e623c493677",
+  "base_blob": "fc9a0bdbb753d0168e232a192742796e4a30aa36",
+  "base_source_sha256": "2c4f4fa03ab400c19de8f84d0565f94b0220bc3bc093e5f31760bdb140c6b7d2",
+  "candidate_source_sha256": "20d369e11b6a9e481c62ae0d5b16fb8f55771d04ff656af2fb9e4674c9c40eb2",
+  "diagnostic_run": 41787648917,
+  "diagnostic_job": 126433366971,
+  "patches": [
+    {
+      "label": "Use the actual sheaf-module hom linearity on local sections",
+      "old": "  simp only [GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply]",
+      "new": "  simp only [GlobalScalars.scalarEnd_app, Scheme.Modules.Hom.app_smul,\n    map_smul, LinearMap.smul_apply]"
+    },
+    {
+      "label": "Use the underlying ring hom of the canonical spectrum isomorphism",
+      "old": "    map_mul (Scheme.ΓSpecIso (CommRingCat.of Coefficients)).inv a c",
+      "new": "    map_mul (Scheme.ΓSpecIso (CommRingCat.of Coefficients)).inv.hom a c"
+    },
+    {
+      "label": "Compose the actual relative-square maps before identifying their contact factors",
+      "old": "  simp only [← Category.assoc, RelativeSquare.boxMap_comp,\n    CategoryTheory.Functor.map_id, Category.comp_id]",
+      "new": "  simp only [CategoryTheory.Functor.map_id]\n  rw [RelativeSquare.boxMap_comp_assoc, RelativeSquare.boxMap_comp_assoc]\n  simp only [Category.comp_id, Category.id_comp]"
+    }
+  ],
+  "original_declaration_headers_preserved": true,
+  "header_count": 12,
+  "inverse_patches_restore_original_bytes": true,
+  "new_admissions": 0,
+  "status": "candidate_not_yet_kernel_checked"
+}

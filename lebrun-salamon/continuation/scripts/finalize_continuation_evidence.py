@@ -3,17 +3,25 @@
 from __future__ import annotations
 import argparse
 import os
+import json
 from pathlib import Path
 from continuation_support import (candidate_plan, compare_contexts, context_hash, digest,
-    git_binding, need, publication_inputs, read_json, verify_native_build, write_json)
+    git_binding, need, publication_inputs, read_json, sha_text, verify_native_build, write_json)
 from run_continuation_audit import audit_spec
+from continuation_stage_policy import STAGE_ORDER, validate_stages, load_resume
 from verify_continuation_boundaries import load_verified_audit, reconcile
 
 
 def check_completed_stages(preflight, stages, current_native, plan_sha, baseline_sha):
-    need(set(stages) == set(preflight["stages"]), "Missing required native stage report")
+    need(preflight.get("stage_order") == STAGE_ORDER and
+         list(preflight["stages"]) == STAGE_ORDER and set(stages) == set(STAGE_ORDER),
+         "Missing or reordered required native stage reports")
+    hashes = {n: sha_text(json.dumps(r, indent=2, ensure_ascii=False) + "\n") for n, r in stages.items()}
     for name, report in stages.items():
         required = preflight["stages"][name]
+        previous = STAGE_ORDER[:STAGE_ORDER.index(name)]
+        need(report.get("completed_predecessor_report_sha256") == {n: hashes[n] for n in previous},
+             "Completed stage predecessor sequence or hashes differ")
         need(report["stage"] == name and report["return_code"] == 0 and
              report["full_selected_graph_passed"] is True and not report["errors"],
              "A required native stage failed or was incomplete")
@@ -60,7 +68,24 @@ def main():
          "Final current graph is failed or incomplete")
     comparison = compare_contexts(native, baseline, change)
     need(not comparison["pending_current_modules"], "Affected contexts remain unvalidated")
+    validate_stages(preflight, inv, baseline)
+    resume = load_resume(args.root, plan, inv)
+    resume_path = args.reports.parent / "RESUME_CACHE_VALIDATION.json"
+    baseline_resume_path = args.reports.parent / "RESUME_BASELINE_AUDIT_VALIDATION.json"
+    resume_check, baseline_resume = read_json(resume_path), read_json(baseline_resume_path)
+    need(resume_check["every_expected_context_verified"] is True and
+         resume_check["strict_current_contexts_verified"] == resume["expected_current_contexts"] and
+         baseline_resume["baseline_audit_reused_and_revalidated"] is True and
+         baseline_resume["baseline_signature_count"] == resume["baseline_signature_count"] and
+         all(x["candidate_plan_sha256"] == digest(args.plan) and
+             x["resume_record_sha256"] == plan["resume_record"]["sha256"] and
+             x["source_manifest_sha256"] == inv["sha256"] for x in [resume_check, baseline_resume]),
+         "Incomplete exact-current resume or baseline-audit validation")
+    need(all(context_hash(native["records"][m]) == h for m, h in resume["expected_current_contexts"].items()),
+         "A restored current context changed in the final native graph")
     stages = {name: read_json(args.reports / (name + ".json")) for name in preflight["stages"]}
+    need(all(r["resume_validation_sha256"] == digest(resume_path) for r in stages.values()),
+         "A native stage used a different resume validation")
     check_completed_stages(preflight, stages, native, digest(args.plan), digest(args.baseline))
     new_inputs = publication_inputs(args.root, plan, inv)
     old = load_verified_audit(args.baseline_audit, args.baseline_root, old_native, config, baseline,
@@ -81,6 +106,11 @@ def main():
            "historical_point1_all190_unchanged_claim_modified": False,
            "baseline_record_sha256": digest(args.baseline), "candidate_plan_sha256": digest(args.plan),
            "preflight_sha256": digest(args.preflight),
+           "resume_validation_sha256": digest(resume_path),
+           "baseline_audit_resume_validation_sha256": digest(baseline_resume_path),
+           "resume_record_sha256": plan["resume_record"]["sha256"],
+           "resumed_current_context_count": len(resume["expected_current_contexts"]),
+           "resume_official_artifact": resume["official_artifact"],
            "stage_report_sha256": {name: digest(args.reports / (name + ".json")) for name in stages},
            "all_current_sources_kernel_checked": True, "all_relevant_boundaries_checked": True,
            "current_native_evidence_ready_for_acceptance_review": True,

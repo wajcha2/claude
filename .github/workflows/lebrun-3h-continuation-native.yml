@@ -41,12 +41,24 @@ jobs:
       - name: Independently verify every accepted native context
         run: |
           python3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --artifact-dir lebrun-cache-inputs/0 --artifact-metadata continuation-evidence/BASELINE_ARTIFACT_METADATA.json --runtime-config runtime-config.json --output continuation-evidence/PREFLIGHT.json
-      - name: Capture complete original native types before rebuilding changed sources
+      - name: Read exact official completed continuation metadata
+        run: gh api repos/wajcha2/claude/actions/artifacts/13360788893 > continuation-evidence/RESUME_ARTIFACT_METADATA.json
+      - name: Download verified current continuation contexts
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-3h-current-native-41902480321-1
+          run-id: 41902480321
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/1
+      - name: Revalidate and preserve exact original native type capture
         run: |
-          python3 "$CONTINUATION/scripts/run_continuation_audit.py" --root accepted-baseline --build-dir lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode baseline --output continuation-evidence/baseline-audit
+          python3 "$CONTINUATION/scripts/verify_continuation_resume.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline-build lebrun-cache-inputs/0/kernel-evidence --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --runtime-config runtime-config.json --artifact-dir lebrun-cache-inputs/1 --artifact-metadata continuation-evidence/RESUME_ARTIFACT_METADATA.json --phase baseline-audit --baseline-audit-output continuation-evidence/baseline-audit --output continuation-evidence/RESUME_BASELINE_AUDIT_VALIDATION.json
       - name: Restore only exact current reusable contexts
         run: |
-          python3 "$CONTINUATION/scripts/restore_replay_cache_union.py" --root "$CONTINUATION" --runtime-config runtime-config.json --inputs "$CONTINUATION/audit/continuation_3h/BASELINE_CACHE_INPUTS.json" --build-dir kernel-evidence
+          python3 "$CONTINUATION/scripts/restore_replay_cache_union.py" --root "$CONTINUATION" --runtime-config runtime-config.json --inputs "$CONTINUATION/audit/continuation_3h/CURRENT_CACHE_INPUTS.json" --build-dir kernel-evidence
+      - name: Require every exact current context before resuming
+        run: |
+          python3 "$CONTINUATION/scripts/verify_continuation_resume.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline-build lebrun-cache-inputs/0/kernel-evidence --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --runtime-config runtime-config.json --artifact-dir lebrun-cache-inputs/1 --artifact-metadata continuation-evidence/RESUME_ARTIFACT_METADATA.json --phase cache --build-dir kernel-evidence --output continuation-evidence/RESUME_CACHE_VALIDATION.json
       - name: Compile current Part07 ancestors with ordinary limit
         run: |
           python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07_parents
@@ -68,6 +80,12 @@ jobs:
             runtime-config.json
             diagnostic-static/
           if-no-files-found: error
+      - name: Validate Geometry ancestors with ordinary limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage geometry_parents
+      - name: Compile Geometry alone with measured 600-second limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage geometry
       - name: Compile current accepted-root and 3h closure
         id: boundaries
         run: |
@@ -87,6 +105,12 @@ jobs:
         run: |
           python3 "$CONTINUATION/scripts/run_continuation_audit.py" --root "$CONTINUATION" --build-dir kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode current --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --output continuation-evidence/current-audit
           python3 "$CONTINUATION/scripts/verify_continuation_boundaries.py" --root "$CONTINUATION" --baseline-root accepted-baseline --build-dir kernel-evidence --baseline-build lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --baseline-audit continuation-evidence/baseline-audit --current-audit continuation-evidence/current-audit --output continuation-evidence/CURRENT_BOUNDARIES.json
+      - name: Compile SmoothDescent ancestors with ordinary limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage smooth_descent_parents
+      - name: Compile SmoothDescent alone with measured 600-second limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage smooth_descent
       - name: Revalidate the whole current source graph
         run: |
           python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage full

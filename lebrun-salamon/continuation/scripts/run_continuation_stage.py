@@ -10,6 +10,8 @@ from pathlib import Path
 from continuation_support import (candidate_plan, closure, digest, need, read_json,
     verify_native_build, write_json)
 from report_continuation_stage import make_report
+from continuation_stage_policy import (STAGE_ORDER, ISOLATED, validate_stages,
+                                       load_resume, check_predecessors)
 
 
 def main():
@@ -17,7 +19,7 @@ def main():
     for key in ("root", "baseline-root", "baseline", "plan", "preflight", "runtime-config", "build-dir", "reports"):
         ap.add_argument("--" + key, type=Path, required=True)
     ap.add_argument("--stage", required=True,
-                    choices=["part07_parents", "part07", "core", "accepted_boundaries", "full"])
+                    choices=STAGE_ORDER)
     args = ap.parse_args()
     root = args.root.resolve()
     baseline, plan, config = read_json(args.baseline), read_json(args.plan), read_json(args.runtime_config)
@@ -27,18 +29,31 @@ def main():
          preflight["baseline_record_sha256"] == digest(args.baseline) and
          preflight["candidate"]["source_manifest_sha256"] == inv["sha256"],
          "Stage does not match approved preflight")
+    validate_stages(preflight, inv, baseline)
+    resume = load_resume(root, plan, inv)
+    predecessors = check_predecessors(args.stage, args.reports, digest(args.plan),
+                                     digest(args.baseline), inv["sha256"])
+    resume_validation_path = args.reports.parent / "RESUME_CACHE_VALIDATION.json"
+    resume_validation = read_json(resume_validation_path)
+    need(resume_validation["candidate_plan_sha256"] == digest(args.plan) and
+         resume_validation["resume_record_sha256"] == plan["resume_record"]["sha256"] and
+         resume_validation["source_manifest_sha256"] == inv["sha256"] and
+         resume_validation["every_expected_context_verified"] is True and
+         resume_validation["strict_current_contexts_verified"] == resume["expected_current_contexts"],
+         "Every strict current resume context must be validated before stages")
     spec = preflight["stages"][args.stage]
     need(set(spec["selected"]) == closure(inv["graph"], spec["targets"]), "Stale stage closure")
-    allowed_timeout = 600 if args.stage == "part07" else 300
+    allowed_timeout = 600 if args.stage in ISOLATED else 300
     need(spec["module_timeout_seconds"] == allowed_timeout, "Unauthorized module timeout")
-    if args.stage == "part07":
+    if args.stage in ISOLATED:
+        isolated_module = ISOLATED[args.stage]
         # No other module can receive the longer compile allowance: all strict
         # ancestor receipts must already pass, and the replay must reuse them.
         prior = verify_native_build(root, args.build_dir, config, baseline)
-        parents = closure(inv["graph"], inv["graph"]["RecompileBasePart07"])
+        parents = closure(inv["graph"], inv["graph"][isolated_module])
         need(prior["full_selected_graph_passed"] and parents <= set(prior["records"]),
-             "Part07's current parents have not all been validated")
-        need(spec["targets"] == ["RecompileBasePart07"], "The 600-second exception is Part07-only")
+             "Isolated target current parents have not all been validated")
+        need(spec["targets"] == [isolated_module], "The 600-second exception must select only its target")
     command = [sys.executable, str(root / "scripts/replay_checkpoint.py"),
                "--root", str(root), "--runtime-config", str(args.runtime_config.resolve()),
                "--build-dir", str(args.build_dir.resolve()), "--keep-going", "--timeout", str(allowed_timeout)]
@@ -52,10 +67,15 @@ def main():
                    "preflight_sha256": digest(args.preflight), "command": command, "return_code": rc,
                    "module_timeout_seconds": allowed_timeout, "run_status_sha256":
                    digest(args.build_dir / "RUN_STATUS.json"), "github_run_id": os.environ.get("GITHUB_RUN_ID"),
-                   "github_run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT")})
-    if args.stage == "part07":
+                   "github_run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
+                   "completed_predecessor_report_sha256": predecessors,
+                   "resume_validation_sha256": digest(resume_validation_path)})
+    if args.stage in ISOLATED:
         need(all(report["records"].get(m, {}).get("state") == "reused" for m in parents),
-             "A Part07 ancestor unexpectedly rebuilt under the longer timeout")
+             "An ancestor unexpectedly rebuilt under the isolated longer timeout")
+    need(all(report["records"][m]["state"] == "reused"
+             for m in set(report["records"]) & set(resume["expected_current_contexts"])),
+         "An exact preserved current context unexpectedly recompiled")
     args.reports.mkdir(parents=True, exist_ok=True)
     destination = args.reports / (args.stage + ".json")
     write_json(destination, report)

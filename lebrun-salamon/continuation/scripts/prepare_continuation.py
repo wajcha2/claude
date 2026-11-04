@@ -9,6 +9,9 @@ from continuation_support import (candidate_plan, closure, context_hash, digest,
     verify_native_build, write_json)
 
 
+from continuation_stage_policy import STAGE_ORDER, build_stages, load_resume
+
+
 def materialize(baseline, destination):
     destination = Path(destination)
     need(not destination.exists() or not any(destination.iterdir()), "Baseline directory is not empty")
@@ -68,21 +71,15 @@ def main():
     base_binding = git_binding(args.baseline_root, baseline["compiled_commit"], baseline["continuation_prefix"])
     current_binding = git_binding(args.root, current_commit, baseline["continuation_prefix"])
     _, cur, change = candidate_plan(args.root, args.baseline_root, baseline, plan)
-    root_modules = sorted({r["module"] for r in baseline["point1_roots"] + baseline["new_roots"]})
-    stages = {
-        "part07_parents": sorted(set(cur["graph"]["RecompileBasePart07"])),
-        "part07": ["RecompileBasePart07"],
-        "core": ["RecompileExtensionsPart02"],
-        "accepted_boundaries": root_modules,
-        "full": sorted(cur["sources"]),
-    }
+    resume = load_resume(args.root, plan, cur)
+    stages = build_stages(cur, baseline)
     out = {"schema": "lebrun-continuation-preflight-v1", "baseline": base_binding,
            "candidate": current_binding, "plan_sha256": digest(args.plan),
            "baseline_record_sha256": digest(args.baseline), "impact": change,
-           "stages": {k: {"targets": targets,
-                         "selected": sorted(closure(cur["graph"], targets)),
-                         "module_timeout_seconds": 600 if k == "part07" else 300}
-                      for k, targets in stages.items()},
+           "stage_order": STAGE_ORDER, "stages": stages,
+           "resume_record_sha256": plan["resume_record"]["sha256"],
+           "resume_artifact_id": resume["official_artifact"]["id"],
+           "expected_resume_context_count": resume["expected_context_count"],
            "counts_recomputed_from_current_graph": True,
            "accepted_units_unchanged": baseline["accepted_units"],
            "denominator": baseline["denominator"], "acceptance_ledger_modified": False}

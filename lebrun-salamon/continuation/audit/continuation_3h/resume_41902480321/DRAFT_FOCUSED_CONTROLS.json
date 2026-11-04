@@ -1,0 +1,140 @@
+{
+  "schema": "lebrun-continuation-resume-controls-v1",
+  "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+  "source_modules": 308,
+  "candidate_plan_sha256": "3ebc2b9f2830ec921d467a72f1f1e7caee95712ce8383efa7dc2063bc09e5f4b",
+  "approved_source_plan_sha256": "babf6411942db5b80e8674b4b4c5a55fdc95ccb16f1427346fd0a18d10fd914a",
+  "resume_record_sha256": "525871939ce118eaaad6a99c439cd5ff595c67a16fdf6bef40ebf5c7cc46e9b0",
+  "workflow_sha256": "bf95fadab17e01c729007e3f41e7443fae05b503847f5c86c7a31cfd26bfd69c",
+  "controls": [
+    {
+      "name": "exact official metadata and source",
+      "passed": true,
+      "expected": "valid"
+    },
+    {
+      "name": "exact native runtime identity",
+      "passed": true,
+      "expected": "valid"
+    },
+    {
+      "name": "all105 exact current contexts",
+      "passed": true,
+      "expected": "valid"
+    },
+    {
+      "name": "exact nine-stage graph and caps",
+      "passed": true,
+      "expected": "valid"
+    },
+    {
+      "name": "altered artifact id",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume official artifact metadata differs"
+    },
+    {
+      "name": "altered artifact digest",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume official artifact metadata differs"
+    },
+    {
+      "name": "wrong artifact commit",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume official artifact metadata differs"
+    },
+    {
+      "name": "altered source snapshot",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume commit, branch or source differs"
+    },
+    {
+      "name": "altered native flags",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume runtime identity or flags differ"
+    },
+    {
+      "name": "altered runtime fingerprint",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Resume runtime identity or flags differ"
+    },
+    {
+      "name": "missing preserved context",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Restored resume contexts are missing, stale or ineligible"
+    },
+    {
+      "name": "stale current output context",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Restored resume contexts are missing, stale or ineligible"
+    },
+    {
+      "name": "failed Geometry inserted as eligible",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Restored resume contexts are missing, stale or ineligible"
+    },
+    {
+      "name": "ordinary stage receives longer cap",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Stage sequence, targets, closure or approved timeout differs"
+    },
+    {
+      "name": "isolated cap exceeds authorization",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Stage sequence, targets, closure or approved timeout differs"
+    },
+    {
+      "name": "isolated target precedes parents",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Stage sequence, targets, closure or approved timeout differs"
+    },
+    {
+      "name": "second target inherits longer cap",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Stage sequence, targets, closure or approved timeout differs"
+    },
+    {
+      "name": "missing ancestor in isolation stage",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Stage sequence, targets, closure or approved timeout differs"
+    },
+    {
+      "name": "missing predecessor report",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Required predecessor stage is missing: part07_parents"
+    },
+    {
+      "name": "exact predecessor report chain",
+      "passed": true,
+      "expected": "valid"
+    },
+    {
+      "name": "failed predecessor blocks isolation",
+      "passed": true,
+      "expected": "rejection",
+      "reason": "Predecessor stage failed or belongs to another current candidate"
+    },
+    {
+      "name": "actual workflow follows reviewed stage order",
+      "passed": true,
+      "expected": "valid"
+    }
+  ],
+  "all_passed": true,
+  "native_compiler_invoked": false,
+  "new_units_credited": 0
+}

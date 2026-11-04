@@ -1,0 +1,1164 @@
+﻿2026-11-04T20:00:58.6374000Z Current runner version: '2.338.2'
+2026-11-04T20:00:58.6402563Z ##[group]Runner Image Provisioner
+2026-11-04T20:00:58.6404392Z Hosted Compute Agent
+2026-11-04T20:00:58.6405525Z Version: 20261021.618
+2026-11-04T20:00:58.6406781Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-04T20:00:58.6408281Z Build Date: 2026-10-21T00:45:21Z
+2026-11-04T20:00:58.6409934Z Worker ID: {986f43c4-9645-4c03-91e4-aef9589f86f7}
+2026-11-04T20:00:58.6411199Z Region: northcentralus
+2026-11-04T20:00:58.6412171Z Cloud: Azure
+2026-11-04T20:00:58.6413082Z ##[endgroup]
+2026-11-04T20:00:58.6415632Z ##[group]Operating System
+2026-11-04T20:00:58.6416632Z Ubuntu
+2026-11-04T20:00:58.6417182Z 24.04.5
+2026-11-04T20:00:58.6417805Z LTS
+2026-11-04T20:00:58.6418401Z ##[endgroup]
+2026-11-04T20:00:58.6419448Z ##[group]Runner Image
+2026-11-04T20:00:58.6420142Z Image: ubuntu-24.04
+2026-11-04T20:00:58.6420771Z Version: 20261025.353.1
+2026-11-04T20:00:58.6422128Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-04T20:00:58.6423809Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-11-04T20:00:58.6424828Z ##[endgroup]
+2026-11-04T20:00:58.6426162Z ##[group]GITHUB_TOKEN Permissions
+2026-11-04T20:00:58.6428267Z Actions: read
+2026-11-04T20:00:58.6429196Z Contents: read
+2026-11-04T20:00:58.6429933Z Metadata: read
+2026-11-04T20:00:58.6430521Z ##[endgroup]
+2026-11-04T20:00:58.6432775Z Secret source: Actions
+2026-11-04T20:00:58.6433853Z Cache mode: write
+2026-11-04T20:00:58.6434633Z Prepare workflow directory
+2026-11-04T20:00:58.7193032Z Prepare all required actions
+2026-11-04T20:00:58.7267777Z Getting action download info
+2026-11-04T20:00:59.0114371Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-04T20:00:59.1423433Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-11-04T20:00:59.5234867Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-04T20:00:59.7590969Z Complete job name: current_native_and_boundaries
+2026-11-04T20:00:59.8503649Z ##[group]Run actions/checkout@v4
+2026-11-04T20:00:59.8504575Z with:
+2026-11-04T20:00:59.8505040Z   repository: wajcha2/claude
+2026-11-04T20:00:59.8509478Z   token: ***
+2026-11-04T20:00:59.8509971Z   ssh-strict: true
+2026-11-04T20:00:59.8510432Z   ssh-user: git
+2026-11-04T20:00:59.8510898Z   persist-credentials: true
+2026-11-04T20:00:59.8511403Z   clean: true
+2026-11-04T20:00:59.8511862Z   sparse-checkout-cone-mode: true
+2026-11-04T20:00:59.8512413Z   fetch-depth: 1
+2026-11-04T20:00:59.8512855Z   fetch-tags: false
+2026-11-04T20:00:59.8513327Z   show-progress: true
+2026-11-04T20:00:59.8513804Z   lfs: false
+2026-11-04T20:00:59.8514229Z   submodules: false
+2026-11-04T20:00:59.8514697Z   set-safe-directory: true
+2026-11-04T20:00:59.8515223Z   allow-unsafe-pr-checkout: false
+2026-11-04T20:00:59.8516053Z env:
+2026-11-04T20:00:59.8520379Z   GH_TOKEN: ***
+2026-11-04T20:00:59.8520916Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:00:59.8521859Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:00:59.8522939Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:00:59.8523764Z ##[endgroup]
+2026-11-04T20:01:00.4028467Z Syncing repository: wajcha2/claude
+2026-11-04T20:01:00.4030983Z ##[group]Getting Git version info
+2026-11-04T20:01:00.4031793Z Working directory is '/home/runner/work/claude/claude'
+2026-11-04T20:01:00.4032894Z [command]/usr/bin/git version
+2026-11-04T20:01:00.4222378Z git version 2.56.0
+2026-11-04T20:01:00.4246249Z ##[endgroup]
+2026-11-04T20:01:00.4263159Z Temporarily overriding HOME='/home/runner/work/_temp/65ba895c-ba0e-4ada-8223-6e751f950b9f' before making global git config changes
+2026-11-04T20:01:00.4265918Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T20:01:00.4270339Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-04T20:01:00.4330127Z Deleting the contents of '/home/runner/work/claude/claude'
+2026-11-04T20:01:00.4332970Z ##[group]Initializing the repository
+2026-11-04T20:01:00.4337989Z [command]/usr/bin/git init /home/runner/work/claude/claude
+2026-11-04T20:01:00.4779853Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-04T20:01:00.4782053Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-04T20:01:00.4783403Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-04T20:01:00.4784358Z hint: call:
+2026-11-04T20:01:00.4785492Z hint:
+2026-11-04T20:01:00.4786322Z hint: 	git config --global init.defaultBranch <name>
+2026-11-04T20:01:00.4787118Z hint:
+2026-11-04T20:01:00.4787884Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-04T20:01:00.4789643Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-04T20:01:00.4791278Z hint:
+2026-11-04T20:01:00.4792106Z hint: 	git branch -m <name>
+2026-11-04T20:01:00.4793049Z hint:
+2026-11-04T20:01:00.4794247Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-04T20:01:00.4796378Z Initialized empty Git repository in /home/runner/work/claude/claude/.git/
+2026-11-04T20:01:00.4811274Z [command]/usr/bin/git remote add origin https://github.com/wajcha2/claude
+2026-11-04T20:01:00.4887480Z ##[endgroup]
+2026-11-04T20:01:00.4889935Z ##[group]Disabling automatic garbage collection
+2026-11-04T20:01:00.4893225Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-04T20:01:00.4965095Z ##[endgroup]
+2026-11-04T20:01:00.4967114Z ##[group]Setting up auth
+2026-11-04T20:01:00.4974382Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T20:01:00.5032176Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T20:01:00.5552258Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T20:01:00.5600882Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T20:01:00.5856794Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T20:01:00.5908273Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T20:01:00.6179356Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-04T20:01:00.6237615Z ##[endgroup]
+2026-11-04T20:01:00.6239454Z ##[group]Fetching the repository
+2026-11-04T20:01:00.6252302Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +685761b4b974c52ed7c06fef578690156387a3c5:refs/remotes/origin/codex/lebrun-3h-native-20261104
+2026-11-04T20:01:04.6749581Z From https://github.com/wajcha2/claude
+2026-11-04T20:01:04.6763714Z  * [new ref]         685761b4b974c52ed7c06fef578690156387a3c5 -> origin/codex/lebrun-3h-native-20261104
+2026-11-04T20:01:04.6767920Z ##[endgroup]
+2026-11-04T20:01:04.6769930Z ##[group]Determining the checkout info
+2026-11-04T20:01:04.6772312Z ##[endgroup]
+2026-11-04T20:01:04.6773360Z [command]/usr/bin/git sparse-checkout disable
+2026-11-04T20:01:04.6835359Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-04T20:01:04.6881704Z ##[group]Checking out the ref
+2026-11-04T20:01:04.6886297Z [command]/usr/bin/git checkout --progress --force -B codex/lebrun-3h-native-20261104 refs/remotes/origin/codex/lebrun-3h-native-20261104
+2026-11-04T20:01:05.3594187Z Switched to a new branch 'codex/lebrun-3h-native-20261104'
+2026-11-04T20:01:05.3600162Z branch 'codex/lebrun-3h-native-20261104' set up to track 'origin/codex/lebrun-3h-native-20261104'.
+2026-11-04T20:01:05.3636169Z ##[endgroup]
+2026-11-04T20:01:05.3692710Z [command]/usr/bin/git log -1 --format=%H
+2026-11-04T20:01:05.3728161Z 685761b4b974c52ed7c06fef578690156387a3c5
+2026-11-04T20:01:05.3962094Z ##[group]Run git fetch --no-tags --depth=1 origin 80bbb1ce6343260cdba2de6a1d067a3a4e65fd91
+2026-11-04T20:01:05.3962896Z [36;1mgit fetch --no-tags --depth=1 origin 80bbb1ce6343260cdba2de6a1d067a3a4e65fd91[0m
+2026-11-04T20:01:05.3964022Z [36;1mpython3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --materialize --output continuation-evidence/PREFLIGHT.json[0m
+2026-11-04T20:01:05.3965280Z [36;1mpython3 "$CONTINUATION/scripts/check_checkpoint.py" --root "$CONTINUATION" --verify-manifest --output-dir diagnostic-static[0m
+2026-11-04T20:01:05.3990016Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:01:05.3990337Z env:
+2026-11-04T20:01:05.3993275Z   GH_TOKEN: ***
+2026-11-04T20:01:05.3993542Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:01:05.3993982Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:01:05.3994619Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:01:05.3995062Z ##[endgroup]
+2026-11-04T20:01:05.8499782Z From https://github.com/wajcha2/claude
+2026-11-04T20:01:05.8500611Z  * branch            80bbb1ce6343260cdba2de6a1d067a3a4e65fd91 -> FETCH_HEAD
+2026-11-04T20:01:20.6388753Z CONTINUATION_PREFLIGHT 685761b4b974c52ed7c06fef578690156387a3c5 308 50 257
+2026-11-04T20:01:23.2577819Z {
+2026-11-04T20:01:23.2578588Z   "schema": "lebrun-portable-static-checkpoint-v1",
+2026-11-04T20:01:23.2579456Z   "static_integrity_passed": true,
+2026-11-04T20:01:23.2579874Z   "kernel_verified": false,
+2026-11-04T20:01:23.2580250Z   "milestone_met": false,
+2026-11-04T20:01:23.2580969Z   "evidence_scope": "lexical source and hash checks only; no Lean invocation or publication verification",
+2026-11-04T20:01:23.2581761Z   "errors": [],
+2026-11-04T20:01:23.2582094Z   "source_manifest_passed": true,
+2026-11-04T20:01:23.2582772Z   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+2026-11-04T20:01:23.2583486Z   "frozen_target_matches": true,
+2026-11-04T20:01:23.2583855Z   "source_modules": 308,
+2026-11-04T20:01:23.2584192Z   "source_lines": 129265,
+2026-11-04T20:01:23.2584517Z   "token_counts": {
+2026-11-04T20:01:23.2584811Z     "sorry": 99,
+2026-11-04T20:01:23.2585115Z     "admit": 0,
+2026-11-04T20:01:23.2585390Z     "axiom": 0,
+2026-11-04T20:01:23.2585679Z     "opaque": 0
+2026-11-04T20:01:23.2586013Z   },
+2026-11-04T20:01:23.2586293Z   "admitted_declarations": 99,
+2026-11-04T20:01:23.2586682Z   "published_namespace_admissions": 58,
+2026-11-04T20:01:23.2587090Z   "other_admissions": 41,
+2026-11-04T20:01:23.2587442Z   "final_statement_integration": {
+2026-11-04T20:01:23.2587869Z     "status": "references_present_unverified",
+2026-11-04T20:01:23.2588310Z     "references": [
+2026-11-04T20:01:23.2588635Z       {
+2026-11-04T20:01:23.2589228Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2589688Z         "line": 87,
+2026-11-04T20:01:23.2590033Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2590440Z       },
+2026-11-04T20:01:23.2590884Z       {
+2026-11-04T20:01:23.2591227Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2591685Z         "line": 126,
+2026-11-04T20:01:23.2592056Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2592513Z       },
+2026-11-04T20:01:23.2592870Z       {
+2026-11-04T20:01:23.2593209Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2593747Z         "line": 137,
+2026-11-04T20:01:23.2594101Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2594521Z       },
+2026-11-04T20:01:23.2594810Z       {
+2026-11-04T20:01:23.2595156Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2596144Z         "line": 149,
+2026-11-04T20:01:23.2596505Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2596937Z       },
+2026-11-04T20:01:23.2597311Z       {
+2026-11-04T20:01:23.2597685Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2598463Z         "line": 153,
+2026-11-04T20:01:23.2599121Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2599537Z       },
+2026-11-04T20:01:23.2599841Z       {
+2026-11-04T20:01:23.2600210Z         "file": "LSMilestoneStatement.lean",
+2026-11-04T20:01:23.2600704Z         "line": 167,
+2026-11-04T20:01:23.2601104Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2601590Z       },
+2026-11-04T20:01:23.2601897Z       {
+2026-11-04T20:01:23.2602255Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2602723Z         "line": 112,
+2026-11-04T20:01:23.2603093Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2603501Z       },
+2026-11-04T20:01:23.2603802Z       {
+2026-11-04T20:01:23.2604167Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2604653Z         "line": 115,
+2026-11-04T20:01:23.2605015Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2605382Z       },
+2026-11-04T20:01:23.2605642Z       {
+2026-11-04T20:01:23.2605987Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2606535Z         "line": 119,
+2026-11-04T20:01:23.2606891Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2607279Z       },
+2026-11-04T20:01:23.2607579Z       {
+2026-11-04T20:01:23.2607928Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2608410Z         "line": 123,
+2026-11-04T20:01:23.2609015Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2609389Z       },
+2026-11-04T20:01:23.2609640Z       {
+2026-11-04T20:01:23.2609969Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2610412Z         "line": 125,
+2026-11-04T20:01:23.2610765Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2611134Z       },
+2026-11-04T20:01:23.2611412Z       {
+2026-11-04T20:01:23.2611751Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2612210Z         "line": 129,
+2026-11-04T20:01:23.2612551Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2612925Z       },
+2026-11-04T20:01:23.2613207Z       {
+2026-11-04T20:01:23.2613540Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2613991Z         "line": 175,
+2026-11-04T20:01:23.2614362Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2614787Z       },
+2026-11-04T20:01:23.2615074Z       {
+2026-11-04T20:01:23.2615395Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2615827Z         "line": 187,
+2026-11-04T20:01:23.2616178Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2616554Z       },
+2026-11-04T20:01:23.2616834Z       {
+2026-11-04T20:01:23.2617163Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2617601Z         "line": 194,
+2026-11-04T20:01:23.2617962Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2618384Z       },
+2026-11-04T20:01:23.2618658Z       {
+2026-11-04T20:01:23.2619216Z         "file": "LSMilestoneTarget.lean",
+2026-11-04T20:01:23.2619668Z         "line": 204,
+2026-11-04T20:01:23.2620036Z         "term": "LeBrunSalamonStatement"
+2026-11-04T20:01:23.2620459Z       },
+2026-11-04T20:01:23.2620759Z       {
+2026-11-04T20:01:23.2621117Z         "file": "LSMilestoneTopology.lean",
+2026-11-04T20:01:23.2621611Z         "line": 87,
+2026-11-04T20:01:23.2621989Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2622396Z       },
+2026-11-04T20:01:23.2622692Z       {
+2026-11-04T20:01:23.2623040Z         "file": "LSMilestoneTopology.lean",
+2026-11-04T20:01:23.2623556Z         "line": 88,
+2026-11-04T20:01:23.2623929Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2624301Z       },
+2026-11-04T20:01:23.2624596Z       {
+2026-11-04T20:01:23.2624945Z         "file": "LSMilestoneTopology.lean",
+2026-11-04T20:01:23.2625443Z         "line": 97,
+2026-11-04T20:01:23.2625815Z         "term": "WolfHomothety"
+2026-11-04T20:01:23.2626199Z       }
+2026-11-04T20:01:23.2626481Z     ],
+2026-11-04T20:01:23.2627086Z     "proof_verified": false
+2026-11-04T20:01:23.2627460Z   }
+2026-11-04T20:01:23.2627755Z }
+2026-11-04T20:01:23.2710676Z ##[group]Run python3 "$CONTINUATION/scripts/restore_ci_runtime.py" --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+2026-11-04T20:01:23.2711823Z [36;1mpython3 "$CONTINUATION/scripts/restore_ci_runtime.py" --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"[0m
+2026-11-04T20:01:23.2732754Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:01:23.2733006Z env:
+2026-11-04T20:01:23.2735749Z   GH_TOKEN: ***
+2026-11-04T20:01:23.2735995Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:01:23.2736438Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:01:23.2737001Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:01:23.2737425Z ##[endgroup]
+2026-11-04T20:01:23.3379931Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-11-04T20:01:23.3380907Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-11-04T20:01:23.3381320Z 
+2026-11-04T20:01:23.5747637Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-04T20:01:23.5748424Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-04T20:01:24.2351191Z 
+2026-11-04T20:01:24.9237758Z  34  577M   34  200M    0     0   223M      0  0:00:02 --:--:--  0:00:02  223M
+2026-11-04T20:01:24.9238451Z 100  577M  100  577M    0     0   364M      0  0:00:01  0:00:01 --:--:--  547M
+2026-11-04T20:01:31.4519760Z Lean (version 4.36.0-rc1, x86_64-unknown-linux-gnu, commit c9afcddf514a6772bd4d649f7cfc04eff0b9f15e, Release)
+2026-11-04T20:02:33.8568523Z {"runtime_config": "/home/runner/work/claude/claude/runtime-config.json", "restored": true}
+2026-11-04T20:02:33.8778104Z ##[group]Run gh api repos/wajcha2/claude/actions/artifacts/13353190843 > continuation-evidence/BASELINE_ARTIFACT_METADATA.json
+2026-11-04T20:02:33.8780058Z [36;1mgh api repos/wajcha2/claude/actions/artifacts/13353190843 > continuation-evidence/BASELINE_ARTIFACT_METADATA.json[0m
+2026-11-04T20:02:33.8801752Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:02:33.8802008Z env:
+2026-11-04T20:02:33.8805230Z   GH_TOKEN: ***
+2026-11-04T20:02:33.8805480Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:02:33.8806267Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:02:33.8806994Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:02:33.8807421Z ##[endgroup]
+2026-11-04T20:02:34.2833467Z ##[group]Run actions/download-artifact@v4
+2026-11-04T20:02:34.2833811Z with:
+2026-11-04T20:02:34.2834051Z   name: lebrun-final-current-native-41888465259-2
+2026-11-04T20:02:34.2834362Z   run-id: 41888465259
+2026-11-04T20:02:34.2837131Z   github-token: ***
+2026-11-04T20:02:34.2837368Z   path: lebrun-cache-inputs/0
+2026-11-04T20:02:34.2837640Z   merge-multiple: false
+2026-11-04T20:02:34.2837868Z   repository: wajcha2/claude
+2026-11-04T20:02:34.2838089Z env:
+2026-11-04T20:02:34.2840867Z   GH_TOKEN: ***
+2026-11-04T20:02:34.2841098Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:02:34.2841541Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:02:34.2842138Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:02:34.2842569Z ##[endgroup]
+2026-11-04T20:02:34.4452825Z Downloading single artifact
+2026-11-04T20:02:34.4585687Z (node:2721) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T20:02:34.4586493Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T20:02:34.4841727Z (node:2721) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T20:02:34.7021119Z Preparing to download the following artifacts:
+2026-11-04T20:02:34.7022484Z - lebrun-final-current-native-41888465259-2 (ID: 13353190843, Size: 68416974, Expected Digest: sha256:fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17)
+2026-11-04T20:02:34.7055803Z Downloading artifact '13353190843' from 'wajcha2/claude'
+2026-11-04T20:02:34.9884091Z Redirecting to blob download url: https://productionresultssa14.blob.core.windows.net/actions-results/6391be53-b7ab-82f3-964d-712b052bd7fd/workflow-job-run-e14566b7-8e05-540c-bd0d-630ef4036e5c/artifacts/7418262d6ea013c67d98333ef6759dbb6b38980638f89919b0ff8d4e872e4345.zip
+2026-11-04T20:02:34.9885572Z Starting download of artifact to: /home/runner/work/claude/claude/lebrun-cache-inputs/0
+2026-11-04T20:02:35.1376977Z (node:2721) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-11-04T20:02:36.8444021Z SHA256 digest of downloaded artifact is fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17
+2026-11-04T20:02:36.8445202Z Artifact download completed successfully.
+2026-11-04T20:02:36.8445660Z Total of 1 artifact(s) downloaded
+2026-11-04T20:02:36.8455331Z Download artifact has finished successfully
+2026-11-04T20:02:36.8683755Z ##[group]Run python3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --artifact-dir lebrun-cache-inputs/0 --artifact-metadata continuation-evidence/BASELINE_ARTIFACT_METADATA.json --runtime-config runtime-config.json --output continuation-evidence/PREFLIGHT.json
+2026-11-04T20:02:36.8686462Z [36;1mpython3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --artifact-dir lebrun-cache-inputs/0 --artifact-metadata continuation-evidence/BASELINE_ARTIFACT_METADATA.json --runtime-config runtime-config.json --output continuation-evidence/PREFLIGHT.json[0m
+2026-11-04T20:02:36.8708147Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:02:36.8708398Z env:
+2026-11-04T20:02:36.8711591Z   GH_TOKEN: ***
+2026-11-04T20:02:36.8711843Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:02:36.8712477Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:02:36.8713073Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:02:36.8713527Z ##[endgroup]
+2026-11-04T20:02:55.6595922Z CONTINUATION_PREFLIGHT 685761b4b974c52ed7c06fef578690156387a3c5 308 50 257
+2026-11-04T20:02:55.6728001Z ##[group]Run python3 "$CONTINUATION/scripts/run_continuation_audit.py" --root accepted-baseline --build-dir lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode baseline --output continuation-evidence/baseline-audit
+2026-11-04T20:02:55.6732007Z [36;1mpython3 "$CONTINUATION/scripts/run_continuation_audit.py" --root accepted-baseline --build-dir lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode baseline --output continuation-evidence/baseline-audit[0m
+2026-11-04T20:02:55.6762314Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:02:55.6762737Z env:
+2026-11-04T20:02:55.6767993Z   GH_TOKEN: ***
+2026-11-04T20:02:55.6768419Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:02:55.6769428Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:02:55.6770573Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:02:55.6771404Z ##[endgroup]
+2026-11-04T20:03:08.2356096Z REUSE LSClosedImmersionLocus
+2026-11-04T20:03:08.2370920Z REUSE LSComplexQuadraticCoordinates
+2026-11-04T20:03:08.2387117Z REUSE LSConePole
+2026-11-04T20:03:08.2397125Z REUSE LSConicLogAlgebra
+2026-11-04T20:03:08.2406975Z REUSE LSFibreIsomorphism
+2026-11-04T20:03:08.2417602Z REUSE LSFormalTraitRing
+2026-11-04T20:03:08.2457208Z REUSE LSFunctionFieldPlaces
+2026-11-04T20:03:08.2464224Z REUSE LSNilpotentTopology
+2026-11-04T20:03:08.2477670Z REUSE LSP1SourceAlgebra
+2026-11-04T20:03:08.2487727Z REUSE LSP1TensorSquare
+2026-11-04T20:03:08.2497666Z REUSE LSProperLocalTopology
+2026-11-04T20:03:08.2506099Z REUSE LSReducedPushout
+2026-11-04T20:03:08.2516198Z REUSE LSResidueFieldPresentation
+2026-11-04T20:03:08.2527172Z REUSE LSResidueTensorLift
+2026-11-04T20:03:08.2549010Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T20:03:08.2559435Z REUSE LSYonedaExtensionSplitting
+2026-11-04T20:03:08.2609350Z REUSE RecompileBasePart01
+2026-11-04T20:03:08.2631232Z REUSE LSCurveLaurentStandardInputs
+2026-11-04T20:03:08.2634805Z REUSE LSP1TensorTaylor
+2026-11-04T20:03:08.2637479Z REUSE LSResidueFibreGeometry
+2026-11-04T20:03:08.2641084Z REUSE LSYonedaClassesRepresented
+2026-11-04T20:03:08.2672117Z REUSE RecompileBasePart02
+2026-11-04T20:03:08.2731024Z REUSE RecompileBasePart03
+2026-11-04T20:03:08.2784010Z REUSE RecompileBasePart04
+2026-11-04T20:03:08.2788328Z REUSE LSAffineDerivations
+2026-11-04T20:03:08.2791219Z REUSE LSPublishedPicard
+2026-11-04T20:03:08.2794143Z REUSE LSSheafSectionExact
+2026-11-04T20:03:08.2796838Z REUSE LSTensorLocallyFreeExact
+2026-11-04T20:03:08.2811707Z REUSE RecompileBasePart05A
+2026-11-04T20:03:08.2815947Z REUSE LSAffineCotangentHom
+2026-11-04T20:03:08.2837914Z REUSE RecompileBasePart05B
+2026-11-04T20:03:08.2844293Z REUSE LSCanonicalSectionBaseChange
+2026-11-04T20:03:08.2850073Z REUSE LSCohomologyHypotheses
+2026-11-04T20:03:08.2856336Z REUSE LSKunnethDegreeZero
+2026-11-04T20:03:08.2864084Z REUSE LSProjectionFormula
+2026-11-04T20:03:08.2870190Z REUSE LSAffineProductRing
+2026-11-04T20:03:08.2885220Z REUSE RecompileBasePart05C
+2026-11-04T20:03:08.2890862Z REUSE LSNonvanishingPullback
+2026-11-04T20:03:08.2894643Z REUSE LSSectionCover
+2026-11-04T20:03:08.2896839Z REUSE RecompileBasePart05
+2026-11-04T20:03:08.2928934Z REUSE RecompileBasePart06
+2026-11-04T20:03:08.2962590Z REUSE RecompileBasePart07
+2026-11-04T20:03:08.2969385Z REUSE LSModuleHomGluing
+2026-11-04T20:03:08.2971568Z REUSE RecompileBase
+2026-11-04T20:03:08.3020836Z REUSE RecompileSections
+2026-11-04T20:03:08.3030116Z REUSE LSAffineFrame
+2026-11-04T20:03:08.3034666Z REUSE LSLineStalkFlat
+2026-11-04T20:03:08.3038492Z REUSE LSP1TangentSections
+2026-11-04T20:03:08.3042107Z REUSE LSPolarizedOverIso
+2026-11-04T20:03:08.3045049Z REUSE LSRelativeCartier
+2026-11-04T20:03:08.3051425Z REUSE LSStandardTautological
+2026-11-04T20:03:08.3079548Z REUSE RecompileExtensionCore
+2026-11-04T20:03:08.3083332Z REUSE LSClosedIdealCoefficients
+2026-11-04T20:03:08.3087307Z REUSE LSPublishedCohomologyBaseChange
+2026-11-04T20:03:08.3090590Z REUSE LSPublishedProjectiveSpace
+2026-11-04T20:03:08.3092960Z REUSE LSQuadraticVeronese
+2026-11-04T20:03:08.3097909Z REUSE LSStandardProjectiveBaseChange
+2026-11-04T20:03:08.3101758Z REUSE LSStandardProjectiveNonempty
+2026-11-04T20:03:08.3105349Z REUSE LSStandardProjectiveProper
+2026-11-04T20:03:08.3107967Z REUSE LSStandardProjectiveSmooth
+2026-11-04T20:03:08.3112034Z REUSE LSStandardTautologicalP1
+2026-11-04T20:03:08.3116424Z REUSE LSVectorBundlePullback
+2026-11-04T20:03:08.3119535Z REUSE LSLineCohomologyBaseChange
+2026-11-04T20:03:08.3127342Z REUSE LSOpenProductCoordinates
+2026-11-04T20:03:08.3131620Z REUSE LSP1FamilyDegree
+2026-11-04T20:03:08.3134599Z REUSE LSStandardProjectiveComposition
+2026-11-04T20:03:08.3137025Z REUSE LSStandardProjectiveReduced
+2026-11-04T20:03:08.3144387Z REUSE LSExternalFrameCoefficients
+2026-11-04T20:03:08.3147117Z REUSE LSProjectiveFibreLineRigidity
+2026-11-04T20:03:08.3150495Z REUSE LSStandardProjectivePicard
+2026-11-04T20:03:08.3239319Z REUSE RecompileExtensionsPart01
+2026-11-04T20:03:08.3246491Z REUSE LSFiniteFreeHomBaseChange
+2026-11-04T20:03:08.3251980Z REUSE LSGeneratingUnitOpens
+2026-11-04T20:03:08.3258028Z REUSE LSP1PointTransport
+2026-11-04T20:03:08.3261679Z REUSE LSProjectivityDefinitions
+2026-11-04T20:03:08.3336753Z REUSE RecompileExtensionsPart02
+2026-11-04T20:03:08.3340809Z REUSE LSDualBaseChangeAlgebra
+2026-11-04T20:03:08.3344414Z REUSE LSFiniteFreeBaseChange
+2026-11-04T20:03:08.3350502Z REUSE LSFirstJetEmbedding
+2026-11-04T20:03:08.3354453Z REUSE LSHomFiberInjectivity
+2026-11-04T20:03:08.3359080Z REUSE LSRelativeGeneration
+2026-11-04T20:03:08.3363851Z REUSE LSSectionRepresentability
+2026-11-04T20:03:08.3366826Z REUSE LSTensorLineTransport
+2026-11-04T20:03:08.3370527Z REUSE LSAffineSectionRepresentability
+2026-11-04T20:03:08.3375590Z REUSE LSDualThickeningNormalForm
+2026-11-04T20:03:08.3379221Z REUSE LSLiftedProjectiveTuple
+2026-11-04T20:03:08.3423970Z REUSE RecompileExtensionsPart03
+2026-11-04T20:03:08.3431875Z REUSE LSConicSplitting
+2026-11-04T20:03:08.3435262Z REUSE LSFirstCohomologyIso
+2026-11-04T20:03:08.3440328Z REUSE LSProperSections
+2026-11-04T20:03:08.3443333Z REUSE LSSmoothFibreComparison
+2026-11-04T20:03:08.3447860Z REUSE LSPolarizedProjectiveEmbedding
+2026-11-04T20:03:08.3525059Z REUSE RecompileExtensionsPart04Geometry
+2026-11-04T20:03:08.3534301Z REUSE LSConicGeneratingTuples
+2026-11-04T20:03:08.3538706Z REUSE LSConicOverlapAlgebra
+2026-11-04T20:03:08.3543315Z REUSE LSConicTupleChange
+2026-11-04T20:03:08.3546511Z REUSE LSEffectiveCartierInputs
+2026-11-04T20:03:08.3551144Z REUSE LSNormalizedSegre
+2026-11-04T20:03:08.3556042Z REUSE LSPlaneConicPresentation
+2026-11-04T20:03:08.3560861Z REUSE LSPlaneQuadratic
+2026-11-04T20:03:08.3566367Z REUSE LSPolarizedEmbeddingLift
+2026-11-04T20:03:08.3570421Z REUSE LSStandardSourceBaseChange
+2026-11-04T20:03:08.3572853Z REUSE RecompileExtensionsPart04GluingPrefix
+2026-11-04T20:03:08.3586120Z REUSE LSComplexQuadraticMatrix
+2026-11-04T20:03:08.3589818Z REUSE LSConicOverlapCoordinates
+2026-11-04T20:03:08.3592298Z REUSE LSEffectiveCartierIso
+2026-11-04T20:03:08.3595949Z REUSE LSNormalizedSegreQuotients
+2026-11-04T20:03:08.3598725Z REUSE LSPlaneEmbeddingCartier
+2026-11-04T20:03:08.3602542Z REUSE LSPlaneQuadraticBaseChange
+2026-11-04T20:03:08.3605090Z REUSE LSPlaneQuadraticPublished
+2026-11-04T20:03:08.3609998Z REUSE LSProjectiveLinearAction
+2026-11-04T20:03:08.3616543Z REUSE LSQuadraticPolynomial
+2026-11-04T20:03:08.3619835Z REUSE LSVeroneseZeroModel
+2026-11-04T20:03:08.3622121Z REUSE RecompileExtensionsPart04Gluing
+2026-11-04T20:03:08.3625192Z REUSE LSCartierQuadraticExtraction
+2026-11-04T20:03:08.3629037Z REUSE LSNormalizedSegrePairs
+2026-11-04T20:03:08.3633719Z REUSE LSPlaneQuadraticEquation
+2026-11-04T20:03:08.3637133Z REUSE LSQuadraticPrimitive
+2026-11-04T20:03:08.3641335Z REUSE LSQuadraticSchemeBaseChange
+2026-11-04T20:03:08.3647512Z REUSE LSQuadraticSectionEvaluation
+2026-11-04T20:03:08.3650971Z REUSE LSRelativeVeroneseModel
+2026-11-04T20:03:08.3655085Z REUSE RecompileExtensionsPart04GluingSections
+2026-11-04T20:03:08.3658986Z REUSE LSPlaneConicZeroPresentation
+2026-11-04T20:03:08.3662237Z REUSE LSPlaneFamilyQuadratic
+2026-11-04T20:03:08.3664980Z REUSE LSQuadraticFibreCartier
+2026-11-04T20:03:08.3667531Z REUSE LSQuadraticFibreCriteria
+2026-11-04T20:03:08.3671333Z REUSE LSQuadraticLinearTransport
+2026-11-04T20:03:08.3679433Z REUSE LSStandardConicTriple
+2026-11-04T20:03:08.3684459Z REUSE RecompileExtensionsPart04Nodes
+2026-11-04T20:03:08.3689912Z REUSE LSNodalLineCohomology
+2026-11-04T20:03:08.3692635Z REUSE LSQuadraticPolarizedModels
+2026-11-04T20:03:08.3695455Z REUSE LSSmoothFibreCartier
+2026-11-04T20:03:08.3698171Z REUSE LSStandardConicZeroComparison
+2026-11-04T20:03:08.3724461Z REUSE RecompileExtensionsPart04
+2026-11-04T20:03:08.3728913Z REUSE LSLineValueDescent
+2026-11-04T20:03:08.3733161Z REUSE LSNodalLineTriviality
+2026-11-04T20:03:08.3753134Z REUSE LSStableMapFamily
+2026-11-04T20:03:08.3755612Z REUSE LSTraitFibreCohomology
+2026-11-04T20:03:08.3759465Z REUSE LSFormalQuadraticConditions
+2026-11-04T20:03:08.3762594Z REUSE LSFormalTraitParameters
+2026-11-04T20:03:08.3773444Z REUSE LSGenericSheets
+2026-11-04T20:03:08.3777420Z REUSE LSNodalFibreComparison
+2026-11-04T20:03:08.3780779Z REUSE LSTraitQuadraticPresentation
+2026-11-04T20:03:08.3790589Z REUSE LSContactLineTests
+2026-11-04T20:03:08.3793646Z REUSE LSFormalTraitSourceComparison
+2026-11-04T20:03:08.3796190Z REUSE LSSmoothTraitNormalForm
+2026-11-04T20:03:08.3799271Z REUSE LSStandardCentralPlane
+2026-11-04T20:03:08.3801563Z REUSE RecompileExtensions
+2026-11-04T20:03:08.3804772Z REUSE LSNodalTraitQuadraticPresentation
+2026-11-04T20:03:08.3817912Z REUSE RecompileTail
+2026-11-04T20:03:08.3821977Z REUSE LSNodalTraitNormalForm
+2026-11-04T20:03:08.3824136Z REUSE LSPositiveQuotient
+2026-11-04T20:03:08.3832027Z REUSE LSSuitableDirections
+2026-11-04T20:03:08.3835047Z REUSE LSFormalTraitModel
+2026-11-04T20:03:08.3837212Z REUSE LSPositiveHom
+2026-11-04T20:03:08.3839877Z REUSE LSPositiveSplit
+2026-11-04T20:03:08.3846067Z REUSE LSSuitableLinear
+2026-11-04T20:03:08.3848265Z REUSE LSContactGeneration
+2026-11-04T20:03:08.3851146Z REUSE LSLeviFiber
+2026-11-04T20:03:08.3853792Z REUSE LSPositiveIndependence
+2026-11-04T20:03:08.3855914Z REUSE LSPositiveNodeImage
+2026-11-04T20:03:08.3858126Z REUSE LSContactHomBaseChange
+2026-11-04T20:03:08.3861024Z REUSE LSContactStandardInputs
+2026-11-04T20:03:08.3863281Z REUSE LSContactHorizontal
+2026-11-04T20:03:08.3869995Z REUSE LSContactCompletion
+2026-11-04T20:03:08.3900107Z REUSE LSHomVelocity
+2026-11-04T20:03:08.3905209Z REUSE LSAffineFiberDivisibility
+2026-11-04T20:03:08.3910603Z REUSE LSCotangentDeformations
+2026-11-04T20:03:08.3913546Z REUSE LSEpsilonStructureSequence
+2026-11-04T20:03:08.3950491Z REUSE LSGlobalVelocity
+2026-11-04T20:03:08.3954552Z REUSE LSOpenCotangentScalar
+2026-11-04T20:03:08.3959424Z REUSE LSOpenModuleCoherence
+2026-11-04T20:03:08.3962586Z REUSE LSStandardConicFrames
+2026-11-04T20:03:08.3965535Z REUSE LSCotangentScalarAlgebra
+2026-11-04T20:03:08.3972156Z REUSE LSDualStructureExact
+2026-11-04T20:03:08.3990113Z REUSE LSTangentComparison
+2026-11-04T20:03:08.3993795Z REUSE LSConicCotangentTools
+2026-11-04T20:03:08.3997069Z REUSE LSDualHomVanishing
+2026-11-04T20:03:08.4017124Z REUSE LSHamiltonianJets
+2026-11-04T20:03:08.4032276Z REUSE LSNodalTangent
+2026-11-04T20:03:08.4035435Z REUSE LSConicChartDerivations
+2026-11-04T20:03:08.4038090Z REUSE LSConicCotangentExt
+2026-11-04T20:03:08.4046300Z REUSE LSFirstJetEmbeddingGeometry
+2026-11-04T20:03:08.4059892Z REUSE LSLineEvaluation
+2026-11-04T20:03:08.4097531Z REUSE LSNodalFixedEnds
+2026-11-04T20:03:08.4101226Z REUSE LSClassicalReduction
+2026-11-04T20:03:08.4104679Z REUSE LSConicScalarTransport
+2026-11-04T20:03:08.4108928Z REUSE LSConicScalarCompatibility
+2026-11-04T20:03:08.4117318Z REUSE LSConicFundamentalClassConstruction
+2026-11-04T20:03:08.4123939Z REUSE LSStandardConicDifferential
+2026-11-04T20:03:08.4143470Z BUILD LSContinuationBaselineSignatures
+2026-11-04T20:06:11.8326066Z PASS LSContinuationBaselineSignatures (183.401s)
+2026-11-04T20:06:13.7507758Z {
+2026-11-04T20:06:13.7511921Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T20:06:13.7512371Z   "started_utc": "2026-11-04T20:03:08.233945+00:00",
+2026-11-04T20:06:13.7512880Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T20:06:13.7513375Z   "requested_targets": [
+2026-11-04T20:06:13.7513657Z     "LSContinuationBaselineSignatures"
+2026-11-04T20:06:13.7513939Z   ],
+2026-11-04T20:06:13.7514130Z   "milestone_met": false,
+2026-11-04T20:06:13.7514385Z   "full_selected_graph_passed": true,
+2026-11-04T20:06:13.7514658Z   "final_validation": {
+2026-11-04T20:06:13.7514935Z     "checked_utc": "2026-11-04T20:06:13.748466+00:00",
+2026-11-04T20:06:13.7515250Z     "checked_module_count": 191,
+2026-11-04T20:06:13.7515513Z     "invalidated_modules": {},
+2026-11-04T20:06:13.7515768Z     "changed_runtime_files": []
+2026-11-04T20:06:13.7516013Z   },
+2026-11-04T20:06:13.7516231Z   "finished_utc": "2026-11-04T20:06:13.748483+00:00",
+2026-11-04T20:06:13.7516534Z   "failures": [],
+2026-11-04T20:06:13.7516752Z   "verified_module_count": 191
+2026-11-04T20:06:13.7516987Z }
+2026-11-04T20:06:31.5467932Z CONTINUATION_AUDIT_PASSED baseline 98 0
+2026-11-04T20:06:31.5659042Z ##[group]Run python3 "$CONTINUATION/scripts/restore_replay_cache_union.py" --root "$CONTINUATION" --runtime-config runtime-config.json --inputs "$CONTINUATION/audit/continuation_3h/BASELINE_CACHE_INPUTS.json" --build-dir kernel-evidence
+2026-11-04T20:06:31.5660953Z [36;1mpython3 "$CONTINUATION/scripts/restore_replay_cache_union.py" --root "$CONTINUATION" --runtime-config runtime-config.json --inputs "$CONTINUATION/audit/continuation_3h/BASELINE_CACHE_INPUTS.json" --build-dir kernel-evidence[0m
+2026-11-04T20:06:31.5728029Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:06:31.5728317Z env:
+2026-11-04T20:06:31.5732147Z   GH_TOKEN: ***
+2026-11-04T20:06:31.5732438Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:06:31.5732968Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:06:31.5733681Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:06:31.5734203Z ##[endgroup]
+2026-11-04T20:06:35.4092164Z CACHE_UNION_INPUT {"source_run_id": 41888465259, "source_artifact_name": "lebrun-final-current-native-41888465259-2", "artifact_dir": "/home/runner/work/claude/claude/lebrun-cache-inputs/0", "validation_sha256": "62f0f332efdbcdfc063314999e0404e6c72f2e9c5cff808e6cb9aa38481cdacb", "independently_copied_modules": 50, "global_rejection": null, "include_validated_unselected_cache": true, "unselected_cache_copied_count": 0, "unselected_cache_rejection": null}
+2026-11-04T20:06:37.3183420Z CACHE_UNION_SUMMARY {"schema": "lebrun-ci-cache-union-v1", "started_utc": "2026-11-04T20:06:33.338932+00:00", "current_runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "source_modules": 308, "inputs_sha256": "8aa7a2cc8c6f90f55a0886488d42a4b698b61069ff363b869c54307792a535c5", "inputs": [{"source_run_id": 41888465259, "source_artifact_name": "lebrun-final-current-native-41888465259-2", "artifact_dir": "/home/runner/work/claude/claude/lebrun-cache-inputs/0", "validation_sha256": "62f0f332efdbcdfc063314999e0404e6c72f2e9c5cff808e6cb9aa38481cdacb", "independently_copied_modules": 50, "global_rejection": null, "include_validated_unselected_cache": true, "unselected_cache_copied_count": 0, "unselected_cache_rejection": null}], "native_kernel_invoked": false, "acceptance_ledger_modified": false, "finished_utc": "2026-11-04T20:06:37.317034+00:00", "copied_module_count": 50, "all_final_hash_and_runtime_checks_passed": true}
+2026-11-04T20:06:37.3332396Z ##[group]Run python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07_parents
+2026-11-04T20:06:37.3334979Z [36;1mpython3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07_parents[0m
+2026-11-04T20:06:37.3355547Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:06:37.3355802Z env:
+2026-11-04T20:06:37.3358488Z   GH_TOKEN: ***
+2026-11-04T20:06:37.3358976Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:06:37.3359545Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:06:37.3360123Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:06:37.3360559Z ##[endgroup]
+2026-11-04T20:06:44.7334552Z REUSE RecompileBasePart01
+2026-11-04T20:06:44.7365184Z REUSE RecompileBasePart02
+2026-11-04T20:06:44.7425188Z REUSE RecompileBasePart03
+2026-11-04T20:06:44.7479369Z REUSE RecompileBasePart04
+2026-11-04T20:06:44.7494763Z REUSE RecompileBasePart05A
+2026-11-04T20:06:44.7517488Z REUSE RecompileBasePart05B
+2026-11-04T20:06:44.7524612Z REUSE LSKunnethDegreeZero
+2026-11-04T20:06:44.7532701Z REUSE LSProjectionFormula
+2026-11-04T20:06:44.7548465Z REUSE RecompileBasePart05C
+2026-11-04T20:06:44.7554344Z REUSE LSNonvanishingPullback
+2026-11-04T20:06:44.7557038Z REUSE RecompileBasePart05
+2026-11-04T20:06:44.7565084Z BUILD RecompileBasePart06
+2026-11-04T20:07:40.4255894Z PASS RecompileBasePart06 (55.665s)
+2026-11-04T20:07:40.9966026Z {
+2026-11-04T20:07:40.9968434Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T20:07:40.9969206Z   "started_utc": "2026-11-04T20:06:44.727690+00:00",
+2026-11-04T20:07:40.9969950Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T20:07:40.9970637Z   "requested_targets": [
+2026-11-04T20:07:40.9970985Z     "LSNonvanishingPullback",
+2026-11-04T20:07:40.9971361Z     "RecompileBasePart06"
+2026-11-04T20:07:40.9971685Z   ],
+2026-11-04T20:07:40.9971953Z   "milestone_met": false,
+2026-11-04T20:07:40.9972311Z   "full_selected_graph_passed": true,
+2026-11-04T20:07:40.9972700Z   "final_validation": {
+2026-11-04T20:07:40.9973065Z     "checked_utc": "2026-11-04T20:07:40.995467+00:00",
+2026-11-04T20:07:40.9973531Z     "checked_module_count": 12,
+2026-11-04T20:07:40.9973895Z     "invalidated_modules": {},
+2026-11-04T20:07:40.9974260Z     "changed_runtime_files": []
+2026-11-04T20:07:40.9974598Z   },
+2026-11-04T20:07:40.9974911Z   "finished_utc": "2026-11-04T20:07:40.995483+00:00",
+2026-11-04T20:07:40.9975336Z   "failures": [],
+2026-11-04T20:07:40.9975643Z   "verified_module_count": 12
+2026-11-04T20:07:40.9975979Z }
+2026-11-04T20:07:55.7556622Z NATIVE_RECEIPT {"module": "RecompileBasePart06", "receipt_sha256": "eec7dfe328e608f4861a22aabb18fe99c6e945565c3b9f40415ab893d0a8ec9c", "key": {"source_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b", "imports": ["RecompileBasePart05"], "dependency_artifacts": {"RecompileBasePart05": {"sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4", "source_ancestry_fingerprint": "5bf2c12668bb9172fe234e8ac2e7d2f9f72dde57ce66424380361aa9497ddb12", "stdout_sha256": "b0aec6e46a3c6097e585adcc76a951a541077d227afda7e0f1e2847fa584c9e5", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 55.665, "state": "passed"}
+2026-11-04T20:07:55.7561579Z CONTINUATION_NATIVE_STAGE {"stage": "part07_parents", "source_modules": 308, "selected_modules": 12, "accepted_modules": 12, "status_counts": {"reused": 11, "passed": 1}, "full_selected_graph_passed": true, "whole_current_graph_passed": false, "fresh_native_passes_this_invocation": 1, "native_receipts_reused_this_invocation": 11}
+2026-11-04T20:07:55.7679837Z ##[group]Run python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07
+2026-11-04T20:07:55.7682349Z [36;1mpython3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07[0m
+2026-11-04T20:07:55.7702911Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:07:55.7703154Z env:
+2026-11-04T20:07:55.7706355Z   GH_TOKEN: ***
+2026-11-04T20:07:55.7706618Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:07:55.7707092Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:07:55.7707680Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:07:55.7708109Z ##[endgroup]
+2026-11-04T20:08:09.5136563Z REUSE RecompileBasePart01
+2026-11-04T20:08:09.5167357Z REUSE RecompileBasePart02
+2026-11-04T20:08:09.5226918Z REUSE RecompileBasePart03
+2026-11-04T20:08:09.5280349Z REUSE RecompileBasePart04
+2026-11-04T20:08:09.5295405Z REUSE RecompileBasePart05A
+2026-11-04T20:08:09.5317571Z REUSE RecompileBasePart05B
+2026-11-04T20:08:09.5324718Z REUSE LSKunnethDegreeZero
+2026-11-04T20:08:09.5332533Z REUSE LSProjectionFormula
+2026-11-04T20:08:09.5348105Z REUSE RecompileBasePart05C
+2026-11-04T20:08:09.5353700Z REUSE LSNonvanishingPullback
+2026-11-04T20:08:09.5356238Z REUSE RecompileBasePart05
+2026-11-04T20:08:09.5388121Z REUSE RecompileBasePart06
+2026-11-04T20:08:09.5396901Z BUILD RecompileBasePart07
+2026-11-04T20:18:00.6027894Z PASS RecompileBasePart07 (591.059s)
+2026-11-04T20:18:01.2103789Z {
+2026-11-04T20:18:01.2104295Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T20:18:01.2104877Z   "started_utc": "2026-11-04T20:08:09.507652+00:00",
+2026-11-04T20:18:01.2105507Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T20:18:01.2106151Z   "requested_targets": [
+2026-11-04T20:18:01.2106459Z     "RecompileBasePart07"
+2026-11-04T20:18:01.2106755Z   ],
+2026-11-04T20:18:01.2106991Z   "milestone_met": false,
+2026-11-04T20:18:01.2107296Z   "full_selected_graph_passed": true,
+2026-11-04T20:18:01.2107634Z   "final_validation": {
+2026-11-04T20:18:01.2107956Z     "checked_utc": "2026-11-04T20:18:01.209190+00:00",
+2026-11-04T20:18:01.2108339Z     "checked_module_count": 13,
+2026-11-04T20:18:01.2108655Z     "invalidated_modules": {},
+2026-11-04T20:18:01.2109373Z     "changed_runtime_files": []
+2026-11-04T20:18:01.2109662Z   },
+2026-11-04T20:18:01.2109925Z   "finished_utc": "2026-11-04T20:18:01.209207+00:00",
+2026-11-04T20:18:01.2110302Z   "failures": [],
+2026-11-04T20:18:01.2110583Z   "verified_module_count": 13
+2026-11-04T20:18:01.2110874Z }
+2026-11-04T20:18:16.0056459Z NATIVE_RECEIPT {"module": "RecompileBasePart07", "receipt_sha256": "61e20121441ff3f36f5d5e8c7c93d92a7997819f21681bddb794a09a40267d8d", "key": {"source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2", "imports": ["RecompileBasePart06", "LSNonvanishingPullback"], "dependency_artifacts": {"RecompileBasePart06": {"sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4", "kind": "project"}, "LSNonvanishingPullback": {"sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918", "source_ancestry_fingerprint": "6ce32e8444a409b1c710b67c588514699b46370f4e9fee8f28e4f93ff1583222", "stdout_sha256": "f6b37c91f2a86c5774db3a328dd5b9b72ba7dc796278c9f9a7b533560664f94b", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 591.059, "state": "passed"}
+2026-11-04T20:18:16.0065038Z CONTINUATION_NATIVE_STAGE {"stage": "part07", "source_modules": 308, "selected_modules": 13, "accepted_modules": 13, "status_counts": {"reused": 12, "passed": 1}, "full_selected_graph_passed": true, "whole_current_graph_passed": false, "fresh_native_passes_this_invocation": 1, "native_receipts_reused_this_invocation": 12}
+2026-11-04T20:18:16.0169117Z ##[group]Run python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage core
+2026-11-04T20:18:16.0171716Z [36;1mpython3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage core[0m
+2026-11-04T20:18:16.0195871Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:18:16.0196121Z env:
+2026-11-04T20:18:16.0199164Z   GH_TOKEN: ***
+2026-11-04T20:18:16.0199438Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:18:16.0199916Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:18:16.0200495Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:18:16.0200920Z ##[endgroup]
+2026-11-04T20:18:23.3959335Z BUILD LSChartSmoothnessCriteria
+2026-11-04T20:18:26.5688660Z PASS LSChartSmoothnessCriteria (3.172s)
+2026-11-04T20:18:26.5702770Z REUSE LSConePole
+2026-11-04T20:18:26.5716810Z REUSE LSP1SourceAlgebra
+2026-11-04T20:18:26.5727652Z REUSE LSP1TensorSquare
+2026-11-04T20:18:26.5749959Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T20:18:26.5801196Z REUSE RecompileBasePart01
+2026-11-04T20:18:26.5805334Z REUSE LSP1TensorTaylor
+2026-11-04T20:18:26.5836226Z REUSE RecompileBasePart02
+2026-11-04T20:18:26.5895382Z REUSE RecompileBasePart03
+2026-11-04T20:18:26.5948200Z REUSE RecompileBasePart04
+2026-11-04T20:18:26.5953190Z REUSE LSAffineDerivations
+2026-11-04T20:18:26.5956043Z REUSE LSPublishedPicard
+2026-11-04T20:18:26.5971215Z REUSE RecompileBasePart05A
+2026-11-04T20:18:26.5993324Z REUSE RecompileBasePart05B
+2026-11-04T20:18:26.6000077Z REUSE LSKunnethDegreeZero
+2026-11-04T20:18:26.6007688Z REUSE LSProjectionFormula
+2026-11-04T20:18:26.6014133Z REUSE LSAffineProductRing
+2026-11-04T20:18:26.6029590Z REUSE RecompileBasePart05C
+2026-11-04T20:18:26.6034748Z REUSE LSNonvanishingPullback
+2026-11-04T20:18:26.6039134Z REUSE LSSectionCover
+2026-11-04T20:18:26.6041911Z REUSE RecompileBasePart05
+2026-11-04T20:18:26.6074169Z REUSE RecompileBasePart06
+2026-11-04T20:18:26.6107155Z REUSE RecompileBasePart07
+2026-11-04T20:18:26.6116550Z BUILD RecompileBase
+2026-11-04T20:18:29.6386527Z PASS RecompileBase (3.026s)
+2026-11-04T20:18:29.6395857Z BUILD RecompileSections
+2026-11-04T20:22:20.3406639Z PASS RecompileSections (230.695s)
+2026-11-04T20:22:20.3415343Z BUILD LSAffineFrame
+2026-11-04T20:22:44.6352356Z PASS LSAffineFrame (24.292s)
+2026-11-04T20:22:44.6360895Z BUILD LSP1TangentSections
+2026-11-04T20:22:50.4229019Z PASS LSP1TangentSections (5.785s)
+2026-11-04T20:22:50.4237479Z BUILD LSStandardTautological
+2026-11-04T20:22:55.7088468Z PASS LSStandardTautological (5.283s)
+2026-11-04T20:22:55.7098178Z BUILD RecompileExtensionCore
+2026-11-04T20:23:41.1156064Z PASS RecompileExtensionCore (45.402s)
+2026-11-04T20:23:41.1165847Z BUILD LSClosedIdealCoefficients
+2026-11-04T20:23:46.0966846Z PASS LSClosedIdealCoefficients (4.979s)
+2026-11-04T20:23:46.0977812Z BUILD LSPublishedProjectiveSpace
+2026-11-04T20:24:09.8911406Z PASS LSPublishedProjectiveSpace (23.792s)
+2026-11-04T20:24:09.8922949Z BUILD LSStandardTautologicalP1
+2026-11-04T20:24:15.8249971Z PASS LSStandardTautologicalP1 (5.931s)
+2026-11-04T20:24:15.8260639Z BUILD LSVectorBundlePullback
+2026-11-04T20:24:27.1261355Z PASS LSVectorBundlePullback (11.298s)
+2026-11-04T20:24:27.1272630Z BUILD LSOpenProductCoordinates
+2026-11-04T20:24:36.6712826Z PASS LSOpenProductCoordinates (9.542s)
+2026-11-04T20:24:36.6726165Z BUILD LSExternalFrameCoefficients
+2026-11-04T20:24:45.4143412Z PASS LSExternalFrameCoefficients (8.74s)
+2026-11-04T20:24:45.4165579Z BUILD RecompileExtensionsPart01
+2026-11-04T20:27:47.8316874Z PASS RecompileExtensionsPart01 (182.405s)
+2026-11-04T20:27:47.8335853Z BUILD RecompileExtensionsPart02
+2026-11-04T20:30:39.7702159Z PASS RecompileExtensionsPart02 (171.927s)
+2026-11-04T20:30:40.7019109Z {
+2026-11-04T20:30:40.7021260Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T20:30:40.7021975Z   "started_utc": "2026-11-04T20:18:23.393802+00:00",
+2026-11-04T20:30:40.7022896Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T20:30:40.7023547Z   "requested_targets": [
+2026-11-04T20:30:40.7023885Z     "RecompileExtensionsPart02"
+2026-11-04T20:30:40.7024216Z   ],
+2026-11-04T20:30:40.7024826Z   "milestone_met": false,
+2026-11-04T20:30:40.7025160Z   "full_selected_graph_passed": true,
+2026-11-04T20:30:40.7025524Z   "final_validation": {
+2026-11-04T20:30:40.7025879Z     "checked_utc": "2026-11-04T20:30:40.699992+00:00",
+2026-11-04T20:30:40.7026290Z     "checked_module_count": 37,
+2026-11-04T20:30:40.7026643Z     "invalidated_modules": {},
+2026-11-04T20:30:40.7026979Z     "changed_runtime_files": []
+2026-11-04T20:30:40.7027287Z   },
+2026-11-04T20:30:40.7027574Z   "finished_utc": "2026-11-04T20:30:40.700009+00:00",
+2026-11-04T20:30:40.7027967Z   "failures": [],
+2026-11-04T20:30:40.7028234Z   "verified_module_count": 37
+2026-11-04T20:30:40.7028485Z }
+2026-11-04T20:30:55.5813854Z NATIVE_RECEIPT {"module": "LSChartSmoothnessCriteria", "receipt_sha256": "27341252976819f8d92f9f6ae276395671c94a9d19b789330b026c8009588c62", "key": {"source_sha256": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b", "imports": ["Mathlib"], "dependency_artifacts": {"Mathlib": {"sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf", "kind": "external"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "9ecbdd0f51599c3d4ac799e09f3c4112dd5d9d00a4f49fc04592ec333b36e410", "source_ancestry_fingerprint": "614b5a7b598800d80a26af602daef8924cd6e1d93e9244de2c80874e6a8a6017", "stdout_sha256": "07689d6a62bb7832bdcb89714f31698cf63781aa267f06e233baed8fda875714", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.172, "state": "passed"}
+2026-11-04T20:30:55.5825499Z NATIVE_RECEIPT {"module": "RecompileBase", "receipt_sha256": "5e067f4a34dbaf9850cf3f6951d11d91a2b378f2046799ceb31c671f2d22b278", "key": {"source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096", "imports": ["RecompileBasePart07"], "dependency_artifacts": {"RecompileBasePart07": {"sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f", "source_ancestry_fingerprint": "7ee9687b993ae7a8accbd0d5341b2798bb604dfb5978fa996b80e0ab579add1d", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.026, "state": "passed"}
+2026-11-04T20:30:55.5839323Z NATIVE_RECEIPT {"module": "RecompileSections", "receipt_sha256": "44bd91f3564d052c056573f345d7ffb0d38ad04f84b71bc6ae58fd95e9eafa9f", "key": {"source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8", "imports": ["LSPublishedPicard", "LSAffineDerivations", "RecompileBase"], "dependency_artifacts": {"LSPublishedPicard": {"sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20", "kind": "project"}, "LSAffineDerivations": {"sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e", "kind": "project"}, "RecompileBase": {"sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "source_ancestry_fingerprint": "78229b7a646ddf159127ab6834625029e38f81fb2179661ebdaac03978c23cb1", "stdout_sha256": "05614ec0896ffa5c50c192bd105cfc4f9d3c64ec9f20f6b0ee18bec584be5b5c", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 230.695, "state": "passed"}
+2026-11-04T20:30:55.5854556Z NATIVE_RECEIPT {"module": "LSAffineFrame", "receipt_sha256": "68bd15bf10883ccbb9698df78da8d79e1e594ce4fa08f6af77845199acdffec8", "key": {"source_sha256": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4", "imports": ["RecompileSections", "LSKunnethDegreeZero"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}, "LSKunnethDegreeZero": {"sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265", "source_ancestry_fingerprint": "f01e4761f2da626f09133490ebd6aea04333eacbbb026fa10158da247018e762", "stdout_sha256": "9ba6ae947e34b42f482c3bdc753c096164dafdfe9da4df9d68c8c794d1ba3ae7", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 24.292, "state": "passed"}
+2026-11-04T20:30:55.5868539Z NATIVE_RECEIPT {"module": "LSP1TangentSections", "receipt_sha256": "036882a8092c7e6ba6c2f3d5ba89d990d1c8068cf4b5c342fded5f95a042fa11", "key": {"source_sha256": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54", "imports": ["RecompileSections"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e", "source_ancestry_fingerprint": "1e880075365d33dbb0e06d17e658f6c072259477f8ac472cba4d1f2de232071a", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 5.785, "state": "passed"}
+2026-11-04T20:30:55.5881147Z NATIVE_RECEIPT {"module": "LSStandardTautological", "receipt_sha256": "6caf913c0882723c366a42abe0e825fe78a2e5b43fed69671f3d300ee945ce6b", "key": {"source_sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb", "imports": ["RecompileSections"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "source_ancestry_fingerprint": "d729d030517dca774b8a07f8aa40c377e1ca18f798d50e16d8f4d13451e7446f", "stdout_sha256": "2c4097a6150e0335fdedc39a1edbbf2022490fe0f529e842cf1dd2cf661e7fb8", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 5.283, "state": "passed"}
+2026-11-04T20:30:55.5893129Z NATIVE_RECEIPT {"module": "RecompileExtensionCore", "receipt_sha256": "1e3192220c6bca5810e02c6236f34b20454e38a6f70cf1e15fc77d4cdde0ee29", "key": {"source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c", "imports": ["RecompileSections"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0", "source_ancestry_fingerprint": "ab222f435478661c587d852214ee906bd9b41e6d557c87c9309b96fe981319be", "stdout_sha256": "53d7842123a1ce110168c92ad71377b6ec09f1949efae7801f22d06bb5369f79", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 45.402, "state": "passed"}
+2026-11-04T20:30:55.5905253Z NATIVE_RECEIPT {"module": "LSClosedIdealCoefficients", "receipt_sha256": "bb0fe06eadb515c996e3e76849a6c918373ebefbb27e0d5846c06779d15b6234", "key": {"source_sha256": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d", "imports": ["LSAffineFrame"], "dependency_artifacts": {"LSAffineFrame": {"sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31", "source_ancestry_fingerprint": "f4cdb4d138c21516ddf2d112f8266ee6233372baf99639e3ab303027cd8e4ade", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.979, "state": "passed"}
+2026-11-04T20:30:55.5918099Z NATIVE_RECEIPT {"module": "LSPublishedProjectiveSpace", "receipt_sha256": "2136bf744bf6dd14c70c4dac2adfb1146f07bcece6bf1a5d70916bb336f8348b", "key": {"source_sha256": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a", "imports": ["RecompileBasePart06", "LSStandardTautological"], "dependency_artifacts": {"RecompileBasePart06": {"sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4", "kind": "project"}, "LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66", "source_ancestry_fingerprint": "ecd8d67d3e698afb52a975e04840fd1b3e96d5468863eed87e383540b16027ac", "stdout_sha256": "a5b10354f0a1d556c10c9945dfa949bd6fc8a4ae117fb2da0ce2cd5cbadae61c", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 23.792, "state": "passed"}
+2026-11-04T20:30:55.5927148Z NATIVE_RECEIPT {"module": "LSStandardTautologicalP1", "receipt_sha256": "caa8cee0d3a214fd943655ef1b19894d1d2c31d8396f866abfa24ccf4d687280", "key": {"source_sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099", "source_ancestry_fingerprint": "bba0de639bb538c550c9e54e90ddb7c926084c31149582db937b39ea6cf95d0c", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 5.931, "state": "passed"}
+2026-11-04T20:30:55.5934461Z NATIVE_RECEIPT {"module": "LSVectorBundlePullback", "receipt_sha256": "0ea26f655c1d6995e049bea50c44280d5416649f292aa4d183dbaa6dabdfaed7", "key": {"source_sha256": "63e1a145e5871bdb4d3627ba835bd0f61cea3a51919ae60dfa5666aef5386d5b", "imports": ["RecompileExtensionCore"], "dependency_artifacts": {"RecompileExtensionCore": {"sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "a25b6ee480980f6f499795229ad2b7fb244cf8186d58caf874716637eb1f51e9", "source_ancestry_fingerprint": "6e60bf2bcd1a4f79b022dbe6886fac59a1637cb8c49187623aeed705ac332475", "stdout_sha256": "745ce88f97178abc6e03b2fb7c87743377f1afcf5f2d6702483fb3b3f4e66512", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 11.298, "state": "passed"}
+2026-11-04T20:30:55.5942527Z NATIVE_RECEIPT {"module": "LSOpenProductCoordinates", "receipt_sha256": "1da082f777a6190aec85b2399b34368f43399d683d6cd2497ac1b23ebf8b778e", "key": {"source_sha256": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8", "imports": ["LSAffineProductRing", "LSClosedIdealCoefficients", "LSSectionCover"], "dependency_artifacts": {"LSAffineProductRing": {"sha256": "070707ba1d98ffd0926afbe0339b4bcd73047eb5f9f070cf44801af6fc62f91d", "kind": "project"}, "LSClosedIdealCoefficients": {"sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31", "kind": "project"}, "LSSectionCover": {"sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8", "source_ancestry_fingerprint": "856aa3c40d4b19f714ee49365bf5761c683b8dfe601b289a818667e21ef4eb25", "stdout_sha256": "33c8c6229b63af2f54239ba62064281dd6c75aabc9cb19026117898b610052fa", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 9.542, "state": "passed"}
+2026-11-04T20:30:55.5950683Z NATIVE_RECEIPT {"module": "LSExternalFrameCoefficients", "receipt_sha256": "c7c3b6894b45c361204381c20cec686ea2e3ce7ccdb2954e66e92ba193c6b15f", "key": {"source_sha256": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94", "imports": ["LSOpenProductCoordinates"], "dependency_artifacts": {"LSOpenProductCoordinates": {"sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9", "source_ancestry_fingerprint": "9f5e912228a7dfb77712b3af679e50104124b263518e3ad145c8bda7acc0b7fc", "stdout_sha256": "6586a581c09c4a697c14254273b2e919602f863bdae55fdbe43d8354ee0a72df", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 8.74, "state": "passed"}
+2026-11-04T20:30:55.5965352Z NATIVE_RECEIPT {"module": "RecompileExtensionsPart01", "receipt_sha256": "a8ed6da7e415ca89dd8d7697146817e6d9c3bfd37a7b3449d32d2a2988781432", "key": {"source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b", "imports": ["LSP1TangentSections", "LSP1SourceAlgebra", "LSP1TensorSquare", "LSP1TensorTaylor", "LSAffineFrame", "LSAffineDerivations", "RecompileExtensionCore", "LSConePole", "LSSecondDiagonalAlgebra", "LSSectionCover", "LSExternalFrameCoefficients", "LSPublishedProjectiveSpace", "LSStandardTautologicalP1", "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule", "Mathlib.Topology.Sheaves.SheafCondition.Sites"], "dependency_artifacts": {"LSP1TangentSections": {"sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e", "kind": "project"}, "LSP1SourceAlgebra": {"sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708", "kind": "project"}, "LSP1TensorSquare": {"sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf", "kind": "project"}, "LSP1TensorTaylor": {"sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76", "kind": "project"}, "LSAffineFrame": {"sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265", "kind": "project"}, "LSAffineDerivations": {"sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e", "kind": "project"}, "RecompileExtensionCore": {"sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0", "kind": "project"}, "LSConePole": {"sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6", "kind": "project"}, "LSSecondDiagonalAlgebra": {"sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd", "kind": "project"}, "LSSectionCover": {"sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22", "kind": "project"}, "LSExternalFrameCoefficients": {"sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9", "kind": "project"}, "LSPublishedProjectiveSpace": {"sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66", "kind": "project"}, "LSStandardTautologicalP1": {"sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099", "kind": "project"}, "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule": {"sha256": "3e80ea517b07ba9b2703a1d1297d52851eac73e28bc387f076fd97eee2b73caf", "kind": "external"}, "Mathlib.Topology.Sheaves.SheafCondition.Sites": {"sha256": "5e91ca06c95bc5e5b738d878d3111d7d83a79dacd956bbc88fbb59079e88c86f", "kind": "external"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54", "stdout_sha256": "9f66e22094f5bb5aefd91167e5da0fb51184430f61e65bdb6c82e557b520dbc9", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 182.405, "state": "passed"}
+2026-11-04T20:30:55.5981917Z NATIVE_RECEIPT {"module": "RecompileExtensionsPart02", "receipt_sha256": "1d39ff1de5e672362feb0f4bdc66288bd9e6eea0e3792a59059e82cf2c9a7092", "key": {"source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52", "imports": ["RecompileExtensionsPart01", "LSVectorBundlePullback", "Mathlib.Algebra.Category.ModuleCat.Products", "LSChartSmoothnessCriteria"], "dependency_artifacts": {"RecompileExtensionsPart01": {"sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "kind": "project"}, "LSVectorBundlePullback": {"sha256": "a25b6ee480980f6f499795229ad2b7fb244cf8186d58caf874716637eb1f51e9", "kind": "project"}, "Mathlib.Algebra.Category.ModuleCat.Products": {"sha256": "24fd2fdedd6e9b0e4d45b16987bdb2001956293563e5b13c0121ae37da129d87", "kind": "external"}, "LSChartSmoothnessCriteria": {"sha256": "9ecbdd0f51599c3d4ac799e09f3c4112dd5d9d00a4f49fc04592ec333b36e410", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64", "stdout_sha256": "7c268437fd3b57ab658d5776c3529b0ab6e2fb61c6e3efa4940061cd81d1e2dd", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 171.927, "state": "passed"}
+2026-11-04T20:30:55.5988349Z CONTINUATION_NATIVE_STAGE {"stage": "core", "source_modules": 308, "selected_modules": 37, "accepted_modules": 37, "status_counts": {"passed": 15, "reused": 22}, "full_selected_graph_passed": true, "whole_current_graph_passed": false, "fresh_native_passes_this_invocation": 15, "native_receipts_reused_this_invocation": 22}
+2026-11-04T20:30:55.6101652Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T20:30:55.6101942Z with:
+2026-11-04T20:30:55.6102161Z   name: lebrun-3h-current-core-41902480321-1
+2026-11-04T20:30:55.6102638Z   path: kernel-evidence/
+continuation-evidence/
+runtime-config.json
+diagnostic-static/
+
+2026-11-04T20:30:55.6103103Z   if-no-files-found: error
+2026-11-04T20:30:55.6103343Z   compression-level: 6
+2026-11-04T20:30:55.6103723Z   overwrite: false
+2026-11-04T20:30:55.6103940Z   include-hidden-files: false
+2026-11-04T20:30:55.6104169Z env:
+2026-11-04T20:30:55.6106855Z   GH_TOKEN: ***
+2026-11-04T20:30:55.6107099Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:30:55.6107541Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:30:55.6108114Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:30:55.6108536Z ##[endgroup]
+2026-11-04T20:30:55.7955949Z (node:3193) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T20:30:55.7957369Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T20:30:56.0498659Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T20:30:56.0501546Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T20:30:56.0502559Z With the provided path, there will be 1355 files uploaded
+2026-11-04T20:30:56.0507310Z Artifact name is valid!
+2026-11-04T20:30:56.0508001Z Root directory input is valid!
+2026-11-04T20:30:56.3241117Z Beginning upload of artifact content to blob storage
+2026-11-04T20:30:57.3017111Z (node:3193) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T20:30:57.8642089Z Uploaded bytes 8388608
+2026-11-04T20:30:58.4386499Z Uploaded bytes 16777216
+2026-11-04T20:30:59.4440172Z Uploaded bytes 25165824
+2026-11-04T20:31:00.5049894Z Uploaded bytes 33554432
+2026-11-04T20:31:01.2196470Z Uploaded bytes 41943040
+2026-11-04T20:31:02.0576405Z Uploaded bytes 50331648
+2026-11-04T20:31:02.8173438Z Uploaded bytes 58720256
+2026-11-04T20:31:03.6447968Z Uploaded bytes 67108864
+2026-11-04T20:31:04.4400881Z Uploaded bytes 75497472
+2026-11-04T20:31:05.3956328Z Uploaded bytes 83812819
+2026-11-04T20:31:05.4326375Z Finished uploading artifact content to blob storage!
+2026-11-04T20:31:05.4330373Z SHA256 digest of uploaded artifact zip is 46f74e704897dfdada7c1329dcfe435966797e9d171e8a86492198f4a5c4567b
+2026-11-04T20:31:05.4332697Z Finalizing artifact upload
+2026-11-04T20:31:05.9940853Z Artifact lebrun-3h-current-core-41902480321-1.zip successfully finalized. Artifact ID 13360298013
+2026-11-04T20:31:05.9942149Z Artifact lebrun-3h-current-core-41902480321-1 has been successfully uploaded! Final size is 83812819 bytes. Artifact ID is 13360298013
+2026-11-04T20:31:05.9950355Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41902480321/artifacts/13360298013
+2026-11-04T20:31:06.0196599Z ##[group]Run python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage accepted_boundaries
+2026-11-04T20:31:06.0199914Z [36;1mpython3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage accepted_boundaries[0m
+2026-11-04T20:31:06.0220848Z shell: /usr/bin/bash -e {0}
+2026-11-04T20:31:06.0221096Z env:
+2026-11-04T20:31:06.0223807Z   GH_TOKEN: ***
+2026-11-04T20:31:06.0224056Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:31:06.0224527Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:31:06.0225110Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:31:06.0225543Z ##[endgroup]
+2026-11-04T20:31:13.5283177Z REUSE LSChartSmoothnessCriteria
+2026-11-04T20:31:13.5292835Z REUSE LSClosedImmersionLocus
+2026-11-04T20:31:13.5307633Z REUSE LSComplexQuadraticCoordinates
+2026-11-04T20:31:13.5321646Z REUSE LSConePole
+2026-11-04T20:31:13.5333839Z REUSE LSConicLogAlgebra
+2026-11-04T20:31:13.5343348Z REUSE LSFibreIsomorphism
+2026-11-04T20:31:13.5353930Z REUSE LSFormalTraitRing
+2026-11-04T20:31:13.5393338Z REUSE LSFunctionFieldPlaces
+2026-11-04T20:31:13.5400810Z REUSE LSNilpotentTopology
+2026-11-04T20:31:13.5414767Z REUSE LSP1SourceAlgebra
+2026-11-04T20:31:13.5425356Z REUSE LSP1TensorSquare
+2026-11-04T20:31:13.5435929Z REUSE LSProperLocalTopology
+2026-11-04T20:31:13.5445053Z REUSE LSReducedPushout
+2026-11-04T20:31:13.5455754Z REUSE LSResidueFieldPresentation
+2026-11-04T20:31:13.5467669Z REUSE LSResidueTensorLift
+2026-11-04T20:31:13.5490123Z REUSE LSSecondDiagonalAlgebra
+2026-11-04T20:31:13.5501093Z REUSE LSYonedaExtensionSplitting
+2026-11-04T20:31:13.5553089Z REUSE RecompileBasePart01
+2026-11-04T20:31:13.5575591Z REUSE LSCurveLaurentStandardInputs
+2026-11-04T20:31:13.5580186Z REUSE LSP1TensorTaylor
+2026-11-04T20:31:13.5583476Z REUSE LSResidueFibreGeometry
+2026-11-04T20:31:13.5586810Z REUSE LSYonedaClassesRepresented
+2026-11-04T20:31:13.5618052Z REUSE RecompileBasePart02
+2026-11-04T20:31:13.5677534Z REUSE RecompileBasePart03
+2026-11-04T20:31:13.5730790Z REUSE RecompileBasePart04
+2026-11-04T20:31:13.5735697Z REUSE LSAffineDerivations
+2026-11-04T20:31:13.5738531Z REUSE LSPublishedPicard
+2026-11-04T20:31:13.5742210Z REUSE LSSheafSectionExact
+2026-11-04T20:31:13.5745329Z REUSE LSTensorLocallyFreeExact
+2026-11-04T20:31:13.5760679Z REUSE RecompileBasePart05A
+2026-11-04T20:31:13.5765464Z REUSE LSAffineCotangentHom
+2026-11-04T20:31:13.5787814Z REUSE RecompileBasePart05B
+2026-11-04T20:31:13.5794461Z REUSE LSCanonicalSectionBaseChange
+2026-11-04T20:31:13.5800799Z REUSE LSCohomologyHypotheses
+2026-11-04T20:31:13.5807285Z REUSE LSKunnethDegreeZero
+2026-11-04T20:31:13.5815541Z REUSE LSProjectionFormula
+2026-11-04T20:31:13.5821985Z REUSE LSAffineProductRing
+2026-11-04T20:31:13.5837578Z REUSE RecompileBasePart05C
+2026-11-04T20:31:13.5843162Z REUSE LSNonvanishingPullback
+2026-11-04T20:31:13.5847359Z REUSE LSSectionCover
+2026-11-04T20:31:13.5850584Z REUSE RecompileBasePart05
+2026-11-04T20:31:13.5883263Z REUSE RecompileBasePart06
+2026-11-04T20:31:13.5916669Z REUSE RecompileBasePart07
+2026-11-04T20:31:13.5927078Z BUILD LSModuleHomGluing
+2026-11-04T20:31:27.0480499Z PASS LSModuleHomGluing (13.454s)
+2026-11-04T20:31:27.0482725Z REUSE RecompileBase
+2026-11-04T20:31:27.0532828Z REUSE RecompileSections
+2026-11-04T20:31:27.0542411Z REUSE LSAffineFrame
+2026-11-04T20:31:27.0554825Z BUILD LSLineStalkFlat
+2026-11-04T20:31:32.9932408Z PASS LSLineStalkFlat (5.936s)
+2026-11-04T20:31:32.9939078Z REUSE LSP1TangentSections
+2026-11-04T20:31:32.9946622Z BUILD LSPolarizedOverIso
+2026-11-04T20:31:36.2263695Z PASS LSPolarizedOverIso (3.23s)
+2026-11-04T20:31:36.2273266Z BUILD LSRelativeCartier
+2026-11-04T20:31:39.6569077Z PASS LSRelativeCartier (3.428s)
+2026-11-04T20:31:39.6575138Z REUSE LSStandardTautological
+2026-11-04T20:31:39.6603440Z REUSE RecompileExtensionCore
+2026-11-04T20:31:39.6606890Z REUSE LSClosedIdealCoefficients
+2026-11-04T20:31:39.6618302Z BUILD LSPublishedCohomologyBaseChange
+2026-11-04T20:31:43.5917472Z PASS LSPublishedCohomologyBaseChange (3.928s)
+2026-11-04T20:31:43.5921180Z REUSE LSPublishedProjectiveSpace
+2026-11-04T20:31:43.5933070Z BUILD LSQuadraticVeronese
+2026-11-04T20:31:46.8189145Z PASS LSQuadraticVeronese (3.224s)
+2026-11-04T20:31:46.8199648Z BUILD LSStandardProjectiveBaseChange
+2026-11-04T20:32:00.2754488Z PASS LSStandardProjectiveBaseChange (13.454s)
+2026-11-04T20:32:00.2766080Z BUILD LSStandardProjectiveNonempty
+2026-11-04T20:32:04.7053652Z PASS LSStandardProjectiveNonempty (4.427s)
+2026-11-04T20:32:04.7065369Z BUILD LSStandardProjectiveProper
+2026-11-04T20:32:08.2321400Z PASS LSStandardProjectiveProper (3.524s)
+2026-11-04T20:32:08.2333960Z BUILD LSStandardProjectiveSmooth
+2026-11-04T20:32:11.7593092Z PASS LSStandardProjectiveSmooth (3.524s)
+2026-11-04T20:32:11.7596499Z REUSE LSStandardTautologicalP1
+2026-11-04T20:32:11.7602023Z REUSE LSVectorBundlePullback
+2026-11-04T20:32:11.7614980Z BUILD LSLineCohomologyBaseChange
+2026-11-04T20:32:15.0365754Z PASS LSLineCohomologyBaseChange (3.273s)
+2026-11-04T20:32:15.0374496Z REUSE LSOpenProductCoordinates
+2026-11-04T20:32:15.0389242Z BUILD LSP1FamilyDegree
+2026-11-04T20:32:19.2717728Z PASS LSP1FamilyDegree (4.231s)
+2026-11-04T20:32:19.2730425Z BUILD LSStandardProjectiveComposition
+2026-11-04T20:32:22.5985807Z PASS LSStandardProjectiveComposition (3.324s)
+2026-11-04T20:32:22.5998937Z BUILD LSStandardProjectiveReduced
+2026-11-04T20:32:25.7741918Z PASS LSStandardProjectiveReduced (3.172s)
+2026-11-04T20:32:25.7748579Z REUSE LSExternalFrameCoefficients
+2026-11-04T20:32:25.7763188Z BUILD LSProjectiveFibreLineRigidity
+2026-11-04T20:32:29.7040329Z PASS LSProjectiveFibreLineRigidity (3.925s)
+2026-11-04T20:32:29.7054709Z BUILD LSStandardProjectivePicard
+2026-11-04T20:32:33.1813271Z PASS LSStandardProjectivePicard (3.474s)
+2026-11-04T20:32:33.1902353Z REUSE RecompileExtensionsPart01
+2026-11-04T20:32:33.1918744Z BUILD LSFiniteFreeHomBaseChange
+2026-11-04T20:32:39.3826997Z PASS LSFiniteFreeHomBaseChange (6.188s)
+2026-11-04T20:32:39.3842571Z BUILD LSGeneratingUnitOpens
+2026-11-04T20:32:47.7300554Z PASS LSGeneratingUnitOpens (8.343s)
+2026-11-04T20:32:47.7315647Z BUILD LSP1PointTransport
+2026-11-04T20:32:51.5159335Z PASS LSP1PointTransport (3.782s)
+2026-11-04T20:32:51.5174960Z BUILD LSProjectivityDefinitions
+2026-11-04T20:32:54.5993866Z PASS LSProjectivityDefinitions (3.08s)
+2026-11-04T20:32:54.6072841Z REUSE RecompileExtensionsPart02
+2026-11-04T20:32:54.6090069Z BUILD LSDualBaseChangeAlgebra
+2026-11-04T20:32:59.0434977Z PASS LSDualBaseChangeAlgebra (4.432s)
+2026-11-04T20:32:59.0451986Z BUILD LSFiniteFreeBaseChange
+2026-11-04T20:33:02.7289432Z PASS LSFiniteFreeBaseChange (3.681s)
+2026-11-04T20:33:02.7307054Z BUILD LSFirstJetEmbedding
+2026-11-04T20:33:09.9239442Z PASS LSFirstJetEmbedding (7.191s)
+2026-11-04T20:33:09.9257226Z BUILD LSHomFiberInjectivity
+2026-11-04T20:33:13.6601715Z PASS LSHomFiberInjectivity (3.732s)
+2026-11-04T20:33:13.6620825Z BUILD LSRelativeGeneration
+2026-11-04T20:33:23.8056036Z PASS LSRelativeGeneration (10.141s)
+2026-11-04T20:33:23.8075498Z BUILD LSSectionRepresentability
+2026-11-04T20:33:49.3508048Z PASS LSSectionRepresentability (25.541s)
+2026-11-04T20:33:49.3528458Z BUILD LSTensorLineTransport
+2026-11-04T20:33:52.5354581Z PASS LSTensorLineTransport (3.18s)
+2026-11-04T20:33:52.5375599Z BUILD LSAffineSectionRepresentability
+2026-11-04T20:35:02.4487064Z PASS LSAffineSectionRepresentability (69.909s)
+2026-11-04T20:35:02.4507403Z BUILD LSDualThickeningNormalForm
+2026-11-04T20:35:08.0316951Z PASS LSDualThickeningNormalForm (5.578s)
+2026-11-04T20:35:08.0337596Z BUILD LSLiftedProjectiveTuple
+2026-11-04T20:35:11.2101243Z PASS LSLiftedProjectiveTuple (3.174s)
+2026-11-04T20:35:11.2122518Z BUILD RecompileExtensionsPart03
+2026-11-04T20:36:54.6614949Z PASS RecompileExtensionsPart03 (103.443s)
+2026-11-04T20:36:54.6637055Z BUILD LSConicSplitting
+2026-11-04T20:37:05.9659505Z PASS LSConicSplitting (11.299s)
+2026-11-04T20:37:05.9680112Z BUILD LSFirstCohomologyIso
+2026-11-04T20:37:09.4987590Z PASS LSFirstCohomologyIso (3.528s)
+2026-11-04T20:37:09.5009412Z BUILD LSProperSections
+2026-11-04T20:37:13.8887492Z PASS LSProperSections (4.38s)
+2026-11-04T20:37:13.8910290Z BUILD LSSmoothFibreComparison
+2026-11-04T20:37:17.1201865Z PASS LSSmoothFibreComparison (3.226s)
+2026-11-04T20:37:17.1225026Z BUILD LSPolarizedProjectiveEmbedding
+2026-11-04T20:37:21.4026064Z PASS LSPolarizedProjectiveEmbedding (4.277s)
+2026-11-04T20:37:21.4053635Z BUILD RecompileExtensionsPart04Geometry
+2026-11-04T20:42:21.8657435Z FAIL RecompileExtensionsPart04Geometry (300.457s)
+2026-11-04T20:42:21.8686643Z BUILD LSPolarizedEmbeddingLift
+2026-11-04T20:42:25.6454504Z PASS LSPolarizedEmbeddingLift (3.774s)
+2026-11-04T20:42:25.6480515Z BUILD LSPlaneEmbeddingCartier
+2026-11-04T20:42:28.8233357Z PASS LSPlaneEmbeddingCartier (3.172s)
+2026-11-04T20:42:30.0684357Z {
+2026-11-04T20:42:30.0685159Z   "schema": "lebrun-native-replay-v1",
+2026-11-04T20:42:30.0685694Z   "started_utc": "2026-11-04T20:31:13.526372+00:00",
+2026-11-04T20:42:30.0686463Z   "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+2026-11-04T20:42:30.0687207Z   "requested_targets": [
+2026-11-04T20:42:30.0687582Z     "LSAffineDerivations",
+2026-11-04T20:42:30.0687973Z     "LSClassicalReduction",
+2026-11-04T20:42:30.0688333Z     "LSContactLineTests",
+2026-11-04T20:42:30.0688711Z     "LSCurveLaurentStandardInputs",
+2026-11-04T20:42:30.0689407Z     "LSFormalTraitModel",
+2026-11-04T20:42:30.0689751Z     "LSHomVelocity",
+2026-11-04T20:42:30.0690064Z     "LSNodalFixedEnds",
+2026-11-04T20:42:30.0690389Z     "LSNodalTangent",
+2026-11-04T20:42:30.0690749Z     "LSStandardConicDifferential",
+2026-11-04T20:42:30.0691154Z     "RecompileBasePart04",
+2026-11-04T20:42:30.0691513Z     "RecompileBasePart05A",
+2026-11-04T20:42:30.0691884Z     "RecompileBasePart05C",
+2026-11-04T20:42:30.0692247Z     "RecompileBasePart06",
+2026-11-04T20:42:30.0692611Z     "RecompileBasePart07",
+2026-11-04T20:42:30.0692979Z     "RecompileExtensionCore",
+2026-11-04T20:42:30.0693370Z     "RecompileExtensionsPart01",
+2026-11-04T20:42:30.0693785Z     "RecompileExtensionsPart02",
+2026-11-04T20:42:30.0694180Z     "RecompileExtensionsPart03",
+2026-11-04T20:42:30.0694609Z     "RecompileExtensionsPart04Geometry",
+2026-11-04T20:42:30.0695046Z     "RecompileSections"
+2026-11-04T20:42:30.0695372Z   ],
+2026-11-04T20:42:30.0695654Z   "milestone_met": false,
+2026-11-04T20:42:30.0696151Z   "full_selected_graph_passed": false,
+2026-11-04T20:42:30.0696669Z   "final_validation": {
+2026-11-04T20:42:30.0697130Z     "checked_utc": "2026-11-04T20:42:30.064681+00:00",
+2026-11-04T20:42:30.0697687Z     "checked_module_count": 95,
+2026-11-04T20:42:30.0698150Z     "invalidated_modules": {},
+2026-11-04T20:42:30.0698619Z     "changed_runtime_files": []
+2026-11-04T20:42:30.0699260Z   },
+2026-11-04T20:42:30.0699665Z   "finished_utc": "2026-11-04T20:42:30.064697+00:00",
+2026-11-04T20:42:30.0700206Z   "failures": [
+2026-11-04T20:42:30.0700620Z     "RecompileExtensionsPart04Geometry"
+2026-11-04T20:42:30.0701071Z   ],
+2026-11-04T20:42:30.0701391Z   "verified_module_count": 95
+2026-11-04T20:42:30.0701791Z }
+2026-11-04T20:42:45.1046341Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04Geometry", "status": "failed", "return_code": 124, "seconds": 300.457, "errors": [], "stderr": ""}
+2026-11-04T20:42:45.1047875Z NATIVE_DIAGNOSTIC {"module": "LSConicGeneratingTuples", "status": "blocked"}
+2026-11-04T20:42:45.1049132Z NATIVE_DIAGNOSTIC {"module": "LSConicOverlapAlgebra", "status": "blocked"}
+2026-11-04T20:42:45.1050070Z NATIVE_DIAGNOSTIC {"module": "LSConicTupleChange", "status": "blocked"}
+2026-11-04T20:42:45.1051391Z NATIVE_DIAGNOSTIC {"module": "LSEffectiveCartierInputs", "status": "blocked"}
+2026-11-04T20:42:45.1052348Z NATIVE_DIAGNOSTIC {"module": "LSNormalizedSegre", "status": "blocked"}
+2026-11-04T20:42:45.1053243Z NATIVE_DIAGNOSTIC {"module": "LSPlaneConicPresentation", "status": "blocked"}
+2026-11-04T20:42:45.1054158Z NATIVE_DIAGNOSTIC {"module": "LSPlaneQuadratic", "status": "blocked"}
+2026-11-04T20:42:45.1055062Z NATIVE_DIAGNOSTIC {"module": "LSStandardSourceBaseChange", "status": "blocked"}
+2026-11-04T20:42:45.1056134Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04GluingPrefix", "status": "blocked"}
+2026-11-04T20:42:45.1057198Z NATIVE_DIAGNOSTIC {"module": "LSComplexQuadraticMatrix", "status": "blocked"}
+2026-11-04T20:42:45.1058152Z NATIVE_DIAGNOSTIC {"module": "LSConicOverlapCoordinates", "status": "blocked"}
+2026-11-04T20:42:45.1059346Z NATIVE_DIAGNOSTIC {"module": "LSEffectiveCartierIso", "status": "blocked"}
+2026-11-04T20:42:45.1060287Z NATIVE_DIAGNOSTIC {"module": "LSNormalizedSegreQuotients", "status": "blocked"}
+2026-11-04T20:42:45.1061254Z NATIVE_DIAGNOSTIC {"module": "LSPlaneQuadraticBaseChange", "status": "blocked"}
+2026-11-04T20:42:45.1062309Z NATIVE_DIAGNOSTIC {"module": "LSPlaneQuadraticPublished", "status": "blocked"}
+2026-11-04T20:42:45.1063528Z NATIVE_DIAGNOSTIC {"module": "LSProjectiveLinearAction", "status": "blocked"}
+2026-11-04T20:42:45.1064165Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticPolynomial", "status": "blocked"}
+2026-11-04T20:42:45.1064687Z NATIVE_DIAGNOSTIC {"module": "LSVeroneseZeroModel", "status": "blocked"}
+2026-11-04T20:42:45.1065212Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04Gluing", "status": "blocked"}
+2026-11-04T20:42:45.1065767Z NATIVE_DIAGNOSTIC {"module": "LSCartierQuadraticExtraction", "status": "blocked"}
+2026-11-04T20:42:45.1066459Z NATIVE_DIAGNOSTIC {"module": "LSNormalizedSegrePairs", "status": "blocked"}
+2026-11-04T20:42:45.1067215Z NATIVE_DIAGNOSTIC {"module": "LSPlaneQuadraticEquation", "status": "blocked"}
+2026-11-04T20:42:45.1067741Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticPrimitive", "status": "blocked"}
+2026-11-04T20:42:45.1068259Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticSchemeBaseChange", "status": "blocked"}
+2026-11-04T20:42:45.1069382Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticSectionEvaluation", "status": "blocked"}
+2026-11-04T20:42:45.1070350Z NATIVE_DIAGNOSTIC {"module": "LSRelativeVeroneseModel", "status": "blocked"}
+2026-11-04T20:42:45.1071357Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04GluingSections", "status": "blocked"}
+2026-11-04T20:42:45.1072510Z NATIVE_DIAGNOSTIC {"module": "LSPlaneConicZeroPresentation", "status": "blocked"}
+2026-11-04T20:42:45.1073421Z NATIVE_DIAGNOSTIC {"module": "LSPlaneFamilyQuadratic", "status": "blocked"}
+2026-11-04T20:42:45.1074277Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticFibreCartier", "status": "blocked"}
+2026-11-04T20:42:45.1075143Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticFibreCriteria", "status": "blocked"}
+2026-11-04T20:42:45.1076079Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticLinearTransport", "status": "blocked"}
+2026-11-04T20:42:45.1077049Z NATIVE_DIAGNOSTIC {"module": "LSStandardConicTriple", "status": "blocked"}
+2026-11-04T20:42:45.1078019Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04Nodes", "status": "blocked"}
+2026-11-04T20:42:45.1079471Z NATIVE_DIAGNOSTIC {"module": "LSNodalLineCohomology", "status": "blocked"}
+2026-11-04T20:42:45.1080374Z NATIVE_DIAGNOSTIC {"module": "LSQuadraticPolarizedModels", "status": "blocked"}
+2026-11-04T20:42:45.1081351Z NATIVE_DIAGNOSTIC {"module": "LSSmoothFibreCartier", "status": "blocked"}
+2026-11-04T20:42:45.1082327Z NATIVE_DIAGNOSTIC {"module": "LSStandardConicZeroComparison", "status": "blocked"}
+2026-11-04T20:42:45.1083328Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensionsPart04", "status": "blocked"}
+2026-11-04T20:42:45.1084238Z NATIVE_DIAGNOSTIC {"module": "LSLineValueDescent", "status": "blocked"}
+2026-11-04T20:42:45.1085150Z NATIVE_DIAGNOSTIC {"module": "LSNodalLineTriviality", "status": "blocked"}
+2026-11-04T20:42:45.1086310Z NATIVE_DIAGNOSTIC {"module": "LSStableMapFamily", "status": "blocked"}
+2026-11-04T20:42:45.1087234Z NATIVE_DIAGNOSTIC {"module": "LSTraitFibreCohomology", "status": "blocked"}
+2026-11-04T20:42:45.1088167Z NATIVE_DIAGNOSTIC {"module": "LSFormalQuadraticConditions", "status": "blocked"}
+2026-11-04T20:42:45.1089426Z NATIVE_DIAGNOSTIC {"module": "LSFormalTraitParameters", "status": "blocked"}
+2026-11-04T20:42:45.1090331Z NATIVE_DIAGNOSTIC {"module": "LSGenericSheets", "status": "blocked"}
+2026-11-04T20:42:45.1091212Z NATIVE_DIAGNOSTIC {"module": "LSNodalFibreComparison", "status": "blocked"}
+2026-11-04T20:42:45.1092201Z NATIVE_DIAGNOSTIC {"module": "LSTraitQuadraticPresentation", "status": "blocked"}
+2026-11-04T20:42:45.1093172Z NATIVE_DIAGNOSTIC {"module": "LSContactLineTests", "status": "blocked"}
+2026-11-04T20:42:45.1094114Z NATIVE_DIAGNOSTIC {"module": "LSFormalTraitSourceComparison", "status": "blocked"}
+2026-11-04T20:42:45.1095143Z NATIVE_DIAGNOSTIC {"module": "LSSmoothTraitNormalForm", "status": "blocked"}
+2026-11-04T20:42:45.1096084Z NATIVE_DIAGNOSTIC {"module": "LSStandardCentralPlane", "status": "blocked"}
+2026-11-04T20:42:45.1097005Z NATIVE_DIAGNOSTIC {"module": "RecompileExtensions", "status": "blocked"}
+2026-11-04T20:42:45.1098009Z NATIVE_DIAGNOSTIC {"module": "LSNodalTraitQuadraticPresentation", "status": "blocked"}
+2026-11-04T20:42:45.1099548Z NATIVE_DIAGNOSTIC {"module": "RecompileTail", "status": "blocked"}
+2026-11-04T20:42:45.1100441Z NATIVE_DIAGNOSTIC {"module": "LSNodalTraitNormalForm", "status": "blocked"}
+2026-11-04T20:42:45.1101357Z NATIVE_DIAGNOSTIC {"module": "LSPositiveQuotient", "status": "blocked"}
+2026-11-04T20:42:45.1102257Z NATIVE_DIAGNOSTIC {"module": "LSSuitableDirections", "status": "blocked"}
+2026-11-04T20:42:45.1103147Z NATIVE_DIAGNOSTIC {"module": "LSFormalTraitModel", "status": "blocked"}
+2026-11-04T20:42:45.1103994Z NATIVE_DIAGNOSTIC {"module": "LSPositiveHom", "status": "blocked"}
+2026-11-04T20:42:45.1104846Z NATIVE_DIAGNOSTIC {"module": "LSPositiveSplit", "status": "blocked"}
+2026-11-04T20:42:45.1105716Z NATIVE_DIAGNOSTIC {"module": "LSSuitableLinear", "status": "blocked"}
+2026-11-04T20:42:45.1106558Z NATIVE_DIAGNOSTIC {"module": "LSContactGeneration", "status": "blocked"}
+2026-11-04T20:42:45.1107363Z NATIVE_DIAGNOSTIC {"module": "LSLeviFiber", "status": "blocked"}
+2026-11-04T20:42:45.1108071Z NATIVE_DIAGNOSTIC {"module": "LSPositiveIndependence", "status": "blocked"}
+2026-11-04T20:42:45.1108560Z NATIVE_DIAGNOSTIC {"module": "LSPositiveNodeImage", "status": "blocked"}
+2026-11-04T20:42:45.1109368Z NATIVE_DIAGNOSTIC {"module": "LSContactHomBaseChange", "status": "blocked"}
+2026-11-04T20:42:45.1110008Z NATIVE_DIAGNOSTIC {"module": "LSContactStandardInputs", "status": "blocked"}
+2026-11-04T20:42:45.1110616Z NATIVE_DIAGNOSTIC {"module": "LSContactHorizontal", "status": "blocked"}
+2026-11-04T20:42:45.1111080Z NATIVE_DIAGNOSTIC {"module": "LSContactCompletion", "status": "blocked"}
+2026-11-04T20:42:45.1111532Z NATIVE_DIAGNOSTIC {"module": "LSHomVelocity", "status": "blocked"}
+2026-11-04T20:42:45.1112012Z NATIVE_DIAGNOSTIC {"module": "LSAffineFiberDivisibility", "status": "blocked"}
+2026-11-04T20:42:45.1112691Z NATIVE_DIAGNOSTIC {"module": "LSCotangentDeformations", "status": "blocked"}
+2026-11-04T20:42:45.1113693Z NATIVE_DIAGNOSTIC {"module": "LSEpsilonStructureSequence", "status": "blocked"}
+2026-11-04T20:42:45.1114278Z NATIVE_DIAGNOSTIC {"module": "LSGlobalVelocity", "status": "blocked"}
+2026-11-04T20:42:45.1114748Z NATIVE_DIAGNOSTIC {"module": "LSOpenCotangentScalar", "status": "blocked"}
+2026-11-04T20:42:45.1115225Z NATIVE_DIAGNOSTIC {"module": "LSOpenModuleCoherence", "status": "blocked"}
+2026-11-04T20:42:45.1115698Z NATIVE_DIAGNOSTIC {"module": "LSStandardConicFrames", "status": "blocked"}
+2026-11-04T20:42:45.1116497Z NATIVE_DIAGNOSTIC {"module": "LSCotangentScalarAlgebra", "status": "blocked"}
+2026-11-04T20:42:45.1116986Z NATIVE_DIAGNOSTIC {"module": "LSDualStructureExact", "status": "blocked"}
+2026-11-04T20:42:45.1117632Z NATIVE_DIAGNOSTIC {"module": "LSTangentComparison", "status": "blocked"}
+2026-11-04T20:42:45.1118107Z NATIVE_DIAGNOSTIC {"module": "LSConicCotangentTools", "status": "blocked"}
+2026-11-04T20:42:45.1119166Z NATIVE_DIAGNOSTIC {"module": "LSDualHomVanishing", "status": "blocked"}
+2026-11-04T20:42:45.1120055Z NATIVE_DIAGNOSTIC {"module": "LSHamiltonianJets", "status": "blocked"}
+2026-11-04T20:42:45.1120949Z NATIVE_DIAGNOSTIC {"module": "LSNodalTangent", "status": "blocked"}
+2026-11-04T20:42:45.1121771Z NATIVE_DIAGNOSTIC {"module": "LSConicChartDerivations", "status": "blocked"}
+2026-11-04T20:42:45.1122276Z NATIVE_DIAGNOSTIC {"module": "LSConicCotangentExt", "status": "blocked"}
+2026-11-04T20:42:45.1122772Z NATIVE_DIAGNOSTIC {"module": "LSFirstJetEmbeddingGeometry", "status": "blocked"}
+2026-11-04T20:42:45.1123260Z NATIVE_DIAGNOSTIC {"module": "LSLineEvaluation", "status": "blocked"}
+2026-11-04T20:42:45.1123695Z NATIVE_DIAGNOSTIC {"module": "LSNodalFixedEnds", "status": "blocked"}
+2026-11-04T20:42:45.1124148Z NATIVE_DIAGNOSTIC {"module": "LSClassicalReduction", "status": "blocked"}
+2026-11-04T20:42:45.1124624Z NATIVE_DIAGNOSTIC {"module": "LSConicScalarTransport", "status": "blocked"}
+2026-11-04T20:42:45.1125468Z NATIVE_DIAGNOSTIC {"module": "LSConicScalarCompatibility", "status": "blocked"}
+2026-11-04T20:42:45.1126553Z NATIVE_DIAGNOSTIC {"module": "LSConicFundamentalClassConstruction", "status": "blocked"}
+2026-11-04T20:42:45.1127859Z NATIVE_DIAGNOSTIC {"module": "LSStandardConicDifferential", "status": "blocked"}
+2026-11-04T20:42:45.1134816Z NATIVE_RECEIPT {"module": "LSModuleHomGluing", "receipt_sha256": "a006acd2fc961c171ee149c9f08b621c2f44f2442d6c6adce08dfb393701f7ca", "key": {"source_sha256": "2b79f20c2c91b25c3cd3901ad8442a19d7123de1a2cdcc4c09b7410fb17dd1d2", "imports": ["RecompileBasePart07"], "dependency_artifacts": {"RecompileBasePart07": {"sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "432a67c4c5530e1a3fc3a821bdc14fa77ae0c595fd762ec635b9359cb926b69d", "source_ancestry_fingerprint": "674eaa30816616334cedf585688783c1cfd3953e6c13d7e3bb0a77ab9860639a", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 13.454, "state": "passed"}
+2026-11-04T20:42:45.1149292Z NATIVE_RECEIPT {"module": "LSLineStalkFlat", "receipt_sha256": "a0c4ece003abc0499171060f81879131a9166392f4a5a23dd74128b672a2a16a", "key": {"source_sha256": "94aeddf5d0c13ab3b193604da099b69bd908d0c79398966f10c1b8005e409238", "imports": ["RecompileSections", "LSCohomologyHypotheses"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}, "LSCohomologyHypotheses": {"sha256": "09a3d03fe12343e667f8890b5a8042a314106854e73ae4284994fa45912d86ce", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "4076135f1e945a01c4e7fb5fdb6705720465765d0fe91b60828ea27fe66ac3d3", "source_ancestry_fingerprint": "f12547cc4b5248ec912bc9cab7c87e721958e87384aaa36be3b5baf2b6b00d4b", "stdout_sha256": "9f837135f0928defec6c840c3750cefbb08f8d670e21a4b6fe7964897724845a", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 5.936, "state": "passed"}
+2026-11-04T20:42:45.1161942Z NATIVE_RECEIPT {"module": "LSPolarizedOverIso", "receipt_sha256": "fe7e7f86a63e7110451b67949d7919a82792036f3af956c2a2ce78e291866ebc", "key": {"source_sha256": "713640c041c8469f247bf523a1a09637c8c80d19649f4b11d22f91b354ed2504", "imports": ["RecompileSections"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "ec999999210055bad4cb2573229e76342c36975defb434161ae7005059cd94c7", "source_ancestry_fingerprint": "b8f3002dfe6d98a8ccf5f077f49feb05c4eea002b286a2bf5b9fbe25e48c7adf", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.23, "state": "passed"}
+2026-11-04T20:42:45.1171919Z NATIVE_RECEIPT {"module": "LSRelativeCartier", "receipt_sha256": "f3e7c53c8e18290f8a947cc2af01a27a3b8f58318933c5bbe8f52357e7de1447", "key": {"source_sha256": "7ac89855c3b6a07e7deacc9e94d7dd5d425f23f119f34fa4ff860b65947d22a3", "imports": ["RecompileSections", "LSProperLocalTopology"], "dependency_artifacts": {"RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}, "LSProperLocalTopology": {"sha256": "0bba444e08b3255048897cc0acf8cc68b6d1840f137ecc96ddf1acf095925150", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "a2b8e9350a472b90792a9c270e927bedce42642ce80dc9c644c504d2a61ce87a", "source_ancestry_fingerprint": "3e925c06ded07bc65af555c1c618b5c77362814a236088bf5159dd4fb51792a3", "stdout_sha256": "4f279cd91e71d839e96ee869d5003beb38d178c291c355359a223e2366f0cf06", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.428, "state": "passed"}
+2026-11-04T20:42:45.1187652Z NATIVE_RECEIPT {"module": "LSPublishedCohomologyBaseChange", "receipt_sha256": "f6c70c6e54a60da0e7fa0848ae9d7dcf64bc612490897a05d290fba78f1d3acd", "key": {"source_sha256": "cd4d39dc15631ce06a4459b1afe75f00b705b05411f5dcc70cd7ca8883eef99f", "imports": ["LSCohomologyHypotheses", "LSCanonicalSectionBaseChange", "LSYonedaClassesRepresented", "LSResidueFieldPresentation", "RecompileExtensionCore"], "dependency_artifacts": {"LSCohomologyHypotheses": {"sha256": "09a3d03fe12343e667f8890b5a8042a314106854e73ae4284994fa45912d86ce", "kind": "project"}, "LSCanonicalSectionBaseChange": {"sha256": "ea6a3370d181d8ce9232105946d47fca72b65e20b9e9487c6709132188fce7bb", "kind": "project"}, "LSYonedaClassesRepresented": {"sha256": "7b0f25b780ebd500335a2507c53c206195a8204e7f5098d6897b2df7af690db6", "kind": "project"}, "LSResidueFieldPresentation": {"sha256": "5f77c6f39da6c6296c0e4fa6cabd474628c9563c7537725d365f16fde1248736", "kind": "project"}, "RecompileExtensionCore": {"sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "cb18b499349346181eaab3ce26b4bc5387529d58acf148f06cd0539fc95e3d45", "source_ancestry_fingerprint": "8e03eb4a7e649c864b7f40394ac0a093471dcc43e2ea435e4d19ac24997f0d3f", "stdout_sha256": "226b5ffcf874b0cf300e6dcbbf79ac5008e2c53597a143ac54f267c183339811", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.928, "state": "passed"}
+2026-11-04T20:42:45.1203099Z NATIVE_RECEIPT {"module": "LSQuadraticVeronese", "receipt_sha256": "1942716f8e8e52434bcf0d739e9ee3ef61285ea839ad8c65b784f785e376500e", "key": {"source_sha256": "c863dacf661926b90b865f1c187b9b75664fe5ff22d59a1d990fdda85fee7053", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "e60d6800452f4f2e12e2c45c588dedaacb9de3dfc859861114a64f45f6cad5c7", "source_ancestry_fingerprint": "d724ea0514f8da2d39c72ff5263d3b291d6ff27bfd132d9e83ceb9588352684a", "stdout_sha256": "44ca490663a83e11195977294e327ea96a286987359777de935615172a9d2c9b", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.224, "state": "passed"}
+2026-11-04T20:42:45.1216486Z NATIVE_RECEIPT {"module": "LSStandardProjectiveBaseChange", "receipt_sha256": "b6242a3c73d1b6d7846a17ed9c64c74ee61d74b9fa8acc0766e8385be86be619", "key": {"source_sha256": "dcdb5f92af17c0154ceab7dabfda415f7318e72f5d980e29e55db1af9172b674", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "430a1541757bcbcfe05b1c05454439aa251e94359bf7ead409cf1a42d2d284ab", "source_ancestry_fingerprint": "cb6cd29b3db610a9b5d41bcd090025b3de75ac89093212a939cfa7ceac1a55d2", "stdout_sha256": "747fe0a03d31e76635e0e7ca16c58e754e9c3732902f70ac41df2271f80ae885", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 13.454, "state": "passed"}
+2026-11-04T20:42:45.1230681Z NATIVE_RECEIPT {"module": "LSStandardProjectiveNonempty", "receipt_sha256": "37a1e0551e8838485d17aee7ab80b143ec78742697a2af272d16e24dab47d9a0", "key": {"source_sha256": "585330bf95310805513d27aa322e05742d4827aa4eeb9adc02722d9cead4d46f", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "aff233ee53907f53aee3564aa5e32fb14142460255ee626ab40141eb5c323a0f", "source_ancestry_fingerprint": "b4e2c2188fa5853901d9fb1a2eab61bb0c61977d1081b01171f78d39cfb87bd5", "stdout_sha256": "fb98ff01be45b6f5090f6d02e387940aa2be553f6a87fbf33b4a21c76b0f395c", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.427, "state": "passed"}
+2026-11-04T20:42:45.1244250Z NATIVE_RECEIPT {"module": "LSStandardProjectiveProper", "receipt_sha256": "f0c5728f192af9e7dda9481c50c436baefbb3ac0813ef59e3634ed459982b5b4", "key": {"source_sha256": "926cd5af163ff521ad7881101b24064b1f32b37449da46acd258a4c0b366c1cb", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "e730e8b7ca45da5cd91261ddbaafe7c55de27678a6483ada4f62d75d0dd171dc", "source_ancestry_fingerprint": "27fd3ce6c3078657dcf29465807e616a4732f4952877f8b014455dc3bc32b011", "stdout_sha256": "385fd63f007fe70654c5d8bfda66ce00afe7464f26879e75db3a2564fce6d6fc", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.524, "state": "passed"}
+2026-11-04T20:42:45.1257934Z NATIVE_RECEIPT {"module": "LSStandardProjectiveSmooth", "receipt_sha256": "1182ac8fa70a71abb189cafea0b7bb882d8e8944da28e850f27d14807d5b9c41", "key": {"source_sha256": "5c20a72ea1655dd5c457a7b9569de9ce31b6bf981aa5936263badaa020a62d77", "imports": ["LSStandardTautological"], "dependency_artifacts": {"LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "e59aa149b04f1ce30e74267c80e4e7159e46ae0fd9546abb52ef7f66c2f45116", "source_ancestry_fingerprint": "d1f9ace04e11c386ed99ec71a025d551541edb2f5fcf0c0c7962119d2ba97b20", "stdout_sha256": "e47321ca719bcbf6214e476b60f7d2f0176ea799aae3216c017e280426098991", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.524, "state": "passed"}
+2026-11-04T20:42:45.1272729Z NATIVE_RECEIPT {"module": "LSLineCohomologyBaseChange", "receipt_sha256": "4b15340a0f4dee9c7a01d1e442af24113a15fd0b87f44f8c00f9f0427003c4d4", "key": {"source_sha256": "6f29fd97b76c1c2003f1f6204a2fc11e6f5facb6c6d01b8a695f6ee69aa19d47", "imports": ["LSPublishedCohomologyBaseChange", "LSLineStalkFlat"], "dependency_artifacts": {"LSPublishedCohomologyBaseChange": {"sha256": "cb18b499349346181eaab3ce26b4bc5387529d58acf148f06cd0539fc95e3d45", "kind": "project"}, "LSLineStalkFlat": {"sha256": "4076135f1e945a01c4e7fb5fdb6705720465765d0fe91b60828ea27fe66ac3d3", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "73c8f444988161751df22991f61d800aa0b20f80c44847a3d6453184f99c34a5", "source_ancestry_fingerprint": "048ba7f8f0614dfe9bffb516ba75f4c5d0308c1e44ca5a2842cb991b96f9e45e", "stdout_sha256": "3d44104a031877fa7eb51942aa4b9ecd19e33a0ff67cd81134b0b61ea0b1c80e", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.273, "state": "passed"}
+2026-11-04T20:42:45.1288577Z NATIVE_RECEIPT {"module": "LSP1FamilyDegree", "receipt_sha256": "4ee427277351e1b526dc64b9262e087a2c8386e79e517f50bdd60cfd87ebcc01", "key": {"source_sha256": "f450cd91252d737ff97d810436e4d818f3b34a808e4c56e7600e9dfbaaf4e328", "imports": ["LSPublishedProjectiveSpace", "RecompileSections"], "dependency_artifacts": {"LSPublishedProjectiveSpace": {"sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66", "kind": "project"}, "RecompileSections": {"sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "3e036f75ea1a750f7c99e57efb95e04a6d7defbf92e4454f4ea431ca63fc82bf", "source_ancestry_fingerprint": "18b447b24c965affd988bfed8afb28c59517a09e6cd9ab7efb5d1dc5e9d23416", "stdout_sha256": "dbc10cdc174e94ac3f7a867008b63966377abe5cb251933d0423c09669e0af70", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.231, "state": "passed"}
+2026-11-04T20:42:45.1303518Z NATIVE_RECEIPT {"module": "LSStandardProjectiveComposition", "receipt_sha256": "ff38b375c700fb6b4ffb20c9b03acd0025f31273e788080fc1728aa86de7b522", "key": {"source_sha256": "b9d9f84556d534e9fcdf1fa1e325ce9a09125b970fed0161df378c914b4483e5", "imports": ["LSStandardProjectiveBaseChange"], "dependency_artifacts": {"LSStandardProjectiveBaseChange": {"sha256": "430a1541757bcbcfe05b1c05454439aa251e94359bf7ead409cf1a42d2d284ab", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "65f27fdda3e8d22caeb03bfa3f0fe9e25ee6705fa0855beb7a5b21534c630d80", "source_ancestry_fingerprint": "a96edd89e7ca612085d661b8183fd0d27ea877c8188952a7585a83920b88ecf1", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.324, "state": "passed"}
+2026-11-04T20:42:45.1317739Z NATIVE_RECEIPT {"module": "LSStandardProjectiveReduced", "receipt_sha256": "81daf6c73844d411c6f29b49f06fefb2412ab68cefa40d6d20dc61fdc16be4f9", "key": {"source_sha256": "10f0617b71f0490e05b4cfd5e2de2b6e4b62f4548d0c4f98d0e7494490897539", "imports": ["LSStandardProjectiveSmooth"], "dependency_artifacts": {"LSStandardProjectiveSmooth": {"sha256": "e59aa149b04f1ce30e74267c80e4e7159e46ae0fd9546abb52ef7f66c2f45116", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "ab66ba5c609d9ba6d4272171abbb78c61503fdb24f9a2078bb820f0b8c22aa8d", "source_ancestry_fingerprint": "2e7390ce4ee12ee5ef9a79a95255f5fb827a7e9d2187ae5ae91c3ba056dabc84", "stdout_sha256": "0e4be08cb82e0bfb75887d40b148bc9d66958b0a36d1cacd9323d11ffe1bb30a", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.172, "state": "passed"}
+2026-11-04T20:42:45.1331709Z NATIVE_RECEIPT {"module": "LSProjectiveFibreLineRigidity", "receipt_sha256": "10286ea4a6ac95e83f95c4fce4ee7af31b8d58f73ec290341f70e09e657b371c", "key": {"source_sha256": "802614ba69f1086b442323164583b0c21cbf11f9fc950f2d32c864c06fe507ec", "imports": ["LSP1FamilyDegree"], "dependency_artifacts": {"LSP1FamilyDegree": {"sha256": "3e036f75ea1a750f7c99e57efb95e04a6d7defbf92e4454f4ea431ca63fc82bf", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "ca84289aabfce0b2a0f5fdd6151e03734b1a618f469b0e38397d15ce56545e6a", "source_ancestry_fingerprint": "bd8d8d17af7708fc08f54ed26fdbf61a92dc2104424c44c8e4bdd759b31da560", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.925, "state": "passed"}
+2026-11-04T20:42:45.1346537Z NATIVE_RECEIPT {"module": "LSStandardProjectivePicard", "receipt_sha256": "71fb06f4b022d93e0ae6788a05a4ea632b41502d640306a67abfa5a4ec3f89f1", "key": {"source_sha256": "6af2fa971dacef7184f35d8e5c9c96624146bd8bf89069cc2374b006d7b6a9c9", "imports": ["LSStandardProjectiveComposition", "LSProjectiveFibreLineRigidity"], "dependency_artifacts": {"LSStandardProjectiveComposition": {"sha256": "65f27fdda3e8d22caeb03bfa3f0fe9e25ee6705fa0855beb7a5b21534c630d80", "kind": "project"}, "LSProjectiveFibreLineRigidity": {"sha256": "ca84289aabfce0b2a0f5fdd6151e03734b1a618f469b0e38397d15ce56545e6a", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "fbaa2b6af2ab16604649b31263498bae0c40db5da02555e44c7e5d4c03a9ce85", "source_ancestry_fingerprint": "20723f7f6780b9a5ab885f22058d7ee5dcd00ef395a4505863297f1069e5070a", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.474, "state": "passed"}
+2026-11-04T20:42:45.1362323Z NATIVE_RECEIPT {"module": "LSFiniteFreeHomBaseChange", "receipt_sha256": "1dca621dcb263c69a8fa25ec5585de3424dfb24c503aab41810565f3636f3d84", "key": {"source_sha256": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd", "imports": ["RecompileExtensionsPart01"], "dependency_artifacts": {"RecompileExtensionsPart01": {"sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "3d6560f6f30b17c2a437fc9586b108927f6f901c583488aa1185552e41a9a6f6", "source_ancestry_fingerprint": "f17e96b5717fec298c5eb3fb624f5b65342cca715cdb168436c2085d2a84334b", "stdout_sha256": "18550932090564f2bace7425628b88687c0ec6cbeddc8f00317780980061b707", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 6.188, "state": "passed"}
+2026-11-04T20:42:45.1376955Z NATIVE_RECEIPT {"module": "LSGeneratingUnitOpens", "receipt_sha256": "4e2ba7ec29a0bbbf451e75e4f0c94629230eb809ee61568a584f16e6f019bd2d", "key": {"source_sha256": "dfe5be9319a3a003740147e7ca9f955a44adaec009b8a396cadc2076daf3a1e4", "imports": ["RecompileExtensionsPart01", "LSNonvanishingPullback"], "dependency_artifacts": {"RecompileExtensionsPart01": {"sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "kind": "project"}, "LSNonvanishingPullback": {"sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "168a3242d90a86b3e31c7dbd4720926ff8736d14439aeb3432890682e08c6f9f", "source_ancestry_fingerprint": "1ccb22c539e3afac48353431e6ec4c8da4659c08199b0156da9326311da2c145", "stdout_sha256": "0548a289c0e58e2aae3f8692756fd50090a4c1b550759f7df3f31d71daf6aefb", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 8.343, "state": "passed"}
+2026-11-04T20:42:45.1389969Z NATIVE_RECEIPT {"module": "LSP1PointTransport", "receipt_sha256": "e1a49c49ed54f81d6f7032be19afcc3e921a4040a9cd7be6bf707e15c2c89565", "key": {"source_sha256": "63a7dd97ce7c364d2d410b4893d50ee0eb8ec3fb3593dbf990a44649da47da37", "imports": ["RecompileExtensionsPart01"], "dependency_artifacts": {"RecompileExtensionsPart01": {"sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "a7962d917d0853a24361eb6a69feb77b29ff41e6a0ae1233136ccae790d2d8a8", "source_ancestry_fingerprint": "a338f3c9f37e28dc068cfe9634ce87c97e73a414369343aded8d828145465dee", "stdout_sha256": "928e5f30233ce957da1578643cb359cd0ce448840e7f2f7febb8786fd8dc0e72", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.782, "state": "passed"}
+2026-11-04T20:42:45.1400031Z NATIVE_RECEIPT {"module": "LSProjectivityDefinitions", "receipt_sha256": "63bc6445e749d28aa3b4b4bed753554e47dfdd12c26d3955a0099b566e431234", "key": {"source_sha256": "ecd462c2af07c2872af45f7266f36956140b256cf67ffc00c4026648da222e96", "imports": ["RecompileExtensionsPart01"], "dependency_artifacts": {"RecompileExtensionsPart01": {"sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "12b72124d3524ea8174716234c5aa096b1230af86ff5d74c01fc4f02390ef170", "source_ancestry_fingerprint": "f6c43af6f11782eb648a798f53bc63ba844408df78928a4859c851321bcff9c8", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.08, "state": "passed"}
+2026-11-04T20:42:45.1407531Z NATIVE_RECEIPT {"module": "LSDualBaseChangeAlgebra", "receipt_sha256": "49e8b56333b313abcb0cb5dac04d78aead82cf6844cc9876ae589a9baf02558e", "key": {"source_sha256": "11df6ff89baf37a5754b0ae3a446d6ab16b4447a34c61f230103dede7292bf1e", "imports": ["RecompileExtensionsPart02"], "dependency_artifacts": {"RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085", "source_ancestry_fingerprint": "acde3ec1c1f7eb7a531d736072cc56e7dfcdd75be1e6ba6640f69e718ee85457", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.432, "state": "passed"}
+2026-11-04T20:42:45.1414509Z NATIVE_RECEIPT {"module": "LSFiniteFreeBaseChange", "receipt_sha256": "a4a3eb9ad16f416aa2110e25895dd17df76440f9c97d27db4b906b781872915f", "key": {"source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd", "imports": ["RecompileExtensionsPart02"], "dependency_artifacts": {"RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0", "source_ancestry_fingerprint": "d983c9213e51c81d140dfbcc6e903d63a4ae6ed44e158dfdb747355289d84a91", "stdout_sha256": "6561f467e174f6cefd5dfe6ae05162943c1fe2a6a202efc2a825859fc30496d7", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.681, "state": "passed"}
+2026-11-04T20:42:45.1421651Z NATIVE_RECEIPT {"module": "LSFirstJetEmbedding", "receipt_sha256": "6f9a3cc02d672a0183c9a4c1fd9ea0f6a00510f7f28b3c66f51522479581dba4", "key": {"source_sha256": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58", "imports": ["RecompileExtensionsPart02"], "dependency_artifacts": {"RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "c91fa4141a9c3f7cb65729ac410685dcce7156ed226a4bb85ecd5223081ea638", "source_ancestry_fingerprint": "afbe7f111116e39b4f25e6d25002a9037434c291132e33201c1055f2fa2c88c9", "stdout_sha256": "a03753268ef31ed24730d6fdd90b46537a43fdb6d27dd91757cee7a31eae8288", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 7.191, "state": "passed"}
+2026-11-04T20:42:45.1430173Z NATIVE_RECEIPT {"module": "LSHomFiberInjectivity", "receipt_sha256": "1a037a84134af1eef1d3d3fd913bb89939922b893ec54b591ad05d1ff15f666d", "key": {"source_sha256": "c2cd7be15f7b953ecfa08a7ff81e2cc710175c99804e36a42bc6e7e2f673afd9", "imports": ["LSFiniteFreeHomBaseChange", "RecompileExtensionsPart02"], "dependency_artifacts": {"LSFiniteFreeHomBaseChange": {"sha256": "3d6560f6f30b17c2a437fc9586b108927f6f901c583488aa1185552e41a9a6f6", "kind": "project"}, "RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "5044e406079bd991af31a3fc4910cc5de1286965ddea31833a48f0f0cc796cca", "source_ancestry_fingerprint": "348eaf10c85f2d8ebcbdfdd46dbadcaf856e10d154f7fc1799430ac9059d35b0", "stdout_sha256": "f052ba18a896b6636c11ad2fe1eaef7cfe6164e295bae3afd885559fc0f1430a", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.732, "state": "passed"}
+2026-11-04T20:42:45.1439133Z NATIVE_RECEIPT {"module": "LSRelativeGeneration", "receipt_sha256": "8be11a182c16a85061c332516b75904aa9c2e8978aeec59d7a658d403f8f9771", "key": {"source_sha256": "bb0be549fd77c50691b674b5154f595ed0c6526b67b9be2d4b49f90431b897f5", "imports": ["LSGeneratingUnitOpens", "LSVectorBundlePullback", "LSProperLocalTopology"], "dependency_artifacts": {"LSGeneratingUnitOpens": {"sha256": "168a3242d90a86b3e31c7dbd4720926ff8736d14439aeb3432890682e08c6f9f", "kind": "project"}, "LSVectorBundlePullback": {"sha256": "a25b6ee480980f6f499795229ad2b7fb244cf8186d58caf874716637eb1f51e9", "kind": "project"}, "LSProperLocalTopology": {"sha256": "0bba444e08b3255048897cc0acf8cc68b6d1840f137ecc96ddf1acf095925150", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "e246609679264c19fe0ff86f2172c520b48359aac0789dc0cce07f4dd458283e", "source_ancestry_fingerprint": "cb1ef43357e91ce14933a906964f9a4f49736bbacf244ff0ab6602b90174ef20", "stdout_sha256": "cc437d9bf8f2348271cf2c491253bae8f5f797ca843b84689ca19ab4e73fdbb6", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 10.141, "state": "passed"}
+2026-11-04T20:42:45.1447495Z NATIVE_RECEIPT {"module": "LSSectionRepresentability", "receipt_sha256": "9fe5ccd6505e38be3ad803a7ca7a30344a397094f7118881edfd170e8f007510", "key": {"source_sha256": "0db7ba9b6b7c8e51efb69efe31c429471e787e994f5d898bcdbe15ddd39b705e", "imports": ["RecompileExtensionsPart02"], "dependency_artifacts": {"RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "8bb2c1d155b389c601f8629ea4060f46d0341b5b310f8891b0af287bf1f78d4e", "source_ancestry_fingerprint": "9df714bf291f08ed53a378e9098716f1ad4facca2a08104bf9fe1d1863eeb10d", "stdout_sha256": "267a8226f3f9fc6b32c0e5c9af310cd1d841b6529b0a5e1960b71baffa6c3ecb", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 25.541, "state": "passed"}
+2026-11-04T20:42:45.1455115Z NATIVE_RECEIPT {"module": "LSTensorLineTransport", "receipt_sha256": "4f1fef8e692d01463b8ec7cfb39b19c63c7f0a933ca0a6af87ca8e631862e4ea", "key": {"source_sha256": "cdffd9d858c6083fed2c3a913c644f70c6622393ccd147ded989ecc427b1fc49", "imports": ["RecompileExtensionsPart02"], "dependency_artifacts": {"RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "5b626259d9f367556d16a2ceef07f4ba2513bb66787a03f8019f74b00bcbf029", "source_ancestry_fingerprint": "f24a48ac8fd52d22c901d0bf4d599b4fbafe4b7b4000d7a823b4e60b5d1901fd", "stdout_sha256": "c2f458e9abb13debca9d7b544248ea82578e4be7b87c0371bfc879a098c1de4d", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.18, "state": "passed"}
+2026-11-04T20:42:45.1462697Z NATIVE_RECEIPT {"module": "LSAffineSectionRepresentability", "receipt_sha256": "b30641809c872805a76ddb66a53cca4373fc7caa7836ba41c69eb30593c2c2d2", "key": {"source_sha256": "65f44a7b10490ef6dc5ada997673c70eae6f8f7247af652d239f8f8d0439c0f3", "imports": ["LSSectionRepresentability"], "dependency_artifacts": {"LSSectionRepresentability": {"sha256": "8bb2c1d155b389c601f8629ea4060f46d0341b5b310f8891b0af287bf1f78d4e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "f4d97ce8b0faf306eba421b56485a4b3ea1547013ccd13d818f6ec9eb0b98fda", "source_ancestry_fingerprint": "4df484e1bfba183a0709d8f42a5250a8bae541cea1d75704bf29c7e4a85a251d", "stdout_sha256": "c71c5e03cb8f9e59d45d4ad34e06de5c54c4b6b836c3d87a9c32a0dc00067764", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 69.909, "state": "passed"}
+2026-11-04T20:42:45.1470920Z NATIVE_RECEIPT {"module": "LSDualThickeningNormalForm", "receipt_sha256": "c5b2c4bf24881d7c909ad19c90982a053596f54df0621d62d5e35084f3a95b8b", "key": {"source_sha256": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422", "imports": ["LSFiniteFreeBaseChange", "LSDualBaseChangeAlgebra"], "dependency_artifacts": {"LSFiniteFreeBaseChange": {"sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0", "kind": "project"}, "LSDualBaseChangeAlgebra": {"sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "b01ec856701648a55f44172afde54898957cff7eaf80256391e75354246303d6", "source_ancestry_fingerprint": "d131647e29fc8c64c3d1e714646b5fa06827ee36ded80ed413fb81497edeadaa", "stdout_sha256": "271ae86d40d0502cdd35e05b122f35157a6eca2e1d49f08023be804443a1cd37", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 5.578, "state": "passed"}
+2026-11-04T20:42:45.1479681Z NATIVE_RECEIPT {"module": "LSLiftedProjectiveTuple", "receipt_sha256": "6209ecaf60ad5b52e8d923ea840fff8651860de7f2c0fea59ec9661653731d10", "key": {"source_sha256": "fee2bfc3a3617fe40c23ee5a5cc09c2679f289cc58767b6c34d13037d4830417", "imports": ["LSRelativeGeneration", "LSStandardTautological"], "dependency_artifacts": {"LSRelativeGeneration": {"sha256": "e246609679264c19fe0ff86f2172c520b48359aac0789dc0cce07f4dd458283e", "kind": "project"}, "LSStandardTautological": {"sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "9f7cccca8133f5067acf03271e285cfb2cb02133598aeb9f6f75eae0922a7411", "source_ancestry_fingerprint": "56c3dc768882ad7d849d2be943fd30d3464a0858e54372df95d264fbf7b6d7f7", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.174, "state": "passed"}
+2026-11-04T20:42:45.1488043Z NATIVE_RECEIPT {"module": "RecompileExtensionsPart03", "receipt_sha256": "c473405b1634026de0a5fe3514d955597d9276060e7d5f2d24cbfb1deae65547", "key": {"source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96", "imports": ["LSHomFiberInjectivity", "RecompileExtensionsPart02"], "dependency_artifacts": {"LSHomFiberInjectivity": {"sha256": "5044e406079bd991af31a3fc4910cc5de1286965ddea31833a48f0f0cc796cca", "kind": "project"}, "RecompileExtensionsPart02": {"sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76", "source_ancestry_fingerprint": "c14e71c5a1c0bee91065059247c0b7728c74b154943e4019bccef6fd47d32a46", "stdout_sha256": "90ab8b6ba2eb3b68938788d1f27ffd146fb88cff2d6c978a2c04c89884b63bdb", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 103.443, "state": "passed"}
+2026-11-04T20:42:45.1496467Z NATIVE_RECEIPT {"module": "LSConicSplitting", "receipt_sha256": "88fab3489fede3d2f0e1877da0a12351a53bac46ca6ce1d1a8da37da606f7bfd", "key": {"source_sha256": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9", "imports": ["RecompileExtensionsPart03"], "dependency_artifacts": {"RecompileExtensionsPart03": {"sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a", "source_ancestry_fingerprint": "960599eeb2f0d50b79ff8f094836290ad9eaa274f9db5f1c09dc0b7280a2acb6", "stdout_sha256": "a08835c244d42cf86d0fce6fb5c879892590e13b5f0b7867c484c2958199b043", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 11.299, "state": "passed"}
+2026-11-04T20:42:45.1503901Z NATIVE_RECEIPT {"module": "LSFirstCohomologyIso", "receipt_sha256": "60832ff3c5cf67a7fc405a96cfba6392e3af30cdb7dcd1171d48050593646ea8", "key": {"source_sha256": "82584e882fdc2efb75a618ee86f17978eb7c770ee8b56b18f5c1d4b158dc1f2b", "imports": ["RecompileExtensionsPart03"], "dependency_artifacts": {"RecompileExtensionsPart03": {"sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "2657a67d93d0cd49066170337f9fded6d0323222ff6fc61ec7bc11f70df10284", "source_ancestry_fingerprint": "3bd4fb0ed9dc85fd86077295fddde01bc978aa585f0f9d9b903c8256f5b59343", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.528, "state": "passed"}
+2026-11-04T20:42:45.1511234Z NATIVE_RECEIPT {"module": "LSProperSections", "receipt_sha256": "e04394cac49114474a3338a8531140af0718d6a705f86ffc27a21e6daccc01db", "key": {"source_sha256": "ea037192655ab0ee0fdb95f11cbb4cb93a298a6bea6da1d0def8cce45fffa240", "imports": ["RecompileExtensionsPart03"], "dependency_artifacts": {"RecompileExtensionsPart03": {"sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85", "source_ancestry_fingerprint": "b85323d1f867a8542b2d6255449637943d25502ffb5aa13692abbe053354239c", "stdout_sha256": "1adfba6f1f9316fbf92313cdd562a54fad7b61e30e39d971e0ae14a209405ebd", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.38, "state": "passed"}
+2026-11-04T20:42:45.1518304Z NATIVE_RECEIPT {"module": "LSSmoothFibreComparison", "receipt_sha256": "3960c16f74d4c7393e3bfd5756e74db6fd6edcbf88a1cb6846f5c26f57b53583", "key": {"source_sha256": "d492f9c1e4fec15e68c0b8f3e856144c9f51852c758fb0c721549fbbb1d7002b", "imports": ["RecompileExtensionsPart03"], "dependency_artifacts": {"RecompileExtensionsPart03": {"sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "b67f2731786c9bb3ffd17e41baa164a95b03c429bd82be779feea1efeeb4d5c8", "source_ancestry_fingerprint": "0793d7ea11c32a459db2a82a2154953fa20a345a8b34fe15f6e3a0348f5b75b0", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.226, "state": "passed"}
+2026-11-04T20:42:45.1527211Z NATIVE_RECEIPT {"module": "LSPolarizedProjectiveEmbedding", "receipt_sha256": "dd97e8d932c17d9e45281bb0d53223d2a9805e0bf7e0b9799447c1aecdf2143e", "key": {"source_sha256": "1c50ec806c54ebf251d5ea1ab2980c1655df4cfca8b62d4e3b9508dc91ed207f", "imports": ["LSStandardProjectiveBaseChange", "LSStandardTautologicalP1", "LSQuadraticVeronese", "LSSmoothFibreComparison"], "dependency_artifacts": {"LSStandardProjectiveBaseChange": {"sha256": "430a1541757bcbcfe05b1c05454439aa251e94359bf7ead409cf1a42d2d284ab", "kind": "project"}, "LSStandardTautologicalP1": {"sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099", "kind": "project"}, "LSQuadraticVeronese": {"sha256": "e60d6800452f4f2e12e2c45c588dedaacb9de3dfc859861114a64f45f6cad5c7", "kind": "project"}, "LSSmoothFibreComparison": {"sha256": "b67f2731786c9bb3ffd17e41baa164a95b03c429bd82be779feea1efeeb4d5c8", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "b769cb97ce89e8f0e52186a8c63ad376897b03e08e61190d5d353a5cc404f26f", "source_ancestry_fingerprint": "195f51f786af0411cf72aac353ee71eb27a9a6048a33b7c1b545a6d030fee937", "stdout_sha256": "1edcea33c28bab0b16c4e1f23a4995d752138e477db33acc1bff2101cfe4cfbf", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 4.277, "state": "passed"}
+2026-11-04T20:42:45.1539099Z NATIVE_RECEIPT {"module": "LSPolarizedEmbeddingLift", "receipt_sha256": "f2d63971210916c2428c4e942f6af1ea8dd64c52e6c503eaf2597fc8cc2fb56b", "key": {"source_sha256": "150bd6488496698def932978be19ac66290733000f424695bd8ab3127e3f2985", "imports": ["LSLiftedProjectiveTuple", "LSStandardProjectiveBaseChange", "LSStandardProjectiveProper", "LSClosedImmersionLocus", "LSPolarizedProjectiveEmbedding"], "dependency_artifacts": {"LSLiftedProjectiveTuple": {"sha256": "9f7cccca8133f5067acf03271e285cfb2cb02133598aeb9f6f75eae0922a7411", "kind": "project"}, "LSStandardProjectiveBaseChange": {"sha256": "430a1541757bcbcfe05b1c05454439aa251e94359bf7ead409cf1a42d2d284ab", "kind": "project"}, "LSStandardProjectiveProper": {"sha256": "e730e8b7ca45da5cd91261ddbaafe7c55de27678a6483ada4f62d75d0dd171dc", "kind": "project"}, "LSClosedImmersionLocus": {"sha256": "213d79492ab44147d5198db810586e9d6b8a74631078673847882992f7121db7", "kind": "project"}, "LSPolarizedProjectiveEmbedding": {"sha256": "b769cb97ce89e8f0e52186a8c63ad376897b03e08e61190d5d353a5cc404f26f", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "86caa8aba32d1cc12a4a63ad0144c6c42e5e696716bed908fc89d807730fa688", "source_ancestry_fingerprint": "ac645b162d4e8b32ac308b0bc701efc3b35715dbeb6eaf92303bd08330190b59", "stdout_sha256": "8fbbd6639ba846d091db201094376f74ebe7fd645fce4e2f9ca2c1b110cfd7b4", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.774, "state": "passed"}
+2026-11-04T20:42:45.1550760Z NATIVE_RECEIPT {"module": "LSPlaneEmbeddingCartier", "receipt_sha256": "1643780163adcd155b091f176e8c7feecde474bb50f55fdd9c0ac617f86daf1e", "key": {"source_sha256": "ab6057d727c03d843a0fc3c4af707fd74b489db503665b9b48836dbc1874b35a", "imports": ["LSPolarizedEmbeddingLift", "LSStandardProjectiveSmooth", "LSRelativeCartier", "LSResidueFieldPresentation"], "dependency_artifacts": {"LSPolarizedEmbeddingLift": {"sha256": "86caa8aba32d1cc12a4a63ad0144c6c42e5e696716bed908fc89d807730fa688", "kind": "project"}, "LSStandardProjectiveSmooth": {"sha256": "e59aa149b04f1ce30e74267c80e4e7159e46ae0fd9546abb52ef7f66c2f45116", "kind": "project"}, "LSRelativeCartier": {"sha256": "a2b8e9350a472b90792a9c270e927bedce42642ce80dc9c644c504d2a61ce87a", "kind": "project"}, "LSResidueFieldPresentation": {"sha256": "5f77c6f39da6c6296c0e4fa6cabd474628c9563c7537725d365f16fde1248736", "kind": "project"}}, "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004", "flags": ["--json", "-j1", "-DElab.async=false", "-M12000", "-DmaxErrors=1000", "-DmaxHeartbeats=2000000"]}, "output_sha256": "7fc115d55d2ebf35f5f2337997e0b95487e4934e3f345f8388a634909f99bad0", "source_ancestry_fingerprint": "6865f28d4bb14bf8e538bda1347174a7b4a8593086514c9bf9c1501ad481469a", "stdout_sha256": "c6df272c023d61f88646652f42fcc921343afd7f4ad94fc51232d6be91a4db9b", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "seconds": 3.172, "state": "passed"}
+2026-11-04T20:42:45.1557206Z CONTINUATION_NATIVE_STAGE {"stage": "accepted_boundaries", "source_modules": 308, "selected_modules": 191, "accepted_modules": 95, "status_counts": {"reused": 57, "passed": 38, "failed": 1, "blocked": 95}, "full_selected_graph_passed": false, "whole_current_graph_passed": false, "fresh_native_passes_this_invocation": 38, "native_receipts_reused_this_invocation": 57}
+2026-11-04T20:42:45.2027712Z Traceback (most recent call last):
+2026-11-04T20:42:45.2029324Z   File "/home/runner/work/claude/claude/lebrun-salamon/continuation/scripts/run_continuation_stage.py", line 77, in <module>
+2026-11-04T20:42:45.2030697Z     main()
+2026-11-04T20:42:45.2031818Z   File "/home/runner/work/claude/claude/lebrun-salamon/continuation/scripts/run_continuation_stage.py", line 71, in main
+2026-11-04T20:42:45.2033591Z     need(rc == 0 and report["full_selected_graph_passed"], "Native stage failed or is incomplete")
+2026-11-04T20:42:45.2035334Z   File "/home/runner/work/claude/claude/lebrun-salamon/continuation/scripts/continuation_support.py", line 26, in need
+2026-11-04T20:42:45.2036523Z     raise GateError(message)
+2026-11-04T20:42:45.2037333Z continuation_support.GateError: Native stage failed or is incomplete
+2026-11-04T20:42:45.2225298Z ##[error]Process completed with exit code 1.
+2026-11-04T20:42:45.2325839Z ##[group]Run actions/upload-artifact@v4
+2026-11-04T20:42:45.2326154Z with:
+2026-11-04T20:42:45.2326397Z   name: lebrun-3h-current-native-41902480321-1
+2026-11-04T20:42:45.2327012Z   path: kernel-evidence/
+continuation-evidence/
+accepted-baseline/SOURCE.sha256
+runtime-config.json
+diagnostic-static/
+
+2026-11-04T20:42:45.2327609Z   if-no-files-found: warn
+2026-11-04T20:42:45.2327847Z   compression-level: 6
+2026-11-04T20:42:45.2328074Z   overwrite: false
+2026-11-04T20:42:45.2328295Z   include-hidden-files: false
+2026-11-04T20:42:45.2328530Z env:
+2026-11-04T20:42:45.2331417Z   GH_TOKEN: ***
+2026-11-04T20:42:45.2331665Z   CONTINUATION: lebrun-salamon/continuation
+2026-11-04T20:42:45.2332104Z   BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+2026-11-04T20:42:45.2332682Z   CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+2026-11-04T20:42:45.2333125Z ##[endgroup]
+2026-11-04T20:42:45.4080394Z (node:3538) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-04T20:42:45.4081833Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-04T20:42:45.6712366Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-04T20:42:45.6715591Z The least common ancestor is /home/runner/work/claude/claude. This will be the root directory of the artifact
+2026-11-04T20:42:45.6716680Z With the provided path, there will be 1512 files uploaded
+2026-11-04T20:42:45.6722958Z Artifact name is valid!
+2026-11-04T20:42:45.6723929Z Root directory input is valid!
+2026-11-04T20:42:45.9702725Z Beginning upload of artifact content to blob storage
+2026-11-04T20:42:46.9995177Z (node:3538) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-04T20:42:47.3527459Z Uploaded bytes 8388608
+2026-11-04T20:42:48.0450888Z Uploaded bytes 16777216
+2026-11-04T20:42:48.8933983Z Uploaded bytes 25165824
+2026-11-04T20:42:49.6396164Z Uploaded bytes 33554432
+2026-11-04T20:42:50.9159611Z Uploaded bytes 41943040
+2026-11-04T20:42:51.7019207Z Uploaded bytes 50331648
+2026-11-04T20:42:52.4717713Z Uploaded bytes 58720256
+2026-11-04T20:42:53.2615046Z Uploaded bytes 67108864
+2026-11-04T20:42:53.9373650Z Uploaded bytes 75497472
+2026-11-04T20:42:54.8305750Z Uploaded bytes 83886080
+2026-11-04T20:42:55.3697095Z Uploaded bytes 88588051
+2026-11-04T20:42:55.4013686Z Finished uploading artifact content to blob storage!
+2026-11-04T20:42:55.4017197Z SHA256 digest of uploaded artifact zip is 2861938ae818e1b1382557522081c287517cf55e442ce5900ee3ac41fc9ceea4
+2026-11-04T20:42:55.4019233Z Finalizing artifact upload
+2026-11-04T20:42:55.8735195Z Artifact lebrun-3h-current-native-41902480321-1.zip successfully finalized. Artifact ID 13360788893
+2026-11-04T20:42:55.8736875Z Artifact lebrun-3h-current-native-41902480321-1 has been successfully uploaded! Final size is 88588051 bytes. Artifact ID is 13360788893
+2026-11-04T20:42:55.8744050Z Artifact download URL: https://github.com/wajcha2/claude/actions/runs/41902480321/artifacts/13360788893
+2026-11-04T20:42:55.9063964Z Post job cleanup.
+2026-11-04T20:42:55.9948008Z [command]/usr/bin/git version
+2026-11-04T20:42:56.0026147Z git version 2.56.0
+2026-11-04T20:42:56.0067127Z Temporarily overriding HOME='/home/runner/work/_temp/165a2a6a-4e77-43f1-9e15-4cd60b0fd0aa' before making global git config changes
+2026-11-04T20:42:56.0068572Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-04T20:42:56.0073166Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/claude/claude
+2026-11-04T20:42:56.0119309Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-04T20:42:56.0160116Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-04T20:42:56.0511577Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-04T20:42:56.0556005Z http.https://github.com/.extraheader
+2026-11-04T20:42:56.0569679Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-04T20:42:56.0611936Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-04T20:42:56.0925590Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-04T20:42:56.0975806Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-04T20:42:56.1449448Z Cleaning up orphan processes
+2026-11-04T20:42:56.2061220Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

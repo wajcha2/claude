@@ -1,0 +1,43 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "RecompileExtensionsPart03",
+  "key": {
+    "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+    "imports": [
+      "LSHomFiberInjectivity",
+      "RecompileExtensionsPart02"
+    ],
+    "dependency_artifacts": {
+      "LSHomFiberInjectivity": {
+        "sha256": "5044e406079bd991af31a3fc4910cc5de1286965ddea31833a48f0f0cc796cca",
+        "kind": "project"
+      },
+      "RecompileExtensionsPart02": {
+        "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+  "source_ancestry_fingerprint": "2141b10a63fb679418586682d1e5d4fd9de84b2db0b82e8d2ddaf0433fc674ce",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "ancestry_stamped_exact_github_ci",
+    "run_id": 41757281666,
+    "head_sha": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
+    "original_receipt_sha256": "162ca963fda2a9d3ef06ff867b546cfd5c39ab2cc510d3403ca5ce09c1635324",
+    "historical_native_receipt_unchanged": true,
+    "source_tree_and_full_ancestry_revalidated": true
+  },
+  "accepted_utc": "2026-11-04T02:48:53.083271+00:00"
+}

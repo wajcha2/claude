@@ -1,0 +1,99 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConicFundamentalClassConstruction",
+  "source_ancestry_fingerprint": "993397aab423a1ba8bc7d27e1661f58c9e5d899f71484c0097f4e057850ab9b9",
+  "key": {
+    "source_sha256": "ee037a0d9fa6c57a92affb965281f3ccbef07b03f68cefa639bcd390d150414c",
+    "imports": [
+      "LSStandardConicFrames",
+      "LSConicChartDerivations",
+      "LSConicCotangentTools",
+      "LSModuleHomGluing",
+      "LSOpenCotangentScalar",
+      "LSConicOverlapAlgebra",
+      "LSLineEvaluation",
+      "LSOpenModuleCoherence",
+      "LSConicScalarCompatibility"
+    ],
+    "dependency_artifacts": {
+      "LSStandardConicFrames": {
+        "sha256": "5d3f5c3f6dffbc12268d949b87bc9c1f0cab26295d9d82c177f168568c28fb2c",
+        "kind": "project"
+      },
+      "LSConicChartDerivations": {
+        "sha256": "8d3972cff5b903535b2e5b7b7b048b97d1b81d7f340d24ed7bc5a509d0c28395",
+        "kind": "project"
+      },
+      "LSConicCotangentTools": {
+        "sha256": "7ac9bd5544bd9daeda13105774fd45bcccbc09fef05d383063bba5a728381a02",
+        "kind": "project"
+      },
+      "LSModuleHomGluing": {
+        "sha256": "432a67c4c5530e1a3fc3a821bdc14fa77ae0c595fd762ec635b9359cb926b69d",
+        "kind": "project"
+      },
+      "LSOpenCotangentScalar": {
+        "sha256": "f62d8a9bfcd09cf5b35e81593c269e44eb60cd954d675146cea25fa41c83ab2e",
+        "kind": "project"
+      },
+      "LSConicOverlapAlgebra": {
+        "sha256": "1bc1cf723b175511b302fd26288cbfc3307e56aa6b26f5f09a61ecfdfebfb899",
+        "kind": "project"
+      },
+      "LSLineEvaluation": {
+        "sha256": "2011f0ba00a8bdf97262152217eb02345bf19b052a484c91b6039668f0b8c377",
+        "kind": "project"
+      },
+      "LSOpenModuleCoherence": {
+        "sha256": "10e5a9a992c3d069fb765d530267b5d2fa84c628c66f287d6bceeb3d023d4bd3",
+        "kind": "project"
+      },
+      "LSConicScalarCompatibility": {
+        "sha256": "50afab117e705b7b509595f73004c1bf506fc39539d22de705381117b5fb0874",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSConicFundamentalClassConstruction.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicFundamentalClassConstruction.lean"
+  ],
+  "started_utc": "2026-11-04T03:07:55.166330+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicFundamentalClassConstruction.20261104T030755166298.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicFundamentalClassConstruction.20261104T030755166298.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T03:07:58.995772+00:00",
+  "seconds": 3.826,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "00a4a72c9bfd46a12ae41ec56a3b68ec4781c55b787dd10c74ca51596ad8dd5b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "5ecaddf794c0471da310ace29e85d0e44858e07a1595b21d9c095d42c45a2b9e",
+  "evidence_kind": "native_kernel_compilation"
+}

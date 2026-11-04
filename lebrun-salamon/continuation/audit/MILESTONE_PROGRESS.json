@@ -41,11 +41,11 @@
   },
   "source_snapshot": {
     "source_module_count": 268,
-    "aggregate_sha256": "2470dfd94d35b3ccac6f05fe3593b0f06609c3e1727f03c562395093ef42a737",
+    "aggregate_sha256": "61f610c63ac681cbb0e66cb369ed84dae03838cd472b2b0c4f9c92164f9bede5",
     "aggregate_convention": "SHA256 of sorted lines filename + space + file SHA256 + newline; current source only.",
     "original_csv_sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
     "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
-    "snapshot_utc": "2026-11-04T02:37:59.225855+00:00"
+    "snapshot_utc": "2026-11-04T03:38:48.057058+00:00"
   },
   "groups": [
     {
@@ -1649,7 +1649,7 @@
         "P-ORIGINAL",
         "S-CURRENT"
       ],
-      "current_source_file_sha256": "635f9a33db7f453be91482e647321dda7b712793f66ecd46929f255f322d5a30"
+      "current_source_file_sha256": "d39903a720e580f70a85d422002069d4266deda7521006defd86122c8ce6c3b0"
     },
     {
       "id": "OBL-050",
@@ -2816,10 +2816,21 @@
       "accepted_units_added": 0
     },
     {
-      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T02:37:59.225855+00:00",
-      "description": "All17 Step3c/3d obligations have native/source evidence and actual source-bivector proof is integrated; full current-graph acceptance remains pending.",
+      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T03:38:48.057058+00:00",
+      "description": "All43 original Point1 roots plus OBL-069 have passed their current native/publication boundary across50 actual eligible leaves; the original required reverse-cone compilation gate remains open.",
       "evidence_ids": [
-        "P-CI-41757281666"
+        "P-CI-41763014879"
+      ],
+      "supports": [
+        "GATE-02"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T03:38:48.057058+00:00",
+      "description": "All43 original Point1 roots plus OBL-069 have passed their current native/publication boundary across50 actual eligible leaves; the original required reverse-cone compilation gate remains open.",
+      "evidence_ids": [
+        "P-CI-41763014879"
       ],
       "supports": [
         "GATE-02"
@@ -3113,14 +3124,14 @@
       "accepted_units_added": 0,
       "current_dependency_closure_verified": false
     },
-    "P-CI-41757281666": {
-      "path": "audit/ci/41757281666/CI_RECEIPT.json",
-      "sha256": "cbdbdf6ff75bcdf04d24c7be3344171356bea96861f2c26fbaeee0a73db74206",
+    "P-CI-41763014879": {
+      "path": "audit/ci/41763014879/CI_RECEIPT.json",
+      "sha256": "d7849a58a3903d94c005669b45406b5941b99fd37e0288c91c23e07d8508d4f5",
       "kind": "historical_exact_commit_native_ci",
-      "accepted_modules": 216,
-      "failed": 3,
-      "blocked": 27,
-      "source_commit": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
+      "accepted_modules": 240,
+      "failed": 2,
+      "blocked": 26,
+      "source_commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
       "current_source_full_graph_verified": false
     }
   },
@@ -3132,33 +3143,37 @@
       "audit/MILESTONE_PROGRESS.md"
     ]
   },
-  "updated_utc": "2026-11-04T02:37:59.225855+00:00",
+  "updated_utc": "2026-11-04T03:38:48.057058+00:00",
   "checkpoint_update": {
     "source_freeze": "audit/point1_checkpoint/FREEZE.json",
     "latest_full_ci": {
-      "run_id": 41757281666,
-      "commit": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
-      "source_modules_selected": 246,
+      "run_id": 41763014879,
+      "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+      "source_modules_selected": 268,
       "compiler_memory_cap_mb": 12000,
       "status": "completed",
       "conclusion": "failure",
       "counts": {
-        "reused": 178,
-        "passed": 38,
-        "failed": 3,
-        "blocked": 27
+        "reused": 200,
+        "passed": 40,
+        "failed": 2,
+        "blocked": 26
       },
-      "accepted_count_at_that_commit": 216,
+      "accepted_count_at_that_commit": 240,
       "failed_modules": [
         "LSConicJets",
-        "LSTraitContact",
-        "LSBoundedLines"
+        "LSScaledVelocities"
       ],
       "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41757281666/CI_RECEIPT.json",
+      "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     },
     "new_full_ci": "pending",
+    "point1_native_publication_boundary_passed": true,
+    "point1_original_roots_checked": 43,
+    "additional_inherited_roots_checked": 1,
+    "actual_eligible_leaf_count": 50,
+    "point1_boundary_evidence": "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
     "whole_current_proof_graph_kernel_verified": false,
     "accepted_units_added": 0,
     "retained_accepted_units": 30,

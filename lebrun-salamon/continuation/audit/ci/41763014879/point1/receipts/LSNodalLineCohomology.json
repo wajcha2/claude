@@ -1,0 +1,64 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSNodalLineCohomology",
+  "source_ancestry_fingerprint": "20f19fac8afb68a37e14de1a8ba843401c59ad349b8d3e297416638ad1934a44",
+  "key": {
+    "source_sha256": "0b545d129a36b86cedc938583379907cc46dae51870be82bb4427addd05177a5",
+    "imports": [
+      "RecompileExtensionsPart04Nodes",
+      "LSFirstCohomologyIso"
+    ],
+    "dependency_artifacts": {
+      "RecompileExtensionsPart04Nodes": {
+        "sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d",
+        "kind": "project"
+      },
+      "LSFirstCohomologyIso": {
+        "sha256": "2657a67d93d0cd49066170337f9fded6d0323222ff6fc61ec7bc11f70df10284",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSNodalLineCohomology.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSNodalLineCohomology.lean"
+  ],
+  "started_utc": "2026-11-04T02:59:00.947523+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSNodalLineCohomology.20261104T025900947496.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSNodalLineCohomology.20261104T025900947496.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T02:59:10.744201+00:00",
+  "seconds": 9.795,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "3eb3c8ca3c7726896fddb09a1aa14cd5c9060c9a764d4c18b9f7c0a98fa98386",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "62e6c63d6f928bb1893dc4b9d2fa392ee34da11849a9046c2cf0ac09fe3e4a59",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPlaneQuadraticEquation",
+  "source_ancestry_fingerprint": "da2cdae86cb8d12317a7859003e452702abb164e5d89f7d53cc634c197533db9",
+  "key": {
+    "source_sha256": "ae31d2794128277f89eacd0224de900c757e1b56fcf26e195dce764d17a8aab0",
+    "imports": [
+      "LSPlaneQuadraticBaseChange",
+      "LSConicGeneratingTuples"
+    ],
+    "dependency_artifacts": {
+      "LSPlaneQuadraticBaseChange": {
+        "sha256": "1f78e7b66b485707546860f69763869b0e70e5342c8162eef0010033924f5c03",
+        "kind": "project"
+      },
+      "LSConicGeneratingTuples": {
+        "sha256": "9e26af0c11b73a63974489da80c9f70249883fcbe582891937ff436e02ee010b",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSPlaneQuadraticEquation.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSPlaneQuadraticEquation.lean"
+  ],
+  "started_utc": "2026-11-04T02:58:21.049171+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneQuadraticEquation.20261104T025821049143.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSPlaneQuadraticEquation.20261104T025821049143.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T02:58:25.778075+00:00",
+  "seconds": 4.728,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "e141efc26d8585d722c29d731acc53023c57e5ba0b0bac0b4d787cbbfb3bf1ca",
+  "evidence_kind": "native_kernel_compilation"
+}

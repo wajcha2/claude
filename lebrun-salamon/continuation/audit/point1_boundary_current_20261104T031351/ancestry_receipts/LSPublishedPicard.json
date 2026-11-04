@@ -1,0 +1,47 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPublishedPicard",
+  "key": {
+    "source_sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+    "imports": [
+      "RecompileBasePart04"
+    ],
+    "dependency_artifacts": {
+      "RecompileBasePart04": {
+        "sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+  "source_ancestry_fingerprint": "79f5b9299b34bb0c60eb6992bc5c41500de571beefd5dc66d76bee99efba4ec2",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "revalidated_prior_stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292536046,
+    "artifact_zip_sha256": "0854b0be78df30062097584d1e7502ca137008fdb087fb072908321b343469f5",
+    "original_receipt_sha256": "e28688b0d9af689bb831b362ee3e392a7f29743e581fa3855184f6df062a3f9a",
+    "cache_restore_provenance": {
+      "source_run_id": 41757281666,
+      "source_artifact_name": "lebrun-takeover-kernel-41757281666-1",
+      "prior_receipt_sha256": "0de07861719e227ba5a777d939fdd912830508a12124379097bb40b2f22ffa79",
+      "restored_utc": "2026-11-04T02:50:30.817744+00:00"
+    },
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:12:35.387335+00:00"
+}

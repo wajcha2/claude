@@ -1,0 +1,897 @@
+{
+  "schema": "lebrun-original-public-header-comparison-v1",
+  "checked_utc": "2026-11-04T03:09:23.062197+00:00",
+  "baseline": "recovered certified Step3b strict_tree source, whose manifest was independently validated earlier",
+  "baseline_relative_location": "../step3b/lebrun_step3b_final/source/strict_tree",
+  "point1_original_count": 43,
+  "additional_inherited_count": 1,
+  "unique_declarations_found_in_each_tree": 44,
+  "normalized_headers_equal": 44,
+  "normalization": "Blank nested comments and strings; track lexical namespace scopes; compare the exact binder/type header before the first depth-zero := after removing whitespace. The declaration name is resolved separately and must match exactly.",
+  "scope_limit": "This is a lexical public-header comparison. It is not a kernel comparison of elaborated types, surrounding section variables/universes, resolved notation, or unchanged semantics of referenced definitions. Native current printed types and separate definition/publication review remain necessary.",
+  "kernel_check_performed_for_this_comparison": false,
+  "accepted_units_added": 0,
+  "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+  "rows": [
+    {
+      "id": "OBL-001",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart05C.lean",
+        "line": 680,
+        "source_sha256": "ba909b8c46c16a62cf0e982a4e36855385cf8e990b50856ea9ee4c79dbb57519",
+        "normalized_header_sha256": "64a550f8869d5decefd0a269e41033172132d13e0930fe5a66acc7bb19a42c3f"
+      },
+      "current": {
+        "file": "RecompileBasePart05C.lean",
+        "line": 693,
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "normalized_header_sha256": "64a550f8869d5decefd0a269e41033172132d13e0930fe5a66acc7bb19a42c3f"
+      },
+      "header": "{d : ℕ}\n    (X : SmoothProperComplexVariety d) (L M : LineBundle X.scheme)\n    (B : AlgebraicSection (externalTensor X.structureMap L.sheaf M.sheaf)) :\n    ∃ (N : ℕ) (a : Fin N → AlgebraicSection L.sheaf)\n      (b : Fin N → AlgebraicSection M.sheaf),\n      B = ∑ i, externalProductSection X.structureMap (a i) (b i)"
+    },
+    {
+      "id": "OBL-002",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart05C.lean",
+        "line": 730,
+        "source_sha256": "ba909b8c46c16a62cf0e982a4e36855385cf8e990b50856ea9ee4c79dbb57519",
+        "normalized_header_sha256": "1a6afa9e17a1a063ebe70f4cc7b4ecfb29b31585c2f2de04dcdaef8954034969"
+      },
+      "current": {
+        "file": "RecompileBasePart05C.lean",
+        "line": 757,
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "normalized_header_sha256": "1a6afa9e17a1a063ebe70f4cc7b4ecfb29b31585c2f2de04dcdaef8954034969"
+      },
+      "header": "{X Y : Scheme} (f : X ⟶ Y)\n    (hf : HasStructureSheafDescent f) {r : ℕ}\n    (E : AlgebraicVectorBundle Y r) :\n    Function.Bijective (pullSection f (E := E.sheaf))"
+    },
+    {
+      "id": "OBL-003",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart07.lean",
+        "line": 3147,
+        "source_sha256": "8aa0402b899f00b96bfe0dfaa6ad2fa8097f6b3c6bc795c8c01a9df5a4c20359",
+        "normalized_header_sha256": "50974b43fb96589325f3d2f464cf8bc23f0a3e7ae61c7986a0e340382ead8554"
+      },
+      "current": {
+        "file": "RecompileBasePart07.lean",
+        "line": 3151,
+        "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+        "normalized_header_sha256": "50974b43fb96589325f3d2f464cf8bc23f0a3e7ae61c7986a0e340382ead8554"
+      },
+      "header": "{X Y : Scheme} (f : X ⟶ Y)\n    (L : LineBundle Y) (s : AlgebraicSection L.sheaf) :\n    f ⁻¹ᵁ nonvanishingOpen L s =\n      nonvanishingOpen (pullbackLine f L) (pullSection f s)"
+    },
+    {
+      "id": "OBL-004",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1540,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "5baaa7f3dc66b6a662ffb16da267547e99e05e824c73e19b3adf91ba72759b9f"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1532,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "5baaa7f3dc66b6a662ffb16da267547e99e05e824c73e19b3adf91ba72759b9f"
+      },
+      "header": "{d : ℕ}\n    (X : SmoothProperComplexVariety d) (L M : LineBundle X.scheme) :\n    Function.Injective\n      (globalTensorMap X.structureMap L.sheaf M.sheaf)"
+    },
+    {
+      "id": "OBL-005",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1618,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "bd9d0d6cfddd2eed2d777d0fd5953cdfac7baa0759cc1c4156de5f41f9060534"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1661,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "bd9d0d6cfddd2eed2d777d0fd5953cdfac7baa0759cc1c4156de5f41f9060534"
+      },
+      "header": "{Y : Scheme}\n    (s : Y ⟶ LeBrunSalamon.PhaseOne.ComplexBase) [IsSeparated s]\n    (L : LeBrunSalamon.PhaseOne.LineBundle Y)\n    (t : ComplexSections s L.sheaf ⊗[ℂ] ComplexSections s L.sheaf) (k : ℕ) :\n    LeBrunSalamon.PhaseThree.VanishesToOrderAlongDiagonal s\n      (LeBrunSalamon.PhaseTwentyEight.externalSquareLine s L).sheaf\n      (LeBrunSalamon.PhaseTwentyEight.sectionFromValue\n        (globalTensorMap s L.sheaf L.sheaf t)) k ↔\n    ∀ F : LeBrunSalamon.Core.AffineLineFrame L,\n      Ideal.Quotient.mk ((KaehlerDifferential.ideal ℂ\n        (Coefficients s F.openSet)) ^ k) (coefficientTensorMap s L F t) = 0"
+    },
+    {
+      "id": "OBL-006",
+      "scope": "point1",
+      "substep": "3c",
+      "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1805,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "d466edd863f95f34c2cc3ef9165f02d4f81bea4530ed486ac894fc4745e9a11e"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1860,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "d466edd863f95f34c2cc3ef9165f02d4f81bea4530ed486ac894fc4745e9a11e"
+      },
+      "header": "{A : Type*}\n    [CommRing A] [Algebra ℂ A] [Algebra.Smooth ℂ A]\n    (t : A ⊗[ℂ] A) (ht : t ∈ (KaehlerDifferential.ideal ℂ A) ^ 2)\n    (h : ∀ D E : Derivation ℂ A A, tensorSecond D E t = 0) :\n    t ∈ (KaehlerDifferential.ideal ℂ A) ^ 3"
+    },
+    {
+      "id": "OBL-007",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.StandardInputs.cotangentPullback_isIso",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 101,
+        "source_sha256": "d968c6f804bfafc66787ffec020f2e900b3821d57832249677a1da2ad13bf879",
+        "normalized_header_sha256": "e0763a370f8c070311a7f9b10a7815b134423a0b4014cdb63ff1a1891c965ac5"
+      },
+      "current": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 135,
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "normalized_header_sha256": "e0763a370f8c070311a7f9b10a7815b134423a0b4014cdb63ff1a1891c965ac5"
+      },
+      "header": "{Y S T : AlgebraicGeometry.Scheme} (f : Y ⟶ S) (g : T ⟶ S) :\n    IsIso (LeBrunSalamon.CotangentBaseChange.canonicalMap f g)"
+    },
+    {
+      "id": "OBL-008",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 2537,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "3c76839225ab3d3fd225a777c2ce3209326af3bea97dda3f317e4ed5059d0857"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 2610,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "3c76839225ab3d3fd225a777c2ce3209326af3bea97dda3f317e4ed5059d0857"
+      },
+      "header": "{X Y : Scheme} (f : X ⟶ Y)\n    {E : OModule Y} {r : ℕ} (h : IsLocallyFreeOfRank E r) :\n    IsIso (dualBaseChange f E)"
+    },
+    {
+      "id": "OBL-009",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.fiber_dimension",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4170,
+        "source_sha256": "a7111562905710db4077b463e78fb48cfece9c7a6336a7bbd21322f0e325ea19",
+        "normalized_header_sha256": "ab079cee0a23f2a6580ab222fb53d29251d8a75e779d9c5401bd9bf1d197c463"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4314,
+        "source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "normalized_header_sha256": "ab079cee0a23f2a6580ab222fb53d29251d8a75e779d9c5401bd9bf1d197c463"
+      },
+      "header": "{X : Scheme} {r : ℕ} (E : AlgebraicVectorBundle X r)\n    (x : ComplexBase ⟶ X) : Module.finrank ℂ (Fiber E.sheaf x) = r"
+    },
+    {
+      "id": "OBL-010",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.fiber_finite",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4173,
+        "source_sha256": "a7111562905710db4077b463e78fb48cfece9c7a6336a7bbd21322f0e325ea19",
+        "normalized_header_sha256": "c0609f50c4ebd274734e13ea88971bd1b6ce6723d1951c2dc587a094c001437f"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4319,
+        "source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "normalized_header_sha256": "c0609f50c4ebd274734e13ea88971bd1b6ce6723d1951c2dc587a094c001437f"
+      },
+      "header": "{X : Scheme} {r : ℕ} (E : AlgebraicVectorBundle X r)\n    (x : ComplexBase ⟶ X) : FiniteDimensional ℂ (Fiber E.sheaf x)"
+    },
+    {
+      "id": "OBL-011",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.vectorBundle_fiber_exact",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4178,
+        "source_sha256": "a7111562905710db4077b463e78fb48cfece9c7a6336a7bbd21322f0e325ea19",
+        "normalized_header_sha256": "5b050eeacb1fb4e9cd2663be7a08b4d170e39fe4b77756de60bf1f3df4bc3480"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 4387,
+        "source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "normalized_header_sha256": "5b050eeacb1fb4e9cd2663be7a08b4d170e39fe4b77756de60bf1f3df4bc3480"
+      },
+      "header": "{X : Scheme} {a b c : ℕ}\n    (E : AlgebraicVectorBundle X a) (F : AlgebraicVectorBundle X b)\n    (G : AlgebraicVectorBundle X c) (i : E.sheaf ⟶ F.sheaf) (q : F.sheaf ⟶ G.sheaf)\n    (h0 : i ≫ q = 0) (h : (ShortComplex.mk i q h0).ShortExact)\n    (x : ComplexBase ⟶ X) :\n    Function.Injective (fiberMap i x) ∧ Function.Surjective (fiberMap q x) ∧\n      LinearMap.range (fiberMap i x) = LinearMap.ker (fiberMap q x)"
+    },
+    {
+      "id": "OBL-012",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3832,
+        "source_sha256": "cf890107fe14a5206304db104922cce57991a7a15dfe40a6032bdcd17aaec9a2",
+        "normalized_header_sha256": "c724f017e70e748a787ed1e56ef55cc63c874074c948a2c5a6befb178a064e62"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3845,
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "normalized_header_sha256": "c724f017e70e748a787ed1e56ef55cc63c874074c948a2c5a6befb178a064e62"
+      },
+      "header": "{X Y : Scheme} (f : X ⟶ Y)\n    {a b c : ℕ} (E : AlgebraicVectorBundle Y a)\n    (F : AlgebraicVectorBundle Y b) (G : AlgebraicVectorBundle Y c)\n    (i : E.sheaf ⟶ F.sheaf) (q : F.sheaf ⟶ G.sheaf)\n    (hz : i ≫ q = 0) (hex : (ShortComplex.mk i q hz).ShortExact) :\n    ((ShortComplex.mk i q hz).map (Scheme.Modules.pullback f)).ShortExact"
+    },
+    {
+      "id": "OBL-013",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3842,
+        "source_sha256": "cf890107fe14a5206304db104922cce57991a7a15dfe40a6032bdcd17aaec9a2",
+        "normalized_header_sha256": "b60c714c7cc4b5cbc449b06d77a803add85014e78fada728bcf8469f607227f1"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3869,
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "normalized_header_sha256": "b60c714c7cc4b5cbc449b06d77a803add85014e78fada728bcf8469f607227f1"
+      },
+      "header": "{Y : Scheme} {r : ℕ}\n    (E : AlgebraicVectorBundle Y r) (F : OModule Y) (x : ComplexBase ⟶ Y) :\n    Function.Injective (Lines.LeviFiberGeometry.homFiberEvaluation E.sheaf F x)"
+    },
+    {
+      "id": "OBL-014",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3963,
+        "source_sha256": "cf890107fe14a5206304db104922cce57991a7a15dfe40a6032bdcd17aaec9a2",
+        "normalized_header_sha256": "2148fae4955b775fb3b5e4903a0c1ea7be5a806c1ac89f11b6bf8498976f0687"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart03.lean",
+        "line": 3999,
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "normalized_header_sha256": "2148fae4955b775fb3b5e4903a0c1ea7be5a806c1ac89f11b6bf8498976f0687"
+      },
+      "header": "{X Y : Scheme} (f : X ⟶ Y)\n    {r : ℕ} (E : AlgebraicVectorBundle Y r) (F : OModule Y) :\n    IsIso (Lines.ContactPositiveHom.homBaseChange f E.sheaf F)"
+    },
+    {
+      "id": "OBL-015",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 1967,
+        "source_sha256": "ff350f59cd39ab495ed15738c2bbb28c67143f5ad4d0da6e9ee76af4e97a41aa",
+        "normalized_header_sha256": "a855b10829e0459de76b2cdab01dabf3e07ab71c5d7c3f4c5f63ec6fa2146307"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 1987,
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "normalized_header_sha256": "a855b10829e0459de76b2cdab01dabf3e07ab71c5d7c3f4c5f63ec6fa2146307"
+      },
+      "header": "{A B C : CommRingCat}\n    (f : A ⟶ C) (g : B ⟶ C) (hf : Function.Surjective f.hom) :\n    IsPushout (Spec.map f) (Spec.map g)\n      (Spec.map (pullback.fst f g)) (Spec.map (pullback.snd f g))"
+    },
+    {
+      "id": "OBL-016",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 1977,
+        "source_sha256": "ff350f59cd39ab495ed15738c2bbb28c67143f5ad4d0da6e9ee76af4e97a41aa",
+        "normalized_header_sha256": "6feeff82a942536167e1e154b6270bd4498cd5c30b9ce09baf421f0f8daf3364"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 2006,
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "normalized_header_sha256": "6feeff82a942536167e1e154b6270bd4498cd5c30b9ce09baf421f0f8daf3364"
+      },
+      "header": "{Y : Scheme} {N : ℕ}\n    (L : LineBundle Y) (a : Fin (N+1) → AlgebraicSection L.sheaf)\n    (ha : TupleGenerates L a) :\n    ∃ U : Fin (N+1) → Y.Opens, iSup U = ⊤ ∧\n      ∀ (i : Fin (N+1)) (T : Scheme) (f : T ⟶ Y),\n        Set.range f ⊆ (U i : Set Y) ↔ IsIso (pullSection f (a i))"
+    },
+    {
+      "id": "OBL-017",
+      "scope": "point1",
+      "substep": "3d",
+      "declaration": "LeBrunSalamon.Construction.Normalization.totalBundle_exists",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 5601,
+        "source_sha256": "ff350f59cd39ab495ed15738c2bbb28c67143f5ad4d0da6e9ee76af4e97a41aa",
+        "normalized_header_sha256": "cb6433900a0cc57420f552f1880ecd9873d60580a2b8c01344171b9cba5813eb"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 5641,
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "normalized_header_sha256": "cb6433900a0cc57420f552f1880ecd9873d60580a2b8c01344171b9cba5813eb"
+      },
+      "header": "{Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) :\n    Nonempty (TotalBundle E)"
+    },
+    {
+      "id": "OBL-018",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.polarizedEmbedding_firstJets",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSClassicalReduction.lean",
+        "line": 37,
+        "source_sha256": "272c88355be9a2120fdab4eb9c1110623d2719c73579d1d410ddf6c78f3d9f01",
+        "normalized_header_sha256": "3cf19a22f7ad1ef6b6b75827004f7d5554bc1bc45b1c05f51664edbc9f810824"
+      },
+      "current": {
+        "file": "LSClassicalReduction.lean",
+        "line": 41,
+        "source_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+        "normalized_header_sha256": "3cf19a22f7ad1ef6b6b75827004f7d5554bc1bc45b1c05f51664edbc9f810824"
+      },
+      "header": "{d : ℕ}\n    (X : SmoothProperComplexVariety d) (L : LineBundle X.scheme)\n    (E : PolarizedProjectiveEmbedding X L) : SeparatesFirstJets X L"
+    },
+    {
+      "id": "OBL-019",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentyFive.smooth_cotangent_rank",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart04.lean",
+        "line": 1355,
+        "source_sha256": "0520e4a6bc9382067d9feb7bc5e5dfc76d9ba3582fc96fed8d09d5becfd3f90b",
+        "normalized_header_sha256": "7abedae0065549aba8ddcd8356c446c63b1f0dd8c21d3290be3fbe7078e39f7b"
+      },
+      "current": {
+        "file": "RecompileBasePart04.lean",
+        "line": 1413,
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "normalized_header_sha256": "7abedae0065549aba8ddcd8356c446c63b1f0dd8c21d3290be3fbe7078e39f7b"
+      },
+      "header": "{X S : Scheme} (s : X ⟶ S)\n    (d : ℕ) (hs : SmoothOfRelativeDimension d s) :\n    IsLocallyFreeOfRank (cotangentSheaf s) d"
+    },
+    {
+      "id": "OBL-020",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.tangentDeterminant_anticanonical",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3125,
+        "source_sha256": "0520e4a6bc9382067d9feb7bc5e5dfc76d9ba3582fc96fed8d09d5becfd3f90b",
+        "normalized_header_sha256": "8e33776188e106c97cb94ac56cb85053182af043e01e721a1b931552332fd7b7"
+      },
+      "current": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3335,
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "normalized_header_sha256": "8e33776188e106c97cb94ac56cb85053182af043e01e721a1b931552332fd7b7"
+      },
+      "header": "{d : ℕ}\n    (X : SmoothProperComplexVariety d) :\n    Nonempty ((determinantLine (intrinsicTangentBundle X)).sheaf ≅\n      (anticanonicalLine X).sheaf)"
+    },
+    {
+      "id": "OBL-021",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.ample_positivePower_iff",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3371,
+        "source_sha256": "0520e4a6bc9382067d9feb7bc5e5dfc76d9ba3582fc96fed8d09d5becfd3f90b",
+        "normalized_header_sha256": "3599446255ad4fd41557dbfab510cf1bd91b5867fa644fe04f188814ca30c7c5"
+      },
+      "current": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3663,
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "normalized_header_sha256": "3599446255ad4fd41557dbfab510cf1bd91b5867fa644fe04f188814ca30c7c5"
+      },
+      "header": "{X : Scheme} (L : LineBundle X)\n    (m : ℕ) (hm : 0 < m) :\n    IsAmpleLine (linePower L m) ↔ IsAmpleLine L"
+    },
+    {
+      "id": "OBL-022",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySix.determinant_shortExact",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3375,
+        "source_sha256": "0520e4a6bc9382067d9feb7bc5e5dfc76d9ba3582fc96fed8d09d5becfd3f90b",
+        "normalized_header_sha256": "fae8262a32b9e3e7c4ceff682e21dc8986f0e3379d4715c9d684728d78544ec5"
+      },
+      "current": {
+        "file": "RecompileBasePart04.lean",
+        "line": 3682,
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "normalized_header_sha256": "fae8262a32b9e3e7c4ceff682e21dc8986f0e3379d4715c9d684728d78544ec5"
+      },
+      "header": "{X : Scheme} {a b : ℕ}\n    (E : AlgebraicVectorBundle X a)\n    (F : AlgebraicVectorBundle X (a + b))\n    (G : AlgebraicVectorBundle X b)\n    (i : E.sheaf ⟶ F.sheaf) (p : F.sheaf ⟶ G.sheaf)\n    (hz : i ≫ p = 0)\n    (hex : (ShortComplex.mk i p hz).ShortExact) :\n    Nonempty ((determinantLine F).sheaf ≅\n      (tensorLine (determinantLine E) (determinantLine G)).sheaf)"
+    },
+    {
+      "id": "OBL-023",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseTwentySeven.contact_distribution_determinant",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart05A.lean",
+        "line": 208,
+        "source_sha256": "195f76e91e4e89b01fc51c5412dc67d89448f81075a7010e5729d98e5e58e251",
+        "normalized_header_sha256": "35c417d9dfe47e3c6ba21b2ffa2b0062f1dc373aeaa50ca3c5fc745662ec9b75"
+      },
+      "current": {
+        "file": "RecompileBasePart05A.lean",
+        "line": 301,
+        "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+        "normalized_header_sha256": "35c417d9dfe47e3c6ba21b2ffa2b0062f1dc373aeaa50ca3c5fc745662ec9b75"
+      },
+      "header": "{n : ℕ}\n    (X : SmoothProperComplexVariety (2 * n + 1))\n    (C : IntrinsicContactStructure X) :\n    Nonempty ((determinantLine C.sequence.distribution).sheaf ≅\n      (linePower C.sequence.line n).sheaf)"
+    },
+    {
+      "id": "OBL-024",
+      "scope": "point1",
+      "substep": "3e",
+      "declaration": "LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1155,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "83fc899aced55dd7e57031ec1598c10899e96facbe9e2201e762b1a5cf519038"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1186,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "83fc899aced55dd7e57031ec1598c10899e96facbe9e2201e762b1a5cf519038"
+      },
+      "header": "{n : ℕ}\n    (X : ContactFanoManifold n) : HasProjectiveEmbedding X.variety"
+    },
+    {
+      "id": "OBL-025",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.formalTrait_twoComponent_lineNormalForm",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSFormalTraitModel.lean",
+        "line": 135,
+        "source_sha256": "cd7214e6eeb86824960454bf79ef5d83ce0d08e408b3b9bbb9ecff5826362f14",
+        "normalized_header_sha256": "6383581962a54460a86d284a69154a6c6eca2bd0ec7640be852a518fe08012a6"
+      },
+      "current": {
+        "file": "LSFormalTraitModel.lean",
+        "line": 71,
+        "source_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
+        "normalized_header_sha256": "6383581962a54460a86d284a69154a6c6eca2bd0ec7640be852a518fe08012a6"
+      },
+      "header": "(F : Smoothing.StandardSource) {C : Scheme} (pi : C ⟶ Trait)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    (hnodal : IsNodalCurve pi) (hprojective : IsProjectiveOver pi toC)\n    (hsmooth : SmoothOfRelativeDimension 1 (pullback.snd pi genericPoint))\n    (hgeom : GeometricallyIntegral (pullback.snd pi genericPoint))\n    (L : LineBundle C)\n    (i j : ProjectiveLine ⟶ pullback pi closedPoint)\n    (p q : ProjectiveLinePoint Lines.P)\n    (hi : IsClosedImmersion i) (hj : IsClosedImmersion j)\n    (hiover : i ≫ pullback.snd pi closedPoint = Lines.P.structureMap)\n    (hjover : j ≫ pullback.snd pi closedPoint = Lines.P.structureMap)\n    (hpushout : IsPushout p.map q.map i j)\n    (hidegree : projectiveLineDegree Lines.P Lines.marking\n      (pullbackLine (i ≫ pullback.fst pi closedPoint) L) = 1)\n    (hjdegree : projectiveLineDegree Lines.P Lines.marking\n      (pullbackLine (j ≫ pullback.fst pi closedPoint) L) = 1) :\n    ∃ a : Coefficients, a ≠ 0 ∧ PowerSeries.constantCoeff a = 0 ∧\n      ∃ e : C ≅ Model F a,\n        e.hom ≫ modelProjection F a = pi ∧\n          Nonempty (L.sheaf ≅ pullbackModule e.hom (modelLine F a).sheaf)"
+    },
+    {
+      "id": "OBL-026",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.formalTrait_smooth_lineNormalForm",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSFormalTraitModel.lean",
+        "line": 163,
+        "source_sha256": "cd7214e6eeb86824960454bf79ef5d83ce0d08e408b3b9bbb9ecff5826362f14",
+        "normalized_header_sha256": "e25afe458dff96415444e8e3e8116f52aa5e908c15df69e0d72a5cf08a813fbe"
+      },
+      "current": {
+        "file": "LSFormalTraitModel.lean",
+        "line": 118,
+        "source_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
+        "normalized_header_sha256": "e25afe458dff96415444e8e3e8116f52aa5e908c15df69e0d72a5cf08a813fbe"
+      },
+      "header": "{C : Scheme} (pi : C ⟶ Trait)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    (hnodal : IsNodalCurve pi) (hprojective : IsProjectiveOver pi toC)\n    (hsmooth : SmoothOfRelativeDimension 1 (pullback.snd pi genericPoint))\n    (hgeom : GeometricallyIntegral (pullback.snd pi genericPoint))\n    (L : LineBundle C)\n    (i : ProjectiveLine ≅ pullback pi closedPoint)\n    (hiover : i.hom ≫ pullback.snd pi closedPoint = Lines.P.structureMap)\n    (hidegree : projectiveLineDegree Lines.P Lines.marking\n      (pullbackLine (i.hom ≫ pullback.fst pi closedPoint) L) = 2) :\n    ∃ e : C ≅ SmoothModel,\n      e.hom ≫ smoothProjection = pi ∧\n        Nonempty (L.sheaf ≅ pullbackModule e.hom smoothLine.sheaf)"
+    },
+    {
+      "id": "OBL-027",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_zeroSection_surjective",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSHomVelocity.lean",
+        "line": 130,
+        "source_sha256": "23bad9045a6bc955208f51b389af0981e2d6941a1ad3713508b9d78686ae80ff",
+        "normalized_header_sha256": "a33753b9e62ed7345a7d4f1422a396deef2e9c2b9199333d7a5e39fe3b3c948a"
+      },
+      "current": {
+        "file": "LSHomVelocity.lean",
+        "line": 160,
+        "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+        "normalized_header_sha256": "a33753b9e62ed7345a7d4f1422a396deef2e9c2b9199333d7a5e39fe3b3c948a"
+      },
+      "header": "{Y : Scheme} (sY : Y ⟶ ComplexBase) :\n    Function.Surjective (Lines.DualThickening.zeroSection sY)"
+    },
+    {
+      "id": "OBL-028",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSHomVelocity.lean",
+        "line": 139,
+        "source_sha256": "23bad9045a6bc955208f51b389af0981e2d6941a1ad3713508b9d78686ae80ff",
+        "normalized_header_sha256": "fbb2feb39a84c1f3652a8ffbfc00a9da6e93cfc0b43f08c79a800c95c60ab768"
+      },
+      "current": {
+        "file": "LSHomVelocity.lean",
+        "line": 180,
+        "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+        "normalized_header_sha256": "fbb2feb39a84c1f3652a8ffbfc00a9da6e93cfc0b43f08c79a800c95c60ab768"
+      },
+      "header": "{Y : Scheme} (sY : Y ⟶ ComplexBase) (U : Y.Opens)\n    (z : RingSections (Lines.DualThickening.space sY)\n      ((Lines.DualThickening.projection sY) ⁻¹ᵁ U)) :\n    ∃! ab : RingSections Y U × RingSections Y U,\n      z = Lines.DualThickening.normalForm sY U ab.1 ab.2"
+    },
+    {
+      "id": "OBL-029",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affineLine_section_divisible",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 32,
+        "source_sha256": "d968c6f804bfafc66787ffec020f2e900b3821d57832249677a1da2ad13bf879",
+        "normalized_header_sha256": "d8aa86b0f4452b27c8a762d90fdac3ab1fab6f4991ad225c20321f1858749048"
+      },
+      "current": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 46,
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "normalized_header_sha256": "d8aa86b0f4452b27c8a762d90fdac3ab1fab6f4991ad225c20321f1858749048"
+      },
+      "header": "(E : LeBrunSalamon.PhaseOne.OModule\n      LeBrunSalamon.Construction.Smoothing.AffineLine)\n    [E.IsQuasicoherent]\n    (a : LeBrunSalamon.PhaseOne.GlobalSections E)\n    (ha : LeBrunSalamon.PhaseTwentyEight.pullSection\n      (LeBrunSalamon.Construction.Smoothing.scalarPoint 0)\n      (LeBrunSalamon.PhaseTwentyEight.sectionFromValue a) = 0) :\n    ∃ b : LeBrunSalamon.PhaseOne.GlobalSections E,\n      a = LeBrunSalamon.Construction.Smoothing.parameterFunction • b"
+    },
+    {
+      "id": "OBL-030",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 51,
+        "source_sha256": "d968c6f804bfafc66787ffec020f2e900b3821d57832249677a1da2ad13bf879",
+        "normalized_header_sha256": "9ba8a06a7c4c5d8a77176e049ad1fc533df8f0dccc7c75705edd17b40e285cd3"
+      },
+      "current": {
+        "file": "LSNodalFixedEnds.lean",
+        "line": 79,
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "normalized_header_sha256": "9ba8a06a7c4c5d8a77176e049ad1fc533df8f0dccc7c75705edd17b40e285cd3"
+      },
+      "header": "{Y : AlgebraicGeometry.Scheme} (sY : Y ⟶ LeBrunSalamon.PhaseOne.ComplexBase)\n    {r q : ℕ}\n    (E : LeBrunSalamon.PhaseOne.AlgebraicVectorBundle Y r)\n    (F : LeBrunSalamon.PhaseOne.AlgebraicVectorBundle\n      (LeBrunSalamon.Construction.Lines.DualThickening.space sY) q)\n    (h : ∀ m : E.sheaf ⟶\n      LeBrunSalamon.PhaseTwo.pullbackModule\n        (LeBrunSalamon.Construction.Lines.DualThickening.zeroSection sY) F.sheaf,\n      m = 0) :\n    ∀ m : LeBrunSalamon.PhaseTwo.pullbackModule\n        (LeBrunSalamon.Construction.Lines.DualThickening.projection sY) E.sheaf ⟶ F.sheaf,\n      m = 0"
+    },
+    {
+      "id": "OBL-031",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.firstOrder_cotangentHom_bijective",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSNodalTangent.lean",
+        "line": 32,
+        "source_sha256": "fe13e5ecdd24821f11ce6ff94fd40ccb198ab4ef1dccae14c3035dd1873e99b9",
+        "normalized_header_sha256": "a01702d019624b679db996552ea1fb0f35afb5b5467aef35680adc9473bdc7fc"
+      },
+      "current": {
+        "file": "LSNodalTangent.lean",
+        "line": 42,
+        "source_sha256": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+        "normalized_header_sha256": "a01702d019624b679db996552ea1fb0f35afb5b5467aef35680adc9473bdc7fc"
+      },
+      "header": "{Y X : Scheme}\n    (sY : Y ⟶ ComplexBase) (sX : X ⟶ ComplexBase)\n    (f : Y ⟶ X) (hf : f ≫ sX = sY) :\n    Function.Bijective (fun D : Lines.FamilyVariation.Deformation sY sX f =>\n      D.cotangentHom)"
+    },
+    {
+      "id": "OBL-032",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSStandardConicDifferential.lean",
+        "line": 397,
+        "source_sha256": "5c68a2cb444d82b244bf535f0abf540668a30356c7a7e6a83ed3240212d265d7",
+        "normalized_header_sha256": "f772b18060c3676099b5a95b4e977fb6d18a0f002ecbd49c70126da265a8ad1b"
+      },
+      "current": {
+        "file": "LSStandardConicDifferential.lean",
+        "line": 310,
+        "source_sha256": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
+        "normalized_header_sha256": "f772b18060c3676099b5a95b4e977fb6d18a0f002ecbd49c70126da265a8ad1b"
+      },
+      "header": "(F : LeBrunSalamon.Construction.Smoothing.StandardSource) :\n    ∃ q : LeBrunSalamon.PhaseTwentyFive.cotangentSheaf F.parameter ⟶\n      LeBrunSalamon.PhaseTwentyFive.dualSheaf\n        (LeBrunSalamon.Construction.StandardConicDifferential.line F).sheaf,\n      ∀ (k : Fin 3) (i : Fin 2),\n        LeBrunSalamon.Construction.StandardConicDifferential.chartCoefficient F q k i =\n          LeBrunSalamon.Construction.StandardConicDifferential.chartLogValue k i"
+    },
+    {
+      "id": "OBL-033",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_exists",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1278,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "3857eb335515b608a8af8454de82be1d9fc5527c62165675b39d8911d1abd24b"
+      },
+      "current": {
+        "file": "LSAffineDerivations.lean",
+        "line": 97,
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "normalized_header_sha256": "3857eb335515b608a8af8454de82be1d9fc5527c62165675b39d8911d1abd24b"
+      },
+      "header": "{Y : Scheme}\n    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)\n    (D : RingSections Y U → RingSections Y U)\n    (h0 : D 0 = 0)\n    (hadd : ∀ a b, D (a + b) = D a + D b)\n    (hmul : ∀ a b, D (a * b) = a * D b + b * D a)\n    (hc : ∀ c : ℂ, D (complexConstant s U c) = 0) :\n    ∃ δ : LocalDerivationProof.LocalDerivation s (structureModule Y) U,\n      ∀ a, δ.apply (Over.mk (𝟙 U)) a = D a"
+    },
+    {
+      "id": "OBL-034",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_ext",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 1294,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "43ab1bfe21ff37de4a75f5708f8d784de8186a807b6e2104674504b165acc89c"
+      },
+      "current": {
+        "file": "LSAffineDerivations.lean",
+        "line": 124,
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "normalized_header_sha256": "43ab1bfe21ff37de4a75f5708f8d784de8186a807b6e2104674504b165acc89c"
+      },
+      "header": "{Y : Scheme}\n    (s : Y ⟶ ComplexBase) (U : Y.Opens) (hU : IsAffineOpen U)\n    (δ ε : LocalDerivationProof.LocalDerivation s (structureModule Y) U)\n    (h : ∀ a, δ.apply (Over.mk (𝟙 U)) a = ε.apply (Over.mk (𝟙 U)) a) :\n    δ = ε"
+    },
+    {
+      "id": "OBL-035",
+      "scope": "point1",
+      "substep": "3f",
+      "declaration": "LeBrunSalamon.Refinement.Boundary.regular_of_heightOne",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 1606,
+        "source_sha256": "a7111562905710db4077b463e78fb48cfece9c7a6336a7bbd21322f0e325ea19",
+        "normalized_header_sha256": "3fb4048264e03e3519f8bb76403e6ad406ba1664a64e48c42dbd07d88f3ff297"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart02.lean",
+        "line": 1616,
+        "source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "normalized_header_sha256": "3fb4048264e03e3519f8bb76403e6ad406ba1664a64e48c42dbd07d88f3ff297"
+      },
+      "header": "(R K : Type*) [CommRing R] [IsDomain R] [IsNoetherianRing R] [IsIntegrallyClosed R]\n    [Field K] [Algebra R K] [IsFractionRing R K] (z : K)\n    (hz : ∀ p : Ideal R, p.IsPrime → p.height = 1 → RegularAtPrime R K p z) :\n    RegularScalar R K z"
+    },
+    {
+      "id": "OBL-036",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.StandardInputs.projectiveLineFamily_degree_constant",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSContactLineTests.lean",
+        "line": 37,
+        "source_sha256": "11c4262d5bc1cace3b479beb37008d0d1f82e9310fe139742544b42bbdf1da99",
+        "normalized_header_sha256": "ea3c92b07bfad66f5588d170f1ed52aba98a7db4f567c23c732c1484da39d46e"
+      },
+      "current": {
+        "file": "LSContactLineTests.lean",
+        "line": 58,
+        "source_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+        "normalized_header_sha256": "ea3c92b07bfad66f5588d170f1ed52aba98a7db4f567c23c732c1484da39d46e"
+      },
+      "header": "(P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {S : Scheme} (sS : S ⟶ ComplexBase)\n    [LocallyOfFiniteType sS] [ConnectedSpace S]\n    (L : LineBundle (RationalSourceOver P S sS))\n    (a b : PointsOver ComplexBase (𝟙 ComplexBase) S sS) :\n    projectiveLineDegree P p\n      (pullbackLine\n        (pullback.lift (𝟙 ProjectiveLine) (P.structureMap ≫ a.val)\n          (by simp only [Category.id_comp, Category.assoc, a.property,\n            Category.comp_id])) L) =\n    projectiveLineDegree P p\n      (pullbackLine\n        (pullback.lift (𝟙 ProjectiveLine) (P.structureMap ≫ b.val)\n          (by simp only [Category.id_comp, Category.assoc, b.property,\n            Category.comp_id])) L)"
+    },
+    {
+      "id": "OBL-037",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.CurveStandardInputs.exists_laurent_expansion_with_pole",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "LSCurveLaurentStandardInputs.lean",
+        "line": 37,
+        "source_sha256": "cc032b3fc0b558d418439cb9cc944f7a2653dfac2e904e84cd80194668206a4d",
+        "normalized_header_sha256": "bd458d909910a74c3e1d75d07df0ec982a2c4a732e17b936a99c8bf3f198d278"
+      },
+      "current": {
+        "file": "LSCurveLaurentStandardInputs.lean",
+        "line": 35,
+        "source_sha256": "6aac538547bb442e420ee79feef302e4d18505c69673af962e14ebe4a1df7f60",
+        "normalized_header_sha256": "bd458d909910a74c3e1d75d07df0ec982a2c4a732e17b936a99c8bf3f198d278"
+      },
+      "header": "(B : Type) [CommRing B] [IsDomain B] [Algebra ℂ B] [Algebra.FiniteType ℂ B]\n    (hdim : ringKrullDim B = 1) (f : B)\n    (hf : ¬ ∃ c : ℂ, algebraMap ℂ B c = f) :\n    ∃ j : FractionRing B →ₐ[ℂ] LaurentSeries ℂ,\n      (j (algebraMap B (FractionRing B) f)).order < 0"
+    },
+    {
+      "id": "OBL-038",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirty.nonconstant_complexCurve_differential_ne_zero",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileBasePart06.lean",
+        "line": 1324,
+        "source_sha256": "99b2a7b9bfa83c90b140389514ffaba93846ad91c23156bf49219ff6b5f7a7f7",
+        "normalized_header_sha256": "a846867eda10243b55d619c94e3df8f3b7578f1d49dd1989a766e923e1df9c28"
+      },
+      "current": {
+        "file": "RecompileBasePart06.lean",
+        "line": 1349,
+        "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+        "normalized_header_sha256": "a846867eda10243b55d619c94e3df8f3b7578f1d49dd1989a766e923e1df9c28"
+      },
+      "header": "(P : ProjectiveLineOverC) {d : ℕ}\n    (X : SmoothProperComplexVariety d) (f : RationalCurve P X) :\n    cotangentMap f.map X.structureMap ≠ 0"
+    },
+    {
+      "id": "OBL-039",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.birkhoffGrothendieck",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionCore.lean",
+        "line": 29,
+        "source_sha256": "bff7f7f1b993894443f24473d7d7b83bdfb5a612df6e0a75701e70a1d67b5c53",
+        "normalized_header_sha256": "9123e4171a0af987f1377b9d5470ae22f9c98b860a465174fc233ceb0ee8278d"
+      },
+      "current": {
+        "file": "RecompileExtensionCore.lean",
+        "line": 60,
+        "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+        "normalized_header_sha256": "9123e4171a0af987f1377b9d5470ae22f9c98b860a465174fc233ceb0ee8278d"
+      },
+      "header": "(P : ProjectiveLineOverC)\n    (p : ProjectiveLinePoint P) {r : ℕ}\n    (E : AlgebraicVectorBundle ProjectiveLine r) :\n    ∃ a : TangentSplittingProfile r, RealizesSplitting P p E a"
+    },
+    {
+      "id": "OBL-040",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.Skeleton.sourceBivector_existsUnique",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 3563,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "730638a15843c3cf7c6d8065f37719c7f32183e1fe85968dc9a7da5f0285d005"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 4462,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "730638a15843c3cf7c6d8065f37719c7f32183e1fe85968dc9a7da5f0285d005"
+      },
+      "header": "(P : ProjectiveLineOverC) :\n    ∃! B : ExternalSquareSections (projectiveLineVariety P)\n        (identityCurveContact P).sequence.line,\n      IsSymmetricExternalSection P.structureMap (identityCurveContact P).sequence.line B ∧\n      VanishesQuadraticallyAlongDiagonal P.structureMap\n        (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B ∧\n      HasNormalizedContactSymbol (identityCurveContact P) B"
+    },
+    {
+      "id": "OBL-041",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.Skeleton.projectiveCoordinates_exists",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 3760,
+        "source_sha256": "de10cb9501f14424f1ff7b9f9f5c33fd59e7be285bdb9aa4b356c65d36fdc142",
+        "normalized_header_sha256": "384d42b10d74b9ef5665bcfb54fe6ad5b07a30702716c668d71f44bde298d36a"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart01.lean",
+        "line": 4680,
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "normalized_header_sha256": "384d42b10d74b9ef5665bcfb54fe6ad5b07a30702716c668d71f44bde298d36a"
+      },
+      "header": "(N : ℕ) : Nonempty (ProjectiveCoordinates N)"
+    },
+    {
+      "id": "OBL-042",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLineBundle_classification",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileSections.lean",
+        "line": 4418,
+        "source_sha256": "60177fb1c9954350305d209eef2253094d9fa6c80f908d55fc2ea913e676301f",
+        "normalized_header_sha256": "8caa244786fdd1873a44e8c5c8877cd0db5153b5b1d070047d93651bc23f2711"
+      },
+      "current": {
+        "file": "RecompileSections.lean",
+        "line": 4622,
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "normalized_header_sha256": "8caa244786fdd1873a44e8c5c8877cd0db5153b5b1d070047d93651bc23f2711"
+      },
+      "header": "(P : ProjectiveLineOverC)\n    (p : ProjectiveLinePoint P) (L : LineBundle ProjectiveLine) :\n    ∃! d : ℤ, Nonempty (L.sheaf ≅ (projectiveTwist P p d).sheaf)"
+    },
+    {
+      "id": "OBL-043",
+      "scope": "point1",
+      "substep": "3g",
+      "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLine_tangent_twist",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileSections.lean",
+        "line": 4520,
+        "source_sha256": "60177fb1c9954350305d209eef2253094d9fa6c80f908d55fc2ea913e676301f",
+        "normalized_header_sha256": "7e4d7a71949dffc047a7735f06f38addf4bbb8a6d26d3d62e93997b98c2c6912"
+      },
+      "current": {
+        "file": "RecompileSections.lean",
+        "line": 5057,
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "normalized_header_sha256": "7e4d7a71949dffc047a7735f06f38addf4bbb8a6d26d3d62e93997b98c2c6912"
+      },
+      "header": "(P : ProjectiveLineOverC)\n    (p : ProjectiveLinePoint P) :\n    Nonempty (tangentSheaf P.structureMap ≅ (projectiveTwist P p 2).sheaf)"
+    },
+    {
+      "id": "OBL-069",
+      "scope": "additional_inherited_step3k",
+      "substep": "3k",
+      "declaration": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+      "normalized_header_equal": true,
+      "baseline": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 1304,
+        "source_sha256": "ff350f59cd39ab495ed15738c2bbb28c67143f5ad4d0da6e9ee76af4e97a41aa",
+        "normalized_header_sha256": "ef7f32fa66d52cf4fee28204714faaf8c1de9309c87c9e3b9ea7194ecda918c5"
+      },
+      "current": {
+        "file": "RecompileExtensionsPart04Geometry.lean",
+        "line": 1315,
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "normalized_header_sha256": "ef7f32fa66d52cf4fee28204714faaf8c1de9309c87c9e3b9ea7194ecda918c5"
+      },
+      "header": ": IsAffineHom T.projection"
+    }
+  ]
+}

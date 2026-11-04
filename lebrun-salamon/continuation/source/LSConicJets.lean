@@ -1335,6 +1335,50 @@ theorem normalized_point_quadratic {n : ℕ} {X : SmoothProperComplexVariety (2*
   simp only [map_neg, map_mul, map_ofNat] at hm
   linear_combination hm
 
+/-- The coefficient identity is first proved over an arbitrary source variety,
+so normalization of pullback/fiber maps does not unfold the concrete P1 model. -/
+theorem pointDifferential_contact_coefficient_general {d n : ℕ}
+    (Y : SmoothProperComplexVariety d) {X : SmoothProperComplexVariety (2*n+1)}
+    (C : IntrinsicContactStructure X) (f : Y.scheme ⟶ X.scheme)
+    (hf : f ≫ X.structureMap = Y.structureMap)
+    (y : ComplexPoint Y) {x : ComplexPoint X} (hx : y.map ≫ f = x.map)
+    {M : LineBundle Y.scheme} (S : PointFrame Y M y)
+    (F : PointFrame X C.sequence.line x) (A : ContactAtPoint C F)
+    (hV : S.frame.openSet ≤ f ⁻¹ᵁ F.frame.openSet)
+    (u : SectionsOn (tangentSheaf Y.structureMap) S.frame.openSet) :
+    A.theta (F.fiberEquiv (SourceTangent.pointDifferential Y X f hf y x hx
+      (PositiveFrame.localFiberValue y.map (tangentSheaf Y.structureMap)
+        S.frame.openSet S.pointSupport u))) =
+      S.evaluation (PointFrame.LocalFrameJetProof.coefficientOn F.frame f S.frame.openSet hV
+        ((differentialOver Y X f hf ≫
+          (Scheme.Modules.pullback f).map C.sequence.form).app S.frame.openSet u)) := by
+  let v := PositiveFrame.localFiberValue y.map (tangentSheaf Y.structureMap)
+    S.frame.openSet S.pointSupport u
+  have hform : fiberMap C.sequence.form x.map
+      (SourceTangent.pointDifferential Y X f hf y x hx v) =
+      fiberComposition f y.map x.map hx C.sequence.line.sheaf
+        (PositiveFrame.localFiberValue y.map (pullbackModule f C.sequence.line.sheaf)
+          S.frame.openSet S.pointSupport
+          ((differentialOver Y X f hf ≫
+            (Scheme.Modules.pullback f).map C.sequence.form).app S.frame.openSet u)) := by
+    rw [PositiveFrame.localFiberValue_map]
+    change fiberMap C.sequence.form x.map
+      (fiberComposition f y.map x.map hx (tangentSheaf X.structureMap)
+        (fiberMap (differentialOver Y X f hf) y.map v)) =
+      fiberComposition f y.map x.map hx C.sequence.line.sheaf
+        (fiberMap (differentialOver Y X f hf ≫
+          (Scheme.Modules.pullback f).map C.sequence.form) y.map v)
+    rw [ContactPositive.fiberMap_comp]
+    exact (ContactPositive.fiberComposition_naturality f y.map x.map hx
+      C.sequence.form (fiberMap (differentialOver Y X f hf) y.map v)).symm
+  rw [theta_fiber_coefficient C F A]
+  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+    (F.lineFiberCoefficient (fiberMap C.sequence.form x.map
+      (SourceTangent.pointDifferential Y X f hf y x hx v))) = _
+  rw [hform, F.lineFiberCoefficient_composition f y.map hx
+    S.frame.openSet hV S.pointSupport]
+  exact (S.evaluation_eq_localRingValue _).symm
+
 theorem pointDifferential_contact_coefficient (P : ProjectiveLineOverC)
     (p : ProjectiveLinePoint P) {n : ℕ} {X : SmoothProperComplexVariety (2*n+1)}
     (C : IntrinsicContactStructure X) (f : RationalCurve P X)
@@ -1350,17 +1394,8 @@ theorem pointDifferential_contact_coefficient (P : ProjectiveLineOverC)
         S.frame.openSet S.pointSupport u))) =
       S.evaluation (PointFrame.LocalFrameJetProof.coefficientOn F.frame f.map S.frame.openSet hV
         ((curveContactVelocity P C f).app S.frame.openSet u)) := by
-  rw [theta_fiber_coefficient C F A]
-  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
-      (F.lineFiberCoefficient (fiberMap C.sequence.form x.map
-        (fiberComposition f.map p.map x.map hx (tangentSheaf X.structureMap)
-          (fiberMap (differentialOver (projectiveLineVariety P) X f.map f.overC) p.map
-            (PositiveFrame.localFiberValue p.map (tangentSheaf P.structureMap)
-              S.frame.openSet S.pointSupport u))))) = _
-  rw [← ContactPositive.fiberComposition_naturality,
-    ← ContactPositive.fiberMap_comp, ← PositiveFrame.localFiberValue_map]
-  rw [F.lineFiberCoefficient_composition f.map p.map hx S.frame.openSet hV S.pointSupport]
-  exact (S.evaluation_eq_localRingValue _).symm
+  exact pointDifferential_contact_coefficient_general (projectiveLineVariety P)
+    C f.map f.overC ⟨p.map, p.overC⟩ hx S F A hV u
 
 /-- Pullback of a normalized kernel has the expected mixed point symbol
 along the actual differential of every source vector. This is a direct
@@ -1403,8 +1438,17 @@ theorem pulled_mixed_point (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)
       S.evaluation ((pulledExpansion P f K.expansion).mixedSecond
         (SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line) S.frame m) u u) := by
     simp only [ExternalExpansion.mixedSecond, map_sum, map_mul]
-    simp_rw [hD, hc]
-    rfl
+    apply Finset.sum_congr rfl
+    intro i hi
+    change (F.fiberEquiv w).val (F.coefficient (K.expansion.left i)) *
+        (F.fiberEquiv w).val (F.coefficient (K.expansion.right i)) =
+      S.evaluation (tangentActs P.structureMap S.frame.openSet u
+        ((SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line)
+          S.frame m).localCoefficient (pullSection f.map (K.expansion.left i)))) *
+      S.evaluation (tangentActs P.structureMap S.frame.openSet u
+        ((SourceMixedSymbol.frameOn (M := pullbackBundle f.map C.sequence.line)
+          S.frame m).localCoefficient (pullSection f.map (K.expansion.right i))))
+    rw [hD, hD, hc, hc]
   have hz := normalized_point_quadratic K F A w
   rw [hm, pointDifferential_contact_coefficient P p C f hx S F A hV u] at hz
   linear_combination hz
@@ -1447,6 +1491,17 @@ def derivativeIso (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLi
     tangentSheaf P.structureMap ≅ pullbackModule e.hom (tangentSheaf P.structureMap) :=
   differentialIso (projectiveLineVariety P) (projectiveLineVariety P) e.hom he
 
+theorem differentialIso_hom {d e : ℕ} (X : SmoothProperComplexVariety d)
+    (Y : SmoothProperComplexVariety e) (f : X.scheme ⟶ Y.scheme) [IsIso f]
+    (hf : f ≫ Y.structureMap = X.structureMap) :
+    (differentialIso X Y f hf).hom = differentialOver X Y f hf := rfl
+
+theorem derivativeIso_hom (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
+    (he : e.hom ≫ P.structureMap = P.structureMap) :
+    (derivativeIso P e he).hom =
+      differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he :=
+  differentialIso_hom (projectiveLineVariety P) (projectiveLineVariety P) e.hom he
+
 theorem source_contactVelocity (P : ProjectiveLineOverC)
     (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) :
     curveContactVelocity P (identityCurveContact P) (isoCurve P e he) =
@@ -1465,10 +1520,15 @@ abbrev imageFrame (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLi
     AffineLineFrame (identityCurveContact P).sequence.line where
   openSet := e.inv ⁻¹ᵁ S.openSet
   isAffine := S.isAffine.preimage e.inv
-  coefficient :=
-    (((SheafOfModules.evaluation ProjectiveLine.ringCatSheaf
-      (op (e.inv ⁻¹ᵁ S.openSet))).mapIso
-        (derivativeIso P e.symm (inverse_overC P e he))).toLinearEquiv).trans
+  coefficient := by
+    let D : SectionsOn (tangentSheaf P.structureMap) (e.inv ⁻¹ᵁ S.openSet)
+        ≃ₗ[RingSections ProjectiveLine (e.inv ⁻¹ᵁ S.openSet)]
+      SectionsOn (pullbackModule e.inv (tangentSheaf P.structureMap))
+        (e.inv ⁻¹ᵁ S.openSet) :=
+      (((SheafOfModules.evaluation ProjectiveLine.ringCatSheaf
+        (op (e.inv ⁻¹ᵁ S.openSet))).mapIso
+          (derivativeIso P e.symm (inverse_overC P e he))).toLinearEquiv)
+    exact D.trans
       (PointFrame.LocalFrameJetProof.coefficientOn S e.inv (e.inv ⁻¹ᵁ S.openSet) le_rfl)
 
 theorem imageFrame_support (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
@@ -1710,7 +1770,11 @@ theorem curvePull_iso_comp (P : ProjectiveLineOverC) {d : ℕ}
         externalTensorMap P.structureMap
           (compositionPullback e.hom f.map g.map hg.symm L.sheaf).hom
           (compositionPullback e.hom f.map g.map hg.symm L.sheaf).hom = _
-  rw [CurveExchangeProof.externalTensorMap_product,
+  rw [CurveExchangeProof.externalTensorMap_product P.structureMap
+    (pullbackBundle e.hom (pullbackBundle f.map L)) (pullbackBundle g.map L)
+    (compositionPullback e.hom f.map g.map hg.symm L.sheaf).hom
+    (pullSection e.hom (pullSection f.map (E.left i)))
+    (pullSection e.hom (pullSection f.map (E.right i))),
     compositionPullback_sections, compositionPullback_sections] <;> rfl
 
 /-- The original contact velocity obeys the actual differential chain

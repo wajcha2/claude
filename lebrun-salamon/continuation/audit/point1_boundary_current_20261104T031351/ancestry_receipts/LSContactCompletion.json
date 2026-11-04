@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSContactCompletion",
+  "key": {
+    "source_sha256": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
+    "imports": [
+      "LSContactHorizontal",
+      "LSPositiveHom",
+      "LSPositiveIndependence"
+    ],
+    "dependency_artifacts": {
+      "LSContactHorizontal": {
+        "sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42",
+        "kind": "project"
+      },
+      "LSPositiveHom": {
+        "sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+        "kind": "project"
+      },
+      "LSPositiveIndependence": {
+        "sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139",
+  "source_ancestry_fingerprint": "7531b0fb005d8e2ad886d8c7298f6a6a60f16059d91a5284c7bda44c38bb3366",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292536046,
+    "artifact_zip_sha256": "0854b0be78df30062097584d1e7502ca137008fdb087fb072908321b343469f5",
+    "original_receipt_sha256": "dd1499767eb407eb0c69595369960f1f6fa5222fc4cd62d4c949a789ab161b70",
+    "cache_restore_provenance": null,
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:12:35.592422+00:00"
+}

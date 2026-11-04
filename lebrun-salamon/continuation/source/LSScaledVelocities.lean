@@ -52,6 +52,16 @@ theorem specPoint_affineMap (f : A →ₐ[ℂ] ℂ)
   rw [← h]
   exact Iso.inv_hom_id_apply (Scheme.ΓSpecIso (CommRingCat.of ℂ)) (f a)
 
+/-- Equality of actual affine-valued points preserves their coefficient map.
+The proof parameters are handled dependently before evaluating the map. -/
+theorem specPoint_congr {q q' : ComplexBase ⟶ Spec (CommRingCat.of A)}
+    (h : q = q')
+    (hq : q ≫ affineBaseMap A = 𝟙 ComplexBase)
+    (hq' : q' ≫ affineBaseMap A = 𝟙 ComplexBase) :
+    GlobalVelocity.specPoint q hq = GlobalVelocity.specPoint q' hq' := by
+  cases h
+  rfl
+
 /-- The actual scalar evaluation of a global function at a complex point. -/
 def evaluation {Y : Scheme} {sY : Y ⟶ ComplexBase}
     (t : PointsOver ComplexBase (𝟙 ComplexBase) Y sY) : Functions sY ⊤ →ₐ[ℂ] ℂ where
@@ -137,8 +147,12 @@ coordinate functions, before passing to topological supports. -/
 theorem map_point {Y : Scheme} (sY : Y ⟶ ComplexBase) (v : I → Functions sY ⊤)
     (t : PointsOver ComplexBase (𝟙 ComplexBase) Y sY) :
     t.val ≫ map sY v = coordinatePoint (fun i => evaluation t (v i)) := by
-  rw [map, GlobalVelocity.toSpec_precompose]
-  have h : (onFunctionsTop t.val t.property).comp (MvPolynomial.aeval v) =
+  have hbase : affineBaseMap ℂ = 𝟙 ComplexBase := by
+    change Spec.map (CommRingCat.ofHom (algebraMap ℂ ℂ)) = _
+    simpa using Spec.map_id (CommRingCat.of ℂ)
+  have ht : t.val ≫ sY = affineBaseMap ℂ := t.property.trans hbase.symm
+  rw [map, GlobalVelocity.toSpec_precompose (MvPolynomial.aeval v) t.val ht]
+  have h : (onFunctionsTop t.val ht).comp (MvPolynomial.aeval v) =
       (GlobalVelocity.specFunctions ℂ).comp (MvPolynomial.aeval (fun i => evaluation t (v i))) := by
     apply MvPolynomial.algHom_ext
     intro i
@@ -188,8 +202,8 @@ theorem polynomialTangent_coordinates (q : MvPolynomial I ℂ →ₐ[ℂ] ℂ) (
     apply MvPolynomial.algHom_ext
     intro i
     change Infinitesimal.residue (F (MvPolynomial.X i)) = q (MvPolynomial.X i)
-    rw [F, MvPolynomial.aeval_X]
-    exact Infinitesimal.residue_normalForm _ _
+    simpa only [F, MvPolynomial.aeval_X] using
+      (Infinitesimal.residue_normalForm (q (MvPolynomial.X i)) (v i))
   obtain ⟨E, hE⟩ := (Infinitesimal.tangentToDual_bijective q).2 ⟨F, hF⟩
   refine ⟨E, ?_⟩
   intro i
@@ -318,7 +332,10 @@ theorem unscaledFunctions_point
     (GlobalCoordinates.evaluation t).comp (unscaledFunctions X H D x C) =
       MvPolynomial.aeval (contactFrame X x C (nodeVector X x f hf)) := by
   let q := GlobalVelocity.specPoint (t.val ≫ velocity X H D x C)
-    (by rw [Category.assoc, velocity_overC, t.property])
+    (by
+      change (t.val ≫ velocity X H D x C) ≫
+        AffineVelocity.tangentSchemeToC C.evaluation = 𝟙 ComplexBase
+      rw [Category.assoc, velocity_overC, t.property])
   have hv : AffineVelocity.tangentPointEquiv C.evaluation q =
       IntrinsicTangent.chartEvaluation C (nodeVector X x f hf).val := by
     change HomVelocityValue.value H x C
@@ -359,8 +376,15 @@ theorem scalar_center (f : FreeLine X) (hf : marking.map ≫ f.curve.map = x.map
   change GlobalCoordinates.evaluation (center X H D x f hf c) (scalar X H D x) =
     GlobalVelocity.specPoint ((center X H D x f hf c).val ≫ toScalar X H D x)
       (by rw [Category.assoc, toScalar_overC, (center X H D x f hf c).property]) Polynomial.X at he
-  rw [center_toScalar] at he
-  exact he.trans (by rw [scalarPoint, GlobalCoordinates.specPoint_affineMap, Polynomial.aeval_X])
+  have hpoint := GlobalCoordinates.specPoint_congr
+    (center_toScalar X H D x f hf c)
+    (by rw [Category.assoc, toScalar_overC, (center X H D x f hf c).property])
+    (scalarPoint_overC c)
+  exact he.trans ((AlgHom.congr_fun hpoint Polynomial.X).trans
+    ((AlgHom.congr_fun
+      (GlobalCoordinates.specPoint_affineMap (Polynomial.aeval c)
+        (scalarPoint_overC c)) Polynomial.X).trans (by
+          simp only [Polynomial.aeval_X])))
 
 theorem center_coordinates (f : FreeLine X) (hf : marking.map ≫ f.curve.map = x.map) (c : ℂ) :
     (fun i => GlobalCoordinates.evaluation (center X H D x f hf c) (coordinates X H D x C i)) =

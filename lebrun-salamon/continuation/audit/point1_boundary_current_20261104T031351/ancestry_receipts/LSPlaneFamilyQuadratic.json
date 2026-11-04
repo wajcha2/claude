@@ -1,0 +1,57 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSPlaneFamilyQuadratic",
+  "key": {
+    "source_sha256": "608390e3d69e31d7885dbc5afe04c1ac4925e604c7d2d19e7ad64534efdf0132",
+    "imports": [
+      "LSStandardProjectivePicard",
+      "LSPlaneEmbeddingCartier",
+      "LSCartierQuadraticExtraction",
+      "LSQuadraticPrimitive"
+    ],
+    "dependency_artifacts": {
+      "LSStandardProjectivePicard": {
+        "sha256": "fbaa2b6af2ab16604649b31263498bae0c40db5da02555e44c7e5d4c03a9ce85",
+        "kind": "project"
+      },
+      "LSPlaneEmbeddingCartier": {
+        "sha256": "7fc115d55d2ebf35f5f2337997e0b95487e4934e3f345f8388a634909f99bad0",
+        "kind": "project"
+      },
+      "LSCartierQuadraticExtraction": {
+        "sha256": "550a96f040a694ce76add7d3aa56a12f79d62d61ca69ff651647ee781fe767b9",
+        "kind": "project"
+      },
+      "LSQuadraticPrimitive": {
+        "sha256": "4fa989358649ba4070829388226ba829467c8fe33d618847a82a9e7fb059b7be",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "f5266dd1e5cf8884ad0d5121c8eea34f60656499130eea5db2399806e15cd6b9",
+  "source_ancestry_fingerprint": "3eeda8ef1c07103c2a8a4bd0bce0841e3de43df9f07e6f38ef111ea9e398a506",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292536046,
+    "artifact_zip_sha256": "0854b0be78df30062097584d1e7502ca137008fdb087fb072908321b343469f5",
+    "original_receipt_sha256": "2149503577f3309dd7bf4364f7cb92dcef63ef463fa85b43a23d257325bbcf2e",
+    "cache_restore_provenance": null,
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:12:35.555331+00:00"
+}

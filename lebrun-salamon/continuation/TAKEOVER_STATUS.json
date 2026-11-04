@@ -2,7 +2,7 @@
   "schema": "lebrun-takeover-status-v1",
   "date_local": "2026-11-04",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-04T02:37:59.225855+00:00",
+  "recorded_utc": "2026-11-04T03:38:48.057058+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -26,8 +26,8 @@
   },
   "current_source": {
     "modules": 268,
-    "lines": 122448,
-    "bytes": 5908587,
+    "lines": 122536,
+    "bytes": 5913639,
     "admissions": {
       "sorry": 99,
       "admit": 0,
@@ -39,8 +39,8 @@
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-04T02:37:59.225855+00:00",
-    "aggregate_sha256": "2470dfd94d35b3ccac6f05fe3593b0f06609c3e1727f03c562395093ef42a737",
+    "snapshot_utc": "2026-11-04T03:38:48.057058+00:00",
+    "aggregate_sha256": "61f610c63ac681cbb0e66cb369ed84dae03838cd472b2b0c4f9c92164f9bede5",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -70,7 +70,7 @@
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 166,
+    "changed_modules": 167,
     "affected_modules": 259,
     "old_replay_modules": 21,
     "omitted_affected_descendants": 238,
@@ -149,12 +149,14 @@
     "status": "awaiting_commit_and_automatic_push_trigger",
     "result_not_yet_accepted": true,
     "source_modules_selected": 268,
-    "source_freeze_utc": "2026-11-04T02:37:59.225855+00:00",
+    "source_freeze_utc": "2026-11-04T03:38:48.057058+00:00",
     "compiler_memory_cap_mb": 12000,
     "compiler_timeout_seconds_per_module": 900,
     "cache_source_stage": "full_graph",
-    "strict_cache_source_run_id": 41757281666,
-    "expected_full_ancestry_cache_count": 102,
+    "strict_cache_source_run_id": 41763014879,
+    "expected_full_ancestry_cache_count": 240,
+    "first_early_target": "LSSmoothingAssembly",
+    "early_smoothing_timeout_seconds_per_module": 900,
     "early_interface_target": "RecompileExtensionsPart01",
     "second_early_interface_target": "RecompileExtensionsPart04Geometry",
     "point1_closure_target_manifest": "audit/point1_checkpoint/POINT1_MODULE_TARGETS.json",
@@ -270,26 +272,25 @@
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     },
     {
-      "run_id": 41757281666,
-      "commit": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
-      "source_modules_selected": 246,
+      "run_id": 41763014879,
+      "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+      "source_modules_selected": 268,
       "compiler_memory_cap_mb": 12000,
       "status": "completed",
       "conclusion": "failure",
       "counts": {
-        "reused": 178,
-        "passed": 38,
-        "failed": 3,
-        "blocked": 27
+        "reused": 200,
+        "passed": 40,
+        "failed": 2,
+        "blocked": 26
       },
-      "accepted_count_at_that_commit": 216,
+      "accepted_count_at_that_commit": 240,
       "failed_modules": [
         "LSConicJets",
-        "LSTraitContact",
-        "LSBoundedLines"
+        "LSScaledVelocities"
       ],
       "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41757281666/CI_RECEIPT.json",
+      "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     }
   ],
@@ -339,11 +340,16 @@
     }
   },
   "proof_batch": {
-    "status": "Step3c/3d actual-map translations, source-bivector proof, normalized projective coordinates, both original formal-trait normal-form proofs, and actual total-line affine-projection transport integrated with scoped native evidence; the changed current reverse cone, combined leaf audit, and Point1 acceptance remain pending.",
+    "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
     "kernel_accepted": false,
     "accepted_units_added": 0,
     "point1_obligation_count": 43,
     "point1_complete": false,
+    "point1_native_and_publication_roots_passed": 43,
+    "additional_inherited_roots_passed": 1,
+    "actual_eligible_leaf_count": 50,
+    "point1_dependency_closure_native_modules": 190,
+    "required_reverse_cone_passed": false,
     "step3cd_native_or_exact_source_evidence": 17,
     "evidence_directories": [
       "audit/step3cd_build",
@@ -369,7 +375,9 @@
       "audit/step3cd_diagonal_build",
       "audit/p1_source_bivector_work",
       "audit/ci/41732181431",
-      "audit/ci/41757281666"
+      "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
+      "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
+      "audit/ci/41763014879"
     ]
   },
   "compatibility_repairs": {
@@ -430,26 +438,25 @@
     "relative_differential_evidence": "audit/STEP3F_RELATIVE_DIFFERENTIAL.json"
   },
   "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41757281666,
-    "commit": "d9bd72d85fc6de168ebbd68936f5553e57f17927",
-    "source_modules_selected": 246,
+    "run_id": 41763014879,
+    "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "source_modules_selected": 268,
     "compiler_memory_cap_mb": 12000,
     "status": "completed",
     "conclusion": "failure",
     "counts": {
-      "reused": 178,
-      "passed": 38,
-      "failed": 3,
-      "blocked": 27
+      "reused": 200,
+      "passed": 40,
+      "failed": 2,
+      "blocked": 26
     },
-    "accepted_count_at_that_commit": 216,
+    "accepted_count_at_that_commit": 240,
     "failed_modules": [
       "LSConicJets",
-      "LSTraitContact",
-      "LSBoundedLines"
+      "LSScaledVelocities"
     ],
     "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41757281666/CI_RECEIPT.json",
+    "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
     "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
   },
   "proof_batch_history": [
@@ -531,6 +538,47 @@
         "audit/step3cd_diagonal_build",
         "audit/p1_source_bivector_work",
         "audit/ci/41732181431"
+      ]
+    },
+    {
+      "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
+      "kernel_accepted": false,
+      "accepted_units_added": 0,
+      "point1_obligation_count": 43,
+      "point1_complete": false,
+      "point1_native_and_publication_roots_passed": 43,
+      "additional_inherited_roots_passed": 1,
+      "actual_eligible_leaf_count": 50,
+      "point1_dependency_closure_native_modules": 190,
+      "required_reverse_cone_passed": false,
+      "step3cd_native_or_exact_source_evidence": 17,
+      "evidence_directories": [
+        "audit/step3cd_build",
+        "audit/step3cd_projection_build",
+        "audit/step3cd_kunneth_cover_build",
+        "audit/tangent_determinant_build",
+        "audit/step3e_remaining_build",
+        "audit/step3f_native_batch",
+        "audit/point1_projective_laurent_build",
+        "audit/p1_picard_build",
+        "audit/p1_tangent_build",
+        "audit/ci_compatibility_repairs",
+        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+        "audit/step3f_nodal_compatibility",
+        "audit/step3f_hom_vanishing",
+        "audit/STEP3F_HOM_VANISHING.json",
+        "audit/STEP3F_AFFINE_RELATIVE.json",
+        "audit/p1_family_degree_build",
+        "audit/ci/41728791345",
+        "audit/STEP3D_INTEGRATION_READY.json",
+        "audit/step3d_transport_build",
+        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
+        "audit/step3cd_diagonal_build",
+        "audit/p1_source_bivector_work",
+        "audit/ci/41732181431",
+        "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
+        "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
+        "audit/ci/41763014879"
       ]
     }
   ]

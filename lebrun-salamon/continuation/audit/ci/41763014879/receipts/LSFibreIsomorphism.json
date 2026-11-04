@@ -1,0 +1,70 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSFibreIsomorphism",
+  "source_ancestry_fingerprint": "f4213455e39265c1b3f9749544727a6e099f862b04dff46136b99fbb017e9eac",
+  "key": {
+    "source_sha256": "20f59e7504bc8a20f76bd1248d6e45f18f813aa8b8d2d7ca7a7bb33b79f16ed8",
+    "imports": [
+      "Mathlib.AlgebraicGeometry.Morphisms.Smooth",
+      "Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion"
+    ],
+    "dependency_artifacts": {
+      "Mathlib.AlgebraicGeometry.Morphisms.Smooth": {
+        "sha256": "99ceb78266e47eade302c632f40873e392e5ffe162e8a90b53a69ecb3e92dc64",
+        "kind": "external"
+      },
+      "Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion": {
+        "sha256": "6aa5e9a8070405bf72d4b133f32902a44b3a132a15acffa92a3d8a0d05eac98f",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSFibreIsomorphism.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFibreIsomorphism.lean"
+  ],
+  "started_utc": "2026-11-04T01:56:39.018322+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFibreIsomorphism.20261104T015639018264.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFibreIsomorphism.20261104T015639018264.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:56:40.787243+00:00",
+  "seconds": 1.768,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "19ea9c1412e27aa57b57ea5f644dc9d64ecfdd3152432532547b4ccef59c6bc1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "be7f948bf5e72c11c731e5209acfa4a5fb163e6e84ae2ba755b549bbb83cce2a",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41757281666,
+    "source_artifact_name": "lebrun-takeover-kernel-41757281666-1",
+    "prior_receipt_sha256": "f969ffab4448f3b546bb7414bc6ad266adba50119825a3a0df856c25265cfb98",
+    "restored_utc": "2026-11-04T02:50:30.763952+00:00"
+  }
+}

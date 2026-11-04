@@ -19,7 +19,7 @@ def main():
     ap.add_argument('--root', type=Path, required=True)
     ap.add_argument('--local-runtime', type=Path, required=True)
     ap.add_argument('--previous-base', type=Path)
-    ap.add_argument('--stage', choices=('full_graph', 'early_ext01', 'early_geometry', 'point1'), default='full_graph',
+    ap.add_argument('--stage', choices=('full_graph', 'early_smoothing', 'early_ext01', 'early_geometry', 'point1'), default='full_graph',
                     help='Keep completed early-closure evidence separate from the full-run result.')
     args = ap.parse_args()
     base, root = args.base.resolve(), args.root.resolve()
@@ -32,6 +32,7 @@ def main():
     run = read_json(base / 'RUN_METADATA.json')
     artifacts = read_json(base / 'ARTIFACTS.json')
     artifact_prefix = {'full_graph':'lebrun-takeover-kernel-',
+                       'early_smoothing':'lebrun-takeover-early-smoothing-',
                        'early_ext01':'lebrun-takeover-early-ext01-',
                        'early_geometry':'lebrun-takeover-early-geometry-',
                        'point1':'lebrun-takeover-point1-'}[args.stage]
@@ -90,7 +91,8 @@ def main():
             targets = sorted({Path(row['file']).stem for row in rows})
             assert targets == manifest['modules']
         else:
-            targets = [{'early_ext01':'RecompileExtensionsPart01',
+            targets = [{'early_smoothing':'LSSmoothingAssembly',
+                        'early_ext01':'RecompileExtensionsPart01',
                         'early_geometry':'RecompileExtensionsPart04Geometry'}[args.stage]]
         assert status['requested_targets'] == targets
         closure = set()

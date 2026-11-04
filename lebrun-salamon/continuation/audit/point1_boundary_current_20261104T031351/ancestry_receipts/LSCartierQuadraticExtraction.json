@@ -1,0 +1,47 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCartierQuadraticExtraction",
+  "key": {
+    "source_sha256": "a0a882de0523a00494afa75fb43c3b6f875664a998ce7f9ff6648a11d23527fe",
+    "imports": [
+      "LSEffectiveCartierInputs",
+      "LSPlaneQuadraticPublished"
+    ],
+    "dependency_artifacts": {
+      "LSEffectiveCartierInputs": {
+        "sha256": "043709c3832e48510f61729ffb5814098cca4016e7b0a135ca3eda670f34f402",
+        "kind": "project"
+      },
+      "LSPlaneQuadraticPublished": {
+        "sha256": "d85b87bc2d59602b868dbcb53592b558930e4587d0087766cd904d64ecee7a7b",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "output_sha256": "550a96f040a694ce76add7d3aa56a12f79d62d61ca69ff651647ee781fe767b9",
+  "source_ancestry_fingerprint": "462e43314f65f45a49a3fe88f6d8aa8f2beb11c0a9f73417e48248bb457f1d53",
+  "evidence_kind": "explicit_validated_historical_seed",
+  "seed_provenance": {
+    "kind": "stock_github_ci",
+    "run_id": 41763014879,
+    "head_sha": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
+    "run_url": "https://github.com/wajcha2/claude/actions/runs/41763014879",
+    "artifact_id": 13292536046,
+    "artifact_zip_sha256": "0854b0be78df30062097584d1e7502ca137008fdb087fb072908321b343469f5",
+    "original_receipt_sha256": "c76aecb202dc1a0293daffaddff70c14306b50e346625d93601aefab6b5c3215",
+    "cache_restore_provenance": null,
+    "source_and_all_project_ancestors_match_current": true,
+    "direct_external_artifacts_match_local_runtime": true
+  },
+  "accepted_utc": "2026-11-04T03:12:35.549052+00:00"
+}

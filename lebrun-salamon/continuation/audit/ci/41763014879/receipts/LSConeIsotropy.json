@@ -1,0 +1,69 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConeIsotropy",
+  "source_ancestry_fingerprint": "96411e2acb52d6689257a499baa4ace62ca85d3f76104e46e16b7e8fbd9af420",
+  "key": {
+    "source_sha256": "455e8b54f26f3a283555b7b345634c12380da6e2e47e7dac957a337f0742b129",
+    "imports": [
+      "LSConeRadial",
+      "LSRadialDetection",
+      "LSConeLocalization"
+    ],
+    "dependency_artifacts": {
+      "LSConeRadial": {
+        "sha256": "607a4c8b0ed905536266541e5f1f5e1a6b8a83a58da5399104effd8d89b21356",
+        "kind": "project"
+      },
+      "LSRadialDetection": {
+        "sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d",
+        "kind": "project"
+      },
+      "LSConeLocalization": {
+        "sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSConeIsotropy.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConeIsotropy.lean"
+  ],
+  "started_utc": "2026-11-04T03:09:04.874298+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConeIsotropy.20261104T030904874272.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConeIsotropy.20261104T030904874272.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T03:09:07.096477+00:00",
+  "seconds": 2.221,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "97db7735130c56e28e5d01c57d4200135b5d612a05302d4c7ac26b9b3c4b9ab1",
+  "evidence_kind": "native_kernel_compilation"
+}

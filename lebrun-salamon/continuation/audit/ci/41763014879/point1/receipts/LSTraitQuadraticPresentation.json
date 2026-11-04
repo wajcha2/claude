@@ -1,0 +1,79 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSTraitQuadraticPresentation",
+  "source_ancestry_fingerprint": "9972676cac0f33131056835bf4c1666b5d975105d23fa47ba135410e6bafc7fb",
+  "key": {
+    "source_sha256": "15426720fa4c9d2b3cee88c4344f87e0fa8e5d6e348ee6c44088a5289853c6a4",
+    "imports": [
+      "LSStableMapFamily",
+      "LSLineCohomologyBaseChange",
+      "LSPlaneFamilyQuadratic",
+      "LSSmoothFibreCartier",
+      "LSTraitFibreCohomology"
+    ],
+    "dependency_artifacts": {
+      "LSStableMapFamily": {
+        "sha256": "c5256faab7e916b94866f1557b884bb4a3f2402273d073aa2ded1240b4aa565a",
+        "kind": "project"
+      },
+      "LSLineCohomologyBaseChange": {
+        "sha256": "73c8f444988161751df22991f61d800aa0b20f80c44847a3d6453184f99c34a5",
+        "kind": "project"
+      },
+      "LSPlaneFamilyQuadratic": {
+        "sha256": "f5266dd1e5cf8884ad0d5121c8eea34f60656499130eea5db2399806e15cd6b9",
+        "kind": "project"
+      },
+      "LSSmoothFibreCartier": {
+        "sha256": "a301fd3ec0e4efd8a1092f3476dcaf81079add37100d35329d5d806e6de1908b",
+        "kind": "project"
+      },
+      "LSTraitFibreCohomology": {
+        "sha256": "218651fb0cb1bd75e65152fe8ba908fdad12632ec1fa29f77eaba613b8ac742e",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSTraitQuadraticPresentation.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSTraitQuadraticPresentation.lean"
+  ],
+  "started_utc": "2026-11-04T03:00:47.270232+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSTraitQuadraticPresentation.20261104T030047270205.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSTraitQuadraticPresentation.20261104T030047270205.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T03:00:49.746294+00:00",
+  "seconds": 2.474,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "af06b0762e236e247cfa1e183b535b69bd9144a21c9fd9d32b72a1fc0c1dadf1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "fa937200706cd8af237593ea24a701ebf05021569627375a308037302bc783c1",
+  "evidence_kind": "native_kernel_compilation"
+}

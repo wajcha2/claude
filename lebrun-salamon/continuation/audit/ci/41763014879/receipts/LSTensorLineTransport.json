@@ -1,0 +1,59 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSTensorLineTransport",
+  "source_ancestry_fingerprint": "078b0c22d7d40bd94ac020d08fc88d8dfdaeb69de2d91b1611a4d9132f8134ed",
+  "key": {
+    "source_sha256": "cdffd9d858c6083fed2c3a913c644f70c6622393ccd147ded989ecc427b1fc49",
+    "imports": [
+      "RecompileExtensionsPart02"
+    ],
+    "dependency_artifacts": {
+      "RecompileExtensionsPart02": {
+        "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSTensorLineTransport.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSTensorLineTransport.lean"
+  ],
+  "started_utc": "2026-11-04T02:56:38.960530+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSTensorLineTransport.20261104T025638960487.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSTensorLineTransport.20261104T025638960487.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T02:56:41.339509+00:00",
+  "seconds": 2.378,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "c2f458e9abb13debca9d7b544248ea82578e4be7b87c0371bfc879a098c1de4d",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "5b626259d9f367556d16a2ceef07f4ba2513bb66787a03f8019f74b00bcbf029",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSLineCohomologyBaseChange",
+  "source_ancestry_fingerprint": "4cdde423c6cc3f14333b1fbc5056b2447bdc3c2075a82d62cc29544b37d3ae92",
+  "key": {
+    "source_sha256": "6f29fd97b76c1c2003f1f6204a2fc11e6f5facb6c6d01b8a695f6ee69aa19d47",
+    "imports": [
+      "LSPublishedCohomologyBaseChange",
+      "LSLineStalkFlat"
+    ],
+    "dependency_artifacts": {
+      "LSPublishedCohomologyBaseChange": {
+        "sha256": "cb18b499349346181eaab3ce26b4bc5387529d58acf148f06cd0539fc95e3d45",
+        "kind": "project"
+      },
+      "LSLineStalkFlat": {
+        "sha256": "4076135f1e945a01c4e7fb5fdb6705720465765d0fe91b60828ea27fe66ac3d3",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSLineCohomologyBaseChange.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSLineCohomologyBaseChange.lean"
+  ],
+  "started_utc": "2026-11-04T01:57:13.236817+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSLineCohomologyBaseChange.20261104T015713236789.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSLineCohomologyBaseChange.20261104T015713236789.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:57:16.360118+00:00",
+  "seconds": 3.122,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "3d44104a031877fa7eb51942aa4b9ecd19e33a0ff67cd81134b0b61ea0b1c80e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "73c8f444988161751df22991f61d800aa0b20f80c44847a3d6453184f99c34a5",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41757281666,
+    "source_artifact_name": "lebrun-takeover-kernel-41757281666-1",
+    "prior_receipt_sha256": "8647cf09fe89bab21290df64276746908e659f6ab5d5ac17da1769a121512f2b",
+    "restored_utc": "2026-11-04T02:50:30.870767+00:00"
+  }
+}

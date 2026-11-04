@@ -1,0 +1,74 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConicChartDerivations",
+  "source_ancestry_fingerprint": "b6ecc86d8874b82ad5f888a79e482f0485d87f5105c0c0097acf889976ec7165",
+  "key": {
+    "source_sha256": "f44f57013dcdfed4584cfc45f0fed92383c55ea267104084a3120d50e9f5b140",
+    "imports": [
+      "RecompileExtensionsPart04Geometry",
+      "LSAffineCotangentHom",
+      "LSConicLogAlgebra",
+      "LSConicCotangentTools"
+    ],
+    "dependency_artifacts": {
+      "RecompileExtensionsPart04Geometry": {
+        "sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+        "kind": "project"
+      },
+      "LSAffineCotangentHom": {
+        "sha256": "3420950e88dde383148fa09ea622fc91de6f362cd2ca38e21a55865dbebc0289",
+        "kind": "project"
+      },
+      "LSConicLogAlgebra": {
+        "sha256": "b88d5f134e590dd4ac84bac74ddc10497b1edbb2743b0245daf7cbcc659a772e",
+        "kind": "project"
+      },
+      "LSConicCotangentTools": {
+        "sha256": "7ac9bd5544bd9daeda13105774fd45bcccbc09fef05d383063bba5a728381a02",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSConicChartDerivations.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConicChartDerivations.lean"
+  ],
+  "started_utc": "2026-11-04T03:05:56.338375+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicChartDerivations.20261104T030556338346.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConicChartDerivations.20261104T030556338346.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T03:05:59.571838+00:00",
+  "seconds": 3.23,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "8d3972cff5b903535b2e5b7b7b048b97d1b81d7f340d24ed7bc5a509d0c28395",
+  "evidence_kind": "native_kernel_compilation"
+}

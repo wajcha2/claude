@@ -1,4 +1,4 @@
-name: LeBrun-Salamon original reparametrization with checked direct product
+name: LeBrun-Salamon middle-scheme transport helper
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  reparametrization:
+  scheme-transport:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -31,11 +31,11 @@ jobs:
           run-id: 41782933633
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
-      - name: Download verified native cache 2 from 41802436148
+      - name: Download verified native cache 2 from 41803587860
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-model-product-41802436148-1
-          run-id: 41802436148
+          name: lebrun-model-tail-41803587860-1
+          run-id: 41803587860
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/1
       - name: Download verified native cache 3 from 41802436148
@@ -59,55 +59,36 @@ jobs:
           run-id: 41800804867
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/4
-      - name: Download verified native cache 6 from 41803036193
+      - name: Download verified native cache 6 from 41804734383
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-direct-curve-product-41803036193-1
-          run-id: 41803036193
+          name: lebrun-family-reparam-41804734383-1
+          run-id: 41804734383
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/5
+      - name: Download verified native cache 7 from 41804404180
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-smooth-41804404180-1
+          run-id: 41804404180
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/6
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check generic external-product map helper
-        id: maps
-        continue-on-error: true
+      - name: Check generic middle-scheme equality transport only
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyExternalProductMap --keep-going --timeout 300
-      - name: Expose early helper diagnostics and receipts
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySchemeTransport --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Upload exact early map-helper evidence
+      - name: Preserve current native frontier evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-family-map-early-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-family-scheme-transport-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-      - name: Check the six original reparametrization statements
-        id: reparametrization
-        if: steps.maps.outcome == 'success'
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyDescentReparametrization --keep-going --timeout 600
-      - name: Expose final exact reparametrization diagnostics and receipts
-        if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Upload final native reparametrization evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-family-reparam-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-      - name: Enforce successful helper and original-statement checks
-        if: always()
-        run: |
-          test "${{ steps.maps.outcome }}" = success
-          test "${{ steps.reparametrization.outcome }}" = success

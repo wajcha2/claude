@@ -1,0 +1,73 @@
+{
+  "schema": "lebrun-closed-inferred-final-application-v1",
+  "scope": "Off-graph candidate. Local diagnostic and stock native acceptance are recorded separately.",
+  "baseline_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/candidates/LSGenericFamilyComparisonFieldTwoV12.lean",
+  "baseline_sha256": "7af3e9cb720a2a345d5c36c633f4eba45738bb49aa4dfc784cb9ffd2ce3b98ba",
+  "candidate_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/root_extended_cover/LSGenericFamilyComparisonFieldTwoV13.lean",
+  "candidate_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
+  "profile_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/root_extended_cover/LSGenericFamilyComparisonFieldTwoProfileV13.lean",
+  "profile_sha256": "d610e85a5bb5bf62eed693b5af53407379677478995d8da714a7b338267d73b1",
+  "declaration_inventory": [
+    "field_section_injective_transport",
+    "field_specialization_descends",
+    "field_left_module_eq",
+    "field_left_pull_input",
+    "field_right_module_eq",
+    "field_right_pull_input",
+    "left",
+    "right",
+    "pull_post_eq_iff",
+    "left_iff",
+    "right_iff",
+    "evaluation_eq",
+    "square_eq",
+    "left_output_module_eq",
+    "right_output_module_eq",
+    "left_section_heq",
+    "right_section_heq",
+    "left_postmap_heq",
+    "right_postmap_heq",
+    "left_iff",
+    "right_iff",
+    "left_iff",
+    "right_iff",
+    "field_cover_left",
+    "field_cover_right",
+    "field_left_extended_cover_inferred",
+    "field_right_extended_cover_inferred",
+    "field_left_final_inferred",
+    "field_right_final_inferred",
+    "smoothLeft",
+    "smoothRight"
+  ],
+  "original2_header_sha256": {
+    "smoothLeft": "4bfe4086c41a5135eb326b8217f5774cf5a442614eb602706696c3d169f136fb",
+    "smoothRight": "177bef82b4a172752e2ab125232a0df4133c0e528b14e226ee8a062c9d24086e"
+  },
+  "all_original2_headers_and_scopes_preserved": true,
+  "exact_inverse_to_v12": true,
+  "new_private_declarations": [
+    "field_left_final_inferred",
+    "field_right_final_inferred"
+  ],
+  "new_data_choices": 0,
+  "new_admissions": 0,
+  "interface_change": "None. Each original body applies one inferred proof constant; its assembled ContactSectionDescent application uses exactly the existing extension arguments and stored extended-cover proof.",
+  "patches": [
+    {
+      "old": "/-- The descended left section",
+      "new": "private def field_left_final_inferred :=\n  ContactSectionDescent.left Q sK (extensionToC Q K sK b)\n    (squareMap Q K sK b) a (extendedSquare Q K sK b a)\n    (k \u226b F.evaluation) (extendedSource Q K sK b k \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk)\n    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)\n      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)\n      (extendedSource_isPullback Q K sK b k hk))\n    rfl\n    (square_evaluation sK b hb k hk a ha)\n    (square_evaluation (extensionToC Q K sK b) (extendedBase Q K b)\n      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)\n      (extendedSource_isPullback Q K sK b k hk) (extendedSquare Q K sK b a)\n      (extendedSquare_family Q K sK b k hk a ha))\n    (evaluationSquare_baseChange Q K sK b hb k hk)\n    (squareMap_section_injective Q K sK b\n      (MovingPair.leftBundle (ParametrizedContact.evaluationSquare P sK X\n        (k \u226b F.evaluation) (evaluation_overC sK b hb k hk))))\n    (left_baseChange Q K sK b hb k hk)\n    (field_left_extended_cover_inferred (Q := Q) (K := K)\n      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha))\n\nprivate def field_right_final_inferred :=\n  ContactSectionDescent.right Q sK (extensionToC Q K sK b)\n    (squareMap Q K sK b) a (extendedSquare Q K sK b a)\n    (k \u226b F.evaluation) (extendedSource Q K sK b k \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk)\n    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)\n      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)\n      (extendedSource_isPullback Q K sK b k hk))\n    rfl\n    (square_evaluation sK b hb k hk a ha)\n    (square_evaluation (extensionToC Q K sK b) (extendedBase Q K b)\n      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)\n      (extendedSource_isPullback Q K sK b k hk) (extendedSquare Q K sK b a)\n      (extendedSquare_family Q K sK b k hk a ha))\n    (evaluationSquare_baseChange Q K sK b hb k hk)\n    (squareMap_section_injective Q K sK b\n      (MovingPair.rightBundle (ParametrizedContact.evaluationSquare P sK X\n        (k \u226b F.evaluation) (evaluation_overC sK b hb k hk))))\n    (right_baseChange Q K sK b hb k hk)\n    (field_right_extended_cover_inferred (Q := Q) (K := K)\n      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha))\n\n/-- The descended left section",
+      "kind": "two_private_inferred_applications"
+    },
+    {
+      "old": "  let sL := extensionToC Q K sK b\n  let bL := extendedBase Q K b\n  let kL := extendedSource Q K sK b k\n  let hkL := extendedSource_isPullback Q K sK b k hk\n  let aL := extendedSquare Q K sK b a\n  have hbL : (bL \u226b F.smoothOpen.\u03b9) \u226b F.toC = sL := extendedBase_overC Q K sK b hb\n  have haL : aL \u226b F.smoothSquareOpen.\u03b9 = RelativeSquare.map\n      (Parametrized.parameter P sL) F.parameter kL (bL \u226b F.smoothOpen.\u03b9) hkL.w :=\n    extendedSquare_family Q K sK b k hk a ha\n  let rK := ParametrizedContact.evaluationSquare P sK X (k \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk)\n  let rL := ParametrizedContact.evaluationSquare P sL X (kL \u226b F.evaluation)\n    (evaluation_overC sL bL hbL kL hkL)\n  have haK : a \u226b SmoothFamily.smoothEvaluation (F := F) = rK :=\n    square_evaluation sK b hb k hk a ha\n  have hbase : squareMap Q K sK b \u226b rK = rL :=\n    evaluationSquare_baseChange Q K sK b hb k hk\n  have hAL : aL \u226b SmoothFamily.smoothEvaluation (F := F) = rL :=\n    square_evaluation sL bL hbL kL hkL aL haL\n  have hL : pullSection aL (SmoothFamily.smoothLeft Q) \u226b\n      (compositionPullback aL (SmoothFamily.smoothEvaluation (F := F)) rL hAL\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection P sL X (kL \u226b F.evaluation)\n        (evaluation_overC sL bL hbL kL hkL) := by\n    exact field_left_extended_cover_inferred (Q := Q) (K := K)\n      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)\n  exact ContactSectionDescent.left Q sK sL (squareMap Q K sK b) a aL\n    (k \u226b F.evaluation) (kL \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk) (evaluation_overC sL bL hbL kL hkL)\n    rfl haK hAL hbase\n    (squareMap_section_injective Q K sK b (MovingPair.leftBundle rK))\n    (left_baseChange Q K sK b hb k hk) hL",
+      "new": "  exact field_left_final_inferred (Q := Q) (K := K)\n    (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)",
+      "kind": "original_body_smoothLeft"
+    },
+    {
+      "old": "  let sL := extensionToC Q K sK b\n  let bL := extendedBase Q K b\n  let kL := extendedSource Q K sK b k\n  let hkL := extendedSource_isPullback Q K sK b k hk\n  let aL := extendedSquare Q K sK b a\n  have hbL : (bL \u226b F.smoothOpen.\u03b9) \u226b F.toC = sL := extendedBase_overC Q K sK b hb\n  have haL : aL \u226b F.smoothSquareOpen.\u03b9 = RelativeSquare.map\n      (Parametrized.parameter P sL) F.parameter kL (bL \u226b F.smoothOpen.\u03b9) hkL.w :=\n    extendedSquare_family Q K sK b k hk a ha\n  let rK := ParametrizedContact.evaluationSquare P sK X (k \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk)\n  let rL := ParametrizedContact.evaluationSquare P sL X (kL \u226b F.evaluation)\n    (evaluation_overC sL bL hbL kL hkL)\n  have haK : a \u226b SmoothFamily.smoothEvaluation (F := F) = rK :=\n    square_evaluation sK b hb k hk a ha\n  have hbase : squareMap Q K sK b \u226b rK = rL :=\n    evaluationSquare_baseChange Q K sK b hb k hk\n  have hAL : aL \u226b SmoothFamily.smoothEvaluation (F := F) = rL :=\n    square_evaluation sL bL hbL kL hkL aL haL\n  have hL : pullSection aL (SmoothFamily.smoothRight Q) \u226b\n      (compositionPullback aL (SmoothFamily.smoothEvaluation (F := F)) rL hAL\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection P sL X (kL \u226b F.evaluation)\n        (evaluation_overC sL bL hbL kL hkL) := by\n    exact field_right_extended_cover_inferred (Q := Q) (K := K)\n      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)\n  exact ContactSectionDescent.right Q sK sL (squareMap Q K sK b) a aL\n    (k \u226b F.evaluation) (kL \u226b F.evaluation)\n    (evaluation_overC sK b hb k hk) (evaluation_overC sL bL hbL kL hkL)\n    rfl haK hAL hbase\n    (squareMap_section_injective Q K sK b (MovingPair.rightBundle rK))\n    (right_baseChange Q K sK b hb k hk) hL",
+      "new": "  exact field_right_final_inferred (Q := Q) (K := K)\n    (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)",
+      "kind": "original_body_smoothRight"
+    }
+  ]
+}

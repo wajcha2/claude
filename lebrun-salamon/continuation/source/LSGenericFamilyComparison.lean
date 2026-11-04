@@ -30,6 +30,122 @@ open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight
 open LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyFive
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
+namespace LeBrunSalamon.Construction.FamilyBivectors.ContactSectionDescent
+
+theorem field_section_injective_transport {T Y : Scheme}
+    (f : T ⟶ Y) (B C : OModule Y) (hBC : B = C)
+    (hi : Function.Injective (fun s : AlgebraicSection B => pullSection f s)) :
+    Function.Injective (fun s : AlgebraicSection C => pullSection f s) := by
+  cases hBC
+  exact hi
+
+theorem field_specialization_descends {T Y Z W : Scheme}
+    (f : T ⟶ Y) (g : Y ⟶ Z) (h : Z ⟶ W)
+    (fg : T ⟶ Z) (gh : Y ⟶ W) (fgh : T ⟶ W)
+    (hfg : f ≫ g = fg) (hgh : g ≫ h = gh)
+    (hfgh : f ≫ gh = fgh) (hfgh' : fg ≫ h = fgh)
+    (E : OModule W) (B : OModule Y) (hB : B = pullbackModule gh E)
+    (hi : Function.Injective (fun s : AlgebraicSection B => pullSection f s))
+    (a : AlgebraicSection (pullbackModule h E))
+    (b : AlgebraicSection (pullbackModule gh E))
+    (c : AlgebraicSection (pullbackModule fgh E))
+    (hbc : pullSection f b ≫ (compositionPullback f gh fgh hfgh E).hom = c)
+    (hac : pullSection fg a ≫ (compositionPullback fg h fgh hfgh' E).hom = c) :
+    pullSection g a ≫ (compositionPullback g h gh hgh E).hom = b := by
+  apply field_section_injective_transport f B (pullbackModule gh E) hB hi
+  apply (cancel_mono (compositionPullback f gh fgh hfgh E).hom).mp
+  have hn := SectionTransport.pull_specialization f g h fg gh fgh
+    hfg hgh hfgh hfgh' a
+    (pullSection g a ≫ (compositionPullback g h gh hgh E).hom) rfl
+  exact hn.symm.trans (hac.trans hbc.symm)
+
+theorem field_left_module_eq {n : ℕ} {X : ContactFanoManifold n}
+    {Y : Scheme} (f : Y ⟶ SelfProduct X.variety.structureMap) :
+    (MovingPair.leftBundle f).sheaf = pullbackModule f (movingPairBundleLeft X.variety X.contact) := by
+  rfl
+
+theorem field_left_pull_input {n : ℕ} {X : ContactFanoManifold n}
+    {T Y : Scheme} (q : T ⟶ Y)
+    (f : Y ⟶ SelfProduct X.variety.structureMap)
+    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
+    (s : AlgebraicSection (MovingPair.leftBundle f).sheaf) :
+    (@pullSection T Y q (MovingPair.leftBundle f).sheaf s ≫
+      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) =
+    (@pullSection T Y q (pullbackModule f (movingPairBundleLeft X.variety X.contact)) s ≫
+      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) := by
+  rfl
+
+theorem field_right_module_eq {n : ℕ} {X : ContactFanoManifold n}
+    {Y : Scheme} (f : Y ⟶ SelfProduct X.variety.structureMap) :
+    (MovingPair.rightBundle f).sheaf = pullbackModule f (movingPairBundleRight X.variety X.contact) := by
+  rfl
+
+theorem field_right_pull_input {n : ℕ} {X : ContactFanoManifold n}
+    {T Y : Scheme} (q : T ⟶ Y)
+    (f : Y ⟶ SelfProduct X.variety.structureMap)
+    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
+    (s : AlgebraicSection (MovingPair.rightBundle f).sheaf) :
+    (@pullSection T Y q (MovingPair.rightBundle f).sheaf s ≫
+      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) =
+    (@pullSection T Y q (pullbackModule f (movingPairBundleRight X.variety X.contact)) s ≫
+      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) := by
+  rfl
+
+variable {P : ProjectiveLineOverC} {p : ProjectiveLinePoint P}
+variable {n : ℕ} {X : ContactFanoManifold n} {g : VeryFreeContactConic P p X}
+variable {N : FullConicNeighborhood P p X g}
+variable {F : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2}
+variable (Q : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood
+  X.contact.sequence.line 2 F)
+
+variable {T0 T1 : Scheme} (s0 : T0 ⟶ ComplexBase) (s1 : T1 ⟶ ComplexBase)
+variable (f : Parametrized.Square P s1 ⟶ Parametrized.Square P s0)
+variable (a0 : Parametrized.Square P s0 ⟶ F.smoothSquareOpen.toScheme)
+variable (a1 : Parametrized.Square P s1 ⟶ F.smoothSquareOpen.toScheme)
+variable (e0 : Parametrized.Source P s0 ⟶ X.variety.scheme)
+variable (e1 : Parametrized.Source P s1 ⟶ X.variety.scheme)
+variable (hf0 : e0 ≫ X.variety.structureMap = Parametrized.parameter P s0 ≫ s0)
+variable (hf1 : e1 ≫ X.variety.structureMap = Parametrized.parameter P s1 ≫ s1)
+
+theorem left
+    (hfa : f ≫ a0 = a1)
+    (ha0 : a0 ≫ (SmoothFamily.smoothEvaluation (F := F)) = (ParametrizedContact.evaluationSquare P s0 X e0 hf0))
+    (ha1 : a1 ≫ (SmoothFamily.smoothEvaluation (F := F)) = (ParametrizedContact.evaluationSquare P s1 X e1 hf1))
+    (hbase : f ≫ (ParametrizedContact.evaluationSquare P s0 X e0 hf0) = (ParametrizedContact.evaluationSquare P s1 X e1 hf1))
+    (hi : Function.Injective (fun t : AlgebraicSection (MovingPair.leftBundle (X := X) (ParametrizedContact.evaluationSquare P s0 X e0 hf0)).sheaf => pullSection f t))
+    (hbc : pullSection f (ParametrizedContact.leftSection P s0 X e0 hf0) ≫
+      (compositionPullback f (ParametrizedContact.evaluationSquare P s0 X e0 hf0) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) hbase (movingPairBundleLeft X.variety X.contact)).hom = (ParametrizedContact.leftSection P s1 X e1 hf1))
+    (hL : pullSection a1 (SmoothFamily.smoothLeft Q) ≫
+      (compositionPullback a1 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) ha1 (movingPairBundleLeft X.variety X.contact)).hom = (ParametrizedContact.leftSection P s1 X e1 hf1)) :
+    pullSection a0 (SmoothFamily.smoothLeft Q) ≫
+      (compositionPullback a0 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s0 X e0 hf0) ha0 (movingPairBundleLeft X.variety X.contact)).hom = (ParametrizedContact.leftSection P s0 X e0 hf0) := by
+  exact (field_left_pull_input a0 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s0 X e0 hf0) ha0 (SmoothFamily.smoothLeft Q)).trans
+    (field_specialization_descends f a0 (SmoothFamily.smoothEvaluation (F := F)) a1 (ParametrizedContact.evaluationSquare P s0 X e0 hf0) (ParametrizedContact.evaluationSquare P s1 X e1 hf1)
+      hfa ha0 hbase ha1 (movingPairBundleLeft X.variety X.contact) (MovingPair.leftBundle (X := X) (ParametrizedContact.evaluationSquare P s0 X e0 hf0)).sheaf
+      (field_left_module_eq (ParametrizedContact.evaluationSquare P s0 X e0 hf0)) hi (SmoothFamily.smoothLeft Q) (ParametrizedContact.leftSection P s0 X e0 hf0) (ParametrizedContact.leftSection P s1 X e1 hf1) hbc
+      ((field_left_pull_input a1 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) ha1 (SmoothFamily.smoothLeft Q)).symm.trans hL))
+
+theorem right
+    (hfa : f ≫ a0 = a1)
+    (ha0 : a0 ≫ (SmoothFamily.smoothEvaluation (F := F)) = (ParametrizedContact.evaluationSquare P s0 X e0 hf0))
+    (ha1 : a1 ≫ (SmoothFamily.smoothEvaluation (F := F)) = (ParametrizedContact.evaluationSquare P s1 X e1 hf1))
+    (hbase : f ≫ (ParametrizedContact.evaluationSquare P s0 X e0 hf0) = (ParametrizedContact.evaluationSquare P s1 X e1 hf1))
+    (hi : Function.Injective (fun t : AlgebraicSection (MovingPair.rightBundle (X := X) (ParametrizedContact.evaluationSquare P s0 X e0 hf0)).sheaf => pullSection f t))
+    (hbc : pullSection f (ParametrizedContact.rightSection P s0 X e0 hf0) ≫
+      (compositionPullback f (ParametrizedContact.evaluationSquare P s0 X e0 hf0) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) hbase (movingPairBundleRight X.variety X.contact)).hom = (ParametrizedContact.rightSection P s1 X e1 hf1))
+    (hL : pullSection a1 (SmoothFamily.smoothRight Q) ≫
+      (compositionPullback a1 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) ha1 (movingPairBundleRight X.variety X.contact)).hom = (ParametrizedContact.rightSection P s1 X e1 hf1)) :
+    pullSection a0 (SmoothFamily.smoothRight Q) ≫
+      (compositionPullback a0 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s0 X e0 hf0) ha0 (movingPairBundleRight X.variety X.contact)).hom = (ParametrizedContact.rightSection P s0 X e0 hf0) := by
+  exact (field_right_pull_input a0 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s0 X e0 hf0) ha0 (SmoothFamily.smoothRight Q)).trans
+    (field_specialization_descends f a0 (SmoothFamily.smoothEvaluation (F := F)) a1 (ParametrizedContact.evaluationSquare P s0 X e0 hf0) (ParametrizedContact.evaluationSquare P s1 X e1 hf1)
+      hfa ha0 hbase ha1 (movingPairBundleRight X.variety X.contact) (MovingPair.rightBundle (X := X) (ParametrizedContact.evaluationSquare P s0 X e0 hf0)).sheaf
+      (field_right_module_eq (ParametrizedContact.evaluationSquare P s0 X e0 hf0)) hi (SmoothFamily.smoothRight Q) (ParametrizedContact.rightSection P s0 X e0 hf0) (ParametrizedContact.rightSection P s1 X e1 hf1) hbc
+      ((field_right_pull_input a1 (SmoothFamily.smoothEvaluation (F := F)) (ParametrizedContact.evaluationSquare P s1 X e1 hf1) ha1 (SmoothFamily.smoothRight Q)).symm.trans hL))
+
+end LeBrunSalamon.Construction.FamilyBivectors.ContactSectionDescent
+
+
 namespace LeBrunSalamon.Construction.FamilyBivectors.FieldPostmapTransport
 
 /-- Transport the complete pullback/postcomposition equation while preserving
@@ -366,65 +482,6 @@ end LeBrunSalamon.Construction.FamilyBivectors
 
 namespace LeBrunSalamon.Construction.FamilyBivectors
 
-private theorem field_section_injective_transport {T Y : Scheme}
-    (f : T ⟶ Y) (B C : OModule Y) (hBC : B = C)
-    (hi : Function.Injective (fun s : AlgebraicSection B => pullSection f s)) :
-    Function.Injective (fun s : AlgebraicSection C => pullSection f s) := by
-  cases hBC
-  exact hi
-
-private theorem field_specialization_descends {T Y Z W : Scheme}
-    (f : T ⟶ Y) (g : Y ⟶ Z) (h : Z ⟶ W)
-    (fg : T ⟶ Z) (gh : Y ⟶ W) (fgh : T ⟶ W)
-    (hfg : f ≫ g = fg) (hgh : g ≫ h = gh)
-    (hfgh : f ≫ gh = fgh) (hfgh' : fg ≫ h = fgh)
-    (E : OModule W) (B : OModule Y) (hB : B = pullbackModule gh E)
-    (hi : Function.Injective (fun s : AlgebraicSection B => pullSection f s))
-    (a : AlgebraicSection (pullbackModule h E))
-    (b : AlgebraicSection (pullbackModule gh E))
-    (c : AlgebraicSection (pullbackModule fgh E))
-    (hbc : pullSection f b ≫ (compositionPullback f gh fgh hfgh E).hom = c)
-    (hac : pullSection fg a ≫ (compositionPullback fg h fgh hfgh' E).hom = c) :
-    pullSection g a ≫ (compositionPullback g h gh hgh E).hom = b := by
-  apply field_section_injective_transport f B (pullbackModule gh E) hB hi
-  apply (cancel_mono (compositionPullback f gh fgh hfgh E).hom).mp
-  have hn := SectionTransport.pull_specialization f g h fg gh fgh
-    hfg hgh hfgh hfgh' a
-    (pullSection g a ≫ (compositionPullback g h gh hgh E).hom) rfl
-  exact hn.symm.trans (hac.trans hbc.symm)
-
-private theorem field_left_module_eq {n : ℕ} {X : ContactFanoManifold n}
-    {Y : Scheme} (f : Y ⟶ SelfProduct X.variety.structureMap) :
-    (MovingPair.leftBundle f).sheaf = pullbackModule f (movingPairBundleLeft X.variety X.contact) := by
-  rfl
-
-private theorem field_left_pull_input {n : ℕ} {X : ContactFanoManifold n}
-    {T Y : Scheme} (q : T ⟶ Y)
-    (f : Y ⟶ SelfProduct X.variety.structureMap)
-    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
-    (s : AlgebraicSection (MovingPair.leftBundle f).sheaf) :
-    (@pullSection T Y q (MovingPair.leftBundle f).sheaf s ≫
-      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) =
-    (@pullSection T Y q (pullbackModule f (movingPairBundleLeft X.variety X.contact)) s ≫
-      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) := by
-  rfl
-
-private theorem field_right_module_eq {n : ℕ} {X : ContactFanoManifold n}
-    {Y : Scheme} (f : Y ⟶ SelfProduct X.variety.structureMap) :
-    (MovingPair.rightBundle f).sheaf = pullbackModule f (movingPairBundleRight X.variety X.contact) := by
-  rfl
-
-private theorem field_right_pull_input {n : ℕ} {X : ContactFanoManifold n}
-    {T Y : Scheme} (q : T ⟶ Y)
-    (f : Y ⟶ SelfProduct X.variety.structureMap)
-    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
-    (s : AlgebraicSection (MovingPair.rightBundle f).sheaf) :
-    (@pullSection T Y q (MovingPair.rightBundle f).sheaf s ≫
-      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) =
-    (@pullSection T Y q (pullbackModule f (movingPairBundleRight X.variety X.contact)) s ≫
-      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) := by
-  rfl
-
 namespace FieldComparison
 
 variable {P : ProjectiveLineOverC} {p : ProjectiveLinePoint P}
@@ -485,6 +542,70 @@ private theorem field_cover_right
     (square_evaluation sK b hb k hk a ha) (SmoothFamily.smoothRight Q)).mp
     (CartesianParametrization.smoothRight_field Q K sK q b hq k hk a ha)
 
+private def field_left_extended_cover_inferred :=
+  field_cover_left (Q := Q) (K := Q.parametrizingField K b)
+    (sK := extensionToC Q K sK b) (b := extendedBase Q K b)
+    (hb := extendedBase_overC Q K sK b hb)
+    (k := extendedSource Q K sK b k)
+    (hk := extendedSource_isPullback Q K sK b k hk)
+    (a := extendedSquare Q K sK b a)
+    (ha := extendedSquare_family Q K sK b k hk a ha)
+    (q := coverPoint Q K sK b hb) (hq := coverPoint_base Q K sK b hb)
+
+private def field_right_extended_cover_inferred :=
+  field_cover_right (Q := Q) (K := Q.parametrizingField K b)
+    (sK := extensionToC Q K sK b) (b := extendedBase Q K b)
+    (hb := extendedBase_overC Q K sK b hb)
+    (k := extendedSource Q K sK b k)
+    (hk := extendedSource_isPullback Q K sK b k hk)
+    (a := extendedSquare Q K sK b a)
+    (ha := extendedSquare_family Q K sK b k hk a ha)
+    (q := coverPoint Q K sK b hb) (hq := coverPoint_base Q K sK b hb)
+
+private def field_left_final_inferred :=
+  ContactSectionDescent.left Q sK (extensionToC Q K sK b)
+    (squareMap Q K sK b) a (extendedSquare Q K sK b a)
+    (k ≫ F.evaluation) (extendedSource Q K sK b k ≫ F.evaluation)
+    (evaluation_overC sK b hb k hk)
+    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
+      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
+      (extendedSource_isPullback Q K sK b k hk))
+    rfl
+    (square_evaluation sK b hb k hk a ha)
+    (square_evaluation (extensionToC Q K sK b) (extendedBase Q K b)
+      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
+      (extendedSource_isPullback Q K sK b k hk) (extendedSquare Q K sK b a)
+      (extendedSquare_family Q K sK b k hk a ha))
+    (evaluationSquare_baseChange Q K sK b hb k hk)
+    (squareMap_section_injective Q K sK b
+      (MovingPair.leftBundle (ParametrizedContact.evaluationSquare P sK X
+        (k ≫ F.evaluation) (evaluation_overC sK b hb k hk))))
+    (left_baseChange Q K sK b hb k hk)
+    (field_left_extended_cover_inferred (Q := Q) (K := K)
+      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha))
+
+private def field_right_final_inferred :=
+  ContactSectionDescent.right Q sK (extensionToC Q K sK b)
+    (squareMap Q K sK b) a (extendedSquare Q K sK b a)
+    (k ≫ F.evaluation) (extendedSource Q K sK b k ≫ F.evaluation)
+    (evaluation_overC sK b hb k hk)
+    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
+      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
+      (extendedSource_isPullback Q K sK b k hk))
+    rfl
+    (square_evaluation sK b hb k hk a ha)
+    (square_evaluation (extensionToC Q K sK b) (extendedBase Q K b)
+      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
+      (extendedSource_isPullback Q K sK b k hk) (extendedSquare Q K sK b a)
+      (extendedSquare_family Q K sK b k hk a ha))
+    (evaluationSquare_baseChange Q K sK b hb k hk)
+    (squareMap_section_injective Q K sK b
+      (MovingPair.rightBundle (ParametrizedContact.evaluationSquare P sK X
+        (k ≫ F.evaluation) (evaluation_overC sK b hb k hk))))
+    (right_baseChange Q K sK b hb k hk)
+    (field_right_extended_cover_inferred (Q := Q) (K := K)
+      (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha))
+
 /-- The descended left section agrees with the intrinsic tensor of
 every Cartesian P1 parametrization over an arbitrary field over C.
 The proof lifts to the actual residue field of Q, compares the literal
@@ -498,48 +619,8 @@ theorem smoothLeft :
         (movingPairBundleLeft X.variety X.contact)).hom =
       ParametrizedContact.leftSection P sK X (k ≫ F.evaluation)
         (evaluation_overC sK b hb k hk) := by
-  let sL := extensionToC Q K sK b
-  let bL := extendedBase Q K b
-  let kL := extendedSource Q K sK b k
-  let hkL := extendedSource_isPullback Q K sK b k hk
-  let aL := extendedSquare Q K sK b a
-  have hbL : (bL ≫ F.smoothOpen.ι) ≫ F.toC = sL := extendedBase_overC Q K sK b hb
-  have haL : aL ≫ F.smoothSquareOpen.ι = RelativeSquare.map
-      (Parametrized.parameter P sL) F.parameter kL (bL ≫ F.smoothOpen.ι) hkL.w :=
-    extendedSquare_family Q K sK b k hk a ha
-  let rK := ParametrizedContact.evaluationSquare P sK X (k ≫ F.evaluation)
-    (evaluation_overC sK b hb k hk)
-  let rL := ParametrizedContact.evaluationSquare P sL X (kL ≫ F.evaluation)
-    (evaluation_overC sL bL hbL kL hkL)
-  have haK : a ≫ SmoothFamily.smoothEvaluation (F := F) = rK :=
-    square_evaluation sK b hb k hk a ha
-  have hbase : squareMap Q K sK b ≫ rK = rL :=
-    evaluationSquare_baseChange Q K sK b hb k hk
-  have hAL : aL ≫ SmoothFamily.smoothEvaluation (F := F) = rL :=
-    square_evaluation sL bL hbL kL hkL aL haL
-  have hL : pullSection aL (SmoothFamily.smoothLeft Q) ≫
-      (compositionPullback aL (SmoothFamily.smoothEvaluation (F := F)) rL hAL
-        (movingPairBundleLeft X.variety X.contact)).hom =
-      ParametrizedContact.leftSection P sL X (kL ≫ F.evaluation)
-        (evaluation_overC sL bL hbL kL hkL) := by
-    exact field_cover_left (Q := Q) (K := Q.parametrizingField K b)
-      (sK := sL) (b := bL) (hb := hbL) (k := kL) (hk := hkL) (a := aL) (ha := haL)
-      (q := coverPoint Q K sK b hb) (hq := coverPoint_base Q K sK b hb)
-  exact (field_left_pull_input a (SmoothFamily.smoothEvaluation (F := F))
-    rK haK (SmoothFamily.smoothLeft Q)).trans
-    (field_specialization_descends (squareMap Q K sK b) a
-      (SmoothFamily.smoothEvaluation (F := F)) aL rK rL rfl haK hbase hAL
-      (movingPairBundleLeft X.variety X.contact) (MovingPair.leftBundle rK).sheaf
-      (field_left_module_eq rK)
-      (squareMap_section_injective Q K sK b (MovingPair.leftBundle rK))
-      (SmoothFamily.smoothLeft Q)
-      (ParametrizedContact.leftSection P sK X (k ≫ F.evaluation)
-        (evaluation_overC sK b hb k hk))
-      (ParametrizedContact.leftSection P sL X (kL ≫ F.evaluation)
-        (evaluation_overC sL bL hbL kL hkL))
-      (left_baseChange Q K sK b hb k hk)
-      ((field_left_pull_input aL (SmoothFamily.smoothEvaluation (F := F))
-        rL hAL (SmoothFamily.smoothLeft Q)).symm.trans hL))
+  exact field_left_final_inferred (Q := Q) (K := K)
+    (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)
 
 /-- The corresponding arbitrary-field comparison for the second
 mixed tensor, with the same complete source square and field extension. -/
@@ -552,48 +633,8 @@ theorem smoothRight :
         (movingPairBundleRight X.variety X.contact)).hom =
       ParametrizedContact.rightSection P sK X (k ≫ F.evaluation)
         (evaluation_overC sK b hb k hk) := by
-  let sL := extensionToC Q K sK b
-  let bL := extendedBase Q K b
-  let kL := extendedSource Q K sK b k
-  let hkL := extendedSource_isPullback Q K sK b k hk
-  let aL := extendedSquare Q K sK b a
-  have hbL : (bL ≫ F.smoothOpen.ι) ≫ F.toC = sL := extendedBase_overC Q K sK b hb
-  have haL : aL ≫ F.smoothSquareOpen.ι = RelativeSquare.map
-      (Parametrized.parameter P sL) F.parameter kL (bL ≫ F.smoothOpen.ι) hkL.w :=
-    extendedSquare_family Q K sK b k hk a ha
-  let rK := ParametrizedContact.evaluationSquare P sK X (k ≫ F.evaluation)
-    (evaluation_overC sK b hb k hk)
-  let rL := ParametrizedContact.evaluationSquare P sL X (kL ≫ F.evaluation)
-    (evaluation_overC sL bL hbL kL hkL)
-  have haK : a ≫ SmoothFamily.smoothEvaluation (F := F) = rK :=
-    square_evaluation sK b hb k hk a ha
-  have hbase : squareMap Q K sK b ≫ rK = rL :=
-    evaluationSquare_baseChange Q K sK b hb k hk
-  have hAL : aL ≫ SmoothFamily.smoothEvaluation (F := F) = rL :=
-    square_evaluation sL bL hbL kL hkL aL haL
-  have hL : pullSection aL (SmoothFamily.smoothRight Q) ≫
-      (compositionPullback aL (SmoothFamily.smoothEvaluation (F := F)) rL hAL
-        (movingPairBundleRight X.variety X.contact)).hom =
-      ParametrizedContact.rightSection P sL X (kL ≫ F.evaluation)
-        (evaluation_overC sL bL hbL kL hkL) := by
-    exact field_cover_right (Q := Q) (K := Q.parametrizingField K b)
-      (sK := sL) (b := bL) (hb := hbL) (k := kL) (hk := hkL) (a := aL) (ha := haL)
-      (q := coverPoint Q K sK b hb) (hq := coverPoint_base Q K sK b hb)
-  exact (field_right_pull_input a (SmoothFamily.smoothEvaluation (F := F))
-    rK haK (SmoothFamily.smoothRight Q)).trans
-    (field_specialization_descends (squareMap Q K sK b) a
-      (SmoothFamily.smoothEvaluation (F := F)) aL rK rL rfl haK hbase hAL
-      (movingPairBundleRight X.variety X.contact) (MovingPair.rightBundle rK).sheaf
-      (field_right_module_eq rK)
-      (squareMap_section_injective Q K sK b (MovingPair.rightBundle rK))
-      (SmoothFamily.smoothRight Q)
-      (ParametrizedContact.rightSection P sK X (k ≫ F.evaluation)
-        (evaluation_overC sK b hb k hk))
-      (ParametrizedContact.rightSection P sL X (kL ≫ F.evaluation)
-        (evaluation_overC sL bL hbL kL hkL))
-      (right_baseChange Q K sK b hb k hk)
-      ((field_right_pull_input aL (SmoothFamily.smoothEvaluation (F := F))
-        rL hAL (SmoothFamily.smoothRight Q)).symm.trans hL))
+  exact field_right_final_inferred (Q := Q) (K := K)
+    (sK := sK) (b := b) (hb := hb) (k := k) (hk := hk) (a := a) (ha := ha)
 
 end FieldComparison
 

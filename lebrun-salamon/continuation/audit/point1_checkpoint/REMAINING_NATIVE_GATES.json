@@ -1,7 +1,7 @@
 {
   "schema": "lebrun-remaining-native-gates-v1",
-  "updated_utc": "2026-11-04 17:37:49 UTC",
-  "clean_production_base": "generic_field2_v11_actual",
+  "updated_utc": "2026-11-04 17:48:35 UTC",
+  "clean_production_base": "generic_field2_v13_actual",
   "source_modules": 307,
   "native_verified_contexts": 301,
   "point1_190_unchanged": true,
@@ -29,10 +29,10 @@
     {
       "module": "LSGenericFamilyComparison",
       "owner": "root",
-      "status": "Changed actual V11 pending direct stock300s check; no completed original-pair receipt",
+      "status": "V13 complete local31 pass47.553s; actual native gate pending",
       "do_not_retry_unchanged": true,
-      "source_sha256": "d5368a852abd18555d6e82a366fe6425fc6dccd812a92405298c5d6580790eac",
-      "source_blob": "155272a4f63e63f1622c7fcb8eb4587587c95f71",
+      "source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
+      "source_blob": "c078b39705600df13a91b949030cced4695c540f",
       "run_id": null
     },
     {
@@ -97,10 +97,19 @@
   "clean_production_parent": "4274007de8deb55e2300d553f2e611c22686f056",
   "active_native_runs": [],
   "pending_native_dispatch": {
-    "branch": "codex/lebrun-generic-field2-v11-20261104",
+    "branch": "codex/lebrun-generic-field2-v13-20261104",
     "module": "LSGenericFamilyComparison",
-    "source_sha256": "d5368a852abd18555d6e82a366fe6425fc6dccd812a92405298c5d6580790eac",
+    "source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
     "timeout_seconds": 300,
     "mode": "direct actual module"
+  },
+  "obsolete_v11_supersession": {
+    "authorized_obsolete_run_id": 41879102797,
+    "obsolete_commit": "709e7b54493d2e3690843ea6ec0a954c894624ca",
+    "obsolete_branch": "codex/lebrun-generic-field2-v11-20261104",
+    "exact_unique_group": "lebrun-generic-field2-v11-refs/heads/codex/lebrun-generic-field2-v11-20261104",
+    "cancel_in_progress": true,
+    "documentation_url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency",
+    "scope": "Root authorized canceling only the obsolete V11 run. This exact concurrency group is taken from its frozen workflow; no other workflow group is affected."
   }
 }

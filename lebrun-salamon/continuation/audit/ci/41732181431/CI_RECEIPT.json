@@ -1,0 +1,1446 @@
+{
+  "schema": "lebrun-github-ci-evidence-v2",
+  "verified_utc": "2026-11-03T23:14:10.506007+00:00",
+  "run": {
+    "id": 41732181431,
+    "name": "LeBrun-Salamon takeover kernel checks",
+    "head_branch": "codex/lebrun-takeover-audit-20261103",
+    "head_sha": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+    "path": ".github/workflows/lebrun-takeover-kernel.yml",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41732181431",
+    "created_at": "2026-11-03T22:35:50Z",
+    "updated_at": "2026-11-03T23:10:18Z",
+    "run_started_at": "2026-11-03T22:35:50Z",
+    "run_attempt": 1
+  },
+  "artifact_id": 13278613919,
+  "artifact_zip_sha256": "c131a87581f0ba183a6ed5c6464ffe9ca506d0ce871c6380d19976d02fa3bc48",
+  "artifact_zip_verified": true,
+  "compiler_kind": "stock_pinned_frontend",
+  "compiler_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "counts": {
+    "reused": 28,
+    "passed": 93,
+    "failed": 4,
+    "blocked": 30
+  },
+  "accepted_count": 121,
+  "selected_module_count": 155,
+  "full_selected_graph_passed": false,
+  "milestone_met": false,
+  "final_validation": {
+    "checked_utc": "2026-11-03T23:10:07.203491+00:00",
+    "checked_module_count": 121,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "failures": [
+    "LSConicJets",
+    "LSRelativeDifferential",
+    "LSStandardConicDifferential",
+    "LSProductGeometry"
+  ],
+  "error_count": 60,
+  "modules": [
+    {
+      "module": "FieldDifferentials",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.07,
+      "source_sha256": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
+      "output_sha256": "befb5e2c0cd09243c49ef83e5db6977e465a03aa79ccdf8d34f838c89f49bbd3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "0f2a4db44d25cb56d9796dea86aa679e4c9108c000e637a8552fb7df78eb1a32",
+        "restored_utc": "2026-11-03T22:37:48.068648+00:00"
+      }
+    },
+    {
+      "module": "LSCharacteristicZeroSeparability",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.122,
+      "source_sha256": "da39cac753228c1d526b1ad57591302d2d15c4fc78fd319c6abda4dc775b2833",
+      "output_sha256": "c88b654856a96a0fc76d3c0de35defc2e8eb97168b097b95750d6360b572bd68",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "639f066955ccad2af13a24aa08d0fbc41a86598d7287832d6eef45bce34591fe",
+        "restored_utc": "2026-11-03T22:37:48.069770+00:00"
+      }
+    },
+    {
+      "module": "LSConeDiagonal",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.376,
+      "source_sha256": "c3c5d22f623f3e6d3c4586ea2a2250eb24a45f9c8b4d00cc31767ea23e795783",
+      "output_sha256": "5f1200de3483d67d086e55237152f8af0fd4e7a01f74733c41d919bfce2e00e4",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "7293096ac6a355951882f746bfda9506f64d9387d93dd6a92215b172e34920d4",
+        "restored_utc": "2026-11-03T22:37:48.071175+00:00"
+      }
+    },
+    {
+      "module": "LSConePole",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.625,
+      "source_sha256": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+      "output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "e30712ca93e693460dc19d47baa9a76bc22840c2807e793100160a634451f4d3",
+        "restored_utc": "2026-11-03T22:37:48.072630+00:00"
+      }
+    },
+    {
+      "module": "LSFunctionFieldPlaces",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.473,
+      "source_sha256": "e94a492c316f76d29a82fdf26b4a65450b4eed7574315c27ac86d4fd89a20f27",
+      "output_sha256": "2ae2fc95bb8529c5d6a622b2b149f3d0b29802ad38e552237fa365f6f4bffab5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "8389fa43eb14549baa933c7d3dd84cd33aaef60fd438cc8e0cd82d3a660c64b3",
+        "restored_utc": "2026-11-03T22:37:48.075602+00:00"
+      }
+    },
+    {
+      "module": "LSNilpotentTopology",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 1.568,
+      "source_sha256": "173e9d4c76d87bdc27eb22b33c9e0546885580a64bc0ef41fda113495d3470da",
+      "output_sha256": "e39a5e90e094034528432c112315cc44b14e0d26b9dfc91b056271aeadc6fd38",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "2478705d383b8310c0682672c92d2e81ed5fa7897c94af97ab01082d82fc68b9",
+        "restored_utc": "2026-11-03T22:37:48.076387+00:00"
+      }
+    },
+    {
+      "module": "LSSecondDiagonalAlgebra",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.426,
+      "source_sha256": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+      "output_sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "692b0098e9d7592e844a74554f4ff2a34835cb0c7165bbb77ae6c679920214e9",
+        "restored_utc": "2026-11-03T22:37:48.078312+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart01",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 35.697,
+      "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+      "output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "f272a2e731ce5a9c23b92824e06c9b26f3af35598e57cc1fe3b261b9401ed6df",
+        "restored_utc": "2026-11-03T22:37:48.083902+00:00"
+      }
+    },
+    {
+      "module": "LSConeArcs",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.623,
+      "source_sha256": "4f08599193b5d13343335ecf7fe3d372ea294c7c9627f5478ae6848454287dc4",
+      "output_sha256": "d69de0baab99b8c9c0f3fcbc1b40892ff89a8135c4d45e1e37671cf755802e2a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "ebd2094432a38e3cfab7917c15f6d4f0684d5c25fb22e65504f8b1d35dbc19aa",
+        "restored_utc": "2026-11-03T22:37:48.084489+00:00"
+      }
+    },
+    {
+      "module": "LSCurveLaurentStandardInputs",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 1.569,
+      "source_sha256": "6aac538547bb442e420ee79feef302e4d18505c69673af962e14ebe4a1df7f60",
+      "output_sha256": "4a9af8c2776b11c62f9fe92303233b8cbc2a5d76fe100c859fade653617e97bf",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "8e6ef38fb2bf364740dd67e44dbc9542c35c571749bc65f81f012f9e8bd0ff5e",
+        "restored_utc": "2026-11-03T22:37:48.086069+00:00"
+      }
+    },
+    {
+      "module": "LSLaurentRescaling",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.874,
+      "source_sha256": "9577a8a1e70a03a2e09a37a62ff66483ba44d06bd986de209dbc474a161c131f",
+      "output_sha256": "58e9961d480800c29b253f3f21a54c2d5d32f7c14011f47fb4a1807235bf724f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "1b49c8feecefe7c87fb7c25ac2e03614df699df6167d30d67bca12b8180797f2",
+        "restored_utc": "2026-11-03T22:37:48.087465+00:00"
+      }
+    },
+    {
+      "module": "LSMilestoneStatement",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.181,
+      "source_sha256": "2addf811b82f450b83e8c742ad4ab89313ca096c216c7ad716d46b4ff08a3700",
+      "output_sha256": "34f926ae7883a208308f50bc77063221fd0ebc24ae0ab2f1293f01205564f455",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "49b50d6d551746d06a6e1efd5bf5d495ad096ad9c6214eb338250b7c6761eac3",
+        "restored_utc": "2026-11-03T22:37:48.088519+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart02",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 18.409,
+      "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "8ed3420173b09ab65b095a4c76da5522b31768fb901412f44264d05c24898fc8",
+        "restored_utc": "2026-11-03T22:37:48.092158+00:00"
+      }
+    },
+    {
+      "module": "LSConeLocalization",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.773,
+      "source_sha256": "21823af6d39f4c3483445f83c546fe6141c2d02c1ebe310535f72b615c5af6d6",
+      "output_sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "de72a74a0a1eadbf4a7911b9a79d093085b349abbc7381b861fe5cdd4483417c",
+        "restored_utc": "2026-11-03T22:37:48.092742+00:00"
+      }
+    },
+    {
+      "module": "LSMilestoneTopology",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.423,
+      "source_sha256": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
+      "output_sha256": "8d337cddbd3f00697aa6c496ece31873f381b269bfde0439f6136ce595a545f3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "40a83f2773906ed597a74f42176c7590c4100634852128c2fc08de9301a9898e",
+        "restored_utc": "2026-11-03T22:37:48.093281+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart03",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 130.579,
+      "source_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+      "output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "b8cdbe0f99fe5c1536d825cfbefef2151f2f77bc23d400555c1ef4460294df1c",
+        "restored_utc": "2026-11-03T22:37:48.100227+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart04",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 136.373,
+      "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+      "output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "e72efd54816010bbc515f57f293ae7f5d1756e8c6ba3aa6bed022ad6293056a9",
+        "restored_utc": "2026-11-03T22:37:48.106384+00:00"
+      }
+    },
+    {
+      "module": "LSAffineDerivations",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.526,
+      "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+      "output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPublishedPicard",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.674,
+      "source_sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+      "output_sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSheafSectionExact",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.924,
+      "source_sha256": "295f667a338cdc7db59621be6f9224959cf16cc7a40f494a090fd38a4e0ae73d",
+      "output_sha256": "d21d3636668f294a0b592f93493657b721a644abaeead1d050ea814f17750f4d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSTensorLocallyFreeExact",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.673,
+      "source_sha256": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
+      "output_sha256": "1ab25ab5a7312547389b4477ec313f7f3f54e22c5e4b90c622f19b30a213c475",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileBasePart05A",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 33.453,
+      "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+      "output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "24a3d02cc5bf63b6ee88f191a9f6ad59515dfac96d3b659baae106177da9fb07",
+        "restored_utc": "2026-11-03T22:37:48.108471+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05B",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 48.635,
+      "source_sha256": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+      "output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "9d6ce7c6ace510a0beac0db5a18ce52982fa49b4ad33169a9a2e71671324d8c4",
+        "restored_utc": "2026-11-03T22:37:48.111063+00:00"
+      }
+    },
+    {
+      "module": "LSKunnethDegreeZero",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 7.382,
+      "source_sha256": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+      "output_sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "50f32f76ff9cdd986c5611fbf4dfbfde04019c9572e499b2968ac7f28be0bf9a",
+        "restored_utc": "2026-11-03T22:37:48.111970+00:00"
+      }
+    },
+    {
+      "module": "LSProjectionFormula",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 11.493,
+      "source_sha256": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
+      "output_sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "b26ae9e8bca2bf8662701ec1be7fc6d63e807d06257b2568d53f85d7cc9724ec",
+        "restored_utc": "2026-11-03T22:37:48.113010+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05C",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 86.462,
+      "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+      "output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "dcb6c08c20398fa46072a7051636e03caa131cce8593c725e40f224a517b90f1",
+        "restored_utc": "2026-11-03T22:37:48.114867+00:00"
+      }
+    },
+    {
+      "module": "LSSectionCover",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.323,
+      "source_sha256": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+      "output_sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "3c8a53d873b281a2cfa105798ed8c1d2e8ea5c8e712df52b009341b7e2e12255",
+        "restored_utc": "2026-11-03T22:37:48.115515+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.822,
+      "source_sha256": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+      "output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "a0ae18c65eb25579342197c1be7f0a6cee09e6d8a7614ba5f14d56134f293061",
+        "restored_utc": "2026-11-03T22:37:48.115948+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart06",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 36.948,
+      "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+      "output_sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "1529d50197792c8c9229d2a0bffa16420dbc5819941ed42c4aaf8ad089f82086",
+        "restored_utc": "2026-11-03T22:37:48.122900+00:00"
+      }
+    },
+    {
+      "module": "LSPublishedProjectiveSpace",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.474,
+      "source_sha256": "dbce706df7c81369ed617368b38d845c18a5115faedab704adf59ab153fc880b",
+      "output_sha256": "d449cc4953e316f10c60f23afc883065cf56f7d88619e540f1e84d36a97177bf",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "27804040a837567fa1498d581bf9b5db54e5462c40b332d01a0b3e75634dda4b",
+        "restored_utc": "2026-11-03T22:37:48.123696+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart07",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 478.699,
+      "source_sha256": "c21282a049066fc4d23737d996e2afcb46a2369d659e7d3dfeac4bead7a0c1f0",
+      "output_sha256": "3a0466d52eec2119914687beca923790528e44a1e1f8d6ad61a7a3d80205a063",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "1a1cae19a624c08b659180b0f834df71304b7af0951de68d13c0c95f3237c15c",
+        "restored_utc": "2026-11-03T22:37:48.130732+00:00"
+      }
+    },
+    {
+      "module": "RecompileBase",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.974,
+      "source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+      "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41728791345,
+        "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+        "prior_receipt_sha256": "ca2c4a17e9285a773d9084e24f4102d9b63e9b265e313e0695ef581208ab4a9f",
+        "restored_utc": "2026-11-03T22:37:48.131318+00:00"
+      }
+    },
+    {
+      "module": "RecompileSections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 151.033,
+      "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+      "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSP1FamilyDegree",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.274,
+      "source_sha256": "f450cd91252d737ff97d810436e4d818f3b34a808e4c56e7600e9dfbaaf4e328",
+      "output_sha256": "3e036f75ea1a750f7c99e57efb95e04a6d7defbf92e4454f4ea431ca63fc82bf",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionCore",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 25.075,
+      "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+      "output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart01",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 47.971,
+      "source_sha256": "5ab516c717b66f315ee4aab6ba4f7dbad8d74a521116509a78738edf05aaf996",
+      "output_sha256": "0bd06c2beeee5816c1775996fcc318f7c15ed459e19e66004ce0d295cd7d0252",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProjectivityDefinitions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.826,
+      "source_sha256": "ecd462c2af07c2872af45f7266f36956140b256cf67ffc00c4026648da222e96",
+      "output_sha256": "12b72124d3524ea8174716234c5aa096b1230af86ff5d74c01fc4f02390ef170",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart02",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 96.153,
+      "source_sha256": "3372a49adbaa43a5dffe679d627d8031c0b4a42f9ff67748d30901f191229e9f",
+      "output_sha256": "a750eb4eb710b14ff1dd7e7053a7d28368e902b68e9a0bb1279fdd488604c9dd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSDualBaseChangeAlgebra",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.477,
+      "source_sha256": "11df6ff89baf37a5754b0ae3a446d6ab16b4447a34c61f230103dede7292bf1e",
+      "output_sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFiniteFreeBaseChange",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.227,
+      "source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+      "output_sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFirstJetEmbedding",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.781,
+      "source_sha256": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
+      "output_sha256": "c91fa4141a9c3f7cb65729ac410685dcce7156ed226a4bb85ecd5223081ea638",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFormalTraitProjectivity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.971,
+      "source_sha256": "76efabce398ecdce5f72de365de6b10b28044c3b68a2059da806c5a4965a5fe4",
+      "output_sha256": "31c2bba643368fc5d6c2a5a0673e0a44eb82acb38b0a312d82118e86b2a2aa7f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart03",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 63.513,
+      "source_sha256": "f050ccb6c30b10fb3d528f2a982a57b2133a6552bdbc5a5beb3aeb72edf4efe7",
+      "output_sha256": "d671362e22e42217c9d16b63b6330738f9a74b348dc777fece7bf89f0ce5d50b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConicSplitting",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 7.785,
+      "source_sha256": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9",
+      "output_sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSDualThickeningNormalForm",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.324,
+      "source_sha256": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422",
+      "output_sha256": "b01ec856701648a55f44172afde54898957cff7eaf80256391e75354246303d6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProjectiveTransport",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.676,
+      "source_sha256": "ad4c17ab2db7ee454cef7829d79c3f1a42bb81454630aa536c368f9c99880c13",
+      "output_sha256": "7dea6f8a014b84aea2c80e1dd79662ddc6bca0a76f126b487cf7f1f590c3b490",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProperSections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.575,
+      "source_sha256": "ea037192655ab0ee0fdb95f11cbb4cb93a298a6bea6da1d0def8cce45fffa240",
+      "output_sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04Geometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 260.882,
+      "source_sha256": "6a026e56a57d9b725ef9acaaeb302a262ef028c7d108c05c3a35b3e17015f587",
+      "output_sha256": "a29fccc4a1fc8a34ff8a59b2bd8a922f4d6e634dbcdd43733a42e8e5e6ecc2e0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingPrefix",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.776,
+      "source_sha256": "22d70feae4bfa53bcc53fb5dbf0a0a85b53a10ea468660c0168f59d87177f9c8",
+      "output_sha256": "60542f544cb40cd834f8dc3ddc50f029f0030b80c1a4ea5a9cdc2d333cd1ee7e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04Gluing",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.62,
+      "source_sha256": "ad5c1c7b4fbdc1734643b0e614af68c2c1dd46b1f082ccef3bf98c14db312c0e",
+      "output_sha256": "a5ff6315c7d5c7afa7e1227815a0b020d19fe9490045a3fb6a58ea2b15e1e656",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingSections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.422,
+      "source_sha256": "8a09576464066fc2da8c74afacae92297e2dc6301518e2711f5b196c1b2f1697",
+      "output_sha256": "8858d9314a224fd2737b21d8450da60cc3dae3b86e9f2606964956ad959a980a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04Nodes",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.572,
+      "source_sha256": "fd11260f301496e9435ca722a7ab2aaf5a45a1a1724a305bb8b54769aa335614",
+      "output_sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionsPart04",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 22.718,
+      "source_sha256": "9a989e4bb84ad679a39af81cf79ad1f95fba5929a111245cc840b9c3e087ca8c",
+      "output_sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFlatSectionDescent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 12.193,
+      "source_sha256": "71cc99686042fe923a9f684b00153f5f9dfc6725cf75fe459b98d721f8e7bed8",
+      "output_sha256": "0dec6bd1e657dd4a1dac1d8cdad6b38e66115c639c8157c2375b2a2ff6f1bc82",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLineValueDescent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 27.879,
+      "source_sha256": "2c3d1b3336501b611c19fde0c9f6525d18d57ec495ae1da883fdad3c2c53dc72",
+      "output_sha256": "de78d7a07498d05c1cf4d67581746c553b48086f9a519a9f121f7ac397a14fb6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSMovingPairAssembly",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.323,
+      "source_sha256": "8c115263b78128696b197f7f09df143c388a71e3faf69d50f4b7cc351a37dae7",
+      "output_sha256": "ce7f9efcc21b357f582e9308719afa1ada747eb44054ec2ef9fc004a904c6edc",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStableMapFamily",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.582,
+      "source_sha256": "0360a40ba6a0fc816bd44e0887350661d51d76c5bad19e6577d94cac9f32d0b2",
+      "output_sha256": "c5256faab7e916b94866f1557b884bb4a3f2402273d073aa2ded1240b4aa565a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFieldParametrization",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.222,
+      "source_sha256": "5ea4ea4b63141840b0b84ab876e34bb72554c899d1908c6c847b7c9f2011e980",
+      "output_sha256": "43679b2b27df70bdba5f81f0e2088ca5fdc4ca177e69158db85f360c0c8f5952",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFormalTraitModel",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.223,
+      "source_sha256": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce",
+      "output_sha256": "e33c83223f2fc7590958705c889696f4e29fec1aff62722ac32d92a25c6065be",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGenericSheets",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 13.145,
+      "source_sha256": "d2745a2ceb1ec5161840629b731532bbe033f75787bc31d8e54bd622e728de86",
+      "output_sha256": "cde57c6caedc0fe4fab8a38ad596b90975ecacc8714fd4e2cfef66e6f393d942",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSReducedCover",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.023,
+      "source_sha256": "c3acb1b5e9a6a04e64cbcaf90ae931a679d2bb07debbfe89f07231431f0585a4",
+      "output_sha256": "8c4f7b0e5a61480f8634c87f3c6191db80a56def8821e492ff206f80d7a562d0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactLineTests",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.076,
+      "source_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+      "output_sha256": "da86f1daf623c357272708c3db59c745981311d602c64776a10430307118bce5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGenericGlobalFunctions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.87,
+      "source_sha256": "91a2b160a91a74fb080f0d26c9b156f4a92b72009d217c34ae69112a9729a3f4",
+      "output_sha256": "bd2c5905bc177461dbe74a931c5607b25ed4c53e3cfc907a13360ec228ee8c9e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStableFamilyTraits",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.874,
+      "source_sha256": "8e52c140d75bbd6794e7ded0e4ab498e772900974f9a26285249a08f6f0cf3de",
+      "output_sha256": "1737e57954265efb2b15ddbaa1ca7dd6425412d01dc4afb8b64d203758fc917b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.873,
+      "source_sha256": "0591bcbcde84157eaee7cf93e5fd0d3d13d0c6b9623f48147636440ce68a10fb",
+      "output_sha256": "7191aeab268cda32b213afade1d84366b06872d5ca91e879ed4d54e346a7da4d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSBranchAlgebra",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.473,
+      "source_sha256": "afec61342371b75bf860cb35b6c328660547861ae5d6988620531b7dd7e2bbab",
+      "output_sha256": "b86c156be063ec7f688f9431d70173c8339f2e8d67befafe6db8101d82f3bb9e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveVariation",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.121,
+      "source_sha256": "1bc5f378e1e84aa8c019afb2bf44d4c8570384605303019b5a2a0014495d2d87",
+      "output_sha256": "97d3cf38de5f3c337470422a9c18cc81326fd818eccc96ca8a81af17c3f1c810",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileTail",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.724,
+      "source_sha256": "006e79155c7ad36f5ebe27a38624d7588a8bac9986bced1fc4748b248a58a937",
+      "output_sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSBranchRamification",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.923,
+      "source_sha256": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
+      "output_sha256": "1999b02cc1126396f32ba71b3c088b587aa261fc6a7aa05952bc43ff1194d19f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveQuotient",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.671,
+      "source_sha256": "23172c6c41b6ad9d31f69a000d5b127e555073054797fda1eb4d45edaf644cd5",
+      "output_sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSuitableDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.778,
+      "source_sha256": "f3618c8de36929722cbbe3711d9b86f9cf238bfa74ea5da1492afb100eefd10a",
+      "output_sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSAffineCurveSelection",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.379,
+      "source_sha256": "f4152399a2e7ed3d56a333cdb5d86ef16941d4a9830d75c5f0e077217d1bdb6c",
+      "output_sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeOpen",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.129,
+      "source_sha256": "8054ef2a7b4542de4800fdb27a64c747a89abcd9ae120c8b9e6fc9a188569e23",
+      "output_sha256": "be2860bfbf35b78a73fb795de57b3bc4d7c0ffeb8fd6225f293b235db8a0e434",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeRadial",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.175,
+      "source_sha256": "1896c11c08feb78480f15fda8ce04574ddaf359ccc64a0dd8e42ca5bcbf7c301",
+      "output_sha256": "607a4c8b0ed905536266541e5f1f5e1a6b8a83a58da5399104effd8d89b21356",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSDescentAssembly",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.671,
+      "source_sha256": "997bddf22bc90653ad36c576013425273f83e69f7102e945ed1700814ab28631",
+      "output_sha256": "af0a4bd5656029775cdfb716117f4e4b0de5852755801d9a5e7c9f0b28b36f81",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveHom",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.67,
+      "source_sha256": "0a3f6907226731c3212492222446abe3736f7a824095ea78bd4e1967d03edc58",
+      "output_sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveSplit",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.57,
+      "source_sha256": "89e32f2db0770965b8e4e3c61447eda445bb063e848e46da3510f8f14424b773",
+      "output_sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSRadialDetection",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.422,
+      "source_sha256": "bd34184918d07090d275ef4a5d3cade86fbeb967ba4147f3b87539db59a00721",
+      "output_sha256": "4b2245ef7e52f7242c755c8b8d20419c886905dd00289e816782bc877bbb399d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSuitableLinear",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 6.929,
+      "source_sha256": "8b682e75fbf03c9e8f83f7b8a4a56f99b896cac7f70c89f931581a86ea88dc28",
+      "output_sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeAdditionAlgebra",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.722,
+      "source_sha256": "cc1171ef0e2587e8fe778cbb416ca6756561ffea191a220fdbaa2fa50c24f05a",
+      "output_sha256": "f9c81f0d5464510eb10d57af5afeeb6c491bf822231f405db8ac45df72c9c772",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeIsotropy",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.771,
+      "source_sha256": "455e8b54f26f3a283555b7b345634c12380da6e2e47e7dac957a337f0742b129",
+      "output_sha256": "97db7735130c56e28e5d01c57d4200135b5d612a05302d4c7ac26b9b3c4b9ab1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeTangents",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.971,
+      "source_sha256": "7e053401c5420e27924923ea2f36816860157e0c57f7bd1df0e81dc9aa9243f3",
+      "output_sha256": "dbfcc8647c5454c5a806c40a94aa3dcb877c55a61edf7cf4360d62f225d10921",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactGeneration",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.62,
+      "source_sha256": "d4417afa67b215262ba3e4b2e893bac666e4375f816f133577ef353a0b713164",
+      "output_sha256": "544f474c5c436fc7333dafac3e2201cbe7ff01cf030c8d32fb76d107e87852f3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLeviFiber",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.57,
+      "source_sha256": "720c77d982bcfbb35e3e232f24b2823aeb5013ff4f64a475d8fda48a1e3aaab6",
+      "output_sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveIndependence",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.77,
+      "source_sha256": "f9b58456ade15929afb1b134eca8461d1bf31929650bf3d7571881112289924a",
+      "output_sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPositiveNodeImage",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.62,
+      "source_sha256": "b0e3516ffe0cd9c81e1dcbf4030a925b7b224bcfb4c19c55e07beee87b36ea45",
+      "output_sha256": "348d7a511c941aa0e4da2972043c08a224bd69685dad90f022cae41646792334",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSSelectedPair",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.82,
+      "source_sha256": "d278cf33169812b3264a5bf015c93a03d81345dc00f4b046686727b72b3a56c8",
+      "output_sha256": "3324a3b64e57d0322be4fbd2d6ce0a3bb1c24444f3a0b041c532d6f1fec1b49c",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeRescaledArcs",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.772,
+      "source_sha256": "616d82bbef80edf025043854494279c668c56cba4c4efa46d1e79e7fa9a47323",
+      "output_sha256": "0fc3ac313ab05183bf8cc4905924d430d74b6942504012b196c7017187e6cc53",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactHomBaseChange",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.619,
+      "source_sha256": "f086674325c6c1a45b41788eb3504d9e634b061190df61b24b029d714d13936d",
+      "output_sha256": "583cee379a8cb816d4e4009f5e3c234b50ab66cac47187086f0fe35c5a6196c5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactStandardInputs",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.569,
+      "source_sha256": "1d4889fd8584613f592adeaa81a80cca1ed7959e70276981f447a2f68f8c499a",
+      "output_sha256": "0acfd0a11cff0dd15afb85590ca195c8c5c2d6f243365788ef063bf8dfbe1372",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurvePairing",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.371,
+      "source_sha256": "807e452b6c04af9f5dfe6d86685bd0377d8e255ebe178ae77725236c2e8e3bae",
+      "output_sha256": "e323f23472e523880eafd307b353aa3a5c9bcfdf8c73e9e3bfdaacb6c1a267c4",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSLeviOpen",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.373,
+      "source_sha256": "231c7c5f1a76ec33d060ef5a860bc3c369681c195fbce2370a3e22ad8f383ff1",
+      "output_sha256": "2fb63492dc838e961326d9b5bbdb4afe1142d0d832af3cd4babf66836cc90013",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSAdditionFiberPresentation",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.875,
+      "source_sha256": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
+      "output_sha256": "5d660c1529427514014d1667082461570a3c52f6f538bdc8e22fd72a82478fe5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactHorizontal",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.62,
+      "source_sha256": "b5b8688875a755205d2649c07a84629b21a07c9f4a10ec09c258fb3e766cc440",
+      "output_sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurveFunctionField",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.774,
+      "source_sha256": "78420d6ae6acdd9986fd6ed352759134118f1e568ffd9c781c6f624a002b1887",
+      "output_sha256": "a1ac98d87c747ad546504c7c0776fab461cdd43af1eae5c02e58e21afd0d3c25",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactCompletion",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 9.134,
+      "source_sha256": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
+      "output_sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCurveLaurentGeometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.574,
+      "source_sha256": "196da5b6ea3d2d3e2045571a8a16e11c8976350539df97c7dcd9f74b29f21eb7",
+      "output_sha256": "1df262c7e0948e8f772e9feb5c4f7dcfa7f8789cc5c6043f35ae02645a872bfd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeFiberRigidity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.522,
+      "source_sha256": "c6e9c08901f44c5cc07a0e8976d18f02451341a0e188d68d4ac574d515b7b462",
+      "output_sha256": "975b68e5aa1953e18e1ed5642cf905f6fbf080adb03fdf67f23d3f74623b3c0d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHomVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 37.831,
+      "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+      "output_sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSAffineFiberDivisibility",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.928,
+      "source_sha256": "922f424447d60d1c5472ac72eb519065711b9ca88ae6025937ac1b9356f7466c",
+      "output_sha256": "97cd28391210dd7c2f16af0e467f4f87377e3bdc0b58576f6262606e887ff4f2",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSCotangentDeformations",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.425,
+      "source_sha256": "ebfc1c0e9d352f5e55358b3614f1d3cd84318cf66ccaecbd1c89fdfc987e6a07",
+      "output_sha256": "63830b61f73a9c76ed1036d1c9df8c91f0508eeec89b006f0a65832f35599d54",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSEpsilonStructureSequence",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.721,
+      "source_sha256": "95266571a860b7278b5d211984898a4448ae40413d0079b91ca8175133d38c01",
+      "output_sha256": "4268040d1a00ec1df0baa2eb4c9cb4dbb1cde62fc4160e500f30ce8b0d6cb471",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSGlobalVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 33.63,
+      "source_sha256": "969dbf9f87fd99a830702345f6e12122bdc7c29e1b668d8911ca00a785871e1e",
+      "output_sha256": "217095a26f1fc70c22a35254918f8d611cfba788c847274f6cd41947e7e5109b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSDualStructureExact",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.323,
+      "source_sha256": "0c04e2de7608677fd1fe2772136fc4918ee5db0168adf001f67e994185e2d120",
+      "output_sha256": "eac4b14d12c0f432b6b4d45f94656188e07c16cb5f09aa65b6ff935ddb98dfe3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSTangentComparison",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 27.418,
+      "source_sha256": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
+      "output_sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactVelocityTarget",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 17.248,
+      "source_sha256": "1d5f39fefa23bee6ca718d49f891c64ce228eb8a2d6d3c710a7c0e818a318d1b",
+      "output_sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSDualHomVanishing",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.375,
+      "source_sha256": "cdb27623588991f84d99507837eba5ab6dc8575682a95bf4105c629e9d237f88",
+      "output_sha256": "3b96293c83b8d6418cfb9d5168717ed9627674bcc3bbbc077405bac97138f4d5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHamiltonianJets",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 22.267,
+      "source_sha256": "5cfc2314e4adf51ff5c5dec9e7611d5ada7a13226eed2a2449dbabba4c3f9b2e",
+      "output_sha256": "b40084cdf93426b3450442b64e941de897ddc1fd1aa0a79a07b4a6aa15f66d4c",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalTangent",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 43.057,
+      "source_sha256": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+      "output_sha256": "c161eaf44a8800563c4ac60b678f336618979cb46706da0b6efa70c17506588d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFirstJetEmbeddingGeometry",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.828,
+      "source_sha256": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
+      "output_sha256": "91637ea09990bdd64bb4e84e3d5f7d12b4fc3d59fce068f550e858b6e0cee8ff",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSIntrinsicVelocity",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 96.221,
+      "source_sha256": "775b1c793d6e8c9ecd8a5b4d70f24993816bf53d29bcc9e75c51de82f5fc9021",
+      "output_sha256": "100d2f65867de243de1278f52b7fe693c835ddcd1e583623c915daff036d1f39",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalFixedEnds",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 86.864,
+      "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+      "output_sha256": "4f4e7c669f19fb7250e4b1fc4a07cd4e37a184102b975e6e7b03546b55f4c999",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSClassicalReduction",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.821,
+      "source_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+      "output_sha256": "7c79fa5391d49e0afee635a7d558e2d1aff8a9d8d035877cd5afbd4e4a31345d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConicJets",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 352.726,
+      "source_sha256": "c1cfddbff534000554b071ee2c81558961ebae701a87f85c63de2b370ac097cd",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSRelativeDifferential",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 14.095,
+      "source_sha256": "33d9c1ddfe81b2d94419eefb45dd8767152b1e06b2c9487846817453ba52a83d",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSRelativeGenericSmoothness",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 4.224,
+      "source_sha256": "3be612f01220aafc0894e3974f6f9c93cf680e6f3821d5a03f4f9ff8392c69b0",
+      "output_sha256": "abfcc91f832c175d66322504b2c4448e210ccb2ab0a0ec6db16d3c2472a33ed1",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStandardConicDifferential",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 4.074,
+      "source_sha256": "8f279e9a14f53a8a41b97e50019913e2e03dad77a9ed375cd22baafa8c4d6bb4",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSClassicalActions",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.923,
+      "source_sha256": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
+      "output_sha256": "18b908c63cce701113f33a5d7c3ef86e33b3e9f922cf0aaabfeed8e78d908d12",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSConeDominance",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.921,
+      "source_sha256": "91f34354b40e0f77994b5750c5398c3e9f9ac221257fe1ae986ade590c540452",
+      "output_sha256": "ae68160626973de2142317a8c1b9ce0c62681c27cb15f282243e6ccb6987955a",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFiniteTypeDominance",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.821,
+      "source_sha256": "a1ad5018a98ed9c658747326ce2dbcad763a99b7b6a2c39f5198f6c75588f785",
+      "output_sha256": "678d7901b211082426b97a0e36c7a7499f6958f35a7b10a0502b410eb9230703",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSHomDegree",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.071,
+      "source_sha256": "a3227fc98c375200bc831f2d74f9b6d92853fc9b5c320d0ef9d5bc75b02dd3c2",
+      "output_sha256": "669561009088c6f9b9f8158117315868e1e499cbea0f742fa1b337b69de39dc6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSNodalConic",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 11.939,
+      "source_sha256": "dca6a462215a4aa53c6d0861945ff5affa50985b81a3ab0d9b815485ccdbc219",
+      "output_sha256": "b465868257d60179c1a7e7dac733b49b69040c1c63ee24e25069d088689bc330",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSContactDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 5.677,
+      "source_sha256": "a559dc915db6c9bff9c0aa17ea40d7a794208fefc500b442f47bb6f856b92e02",
+      "output_sha256": "e3715d309351c867c24884c3325ad4fcfe72058607b4eff41dd634e1c3cc11f6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSPublishedDirections",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 2.921,
+      "source_sha256": "894b6ab81c1d1ab5906f93aa3796074730a43aed460805862c8d9dab8be371b8",
+      "output_sha256": "6716ea85a194555bf178c6fced9eb74c803e36cb64e4e3a691322222dc9366d8",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSProductGeometry",
+      "status": "failed",
+      "return_code": 1,
+      "seconds": 191.543,
+      "source_sha256": "ab7855b00b9fa4651b4360ddccd30f0b2a86aed5f32efcd62a49b13afa48289e",
+      "output_sha256": null,
+      "evidence_kind": null,
+      "cache_restore_provenance": null
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "schema": "lebrun-step3c-diagonal-native-v1",
+  "scope": "Pinned stock Lean/runtime and frozen exact CI41685948946 project ancestors. Not acceptance of the live current cumulative graph.",
+  "full_current_source_acceptance": false,
+  "native_passes": {
+    "LSOpenProductCoordinates": {
+      "source_sha256": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+      "output_sha256": "83acec3dc22b9705ff7e8eec28129a656ae1e5977ecf9370d3447aaceccfd65f",
+      "seconds": 12.365,
+      "receipt": "LSOpenProductCoordinates.receipt.json"
+    },
+    "LSExternalFrameCoefficients": {
+      "source_sha256": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
+      "output_sha256": "87b9bc1b34ad1db92823f4f647b5330d32f1d31b0fe4b96c701e9c2ba98b6de9",
+      "seconds": 11.805,
+      "receipt": "LSExternalFrameCoefficients.receipt.json"
+    },
+    "LSDiagonalProjectBridgeAudit": {
+      "source_sha256": "95d6687a11cdd1589937da2eae08a75a02e91899e46cd17c6070e1c9615a13c7",
+      "output_sha256": "0dceb4b61bab5f728a265cac219d806b1f2f2ce5373741bfaf8da588c4557102",
+      "seconds": 14.874,
+      "receipt": "LSDiagonalProjectBridgeAudit.receipt.json"
+    },
+    "LSDiagonalNonvanishingNativeAudit": {
+      "source_sha256": "b990a86dc9fb5aff32b87e691d6c838d7171f2d400cc5d8a03e03ce9e81e6e15",
+      "output_sha256": "23d67a585dac6d4946efb3c2f619364822f91a1adace5300999bac284953b91d",
+      "seconds": 31.359,
+      "receipt": "LSDiagonalNonvanishingNativeAudit.receipt.json"
+    }
+  },
+  "audited_roots": {
+    "LeBrunSalamon.KunnethDegreeZero.externalSection_finiteSum": {
+      "all_constants": 35443,
+      "project_constants": 150,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nMODULE LSKunnethDegreeZero\nSHORTEST_PATH LeBrunSalamon.KunnethDegreeZero.externalSection_finiteSum -> LeBrunSalamon.KunnethDegreeZero.lineMap_bijective -> LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nTYPE ∀ {k : Type} [inst : Field.{0} k] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (sY : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧k))\n  [CompactSpace.{0} ↥X] [CompactSpace.{0} ↥Y] [AlgebraicGeometry.IsSeparated.{0} sX]\n  [AlgebraicGeometry.IsSeparated.{0} sY] (E : LeBrunSalamon.PhaseOne.OModule.{0} X)\n  (F : LeBrunSalamon.PhaseOne.OModule.{0} Y) [SheafOfModules.IsQuasicoherent.{0, 0, 0} E]\n  [SheafOfModules.IsQuasicoherent.{0, 0, 0} F],\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.KunnethDegreeZero.canonicalMap sX sY E F)"
+        }
+      ]
+    },
+    "LeBrunSalamon.KunnethDegreeZero.originalMap_injective": {
+      "all_constants": 35471,
+      "project_constants": 185,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nMODULE LSKunnethDegreeZero\nSHORTEST_PATH LeBrunSalamon.KunnethDegreeZero.originalMap_injective -> LeBrunSalamon.KunnethDegreeZero.lineMap_bijective -> LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nTYPE ∀ {k : Type} [inst : Field.{0} k] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (sY : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧k))\n  [CompactSpace.{0} ↥X] [CompactSpace.{0} ↥Y] [AlgebraicGeometry.IsSeparated.{0} sX]\n  [AlgebraicGeometry.IsSeparated.{0} sY] (E : LeBrunSalamon.PhaseOne.OModule.{0} X)\n  (F : LeBrunSalamon.PhaseOne.OModule.{0} Y) [SheafOfModules.IsQuasicoherent.{0, 0, 0} E]\n  [SheafOfModules.IsQuasicoherent.{0, 0, 0} F],\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.KunnethDegreeZero.canonicalMap sX sY E F)"
+        }
+      ]
+    },
+    "LeBrunSalamon.NonvanishingPullbackProof.nonvanishingOpen_pullback": {
+      "all_constants": 21994,
+      "project_constants": 86,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nMODULE RecompileBasePart04\nSHORTEST_PATH LeBrunSalamon.NonvanishingPullbackProof.nonvanishingOpen_pullback -> LeBrunSalamon.PhaseTwentySix.pullbackLine -> LeBrunSalamon.PhaseTwentySix.pullbackLine._proof_1 -> LeBrunSalamon.PhaseTwentySix.pullback_locallyFree -> LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nTYPE ∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) {E : LeBrunSalamon.PhaseOne.OModule.{0} Y}\n  {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank (LeBrunSalamon.PhaseTwo.pullbackModule.{0} f E) r"
+        }
+      ]
+    },
+    "LeBrunSalamon.SectionCoverProof.vanishes_iff_squareCover": {
+      "all_constants": 37600,
+      "project_constants": 45,
+      "direct_sorry_count": 0,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": []
+    },
+    "LeBrunSalamon.ExternalFrameCoefficients.vanishes_iff_cover_coefficients": {
+      "all_constants": 39683,
+      "project_constants": 482,
+      "direct_sorry_count": 1,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nMODULE LSKunnethDegreeZero\nSHORTEST_PATH LeBrunSalamon.ExternalFrameCoefficients.vanishes_iff_cover_coefficients -> LeBrunSalamon.ExternalFrameCoefficients.local_diagonal_zero_iff -> LeBrunSalamon.OpenProductCoordinates.diagonalPower_quotient_eq_zero_iff -> LeBrunSalamon.OpenProductCoordinates.ringMap_bijective -> LeBrunSalamon.AffineProductRing.ringMap_bijective -> LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nTYPE ∀ {k : Type} [inst : Field.{0} k] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (sY : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧k))\n  [CompactSpace.{0} ↥X] [CompactSpace.{0} ↥Y] [AlgebraicGeometry.IsSeparated.{0} sX]\n  [AlgebraicGeometry.IsSeparated.{0} sY] (E : LeBrunSalamon.PhaseOne.OModule.{0} X)\n  (F : LeBrunSalamon.PhaseOne.OModule.{0} Y) [SheafOfModules.IsQuasicoherent.{0, 0, 0} E]\n  [SheafOfModules.IsQuasicoherent.{0, 0, 0} F],\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.KunnethDegreeZero.canonicalMap sX sY E F)"
+        }
+      ]
+    },
+    "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients_proved": {
+      "all_constants": 41054,
+      "project_constants": 646,
+      "direct_sorry_count": 2,
+      "missing_count": 0,
+      "custom_project_axiom_count": 0,
+      "direct_leaves": [
+        {
+          "name": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nMODULE RecompileBasePart04\nSHORTEST_PATH LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients_proved -> LeBrunSalamon.PhaseTwentyEight.externalSquareLine -> LeBrunSalamon.PhaseTwentySix.pullbackLine -> LeBrunSalamon.PhaseTwentySix.pullbackLine._proof_1 -> LeBrunSalamon.PhaseTwentySix.pullback_locallyFree -> LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nTYPE ∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) {E : LeBrunSalamon.PhaseOne.OModule.{0} Y}\n  {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank (LeBrunSalamon.PhaseTwo.pullbackModule.{0} f E) r"
+        },
+        {
+          "name": "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "full_native_output": "DIRECT_SORRY LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nMODULE LSKunnethDegreeZero\nSHORTEST_PATH LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients_proved -> LeBrunSalamon.ExternalFrameCoefficients.vanishes_iff_cover_coefficients -> LeBrunSalamon.ExternalFrameCoefficients.local_diagonal_zero_iff -> LeBrunSalamon.OpenProductCoordinates.diagonalPower_quotient_eq_zero_iff -> LeBrunSalamon.OpenProductCoordinates.ringMap_bijective -> LeBrunSalamon.AffineProductRing.ringMap_bijective -> LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nTYPE ∀ {k : Type} [inst : Field.{0} k] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (sY : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧k))\n  [CompactSpace.{0} ↥X] [CompactSpace.{0} ↥Y] [AlgebraicGeometry.IsSeparated.{0} sX]\n  [AlgebraicGeometry.IsSeparated.{0} sY] (E : LeBrunSalamon.PhaseOne.OModule.{0} X)\n  (F : LeBrunSalamon.PhaseOne.OModule.{0} Y) [SheafOfModules.IsQuasicoherent.{0, 0, 0} E]\n  [SheafOfModules.IsQuasicoherent.{0, 0, 0} F],\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.KunnethDegreeZero.canonicalMap sX sY E F)"
+        }
+      ]
+    }
+  },
+  "milestone_met": false,
+  "final_validation": {
+    "checked_utc": "2026-11-03T23:15:09.201340+00:00",
+    "checked_module_count": 27,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "old_project_composite_leaves_in_closure": false,
+  "false_symplectic_input_in_closure": false,
+  "traversal": "Every constant type and value, with nonproject recursion and inductive constructors included; breadth-first shortest dependency paths.",
+  "primary_leaves": {
+    "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective": "Stacks Lemma33.29.1, Tag0BED, degree0; actual canonical tensor-to-global-sections map.",
+    "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree": "Stacks Lemma17.14.3, Tag01C5; preservation of finite local freeness/rank. Only inherited bundle-rank certificate in public diagonal type."
+  },
+  "original_declaration_header_sha256": "1430daeeefdd2dddde1a5f417abf4dd6c79a5088e3b1b9c48ffdaffaf6cb4afd",
+  "original_containing_source_sha256": "5ab516c717b66f315ee4aab6ba4f7dbad8d74a521116509a78738edf05aaf996",
+  "integration": {
+    "public_declaration_type_preserved": true,
+    "proof_body_identical_to_native_candidate": true,
+    "source_file": "RecompileExtensionsPart01.lean",
+    "source_sha256": "638126fc54faa8b3f7fa2926d7237f1205a742c2e459dfb9b10c814e78af66be",
+    "current_containing_module_replay": "pending",
+    "new_admissions": 0,
+    "removed_project_admissions": 1,
+    "integrated_helpers": {
+      "LSOpenProductCoordinates": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+      "LSExternalFrameCoefficients": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94"
+    }
+  }
+}

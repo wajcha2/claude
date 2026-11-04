@@ -1,3 +1,5 @@
+import LSSectionRepresentability
+import LSGeneratingUnitOpens
 import RecompileExtensionsPart03
 import LSConicSplitting
 
@@ -1163,7 +1165,7 @@ def EtaleInCodimensionOne {S T : Scheme} (q : S ⟶ T) : Prop :=
 
 /-- The total space of L represents sections of f*L on every test scheme.
 This is the total space of L, not its dual: the tautological section fixes
-that convention. The underlying relative Spec construction remains to prove. -/
+that convention. The generic section-functor representation supplies these exact maps. -/
 structure TotalLine {Z : Scheme} (L : LineBundle Z) where
   space : Scheme
   projection : space ⟶ Z
@@ -1173,7 +1175,12 @@ structure TotalLine {Z : Scheme} (L : LineBundle Z) where
       pullSection h.val tautological ≫
         (compositionPullback h.val projection f h.property L.sheaf).hom)
 
-theorem totalLine_exists {Z : Scheme} (L : LineBundle Z) : Nonempty (TotalLine L) := by sorry
+set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency.types false in
+theorem totalLine_exists {Z : Scheme} (L : LineBundle Z) : Nonempty (TotalLine L) := by
+  obtain ⟨V, p, τ, hV⟩ :=
+    LeBrunSalamon.SectionRepresentability.represented_section_data L.locallyFree
+  exact ⟨{ space := V, projection := p, tautological := τ, universal := hV }⟩
 
 namespace TotalLine
 variable {Z : Scheme} {L : LineBundle Z} (T : TotalLine L)
@@ -1977,11 +1984,9 @@ theorem spec_pullback_isPushout {A B C : CommRingCat}
       (Spec.map (pullback.fst f g)) (Spec.map (pullback.snd f g)) :=
   LeBrunSalamon.PublishedInputs.BaseChangeFibers.spec_pullback_isPushout f g hf
 
-/-- **Published input (exact).** The nonvanishing loci of a generating
-family of sections of an invertible sheaf form an open cover, and a map
-factors through such a locus exactly when the pulled-back section is a unit.
-This is Stacks Project, Lemma 17.25.10 (Tag 01CY) and Remark 17.25.11
-(Tag 0H78). -/
+/-- The original generating tuple defines an actual nonvanishing-open cover.
+The cover and its pullback unit criterion are proved in LSGeneratingUnitOpens;
+this historical public name no longer carries a direct admission. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.generating_sections_unitOpen
     {Y : Scheme} {N : ℕ}
     (L : LineBundle Y) (a : Fin (N+1) → AlgebraicSection L.sheaf)
@@ -1989,7 +1994,7 @@ theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.generating_section
     ∃ U : Fin (N+1) → Y.Opens, iSup U = ⊤ ∧
       ∀ (i : Fin (N+1)) (T : Scheme) (f : T ⟶ Y),
         Set.range f ⊆ (U i : Set Y) ↔ IsIso (pullSection f (a i)) := by
-  sorry
+  exact LeBrunSalamon.GeneratingUnitOpens.generating_sections_unitOpen L a ha
 
 /-- Project API wrapper for the unit-locus open cover. -/
 theorem generating_sections_unitOpen {Y : Scheme} {N : ℕ}
@@ -5612,13 +5617,10 @@ structure TotalBundle {Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) whe
       pullSection h.val tautological ≫
         (compositionPullback h.val projection f h.property E.sheaf).hom)
 
-/-- **Published input (exact).** The relative spectrum of the symmetric
-algebra of the dual of a finite locally free sheaf represents sections of its
-pullbacks and carries the tautological section.  This is the relative-Spec
-representability theorem and the vector-bundle construction in Stacks Project,
-Lemma 27.4.3 (Tag 01LU) and Section 27.6 (Tag 01M1).  The statement deliberately
-returns the representing data rather than the project-specific `TotalBundle`
-wrapper. -/
+/-- The exact tautological-section formula is proved from representability
+of the actual section functor, EGA IV4 (18.5.1). The project-specific existential
+and its composition-pullback normalization are supplied by the Yoneda proof
+in LSSectionRepresentability, rather than admitted in this declaration. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.totalBundle_representation
     {Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) :
     ∃ (V : Scheme) (bundleProjection : V ⟶ Z)
@@ -5627,7 +5629,7 @@ theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.totalBundle_repres
         Function.Bijective (fun h : {h : T ⟶ V // h ≫ bundleProjection = f} =>
           pullSection h.val τ ≫
             (compositionPullback h.val bundleProjection f h.property E.sheaf).hom) := by
-  sorry
+  exact LeBrunSalamon.SectionRepresentability.represented_section_data E.locallyFree
 
 /-- Project API wrapper for the total-space representation of a vector bundle. -/
 theorem totalBundle_exists {Z : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Z r) :

@@ -1,3 +1,4 @@
+import LSHomFiberInjectivity
 import RecompileExtensionsPart02
 
 noncomputable section
@@ -3809,8 +3810,9 @@ is the finite free scalar-extension identity, compatible with evaluation.
 F is arbitrary; no contact geometry is assumed. Sources: Stacks 01CM
 (internal Hom and evaluation), 0FNU (duals), 0098, by finite-free local reduction.
 
-These two precise known results remain admitted for the user's intermediate
-milestone. They contain no conclusion about contact lines, positivity,
+The pullback statement is now proved from the exact generic local-splitting
+input. Hom-fiber injectivity is now proved from the actual canonical Hom
+comparison and global evaluation on Spec C. They contain no conclusion about contact lines, positivity,
 isotropy, suitable pairs or the conjecture. All manuscript deductions using
 them must be proved separately. Their exact source review is recorded in
 STANDARD_INPUT_REVIEW.md.
@@ -3827,10 +3829,9 @@ open LeBrunSalamon.Skeleton LeBrunSalamon.Construction
 
 namespace LeBrunSalamon.Construction.StandardInputs.BundleGeometry
 
-/-- **Published input (exact).** Pullback along an arbitrary morphism
-preserves a short exact sequence of module sheaves when the quotient is finite
-locally free (hence flat).  This is Stacks Project, Modules on Sites,
-Section 18.39 (Tag 05VA), based on Algebra Lemma 10.39.12 (Tag 00HL). -/
+/-- The original pullback sequence is short exact by pulling actual local
+retractions through the canonical comparison maps and using right exactness.
+The only admitted input is the generic EGA I 0(5.4.9) local splitting theorem. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.vectorBundle_pullback_shortExact
     {X Y : Scheme} (f : X ⟶ Y) {a b c : ℕ}
     (E : AlgebraicVectorBundle Y a) (F : AlgebraicVectorBundle Y b)
@@ -3838,7 +3839,7 @@ theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.vectorBundle_pullb
     (i : E.sheaf ⟶ F.sheaf) (q : F.sheaf ⟶ G.sheaf)
     (hz : i ≫ q = 0) (hex : (ShortComplex.mk i q hz).ShortExact) :
     ((ShortComplex.mk i q hz).map (Scheme.Modules.pullback f)).ShortExact := by
-  sorry
+  exact LeBrunSalamon.VectorBundlePullback.vectorBundle_pullback_shortExact f E F G i q hz hex
 
 /-- Project API wrapper for pullback exactness. -/
 theorem vectorBundle_pullback_shortExact {X Y : Scheme} (f : X ⟶ Y)
@@ -3850,18 +3851,19 @@ theorem vectorBundle_pullback_shortExact {X Y : Scheme} (f : X ⟶ Y)
   LeBrunSalamon.PublishedInputs.BaseChangeFibers.vectorBundle_pullback_shortExact
     f E F G i q hz hex
 
-/-- **Published input (exact).** For a finite locally free source module,
-the canonical comparison from the fiber of internal Hom to Hom of fibers is
-injective.  This is Stacks Project, Lemma 17.22.4 (Tag 01CP), specialized
-to the finite locally free (hence finite type) source and the canonical complex
-fiber comparison. -/
+/-- The original fiber-evaluation map is injective by the proved canonical
+Hom base-change theorem and the explicit faithfulness of global evaluation
+on Spec C. No separate Hom-fiber injectivity theorem is admitted. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.homFiberEvaluation_injective
     {Y : Scheme} {r : ℕ} (E : AlgebraicVectorBundle Y r)
     (F : OModule Y) (x : ComplexBase ⟶ Y) :
     Function.Injective
       (LeBrunSalamon.Construction.Lines.LeviFiberGeometry.homFiberEvaluation
         E.sheaf F x) := by
-  sorry
+  intro a b h
+  apply LeBrunSalamon.HomFiberInjectivity.homFiberEvaluation_injective E F x
+  funext v
+  exact congrArg (fun q => q v) h
 
 /-- Project API wrapper for injectivity of internal-Hom fiber evaluation. -/
 theorem homFiberEvaluation_injective_of_locallyFree {Y : Scheme} {r : ℕ}
@@ -3982,17 +3984,16 @@ end LeBrunSalamon.Construction.Lines.ContactPositiveHom
 
 namespace LeBrunSalamon.Construction.StandardInputs.BundleGeometry
 
-/-- **Published input (exact).** Internal Hom with finite locally
-free source commutes with arbitrary pullback, for the canonical
-comparison normalized by evaluation.  This is the finite-projective Hom base-
-change theorem, Stacks Project, Algebra Lemma 10.78.9 (Section 10.78,
-Tag 00NV), sheafified on finite locally free charts. -/
+/-- The actual Hom base-change map is an isomorphism by the proved
+dual-tensor factorization and its evaluation normalization. The generic
+published inputs are EGA I 0(5.4.2), canonical dual base change 0(5.4.5),
+and preservation of finite local freeness under pullback. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.BaseChangeFibers.homBaseChange_isIso
     {X Y : Scheme} (f : X ⟶ Y) {r : ℕ}
     (E : AlgebraicVectorBundle Y r) (F : OModule Y) :
     IsIso (LeBrunSalamon.Construction.Lines.ContactPositiveHom.homBaseChange
       f E.sheaf F) := by
-  sorry
+  exact LeBrunSalamon.FiniteFreeHomBaseChange.homComparison_isIso f E.locallyFree F
 
 /-- Project API wrapper for internal-Hom base change. -/
 theorem homBaseChange_isIso {X Y : Scheme} (f : X ⟶ Y)

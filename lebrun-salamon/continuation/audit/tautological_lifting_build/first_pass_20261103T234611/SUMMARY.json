@@ -1,0 +1,50 @@
+{
+  "schema": "lebrun-tautological-lifting-diagnostic-v1",
+  "scope": "Frozen cdf4d8a5/CI41732181431; not live graph acceptance",
+  "modules": [
+    {
+      "module": "LSStandardTautological",
+      "status": "passed",
+      "source_sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+      "seconds": 5.286,
+      "output_sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+      "return_code": 0
+    },
+    {
+      "module": "LSYonedaExtensionSplitting",
+      "status": "passed",
+      "source_sha256": "489e6b14c8028c55aa9c18b5fc69d385fa7cca0c08357ce311d3207adfe42421",
+      "seconds": 3.926,
+      "output_sha256": "81781f8ef486074323464958b6a5d6d5661a41ea65c9f1eef43c4af2a67c5b0d",
+      "return_code": 0
+    },
+    {
+      "module": "LSResidueTensorLift",
+      "status": "passed",
+      "source_sha256": "8431d2f77c020993f7034a71bdf92bebb970ed878271c4c869cabfd34c8cb2dd",
+      "seconds": 14.66,
+      "output_sha256": "d670c8e97e75d7b7d1c4a191f536b3739e85cddf76ecffefe6727f558586db70",
+      "return_code": 0
+    },
+    {
+      "module": "LSStandardTautologicalP1",
+      "status": "failed",
+      "source_sha256": "150ada97e226eccdaf69426f276042e01928ccd550c89ec58e524e809d93182a",
+      "seconds": 30.24,
+      "output_sha256": null,
+      "return_code": 124
+    }
+  ],
+  "final_validation": {
+    "checked_utc": "2026-11-03T23:46:11.857599+00:00",
+    "checked_module_count": 25,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "pending": [
+    "P1 marked-O1 and degree adapter: wall-time cap, no proof rejection diagnostic.",
+    "Normalized public record adapter depends on that file in this first layout; to be split independently.",
+    "Complete native admitted-leaf audit."
+  ],
+  "full_current_graph_acceptance": false
+}

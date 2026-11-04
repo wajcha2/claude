@@ -1,8 +1,14 @@
+import LSP1TangentSections
+import LSP1SourceAlgebra
+import LSP1TensorSquare
+import LSP1TensorTaylor
+import LSAffineFrame
 import LSAffineDerivations
 import RecompileExtensionCore
 import LSConePole
 import LSSecondDiagonalAlgebra
 import LSSectionCover
+import LSExternalFrameCoefficients
 import LSPublishedProjectiveSpace
 import Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule
 import Mathlib.Topology.Sheaves.SheafCondition.Sites
@@ -1595,11 +1601,12 @@ theorem coefficientTensorMap_tmul {Y : Scheme} (s : Y ⟶ ComplexBase)
     coefficientTensorMap s L F (a ⊗ₜ[ℂ] b) =
       coefficientLinear s L F a ⊗ₜ[ℂ] coefficientLinear s L F b := rfl
 
-/-- **Published input (exact).** Affine-local detection of membership in
-a power of the diagonal ideal by the canonical quotient coefficients.  Stacks
-Project Tags 01KI and 01IF identify the diagonal and its infinitesimal
-neighbourhoods; Tags 01I9, 01I6 and 01IB identify pullback, tensor product,
-and affine restriction. -/
+/-- Proved affine-local diagonal comparison. The actual open product ring,
+diagonal kernel, pulled frame and thickened-diagonal cover are compared in
+LSExternalFrameCoefficients; no project diagonal statement is admitted.
+The sole geometric ring input is the generic degree-zero Künneth theorem
+(Stacks 0BED). The line-bundle type inherits preservation of rank under
+pullback (Stacks 01C5). The historical public name is retained. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.diagonalRestriction_iff_quotientCoefficients
     {Y : Scheme}
     (s : Y ⟶ LeBrunSalamon.PhaseOne.ComplexBase) [IsSeparated s]
@@ -1612,7 +1619,42 @@ theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.diagonalRest
     ∀ F : LeBrunSalamon.Core.AffineLineFrame L,
       Ideal.Quotient.mk ((KaehlerDifferential.ideal ℂ
         (Coefficients s F.openSet)) ^ k) (coefficientTensorMap s L F t) = 0 := by
-  sorry
+  letI : L.sheaf.IsQuasicoherent :=
+    KunnethDegreeZero.quasicoherent_of_locallyFreeRank L.locallyFree
+  let e (F : AffineLineFrame L) : LocalFrames.OverFrame L.sheaf F.openSet :=
+    AffineFrameProof.frame F.openSet F.isAffine F.coefficient
+  have hcover : (⨆ F : AffineLineFrame L, F.openSet) = ⊤ := by
+    apply top_unique
+    intro x _
+    obtain ⟨F, hxF⟩ := affineLineFrames_cover L x
+    exact TopologicalSpace.Opens.mem_iSup.mpr ⟨F, hxF⟩
+  have hlinear (F : AffineLineFrame L) :
+      ExternalFrameCoefficients.coefficientLinear s (e F) = coefficientLinear s L F := by
+    ext a
+    exact AffineFrameProof.frame_coordinates F.openSet F.isAffine F.coefficient _
+  have htensor (F : AffineLineFrame L) :
+      ExternalFrameCoefficients.coefficientTensorMap s (e F) (e F) =
+        coefficientTensorMap s L F := by
+    change TensorProduct.map (ExternalFrameCoefficients.coefficientLinear s (e F))
+      (ExternalFrameCoefficients.coefficientLinear s (e F)) = _
+    rw [hlinear]
+    rfl
+  have h := ExternalFrameCoefficients.vanishes_iff_cover_coefficients s
+    (fun F : AffineLineFrame L => F.openSet) hcover (fun F => F.isAffine) e e t k
+  have hglobal : globalTensorMap s L.sheaf L.sheaf =
+      KunnethDegreeZero.canonicalMap s s L.sheaf L.sheaf := by rfl
+  change VanishesToOrderAlongDiagonal s (externalTensor s L.sheaf L.sheaf)
+    (sectionFromValue (globalTensorMap s L.sheaf L.sheaf t)) k ↔
+      ∀ F : AffineLineFrame L,
+        Ideal.Quotient.mk
+          ((KaehlerDifferential.ideal ℂ (OpenProductCoordinates.Coefficients s F.openSet)) ^ k)
+          (coefficientTensorMap s L F t) = 0
+  rw [hglobal]
+  refine h.trans ?_
+  apply forall_congr'
+  intro F
+  rw [htensor]
+  rfl
 
 /-- Project API wrapper for affine-local diagonal-order detection. -/
 theorem diagonalRestriction_iff_quotientCoefficients {Y : Scheme}
@@ -3589,12 +3631,822 @@ def identityCurveContact (P : ProjectiveLineOverC) :
     exact IdentityCurveContactProof.intrinsicContact_of_isZero _
       (isZero_kernel_of_mono (𝟙 (tangentSheaf P.structureMap)))
 
-/-- **Published input (normalized diagonal section on `P¹`).** The line
-bundle `I_Δ² ⊗ O(2,2)` on `P¹ × P¹` is trivial; its symmetric global sections
-form a one-dimensional space, and the coefficient-one symbol normalization
-selects the unique section represented in an affine coordinate by
-`(z-w)² ∂/∂z ⊗ ∂/∂w`.  This is the standard diagonal-divisor and `Pic(P¹×P¹)`
-calculation. -/
+end LeBrunSalamon.Skeleton
+
+/- BEGIN checked source-bivector proof: LSP1BivectorConstruction -/
+
+/-! Construction of the actual source bivector from three global vector
+fields. The vanishing and symbol proofs are developed separately. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.Core LeBrunSalamon.Skeleton
+open LeBrunSalamon.P1TangentSections
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety
+
+namespace LeBrunSalamon.P1BivectorConstruction
+
+theorem externalProduct_neg_left {X : Scheme} (s : X ⟶ ComplexBase)
+    {E F : X.Modules} (a : AlgebraicSection E) (b : AlgebraicSection F) :
+    externalProductSection s (-a) b = -externalProductSection s a b := by
+  have h : pullSection (firstProjection s) (-a) =
+      -pullSection (firstProjection s) a := by
+    simp only [pullSection, restrictSection, Functor.map_neg, Preadditive.comp_neg]
+  rw [externalProductSection, h, tensorSection_neg_left]
+  rfl
+
+def pair (P : ProjectiveLineOverC) (i j : Fin 3) :
+    ExternalSquareSections (projectiveLineVariety P) (identityCurveContact P).sequence.line :=
+  externalProductSection P.structureMap (polynomialField P i) (polynomialField P j)
+
+/-- The four-term additive form avoids any unproved scalar convention in
+the external product. Its coefficient is z²+w²−zw−zw. -/
+def bivector (P : ProjectiveLineOverC) :
+    ExternalSquareSections (projectiveLineVariety P) (identityCurveContact P).sequence.line :=
+  pair P 2 0 + pair P 0 2 - pair P 1 1 - pair P 1 1
+
+theorem symmetric (P : ProjectiveLineOverC) :
+    IsSymmetricExternalSection P.structureMap (identityCurveContact P).sequence.line
+      (bivector P) := by
+  let S := ExchangeAlgebraProof.swapSectionAddHom
+    (chosenExternalExchange P.structureMap (identityCurveContact P).sequence.line).identification
+  have hs (i j : Fin 3) : S (pair P i j) = pair P j i :=
+    (chosenExternalExchange P.structureMap (identityCurveContact P).sequence.line).onProducts
+      (polynomialField P i) (polynomialField P j)
+  change S (pair P 2 0 + pair P 0 2 - pair P 1 1 - pair P 1 1) = _
+  rw [map_sub, map_sub, map_add, hs, hs, hs]
+  dsimp only [bivector]
+  abel
+
+def left (P : ProjectiveLineOverC) : Fin 4 →
+    AlgebraicSection (tangentSheaf P.structureMap) :=
+  Fin.cases (polynomialField P 2)
+    (Fin.cases (polynomialField P 0) (fun _ => -polynomialField P 1))
+
+def right (P : ProjectiveLineOverC) : Fin 4 →
+    AlgebraicSection (tangentSheaf P.structureMap) :=
+  Fin.cases (polynomialField P 0)
+    (Fin.cases (polynomialField P 2) (fun _ => polynomialField P 1))
+
+def expansion (P : ProjectiveLineOverC) :
+    ExternalExpansion (projectiveLineVariety P) (identityCurveContact P).sequence.line
+      (bivector P) where
+  size := 4
+  left := left P
+  right := right P
+  equation := by
+    simp only [Fin.sum_univ_succ, Fin.sum_univ_zero, left, right,
+      Fin.cases_zero, Fin.cases_succ, add_zero]
+    rw [externalProduct_neg_left]
+    change pair P 2 0 + pair P 0 2 - pair P 1 1 - pair P 1 1 =
+      pair P 2 0 + (pair P 0 2 + (-pair P 1 1 + -pair P 1 1))
+    simp only [sub_eq_add_neg, add_assoc]
+
+end LeBrunSalamon.P1BivectorConstruction
+
+end
+/- END LSP1BivectorConstruction -/
+
+/- BEGIN checked source-bivector proof: LSP1CoordinatePolynomials -/
+
+/-! Genuine polynomial coordinates of global tangent sections. The supplied
+complex-base automorphism is explicitly undone, so the final map is complex
+linear for every ProjectiveLineOverC, not only the canonical one. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
+open LeBrunSalamon.Core LeBrunSalamon.Core.ExternalTensorCoordinates
+open LeBrunSalamon.Skeleton LeBrunSalamon.P1Charts LeBrunSalamon.P1TwistFrames
+open LeBrunSalamon.LocalFrames LeBrunSalamon.P1TangentTranslation
+open scoped TensorProduct
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety
+
+namespace LeBrunSalamon.P1CoordinatePolynomials
+
+def baseFieldIso (P : ProjectiveLineOverC) : CommRingCat.of ℂ ≅ CommRingCat.of ℂ :=
+  (Scheme.ΓSpecIso (CommRingCat.of ℂ)).symm ≪≫
+    Scheme.Γ.mapIso (CotangentTwistProof.baseChangeIso P).op ≪≫
+    Scheme.ΓSpecIso (CommRingCat.of ℂ)
+
+def baseFieldAuto (P : ProjectiveLineOverC) : ℂ ≃+* ℂ :=
+  (baseFieldIso P).commRingCatIsoToRingEquiv
+
+theorem chart_constant (P : ProjectiveLineOverC) (i : Fin 2) (c : ℂ) :
+    polynomialChartRingEquiv i (constants P.structureMap (chartOpen i) c) =
+      Polynomial.C (baseFieldAuto P c) := by
+  let A := CotangentTwistProof.baseChangeIso P
+  let d := (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+    (A.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c))
+  change polynomialChartRingEquiv i
+    (complexConstant P.structureMap (chartOpen i) c) = Polynomial.C d
+  have hd : (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv d =
+      A.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c) :=
+    Iso.hom_inv_id_apply _ _
+  rw [complexConstant, ← CotangentTwistProof.baseMap_factor P,
+    Scheme.Hom.comp_appTop, ConcreteCategory.comp_apply, ← hd]
+  exact polynomialChartRingEquiv_canonical_constant i d
+
+def chartAlgebraEquiv (P : ProjectiveLineOverC) (i : Fin 2) :
+    Coefficients P.structureMap (chartOpen i) ≃ₐ[ℂ] Polynomial ℂ :=
+  { (polynomialChartRingEquiv i).trans (Polynomial.mapEquiv (baseFieldAuto P).symm) with
+    commutes' c := by
+      change Polynomial.mapEquiv (baseFieldAuto P).symm
+        (polynomialChartRingEquiv i (constants P.structureMap (chartOpen i) c)) =
+          Polynomial.C c
+      rw [chart_constant]
+      change Polynomial.map (baseFieldAuto P).symm.toRingHom
+        (Polynomial.C (baseFieldAuto P c)) = Polynomial.C c
+      rw [Polynomial.map_C]
+      exact congrArg Polynomial.C ((baseFieldAuto P).symm_apply_apply c) }
+
+theorem chartAlgebraEquiv_coordinate (P : ProjectiveLineOverC) (i : Fin 2) :
+    chartAlgebraEquiv P i (coordinate i) = Polynomial.X := by
+  change Polynomial.mapEquiv (baseFieldAuto P).symm
+    (polynomialChartRingEquiv i ((polynomialChartRingEquiv i).symm Polynomial.X)) = _
+  rw [RingEquiv.apply_symm_apply]
+  exact Polynomial.map_X _
+
+def frame (P : ProjectiveLineOverC) (i : Fin 2) :
+    AffineLineFrame (identityCurveContact P).sequence.line where
+  openSet := chartOpen i
+  isAffine := chartOpen_affine i
+  coefficient := coordinates (derivativeFrame P i)
+
+theorem action_coordinate (P : ProjectiveLineOverC) (i : Fin 2)
+    (v : SectionsOn (tangentSheaf P.structureMap) (chartOpen i)) :
+    tangentActs P.structureMap (chartOpen i) v (coordinate i) =
+      (frame P i).coefficient v := by
+  have h := congrArg (fun w => tangentActs P.structureMap (chartOpen i) w (coordinate i))
+    (reconstruct (derivativeFrame P i) v)
+  rw [TangentActionProof.smul_field, derivativeFrame_coordinate, mul_one] at h
+  exact h.symm
+
+def polynomialAction (P : ProjectiveLineOverC) (i : Fin 2)
+    (v : SectionsOn (tangentSheaf P.structureMap) (chartOpen i)) :
+    Derivation ℂ (Polynomial ℂ) (Polynomial ℂ) where
+  toLinearMap := (chartAlgebraEquiv P i).toLinearMap.comp
+    ((coefficientDerivation P.structureMap (chartOpen i) v).toLinearMap.comp
+      (chartAlgebraEquiv P i).symm.toLinearMap)
+  map_one_eq_zero' := by
+    change chartAlgebraEquiv P i
+      ((coefficientDerivation P.structureMap (chartOpen i) v)
+        ((chartAlgebraEquiv P i).symm 1)) = 0
+    simp
+  leibniz' := by
+    intro a b
+    change chartAlgebraEquiv P i
+      ((coefficientDerivation P.structureMap (chartOpen i) v)
+        ((chartAlgebraEquiv P i).symm (a * b))) =
+      a * chartAlgebraEquiv P i
+        ((coefficientDerivation P.structureMap (chartOpen i) v)
+          ((chartAlgebraEquiv P i).symm b)) +
+      b * chartAlgebraEquiv P i
+        ((coefficientDerivation P.structureMap (chartOpen i) v)
+          ((chartAlgebraEquiv P i).symm a))
+    rw [map_mul, Derivation.leibniz]
+    simp only [smul_eq_mul, map_add, map_mul, AlgEquiv.apply_symm_apply]
+
+theorem action_polynomial (P : ProjectiveLineOverC) (i : Fin 2)
+    (v : SectionsOn (tangentSheaf P.structureMap) (chartOpen i))
+    (a : RingSections ProjectiveLine (chartOpen i)) :
+    chartAlgebraEquiv P i (tangentActs P.structureMap (chartOpen i) v a) =
+      (chartAlgebraEquiv P i a).derivative *
+        chartAlgebraEquiv P i ((frame P i).coefficient v) := by
+  have h := (polynomialAction P i v).map_aeval
+    (chartAlgebraEquiv P i a) Polynomial.X
+  have hx : (chartAlgebraEquiv P i).symm Polynomial.X = coordinate i := by
+    apply (chartAlgebraEquiv P i).injective
+    rw [AlgEquiv.apply_symm_apply, chartAlgebraEquiv_coordinate]
+  simp only [Polynomial.aeval_X_left_apply, smul_eq_mul] at h
+  have ha : polynomialAction P i v (chartAlgebraEquiv P i a) =
+      chartAlgebraEquiv P i (tangentActs P.structureMap (chartOpen i) v a) := by
+    change chartAlgebraEquiv P i
+      (tangentActs P.structureMap (chartOpen i) v
+        ((chartAlgebraEquiv P i).symm (chartAlgebraEquiv P i a))) = _
+    rw [AlgEquiv.symm_apply_apply]
+  have hX : polynomialAction P i v Polynomial.X =
+      chartAlgebraEquiv P i ((frame P i).coefficient v) := by
+    change chartAlgebraEquiv P i
+      (tangentActs P.structureMap (chartOpen i) v
+        ((chartAlgebraEquiv P i).symm Polynomial.X)) = _
+    rw [hx, action_coordinate]
+  rw [ha, hX] at h
+  exact h
+
+theorem generator_action (P : ProjectiveLineOverC) (i : Fin 2)
+    (a : RingSections ProjectiveLine (chartOpen i)) :
+    chartAlgebraEquiv P i
+      (tangentActs P.structureMap (chartOpen i) (generator (derivativeFrame P i)) a) =
+        (chartAlgebraEquiv P i a).derivative := by
+  rw [action_polynomial]
+  change _ * chartAlgebraEquiv P i (coordinates _ (generator _)) = _
+  rw [coordinates_generator, map_one, mul_one]
+
+def polynomial (P : ProjectiveLineOverC) (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    Polynomial ℂ := chartAlgebraEquiv P 0 ((frame P 0).localCoefficient a)
+
+theorem polynomial_eq_matching (P : ProjectiveLineOverC)
+    (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    polynomial P a = Polynomial.mapEquiv (baseFieldAuto P).symm
+      (P1TangentSections.matchingEquiv P a).val.1 := by
+  rw [P1TangentSections.matchingEquiv_zero]
+  change Polynomial.mapEquiv (baseFieldAuto P).symm
+    (polynomialChartRingEquiv 0 (coordinates (derivativeFrame P 0)
+      (Scheme.Modules.Hom.app a (chartOpen 0) (1 : RingSections ProjectiveLine (chartOpen 0))))) = _
+  exact congrArg (fun v : SectionsOn (tangentSheaf P.structureMap) (chartOpen 0) =>
+    Polynomial.mapEquiv (baseFieldAuto P).symm
+      (polynomialChartRingEquiv 0 (coordinates (derivativeFrame P 0) v)))
+    (section_app_one a (chartOpen 0))
+
+theorem polynomial_injective (P : ProjectiveLineOverC) : Function.Injective (polynomial P) := by
+  intro a b hab
+  rw [polynomial_eq_matching, polynomial_eq_matching] at hab
+  apply (P1TangentSections.matchingEquiv P).injective
+  apply P1Overlap.matchingSpace_ext
+  exact (Polynomial.mapEquiv (baseFieldAuto P).symm).injective hab
+
+theorem polynomial_natDegree_le (P : ProjectiveLineOverC)
+    (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    (polynomial P a).natDegree ≤ 2 := by
+  rw [polynomial_eq_matching, Polynomial.natDegree_le_iff_coeff_eq_zero]
+  intro n hn
+  rw [P1Overlap.polynomialCoefficientEquiv_coeff,
+    Polynomial.coeff_eq_zero_of_natDegree_lt
+      (lt_of_le_of_lt (P1Overlap.matching_degree_le
+        (P1TangentSections.matchingEquiv P a).property) hn), map_zero]
+
+def polynomialLinear (P : ProjectiveLineOverC) :
+    ComplexSections P.structureMap (tangentSheaf P.structureMap) →ₗ[ℂ] Polynomial ℂ :=
+  (chartAlgebraEquiv P 0).toLinearMap.comp
+    (coefficientLinear P.structureMap (identityCurveContact P).sequence.line (frame P 0))
+
+theorem polynomialLinear_sectionValue (P : ProjectiveLineOverC)
+    (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    polynomialLinear P (sectionValue a) = polynomial P a := by
+  change chartAlgebraEquiv P 0
+    (coefficientLinear P.structureMap (identityCurveContact P).sequence.line (frame P 0)
+      (sectionValue a)) = _
+  rw [coefficientLinear_sectionValue]
+  rfl
+
+theorem polynomialLinear_injective (P : ProjectiveLineOverC) :
+    Function.Injective (polynomialLinear P) := by
+  intro a b h
+  have hab : sectionFromValue a = sectionFromValue b := by
+    apply polynomial_injective P
+    rw [← polynomialLinear_sectionValue, ← polynomialLinear_sectionValue,
+      sectionFromValue_spec, sectionFromValue_spec]
+    exact h
+  simpa only [sectionFromValue_spec] using congrArg (fun a => sectionValue a) hab
+
+def polynomialTensor (P : ProjectiveLineOverC) :=
+  TensorProduct.map (polynomialLinear P) (polynomialLinear P)
+
+theorem polynomialTensor_injective (P : ProjectiveLineOverC) :
+    Function.Injective (polynomialTensor P) := by
+  let V := ComplexSections P.structureMap (tangentSheaf P.structureMap)
+  let f := polynomialLinear P
+  have he : polynomialTensor P =
+      (f.lTensor (Polynomial ℂ)).comp (f.rTensor V) := by
+    ext a b
+    rfl
+  rw [he]
+  exact (Module.Flat.lTensor_preserves_injective_linearMap f (polynomialLinear_injective P)).comp
+    (Module.Flat.rTensor_preserves_injective_linearMap f (polynomialLinear_injective P))
+
+end LeBrunSalamon.P1CoordinatePolynomials
+
+end
+/- END LSP1CoordinatePolynomials -/
+
+/- BEGIN checked source-bivector proof: LSP1BivectorUniqueness -/
+
+/-! Uniqueness of the source bivector from the actual finite expansion,
+the degree bound, and its three diagonal symbols. No source-bivector
+existence or uniqueness theorem is used. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
+open LeBrunSalamon.Core LeBrunSalamon.Core.ExternalTensorCoordinates
+open LeBrunSalamon.Skeleton LeBrunSalamon.P1Charts LeBrunSalamon.LocalFrames
+open LeBrunSalamon.P1TangentTranslation LeBrunSalamon.P1CoordinatePolynomials
+open scoped TensorProduct
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety frame
+
+namespace LeBrunSalamon.P1BivectorUniqueness
+
+variable (P : ProjectiveLineOverC)
+variable {B : ExternalSquareSections (projectiveLineVariety P)
+  (identityCurveContact P).sequence.line}
+variable (E : ExternalExpansion (projectiveLineVariety P)
+  (identityCurveContact P).sequence.line B)
+
+def left (i : Fin E.size) : Polynomial ℂ := polynomial P (E.left i)
+def right (i : Fin E.size) : Polynomial ℂ := polynomial P (E.right i)
+
+theorem polynomial_value
+    (ho : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B) :
+    ∑ i, left P E i * right P E i = 0 := by
+  have h := congrArg (chartAlgebraEquiv P 0)
+    (E.diagonalValue_zero_of_orderTwo ho (frame P 0))
+  simpa only [ExternalExpansion.diagonalValue, map_sum, map_mul, map_zero,
+    left, right, polynomial] using h
+
+theorem polynomial_first
+    (ho : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B) :
+    ∑ i, left P E i * (right P E i).derivative = 0 := by
+  have h := congrArg (chartAlgebraEquiv P 0)
+    (E.secondSlotFirst_zero_of_orderTwo ho (frame P 0) (generator (derivativeFrame P 0)))
+  simpa only [ExternalExpansion.secondSlotFirst, map_sum, map_mul, map_zero,
+    generator_action, left, right, polynomial] using h
+
+theorem polynomial_second
+    (hn : ExpansionHasContactHessian (identityCurveContact P) E) :
+    ∑ i, left P E i * (right P E i).derivative.derivative = 2 := by
+  have h := congrArg (chartAlgebraEquiv P 0)
+    (hn (frame P 0) (generator (derivativeFrame P 0)) (generator (derivativeFrame P 0)))
+  change chartAlgebraEquiv P 0
+      (∑ i, (frame P 0).localCoefficient (E.left i) *
+        tangentActs P.structureMap (chartOpen 0) (generator (derivativeFrame P 0))
+          (tangentActs P.structureMap (chartOpen 0) (generator (derivativeFrame P 0))
+            ((frame P 0).localCoefficient (E.right i)))) =
+    chartAlgebraEquiv P 0
+      ((2 : RingSections ProjectiveLine (chartOpen 0)) * coordinates (derivativeFrame P 0) (generator (derivativeFrame P 0)) *
+        coordinates (derivativeFrame P 0) (generator (derivativeFrame P 0))) at h
+  simpa only [map_sum, map_mul, generator_action, coordinates_generator,
+    map_one, map_ofNat, mul_one, left, right, polynomial] using h
+
+/-- The image of the actual expansion tensor is the coefficient-one square. -/
+theorem tensor_formula
+    (ho : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B)
+    (hn : ExpansionHasContactHessian (identityCurveContact P) E) :
+    polynomialTensor P E.tensor = (P1SourceAlgebra.leftX - P1SourceAlgebra.rightX)^2 := by
+  change TensorProduct.map (polynomialLinear P) (polynomialLinear P)
+    (∑ i, sectionValue (E.left i) ⊗ₜ[ℂ] sectionValue (E.right i)) = _
+  rw [map_sum]
+  simp only [TensorProduct.map_tmul, polynomialLinear_sectionValue]
+  exact P1SourceAlgebra.tensor_formula (left P E) (right P E)
+    (fun i => polynomial_natDegree_le P (E.right i))
+    (polynomial_value P E ho) (polynomial_first P E ho) (polynomial_second P E hn)
+
+/-- Two sections with the required order and symbol are equal. Symmetry
+is not needed for uniqueness. -/
+theorem unique
+    (C : ExternalSquareSections (projectiveLineVariety P)
+      (identityCurveContact P).sequence.line)
+    (hB : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B)
+    (nB : HasNormalizedContactSymbol (identityCurveContact P) B)
+    (hC : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf C)
+    (nC : HasNormalizedContactSymbol (identityCurveContact P) C) : B = C := by
+  obtain ⟨E, hnE⟩ := nB
+  obtain ⟨F, hnF⟩ := nC
+  have hEF : E.tensor = F.tensor := by
+    apply polynomialTensor_injective P
+    rw [tensor_formula P E hB hnE, tensor_formula P F hC hnF]
+  apply (sectionValue_bijective _).injective
+  rw [← E.tensor_image, ← F.tensor_image, hEF]
+
+end LeBrunSalamon.P1BivectorUniqueness
+
+end
+/- END LSP1BivectorUniqueness -/
+
+/- BEGIN checked source-bivector proof: LSP1BivectorNormalization -/
+
+/-! The normalized Hessian is proved in every supplied affine frame by
+restricting its actual sheaf trivialization to the two polynomial charts.
+The gauge terms cancel in the explicit four-term global expansion. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyTwo
+open LeBrunSalamon.Core LeBrunSalamon.Core.ExternalTensorCoordinates
+open LeBrunSalamon.Skeleton LeBrunSalamon.P1Charts LeBrunSalamon.P1TwistFrames
+open LeBrunSalamon.LocalFrames LeBrunSalamon.P1TangentTranslation
+open LeBrunSalamon.P1TangentSections
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety
+
+namespace LeBrunSalamon.P1BivectorNormalization
+
+def localCoefficient {X : Scheme} {E : X.Modules} {U : X.Opens}
+    (e : OverFrame E U) (a : AlgebraicSection E) : RingSections X U :=
+  coordinates e (Scheme.Modules.Hom.app a U (1 : RingSections X U))
+
+theorem localCoefficient_restrict {X : Scheme} {E : X.Modules} {U V : X.Opens}
+    (i : V ⟶ U) (e : OverFrame E U) (a : AlgebraicSection E) :
+    X.presheaf.map i.op (localCoefficient e a) =
+      localCoefficient (restrict i e) a := by
+  have h := coordinates_restrict i e (Scheme.Modules.Hom.app a U (1 : RingSections X U))
+  rw [sheafHom_naturality a i] at h
+  change coordinates (restrict i e)
+      (Scheme.Modules.Hom.app a V (X.presheaf.map i.op (1 : RingSections X U))) =
+    X.presheaf.map i.op
+      (coordinates e (Scheme.Modules.Hom.app a U (1 : RingSections X U))) at h
+  rw [map_one] at h
+  exact h.symm
+
+theorem localCoefficient_change {X : Scheme} {E : X.Modules} {U : X.Opens}
+    (e f : OverFrame E U) (a : AlgebraicSection E) :
+    localCoefficient e a = localCoefficient f a * coordinates e (generator f) :=
+  coordinates_change e f (Scheme.Modules.Hom.app a U (1 : RingSections X U))
+
+variable (P : ProjectiveLineOverC)
+
+abbrev TangentLine := (identityCurveContact P).sequence.line
+
+instance tangentQuasicoherent : (tangentSheaf P.structureMap).IsQuasicoherent :=
+  KunnethDegreeZero.quasicoherent_of_locallyFreeRank (tangentLine P).locallyFree
+
+instance tangentLineQuasicoherent : ((TangentLine P).sheaf).IsQuasicoherent :=
+  KunnethDegreeZero.quasicoherent_of_locallyFreeRank (TangentLine P).locallyFree
+
+def actualFrame (F : AffineLineFrame (TangentLine P)) :
+    OverFrame (tangentSheaf P.structureMap) F.openSet :=
+  AffineFrameProof.frame F.openSet F.isAffine F.coefficient
+
+theorem actualFrame_coordinates (F : AffineLineFrame (TangentLine P))
+    (v : SectionsOn (tangentSheaf P.structureMap) F.openSet) :
+    coordinates (actualFrame P F) v = F.coefficient v :=
+  AffineFrameProof.frame_coordinates F.openSet F.isAffine F.coefficient v
+
+def localCoefficientAddHom (F : AffineLineFrame (TangentLine P)) :
+    AlgebraicSection (tangentSheaf P.structureMap) →+ RingSections ProjectiveLine F.openSet where
+  toFun := F.localCoefficient
+  map_zero' := by change F.coefficient 0 = 0; exact map_zero F.coefficient
+  map_add' a b := by
+    change F.coefficient (Scheme.Modules.Hom.app a F.openSet (1 : RingSections ProjectiveLine F.openSet) +
+      Scheme.Modules.Hom.app b F.openSet (1 : RingSections ProjectiveLine F.openSet)) = _
+    exact map_add F.coefficient _ _
+
+theorem coefficient_neg (F : AffineLineFrame (TangentLine P))
+    (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    F.localCoefficient (-a) = -F.localCoefficient a :=
+  (localCoefficientAddHom P F).map_neg a
+
+theorem coefficientDerivation_apply (U : ProjectiveLine.Opens)
+    (u : SectionsOn (tangentSheaf P.structureMap) U)
+    (a : Coefficients P.structureMap U) :
+    coefficientDerivation P.structureMap U u a = tangentActs P.structureMap U u a := rfl
+
+theorem expansion_hessian_formula (F : AffineLineFrame (TangentLine P))
+    (u v : SectionsOn (tangentSheaf P.structureMap) F.openSet) :
+    (P1BivectorConstruction.expansion P).secondSlotSecond F u v =
+      P1SourceAlgebra.fourHessian
+        (coefficientDerivation P.structureMap F.openSet u)
+        (coefficientDerivation P.structureMap F.openSet v)
+        (F.localCoefficient (polynomialField P 0))
+        (F.localCoefficient (polynomialField P 1))
+        (F.localCoefficient (polynomialField P 2)) := by
+  simp only [ExternalExpansion.secondSlotSecond, P1BivectorConstruction.expansion,
+    P1BivectorConstruction.left, P1BivectorConstruction.right,
+    Fin.sum_univ_succ, Fin.sum_univ_zero, Fin.cases_zero, Fin.cases_succ, add_zero,
+    coefficient_neg, P1SourceAlgebra.fourHessian, coefficientDerivation_apply]
+  ring
+
+abbrev chart (F : AffineLineFrame (TangentLine P)) (i : Fin 2) : ProjectiveLine.Opens :=
+  F.openSet ⊓ chartOpen i
+
+abbrev frameOn (F : AffineLineFrame (TangentLine P)) (i : Fin 2) :
+    OverFrame (tangentSheaf P.structureMap) (chart P F i) :=
+  restrict (homOfLE inf_le_left) (actualFrame P F)
+
+abbrev derivativeOn (F : AffineLineFrame (TangentLine P)) (i : Fin 2) :
+    OverFrame (tangentSheaf P.structureMap) (chart P F i) :=
+  restrict (homOfLE inf_le_right) (derivativeFrame P i)
+
+abbrev coordinateOn (F : AffineLineFrame (TangentLine P)) (i : Fin 2) :
+    RingSections ProjectiveLine (chart P F i) :=
+  ProjectiveLine.presheaf.map (homOfLE inf_le_right).op (coordinate i)
+
+def gauge (F : AffineLineFrame (TangentLine P)) (i : Fin 2) :
+    RingSections ProjectiveLine (chart P F i) :=
+  coordinates (frameOn P F i) (generator (derivativeOn P F i))
+
+theorem derivativeOn_coordinate (F : AffineLineFrame (TangentLine P)) (i : Fin 2) :
+    tangentActs P.structureMap (chart P F i) (generator (derivativeOn P F i))
+      (coordinateOn P F i) = 1 := by
+  rw [derivativeOn, ← generator_restrict, coordinateOn,
+    ← TangentActionProof.naturality, derivativeFrame_coordinate, map_one]
+
+theorem coordinates_action (F : AffineLineFrame (TangentLine P)) (i : Fin 2)
+    (u : SectionsOn (tangentSheaf P.structureMap) (chart P F i)) :
+    coordinates (frameOn P F i) u = gauge P F i *
+      tangentActs P.structureMap (chart P F i) u (coordinateOn P F i) := by
+  have h := congrArg
+    (fun v => tangentActs P.structureMap (chart P F i) v (coordinateOn P F i))
+    (reconstruct (derivativeOn P F i) u)
+  rw [TangentActionProof.smul_field, derivativeOn_coordinate, mul_one] at h
+  rw [coordinates_change (frameOn P F i) (derivativeOn P F i), h]
+  exact mul_comm _ _
+
+theorem field_chart_zero (k : Fin 3) :
+    localCoefficient (derivativeFrame P 0) (polynomialField P k) =
+      coordinate 0 ^ k.val := by
+  apply (polynomialChartRingEquiv 0).injective
+  rw [map_pow]
+  change polynomialChartRingEquiv 0
+      (coordinates (derivativeFrame P 0) (Scheme.Modules.Hom.app (polynomialField P k) (chartOpen 0) (1 : RingSections ProjectiveLine (chartOpen 0)))) =
+    (polynomialChartRingEquiv 0 ((polynomialChartRingEquiv 0).symm Polynomial.X)) ^ k.val
+  rw [RingEquiv.apply_symm_apply, section_app_one]
+  exact polynomialField_zero P k
+
+theorem field_chart_one (k : Fin 3) :
+    localCoefficient (derivativeFrame P 1) (polynomialField P k) =
+      -(coordinate 1 ^ (2-k.val)) := by
+  apply (polynomialChartRingEquiv 1).injective
+  rw [map_neg, map_pow]
+  change polynomialChartRingEquiv 1
+      (coordinates (derivativeFrame P 1) (Scheme.Modules.Hom.app (polynomialField P k) (chartOpen 1) (1 : RingSections ProjectiveLine (chartOpen 1)))) =
+    -((polynomialChartRingEquiv 1 ((polynomialChartRingEquiv 1).symm Polynomial.X)) ^ (2-k.val))
+  rw [RingEquiv.apply_symm_apply, section_app_one]
+  exact polynomialField_one P k
+
+theorem coefficient_on_zero (F : AffineLineFrame (TangentLine P)) (k : Fin 3) :
+    localCoefficient (frameOn P F 0) (polynomialField P k) =
+      gauge P F 0 * coordinateOn P F 0 ^ k.val := by
+  rw [localCoefficient_change (frameOn P F 0) (derivativeOn P F 0)]
+  change localCoefficient (restrict (homOfLE inf_le_right) (derivativeFrame P 0))
+    (polynomialField P k) * gauge P F 0 = _
+  rw [← localCoefficient_restrict, field_chart_zero, map_pow]
+  exact mul_comm _ _
+
+theorem coefficient_on_one (F : AffineLineFrame (TangentLine P)) (k : Fin 3) :
+    localCoefficient (frameOn P F 1) (polynomialField P k) =
+      -(gauge P F 1 * coordinateOn P F 1 ^ (2-k.val)) := by
+  rw [localCoefficient_change (frameOn P F 1) (derivativeOn P F 1)]
+  change localCoefficient (restrict (homOfLE inf_le_right) (derivativeFrame P 1))
+    (polynomialField P k) * gauge P F 1 = _
+  rw [← localCoefficient_restrict, field_chart_one, map_neg, map_pow]
+  ring
+
+theorem restricted_coefficient (F : AffineLineFrame (TangentLine P)) (i : Fin 2)
+    (a : AlgebraicSection (tangentSheaf P.structureMap)) :
+    ProjectiveLine.presheaf.map (homOfLE (show chart P F i ≤ F.openSet from inf_le_left)).op
+      (F.localCoefficient a) = localCoefficient (frameOn P F i) a := by
+  change ProjectiveLine.presheaf.map
+      (homOfLE (show chart P F i ≤ F.openSet from inf_le_left)).op
+      (F.coefficient (Scheme.Modules.Hom.app a F.openSet (1 : RingSections ProjectiveLine F.openSet))) = _
+  rw [← actualFrame_coordinates P F]
+  exact localCoefficient_restrict (homOfLE inf_le_left) (actualFrame P F) a
+
+theorem restricted_vector_coefficient (F : AffineLineFrame (TangentLine P)) (i : Fin 2)
+    (u : SectionsOn (tangentSheaf P.structureMap) F.openSet) :
+    ProjectiveLine.presheaf.map (homOfLE (show chart P F i ≤ F.openSet from inf_le_left)).op
+      (F.coefficient u) = coordinates (frameOn P F i)
+        ((tangentSheaf P.structureMap).presheaf.map (homOfLE inf_le_left).op u) := by
+  rw [← actualFrame_coordinates P F]
+  exact (coordinates_restrict (homOfLE inf_le_left) (actualFrame P F) u).symm
+
+/-- The local identity after restriction to either genuine polynomial chart. -/
+theorem local_hessian (F : AffineLineFrame (TangentLine P)) (i : Fin 2)
+    (u v : SectionsOn (tangentSheaf P.structureMap) (chart P F i)) :
+    P1SourceAlgebra.fourHessian
+      (coefficientDerivation P.structureMap (chart P F i) u)
+      (coefficientDerivation P.structureMap (chart P F i) v)
+      (localCoefficient (frameOn P F i) (polynomialField P 0))
+      (localCoefficient (frameOn P F i) (polynomialField P 1))
+      (localCoefficient (frameOn P F i) (polynomialField P 2)) =
+        (2 : RingSections ProjectiveLine (chart P F i)) *
+          coordinates (frameOn P F i) u * coordinates (frameOn P F i) v := by
+  rw [coordinates_action, coordinates_action]
+  have htwo : (2 : Fin 3).val = 2 := rfl
+  fin_cases i
+  · simp only [coefficient_on_zero, Fin.val_zero, Fin.val_one, htwo, Fin.reduceFinMk,
+      pow_zero, pow_one, mul_one]
+    erw [P1SourceAlgebra.fourHessian_gauge_zero]
+    have hring : (2 : RingSections ProjectiveLine (chart P F 0)) * gauge P F 0 ^ 2 *
+      tangentActs P.structureMap (chart P F 0) u (coordinateOn P F 0) *
+      tangentActs P.structureMap (chart P F 0) v (coordinateOn P F 0) =
+        (2 : RingSections ProjectiveLine (chart P F 0)) *
+          (gauge P F 0 * tangentActs P.structureMap (chart P F 0) u (coordinateOn P F 0)) *
+          (gauge P F 0 * tangentActs P.structureMap (chart P F 0) v (coordinateOn P F 0)) := by ring
+    exact hring
+  · simp only [coefficient_on_one, Fin.val_zero, Fin.val_one, htwo, Fin.reduceFinMk,
+      Nat.reduceSub, pow_zero, pow_one, mul_one]
+    erw [P1SourceAlgebra.fourHessian_gauge_one]
+    have hring : (2 : RingSections ProjectiveLine (chart P F 1)) * gauge P F 1 ^ 2 *
+      tangentActs P.structureMap (chart P F 1) u (coordinateOn P F 1) *
+      tangentActs P.structureMap (chart P F 1) v (coordinateOn P F 1) =
+        (2 : RingSections ProjectiveLine (chart P F 1)) *
+          (gauge P F 1 * tangentActs P.structureMap (chart P F 1) u (coordinateOn P F 1)) *
+          (gauge P F 1 * tangentActs P.structureMap (chart P F 1) v (coordinateOn P F 1)) := by ring
+    exact hring
+
+/-- The coordinate calculation glues on the supplied affine open. -/
+theorem normalized : HasNormalizedContactSymbol (identityCurveContact P)
+    (P1BivectorConstruction.bivector P) := by
+  refine ⟨P1BivectorConstruction.expansion P, ?_⟩
+  intro F u v
+  change (P1BivectorConstruction.expansion P).secondSlotSecond F u v =
+    2 * F.coefficient u * F.coefficient v
+  rw [expansion_hessian_formula]
+  have hloc (i : Fin 2) :
+      ProjectiveLine.presheaf.map
+        (homOfLE (show chart P F i ≤ F.openSet from inf_le_left)).op
+          (P1SourceAlgebra.fourHessian (R := Coefficients P.structureMap F.openSet)
+            (coefficientDerivation P.structureMap F.openSet u)
+            (coefficientDerivation P.structureMap F.openSet v)
+            (F.localCoefficient (polynomialField P 0))
+            (F.localCoefficient (polynomialField P 1))
+            (F.localCoefficient (polynomialField P 2))) =
+      ProjectiveLine.presheaf.map
+        (homOfLE (show chart P F i ≤ F.openSet from inf_le_left)).op
+          (2 * F.coefficient u * F.coefficient v) := by
+    simp only [P1SourceAlgebra.fourHessian, coefficientDerivation_apply,
+      map_sub, map_add, map_mul, map_ofNat, TangentActionProof.naturality,
+      restricted_coefficient, restricted_vector_coefficient P F i u,
+      restricted_vector_coefficient P F i v]
+    simpa only [P1SourceAlgebra.fourHessian, coefficientDerivation_apply] using local_hessian P F i
+      ((tangentSheaf P.structureMap).presheaf.map (homOfLE inf_le_left).op u)
+      ((tangentSheaf P.structureMap).presheaf.map (homOfLE inf_le_left).op v)
+  have hcover : chart P F 0 ⊔ chart P F 1 = F.openSet := by
+    simp only [chart, ← inf_sup_left, chartOpen_zero_sup_one, inf_top_eq]
+  exact (TwoChartSections.sectionSheaf (structureModule ProjectiveLine)).eq_of_locally_eq₂
+    (homOfLE (show chart P F 0 ≤ F.openSet from inf_le_left))
+    (homOfLE (show chart P F 1 ≤ F.openSet from inf_le_left)) hcover.ge _ _
+    (hloc 0) (hloc 1)
+
+end LeBrunSalamon.P1BivectorNormalization
+
+end
+/- END LSP1BivectorNormalization -/
+
+/- BEGIN checked source-bivector proof: LSP1BivectorVanishing -/
+
+/-! Order-two vanishing of the actual four-term source bivector. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.Core LeBrunSalamon.Skeleton
+open LeBrunSalamon.LocalFrames LeBrunSalamon.P1Charts LeBrunSalamon.P1TwistFrames
+open LeBrunSalamon.P1TangentTranslation LeBrunSalamon.P1TangentSections
+open LeBrunSalamon.ExternalFrameCoefficients
+open scoped TensorProduct
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety
+
+namespace LeBrunSalamon.P1BivectorVanishing
+
+variable (P : ProjectiveLineOverC)
+
+def coordinateFunction (i : Fin 2) :
+    OpenProductCoordinates.Coefficients P.structureMap (chartOpen i) := coordinate i
+
+theorem coefficient_zero (k : Fin 3) :
+    coefficientLinear P.structureMap (derivativeFrame P 0)
+      (sectionValue (polynomialField P k)) = coordinateFunction P 0 ^ k.val := by
+  rw [coefficientLinear_sectionValue]
+  apply (polynomialChartRingEquiv 0).injective
+  rw [map_pow]
+  change polynomialChartRingEquiv 0
+      (coordinates (derivativeFrame P 0) (Scheme.Modules.Hom.app (polynomialField P k) (chartOpen 0) (1 : RingSections ProjectiveLine (chartOpen 0)))) =
+    (polynomialChartRingEquiv 0 ((polynomialChartRingEquiv 0).symm Polynomial.X)) ^ k.val
+  rw [RingEquiv.apply_symm_apply, ExternalFrameCoefficients.section_app_one]
+  exact polynomialField_zero P k
+
+theorem coefficient_one (k : Fin 3) :
+    coefficientLinear P.structureMap (derivativeFrame P 1)
+      (sectionValue (polynomialField P k)) = -(coordinateFunction P 1 ^ (2 - k.val)) := by
+  rw [coefficientLinear_sectionValue]
+  apply (polynomialChartRingEquiv 1).injective
+  rw [map_neg, map_pow]
+  change polynomialChartRingEquiv 1
+      (coordinates (derivativeFrame P 1) (Scheme.Modules.Hom.app (polynomialField P k) (chartOpen 1) (1 : RingSections ProjectiveLine (chartOpen 1)))) =
+    -((polynomialChartRingEquiv 1 ((polynomialChartRingEquiv 1).symm Polynomial.X)) ^
+      (2 - k.val))
+  rw [RingEquiv.apply_symm_apply, ExternalFrameCoefficients.section_app_one]
+  exact polynomialField_one P k
+
+theorem coefficient_tensor (i : Fin 2) :
+    coefficientTensorMap P.structureMap (derivativeFrame P i) (derivativeFrame P i)
+      (P1BivectorConstruction.expansion P).tensor =
+      (coordinateFunction P i ^ 2) ⊗ₜ[ℂ] (1 : OpenProductCoordinates.Coefficients P.structureMap (chartOpen i)) +
+      (1 : OpenProductCoordinates.Coefficients P.structureMap (chartOpen i)) ⊗ₜ[ℂ] (coordinateFunction P i ^ 2) -
+      coordinateFunction P i ⊗ₜ[ℂ] coordinateFunction P i - coordinateFunction P i ⊗ₜ[ℂ] coordinateFunction P i := by
+  have htwo : (2 : Fin 3).val = 2 := rfl
+  fin_cases i
+  · change coefficientTensorMap P.structureMap (derivativeFrame P 0) (derivativeFrame P 0)
+      (∑ j : Fin 4, (sectionValue (P1BivectorConstruction.left P j) :
+        KunnethDegreeZero.Sections P.structureMap (tangentSheaf P.structureMap)) ⊗ₜ[ℂ]
+        (sectionValue (P1BivectorConstruction.right P j) :
+        KunnethDegreeZero.Sections P.structureMap (tangentSheaf P.structureMap))) = _
+    rw [map_sum]
+    simp only [coefficientTensorMap_tmul, Fin.sum_univ_succ,
+      Fin.sum_univ_zero, P1BivectorConstruction.left, P1BivectorConstruction.right,
+      Fin.cases_zero, Fin.cases_succ, sectionValue_neg, map_neg, coefficient_zero,
+      Fin.val_zero, Fin.val_one, htwo, Fin.reduceFinMk, pow_zero, pow_one, add_zero,
+      TensorProduct.neg_tmul]
+    abel
+  · change coefficientTensorMap P.structureMap (derivativeFrame P 1) (derivativeFrame P 1)
+      (∑ j : Fin 4, (sectionValue (P1BivectorConstruction.left P j) :
+        KunnethDegreeZero.Sections P.structureMap (tangentSheaf P.structureMap)) ⊗ₜ[ℂ]
+        (sectionValue (P1BivectorConstruction.right P j) :
+        KunnethDegreeZero.Sections P.structureMap (tangentSheaf P.structureMap))) = _
+    rw [map_sum]
+    simp only [coefficientTensorMap_tmul, Fin.sum_univ_succ,
+      Fin.sum_univ_zero, P1BivectorConstruction.left, P1BivectorConstruction.right,
+      Fin.cases_zero, Fin.cases_succ, sectionValue_neg, map_neg, coefficient_one,
+      Fin.val_zero, Fin.val_one, htwo, Fin.reduceFinMk, Nat.reduceSub,
+      pow_zero, pow_one, add_zero, TensorProduct.neg_tmul, TensorProduct.tmul_neg,
+      neg_neg]
+    abel
+
+theorem order_two :
+    VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf
+      (P1BivectorConstruction.bivector P) := by
+  apply section_vanishes_of_cover_coefficients_mem P.structureMap chartOpen
+    chartOpen_cover chartOpen_affine (derivativeFrame P) (derivativeFrame P)
+    (P1BivectorConstruction.bivector P) (P1BivectorConstruction.expansion P).tensor
+    (P1BivectorConstruction.expansion P).tensor_image.symm 2
+  intro i
+  rw [coefficient_tensor]
+  exact P1SourceAlgebra.tensor_square_mem (K := ℂ)
+    (coordinateFunction P i)
+
+end LeBrunSalamon.P1BivectorVanishing
+
+end
+/- END LSP1BivectorVanishing -/
+
+/- BEGIN checked source-bivector proof: LSP1BivectorAssembly -/
+
+/-! Assembly of the actual, uniquely normalized source tensor. -/
+noncomputable section
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.Core LeBrunSalamon.Skeleton
+
+namespace LeBrunSalamon.P1BivectorAssembly
+
+theorem existsUnique (P : ProjectiveLineOverC) :
+    ∃! B : ExternalSquareSections (projectiveLineVariety P)
+        (identityCurveContact P).sequence.line,
+      IsSymmetricExternalSection P.structureMap (identityCurveContact P).sequence.line B ∧
+      VanishesQuadraticallyAlongDiagonal P.structureMap
+        (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B ∧
+      HasNormalizedContactSymbol (identityCurveContact P) B := by
+  refine ⟨P1BivectorConstruction.bivector P,
+    ⟨P1BivectorConstruction.symmetric P, P1BivectorVanishing.order_two P,
+      P1BivectorNormalization.normalized P⟩, ?_⟩
+  intro B hB
+  exact P1BivectorUniqueness.unique P (P1BivectorConstruction.bivector P)
+    hB.2.1 hB.2.2 (P1BivectorVanishing.order_two P)
+    (P1BivectorNormalization.normalized P)
+
+end LeBrunSalamon.P1BivectorAssembly
+
+end
+/- END LSP1BivectorAssembly -/
+
+namespace LeBrunSalamon.Skeleton
+
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo
+open LeBrunSalamon.PhaseThree LeBrunSalamon.PhaseFour
+open LeBrunSalamon.PhaseSeven LeBrunSalamon.PhaseTen
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseTwentyEight
+open LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyTwo
+open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Core
+
+/-- The uniquely normalized diagonal tensor on the actual tangent line of `P¹`.
+The four global vector-field terms are constructed explicitly; vanishing,
+symbol normalization and uniqueness are proved in the preceding sections. -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.normalizedSourceBivector
     (P : ProjectiveLineOverC) :
     ∃! B : ExternalSquareSections (projectiveLineVariety P)
@@ -3603,7 +4455,7 @@ theorem _root_.LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.normalizedSo
       VanishesQuadraticallyAlongDiagonal P.structureMap
         (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf B ∧
       HasNormalizedContactSymbol (identityCurveContact P) B := by
-  sorry
+  exact P1BivectorAssembly.existsUnique P
 
 /-- Project wrapper for the normalized source bivector. -/
 theorem sourceBivector_existsUnique (P : ProjectiveLineOverC) :

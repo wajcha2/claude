@@ -1,0 +1,12 @@
+theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.diagonalRestriction_iff_quotientCoefficients
+    {Y : Scheme}
+    (s : Y ⟶ LeBrunSalamon.PhaseOne.ComplexBase) [IsSeparated s]
+    (L : LeBrunSalamon.PhaseOne.LineBundle Y)
+    (t : ComplexSections s L.sheaf ⊗[ℂ] ComplexSections s L.sheaf) (k : ℕ) :
+    LeBrunSalamon.PhaseThree.VanishesToOrderAlongDiagonal s
+      (LeBrunSalamon.PhaseTwentyEight.externalSquareLine s L).sheaf
+      (LeBrunSalamon.PhaseTwentyEight.sectionFromValue
+        (globalTensorMap s L.sheaf L.sheaf t)) k ↔
+    ∀ F : LeBrunSalamon.Core.AffineLineFrame L,
+      Ideal.Quotient.mk ((KaehlerDifferential.ideal ℂ
+        (Coefficients s F.openSet)) ^ k) (coefficientTensorMap s L F t) = 0 := by

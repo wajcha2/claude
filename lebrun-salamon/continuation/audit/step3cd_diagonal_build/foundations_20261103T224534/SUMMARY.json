@@ -1,0 +1,54 @@
+{
+  "scope": "Native proofs and complete types-plus-values declaration closure against exact frozen CI41685948946 ancestor artifacts and pinned runtime. This is not current cumulative graph acceptance.",
+  "all_sources_match_checked_bytes": true,
+  "new_admitted_declarations": 0,
+  "modules": {
+    "LSAffineProductRing": {
+      "source_sha256": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+      "output_sha256": "c69d24128a122ccd0a387049340917531c820129d74e26cc2391865a9dfb5557",
+      "duration_seconds": 10.399,
+      "status": "passed"
+    },
+    "LSAffineFrame": {
+      "source_sha256": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+      "output_sha256": "90ba683c63b13554e6baccb620d842035dc1e5218e5212fd4ed835e8bec8b855",
+      "duration_seconds": 21.702,
+      "status": "passed"
+    },
+    "LSNonvanishingPullback": {
+      "source_sha256": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+      "output_sha256": "e59066b7cfadae60635b3341cbb52a07c3c52addbaaf8ecd83ae7ea1f1a9a200",
+      "duration_seconds": 5.432,
+      "status": "passed"
+    },
+    "LSClosedIdealCoefficients": {
+      "source_sha256": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
+      "output_sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31",
+      "duration_seconds": 4.881,
+      "status": "passed"
+    },
+    "LSLocalCoordinateBoundaryAudit": {
+      "source_sha256": "dd8cb943b636b26f87caa53033cb515d858f0a26fddb390ed485ff9d2e2e9c21",
+      "output_sha256": "54e1c78f596f72c7faf3ae817db22165a933178c9352dc9b74216fe09f8f7c9c",
+      "duration_seconds": 10.949,
+      "status": "passed"
+    }
+  },
+  "boundary_summaries": [
+    "SUMMARY root=LeBrunSalamon.AffineFrameProof.frame all_constants=24113 project_constants=33 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0",
+    "SUMMARY root=LeBrunSalamon.AffineFrameProof.pullFrame_coordinates all_constants=20733 project_constants=72 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0",
+    "SUMMARY root=LeBrunSalamon.ClosedIdealCoefficients.section_zero_iff_quotient all_constants=27025 project_constants=103 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0",
+    "SUMMARY root=LeBrunSalamon.AffineProductRing.ringMap_bijective all_constants=25832 project_constants=221 direct_sorry_count=1 missing_count=0 custom_project_axiom_count=0",
+    "SUMMARY root=LeBrunSalamon.NonvanishingPullbackProof.nonvanishingOpen_pullback all_constants=21994 project_constants=86 direct_sorry_count=1 missing_count=0 custom_project_axiom_count=0"
+  ],
+  "direct_admitted_leaves": [
+    "DIRECT_SORRY LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nMODULE LSKunnethDegreeZero\nSHORTEST_PATH LeBrunSalamon.AffineProductRing.ringMap_bijective -> LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective\nTYPE ∀ {k : Type} [inst : Field.{0} k] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧k)) (sY : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧k))\n  [CompactSpace.{0} ↥X] [CompactSpace.{0} ↥Y] [AlgebraicGeometry.IsSeparated.{0} sX]\n  [AlgebraicGeometry.IsSeparated.{0} sY] (E : LeBrunSalamon.PhaseOne.OModule.{0} X)\n  (F : LeBrunSalamon.PhaseOne.OModule.{0} Y) [SheafOfModules.IsQuasicoherent.{0, 0, 0} E]\n  [SheafOfModules.IsQuasicoherent.{0, 0, 0} F],\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.KunnethDegreeZero.canonicalMap sX sY E F)",
+    "DIRECT_SORRY LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nMODULE RecompileBasePart04\nSHORTEST_PATH LeBrunSalamon.NonvanishingPullbackProof.nonvanishingOpen_pullback -> LeBrunSalamon.PhaseTwentySix.pullbackLine -> LeBrunSalamon.PhaseTwentySix.pullbackLine._proof_1 -> LeBrunSalamon.PhaseTwentySix.pullback_locallyFree -> LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree\nTYPE ∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) {E : LeBrunSalamon.PhaseOne.OModule.{0} Y}\n  {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank (LeBrunSalamon.PhaseTwo.pullbackModule.{0} f E) r"
+  ],
+  "final_validation": {
+    "checked_utc": "2026-11-03T22:45:34.420004+00:00",
+    "checked_module_count": 18,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  }
+}

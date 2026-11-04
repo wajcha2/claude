@@ -55,19 +55,19 @@ variable {n : ℕ} (X : ContactFanoManifold n) (x : ComplexPoint X.variety)
 variable (C : GlobalVelocity.TargetChart X.variety x)
 variable (D : LegendrianDirections X x C)
 
+set_option maxHeartbeats 6000000 in
 /-- Published component geometry supplies the actual hypotheses of the
 ordinary cone-addition theorem. A witnessed nonzero Levi value makes the
 principal open nonempty; there is no component-spanning hypothesis. -/
-set_option maxHeartbeats 6000000 in
 theorem componentAddition_denseRange
     (K E : D.directions.Component)
     (a b : Fin (dimension (n := n) + 1) → ℂ)
     (ha : a ∈ D.directions.componentConePoints (contactFrame X x C) K)
     (hb : b ∈ D.directions.componentConePoints (contactFrame X x C) E)
     (hab : ConePairing.pairing (omega X x C) a b ≠ 0) :
-    DenseRange (fun z => nonorthogonalAddition
+    DenseRange (nonorthogonalAddition
       (D.directions.componentConePoints (contactFrame X x C) K)
-      (D.directions.componentConePoints (contactFrame X x C) E) (omega X x C) z) := by
+      (D.directions.componentConePoints (contactFrame X x C) E) (omega X x C)).base := by
   let S := D.directions.componentConePoints (contactFrame X x C) K
   let T := D.directions.componentConePoints (contactFrame X x C) E
   let U := nonorthogonalOpen S T (omega X x C)

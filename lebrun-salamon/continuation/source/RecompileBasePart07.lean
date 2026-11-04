@@ -1,4 +1,5 @@
 import RecompileBasePart06
+import LSNonvanishingPullback
 
 noncomputable section
 
@@ -3135,16 +3136,16 @@ open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
 
 namespace LeBrunSalamon.PhaseTwentyEight
 
-/-- **Published input (exact).** Nonvanishing of an invertible-sheaf
-section commutes with pullback along any morphism of locally ringed spaces.
-This is Stacks Project, Remark 17.25.11 (Tag 0H78), using the nonvanishing
-open of Lemma 17.25.10 (Tag 01CY). -/
+/-- Pullback of the actual nonvanishing open, proved by local line frames
+and the basic-open pullback identity. This establishes the defining supremum
+of isomorphism opens directly. The corresponding published geometric fact
+is Stacks Project, Remark 17.25.11 (Tag 0H78). -/
 theorem _root_.LeBrunSalamon.PublishedInputs.ExternalTensorDiagonal.nonvanishingOpen_pullback
     {X Y : Scheme} (f : X ⟶ Y)
     (L : LineBundle Y) (s : AlgebraicSection L.sheaf) :
     f ⁻¹ᵁ nonvanishingOpen L s =
       nonvanishingOpen (pullbackLine f L) (pullSection f s) := by
-  sorry
+  exact LeBrunSalamon.NonvanishingPullbackProof.nonvanishingOpen_pullback f L s
 
 /-- Project API wrapper for pullback of the nonvanishing locus. -/
 theorem nonvanishingOpen_pullback {X Y : Scheme} (f : X ⟶ Y)

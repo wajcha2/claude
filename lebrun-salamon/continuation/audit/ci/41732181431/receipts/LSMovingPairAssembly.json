@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSMovingPairAssembly",
+  "key": {
+    "source_sha256": "8c115263b78128696b197f7f09df143c388a71e3faf69d50f4b7cc351a37dae7",
+    "imports": [
+      "RecompileExtensionsPart04"
+    ],
+    "dependency_artifacts": {
+      "RecompileExtensionsPart04": {
+        "sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSMovingPairAssembly.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSMovingPairAssembly.lean"
+  ],
+  "started_utc": "2026-11-03T22:50:40.835722+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSMovingPairAssembly.20261103T225040835690.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSMovingPairAssembly.20261103T225040835690.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T22:50:44.159670+00:00",
+  "seconds": 3.323,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "b3de960c9b800ef86abafc4ed6f0147bdede9356a9fde611e5fd7b6c6575ce81",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "ce7f9efcc21b357f582e9308719afa1ada747eb44054ec2ef9fc004a904c6edc",
+  "evidence_kind": "native_kernel_compilation"
+}

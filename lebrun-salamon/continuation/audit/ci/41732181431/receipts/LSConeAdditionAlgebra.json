@@ -1,0 +1,78 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSConeAdditionAlgebra",
+  "key": {
+    "source_sha256": "cc1171ef0e2587e8fe778cbb416ca6756561ffea191a220fdbaa2fa50c24f05a",
+    "imports": [
+      "LSConeOpen",
+      "LSSuitableLinear",
+      "Mathlib.Algebra.MvPolynomial.Funext",
+      "Mathlib.LinearAlgebra.FiniteDimensional.Lemmas",
+      "Mathlib.RingTheory.Spectrum.Prime.Topology"
+    ],
+    "dependency_artifacts": {
+      "LSConeOpen": {
+        "sha256": "be2860bfbf35b78a73fb795de57b3bc4d7c0ffeb8fd6225f293b235db8a0e434",
+        "kind": "project"
+      },
+      "LSSuitableLinear": {
+        "sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c",
+        "kind": "project"
+      },
+      "Mathlib.Algebra.MvPolynomial.Funext": {
+        "sha256": "739ff8e637e7d3b389987a21fff04be19feb904b95562e5629c9aff994145111",
+        "kind": "external"
+      },
+      "Mathlib.LinearAlgebra.FiniteDimensional.Lemmas": {
+        "sha256": "8e0960954e9c3b52fa1a55f88ff723f198114ec374421583c68fcf8316e77f6c",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Spectrum.Prime.Topology": {
+        "sha256": "ce07ac8711f6ec35ed17ac9d938cf1dcfd9f18c5c369be478f1ba065b9459523",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSConeAdditionAlgebra.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSConeAdditionAlgebra.lean"
+  ],
+  "started_utc": "2026-11-03T22:52:24.775340+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConeAdditionAlgebra.20261103T225224775314.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSConeAdditionAlgebra.20261103T225224775314.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T22:52:28.499274+00:00",
+  "seconds": 3.722,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "f9c81f0d5464510eb10d57af5afeeb6c491bf822231f405db8ac45df72c9c772",
+  "evidence_kind": "native_kernel_compilation"
+}

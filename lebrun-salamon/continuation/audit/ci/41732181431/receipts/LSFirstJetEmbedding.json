@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSFirstJetEmbedding",
+  "key": {
+    "source_sha256": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
+    "imports": [
+      "RecompileExtensionsPart02"
+    ],
+    "dependency_artifacts": {
+      "RecompileExtensionsPart02": {
+        "sha256": "a750eb4eb710b14ff1dd7e7053a7d28368e902b68e9a0bb1279fdd488604c9dd",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSFirstJetEmbedding.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFirstJetEmbedding.lean"
+  ],
+  "started_utc": "2026-11-03T22:43:34.095916+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFirstJetEmbedding.20261103T224334095892.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFirstJetEmbedding.20261103T224334095892.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T22:43:38.877902+00:00",
+  "seconds": 4.781,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "a03753268ef31ed24730d6fdd90b46537a43fdb6d27dd91757cee7a31eae8288",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "c91fa4141a9c3f7cb65729ac410685dcce7156ed226a4bb85ecd5223081ea638",
+  "evidence_kind": "native_kernel_compilation"
+}

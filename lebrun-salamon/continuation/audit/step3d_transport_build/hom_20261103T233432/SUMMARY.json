@@ -1,0 +1,93 @@
+{
+  "schema": "lebrun-step3d-actual-map-translation-v1",
+  "integrated_utc": "2026-11-03T23:34:32.440508+00:00",
+  "phase": "hom",
+  "status": "Native diagnostic, exact public-type adapter, and exhaustive admitted-leaf audit passed; current containing-module and reverse-cone replay pending.",
+  "explanation": "The canonical Hom comparison factors through the actual dual-tensor isomorphism and canonical dual base change. Evaluation normalizations identify the maps. On Spec C, every open is empty or top, so a sheaf-Hom section is determined by its actual global action, yielding the original Hom-fiber injectivity.",
+  "baseline_interface_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+  "baseline_ci_run": 41732181431,
+  "native_passes": {
+    "LSFiniteFreeHomBaseChange": {
+      "seconds": 12.308,
+      "source_sha256": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd",
+      "output_sha256": "5ca436775c6ffd478535cd1e1a61a4a11bd4507fabe1fff2b8adbba075dec1b7",
+      "receipt": "LSFiniteFreeHomBaseChange.receipt.json"
+    },
+    "LSHomFiberInjectivity": {
+      "seconds": 4.94,
+      "source_sha256": "c2cd7be15f7b953ecfa08a7ff81e2cc710175c99804e36a42bc6e7e2f673afd9",
+      "output_sha256": "94b424abc94f975b7a493115a1993cfbe47b7ef8b601bee7e63cbe9f1fa965a8",
+      "receipt": "LSHomFiberInjectivity.receipt.json"
+    },
+    "LSHomBaseChangeAdapters": {
+      "seconds": 3.983,
+      "source_sha256": "c75c62224a493fba38490ea9a496c2e55077925ea2b1aca12ed079df7c26f580",
+      "output_sha256": "55c0ea6c2182cd6f067729f1398678edf2a8f2fc7e14514dd34c8420f899da2e",
+      "receipt": "LSHomBaseChangeAdapters.receipt.json"
+    },
+    "LSHomBaseChangeAudit": {
+      "seconds": 10.007,
+      "source_sha256": "33768e71b551f26466e5f94ca09363b4845cb697819fa82a21a8c07bba40d174",
+      "output_sha256": "dc49cf8c1575b9b0850c45dd3793eceba1a32cb50f2f5603f981868d058f25fe",
+      "receipt": "LSHomBaseChangeAudit.receipt.json"
+    }
+  },
+  "audited_roots": [
+    "LeBrunSalamon.FiniteFreeHomBaseChange.homComparison_isIso",
+    "LeBrunSalamon.HomFiberInjectivity.homFiberEvaluation_injective"
+  ],
+  "exact_direct_sorry_leaves": [
+    "LeBrunSalamon.PublishedInputs.FiniteFreeHom.dualTensorHomMap_isIso",
+    "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+    "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+  ],
+  "audited_closure_counts": {
+    "LeBrunSalamon.FiniteFreeHomBaseChange.homComparison_isIso": {
+      "all_constants": 21589,
+      "direct_sorry_count": 3,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    },
+    "LeBrunSalamon.HomFiberInjectivity.homFiberEvaluation_injective": {
+      "all_constants": 24632,
+      "direct_sorry_count": 3,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    },
+    "LeBrunSalamon.HomBaseChangeAdapters.homBaseChange_isIso": {
+      "all_constants": 21596,
+      "direct_sorry_count": 3,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    },
+    "LeBrunSalamon.HomBaseChangeAdapters.homFiberEvaluation_injective": {
+      "all_constants": 25594,
+      "direct_sorry_count": 3,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    }
+  },
+  "native_final_validation": {
+    "checked_utc": "2026-11-03T23:33:24.968086+00:00",
+    "checked_module_count": 83,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "canonical_source_changes": {
+    "LSFiniteFreeHomBaseChange.lean": {
+      "before": null,
+      "after": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd"
+    },
+    "LSHomFiberInjectivity.lean": {
+      "before": null,
+      "after": "c2cd7be15f7b953ecfa08a7ff81e2cc710175c99804e36a42bc6e7e2f673afd9"
+    },
+    "RecompileExtensionsPart03.lean": {
+      "before": "c948cfe791e70f660a5aa85106d15bc6812812318a6c01afd6985f286c8bb9d8",
+      "after": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96"
+    }
+  },
+  "public_declaration_types_preserved": true,
+  "full_current_source_acceptance": false,
+  "milestone_met": false
+}

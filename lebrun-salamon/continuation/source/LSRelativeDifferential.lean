@@ -11,6 +11,7 @@ no tangent map or base-change comparison is chosen independently.
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -50,7 +51,7 @@ theorem cotangent_differential {C B D A : Scheme} (piC : C ⟶ B) (piD : D ⟶ A
         (pullLocalSection f (cotangentSheaf piD) U
           ((cotangentPresentation piD).differential.apply U z)))) = _
   rw [ContactDerivativeIsoProof.cotangentMap_differential,
-    ContactDerivativeIsoProof.differential_transport,
+    ContactDerivativeIsoProof.differential_transport _ _ h,
     CotangentTransitivityRederivedV02.cotangentToRelative_differential]
 
 /-- Chain rule for arbitrary commuting squares of base schemes. -/
@@ -65,15 +66,12 @@ theorem cotangent_comp {E T C B D A : Scheme}
         cotangent piE piC k l hk := by
   apply (cancel_epi ((Scheme.Modules.pullbackComp k f).inv.app
     (cotangentSheaf piD))).mp
+  simp only [Category.assoc, Iso.inv_hom_id_app_assoc]
   apply pulledCotangent_hom_ext (k ≫ f) piD
   intro U a
   change (cotangent piE piD (k ≫ f) (l ≫ g) hcomp).app ((k ≫ f) ⁻¹ᵁ U)
-      (((Scheme.Modules.pullbackComp k f).hom.app (cotangentSheaf piD)).app
-        ((k ≫ f) ⁻¹ᵁ U)
-        (((Scheme.Modules.pullbackComp k f).inv.app (cotangentSheaf piD)).app
-          ((k ≫ f) ⁻¹ᵁ U)
-          (pullLocalSection (k ≫ f) (cotangentSheaf piD) U
-            ((cotangentPresentation piD).differential.apply U a)))) =
+      (pullLocalSection (k ≫ f) (cotangentSheaf piD) U
+        ((cotangentPresentation piD).differential.apply U a)) =
     (cotangent piE piC k l hk).app ((k ≫ f) ⁻¹ᵁ U)
       (((Scheme.Modules.pullback k).map (cotangent piC piD f g hf)).app
         ((k ≫ f) ⁻¹ᵁ U)
@@ -81,7 +79,7 @@ theorem cotangent_comp {E T C B D A : Scheme}
           ((k ≫ f) ⁻¹ᵁ U)
           (pullLocalSection (k ≫ f) (cotangentSheaf piD) U
             ((cotangentPresentation piD).differential.apply U a))))
-  rw [ExternalExchangeCoherenceProof.iso_hom_inv_app, cotangent_differential,
+  rw [cotangent_differential,
     ExternalExchangeCoherenceProof.pullLocalSection_comp_inv]
   simp only [Scheme.Hom.comp_preimage]
   rw [ExternalExchangeCoherenceProof.pullLocalSection_map,
@@ -104,8 +102,9 @@ theorem cotangent_identity {C B : Scheme} (pi : C ⟶ B)
       (Scheme.Modules.pullbackId C).hom.app (cotangentSheaf pi) := by
   apply pulledCotangent_hom_ext (𝟙 C) pi
   intro U a
-  rw [cotangent_differential, ExternalExchangeCoherenceProof.pullLocalSection_id]
-  rfl
+  rw [cotangent_differential]
+  exact (ExternalExchangeCoherenceProof.pullLocalSection_id
+    (cotangentSheaf pi) U ((cotangentPresentation pi).differential.apply U a)).symm
 
 /-- When both bases are the original complex base, the relative map is
 the original absolute cotangent differential, with its exact transport. -/
@@ -151,18 +150,25 @@ theorem dualBaseChange_identity {Y : Scheme} (E : OModule Y) :
         dualMap ((Scheme.Modules.pullbackId Y).hom.app E) := by
   apply dual_pullback_hom_ext (𝟙 Y) (dualSheaf E) E
   intro U v w
-  change (dualEvaluation (pullbackModule (𝟙 Y) E)).apply U
-      ((dualBaseChange (𝟙 Y) E).app U
+  change (dualEvaluation (pullbackModule (𝟙 Y) E)).apply ((𝟙 Y) ⁻¹ᵁ U)
+      ((dualBaseChange (𝟙 Y) E).app ((𝟙 Y) ⁻¹ᵁ U)
         (pullLocalSection (𝟙 Y) (dualSheaf E) U v))
       (pullLocalSection (𝟙 Y) E U w) =
+    (dualEvaluation (pullbackModule (𝟙 Y) E)).apply ((𝟙 Y) ⁻¹ᵁ U)
+      ((dualMap ((Scheme.Modules.pullbackId Y).hom.app E)).app ((𝟙 Y) ⁻¹ᵁ U)
+        (((Scheme.Modules.pullbackId Y).hom.app (dualSheaf E)).app ((𝟙 Y) ⁻¹ᵁ U)
+          (pullLocalSection (𝟙 Y) (dualSheaf E) U v)))
+      (pullLocalSection (𝟙 Y) E U w)
+  rw [dualBaseChange_evaluate, pullbackPair_normalized,
+    unitPullbackMap_pullLocalSection]
+  change (dualEvaluation E).apply U v w =
     (dualEvaluation (pullbackModule (𝟙 Y) E)).apply U
       ((dualMap ((Scheme.Modules.pullbackId Y).hom.app E)).app U
         (((Scheme.Modules.pullbackId Y).hom.app (dualSheaf E)).app U
           (pullLocalSection (𝟙 Y) (dualSheaf E) U v)))
       (pullLocalSection (𝟙 Y) E U w)
-  rw [dualBaseChange_evaluate, pullbackPair_normalized,
-    unitPullbackMap_pullLocalSection, ExternalExchangeCoherenceProof.pullLocalSection_id,
-    dualMap_evaluate, ExternalExchangeCoherenceProof.pullLocalSection_id]
+  rw [ExternalExchangeCoherenceProof.pullLocalSection_id, dualMap_evaluate,
+    ExternalExchangeCoherenceProof.pullLocalSection_id]
   rfl
 
 theorem dualBaseChange_equality {Y X : Scheme} {f g : Y ⟶ X}

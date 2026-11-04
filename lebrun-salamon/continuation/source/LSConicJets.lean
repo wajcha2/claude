@@ -29,7 +29,9 @@ open LeBrunSalamon.Construction LeBrunSalamon.Construction.Lines
 
 -- These are existing type aliases. Expose their projections to rewrite
 -- matching, so the actual chart rings and projective-line scheme agree.
+set_option allowUnsafeReducibility true
 attribute [local reducible] projectiveLineVariety PointFrame.ChartRing
+  identityCurveContact intrinsicTangentBundle
 
 namespace LeBrunSalamon.StandardInputs
 
@@ -214,7 +216,8 @@ theorem mapped_secondSlotSecond {d : ℕ} {Y : SmoothProperComplexVariety d}
       (2 * multiplier q S m * tangentActs Y.structureMap S.openSet u (multiplier q S m)) *
         E.secondSlotFirst S u +
       (multiplier q S m)^2 * E.secondSlotSecond S u u := by
-  let D := coefficientDerivation Y.structureMap S.openSet u
+  let D : RingSections Y.scheme S.openSet → RingSections Y.scheme S.openSet :=
+    tangentActs Y.structureMap S.openSet u
   change (∑ i, (frameOn S m).localCoefficient (E.left i ≫ q) *
     D (D ((frameOn S m).localCoefficient (E.right i ≫ q)))) = _
   simp_rw [localCoefficient_postcompose]
@@ -230,11 +233,11 @@ theorem mapped_secondSlotSecond {d : ℕ} {Y : SmoothProperComplexVariety d}
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro i hi
-  simp only [Derivation.leibniz, map_add, smul_eq_mul]
+  simp only [D, tangentActs_leibniz, tangentActs_add_function]
   ring
 
-/-- Assemble only the three existing properties of the original source
-bivector. Its unresolved existence theorem remains an explicit dependency. -/
+/-- Assemble the three properties of the original source bivector from
+its proved existence and uniqueness theorem. -/
 def sourceKernel (P : ProjectiveLineOverC) :
     NormalizedContactKernel (n := 0) (projectiveLineVariety P) (identityCurveContact P) where
   twoPointSection := sourceBivector P
@@ -259,8 +262,8 @@ theorem mapped_source_mixed (P : ProjectiveLineOverC) (M : LineBundle Projective
   have hh : (mappedExpansion E q).secondSlotSecond (frameOn S m) u u =
       2 * (m (q.app S.openSet u))^2 := by
     rw [mapped_secondSlotSecond, E.diagonalValue_zero_of_orderTwo K.orderTwo,
-      E.secondSlotFirst_zero_of_orderTwo K.orderTwo,
-      mul_zero, mul_zero, zero_add, zero_add]
+      E.secondSlotFirst_zero_of_orderTwo K.orderTwo]
+    simp only [mul_zero, zero_add]
     have hn := K.expansion_normalized S u u
     rw [hn]
     change (multiplier q S m)^2 *
@@ -623,6 +626,7 @@ theorem function_zero_of_dense_complex_images {Y Z : Scheme}
     simp
   have hmem : IsLocalRing.closedPoint ℂ ∈ (q.val ≫ f) ⁻¹ᵁ Z.basicOpen a := by
     change f (q.val (IsLocalRing.closedPoint ℂ)) ∈ Z.basicOpen a
+    change f y₀ ∈ Z.basicOpen a at hy₀
     simpa only [q, pointOfClosedPoint_apply] using hy₀
   rw [hp] at hmem
   exact hmem
@@ -1429,7 +1433,10 @@ theorem source_contactVelocity (P : ProjectiveLineOverC)
     (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) :
     curveContactVelocity P (identityCurveContact P) (isoCurve P e he) =
       (derivativeIso P e he).hom := by
-  simp [curveContactVelocity, identityCurveContact, isoCurve, derivativeIso]
+  change differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he ≫
+      (Scheme.Modules.pullback e.hom).map (𝟙 (tangentSheaf P.structureMap)) =
+    differentialOver (projectiveLineVariety P) (projectiveLineVariety P) e.hom he
+  rw [(Scheme.Modules.pullback e.hom).map_id, Category.comp_id]
 
 /-- A source frame is transported to its entire image open using the
 actual differential of the inverse isomorphism. This prevents any
@@ -1481,11 +1488,20 @@ theorem sourceTransport_orderTwo (P : ProjectiveLineOverC)
     (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) :
     VanishesQuadraticallyAlongDiagonal P.structureMap
       (externalSquareLine P.structureMap (identityCurveContact P).sequence.line).sheaf
-      (sourceTransport P e he) :=
-  SourceMixedSymbol.mapped_orderTwo (M := (identityCurveContact P).sequence.line)
-    (derivativeIso P e he).inv
-    (curvePull_orderTwo P (isoCurve P e he) _ _
-      (SourceMixedSymbol.sourceKernel P).symmetric (SourceMixedSymbol.sourceKernel P).orderTwo)
+      (sourceTransport P e he) := by
+  have h2 : VanishesQuadraticallyAlongDiagonal P.structureMap
+      (externalSquareLine P.structureMap
+        (pullbackBundle e.hom (identityCurveContact P).sequence.line)).sheaf
+      (curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line
+        (sourceBivector P)) :=
+    curvePull_orderTwo P (isoCurve P e he) (identityCurveContact P).sequence.line
+      (sourceBivector P) (SourceMixedSymbol.sourceKernel P).symmetric
+      (SourceMixedSymbol.sourceKernel P).orderTwo
+  exact SourceMixedSymbol.mapped_orderTwo (Y := projectiveLineVariety P)
+    (L := pullbackBundle e.hom (identityCurveContact P).sequence.line)
+    (M := (identityCurveContact P).sequence.line)
+    (B := curvePull P (isoCurve P e he) (identityCurveContact P).sequence.line
+      (sourceBivector P)) (derivativeIso P e he).inv h2
 
 /-- The transported source tensor retains its exact normalized repeated
 Hessian at every actual complex point. The inverse differential cancels
@@ -1534,6 +1550,9 @@ theorem sourceTransport_point_self (P : ProjectiveLineOverC)
       k.app S.frame.openSet u) (derivativeIso P e he).hom_inv_id
   have hcoeff := SourceMixedSymbol.coefficient_map q R S.frame.coefficient
     ((derivativeIso P e he).hom.app S.frame.openSet u)
+  change S.frame.coefficient
+      (q.app S.frame.openSet ((derivativeIso P e he).hom.app S.frame.openSet u)) =
+    lambda * m ((derivativeIso P e he).hom.app S.frame.openSet u) at hcoeff
   rw [hdu] at hcoeff
   have hvalue := congrArg S.evaluation hcoeff
   change S.evaluation (S.frame.coefficient u) =
@@ -1622,8 +1641,15 @@ theorem sourceBivector_curvePull (P : ProjectiveLineOverC)
       (identityCurveContact P).sequence.line =>
     B ≫ externalTensorMap P.structureMap (derivativeIso P e he).hom (derivativeIso P e he).hom)
     (sourceTransport_eq P e he)
-  simpa only [sourceTransport, Category.assoc, externalTensorMap_comp,
-    (derivativeIso P e he).inv_hom_id, externalTensorMap_id, Category.comp_id] using h
+  have hc : externalTensorMap P.structureMap (derivativeIso P e he).inv
+        (derivativeIso P e he).inv ≫
+      externalTensorMap P.structureMap (derivativeIso P e he).hom
+        (derivativeIso P e he).hom =
+      𝟙 (externalTensor P.structureMap
+        (pullbackModule e.hom (tangentSheaf P.structureMap))
+        (pullbackModule e.hom (tangentSheaf P.structureMap))) := by
+    rw [externalTensorMap_comp, (derivativeIso P e he).inv_hom_id, externalTensorMap_id]
+  simpa only [sourceTransport, Category.assoc, hc, Category.comp_id] using h
 
 theorem curveKernelIdentity_curvePull (P : ProjectiveLineOverC) {n : ℕ}
     {X : SmoothProperComplexVariety (2*n+1)} (C : IntrinsicContactStructure X)
@@ -1685,6 +1711,11 @@ theorem curveContactVelocity_comp (P : ProjectiveLineOverC) {n : ℕ}
   simp only [compositionPullback, Iso.trans_hom, Iso.app_hom,
     eqToIso_refl, Iso.refl_hom, Category.comp_id]
   have hn := (Scheme.Modules.pullbackComp e.hom f.map).hom.naturality C.sequence.form
+  change (Scheme.Modules.pullback e.hom).map
+        ((Scheme.Modules.pullback f.map).map C.sequence.form) ≫
+      (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf =
+    (Scheme.Modules.pullbackComp e.hom f.map).hom.app (tangentSheaf X.structureMap) ≫
+      (Scheme.Modules.pullback (e.hom ≫ f.map)).map C.sequence.form at hn
   change (derivativeIso P e he).hom ≫
       (Scheme.Modules.pullback e.hom).map (curveContactVelocity P C f) ≫
       (Scheme.Modules.pullbackComp e.hom f.map).hom.app C.sequence.line.sheaf = _

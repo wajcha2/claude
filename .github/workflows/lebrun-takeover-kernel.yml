@@ -38,8 +38,8 @@ jobs:
       - name: Download prior native compiler evidence
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-takeover-kernel-41728791345-1
-          run-id: 41728791345
+          name: lebrun-takeover-kernel-41732181431-1
+          run-id: 41732181431
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/lebrun-prior-evidence
 
@@ -50,8 +50,8 @@ jobs:
             --runtime-config runtime-config.json \
             --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" \
             --build-dir kernel-evidence \
-            --source-run-id 41728791345 \
-            --source-artifact-name lebrun-takeover-kernel-41728791345-1
+            --source-run-id 41732181431 \
+            --source-artifact-name lebrun-takeover-kernel-41732181431-1
 
       - name: Check selected modules and their dependencies
         env:

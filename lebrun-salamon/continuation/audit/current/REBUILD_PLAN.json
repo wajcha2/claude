@@ -8,10 +8,14 @@
   "changed_modules": [
     "LSAffineDerivations",
     "LSAffineFiberDivisibility",
+    "LSAffineFrame",
+    "LSAffineProductRing",
     "LSBranchRamification",
     "LSCharacteristicZeroSeparability",
     "LSClassicalActions",
     "LSClassicalReduction",
+    "LSClosedIdealCoefficients",
+    "LSComplexQuadraticCoordinates",
     "LSConicJets",
     "LSContactLineTests",
     "LSCotangentDeformations",
@@ -21,11 +25,16 @@
     "LSDualStructureExact",
     "LSDualThickeningNormalForm",
     "LSEpsilonStructureSequence",
+    "LSExternalFrameCoefficients",
     "LSFiniteFreeBaseChange",
+    "LSFiniteFreeHomBaseChange",
     "LSFirstJetEmbedding",
     "LSFirstJetEmbeddingGeometry",
     "LSFormalTraitModel",
+    "LSFormalTraitRing",
     "LSFunctionFieldPlaces",
+    "LSGeneratingUnitOpens",
+    "LSHomFiberInjectivity",
     "LSHomVelocity",
     "LSKunnethDegreeZero",
     "LSMilestoneStatement",
@@ -34,16 +43,25 @@
     "LSNilpotentTopology",
     "LSNodalFixedEnds",
     "LSNodalTangent",
+    "LSNonvanishingPullback",
+    "LSOpenProductCoordinates",
     "LSP1FamilyDegree",
+    "LSP1SourceAlgebra",
+    "LSP1TangentSections",
+    "LSP1TensorSquare",
+    "LSP1TensorTaylor",
     "LSProductGeometry",
     "LSProjectionFormula",
     "LSPublishedPicard",
     "LSPublishedProjectiveSpace",
+    "LSRelativeDifferential",
     "LSSecondDiagonalAlgebra",
     "LSSectionCover",
+    "LSSectionRepresentability",
     "LSSheafSectionExact",
     "LSStandardConicDifferential",
     "LSTensorLocallyFreeExact",
+    "LSVectorBundlePullback",
     "RecompileBasePart04",
     "RecompileBasePart05A",
     "RecompileBasePart05C",
@@ -56,7 +74,7 @@
     "RecompileExtensionsPart04Geometry",
     "RecompileSections"
   ],
-  "changed_count": 49,
+  "changed_count": 67,
   "removed_files": [],
   "dependency_graph": {
     "FieldDifferentials": [
@@ -87,6 +105,13 @@
     "LSAffineFiberDivisibility": [
       "LSHomVelocity"
     ],
+    "LSAffineFrame": [
+      "RecompileSections",
+      "LSKunnethDegreeZero"
+    ],
+    "LSAffineProductRing": [
+      "LSKunnethDegreeZero"
+    ],
     "LSArcParametrization": [
       "LSFormalArcRegularity",
       "LSFamilyBaseChange",
@@ -113,8 +138,14 @@
     "LSClassicalReduction": [
       "LSFirstJetEmbeddingGeometry"
     ],
+    "LSClosedIdealCoefficients": [
+      "LSAffineFrame"
+    ],
     "LSCompletedTargets": [
       "LSMovingPairConstruction"
+    ],
+    "LSComplexQuadraticCoordinates": [
+      "Mathlib"
     ],
     "LSConeAdditionAlgebra": [
       "LSConeOpen",
@@ -267,6 +298,9 @@
     "LSEpsilonStructureSequence": [
       "LSHomVelocity"
     ],
+    "LSExternalFrameCoefficients": [
+      "LSOpenProductCoordinates"
+    ],
     "LSFamilyBaseChange": [
       "LSFamilyBivectorDescent"
     ],
@@ -292,6 +326,9 @@
     ],
     "LSFiniteFreeBaseChange": [
       "RecompileExtensionsPart02"
+    ],
+    "LSFiniteFreeHomBaseChange": [
+      "RecompileExtensionsPart01"
     ],
     "LSFiniteTypeDominance": [
       "LSRelativeGenericSmoothness",
@@ -331,6 +368,9 @@
     "LSFormalTraitProjectivity": [
       "LSProjectivityDefinitions"
     ],
+    "LSFormalTraitRing": [
+      "Mathlib"
+    ],
     "LSFunctionFieldPlaces": [
       "Mathlib.Analysis.Complex.Polynomial.Basic",
       "Mathlib.RingTheory.AlgebraicIndependent.TranscendenceBasis",
@@ -339,6 +379,10 @@
       "Mathlib.RingTheory.LaurentSeries",
       "Mathlib.RingTheory.Valuation.ValuationSubring",
       "Mathlib.Topology.Algebra.Valued.WithVal"
+    ],
+    "LSGeneratingUnitOpens": [
+      "RecompileExtensionsPart01",
+      "LSNonvanishingPullback"
     ],
     "LSGenericFamilyComparison": [
       "LSFamilyBaseChange",
@@ -360,6 +404,10 @@
     ],
     "LSHomDegree": [
       "LSRelativeGenericSmoothness"
+    ],
+    "LSHomFiberInjectivity": [
+      "LSFiniteFreeHomBaseChange",
+      "RecompileExtensionsPart02"
     ],
     "LSHomVelocity": [
       "LSContactCompletion",
@@ -441,6 +489,14 @@
       "LSTangentComparison",
       "LSCotangentDeformations"
     ],
+    "LSNonvanishingPullback": [
+      "RecompileBasePart05C"
+    ],
+    "LSOpenProductCoordinates": [
+      "LSAffineProductRing",
+      "LSClosedIdealCoefficients",
+      "LSSectionCover"
+    ],
     "LSP1BivectorCoordinates": [
       "LSConicJets"
     ],
@@ -450,6 +506,18 @@
     "LSP1FamilyDegree": [
       "LSPublishedProjectiveSpace",
       "RecompileSections"
+    ],
+    "LSP1SourceAlgebra": [
+      "Mathlib"
+    ],
+    "LSP1TangentSections": [
+      "RecompileSections"
+    ],
+    "LSP1TensorSquare": [
+      "Mathlib"
+    ],
+    "LSP1TensorTaylor": [
+      "LSP1SourceAlgebra"
     ],
     "LSPositiveHom": [
       "LSPositiveQuotient"
@@ -542,6 +610,9 @@
     "LSSectionCover": [
       "RecompileBasePart05C"
     ],
+    "LSSectionRepresentability": [
+      "RecompileExtensionsPart02"
+    ],
     "LSSelectedPair": [
       "LSSuitableLinear"
     ],
@@ -585,6 +656,9 @@
       "LSStandardConicDifferential",
       "LSRelativeDifferential"
     ],
+    "LSVectorBundlePullback": [
+      "RecompileExtensionCore"
+    ],
     "LSVelocityAdditionFamily": [
       "LSScaledVelocities"
     ],
@@ -621,7 +695,8 @@
       "RecompileBasePart05"
     ],
     "RecompileBasePart07": [
-      "RecompileBasePart06"
+      "RecompileBasePart06",
+      "LSNonvanishingPullback"
     ],
     "RecompileExtensionCore": [
       "RecompileSections"
@@ -631,26 +706,36 @@
       "LSGenericSheets"
     ],
     "RecompileExtensionsPart01": [
+      "LSP1TangentSections",
+      "LSP1SourceAlgebra",
+      "LSP1TensorSquare",
+      "LSP1TensorTaylor",
+      "LSAffineFrame",
       "LSAffineDerivations",
       "RecompileExtensionCore",
       "LSConePole",
       "LSSecondDiagonalAlgebra",
       "LSSectionCover",
+      "LSExternalFrameCoefficients",
       "LSPublishedProjectiveSpace",
       "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule",
       "Mathlib.Topology.Sheaves.SheafCondition.Sites"
     ],
     "RecompileExtensionsPart02": [
       "RecompileExtensionsPart01",
+      "LSVectorBundlePullback",
       "Mathlib.Algebra.Category.ModuleCat.Products"
     ],
     "RecompileExtensionsPart03": [
+      "LSHomFiberInjectivity",
       "RecompileExtensionsPart02"
     ],
     "RecompileExtensionsPart04": [
       "RecompileExtensionsPart04Nodes"
     ],
     "RecompileExtensionsPart04Geometry": [
+      "LSSectionRepresentability",
+      "LSGeneratingUnitOpens",
       "RecompileExtensionsPart03",
       "LSConicSplitting"
     ],
@@ -678,16 +763,21 @@
   "full_topological_order": [
     "FieldDifferentials",
     "LSCharacteristicZeroSeparability",
+    "LSComplexQuadraticCoordinates",
     "LSConeDiagonal",
     "LSConePole",
+    "LSFormalTraitRing",
     "LSFunctionFieldPlaces",
     "LSNilpotentTopology",
+    "LSP1SourceAlgebra",
+    "LSP1TensorSquare",
     "LSSecondDiagonalAlgebra",
     "RecompileBasePart01",
     "LSConeArcs",
     "LSCurveLaurentStandardInputs",
     "LSLaurentRescaling",
     "LSMilestoneStatement",
+    "LSP1TensorTaylor",
     "RecompileBasePart02",
     "LSConeLocalization",
     "LSMilestoneTopology",
@@ -701,7 +791,9 @@
     "RecompileBasePart05B",
     "LSKunnethDegreeZero",
     "LSProjectionFormula",
+    "LSAffineProductRing",
     "RecompileBasePart05C",
+    "LSNonvanishingPullback",
     "LSSectionCover",
     "RecompileBasePart05",
     "RecompileBasePart06",
@@ -709,18 +801,28 @@
     "RecompileBasePart07",
     "RecompileBase",
     "RecompileSections",
+    "LSAffineFrame",
     "LSP1FamilyDegree",
+    "LSP1TangentSections",
     "RecompileExtensionCore",
+    "LSClosedIdealCoefficients",
+    "LSVectorBundlePullback",
+    "LSOpenProductCoordinates",
+    "LSExternalFrameCoefficients",
     "RecompileExtensionsPart01",
+    "LSFiniteFreeHomBaseChange",
+    "LSGeneratingUnitOpens",
     "LSProjectivityDefinitions",
     "RecompileExtensionsPart02",
     "LSDualBaseChangeAlgebra",
     "LSFiniteFreeBaseChange",
     "LSFirstJetEmbedding",
     "LSFormalTraitProjectivity",
+    "LSHomFiberInjectivity",
+    "LSSectionRepresentability",
+    "LSDualThickeningNormalForm",
     "RecompileExtensionsPart03",
     "LSConicSplitting",
-    "LSDualThickeningNormalForm",
     "LSProjectiveTransport",
     "LSProperSections",
     "RecompileExtensionsPart04Geometry",
@@ -834,11 +936,16 @@
   ],
   "affected_rebuild_order": [
     "LSCharacteristicZeroSeparability",
+    "LSComplexQuadraticCoordinates",
+    "LSFormalTraitRing",
     "LSFunctionFieldPlaces",
     "LSNilpotentTopology",
+    "LSP1SourceAlgebra",
+    "LSP1TensorSquare",
     "LSSecondDiagonalAlgebra",
     "LSCurveLaurentStandardInputs",
     "LSMilestoneStatement",
+    "LSP1TensorTaylor",
     "LSMilestoneTopology",
     "RecompileBasePart04",
     "LSAffineDerivations",
@@ -849,7 +956,9 @@
     "RecompileBasePart05B",
     "LSKunnethDegreeZero",
     "LSProjectionFormula",
+    "LSAffineProductRing",
     "RecompileBasePart05C",
+    "LSNonvanishingPullback",
     "LSSectionCover",
     "RecompileBasePart05",
     "RecompileBasePart06",
@@ -857,18 +966,28 @@
     "RecompileBasePart07",
     "RecompileBase",
     "RecompileSections",
+    "LSAffineFrame",
     "LSP1FamilyDegree",
+    "LSP1TangentSections",
     "RecompileExtensionCore",
+    "LSClosedIdealCoefficients",
+    "LSVectorBundlePullback",
+    "LSOpenProductCoordinates",
+    "LSExternalFrameCoefficients",
     "RecompileExtensionsPart01",
+    "LSFiniteFreeHomBaseChange",
+    "LSGeneratingUnitOpens",
     "LSProjectivityDefinitions",
     "RecompileExtensionsPart02",
     "LSDualBaseChangeAlgebra",
     "LSFiniteFreeBaseChange",
     "LSFirstJetEmbedding",
     "LSFormalTraitProjectivity",
+    "LSHomFiberInjectivity",
+    "LSSectionRepresentability",
+    "LSDualThickeningNormalForm",
     "RecompileExtensionsPart03",
     "LSConicSplitting",
-    "LSDualThickeningNormalForm",
     "LSProjectiveTransport",
     "LSProperSections",
     "RecompileExtensionsPart04Geometry",
@@ -980,7 +1099,7 @@
     "LSCompletedTargets",
     "LSMilestoneTarget"
   ],
-  "affected_count": 146,
+  "affected_count": 163,
   "unaffected_prerequisites": [
     "FieldDifferentials",
     "LSConeDiagonal",
@@ -997,13 +1116,17 @@
     "LSAffineCurveSelection",
     "LSAffineDerivations",
     "LSAffineFiberDivisibility",
+    "LSAffineFrame",
+    "LSAffineProductRing",
     "LSArcParametrization",
     "LSBoundedLines",
     "LSBranchAlgebra",
     "LSBranchRamification",
     "LSCharacteristicZeroSeparability",
     "LSClassicalActions",
+    "LSClosedIdealCoefficients",
     "LSCompletedTargets",
+    "LSComplexQuadraticCoordinates",
     "LSConeAdditionAlgebra",
     "LSConeDominance",
     "LSConeFiberRigidity",
@@ -1032,12 +1155,14 @@
     "LSDualStructureExact",
     "LSDualThickeningNormalForm",
     "LSEpsilonStructureSequence",
+    "LSExternalFrameCoefficients",
     "LSFamilyBaseChange",
     "LSFamilyBivectorDescent",
     "LSFamilyBivectors",
     "LSFamilyReparametrization",
     "LSFieldParametrization",
     "LSFiniteFreeBaseChange",
+    "LSFiniteFreeHomBaseChange",
     "LSFiniteTypeDominance",
     "LSFiniteTypeSpreading",
     "LSFirstJetEmbedding",
@@ -1047,13 +1172,16 @@
     "LSFormalArcRegularity",
     "LSFormalArcSections",
     "LSFormalTraitProjectivity",
+    "LSFormalTraitRing",
     "LSFunctionFieldPlaces",
+    "LSGeneratingUnitOpens",
     "LSGenericFamilyComparison",
     "LSGenericGlobalFunctions",
     "LSGenericSheets",
     "LSGlobalVelocity",
     "LSHamiltonianJets",
     "LSHomDegree",
+    "LSHomFiberInjectivity",
     "LSIntrinsicVelocity",
     "LSKunnethDegreeZero",
     "LSLeviFiber",
@@ -1070,9 +1198,15 @@
     "LSMovingPairConstruction",
     "LSNilpotentTopology",
     "LSNodalConic",
+    "LSNonvanishingPullback",
+    "LSOpenProductCoordinates",
     "LSP1BivectorCoordinates",
     "LSP1CoordinateGauge",
     "LSP1FamilyDegree",
+    "LSP1SourceAlgebra",
+    "LSP1TangentSections",
+    "LSP1TensorSquare",
+    "LSP1TensorTaylor",
     "LSPositiveHom",
     "LSPositiveIndependence",
     "LSPositiveNodeImage",
@@ -1097,6 +1231,7 @@
     "LSScaledVelocityDifferential",
     "LSSecondDiagonalAlgebra",
     "LSSectionCover",
+    "LSSectionRepresentability",
     "LSSelectedPair",
     "LSSheafSectionExact",
     "LSSmoothingAssembly",
@@ -1107,6 +1242,7 @@
     "LSTangentComparison",
     "LSTensorLocallyFreeExact",
     "LSTraitContact",
+    "LSVectorBundlePullback",
     "LSVelocityAdditionFamily",
     "RecompileBase",
     "RecompileBasePart05",
@@ -1125,6 +1261,8 @@
     "LSAffineCurveSelection": "f4152399a2e7ed3d56a333cdb5d86ef16941d4a9830d75c5f0e077217d1bdb6c",
     "LSAffineDerivations": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
     "LSAffineFiberDivisibility": "922f424447d60d1c5472ac72eb519065711b9ca88ae6025937ac1b9356f7466c",
+    "LSAffineFrame": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+    "LSAffineProductRing": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
     "LSArcParametrization": "0c1dc14e79a6647fd9dedfa3a65b211d5ec513f3eced41604a236d21f822964a",
     "LSBoundedLines": "b67188bc7abba9ed5f5b8f0bf25ebd82252a7fba24e61f88ad9304623a4828c9",
     "LSBranchAlgebra": "afec61342371b75bf860cb35b6c328660547861ae5d6988620531b7dd7e2bbab",
@@ -1132,7 +1270,9 @@
     "LSCharacteristicZeroSeparability": "da39cac753228c1d526b1ad57591302d2d15c4fc78fd319c6abda4dc775b2833",
     "LSClassicalActions": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
     "LSClassicalReduction": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+    "LSClosedIdealCoefficients": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
     "LSCompletedTargets": "39c34956a681b3d8f374feeb6b3e90880ca8350b2d67eed3ee8341b3697a4a63",
+    "LSComplexQuadraticCoordinates": "c8d5c44ebf53cdd6846765925208bc6c218fa724112b1f1ed3c97debd78c19a3",
     "LSConeAdditionAlgebra": "cc1171ef0e2587e8fe778cbb416ca6756561ffea191a220fdbaa2fa50c24f05a",
     "LSConeArcs": "4f08599193b5d13343335ecf7fe3d372ea294c7c9627f5478ae6848454287dc4",
     "LSConeDiagonal": "c3c5d22f623f3e6d3c4586ea2a2250eb24a45f9c8b4d00cc31767ea23e795783",
@@ -1145,7 +1285,7 @@
     "LSConeRadial": "1896c11c08feb78480f15fda8ce04574ddaf359ccc64a0dd8e42ca5bcbf7c301",
     "LSConeRescaledArcs": "616d82bbef80edf025043854494279c668c56cba4c4efa46d1e79e7fa9a47323",
     "LSConeTangents": "7e053401c5420e27924923ea2f36816860157e0c57f7bd1df0e81dc9aa9243f3",
-    "LSConicJets": "c1cfddbff534000554b071ee2c81558961ebae701a87f85c63de2b370ac097cd",
+    "LSConicJets": "ddc72fc7dc54fb658b4ffb59b78c58ce81f52bf84fa275644f89db1d7ed2cc4a",
     "LSConicModelSections": "194cf50f9793321db75a9af2c7da00572d885baafce927b95db08f3b25e9e041",
     "LSConicSplitting": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9",
     "LSContactCompletion": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
@@ -1167,12 +1307,14 @@
     "LSDualStructureExact": "0c04e2de7608677fd1fe2772136fc4918ee5db0168adf001f67e994185e2d120",
     "LSDualThickeningNormalForm": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422",
     "LSEpsilonStructureSequence": "95266571a860b7278b5d211984898a4448ae40413d0079b91ca8175133d38c01",
+    "LSExternalFrameCoefficients": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
     "LSFamilyBaseChange": "8f1136a53b0e87778da6daf06cf81553ac1d0ced251af1fb79fedced3573a92b",
     "LSFamilyBivectorDescent": "1348371f7be335a9f94946bc2657e30a7eb156d9a295f3c7ad51e38d480173b0",
     "LSFamilyBivectors": "2c27d10eca505bdf5d3fdbc3fab44327bd74d57efcef94698f316d150cd6538d",
     "LSFamilyReparametrization": "c9fe40f87f28f7c57a1484a798442440829e5b41cd7147f9c51b12cc7c4da123",
     "LSFieldParametrization": "5ea4ea4b63141840b0b84ab876e34bb72554c899d1908c6c847b7c9f2011e980",
     "LSFiniteFreeBaseChange": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+    "LSFiniteFreeHomBaseChange": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd",
     "LSFiniteTypeDominance": "a1ad5018a98ed9c658747326ce2dbcad763a99b7b6a2c39f5198f6c75588f785",
     "LSFiniteTypeSpreading": "c1571d6caf6b22b9daac525dba1a67ae357a1e2602cff24b08850f29e90c64a6",
     "LSFirstJetEmbedding": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
@@ -1183,13 +1325,16 @@
     "LSFormalArcSections": "663ded2d21628a0fc0c09126981ef6840b0c05dc98ba8387977955a46eac165b",
     "LSFormalTraitModel": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce",
     "LSFormalTraitProjectivity": "76efabce398ecdce5f72de365de6b10b28044c3b68a2059da806c5a4965a5fe4",
+    "LSFormalTraitRing": "ec61fbffc146f5d5339c9dabc2111ee617012e4131d4cfed50cb76471753ebec",
     "LSFunctionFieldPlaces": "e94a492c316f76d29a82fdf26b4a65450b4eed7574315c27ac86d4fd89a20f27",
+    "LSGeneratingUnitOpens": "dfe5be9319a3a003740147e7ca9f955a44adaec009b8a396cadc2076daf3a1e4",
     "LSGenericFamilyComparison": "6c27e461fa7bd48862c2139544baf46d13ccbe4946b9d7de365814bf21d22b13",
     "LSGenericGlobalFunctions": "91a2b160a91a74fb080f0d26c9b156f4a92b72009d217c34ae69112a9729a3f4",
     "LSGenericSheets": "d2745a2ceb1ec5161840629b731532bbe033f75787bc31d8e54bd622e728de86",
     "LSGlobalVelocity": "969dbf9f87fd99a830702345f6e12122bdc7c29e1b668d8911ca00a785871e1e",
     "LSHamiltonianJets": "5cfc2314e4adf51ff5c5dec9e7611d5ada7a13226eed2a2449dbabba4c3f9b2e",
     "LSHomDegree": "a3227fc98c375200bc831f2d74f9b6d92853fc9b5c320d0ef9d5bc75b02dd3c2",
+    "LSHomFiberInjectivity": "c2cd7be15f7b953ecfa08a7ff81e2cc710175c99804e36a42bc6e7e2f673afd9",
     "LSHomVelocity": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
     "LSIntrinsicVelocity": "775b1c793d6e8c9ecd8a5b4d70f24993816bf53d29bcc9e75c51de82f5fc9021",
     "LSKunnethDegreeZero": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
@@ -1210,16 +1355,22 @@
     "LSNodalConic": "dca6a462215a4aa53c6d0861945ff5affa50985b81a3ab0d9b815485ccdbc219",
     "LSNodalFixedEnds": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
     "LSNodalTangent": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+    "LSNonvanishingPullback": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+    "LSOpenProductCoordinates": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
     "LSP1BivectorCoordinates": "dbd304dee6f15e83337f6f76dab06c9825a797b4c7605023dbabca05c6be45bd",
     "LSP1CoordinateGauge": "2346d8e5b7a2cf4afcc1fdef0fe083735badc93f27578a0c316b830784122e3b",
     "LSP1FamilyDegree": "f450cd91252d737ff97d810436e4d818f3b34a808e4c56e7600e9dfbaaf4e328",
+    "LSP1SourceAlgebra": "746cc04e37a50878168b6c7b63dc6d9978e7fdcf321aba83a07af15e6c8a9e53",
+    "LSP1TangentSections": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
+    "LSP1TensorSquare": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
+    "LSP1TensorTaylor": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
     "LSPositiveHom": "0a3f6907226731c3212492222446abe3736f7a824095ea78bd4e1967d03edc58",
     "LSPositiveIndependence": "f9b58456ade15929afb1b134eca8461d1bf31929650bf3d7571881112289924a",
     "LSPositiveNodeImage": "b0e3516ffe0cd9c81e1dcbf4030a925b7b224bcfb4c19c55e07beee87b36ea45",
     "LSPositiveQuotient": "23172c6c41b6ad9d31f69a000d5b127e555073054797fda1eb4d45edaf644cd5",
     "LSPositiveSplit": "89e32f2db0770965b8e4e3c61447eda445bb063e848e46da3510f8f14424b773",
     "LSPositiveVariation": "1bc5f378e1e84aa8c019afb2bf44d4c8570384605303019b5a2a0014495d2d87",
-    "LSProductGeometry": "ab7855b00b9fa4651b4360ddccd30f0b2a86aed5f32efcd62a49b13afa48289e",
+    "LSProductGeometry": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
     "LSProjectAssembly": "fc8db72be6af28d76ca69d60fb86e81ed6385e92b847c4052bb8b2a00eb10bfd",
     "LSProjectionFormula": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
     "LSProjectiveTransport": "ad4c17ab2db7ee454cef7829d79c3f1a42bb81454630aa536c368f9c99880c13",
@@ -1232,12 +1383,13 @@
     "LSRationalOpenTransport": "0d818fe5252249bb0b4c683586ce309c5227d698019173dbc26fdbff77d4ea00",
     "LSReducedCover": "c3acb1b5e9a6a04e64cbcaf90ae931a679d2bb07debbfe89f07231431f0585a4",
     "LSRegularModelPair": "06afbad87cc91332e10e0f4baa7d16d00991145c92598c9f18472c10972f5b3c",
-    "LSRelativeDifferential": "33d9c1ddfe81b2d94419eefb45dd8767152b1e06b2c9487846817453ba52a83d",
+    "LSRelativeDifferential": "163f43352fc8d0a645774bc13d98eca3d90ede9e7d2a42f9e3b0ffe996407ccc",
     "LSRelativeGenericSmoothness": "3be612f01220aafc0894e3974f6f9c93cf680e6f3821d5a03f4f9ff8392c69b0",
     "LSScaledVelocities": "a37b36e147f0a76b4e32e363fd2cb552b6d99d1caa3016c37fe2871b1cb13b4b",
     "LSScaledVelocityDifferential": "43bcd223209231bf51fd0e73c703fea9a690bc08bbe6401a485943f76595e956",
     "LSSecondDiagonalAlgebra": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
     "LSSectionCover": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+    "LSSectionRepresentability": "0db7ba9b6b7c8e51efb69efe31c429471e787e994f5d898bcdbe15ddd39b705e",
     "LSSelectedPair": "d278cf33169812b3264a5bf015c93a03d81345dc00f4b046686727b72b3a56c8",
     "LSSheafSectionExact": "295f667a338cdc7db59621be6f9224959cf16cc7a40f494a090fd38a4e0ae73d",
     "LSSmoothingAssembly": "efe54e2db4b16243da4f47f523dfe0f66f58259b8a8903a18f0dcd316d435bdc",
@@ -1250,6 +1402,7 @@
     "LSTangentComparison": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
     "LSTensorLocallyFreeExact": "2603fc3b0de6fcc6ae209f3a0e886b8beb41fce7833c7d8a07b24db0992caea2",
     "LSTraitContact": "8775cf48a185346ce44d636102e3ea74f5360f5be3afc2c0f76a63b7118bedd9",
+    "LSVectorBundlePullback": "63e1a145e5871bdb4d3627ba835bd0f61cea3a51919ae60dfa5666aef5386d5b",
     "LSVelocityAdditionFamily": "6120508d7d4e5d90225075901037de1f5a93514257911f23d23cd70149c879d9",
     "RecompileBase": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
     "RecompileBasePart01": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
@@ -1261,14 +1414,14 @@
     "RecompileBasePart05B": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
     "RecompileBasePart05C": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
     "RecompileBasePart06": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
-    "RecompileBasePart07": "c21282a049066fc4d23737d996e2afcb46a2369d659e7d3dfeac4bead7a0c1f0",
+    "RecompileBasePart07": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
     "RecompileExtensionCore": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
     "RecompileExtensions": "0591bcbcde84157eaee7cf93e5fd0d3d13d0c6b9623f48147636440ce68a10fb",
-    "RecompileExtensionsPart01": "5ab516c717b66f315ee4aab6ba4f7dbad8d74a521116509a78738edf05aaf996",
-    "RecompileExtensionsPart02": "3372a49adbaa43a5dffe679d627d8031c0b4a42f9ff67748d30901f191229e9f",
-    "RecompileExtensionsPart03": "f050ccb6c30b10fb3d528f2a982a57b2133a6552bdbc5a5beb3aeb72edf4efe7",
+    "RecompileExtensionsPart01": "bc1462f26fdc9c7220ec651c787b3adfab57c316166d0e38bf4f68c52aa7325d",
+    "RecompileExtensionsPart02": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "RecompileExtensionsPart03": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
     "RecompileExtensionsPart04": "9a989e4bb84ad679a39af81cf79ad1f95fba5929a111245cc840b9c3e087ca8c",
-    "RecompileExtensionsPart04Geometry": "6a026e56a57d9b725ef9acaaeb302a262ef028c7d108c05c3a35b3e17015f587",
+    "RecompileExtensionsPart04Geometry": "78446f8f6452bcd90f795daa8f6b1e09ed34a734ead0829c8b84037b06d475dd",
     "RecompileExtensionsPart04Gluing": "ad5c1c7b4fbdc1734643b0e614af68c2c1dd46b1f082ccef3bf98c14db312c0e",
     "RecompileExtensionsPart04GluingPrefix": "22d70feae4bfa53bcc53fb5dbf0a0a85b53a10ea468660c0168f59d87177f9c8",
     "RecompileExtensionsPart04GluingSections": "8a09576464066fc2da8c74afacae92297e2dc6301518e2711f5b196c1b2f1697",

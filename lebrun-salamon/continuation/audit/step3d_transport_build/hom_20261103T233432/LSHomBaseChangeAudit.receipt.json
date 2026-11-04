@@ -1,0 +1,68 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSHomBaseChangeAudit",
+  "key": {
+    "source_sha256": "33768e71b551f26466e5f94ca09363b4845cb697819fa82a21a8c07bba40d174",
+    "imports": [
+      "LSHomBaseChangeAdapters",
+      "LSHomFiberInjectivity",
+      "Lean.Util.CollectAxioms"
+    ],
+    "dependency_artifacts": {
+      "LSHomBaseChangeAdapters": {
+        "sha256": "55c0ea6c2182cd6f067729f1398678edf2a8f2fc7e14514dd34c8420f899da2e",
+        "kind": "project"
+      },
+      "LSHomFiberInjectivity": {
+        "sha256": "94b424abc94f975b7a493115a1993cfbe47b7ef8b601bee7e63cbe9f1fa965a8",
+        "kind": "project"
+      },
+      "Lean.Util.CollectAxioms": {
+        "sha256": "60556ab5263a908aa74a5e65620b5e957cac3846aa6e4f05414434b8c12ea7de",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "c54dd70e30ac03035ce4f7cbadbad422a22229e2437d2c9ce6926c869778a367",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/workspace/scratch/4deac2cdddbb/lebrun_runtime/toolchain/bin/lean",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/workspace/scratch/4deac2cdddbb/lebrun_runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M7200",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/step3d_cdf_check/source",
+    "-o",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/step3d_cdf_check/build/olean/LSHomBaseChangeAudit.olean",
+    "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/step3d_cdf_check/source/LSHomBaseChangeAudit.lean"
+  ],
+  "started_utc": "2026-11-03T23:32:09.710841+00:00",
+  "stdout": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/step3d_cdf_check/build/logs/LSHomBaseChangeAudit.20261103T233209710810.stdout.jsonl",
+  "stderr": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/step3d_cdf_check/build/logs/LSHomBaseChangeAudit.20261103T233209710810.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T23:32:19.718667+00:00",
+  "seconds": 10.007,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "3f3d5b1809d5f927d8c1428c0c2a42d41342591614c90e3aabc0cc34887b7460",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "dc49cf8c1575b9b0850c45dd3793eceba1a32cb50f2f5603f981868d058f25fe",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -1,0 +1,74 @@
+{
+  "schema": "lebrun-step3d-actual-map-translation-v1",
+  "integrated_utc": "2026-11-03T23:34:32.072697+00:00",
+  "phase": "representation",
+  "status": "Native diagnostic, exact public-type adapter, and exhaustive admitted-leaf audit passed; current containing-module and reverse-cone replay pending.",
+  "explanation": "EGA IV4 (18.5.1) supplies representability of the genuine section functor. Naturality of its representing equivalence proves the exact tautological-section formula, including the original compositionPullback transport. Both TotalLine and TotalBundle are packaged from this proof.",
+  "baseline_interface_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+  "baseline_ci_run": 41732181431,
+  "native_passes": {
+    "LSSectionRepresentability": {
+      "seconds": 25.55,
+      "source_sha256": "0db7ba9b6b7c8e51efb69efe31c429471e787e994f5d898bcdbe15ddd39b705e",
+      "output_sha256": "fb7cd8647cb3b1742a76b2b4ac7f1007dcc4134d0735e8b4b6ac9c6e5233f98d",
+      "receipt": "LSSectionRepresentability.receipt.json"
+    },
+    "LSSectionBundleAdapters": {
+      "seconds": 3.734,
+      "source_sha256": "e16f83d16e3e4fe0ab53a6bf725d2bd181441997a818b1473586cf2c3def7ed4",
+      "output_sha256": "f327c213056a89e2af40476472a510e2ec9468662c257114fbad10f37576a0c6",
+      "receipt": "LSSectionBundleAdapters.receipt.json"
+    },
+    "LSSectionRepresentabilityAudit": {
+      "seconds": 6.886,
+      "source_sha256": "4376c69b3743e4612d201ee3f00a4df2473127966a5cd5bd51064c26cf57ccb9",
+      "output_sha256": "b876c993587450304f5e993c073c056095e5a754698c9e795196d746552ab3b7",
+      "receipt": "LSSectionRepresentabilityAudit.receipt.json"
+    }
+  },
+  "audited_roots": [
+    "LeBrunSalamon.SectionRepresentability.represented_section_data"
+  ],
+  "exact_direct_sorry_leaves": [
+    "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree"
+  ],
+  "audited_closure_counts": {
+    "LeBrunSalamon.SectionRepresentability.represented_section_data": {
+      "all_constants": 20365,
+      "direct_sorry_count": 1,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    },
+    "LeBrunSalamon.SectionBundleAdapters.totalLine_exists": {
+      "all_constants": 20373,
+      "direct_sorry_count": 1,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    },
+    "LeBrunSalamon.SectionBundleAdapters.totalBundle_exists": {
+      "all_constants": 20373,
+      "direct_sorry_count": 1,
+      "missing_constants": 0,
+      "custom_project_axioms": 0
+    }
+  },
+  "native_final_validation": {
+    "checked_utc": "2026-11-03T23:33:24.968086+00:00",
+    "checked_module_count": 83,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "canonical_source_changes": {
+    "LSSectionRepresentability.lean": {
+      "before": null,
+      "after": "0db7ba9b6b7c8e51efb69efe31c429471e787e994f5d898bcdbe15ddd39b705e"
+    },
+    "RecompileExtensionsPart04Geometry.lean": {
+      "before": "055c7e016894c3d2c16964f0f873726d3f8ff4e044e6f67aff5ee6297ffe3a0e",
+      "after": "78446f8f6452bcd90f795daa8f6b1e09ed34a734ead0829c8b84037b06d475dd"
+    }
+  },
+  "public_declaration_types_preserved": true,
+  "full_current_source_acceptance": false,
+  "milestone_met": false
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "lebrun-actual-vector-bundle-exactness-v1",
+  "integrated_utc": "2026-11-03T22:59:22.612684+00:00",
+  "status": "Native diagnostic proofs and exact one-leaf audit passed; canonical containing-module and current reverse-cone replay pending.",
+  "baseline_interface_commit": "0e7a654645d92fe82473e358a925b47101305e97",
+  "baseline_ci_run": 41714131927,
+  "native_passes": {
+    "LSVectorBundlePullback": {
+      "seconds": 10.3,
+      "source_sha256": "baf98a17f2e3b41b9962de7350951c5a6d5a58ac72009b707edd399d559b0ca8",
+      "output_sha256": "277259a54438d0c863fd31bf8d4bb5029ad46b335db2cee4755795e8a697ba1a",
+      "receipt": "LSVectorBundlePullback.receipt.json"
+    },
+    "LSVectorBundleFiber": {
+      "seconds": 4.578,
+      "source_sha256": "780ca9188e5b985dbe590a0f74e8647d45e8255cc932ea3d8cae4a8489eb9f3e",
+      "output_sha256": "805ba895dfd103e2ea8d618ffd3c8cedb54db68e35d1bf8422b11190933f6d97",
+      "receipt": "LSVectorBundleFiber.receipt.json"
+    },
+    "LSVectorBundleExactnessAudit": {
+      "seconds": 6.585,
+      "source_sha256": "cb4299a64dc8d368adb9cf6321a514fa5807aee95596ab70d638f87b21d17312",
+      "output_sha256": "9ac1987021884558a3e70883384f458143f831e8a8a39a0c497b7f6678355a29",
+      "receipt": "LSVectorBundleExactnessAudit.receipt.json"
+    },
+    "LSFiberRankProof": {
+      "seconds": 7.059,
+      "source_sha256": "73941d994d77c8b3bfcf8c636dbc6d70699bc70a8b3d25120cc41c4a2795920d",
+      "output_sha256": "221e84ccbfca852ada69c9029d0a68ae8e847eb5866f73f893e9841208b67fbc",
+      "receipt": "LSFiberRankProof.receipt.json"
+    }
+  },
+  "generic_direct_admission": {
+    "name": "LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient",
+    "primary_source": "EGA I (1960), chapitre 0, (5.4.9), printed p.52",
+    "source_receipt": "../step3cd_primary_sources/EGAI_SOURCE_RECEIPT.json",
+    "scope": "Arbitrary actual short exact sequence of module sheaves with locally finite free quotient; local retraction of the original inclusion. No arbitrary pullback or fiber conclusion in the leaf.",
+    "independent_review": "published_leaf_audit verified the original paragraph and its proof of the local section and complementary retraction."
+  },
+  "audited_roots": {
+    "LeBrunSalamon.VectorBundlePullback.vectorBundle_pullback_shortExact": {
+      "constants": 21818,
+      "direct_sorry_count": 1
+    },
+    "LeBrunSalamon.VectorBundlePullback.vectorBundle_fiber_exact": {
+      "constants": 35463,
+      "direct_sorry_count": 1
+    }
+  },
+  "old_project_exactness_leaves_in_checked_closure": false,
+  "missing_constants": 0,
+  "custom_project_axioms": 0,
+  "canonical_sources": {
+    "LSVectorBundlePullback.lean": "baf98a17f2e3b41b9962de7350951c5a6d5a58ac72009b707edd399d559b0ca8",
+    "RecompileExtensionsPart02.lean": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "RecompileExtensionsPart03.lean": "c948cfe791e70f660a5aa85106d15bc6812812318a6c01afd6985f286c8bb9d8"
+  },
+  "previous_containing_source_hashes": {
+    "RecompileExtensionsPart02.lean": "3372a49adbaa43a5dffe679d627d8031c0b4a42f9ff67748d30901f191229e9f",
+    "RecompileExtensionsPart03.lean": "f050ccb6c30b10fb3d528f2a982a57b2133a6552bdbc5a5beb3aeb72edf4efe7"
+  },
+  "public_declaration_types_preserved": true,
+  "full_current_source_acceptance": false,
+  "milestone_met": false
+}

@@ -1,30 +1,34 @@
 # Step 3c–3d acceptance ledger
 
-Seventeen original Step3c/3d obligations. Source and hypothesis audit is separate from kernel acceptance. No new false statement found in these seventeen; composite and citation mismatch statuses are not falsehood findings.
+All seventeen original obligations now have an audited mathematical boundary and native proof or source-input evidence. Fourteen original project composites have proved replacements integrated; three generic statements retain exact published-source eligibility with actual containing-declaration closure audits. Acceptance of the complete current source graph is still pending, so `accepted_count` remains zero.
 
-Three original obligations have native-checked proofs with no `sorryAx`: the smooth quadratic detector and the two fibre-rank conclusions. Three more have native-checked translations to exact generic published inputs: projection-formula descent and the two Künneth obligations. Their current containing modules and affected dependency cones still require fresh replay. The arbitrary chart-cover diagonal criterion also passed, but the full coefficient/quotient bridge is not complete. The nonvanishing candidate remains outside the live graph with two focused elaboration issues. Three other obligations have audited mathematical source matches (cotangent, dual base change and affine pushout), independently of the kernel gate.
+All six Step3c obligations have proved replacements. The diagonal proof retains the actual open-product, diagonal restriction, frame coefficients and ideal quotient in every order. Its complete admitted boundary is degree-zero Künneth (Stacks0BED) and the inherited pulled-line rank certificate (Stacks01C5). The square-cover zero criterion, affine-frame foundation and closed-ideal foundation have no admitted dependencies.
+
+Of the seventeen tracked conclusions, three have native proofs without `sorryAx` (the smooth quadratic detector and two fibre-rank conclusions). Eleven more have native proofs to exact generic published inputs. The remaining cotangent, dual-base-change and affine-pushout inputs have exact source matches and native closure inventories. No original composite is retained as a renamed published admission. Both TotalLine and TotalBundle packaging are proved; they share the single EGA IV4(18.5.1) generic section-functor input.
+
+Every receipt keeps its frozen ancestor scope. The new Step3d batch uses the coherent cdf4d8a5/CI41732181431 graph and final83-module validation; earlier Step3c receipts retain their explicitly recorded CI41685948946 scope. Neither is described as live cumulative acceptance.
 
 | ID | Original theorem | Status | Primary source / proof | Remaining work |
 |---|---|---|---|---|
-| 3c-1 | `LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Stacks Lemma 33.29.1, Tag 0BED | Project specialization now has a proved body. The single generic canonical Kunneth leaf is exact Stacks0BED; current containing-module/reverse-cone replay and exhaustive native direct-leaf audit remain pending. |
+| 3c-1 | `LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Stacks Lemma 33.29.1, Tag 0BED | The project specialization and exhaustive native types/values/constructors closure passed, with exactly the generic canonical Kunneth input and no historical Kunneth composite. Current containing-module and affected-cone replay remains pending. |
 | 3c-2 | `LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Stacks Lemma 20.54.2, Tag 01E8 (01E6 is the section) | The helper passed native checking and its exhaustive dependency closure has exactly the audited generic01E8 leaf. The current Base05C transplantation and affected cone still require fresh replay. |
-| 3c-3 | `LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback` | source_match_with_definition_bridge_pending | Stacks Remark 17.25.11, Tag 0H78; nonvanishing locus defined in Lemma17.25.10, Tag01CY | The published equality is exactly the intended mathematical assertion. The current name is an alias and the source defines the locus by a stalk/residue nonvanishing condition; certify equivalence with the supremum definition, rather than relying only on the namespace. |
-| 3c-4 | `LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Stacks Lemma33.29.1, Tag0BED | Project specialization now has a proved body. The single generic canonical Kunneth leaf is exact Stacks0BED; current containing-module/reverse-cone replay and exhaustive native direct-leaf audit remain pending. |
-| 3c-5 | `LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients` | composite_admission | No single cited theorem has this conclusion; intended ingredients are affine closed immersions, sheaf restriction, and Spec tensor-product pullbacks. | Must construct U×U as the actual open in the fiber square, identify its ring and diagonal kernel with μ, transport the chosen line frame through both pullbacks and tensor pairing, and prove these opens cover the support of the thickened diagonal. k=0 is a separate empty-subscheme case. |
+| 3c-3 | `LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback` | native_proved_with_inherited_published_boundary_integrated_pending_public_replay | Actual nonvanishing equality proved from local line frames, unit coefficients and the scheme basic-open pullback identity. Sole inherited leaf: Stacks Lemma17.14.3, Tag01C5, preservation of finite local freeness and rank. | The helper and complete types-plus-values closure passed. Its original Base07 declaration now has a proved body. Current Base07 and its affected cone still require fresh replay. |
+| 3c-4 | `LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Stacks Lemma33.29.1, Tag0BED | The project specialization and exhaustive native types/values/constructors closure passed, with exactly the generic canonical Kunneth input and no historical Kunneth composite. Current containing-module and affected-cone replay remains pending. |
+| 3c-5 | `LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients` | native_proved_translation_to_audited_leaves_integrated_pending_public_replay | Actual open-product/frame/ideal comparison proved. Generic product-ring input: Stacks Lemma33.29.1, Tag0BED, degree-zero Kunneth. Public externalSquareLine rank certificate inherits Stacks Lemma17.14.3, Tag01C5. | The full chosen-cover criterion and exact original-signature wrapper passed native checking with exhaustive dependency closure. Their helpers and the literal proved body are integrated byte-for-byte; current Ext01 and its affected graph still require fresh replay. |
 | 3c-6 | `LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected` | native_no_admission_proof_integrated_pending_public_replay | No new literature input needed: pinned Mathlib KaehlerDifferential=I.Cotangent, Module.Finite.exists_comp_eq_id_of_projective, Algebra.FormallySmooth.projective_kaehlerDifferential. | Generic helper and exact project signature passed the pinned native compiler; the main Ext01 transplant awaits fresh public-module replay. |
-| 3d-1 | `LeBrunSalamon.StandardInputs.cotangentPullback_isIso` | mathematical_source_match | Stacks Lemma29.33.10, Tag01V0 | No mathematical mismatch found. The map normalization is explicitly proved. Final acceptance still requires the current-source dependency receipt and boundary-checker treatment of this generic cotangent leaf. |
-| 3d-2 | `LeBrunSalamon.Skeleton.dualBaseChange_isIso` | mathematical_source_match | Grothendieck, EGA I (1960), chapitre 0, (5.4.5); canonical comparison defined in (4.4.6), finite-rank convention in (5.4.1). DOI10.1007/BF02684778. | The original French scan indexed paragraph0(5.4.5) explicitly states this dual-pullback map is bijective. The earlier0BVF citation was not exact and has been replaced. No mathematical mismatch remains; final acceptance still requires current-source replay and dependency boundary receipt. |
+| 3d-1 | `LeBrunSalamon.StandardInputs.cotangentPullback_isIso` | source_eligible_generic_input_native_closure_checked_pending_current_replay | Stacks Lemma29.33.10, Tag01V0 | The actual passed cdf containing declaration and complete type/value/constructor closure are audited, with no missing constants or custom project axioms. The same source-eligible input remains allowed; current live affected-graph replay is still pending. |
+| 3d-2 | `LeBrunSalamon.Skeleton.dualBaseChange_isIso` | source_eligible_generic_input_native_closure_checked_pending_current_replay | Grothendieck, EGA I (1960), chapitre 0, (5.4.5); canonical comparison defined in (4.4.6), finite-rank convention in (5.4.1). DOI10.1007/BF02684778. | The actual passed cdf containing declaration and complete type/value/constructor closure are audited, with no missing constants or custom project axioms. The same source-eligible input remains allowed; current live affected-graph replay is still pending. |
 | 3d-3 | `LeBrunSalamon.Construction.fiber_dimension` | native_no_admission_proof_integrated_pending_public_replay | Cited Stacks17.14.4, Tag01C9, establishes local constancy of rank, not this fiber dimension identity. | Explicit free-frame/scalar-normalized fibre proof passed native checking with no sorryAx. Its Ext02 transplantation awaits fresh public-module replay. |
 | 3d-4 | `LeBrunSalamon.Construction.fiber_finite` | native_no_admission_proof_integrated_pending_public_replay | Same issue as3d-3; no separate published result is required after the explicit fiber equivalence. | Explicit free-frame/scalar-normalized fibre proof passed native checking with no sorryAx. Its Ext02 transplantation awaits fresh public-module replay. |
-| 3d-5 | `LeBrunSalamon.Construction.vectorBundle_fiber_exact` | composite_admission | Stacks10.39.12 Tag00HL is ring-module tensor exactness with flat quotient; Stacks18.39.4 Tag0G6R gives the sheaf pullback version. | Requires pullback short exactness, exact global sections on Specℂ, and translation from categorical exactness/mono/epi to range=kernel/injective/surjective. All are currently bundled. |
-| 3d-6 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact` | source_found_specialization_pending | Stacks Lemma18.39.4, Tag0G6R (05VA is only the section); the exact generic statement uses a flat quotient. | The current leaf is a finite-vector-bundle specialization. Isolate generic flat-quotient pullback exactness and prove local freeness implies the required flatness, or prove locally split exactness directly. |
-| 3d-7 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree` | citation_mismatch_composite_admission | Stacks Lemma17.22.4, Tag01CP, is a comparison with Hom of stalks, not Hom of fibers. | Tensoring a stalk injection with a residue field need not preserve injectivity. Finite local freeness must be used to identify the fiber comparison, not merely finite presentation or finite type. |
-| 3d-8 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso` | ring_to_sheaf_bridge_pending | Stacks Lemma10.78.9, actual Tag0DVB (00NV is its section). | Need scalar-extension adjunction Hom_R(M,N⊗S)≃Hom_S(S⊗M,S⊗N), local finite-free reduction, and sheaf gluing for this specific comparison. The ring source alone is not the sheaf theorem. |
-| 3d-9 | `LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout` | mathematical_source_match | Stacks Lemma37.14.1, Tag0ET0 | No mathematical mismatch found. The theorem explicitly states pushout in schemes, not only in affine schemes. Current code uses this exact category and map orientation. |
-| 3d-10 | `LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen` | composite_admission | Stacks17.25.10 Tag01CY and17.25.11 Tag0H78 supply individual unit loci and pullback behavior. | The covering assertion from the Epi tuple and the universal image-in-open iff are project composites. The section-unit locus itself is already defined elsewhere. |
-| 3d-11 | `LeBrunSalamon.Construction.Normalization.totalBundle_exists` | composite_admission | Stacks Lemma27.4.3 Tag01LU represents algebra maps out of a quasi-coherent algebra; Section27.6 Tag01M1 defines V(E)=Spec Sym(E). | Replacing TotalBundle by an existential does not remove its composite content. Must prove symmetric-algebra universal property, dual/bidual section identification, and pullback naturality of the tautological section. |
+| 3d-5 | `LeBrunSalamon.Construction.vectorBundle_fiber_exact` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Grothendieck, EGA I (1960), chapitre 0, (5.4.9), printed p.52. Exact generic local splitting of the original short exact sequence with finite locally free quotient. | The generic helper and exhaustive native dependency closure passed. Both original project admissions now have proved bodies. Current containing modules and their full affected graph still require fresh replay. |
+| 3d-6 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | Grothendieck, EGA I (1960), chapitre 0, (5.4.9), printed p.52. Exact generic local splitting of the original short exact sequence with finite locally free quotient. | The generic helper and exhaustive native dependency closure passed. Both original project admissions now have proved bodies. Current containing modules and their full affected graph still require fresh replay. |
+| 3d-7 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree` | native_proved_translation_to_audited_leaves_integrated_pending_public_replay | EGA I chapitre0(5.4.2), canonical finite-free dual-tensor/Hom map; EGA I chapitre0(5.4.5), canonical dual pullback; inherited finite-local-freeness pullback, Stacks17.14.3 Tag01C5. | The original project composite admission is replaced by a proof. Native exact public-type adapter and exhaustive closure passed with exactly the three listed generic leaves, zero missing constants and zero custom project axioms. Current public containing-module and affected-graph replay remain pending. |
+| 3d-8 | `LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso` | native_proved_translation_to_audited_leaves_integrated_pending_public_replay | EGA I chapitre0(5.4.2), canonical finite-free dual-tensor/Hom map; EGA I chapitre0(5.4.5), canonical dual pullback; inherited finite-local-freeness pullback, Stacks17.14.3 Tag01C5. | The original project composite admission is replaced by a proof. Native exact public-type adapter and exhaustive closure passed with exactly the three listed generic leaves, zero missing constants and zero custom project axioms. Current public containing-module and affected-graph replay remain pending. |
+| 3d-9 | `LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout` | source_eligible_generic_input_native_closure_checked_pending_current_replay | Stacks Lemma37.14.1, Tag0ET0 | The actual passed cdf containing declaration and complete type/value/constructor closure are audited, with no missing constants or custom project axioms. The same source-eligible input remains allowed; current live affected-graph replay is still pending. |
+| 3d-10 | `LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen` | native_proved_with_inherited_published_boundary_integrated_pending_public_replay | Actual local lifting from the generating epimorphism and the local-ring finite-sum unit criterion, then the proved nonvanishing pullback equality. Only inherited rank preservation, Stacks17.14.3 Tag01C5. | Original composite admission replaced by a proof with no new leaf. Exact public-type adapter and complete closure passed; current Geometry and its affected graph remain pending. |
+| 3d-11 | `LeBrunSalamon.Construction.Normalization.totalBundle_exists` | native_proved_translation_to_audited_leaf_integrated_pending_public_replay | EGA IV4(18.5.1), printedp125: V(E dual) represents the actual finite-locally-free section functor. Project tautological and record transports are proved. | Both TotalLine and TotalBundle composite admissions are replaced. Generic helper, both exact public-type adapters and exhaustive closure passed with exactly the EGA representability leaf, zero missing constants and zero custom project axioms. Current Geometry and its affected cone remain pending. |
 
-## Hypotheses, maps and next actions
+## Hypotheses, actual maps and evidence
 
 ### 3c-1 — LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum
 
@@ -32,13 +36,15 @@ Three original obligations have native-checked proofs with no `sorryAx`: the smo
 
 **Actual map.** The generic map is TensorProduct.lift of actual pullSection and tensorPresentation pairing. globalTensorMap_eq_kunneth is proved by rfl; finite pure-tensor expansion is proved using the spanning theorem.
 
-**Next action.** Recompile current Base05C and ExtensionsPart01, then their affected cone. Verify the final transitive boundary contains the exact generic Kunneth input and no historical Kunneth composite.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective
+
+**Next action.** Recompile current Base05C and ExtensionsPart01 and their affected cone; preserve the exact generic Kunneth boundary.
+
+**Candidate/native status.** Native pass against frozen exact CI41685948946 ancestors; exhaustive closure traverses 35,443 constants/150 project constants with exactly one direct admitted leaf, zero missing constants and zero custom project axioms. Actual original tensor map equality is proved by rfl.
+
+**Evidence.** audit/step3cd_diagonal_build/diagonal_20261103T231509/; audit/step3cd_kunneth_cover_build/
 
 Source: https://stacks.math.columbia.edu/tag/0BED
-
-**Candidate/native status.** Native pass against frozen exact CI41685948946 ancestors. Source byte hashes match; current public modules and native transitive direct-leaf closure still need replay.
-
-**Evidence.** audit/step3cd_kunneth_cover_build/
 
 ### 3c-2 — LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend
 
@@ -46,11 +52,13 @@ Source: https://stacks.math.columbia.edu/tag/0BED
 
 **Actual map.** projectionPair sends e⊗z to f*e⊗z on every inverse-image open; canonicalMap_pair proves this formula. unit_comparison identifies its unit specialization with the actual adjunction unit; sections_bijective proves the final pullSection map.
 
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso
+
 **Next action.** Recompile current Base05C and reverse cone; retain canonicalMap_isIso as the literal generic published input.
 
-Source: https://stacks.math.columbia.edu/tag/01E8
-
 **Evidence.** audit/step3cd_projection_build/
+
+Source: https://stacks.math.columbia.edu/tag/01E8
 
 ### 3c-3 — LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback
 
@@ -58,13 +66,15 @@ Source: https://stacks.math.columbia.edu/tag/01E8
 
 **Actual map.** The project nonvanishingOpen is the supremum of opens where the actual pulled section is an isomorphism. pullSection uses the canonical unit pullback isomorphism.
 
-**Next action.** Prove the locus definition matches the source and then specialize a generic locally-ringed-space nonvanishing pullback leaf, or prove directly by local rank-one coefficients.
+**Admitted boundary.** No direct admission. Native closure contains only PublishedInputs.SheafFunctoriality.pullback_locallyFree through the pullbackLine rank certificate.
 
-Source: https://stacks.math.columbia.edu/tag/0H78
+**Next action.** Replay current Base07 and its affected cone. Preserve the exhaustive boundary showing no use of the old nonvanishing admission.
 
-**Candidate/native status.** Zero-direct-admission candidate has only two remaining native elaboration issues: unit-coefficient composition normalization and an iff-composition timeout. Last failed source/logs preserved; candidate remains outside live source.
+**Candidate/native status.** Native pass5.432s. Complete native closure:21,994 constants/86 project constants, exactly one direct admitted leaf (generic pullback_locallyFree), zero missing constants or custom project axioms. Source bytes match the integrated helper.
 
-**Evidence.** audit/step3cd_kunneth_cover_build/pending_nonvanishing/
+**Evidence.** audit/step3cd_diagonal_build/foundations_20261103T224534/
+
+Source: https://stacks.math.columbia.edu/tag/01C5
 
 ### 3c-4 — LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective
 
@@ -72,27 +82,33 @@ Source: https://stacks.math.columbia.edu/tag/0H78
 
 **Actual map.** The generic map is TensorProduct.lift of actual pullSection and tensorPresentation pairing. globalTensorMap_eq_kunneth is proved by rfl; finite pure-tensor expansion is proved using the spanning theorem.
 
-**Next action.** Recompile current Base05C and ExtensionsPart01, then their affected cone. Verify the final transitive boundary contains the exact generic Kunneth input and no historical Kunneth composite.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective
+
+**Next action.** Recompile current Base05C and ExtensionsPart01 and their affected cone; preserve the exact generic Kunneth boundary.
+
+**Candidate/native status.** Native pass against frozen exact CI41685948946 ancestors; exhaustive closure traverses 35,471 constants/185 project constants with exactly one direct admitted leaf, zero missing constants and zero custom project axioms. Actual original tensor map equality is proved by rfl.
+
+**Evidence.** audit/step3cd_diagonal_build/diagonal_20261103T231509/; audit/step3cd_kunneth_cover_build/
 
 Source: https://stacks.math.columbia.edu/tag/0BED
 
-**Candidate/native status.** Native pass against frozen exact CI41685948946 ancestors. Source byte hashes match; current public modules and native transitive direct-leaf closure still need replay.
-
-**Evidence.** audit/step3cd_kunneth_cover_build/
-
 ### 3c-5 — LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients
 
-**Hypotheses.** Separated structure map (essential), invertible sheaf, every affine line frame, every k including0.
+**Hypotheses.** Separated structure map, actual invertible sheaf, every affine line frame and every k including0. The proof first proves a criterion for any supplied affine frame cover, then derives local frames from the actual section coordinate equivalences.
 
-**Actual map.** Left: actual restriction of sectionFromValue(globalTensorMap t) to V(ker Δ)^k. Right: coefficientTensorMap t in (Γ(U)⊗ℂΓ(U))/ker(μ)^k.
+**Actual map.** squareInclusion identifies U×U with the actual open in the fibre square. Its coordinate map sends a tensor b to p1*(a) times p2*(b); actual diagonal restriction is multiplication. Pulled/tensor frames preserve their specified coordinates, and the actual kernel-power quotient detects restricted-section zero. The final proof identifies the original globalTensorMap and coefficientTensorMap exactly.
 
-**Next action.** Prove the generic affine ideal-power quotient map and support lemmas, then the frame/coefficient naturality and local-to-global zero criterion. Do not admit this entire equivalence under a new name.
+**Admitted boundary.** No project admission. Native closure has only generic Kunneth.canonicalMap_bijective and inherited SheafFunctoriality.pullback_locallyFree.
 
-Source: https://stacks.math.columbia.edu/tag/01I9
+**Next action.** Replay current Ext01 and its affected cone. Use the passed specified-cover criterion for the two-chart source bivector proof. No further diagonal composite is admitted.
 
-**Partial proof.** Generic ideal-power quotient map previously checked. New SectionCoverProof.vanishes_iff_squareCover now passed native checking and is integrated: any supplied covering family suffices, including the two P1 charts. Actual affine product ring/frame-to-coefficient comparison remains open.
+**Candidate/native status.** OpenProduct passed12.365s; ExternalFrame passed11.805s; exact original-signature bridge passed14.874s; complete native closure audit passed31.359s. Public wrapper closure:41,054 constants/646 project constants, exactly two generic inputs, zero missing constants/custom project axioms. The chosen-cover criterion has exactly one input; the square-cover zero criterion has none.
 
-**Evidence.** audit/step3cd_kunneth_cover_build/
+**Native scope.** Frozen exact CI41685948946 project ancestors and unchanged pinned stock Lean/runtime; not live cumulative acceptance.
+
+**Evidence.** audit/step3cd_diagonal_build/diagonal_20261103T231509/
+
+Source: https://stacks.math.columbia.edu/tag/0BED
 
 ### 3c-6 — LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected
 
@@ -100,11 +116,13 @@ Source: https://stacks.math.columbia.edu/tag/01I9
 
 **Actual map.** Live tensorSecond_eq_secondDiagonal proves equality with SecondDiagonalAlgebra.second by rfl; the project-signature detector was natively checked.
 
+**Admitted boundary.** No direct admission: historical PublishedInputs name now calls the proved detector.
+
 **Next action.** Run current Ext01 and its affected cone; preserve the no-sorry native axiom receipt.
 
-Source: https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/RingTheory/Kaehler/Basic.lean
-
 **Evidence.** audit/step3cd_build/
+
+Source: https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/RingTheory/Kaehler/Basic.lean
 
 ### 3d-1 — LeBrunSalamon.StandardInputs.cotangentPullback_isIso
 
@@ -112,9 +130,17 @@ Source: https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab
 
 **Actual map.** CotangentBaseChange.canonicalMap is cotangentMap, the pullback-square equality transport, then cotangentToRelative. canonicalMap_differential proves p*(da)↦d(p*a).
 
-**Next action.** Retain as a source-eligible generic published input with the canonicalMap_differential mapping receipt; do not demand unnecessary smoothness.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.BaseChangeFibers.cotangentPullback_isIso
+
+**Next action.** Replay the current containing module and affected cone; preserve the audited generic input and its actual canonical map.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/generic_inputs_20261103T233324/
 
 Source: https://stacks.math.columbia.edu/tag/01V0
+
+**Complete closure.** 23680 constants; 2 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-2 — LeBrunSalamon.Skeleton.dualBaseChange_isIso
 
@@ -122,9 +148,17 @@ Source: https://stacks.math.columbia.edu/tag/01V0
 
 **Actual map.** dualBaseChange is curry of pulled evaluation followed by unitPullbackMap. The proved dualBaseChange_pullLocalSection gives f*(lambda)(f*e)=f*(lambda(e)) on every local pair, identifying the precise canonical map of EGA0(4.4.6).
 
-**Next action.** Retain this existing generic theorem as the exact published EGA0(5.4.5) input; replay current Ext01 and audit its normalized-map declaration closure.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso
+
+**Next action.** Replay the current containing module and affected cone; preserve the audited generic input and its actual canonical map.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/generic_inputs_20261103T233324/
 
 Source: https://numdam.org/item/PMIHES_1960__4__5_0/
+
+**Complete closure.** 21061 constants; 1 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-3 — LeBrunSalamon.Construction.fiber_dimension
 
@@ -132,11 +166,13 @@ Source: https://numdam.org/item/PMIHES_1960__4__5_0/
 
 **Actual map.** Fiber E x is global sections of actual pullback x*E, with ℂ action through ΓSpecIso and the identity structure map.
 
+**Admitted boundary.** No direct admission: historical fiber_rank_and_finite now calls Construction.FiberRankProof.fiber_rank_and_finite.
+
 **Next action.** Run current Ext02 and affected cone. No pullback_locallyFree or old fibre-rank admission is used.
 
-Source: https://stacks.math.columbia.edu/tag/01C9
-
 **Evidence.** audit/step3cd_build/
+
+Source: https://stacks.math.columbia.edu/tag/01C9
 
 ### 3d-4 — LeBrunSalamon.Construction.fiber_finite
 
@@ -144,51 +180,85 @@ Source: https://stacks.math.columbia.edu/tag/01C9
 
 **Actual map.** Same actual Fiber as3d-3.
 
-**Next action.** Run current Ext02 and affected cone. No pullback_locallyFree or old fibre-rank admission is used.
+**Admitted boundary.** No direct admission: historical fiber_rank_and_finite now calls Construction.FiberRankProof.fiber_rank_and_finite.
 
-Source: https://stacks.math.columbia.edu/tag/01C9
+**Next action.** Run current Ext02 and affected cone. No pullback_locallyFree or old fibre-rank admission is used.
 
 **Evidence.** audit/step3cd_build/
 
+Source: https://stacks.math.columbia.edu/tag/01C9
+
 ### 3d-5 — LeBrunSalamon.Construction.vectorBundle_fiber_exact
 
-**Hypotheses.** Actual short exact sequence; the quotient G is finite locally free hence flat. No flatness of the point map is needed.
+**Hypotheses.** Arbitrary short exact sequence of actual module sheaves; the quotient has finite free frames locally, with rank allowed to vary. Project constant-rank local freeness supplies these frames by a proved translation.
 
-**Actual map.** fiberMap i x and fiberMap q x are onCSections of the actual pullback functor maps.
+**Actual map.** The proof applies actual pullback maps to the original i and q, then proves their actual global-section maps on Spec C are injective, surjective, and have image equal to kernel. No abstract isomorphic replacement of fiberMap is used.
 
-**Next action.** Derive from3d-6 or its generic flat-quotient input and prove the one-point/global-section exactness conversion.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient
 
-Source: https://stacks.math.columbia.edu/tag/0G6R
+**Next action.** Replay current Ext02 and Ext03 and their affected cone. Preserve the single EGA local-splitting boundary, with no historical pullback/fiber exactness admission.
+
+**Candidate/native status.** Native exactness helpers and exhaustive one-leaf audit passed again against cdf ancestors after the explicit final-end cleanup. Exact source hashes and final83-module ancestry validation are recorded in SUMMARY.json.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_exactness_build/cdf_replay_20261103T233324/
+
+Source: https://numdam.org/item/PMIHES_1960__4__5_0/
 
 ### 3d-6 — LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact
 
-**Hypotheses.** Any morphism of ringed topoi and short exact sequence with flat quotient. Locally free G is sufficient, but that implication belongs in the wrapper.
+**Hypotheses.** Arbitrary short exact sequence of actual module sheaves; the quotient has finite free frames locally, with rank allowed to vary. Project constant-rank local freeness supplies these frames by a proved translation.
 
-**Actual map.** ShortComplex.map (Scheme.Modules.pullback f), retaining i and q.
+**Actual map.** The conclusion is ShortComplex.map (Scheme.Modules.pullback f) on the original i and q. Local retractions pull back through explicit composition/restriction coherence; pullback right exactness supplies exactness and the quotient epimorphism.
 
-**Next action.** Use the exact0G6R input with a suitable generic flat sheaf predicate and a real finite-free local proof of its hypothesis.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient
 
-Source: https://stacks.math.columbia.edu/tag/0G6R
+**Next action.** Replay current Ext02 and Ext03 and their affected cone. Preserve the single EGA local-splitting boundary, with no historical pullback/fiber exactness admission.
+
+**Candidate/native status.** Native exactness helpers and exhaustive one-leaf audit passed again against cdf ancestors after the explicit final-end cleanup. Exact source hashes and final83-module ancestry validation are recorded in SUMMARY.json.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_exactness_build/cdf_replay_20261103T233324/
+
+Source: https://numdam.org/item/PMIHES_1960__4__5_0/
 
 ### 3d-7 — LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree
 
 **Hypotheses.** E finite locally free; F arbitrary. The stated project theorem is mathematically valid under these hypotheses.
 
-**Actual map.** homFiberEvaluation is the fiber pairing of actual sheafEvaluationPair; homFiberEvaluation_curry proves its normalization.
+**Actual map.** The actual Hom comparison is factored through canonical dual-tensor evaluation and dual pullback, with original-pair normalization proved. The fibre proof on Spec C then identifies actual evaluation and uses the empty-or-top open criterion; the final theorem is the original homFiberEvaluation map.
 
-**Next action.** Derive from the actual Hom base-change isomorphism3d-8 and the evaluation/section identification on Specℂ, then take injectivity.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.FiniteFreeHom.dualTensorHomMap_isIso; LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso; LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree
 
-Source: https://stacks.math.columbia.edu/tag/01CP
+**Next action.** Replay current Ext03 and its affected cone, preserving the exact evaluation-normalized proof and generic EGA boundary.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/hom_20261103T233432/
+
+Source: https://numdam.org/item/PMIHES_1960__4__5_0/
+
+**Complete closure.** 24632 constants; 3 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-8 — LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso
 
 **Hypotheses.** Published ring statement: finite projective M, arbitrary R-modules N,L. Project: finite locally free E, arbitrary target F, arbitrary scheme map.
 
-**Actual map.** homBaseChange is the curry of the pulled evaluation pairing; homBaseChange_curry is proved.
+**Actual map.** The actual homBaseChange curry is identified with the composite of the actual dual-tensor/Hom isomorphism, canonical dual base-change isomorphism and tensor pullback. Equality is proved on the original evaluation pairing.
 
-**Next action.** Prove locally using the actual finite-free sheaf trivializations and the normalization identity, or find an exact primary sheaf-level statement and prove the presentation transport.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.FiniteFreeHom.dualTensorHomMap_isIso; LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso; LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree
 
-Source: https://stacks.math.columbia.edu/tag/0DVB
+**Next action.** Replay current Ext03 and its affected cone, preserving the exact evaluation-normalized proof and generic EGA boundary.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/hom_20261103T233432/
+
+Source: https://numdam.org/item/PMIHES_1960__4__5_0/
+
+**Complete closure.** 21589 constants; 3 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-9 — LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout
 
@@ -196,27 +266,50 @@ Source: https://stacks.math.columbia.edu/tag/0DVB
 
 **Actual map.** Spec.map f and g; cocone maps are Spec.map of the actual categorical pullback projections.
 
-**Next action.** Retain as an exact generic published input; attach current Geometry replay and canonical pullback universal-property representation.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.BaseChangeFibers.spec_pullback_isPushout
+
+**Next action.** Replay the current containing module and affected cone; preserve the audited generic input and its actual canonical map.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/generic_inputs_20261103T233324/
 
 Source: https://stacks.math.columbia.edu/tag/0ET0
+
+**Complete closure.** 15601 constants; 1 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-10 — LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen
 
 **Hypotheses.** Generating finite tuple in a line bundle, encoded as Epi of Sigma.desc.
 
-**Actual map.** Every test morphism f:T→Y; actual pullSection f (a i) must be invertible exactly when the image lies in U i.
+**Actual map.** The opens are actual nonvanishingOpen L(a i). Their cover is proved from the original Sigma.desc epimorphism; every actual pullSection f(a i) is an isomorphism exactly when the image lies in the corresponding open.
 
-**Next action.** Choose U i=nonvanishingOpen L(a i), prove cover by local rank-one generation over local rings, and derive the image criterion from3c-3 and nonvanishingOpen_eq_top_iff.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree
 
-Source: https://stacks.math.columbia.edu/tag/01CY
+**Next action.** Replay current Geometry and its affected cone; retain the actual opens and their universal pullback criterion.
+
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/unit_20261103T233431/
+
+Source: https://stacks.math.columbia.edu/tag/01C5
+
+**Complete closure.** 22498 constants; 1 direct admitted leaves; no missing constants or custom project axioms.
 
 ### 3d-11 — LeBrunSalamon.Construction.Normalization.totalBundle_exists
 
 **Hypotheses.** Finite locally free E ensures quasi-coherence of its dual and finite biduality. The desired total space is Spec Sym(E∨), because it represents E-valued sections.
 
-**Actual map.** Pull back τ along h and apply the actual compositionPullback h projection f equality E.sheaf.
+**Actual map.** The actual Over-scheme functor uses pullSection and compositionPullback, with identity/composition coherence proved. Its universal element and the naturality of the representing equivalence prove the exact tautological pullback formula before TotalLine and TotalBundle are packaged.
 
-**Next action.** Admit only relative-Spec representation of algebra maps; construct the symmetric-dual algebra and prove the natural equivalence with sections before packaging TotalBundle.
+**Admitted boundary.** LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree
 
-Source: https://stacks.math.columbia.edu/tag/01LU
+**Next action.** Replay current Geometry and its affected cone. Preserve the generic section-functor source and the proved universal-element naturality, rather than an existential record admission.
 
+**Native scope.** Frozen cdf4d8a5ae81407900431d905634c97bae4c9996 project ancestors, CI41732181431, with final83-module ancestry validation and unchanged runtime. Current live containing modules and reverse cones remain pending.
+
+**Evidence.** audit/step3d_transport_build/representation_20261103T233432/
+
+Source: https://wstein.org/sga/circle/EGAIV.4.pdf
+
+**Complete closure.** 20365 constants; 1 direct admitted leaves; no missing constants or custom project axioms.

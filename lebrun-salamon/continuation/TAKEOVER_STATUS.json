@@ -1,8 +1,8 @@
 {
   "schema": "lebrun-takeover-status-v1",
-  "date_local": "2026-11-03",
+  "date_local": "2026-11-04",
   "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-03T22:34:09.806987+00:00",
+  "recorded_utc": "2026-11-04T00:03:44.890500+00:00",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -25,22 +25,22 @@
     "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
   },
   "current_source": {
-    "modules": 155,
-    "lines": 108362,
-    "bytes": 5228652,
+    "modules": 172,
+    "lines": 112189,
+    "bytes": 5412244,
     "admissions": {
-      "sorry": 92,
+      "sorry": 85,
       "admit": 0,
       "axiom": 0,
       "opaque": 0
     },
-    "published_namespace_count_not_certification": 44,
-    "other_direct_admissions": 48,
+    "published_namespace_count_not_certification": 38,
+    "other_direct_admissions": 47,
     "rewritten_original_wrappers_awaiting_acceptance": 43,
     "kernel_verified": false,
     "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-03T22:34:09.806987+00:00",
-    "aggregate_sha256": "705c75e748f0195bc9e38dd05bcb3f4c7269d76eef3e8d9b574b83d3e1f91d94",
+    "snapshot_utc": "2026-11-04T00:03:44.890500+00:00",
+    "aggregate_sha256": "3fcaed9594009b229a092691958a1195b634cf4aeaf994048200cca2f647e952",
     "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
   },
   "frozen_target": {
@@ -70,10 +70,10 @@
     "current_direct_admissions": 5
   },
   "rebuild_plan": {
-    "changed_modules": 49,
-    "affected_modules": 146,
+    "changed_modules": 67,
+    "affected_modules": 163,
     "old_replay_modules": 21,
-    "omitted_affected_descendants": 125,
+    "omitted_affected_descendants": 142,
     "source": "audit/current/REBUILD_PLAN.json",
     "compiler_driver_replacement_required": false,
     "driver": "scripts/replay_checkpoint.py",
@@ -148,11 +148,11 @@
   "cumulative_ci_attempt": {
     "status": "awaiting_commit_and_automatic_push_trigger",
     "result_not_yet_accepted": true,
-    "source_modules_selected": 155,
-    "source_freeze_utc": "2026-11-03T22:34:09.806987+00:00",
+    "source_modules_selected": 172,
+    "source_freeze_utc": "2026-11-04T00:03:44.890500+00:00",
     "compiler_memory_cap_mb": 12000,
-    "strict_cache_source_run_id": 41728791345,
-    "expected_full_ancestry_cache_count": 28,
+    "strict_cache_source_run_id": 41732181431,
+    "expected_full_ancestry_cache_count": 30,
     "full_selected_graph_passed": false
   },
   "cumulative_ci_attempts": [
@@ -237,6 +237,30 @@
       "full_selected_graph_passed": false,
       "evidence": "audit/ci/41728791345/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; live affine-derivation edit excluded from the 28 current-safe cache outputs."
+    },
+    {
+      "run_id": 41732181431,
+      "commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+      "source_modules_selected": 155,
+      "compiler_memory_cap_mb": 12000,
+      "status": "completed",
+      "conclusion": "failure",
+      "counts": {
+        "reused": 28,
+        "passed": 93,
+        "failed": 4,
+        "blocked": 30
+      },
+      "accepted_count_at_that_commit": 121,
+      "failed_modules": [
+        "LSConicJets",
+        "LSRelativeDifferential",
+        "LSStandardConicDifferential",
+        "LSProductGeometry"
+      ],
+      "full_selected_graph_passed": false,
+      "evidence": "audit/ci/41732181431/CI_RECEIPT.json",
+      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     }
   ],
   "proof_batch_previous_checkpoint": {
@@ -285,11 +309,12 @@
     }
   },
   "proof_batch": {
-    "status": "Picard namespace repair and completed Hom/family integrations; exact native diagnostic evidence retained; full frozen-source replay pending.",
+    "status": "Step3c/3d actual-map translations and source-bivector proof integrated with native diagnostic evidence; full frozen-source replay and Point1 acceptance pending.",
     "kernel_accepted": false,
     "accepted_units_added": 0,
     "point1_obligation_count": 43,
     "point1_complete": false,
+    "step3cd_native_or_exact_source_evidence": 17,
     "evidence_directories": [
       "audit/step3cd_build",
       "audit/step3cd_projection_build",
@@ -307,11 +332,17 @@
       "audit/STEP3F_HOM_VANISHING.json",
       "audit/STEP3F_AFFINE_RELATIVE.json",
       "audit/p1_family_degree_build",
-      "audit/ci/41728791345"
+      "audit/ci/41728791345",
+      "audit/STEP3D_INTEGRATION_READY.json",
+      "audit/step3d_transport_build",
+      "audit/step3d_exactness_build/cdf_replay_20261103T233324",
+      "audit/step3cd_diagonal_build",
+      "audit/p1_source_bivector_work",
+      "audit/ci/41732181431"
     ]
   },
   "compatibility_repairs": {
-    "scope": "Native diagnostics against the exact frozen 0e7a6546 ancestor outputs from CI 41714131927. Not current-main reverse-cone acceptance.",
+    "scope": "Each module retains its separately recorded diagnostic ancestry; current full dependency graph acceptance is pending.",
     "modules": {
       "LSClassicalActions": {
         "native_status": "passed",
@@ -330,40 +361,60 @@
         "current_source_bytes_match_tested": true
       },
       "LSProductGeometry": {
+        "schema": "lebrun-compatibility-diagnostic-result-v1",
+        "module": "LSProductGeometry",
         "native_status": "timed_out",
-        "seconds": 90.327,
-        "source_sha256_tested": "5f5060059a3614d71700f360b6757ab2362dc745150c053ffa844cb76a26fdd7",
-        "source_sha256_current": "ab7855b00b9fa4651b4360ddccd30f0b2a86aed5f32efcd62a49b13afa48289e",
+        "source_sha256": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
         "return_code": 124,
-        "current_source_bytes_match_tested": false,
-        "current_change_since_test": "Status comment only; proof candidate is unchanged.",
-        "remaining_issue": "Elaboration performance unresolved; 90-second bounded principal-affine diagnostic timed out without a source diagnostic."
+        "seconds": 120.35,
+        "finished_utc": "2026-11-03T23:58:44.489015+00:00",
+        "compiler_memory_cap_mb": 7200,
+        "wall_time_cap_seconds": 120,
+        "source_diagnostics": 0,
+        "ancestor_count": 81,
+        "ancestor_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+        "ancestor_ci_run": 41732181431,
+        "final_validation": {
+          "checked_utc": "2026-11-03T23:58:45.674709+00:00",
+          "checked_module_count": 81,
+          "invalidated_modules": {},
+          "changed_runtime_files": []
+        },
+        "source_and_dependencies_unchanged": true,
+        "source_sha256_current": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
+        "current_source_bytes_match_tested": true,
+        "full_current_graph_passed": false,
+        "scope": "Exact current ProductGeometry candidate over the coherent frozen-cdf ancestors; timeout without diagnostics supplies no native pass and no new concrete source error.",
+        "evidence_directory": "audit/ci_compatibility_repairs/product_cdf_20261103T235845"
       }
     },
-    "compiler_slot": "released to root after 2026-11-03T21:57:52.303487+00:00",
     "unchanged_theorem_types_and_admissions": true,
-    "full_current_graph_passed": false
+    "full_current_graph_passed": false,
+    "relative_differential_evidence": "audit/STEP3F_RELATIVE_DIFFERENTIAL.json"
   },
   "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41728791345,
-    "commit": "6fa6ee1a25735be73e73be455aed94ad88eae8e1",
-    "source_modules_selected": 149,
+    "run_id": 41732181431,
+    "commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
+    "source_modules_selected": 155,
     "compiler_memory_cap_mb": 12000,
     "status": "completed",
     "conclusion": "failure",
     "counts": {
-      "reused": 12,
-      "passed": 17,
-      "failed": 1,
-      "blocked": 119
+      "reused": 28,
+      "passed": 93,
+      "failed": 4,
+      "blocked": 30
     },
-    "accepted_count_at_that_commit": 29,
+    "accepted_count_at_that_commit": 121,
     "failed_modules": [
-      "LSPublishedPicard"
+      "LSConicJets",
+      "LSRelativeDifferential",
+      "LSStandardConicDifferential",
+      "LSProductGeometry"
     ],
     "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41728791345/CI_RECEIPT.json",
-    "scope": "Exact committed source and ancestry only; live affine-derivation edit excluded from the 28 current-safe cache outputs."
+    "evidence": "audit/ci/41732181431/CI_RECEIPT.json",
+    "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
   },
   "proof_batch_history": [
     {
@@ -386,6 +437,32 @@
       ],
       "point1_obligation_count": 43,
       "point1_complete": false
+    },
+    {
+      "status": "Picard namespace repair and completed Hom/family integrations; exact native diagnostic evidence retained; full frozen-source replay pending.",
+      "kernel_accepted": false,
+      "accepted_units_added": 0,
+      "point1_obligation_count": 43,
+      "point1_complete": false,
+      "evidence_directories": [
+        "audit/step3cd_build",
+        "audit/step3cd_projection_build",
+        "audit/step3cd_kunneth_cover_build",
+        "audit/tangent_determinant_build",
+        "audit/step3e_remaining_build",
+        "audit/step3f_native_batch",
+        "audit/point1_projective_laurent_build",
+        "audit/p1_picard_build",
+        "audit/p1_tangent_build",
+        "audit/ci_compatibility_repairs",
+        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
+        "audit/step3f_nodal_compatibility",
+        "audit/step3f_hom_vanishing",
+        "audit/STEP3F_HOM_VANISHING.json",
+        "audit/STEP3F_AFFINE_RELATIVE.json",
+        "audit/p1_family_degree_build",
+        "audit/ci/41728791345"
+      ]
     }
   ]
 }

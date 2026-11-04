@@ -1,0 +1,79 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSSecondDiagonalAlgebra",
+  "key": {
+    "source_sha256": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+    "imports": [
+      "Mathlib.RingTheory.Smooth.Basic",
+      "Mathlib.RingTheory.Finiteness.Projective",
+      "Mathlib.Analysis.Complex.Basic",
+      "Mathlib.Tactic"
+    ],
+    "dependency_artifacts": {
+      "Mathlib.RingTheory.Smooth.Basic": {
+        "sha256": "d8b1212c16bc35a0d9cbb79cb7f29a215c36776d8832a3feac0c755ff6c95929",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Finiteness.Projective": {
+        "sha256": "85516f3cd9816548f3c1d06790cf40fe37943e1e856d83437fd90ddec2727c4f",
+        "kind": "external"
+      },
+      "Mathlib.Analysis.Complex.Basic": {
+        "sha256": "74b1fe2c3e7ad6ac32ab05bb774fa62dabb48cc55d36158039503ed7f0c5e64c",
+        "kind": "external"
+      },
+      "Mathlib.Tactic": {
+        "sha256": "5a0509ad892c9b7d6d0939c9a1ecd9835fe206be561b3485a563860fcd7b0beb",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSSecondDiagonalAlgebra.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSSecondDiagonalAlgebra.lean"
+  ],
+  "started_utc": "2026-11-03T22:14:38.774126+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSSecondDiagonalAlgebra.20261103T221438774104.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSSecondDiagonalAlgebra.20261103T221438774104.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T22:14:43.200225+00:00",
+  "seconds": 4.426,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "d96fe896ccdc4f9a4eb99b26f79caaf103456e146385ce9cf0902871a8e1d938",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41728791345,
+    "source_artifact_name": "lebrun-takeover-kernel-41728791345-1",
+    "prior_receipt_sha256": "692b0098e9d7592e844a74554f4ff2a34835cb0c7165bbb77ae6c679920214e9",
+    "restored_utc": "2026-11-03T22:37:48.078312+00:00"
+  }
+}

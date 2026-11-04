@@ -1,0 +1,205 @@
+{
+  "schema": "lebrun-published-leaf-scope-audit-v1",
+  "date_utc": "2026-11-03",
+  "requested_statement": "For a proper flat scheme over a noetherian local ring, lift an arbitrary specified finite generating tuple inducing a closed immersion of the special fibre, assuming H1 of the fibre line bundle vanishes, preserving the specified projective dimension.",
+  "mathematical_verdict": "Valid by cohomology and base change, properness and the projective-space universal property.",
+  "published_leaf_eligibility": "The stronger arbitrary-tuple/H1-only packaging is not a literal statement of the checked Alper proposition or its displayed proof. No independent exact numbered theorem for that full packaging was found in this bounded search. It should be proved from smaller exact inputs, or narrowed to a literally documented hypothesis/construction.",
+  "sources": [
+    {
+      "url": "https://sites.math.washington.edu/~jarod/moduli-versions/moduli-8-19-24.pdf",
+      "locator": "Jarod Alper, Stacks and Moduli, draft 2024-08-19, Proposition B.2.10 and proof, printed pp486\u2013487, PDF pages492\u2013493 (zero-based)",
+      "checked_content": "Very-ampleness clause assumes vanishing of every positive cohomology group. The given proof assumes flatness, lifts a basis of H0 on the fibre to a basis nearby, constructs the map to the corresponding Pn, and shrinks to a closed immersion. It does not state the arbitrary prescribed tuple/H1-only version."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/05XA",
+      "locator": "Lemma76.49.3",
+      "checked_content": "For a commutative X\u2192Y\u2192Z diagram, if X\u2192Z is locally of finite type and universally closed and Y\u2192Z is separated, there is an open locus in Z universally characterized by the actual base-changed X\u2192Y being a closed immersion.",
+      "use": "Admissible exact generic primitive. Prove the local-base specialization and actual projective tuple map outside the admission."
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0D3D",
+      "locator": "Lemma74.13.2",
+      "checked_content": "Openness and base-change characterization of ampleness for a proper morphism and invertible sheaf.",
+      "limitation": "Does not state a specified projective dimension or a lifted generating tuple."
+    }
+  ],
+  "recommended_proof_boundary": [
+    "Exact generic canonical H0 base-change/surjectivity under proper flat finite-presentation and fibre cohomology hypotheses.",
+    "Choose preimages of the supplied tuple, and prove generation from its fibre using proper support and the local-base condition.",
+    "Use the existing canonical polynomial-Proj quotient universal property and prove base-change compatibility with the supplied fibre map.",
+    "Apply the generic closed-immersion locus theorem05XA; over a local base, an open containing the closed point is all of SpecA."
+  ],
+  "kernel_status": "Separated source/proof audit. Three new helpers have exact-byte native passes against frozen cdf ancestors; pending helpers and current full-graph acceptance are not counted as passed.",
+  "cohomology_followup": {
+    "status": "Exact primary H1-to-canonical-H0 comparison corollary found and verified in Robert AppendixA.1; actual project adapters remain explicit proof work.",
+    "alper": {
+      "url": "https://sites.math.washington.edu/~jarod/moduli-versions/moduli-5-21-24.pdf",
+      "locator": "Theorem A.6.8(a)-(b), printed p.452, PDF page index456",
+      "scope": "Proper finitely presented morphism; finitely presented quasi-coherent sheaf flat over the base; canonical comparison at an arbitrary point. Surjectivity in degree i gives local base-change isomorphisms, and degree i-1 surjectivity is equivalent to local freeness in degree i."
+    },
+    "ogus": {
+      "url": "https://math.berkeley.edu/~ogus/Math_256B-2017/Notes/basechange.pdf",
+      "locator": "Theorem8(1), printed p.4, PDF page index3; proof on printed p.5",
+      "scope": "Proper scheme over a Noetherian local ring; coherent relatively flat sheaf. Vanishing of closed-fibre H^q implies H^q(X,E tensor_A M)=0 for every A-module M.",
+      "publication_kind": "Primary author lecture notes; classical cohomology/base-change theorem, not an embedding theorem."
+    },
+    "remaining_translation": "Apply degree1 vanishing to the maximal ideal module, prove the actual flat tensor short exact sequence and identify the residue-field restriction map; the cohomology long exact sequence gives H0 restriction surjectivity. Alternatively use canonical base change, coherence and Nakayama before lifting the actual section tuple.",
+    "no_added_admission": true,
+    "robert_exact_h0_corollary": {
+      "url": "https://www.math.u-bordeaux.fr/~damienrobert/pro/publications/books/avtheory.pdf",
+      "title": "Damien Robert, Theory of abelian varieties and their moduli spaces",
+      "version": "March2021 text; displayed draft timestamp2023-03-07 18:13",
+      "locator": "AppendixA.1, LemmaA.1.1 and third corollary bullet, printedp81/PDFindex86; proof continuedprintedp82/PDFindex87",
+      "hypotheses": "Proper map between Noetherian schemes; coherent sheaf F flat over the base; H1 on the specified fibre is zero.",
+      "literal_conclusion": "The canonical degree-zero base-change map is an isomorphism; formation of f_*F commutes with arbitrary base change locally around the point and f_*F is locally free there.",
+      "verdict": "Exact primary stated corollary eligible for a generic canonical H0 input, with all assumptions retained. No polarized embedding or selected tuple is bundled.",
+      "remaining_formal_transports": [
+        "Supply Noetherian source, coherence and relative flatness for the actual finite locally free line over a proper flat Noetherian local base.",
+        "Relate the project Yoneda H1 predicate to actual H1 by the exact generic Ext comparison and proved splitting adapter.",
+        "Identify the actual degree-zero tensor map with section restriction; over a local affine base keep the stalk/global-section normalization explicit.",
+        "Apply the zero-admission residue tensor and tuple lifting proof, preserving the supplied tuple."
+      ]
+    }
+  },
+  "closed_immersion_locus_signature_review": {
+    "file": "root_work/LSClosedImmersionLocus.lean",
+    "sha256": "a4e4c4ab2267fe3cabd4424469d5ba61f09b92b798695bc47ca8895ac3172535",
+    "leaf": "LeBrunSalamon.PublishedInputs.ClosedImmersionLocus.exists_open",
+    "primary_url": "https://stacks.math.columbia.edu/tag/05XA",
+    "locator": "Lemma76.49.3",
+    "review": "Eligible generic published input. Properness implies the source assumptions of local finite type and universal closedness; separatedness of q matches. Actual cartesian squares and commuting equations specify the base-changed f. Image containment in a scheme open is its usual factorization condition. No polarized embedding is bundled.",
+    "proved_consequence": "of_local_closed_fibre uses the actual closed-point open-neighborhood criterion and adds no admission.",
+    "native_status": "Parent reports diagnostic pass5.230s. This independent review is mathematical source eligibility, not a replacement for its compiler receipt or current graph acceptance."
+  },
+  "standard_tautological_followup": {
+    "status": "Generic normalized tautological data passed native checking. P1 marked-O1 adapter remains pending after short wall caps; longer 90\u2013120s replay queued. Split normalized public constructor is drafted and unchecked.",
+    "sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01MM",
+        "locator": "Definition27.10.1; Lemma27.10.2 (Tag01MS), multiplication-by-Xi frame; Lemma27.10.3 (Tag01MT)",
+        "scope": "The canonical O(1) on polynomial Proj is invertible; on D+(Xi), multiplication by Xi supplies its frame and the actual Xj section has coefficient Xj/Xi."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/01ND",
+        "locator": "Lemma27.13.1 and relative statement immediately after Definition27.13.2",
+        "scope": "The same canonical O(1) and coordinate sections represent generating invertible quotients over the base."
+      }
+    ],
+    "new_generic_leaf": "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+    "leaf_contains_project_mark_or_degree": false,
+    "project_adapter": "Compute actual standard chart coefficients, derive the Laurent transition T, and glue to the existing marked projectiveTwist degree1 frames. Degree1 follows from the actual sheaf isomorphism.",
+    "selection_requirement": "Replace the public def projectiveCoordinates by the explicit normalized record constructor. Changing only the Nonempty existence proof does not identify Classical.choice of that record.",
+    "old_input_plan": "Replace the old universalInvertibleQuotient admission by projection of the normalized generic data; the draft uses an independent generic module to avoid an import cycle.",
+    "drafts": [
+      {
+        "file": "published_leaf_work/LSStandardTautological.lean",
+        "sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+        "status": "native_pass_frozen_cdf"
+      },
+      {
+        "file": "published_leaf_work/LSStandardTautologicalP1.lean",
+        "sha256": "150ada97e226eccdaf69426f276042e01928ccd550c89ec58e524e809d93182a",
+        "status": "pending"
+      },
+      {
+        "file": "published_leaf_work/LSNormalizedProjectiveConstructor.lean",
+        "sha256": "9053e7aa51223c7fcdef874c74f05c835cf0387af7485bf3181ad3a2e210362e",
+        "status": "pending"
+      },
+      {
+        "file": "published_leaf_work/LSNormalizedProjectiveCoordinates.lean",
+        "sha256": "9f21bfc3ef513a85c8a21cfbe367c1b5291dae3b67282ea1f7d72461b2ca7ff2",
+        "status": "pending"
+      },
+      {
+        "file": "published_leaf_work/LSResidueTensorLift.lean",
+        "sha256": "8431d2f77c020993f7034a71bdf92bebb970ed878271c4c869cabfd34c8cb2dd",
+        "status": "native_pass_frozen_cdf"
+      }
+    ],
+    "full_current_graph_acceptance": false,
+    "native_evidence": "audit/tautological_lifting_build/first_pass_20261103T234611/"
+  },
+  "yoneda_comparison_followup": {
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/0B3A",
+        "locator": "Lemma20.5.1",
+        "statement": "Canonical Ext1_Mod(O)(O,F) to H1(X,F) bijection, specified by the connecting image of1."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/06XU",
+        "locator": "Lemmas13.27.5 and13.27.6",
+        "statement": "Every derived Ext1 class is represented by an actual short exact Yoneda extension; equality is extension equivalence."
+      }
+    ],
+    "actual_predicate": "LeBrunSalamon.PhaseThirtyTwo.HasVanishingFirstCohomology",
+    "adapter_file": "published_leaf_work/LSYonedaExtensionSplitting.lean",
+    "adapter_status": "LSYonedaExtensionSplitting passed native checking (3.926s, exact source SHA489e6b14c8028c55aa9c18b5fc69d385fa7cca0c08357ce311d3207adfe42421). No admission. The class-representation hypothesis is now supplied by a separate no-admission proof candidate using enough injectives and actual pullback extensions; native check pending.",
+    "remaining_adapter": "Native-check LSYonedaClassesRepresented and the actual sheaf H1 comparison adapter. The only contemplated comparison input is the general Ext1(O,E)-H1 theorem0B3A; Ext representation itself is proved.",
+    "no_chosen_line_embedding_admitted": true
+  },
+  "updated_utc": "2026-11-04T00:00:20.476949+00:00",
+  "h0_adapter_work": {
+    "status": "All below are off-graph candidates; no native pass claimed.",
+    "drafts": [
+      {
+        "file": "published_leaf_work/LSCanonicalSectionBaseChange.lean",
+        "sha256": "ce8f974e5766280d481baaccf97dd395c83da41a694f9e936923b4681b11f4dc",
+        "direct_sorry_count": 0
+      },
+      {
+        "file": "published_leaf_work/LSCohomologyHypotheses.lean",
+        "sha256": "9d1108ffbc3d4512fcf3c111af69aceae1c609dcd0efa6c7146ac3a1ed99e192",
+        "direct_sorry_count": 0
+      },
+      {
+        "file": "published_leaf_work/LSYonedaClassesRepresented.lean",
+        "sha256": "46933a71452f38f8f8b1a4b99becb09268e43392885ba38c3cf8b0af444d9f25",
+        "direct_sorry_count": 0
+      },
+      {
+        "file": "published_leaf_work/LSLineStalkFlat.lean",
+        "sha256": "81ab10f248b977f9ffff1028e141390099837e770a11203dd052feb7a4164d9d",
+        "direct_sorry_count": 0
+      },
+      {
+        "file": "published_leaf_work/LSPublishedCohomologyBaseChange.lean",
+        "sha256": "b0c50e8817eecce122856b8def51dcb43e692aade6adeef213029e75218bc032",
+        "direct_sorry_count": 3
+      }
+    ],
+    "generic_published_inputs": [
+      "Stacks01XZ: actual coherence definition iff finite presentation on locally Noetherian schemes",
+      "Stacks0B3A: actual Ext1(O,E) bijection to H1 of underlying additive sheaf; no unproved additivity assertion needed for subsingletonness",
+      "RobertA.1.1 third corollary: canonical beta0 over a Noetherian local base with coherent relatively-flat sheaf and H1(fibre)=0"
+    ],
+    "explicit_proof_transports": [
+      "Proper over Spec of Noetherian ring implies Noetherian source",
+      "Finite-rank witness gives finite presentation through finite generators and zero relations",
+      "Enough-injective resolution plus actual pullback extension represents each Ext1 class",
+      "Actual local frame generator gives a stalk linear equivalence by germ representatives",
+      "Flat scheme stalk map composed with the free line stalk gives relative flatness",
+      "Canonical tensor map is q*(scalar) times actual pullSection and its tensor-with-1 value is the original restriction",
+      "Residue tensor surjectivity lifts the exact supplied finite tuple"
+    ],
+    "remaining_source_review": "Confirm the local affine/stalk-global beta0 presentation is the actual canonical map; no chosen embedding statement is an admitted leaf."
+  },
+  "closed_union_review": {
+    "primary_sources": [
+      {
+        "url": "https://stacks.math.columbia.edu/tag/0C4I",
+        "locator": "Lemma29.4.5",
+        "scope": "Actual scheme-theoretic intersection of closed subschemes is their ambient fibre product; intersection ideal is the sum."
+      },
+      {
+        "url": "https://stacks.math.columbia.edu/tag/0C4J",
+        "locator": "Lemma29.4.6",
+        "scope": "Actual scheme-theoretic union is their pushout in Schemes; union ideal is the intersection. No Noetherian/separatedness hypothesis."
+      }
+    ],
+    "eligibility": "The proposed primitive for the literal ideal union is exact. Transport from another supplied pushout must be proved, and the node square must be cartesian over the ambient, not merely a set intersection.",
+    "short_exact_sequence_scope": "The displayed sequence is in O_ambient-modules via closed pushforward.",
+    "implementation_status": "Parent draft; independent source audit only."
+  }
+}

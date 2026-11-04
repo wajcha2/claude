@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T09:04:02Z",
-  "frozen_utc": "2026-11-04T09:04:02Z",
-  "parent_commit": "d60b82e938a5dbcb5cbbef196a4f13e8276070fd",
-  "base_tree": "3eb37d179c319d57cdc862e7726bc0090d35be5a",
+  "announced_utc": "2026-11-04T09:06:29Z",
+  "frozen_utc": "2026-11-04T09:06:29Z",
+  "parent_commit": "11a955a58952198cd3f552b1f383c8cc6874613c",
+  "base_tree": "215755a1f5cc3aee11ef5dd053ae0790d51be3fb",
   "repository": "wajcha2/claude",
   "branch": "codex/lebrun-model-frontier-20261104",
-  "source_modules": 280,
+  "source_modules": 281,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -282,24 +282,25 @@
     "source/RecompileTail.lean": "006e79155c7ad36f5ebe27a38624d7588a8bac9986bced1fc4748b248a58a937",
     "source/LSFamilyDescentTransport.lean": "4d2bcfb20815846115d3368087edde9a13f64f3d392d9258cee2f8149e2a888f",
     "source/LSFamilyDescentFibres.lean": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28",
-    "source/LSFamilyDescentReparametrization.lean": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4",
+    "source/LSFamilyDescentReparametrization.lean": "339790da353666ee38d995326c106da721a1caa927a52fc4c76376d31cfe6080",
     "source/LSOpenSectionTransport.lean": "2ccfc2b88329ca2a2b0b392e99a0af9a8e338a261136e3e2f97a6fbc2fa8c862",
     "source/LSCartesianSourceDifferential.lean": "ce4b84494cffdcebbf2682da81d3b3c0c77f1a60e8f540350ba2dc91c7a72d8c",
     "source/LSModelSourceProductTransport.lean": "95e73ed916ce7d46610c4287113a9387c9c7537340d08354837b3dbb4efa0e7b",
     "source/LSFamilySmoothCoordinates.lean": "fd3915430a3d996a4b94ca555120262c27a691663c646fdc756361ebcaa2df0d",
-    "source/LSFamilyCurveProductDirect.lean": "8b8012e3d9e7bfb36063c98904f818a92b36cb9acc3c90379a6f148d3e3db6a2"
+    "source/LSFamilyCurveProductDirect.lean": "8b8012e3d9e7bfb36063c98904f818a92b36cb9acc3c90379a6f148d3e3db6a2",
+    "source/LSFamilyExternalProductMap.lean": "5e8a6fba99f7e0e39763e52059ffd3440bc79c31cb0238e30f818124627eb656"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "pending_native_smooth_coordinate_repair",
+  "status": "pending_native_original_reparametrization_direct_candidate",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Rechecks five proof-region repairs addressing the eight completed native SmoothCoordinates diagnostics, with all34 public statements unchanged. Adds the already-stock-passed optimized direct helper without changing any original reparametrization wrapper. The model-tail job on d60b remains independently running.",
+  "scope": "Checks a new generic external-product map helper and preserves its early artifact, then checks exactly the six original reparametrization statements with the stock-passed8b direct-product helper. The measured previous600-second cap is retained for this materially changed proof. Remaining original family tail is not selected. Local180-second incomplete diagnostic is preserved without a pass claim.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -319,7 +320,8 @@
   "point1_accepted": false,
   "whole_source_graph_passed": false,
   "selected_native_targets": [
-    "LSFamilySmoothCoordinates"
+    "LSFamilyExternalProductMap",
+    "LSFamilyDescentReparametrization"
   ],
   "prior_native_receipt_union": 269
 }

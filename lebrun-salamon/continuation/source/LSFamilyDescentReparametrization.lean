@@ -1,10 +1,12 @@
 import LSFamilyDescentFibres
+import LSFamilyExternalProductMap
+import LSFamilyCurveProductDirect
 
 /-!
 # Source reparametrization and its canonical external comparison.
 
-This namespace block is extracted verbatim from the candidate descent
-source. Public names, statements and proof bodies are retained. The preceding
+Public names and statements are retained from the candidate descent source.
+The final comparison uses opaque generic product-map naturality; the preceding
 transport blocks are imported so each completed native output can be reused.
 -/
 
@@ -88,17 +90,30 @@ theorem compared_of_expansion {E F : OModule X.variety.scheme}
   simp only [Preadditive.sum_comp, SectionTransport.pull_sum, mixedPull_product]
   apply Finset.sum_congr rfl
   intro i hi
-  have hp := RelativeSquare.product_atCurve P.structureMap P X.variety
-    (𝟙 ComplexBase) f.map (by simpa only [Category.comp_id] using f.overC)
-    e.hom g hg.symm (curveSquareMap P (curve P e he))
-    (curveSquareMap_first P (curve P e he))
-    (curveSquareMap_second P (curve P e he))
-    (square_comp P e he X f g hg) (a i) (b i)
+  let k : SelfProduct P.structureMap ⟶ SelfProduct P.structureMap :=
+    curveSquareMap P (curve P e he)
+  have hk₁ : k ≫ firstProjection P.structureMap =
+      firstProjection P.structureMap ≫ e.hom :=
+    curveSquareMap_first P (curve P e he)
+  have hk₂ : k ≫ secondProjection P.structureMap =
+      secondProjection P.structureMap ≫ e.hom :=
+    curveSquareMap_second P (curve P e he)
+  have hk : k ≫ curveSquareMap P f = curveSquareMap P g :=
+    square_comp P e he X f g hg
+  have hp := CurveProductDirect.product_atCurve P X.variety f g e.hom
+    hg.symm k hk₁ hk₂ hk (a i) (b i)
     (pullSection e.hom (a i) ≫ (compositionPullback e.hom f.map g.map hg.symm E).hom)
     (pullSection e.hom (b i) ≫ (compositionPullback e.hom f.map g.map hg.symm F).hom)
     rfl rfl
-  simpa only [externalProductSection, externalTensorMap, tensorSection_map,
-    pullSection_naturality] using hp
+  have hm := congrArg
+    (fun q : AlgebraicSection (externalTensor P.structureMap
+        (pullbackModule g.map E) (pullbackModule g.map F)) =>
+      q ≫ curveExternalComparison P g E F)
+    (ExternalProductFunctoriality.product_map P.structureMap
+      (pullSection e.hom (a i)) (pullSection e.hom (b i))
+      (compositionPullback e.hom f.map g.map hg.symm E).hom
+      (compositionPullback e.hom f.map g.map hg.symm F).hom)
+  exact hp.trans hm.symm
 
 /-- Reparametrization invariance in the actual target bundle, including
 all the canonical composition and external-product comparisons. -/
@@ -113,10 +128,12 @@ theorem leftSection :
       externalProductSection P.structureMap
         (E.left i ≫ Curve.differential P X f)
         (E.right i ≫ curveContactVelocity P X.contact f) := by
-    rw [Curve.leftRaw]
-    conv_lhs => rw [E.equation]
-    simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
-      tensorSection_map, pullSection_naturality]
+    letI := curveExternalComparison_isIso P f
+      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf
+    apply (cancel_mono (curveExternalComparison P f
+      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf)).mp
+    simpa only [Curve.leftSection, Preadditive.sum_comp] using
+      Curve.leftSection_expansion P X f E
   rw [Curve.leftSection, compared_of_expansion P e he X f g hg
     (Curve.leftRaw P X f) _ _ hB, leftRaw P e he X f g hg]
   rfl
@@ -132,10 +149,12 @@ theorem rightSection :
       externalProductSection P.structureMap
         (E.left i ≫ curveContactVelocity P X.contact f)
         (E.right i ≫ Curve.differential P X f) := by
-    rw [Curve.rightRaw]
-    conv_lhs => rw [E.equation]
-    simp only [Preadditive.sum_comp, externalProductSection, externalTensorMap,
-      tensorSection_map, pullSection_naturality]
+    letI := curveExternalComparison_isIso P f X.contact.sequence.line.sheaf
+      (tangentSheaf X.variety.structureMap)
+    apply (cancel_mono (curveExternalComparison P f X.contact.sequence.line.sheaf
+      (tangentSheaf X.variety.structureMap))).mp
+    simpa only [Curve.rightSection, Preadditive.sum_comp] using
+      Curve.rightSection_expansion P X f E
   rw [Curve.rightSection, compared_of_expansion P e he X f g hg
     (Curve.rightRaw P X f) _ _ hB, rightRaw P e he X f g hg]
   rfl

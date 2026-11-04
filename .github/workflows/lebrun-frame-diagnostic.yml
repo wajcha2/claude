@@ -24,16 +24,16 @@ jobs:
       - name: Restore pinned stock runtime
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download coherent cloud247 evidence
+      - name: Download the exact validated v3 closure evidence
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-takeover-kernel-41775309669-1
-          run-id: 41775309669
+          name: lebrun-coordinates-refined-41780075490-1
+          run-id: 41780075490
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/lebrun-prior-evidence
       - name: Restore only exact current ancestry and runtime matches
         run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41775309669 --source-artifact-name lebrun-takeover-kernel-41775309669-1
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41780075490 --source-artifact-name lebrun-coordinates-refined-41780075490-1
       - name: Check the generic helpers and concrete coordinate/model closure
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFrameTransport --module LSTangentFrameCoordinates --module LSModelGeometry --module LSModelDifferential --keep-going --timeout 300

@@ -122,6 +122,11 @@ theorem coordinateVector_action (a : RingSections ProjectiveLine U) :
     chartAlgebraEquiv (frame.coefficient coordinateVector) = _
   rw [coordinateVector_coefficient, map_one, mul_one]
 
+private theorem coordinateVector_ring_action (a : RingSections ProjectiveLine U) :
+    polynomialChartRingEquiv 0 (tangentActs P.structureMap U coordinateVector a) =
+      (polynomialChartRingEquiv 0 a).derivative :=
+  coordinateVector_action a
+
 /-- The polynomial coefficient of an actual global tangent section. -/
 def polynomial (a : AlgebraicSection TangentLine.sheaf) : Polynomial ℂ :=
   chartAlgebraEquiv (frame.localCoefficient a)
@@ -136,8 +141,10 @@ theorem twistFrame_polynomial
     (a : AlgebraicSection TangentLine.sheaf) :
     chartAlgebraEquiv ((twistFrame e).localCoefficient a) =
       (algebraicMatchingEquiv P Lines.marking 2 (a ≫ e.hom)).val.1 := by
-  rw [twistFrame, FrameTransport.frame_localCoefficient, algebraicMatchingEquiv_fst]
-  rfl
+  rw [algebraicMatchingEquiv_fst]
+  exact congrArg (polynomialChartRingEquiv 0)
+    (FrameTransport.frame_localCoefficient e U (chartOpen_affine 0)
+      (coordinates (twistOverFrame P Lines.marking 2 0)) a)
 
 /-- The degree bound is transported from the actual Laurent matching
 space. Two frames on Spec C[z] differ by a constant unit, so the
@@ -152,11 +159,16 @@ theorem polynomial_natDegree_le (a : AlgebraicSection TangentLine.sheaf) :
   obtain ⟨c, hc, heq⟩ := Polynomial.isUnit_iff.mp hu
   have hpoly : polynomial a = Polynomial.C c *
       (algebraicMatchingEquiv P Lines.marking 2 (a ≫ e.hom)).val.1 := by
-    change chartAlgebraEquiv
-      (frame.coefficient (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U))) = _
-    rw [hq, map_mul, ← heq]
-    rw [← twistFrame_polynomial]
-    rfl
+    let l : RingSections ProjectiveLine U := frame.localCoefficient a
+    let r : RingSections ProjectiveLine U := (twistFrame e).localCoefficient a
+    have hcoef : l = (q : RingSections ProjectiveLine U) * r :=
+      hq (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U))
+    have hp := congrArg (polynomialChartRingEquiv 0) hcoef
+    have hq' : polynomialChartRingEquiv 0 (q : RingSections ProjectiveLine U) =
+        Polynomial.C c := heq.symm
+    rw [map_mul, hq'] at hp
+    exact hp.trans (congrArg (fun z : Polynomial ℂ => Polynomial.C c * z)
+      (twistFrame_polynomial e a))
   rw [hpoly]
   calc
     _ ≤ (Polynomial.C c).natDegree +
@@ -180,27 +192,30 @@ theorem polynomial_value : ∑ i, left i * right i = 0 := by
     left, right, polynomial] using h
 
 theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by
+  let lc : AlgebraicSection TangentLine.sheaf → RingSections ProjectiveLine U :=
+    fun a => frame.localCoefficient a
   have h := expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector
-  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *
-      tangentActs P.structureMap U coordinateVector
-        (frame.localCoefficient (expansion.right i))) = (0 : RingSections ProjectiveLine U) at h
-  have hp := congrArg chartAlgebraEquiv h
-  simpa only [map_sum, map_mul, map_zero,
-    coordinateVector_action, left, right, polynomial] using hp
+  change (∑ i, lc (expansion.left i) *
+      tangentActs P.structureMap U coordinateVector (lc (expansion.right i))) =
+    (0 : RingSections ProjectiveLine U) at h
+  have hp := congrArg (polynomialChartRingEquiv 0) h
+  simp only [map_sum, map_mul, map_zero, coordinateVector_ring_action] at hp
+  exact hp
 
 theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by
+  let lc : AlgebraicSection TangentLine.sheaf → RingSections ProjectiveLine U :=
+    fun a => frame.localCoefficient a
+  let k : RingSections ProjectiveLine U := frame.coefficient coordinateVector
+  have hk : k = 1 := coordinateVector_coefficient
   have h := kernel.expansion_normalized frame coordinateVector coordinateVector
-  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *
-        tangentActs P.structureMap U coordinateVector
-          (tangentActs P.structureMap U coordinateVector
-            (frame.localCoefficient (expansion.right i)))) =
-    (2 : RingSections ProjectiveLine U) *
-      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) *
-      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) at h
-  have hp := congrArg chartAlgebraEquiv h
-  simpa only [map_sum, map_mul, coordinateVector_action,
-    coordinateVector_coefficient, map_one, map_ofNat, mul_one,
-    left, right, polynomial] using hp
+  change (∑ i, lc (expansion.left i) *
+      tangentActs P.structureMap U coordinateVector
+        (tangentActs P.structureMap U coordinateVector (lc (expansion.right i)))) =
+    (2 : RingSections ProjectiveLine U) * k * k at h
+  rw [hk, mul_one, mul_one] at h
+  have hp := congrArg (polynomialChartRingEquiv 0) h
+  simp only [map_sum, map_mul, map_ofNat, coordinateVector_ring_action] at hp
+  exact hp
 
 namespace QuadraticAlgebra
 
@@ -287,20 +302,26 @@ def polynomialMap (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT)
 
 theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine)
     (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) :
-    polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤) := by
+    polynomialMap sT f hf hU = Polynomial.aeval (R := ℂ) (A := Coefficients sT ⊤) (f.appLE U ⊤ hU coordinate) := by
   apply Polynomial.algHom_ext
-  rw [Polynomial.aeval_X]
-  rfl
+  exact (Polynomial.aeval_X (R := ℂ) (A := Coefficients sT ⊤)
+    (f.appLE U ⊤ hU coordinate)).symm
 
 theorem coefficient_evaluation (f : T ⟶ ProjectiveLine)
     (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U)
     (a : AlgebraicSection TangentLine.sheaf) :
     f.appLE U ⊤ hU (frame.localCoefficient a) =
-      Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤) (polynomial a) := by
-  rw [← polynomialMap_eq_aeval sT f hf hU]
-  change _ = f.appLE U ⊤ hU (chartAlgebraEquiv.symm
-    (chartAlgebraEquiv (frame.localCoefficient a)))
-  rw [AlgEquiv.symm_apply_apply]
+      Polynomial.aeval (R := ℂ) (A := Coefficients sT ⊤) (f.appLE U ⊤ hU coordinate) (polynomial a) := by
+  have he := congrArg
+    (fun k : Polynomial ℂ →ₐ[ℂ] Coefficients sT ⊤ => k (polynomial a))
+    (polynomialMap_eq_aeval sT f hf hU)
+  have hp : polynomialMap sT f hf hU (polynomial a) =
+      f.appLE U ⊤ hU (frame.localCoefficient a) := by
+    change f.appLE U ⊤ hU (chartAlgebraEquiv.symm
+      (chartAlgebraEquiv (frame.localCoefficient a))) = _
+    exact congrArg (f.appLE U ⊤ hU)
+      (chartAlgebraEquiv.symm_apply_apply (frame.localCoefficient a))
+  exact hp.symm.trans he
 
 /-- The polynomial formula with literal structure-sheaf pullback maps.
 There is no reducedness or finite-type assumption on the test scheme. -/

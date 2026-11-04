@@ -1,0 +1,258 @@
+{
+  "schema": "lebrun-remote-native-summary-v1",
+  "run_id": 41780075490,
+  "job_id": 126409366523,
+  "commit": "7c278f8e43d59625741420f4dfaadd63a36e2ed4",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "7c278f8e43d59625741420f4dfaadd63a36e2ed4",
+      "source_modules": 272,
+      "selected_modules": 199,
+      "accepted_modules": 194,
+      "failed_modules": [
+        "LSP1BivectorCoordinates"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 185,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSP1BivectorCoordinates",
+      "status": "failed",
+      "source_sha256": "66bd6eec6dc154b26785a92d930c5be316c85d2aa0019a75ece1333c41929939",
+      "return_code": 1,
+      "seconds": 14.506,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Failed to rewrite using equation theorems for `twistFrame`",
+          "endPos": {
+            "column": 16,
+            "line": 139
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 139
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  frame.coefficient ?a\nin the target expression\n  chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app a U)) 1)) =\n    Polynomial.C c * (↑((algebraicMatchingEquiv P Lines.marking 2) (a ≫ e.hom))).1\n\na : AlgebraicSection TangentLine.sheaf\ne : tangentSheaf P.structureMap ≅ (projectiveTwist P Lines.marking 2).sheaf\nq : (RingSections ProjectiveLine U)ˣ\nhq : ∀ (a : SectionsOn TangentLine.sheaf U), frame.coefficient a = ↑q * (twistFrame e).coefficient a\nright✝ :\n  ∀ (y : (RingSections ProjectiveLine U)ˣ),\n    (fun q => ∀ (a : SectionsOn TangentLine.sheaf U), frame.coefficient a = ↑q * (twistFrame e).coefficient a) y → y = q\nhu : IsUnit (chartAlgebraEquiv ↑q)\nc : ℂ\nhc : IsUnit c\nheq : Polynomial.C c = chartAlgebraEquiv ↑q\n⊢ chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app a U)) 1)) =\n    Polynomial.C c * (↑((algebraicMatchingEquiv P Lines.marking 2) (a ≫ e.hom))).1\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    SheafOfModules.unit ProjectiveLine.ringCatSheaf\n  has type\n    SheafOfModules ProjectiveLine.ringCatSheaf\n  but is expected to have type\n    ProjectiveLine.Modules\n  in the application\n    Scheme.Modules.presheaf (SheafOfModules.unit ProjectiveLine.ringCatSheaf)",
+          "endPos": {
+            "column": 10,
+            "line": 157
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 157
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine frame.openSet) (RingSections ProjectiveLine U) ?m.50\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 52,
+            "line": 186
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 15,
+            "line": 184
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine frame.openSet) (RingSections ProjectiveLine U) ?m.51\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 57,
+            "line": 196
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 15,
+            "line": 193
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine U) (RingSections ProjectiveLine frame.openSet) ?m.63\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 74,
+            "line": 198
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 4,
+            "line": 197
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  Algebra ℂ ↑Γ(T, ⊤)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 95,
+            "line": 290
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 31,
+            "line": 290
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (Polynomial.aeval ?x) Polynomial.X\nin the target expression\n  (polynomialMap sT f hf hU) Polynomial.X =\n    (Polynomial.aeval ((ConcreteCategory.hom (Scheme.Hom.appLE f U ⊤ hU)) coordinate)) Polynomial.X\n\nT : Scheme\nsT : T ⟶ ComplexBase\nf : T ⟶ ProjectiveLine\nhf : f ≫ P.structureMap = sT\nhU : ⊤ ≤ f ⁻¹ᵁ U\n⊢ (polynomialMap sT f hf hU) Polynomial.X =\n    (Polynomial.aeval ((ConcreteCategory.hom (Scheme.Hom.appLE f U ⊤ hU)) coordinate)) Polynomial.X\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    coefficientsAlgebra sT ⊤\n  has type\n    Algebra ℂ (Coefficients sT ⊤)\n  but is expected to have type\n    Algebra ℂ ↑Γ(T, ⊤)\n  in the application\n    @Polynomial.aeval ℂ (↑Γ(T, ⊤)) Complex.instCommSemiring CommRing.toCommSemiring.toSemiring\n      (coefficientsAlgebra sT ⊤)",
+          "endPos": {
+            "column": 24,
+            "line": 292
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 292
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  Algebra ℂ ↑Γ(T, ⊤)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 85,
+            "line": 299
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 6,
+            "line": 299
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "new_passes": [
+    {
+      "module": "LSTangentFrameCoordinates",
+      "receipt_sha256": "873751ba5300843e6b3b1f0c2cacca8e1a2ce3f4c6bea7a0be6c9bbfd6d6d99e",
+      "key": {
+        "source_sha256": "08e394c7074a53885fb23afdf85ea4dda392dae25a5faa17ad286dcf4c1acb3d",
+        "imports": [
+          "RecompileSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7b5cb850af7a53fb16a4526420baee1169c20a786cae75870670d014c6e8c4cb",
+      "source_ancestry_fingerprint": "5621be97a0f545363d6d769ce8b1569ea44acaaf18b21e0c24629041495b019c",
+      "seconds": 2.827,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFrameTransport",
+      "receipt_sha256": "bf854fc17c89eb9b398eb296d6a58ad3579349458fdba8dad898a5930290a37e",
+      "key": {
+        "source_sha256": "17910cf565eb2cee8123b5833f7b9d0074c1cc2b04bede76e5bf5ed783923c1e",
+        "imports": [
+          "RecompileExtensionsPart01"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart01": {
+            "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "80e7f8f691269b0947c7865facee380530d3f906ef96b82dbcad51d94dbe3678",
+      "source_ancestry_fingerprint": "e6bc58e31da40a362bac51e4f15d73633483ec5920ced7df8d9619b970be23ac",
+      "seconds": 3.837,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13298244082,
+      "name": "lebrun-coordinates-refined-41780075490-1",
+      "size_in_bytes": 62511621,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13298244082",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13298244082/zip",
+      "expired": false,
+      "created_at": "2026-11-04T05:36:21Z",
+      "expires_at": "2027-02-02T05:34:28Z",
+      "updated_at": "2026-11-04T05:36:21Z",
+      "digest": "sha256:f17b327c15da7cdd87316e2e5a797466682348a738b5d088e7db5b8ebf676584",
+      "workflow_run": {
+        "id": 41780075490,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-coordinates-refined-20261104",
+        "head_sha": "7c278f8e43d59625741420f4dfaadd63a36e2ed4"
+      }
+    }
+  ],
+  "scope": "194 of199 selected accepted; eight ordinary Coordinates diagnostics in14.506seconds. Both exact generic helpers passed, with no invalidated source/runtime/output/ancestry stamps."
+}

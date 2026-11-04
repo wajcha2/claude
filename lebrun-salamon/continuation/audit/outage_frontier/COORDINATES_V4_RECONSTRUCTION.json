@@ -1,0 +1,308 @@
+{
+  "schema": "lebrun-coordinates-guarded-v4",
+  "created_utc": "2026-11-04T05:44:54.009Z",
+  "repository": "wajcha2/claude",
+  "source_path": "lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+  "exact_parent_commit": "7c278f8e43d59625741420f4dfaadd63a36e2ed4",
+  "exact_parent_sha256": "66bd6eec6dc154b26785a92d930c5be316c85d2aa0019a75ece1333c41929939",
+  "parent_record_blob": "0c7f290a426a4e41c3491a55d8651b9e7df62a35",
+  "candidate_git_blob_sha": "c489c4a93e8f56054c64361a9b399f25e7129452",
+  "statistics": {
+    "sha256": "32e799bc50a231811ca218bfc26154d7066d92bfe494e336c9aa6477eae1c634",
+    "bytes": 24839,
+    "lines": 492,
+    "admissions": 0
+  },
+  "patches": [
+    {
+      "id": "D01_direct_generic_frame_equality",
+      "before": "  rw [twistFrame, FrameTransport.frame_localCoefficient, algebraicMatchingEquiv_fst]\n  rfl",
+      "after": "  rw [algebraicMatchingEquiv_fst]\n  exact congrArg (polynomialChartRingEquiv 0)\n    (FrameTransport.frame_localCoefficient e U (chartOpen_affine 0)\n      (coordinates (twistOverFrame P Lines.marking 2 0)) a)",
+      "match_count": 1
+    },
+    {
+      "id": "D02_direct_typed_frame_change",
+      "before": "    change chartAlgebraEquiv\n      (frame.coefficient (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U))) = _\n    rw [hq, map_mul, ← heq]\n    rw [← twistFrame_polynomial]\n    rfl",
+      "after": "    let l : RingSections ProjectiveLine U := frame.localCoefficient a\n    let r : RingSections ProjectiveLine U := (twistFrame e).localCoefficient a\n    have hcoef : l = (q : RingSections ProjectiveLine U) * r :=\n      hq (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U))\n    have hp := congrArg (polynomialChartRingEquiv 0) hcoef\n    have hq' : polynomialChartRingEquiv 0 (q : RingSections ProjectiveLine U) =\n        Polynomial.C c := heq.symm\n    rw [map_mul, hq'] at hp\n    exact hp.trans (congrArg (fun z : Polynomial ℂ => Polynomial.C c * z)\n      (twistFrame_polynomial e a))",
+      "match_count": 1
+    },
+    {
+      "id": "D03_plain_ring_derivative_accessor",
+      "before": "/-- The polynomial coefficient of an actual global tangent section. -/\ndef polynomial",
+      "after": "private theorem coordinateVector_ring_action (a : RingSections ProjectiveLine U) :\n    polynomialChartRingEquiv 0 (tangentActs P.structureMap U coordinateVector a) =\n      (polynomialChartRingEquiv 0 a).derivative :=\n  coordinateVector_action a\n\n/-- The polynomial coefficient of an actual global tangent section. -/\ndef polynomial",
+      "match_count": 1
+    },
+    {
+      "id": "D04_first_symbol_typed_local_coefficients",
+      "before": "theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by\n  have h := expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector\n  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *\n      tangentActs P.structureMap U coordinateVector\n        (frame.localCoefficient (expansion.right i))) = (0 : RingSections ProjectiveLine U) at h\n  have hp := congrArg chartAlgebraEquiv h\n  simpa only [map_sum, map_mul, map_zero,\n    coordinateVector_action, left, right, polynomial] using hp",
+      "after": "theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by\n  let lc : AlgebraicSection TangentLine.sheaf → RingSections ProjectiveLine U :=\n    fun a => frame.localCoefficient a\n  have h := expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector\n  change (∑ i, lc (expansion.left i) *\n      tangentActs P.structureMap U coordinateVector (lc (expansion.right i))) =\n    (0 : RingSections ProjectiveLine U) at h\n  have hp := congrArg (polynomialChartRingEquiv 0) h\n  simp only [map_sum, map_mul, map_zero, coordinateVector_ring_action] at hp\n  exact hp",
+      "match_count": 1
+    },
+    {
+      "id": "D05_second_symbol_typed_local_coefficients",
+      "before": "theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by\n  have h := kernel.expansion_normalized frame coordinateVector coordinateVector\n  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *\n        tangentActs P.structureMap U coordinateVector\n          (tangentActs P.structureMap U coordinateVector\n            (frame.localCoefficient (expansion.right i)))) =\n    (2 : RingSections ProjectiveLine U) *\n      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) *\n      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) at h\n  have hp := congrArg chartAlgebraEquiv h\n  simpa only [map_sum, map_mul, coordinateVector_action,\n    coordinateVector_coefficient, map_one, map_ofNat, mul_one,\n    left, right, polynomial] using hp",
+      "after": "theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by\n  let lc : AlgebraicSection TangentLine.sheaf → RingSections ProjectiveLine U :=\n    fun a => frame.localCoefficient a\n  let k : RingSections ProjectiveLine U := frame.coefficient coordinateVector\n  have hk : k = 1 := coordinateVector_coefficient\n  have h := kernel.expansion_normalized frame coordinateVector coordinateVector\n  change (∑ i, lc (expansion.left i) *\n      tangentActs P.structureMap U coordinateVector\n        (tangentActs P.structureMap U coordinateVector (lc (expansion.right i)))) =\n    (2 : RingSections ProjectiveLine U) * k * k at h\n  rw [hk, mul_one, mul_one] at h\n  have hp := congrArg (polynomialChartRingEquiv 0) h\n  simp only [map_sum, map_mul, map_ofNat, coordinateVector_ring_action] at hp\n  exact hp",
+      "match_count": 1
+    },
+    {
+      "id": "D06_pin_aeval_type_parameters",
+      "expected_matches": 2,
+      "before": "Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤)",
+      "after": "Polynomial.aeval (R := ℂ) (A := Coefficients sT ⊤) (f.appLE U ⊤ hU coordinate)",
+      "match_count": 2
+    },
+    {
+      "id": "D07_direct_aeval_X_proof",
+      "before": "  apply Polynomial.algHom_ext\n  rw [Polynomial.aeval_X]\n  rfl",
+      "after": "  apply Polynomial.algHom_ext\n  exact (Polynomial.aeval_X (R := ℂ) (A := Coefficients sT ⊤)\n    (f.appLE U ⊤ hU coordinate)).symm",
+      "match_count": 1
+    },
+    {
+      "id": "D08_direct_map_evaluation_equality",
+      "before": "  rw [← polynomialMap_eq_aeval sT f hf hU]\n  change _ = f.appLE U ⊤ hU (chartAlgebraEquiv.symm\n    (chartAlgebraEquiv (frame.localCoefficient a)))\n  rw [AlgEquiv.symm_apply_apply]",
+      "after": "  have he := congrArg\n    (fun k : Polynomial ℂ →ₐ[ℂ] Coefficients sT ⊤ => k (polynomial a))\n    (polynomialMap_eq_aeval sT f hf hU)\n  have hp : polynomialMap sT f hf hU (polynomial a) =\n      f.appLE U ⊤ hU (frame.localCoefficient a) := by\n    change f.appLE U ⊤ hU (chartAlgebraEquiv.symm\n      (chartAlgebraEquiv (frame.localCoefficient a))) = _\n    exact congrArg (f.appLE U ⊤ hU)\n      (chartAlgebraEquiv.symm_apply_apply (frame.localCoefficient a))\n  exact hp.symm.trans he",
+      "match_count": 1
+    }
+  ],
+  "original_public_declarations": 45,
+  "unchanged_lexical_headers": 42,
+  "elaboration_only_annotations": [
+    {
+      "name": "polynomialMap_eq_aeval",
+      "before": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate)",
+      "after": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (R"
+    },
+    {
+      "name": "coefficient_evaluation",
+      "before": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (f.appLE U ⊤ hU coordinate) (polynomial a)",
+      "after": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (R"
+    },
+    {
+      "name": "frameSection_apply",
+      "before": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a",
+      "after": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a"
+    }
+  ],
+  "actual_binders_and_mathematical_equalities_preserved": true,
+  "native_status": "pending_new_check",
+  "previous_native_run_id": 41780075490,
+  "previous_native_job_id": 126409366523,
+  "previous_exact_diagnostics": [
+    {
+      "module": "LSP1BivectorCoordinates",
+      "status": "failed",
+      "source_sha256": "66bd6eec6dc154b26785a92d930c5be316c85d2aa0019a75ece1333c41929939",
+      "return_code": 1,
+      "seconds": 14.506,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Failed to rewrite using equation theorems for `twistFrame`",
+          "endPos": {
+            "column": 16,
+            "line": 139
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 139
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  frame.coefficient ?a\nin the target expression\n  chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app a U)) 1)) =\n    Polynomial.C c * (↑((algebraicMatchingEquiv P Lines.marking 2) (a ≫ e.hom))).1\n\na : AlgebraicSection TangentLine.sheaf\ne : tangentSheaf P.structureMap ≅ (projectiveTwist P Lines.marking 2).sheaf\nq : (RingSections ProjectiveLine U)ˣ\nhq : ∀ (a : SectionsOn TangentLine.sheaf U), frame.coefficient a = ↑q * (twistFrame e).coefficient a\nright✝ :\n  ∀ (y : (RingSections ProjectiveLine U)ˣ),\n    (fun q => ∀ (a : SectionsOn TangentLine.sheaf U), frame.coefficient a = ↑q * (twistFrame e).coefficient a) y → y = q\nhu : IsUnit (chartAlgebraEquiv ↑q)\nc : ℂ\nhc : IsUnit c\nheq : Polynomial.C c = chartAlgebraEquiv ↑q\n⊢ chartAlgebraEquiv (frame.coefficient ((ConcreteCategory.hom (Scheme.Modules.Hom.app a U)) 1)) =\n    Polynomial.C c * (↑((algebraicMatchingEquiv P Lines.marking 2) (a ≫ e.hom))).1\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    SheafOfModules.unit ProjectiveLine.ringCatSheaf\n  has type\n    SheafOfModules ProjectiveLine.ringCatSheaf\n  but is expected to have type\n    ProjectiveLine.Modules\n  in the application\n    Scheme.Modules.presheaf (SheafOfModules.unit ProjectiveLine.ringCatSheaf)",
+          "endPos": {
+            "column": 10,
+            "line": 157
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 157
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine frame.openSet) (RingSections ProjectiveLine U) ?m.50\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 52,
+            "line": 186
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 15,
+            "line": 184
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine frame.openSet) (RingSections ProjectiveLine U) ?m.51\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 57,
+            "line": 196
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 15,
+            "line": 193
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  HMul (RingSections ProjectiveLine U) (RingSections ProjectiveLine frame.openSet) ?m.63\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 74,
+            "line": 198
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 4,
+            "line": 197
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  Algebra ℂ ↑Γ(T, ⊤)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 95,
+            "line": 290
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 31,
+            "line": 290
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (Polynomial.aeval ?x) Polynomial.X\nin the target expression\n  (polynomialMap sT f hf hU) Polynomial.X =\n    (Polynomial.aeval ((ConcreteCategory.hom (Scheme.Hom.appLE f U ⊤ hU)) coordinate)) Polynomial.X\n\nT : Scheme\nsT : T ⟶ ComplexBase\nf : T ⟶ ProjectiveLine\nhf : f ≫ P.structureMap = sT\nhU : ⊤ ≤ f ⁻¹ᵁ U\n⊢ (polynomialMap sT f hf hU) Polynomial.X =\n    (Polynomial.aeval ((ConcreteCategory.hom (Scheme.Hom.appLE f U ⊤ hU)) coordinate)) Polynomial.X\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    coefficientsAlgebra sT ⊤\n  has type\n    Algebra ℂ (Coefficients sT ⊤)\n  but is expected to have type\n    Algebra ℂ ↑Γ(T, ⊤)\n  in the application\n    @Polynomial.aeval ℂ (↑Γ(T, ⊤)) Complex.instCommSemiring CommRing.toCommSemiring.toSemiring\n      (coefficientsAlgebra sT ⊤)",
+          "endPos": {
+            "column": 24,
+            "line": 292
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 292
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "failed to synthesize instance of type class\n  Algebra ℂ ↑Γ(T, ⊤)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+          "endPos": {
+            "column": 85,
+            "line": 299
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.synthInstanceFailed._namedError",
+          "pos": {
+            "column": 6,
+            "line": 299
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "previously_passed_helpers": [
+    {
+      "module": "LSTangentFrameCoordinates",
+      "receipt_sha256": "873751ba5300843e6b3b1f0c2cacca8e1a2ce3f4c6bea7a0be6c9bbfd6d6d99e",
+      "key": {
+        "source_sha256": "08e394c7074a53885fb23afdf85ea4dda392dae25a5faa17ad286dcf4c1acb3d",
+        "imports": [
+          "RecompileSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7b5cb850af7a53fb16a4526420baee1169c20a786cae75870670d014c6e8c4cb",
+      "source_ancestry_fingerprint": "5621be97a0f545363d6d769ce8b1569ea44acaaf18b21e0c24629041495b019c",
+      "seconds": 2.827,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSFrameTransport",
+      "receipt_sha256": "bf854fc17c89eb9b398eb296d6a58ad3579349458fdba8dad898a5930290a37e",
+      "key": {
+        "source_sha256": "17910cf565eb2cee8123b5833f7b9d0074c1cc2b04bede76e5bf5ed783923c1e",
+        "imports": [
+          "RecompileExtensionsPart01"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart01": {
+            "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "80e7f8f691269b0947c7865facee380530d3f906ef96b82dbcad51d94dbe3678",
+      "source_ancestry_fingerprint": "e6bc58e31da40a362bac51e4f15d73633483ec5920ced7df8d9619b970be23ac",
+      "seconds": 3.837,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null
+    }
+  ],
+  "helper_sources_unchanged": true,
+  "new_admissions": 0,
+  "independent_remote_blob_roundtrip": true,
+  "canonical_source_changed": false,
+  "refs_changed": false,
+  "acceptance_change": 0
+}

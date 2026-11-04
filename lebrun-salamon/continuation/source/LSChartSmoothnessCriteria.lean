@@ -104,3 +104,5 @@ theorem smooth_of_surjective_tangent_lifts
   sorry
 
 end LeBrunSalamon.PublishedInputs.Smoothness
+
+end

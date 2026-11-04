@@ -1,11 +1,11 @@
 {
   "schema": "lebrun-step3h-independent-candidate-review-v1",
-  "reviewed_utc": "2026-11-04T19:40:46Z",
+  "reviewed_utc": "2026-11-04T19:57:36Z",
   "reviewer": "root",
   "baseline_accepted_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
   "candidate_source": {
     "module_count": 308,
-    "manifest_sha256": "6df4c1ec09bb2eae9bab28e154cec8678e4f24d396155eb6ccdf03e45657e9a5",
+    "manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
     "changes": {
       "source/RecompileBasePart06.lean": {
         "baseline": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
@@ -17,7 +17,7 @@
       },
       "source/LSChartSmoothnessCriteria.lean": {
         "baseline": null,
-        "candidate": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6"
+        "candidate": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b"
       }
     }
   },
@@ -33,9 +33,11 @@
     "extensions02_six_patch_inverse_recovers_exact_baseline": true,
     "all_five_original_public_written_headers_unchanged": true,
     "prior_046_047_translation_spans_retained": true,
-    "generic_smoothness_module_retained_exactly": true,
+    "generic_smoothness_module_retained_exactly": false,
     "completed_048_helper_bodies_and_scoped_options_copied_exactly": true,
-    "original_published_declarations_other_than_044_retained": true
+    "original_published_declarations_other_than_044_retained": true,
+    "generic_smoothness_declarations_retained_exactly": true,
+    "only_generic_module_change_since_prior_review": "Append exactly five UTF8 bytes '\\nend\\n' after the complete original file, closing the noncomputable section."
   },
   "proof_review": [
     {
@@ -62,7 +64,7 @@
   "published_input_eligibility": {
     "new_input_count": 5,
     "cotangent_review_blob": "dce03ba820a8583b1d9036193251b181a0a067ba",
-    "smoothness_review_blob": "5c0882c73cd6aa280d4009b5470d05c0360983e5",
+    "smoothness_review_blob": "5318a44c2d570a7dfe0aaaf05ba9934046670c1b",
     "all_sources_independently_read": true,
     "native_expanded_type_review": "pending_current_native_instantiation"
   },
@@ -171,5 +173,21 @@
     "helper_units_credited": 0,
     "milestone_met": false
   },
-  "status": "Combined mathematical/source candidate and validation design reviewed. Current native compilation, official artifact verification, exact new native input-type review, and final acceptance remain pending."
+  "status": "Combined mathematical/source candidate and validation design reviewed. Current native compilation, official artifact verification, exact new native input-type review, and final acceptance remain pending.",
+  "scope_closure_rebinding": {
+    "old_sha256": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6",
+    "new_sha256": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b",
+    "manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+    "delta": "append exactly newline,end,newline",
+    "old_bytes": 5087,
+    "new_bytes": 5092,
+    "independently_verified": true,
+    "scope_guard_sha256": "111c6133590136059fbb8d9acf6f15efd88afddfb9eab7718251ea7f7d484695",
+    "prior_review_git_blob": "ab1c9759fafefb42e2b79026fa1c88d8dedbbb2f",
+    "failed_run_id": 41900703071,
+    "failed_compiled_commit": "c100b8635460bc85f25d065237b1f998fcdcaf72",
+    "compiler_invocations": 0,
+    "proof_outcome": "none; preserved static scope checker stopped before runtime or compiler",
+    "failure_git_blob": "8881ae1754081e835f4ed9415eccf3e140693ebf"
+  }
 }

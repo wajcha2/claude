@@ -1,11 +1,11 @@
 {
   "schema": "lebrun-independent-publication-review-v1",
-  "reviewed_utc": "2026-11-04T19:21:32Z",
+  "reviewed_utc": "2026-11-04T19:57:21Z",
   "reviewer": "root",
   "status": "Publication eligibility approved for two standalone general criteria. Conditional project translations pass locally. Actual candidate native compilation, public-type comparison and current transitive boundary remain pending.",
   "source": {
     "path": "source/LSChartSmoothnessCriteria.lean",
-    "sha256": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6",
+    "sha256": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b",
     "imports": [
       "Mathlib"
     ],
@@ -13,12 +13,13 @@
   },
   "candidate_translation_review": {
     "path": "source/RecompileExtensionsPart02.lean",
-    "reviewed_partial_source_sha256": "491340e8118e7897c0e8ec95e5df6e8c09f82e1af635443faaa4ddc8ecf90b4d",
+    "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
     "baseline_source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
-    "four_edits_reverse_to_exact_baseline": true,
+    "six_edits_reverse_to_exact_baseline": true,
     "original_046_047_048_headers_unchanged": true,
-    "OBL048_not_yet_replaced": true,
-    "required_final_binding": "Verify that the final Ext02 candidate retains these exact translation declarations and original public headers. The final candidate hash and native evidence must be recorded separately."
+    "exact_046_047_translation_spans_preserved": true,
+    "OBL048_completed_proof_independently_reviewed_separately": true,
+    "current_native_validation_pending": true
   },
   "interfaces": [
     {
@@ -93,5 +94,26 @@
     "Current native recursive dependencies and both exact generic leaf types match the reviewed sources.",
     "All actual transitive admissions have exact publication eligibility; no missing constants or nonstandard axioms.",
     "The full affected dependency and reverse-dependency graph passes under the locked native runtime."
-  ]
+  ],
+  "scope_closure_rebinding": {
+    "old_source_sha256": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6",
+    "new_source_sha256": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b",
+    "exact_suffix": "\nend\n",
+    "old_bytes": 5087,
+    "new_bytes": 5092,
+    "old_content_is_exact_prefix": true,
+    "all_declaration_and_header_bytes_unchanged": true,
+    "reason": "Run41900703071 failed the preserved static scope checker before any compiler invocation.",
+    "previous_review_git_blob": "5c0882c73cd6aa280d4009b5470d05c0360983e5",
+    "source_guard_sha256": "111c6133590136059fbb8d9acf6f15efd88afddfb9eab7718251ea7f7d484695"
+  },
+  "historical_partial_translation_review": {
+    "path": "source/RecompileExtensionsPart02.lean",
+    "reviewed_partial_source_sha256": "491340e8118e7897c0e8ec95e5df6e8c09f82e1af635443faaa4ddc8ecf90b4d",
+    "baseline_source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "four_edits_reverse_to_exact_baseline": true,
+    "original_046_047_048_headers_unchanged": true,
+    "OBL048_not_yet_replaced": true,
+    "required_final_binding": "Verify that the final Ext02 candidate retains these exact translation declarations and original public headers. The final candidate hash and native evidence must be recorded separately."
+  }
 }

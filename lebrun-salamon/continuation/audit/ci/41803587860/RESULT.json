@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-two-stage-native-result-v1",
+  "run_id": 41803587860,
+  "job_id": 126485048584,
+  "commit": "d60b82e938a5dbcb5cbbef196a4f13e8276070fd",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "d60b82e938a5dbcb5cbbef196a4f13e8276070fd",
+      "source_modules": 279,
+      "selected_modules": 210,
+      "accepted_modules": 210,
+      "failed_modules": [],
+      "full_selected_graph_passed": true,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 185,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    },
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "d60b82e938a5dbcb5cbbef196a4f13e8276070fd",
+      "source_modules": 279,
+      "selected_modules": 212,
+      "accepted_modules": 211,
+      "failed_modules": [
+        "LSModelGenericComparison"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 185,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSModelGenericComparison",
+      "status": "failed",
+      "source_sha256": "d51fd9aaec38cf782b51578a213d74d98531538c8911e92648c93c605591ad03",
+      "return_code": 124,
+      "seconds": 300.36,
+      "errors": [],
+      "stderr": ""
+    }
+  ],
+  "raw_job_log_sha256": "693fcc27ec4275335c6a03d597a419c213610b05446fa9226d2a30f6da9d008e",
+  "scope": "Cartesian transport passed17.610 seconds. The remaining model main hit300.360 seconds with no emitted diagnostics; no late-declaration coverage or full-module pass is inferred.",
+  "acceptance_ledger_modified": false
+}

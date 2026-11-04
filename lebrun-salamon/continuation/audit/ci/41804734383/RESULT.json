@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-two-stage-native-result-v1",
+  "run_id": 41804734383,
+  "job_id": 126488837253,
+  "commit": "b22523b1b73ebcc09c129b872b881e2b7b6a7e96",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "b22523b1b73ebcc09c129b872b881e2b7b6a7e96",
+      "source_modules": 281,
+      "selected_modules": 10,
+      "accepted_modules": 10,
+      "failed_modules": [],
+      "full_selected_graph_passed": true,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 9,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    },
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "b22523b1b73ebcc09c129b872b881e2b7b6a7e96",
+      "source_modules": 281,
+      "selected_modules": 101,
+      "accepted_modules": 100,
+      "failed_modules": [
+        "LSFamilyDescentReparametrization"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "diagnostics": [
+    {
+      "module": "LSFamilyDescentReparametrization",
+      "status": "failed",
+      "source_sha256": "339790da353666ee38d995326c106da721a1caa927a52fc4c76376d31cfe6080",
+      "return_code": 124,
+      "seconds": 600.297,
+      "errors": [],
+      "stderr": ""
+    }
+  ],
+  "raw_job_log_sha256": "6d6445336293b43a4427fb2c433b256dd6059b0b55ce286cdfccc35616f2c479",
+  "scope": "Generic map helper passed2.119 seconds. Original six-wrapper candidate hit600.297 seconds with no emitted diagnostics; no full wrapper pass or downstream proof coverage is inferred.",
+  "acceptance_ledger_modified": false
+}

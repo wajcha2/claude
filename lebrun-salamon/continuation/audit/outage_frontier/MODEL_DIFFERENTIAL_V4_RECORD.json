@@ -1,0 +1,58 @@
+{
+  "schema": "lebrun-model-differential-measured-velocity-factor-v1",
+  "created_utc": "2026-11-04T07:19:36.226Z",
+  "base_commit": "369a4e1f6957b123f45bc28ead6e2e623c493677",
+  "base_source_git_blob": "6165f5dd026540e913e3a107fa0ab7fa84f4a5cd",
+  "base_source_sha256": "665dcd37cfe12f9138825f6ec1585e47b395e0859b8a4fbb9ca8311803d2e830",
+  "measured_bottleneck": {
+    "run": 41790585576,
+    "job": 126442782236,
+    "module": "LSModelDifferentialProfileTail",
+    "seconds": 180.352,
+    "return_code": 124,
+    "errors": 0,
+    "last_raw_marker": "ENTER_modelVelocity_baseChange",
+    "last_tactics_seconds": [
+      0.113,
+      0.385,
+      0.102
+    ],
+    "next_marker_reached": false,
+    "raw_stderr_sha256": "1540d8b16feda493ad7d3d3aab1c508cbda44e0747f0d1413babb70e778e33c8"
+  },
+  "repair": "Prove the same actual logarithmic-velocity base-change comparison with arbitrary target X before specializing to the projective line. Only the measured theorem body changes and one private proved helper is added.",
+  "public_headers_preserved": 55,
+  "new_assumptions_on_public_theorems": 0,
+  "new_admissions": 0,
+  "patches": [
+    {
+      "id": "factor_measured_model_velocity_conversion_at_arbitrary_target",
+      "before": "theorem modelVelocity_baseChange : modelVelocity F a =\n    (LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫\n        (compositionPullback (LogarithmicSource.toUniversal F a) (universalPoint F)\n          (modelPoint F a) rfl (tangentSheaf Lines.P.structureMap)).hom := by\n  have h := LogVelocity.fromForm_baseChange F.parameter (modelProjection F a)\n    Smoothing.affineLineToC (LogarithmicSource.toUniversal F a) (parameterMap a)\n    pullback.condition (StandardConicDifferential.line F).sheaf (modelLine F a).sheaf\n    (LogarithmicSource.cotangentComparison F a) rfl (LogarithmicSource.lineComparison F a)\n    (StandardConicDifferential.fundamentalClass F) (projectiveLineVariety Lines.P)\n    (universalPoint F) (universalPoint_over F)\n    (by\n      change modelPoint F a ≫ Lines.P.structureMap =\n        modelProjection F a ≫ (parameterMap a ≫ Smoothing.affineLineToC)\n      simpa only [parameterMap_toC] using modelPoint_over F a)\n  simp only [modelVelocity, LogarithmicSource.velocity, LogarithmicSource.targetCotangent,\n    LogarithmicSource.fundamentalClass, universalVelocity, LogVelocity.fromForm,\n    LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,\n    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] at h\n  change modelVelocity F a =\n    (LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫\n        (Scheme.Modules.pullbackComp (LogarithmicSource.toUniversal F a)\n          (universalPoint F)).hom.app (tangentSheaf Lines.P.structureMap) at h\n  exact h\n\n",
+      "after": "/-- Normalize the source comparisons with an arbitrary target, so the\nconcrete projective-line specialization keeps these module maps opaque. -/\nprivate theorem logarithmicVelocity_baseChange_generic\n    {d : ℕ} (X : SmoothProperComplexVariety d) (e : F.source ⟶ X.scheme)\n    (he : e ≫ X.structureMap = F.parameter ≫ Smoothing.affineLineToC)\n    (he' : (LogarithmicSource.toUniversal F a ≫ e) ≫ X.structureMap =\n      modelProjection F a ≫ toC) :\n    LogarithmicSource.velocity F a X (LogarithmicSource.toUniversal F a ≫ e) he' =\n      (LogarithmicSource.lineComparison F a).inv ≫\n        (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map\n          (LogVelocity.fromForm F.parameter Smoothing.affineLineToC\n            (StandardConicDifferential.line F).sheaf\n            (StandardConicDifferential.fundamentalClass F) X e he) ≫\n          (compositionPullback (LogarithmicSource.toUniversal F a) e\n            (LogarithmicSource.toUniversal F a ≫ e) rfl\n            (tangentSheaf X.structureMap)).hom := by\n  have h := LogVelocity.fromForm_baseChange F.parameter (modelProjection F a)\n    Smoothing.affineLineToC (LogarithmicSource.toUniversal F a) (parameterMap a)\n    pullback.condition (StandardConicDifferential.line F).sheaf (modelLine F a).sheaf\n    (LogarithmicSource.cotangentComparison F a) rfl (LogarithmicSource.lineComparison F a)\n    (StandardConicDifferential.fundamentalClass F) X e he\n    (by simpa only [parameterMap_toC] using he')\n  simpa only [LogarithmicSource.velocity, LogarithmicSource.targetCotangent,\n    LogarithmicSource.fundamentalClass, LogVelocity.fromForm,\n    LogVelocity.pulledForm, parameterMap_toC, asIso_inv, compositionPullback,\n    Iso.trans_hom, Iso.app_hom, eqToIso_refl, Iso.refl_hom, Category.comp_id] using h\n\ntheorem modelVelocity_baseChange : modelVelocity F a =\n    (LogarithmicSource.lineComparison F a).inv ≫\n      (Scheme.Modules.pullback (LogarithmicSource.toUniversal F a)).map (universalVelocity F) ≫\n        (compositionPullback (LogarithmicSource.toUniversal F a) (universalPoint F)\n          (modelPoint F a) rfl (tangentSheaf Lines.P.structureMap)).hom := by\n  exact logarithmicVelocity_baseChange_generic F a (projectiveLineVariety Lines.P)\n    (universalPoint F) (universalPoint_over F) (modelPoint_over F a)\n\n"
+    }
+  ],
+  "candidate": {
+    "file": "LSModelDifferential.lean",
+    "git_blob": "fb9e0d02e13a3da9f3b1fec768c6c833e65985e6",
+    "source_sha256": "946ea96e1a89242e088894311c1042e094106395d03506d3e05aa883332ae903",
+    "roundtrip_verified": true,
+    "native_status": "uncompiled_candidate"
+  },
+  "probe": {
+    "file": "LSModelDifferentialVelocityProbe.lean",
+    "git_blob": "51a21150099ad49f22fa517a82046f3d68dc2988",
+    "source_sha256": "d43c18cb02c686f1f3e19334abbf4184498241d893ca67ebc637549c4dd83d4d",
+    "production_prefix_sha256": "f486e404d41f5a343d5e50c64e90f5c40510beeb5da4fbd3fe82a7b549808367",
+    "exact_production_prefix_reconstructed": true,
+    "native_status": "uncompiled_diagnostic",
+    "roundtrip_verified": true
+  },
+  "requested_gates": {
+    "probe_timeout_seconds": 90,
+    "full_module_timeout_seconds": 180,
+    "run_full_only_if_probe_passes": true
+  },
+  "production_branch_mutated": false,
+  "point1_source_graph_changed": false,
+  "acceptance_flags_changed": false
+}

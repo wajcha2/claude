@@ -211,6 +211,7 @@ variable (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.pa
 abbrev extendedSquare : Parametrized.Square P (extensionToC Q K sK b) ⟶
     F.smoothSquareOpen.toScheme := squareMap Q K sK b ≫ a
 
+include ha in
 @[reassoc] theorem extendedSquare_family :
     extendedSquare Q K sK b a ≫ F.smoothSquareOpen.ι =
       RelativeSquare.map (Parametrized.parameter P (extensionToC Q K sK b))
@@ -230,7 +231,9 @@ theorem squareMap_section_injective {r : ℕ}
     Function.Injective (fun s : AlgebraicSection E.sheaf =>
       pullSection (squareMap Q K sK b) s) := by
   letI : Surjective (Q.parametrizingExtension K b) := Q.parametrizingExtension_surjective K b
-  letI : Flat (Q.parametrizingExtension K b) := inferInstance
+  letI : Flat (Q.parametrizingExtension K b) := by
+    rw [← Spec.map_preimage (Q.parametrizingExtension K b), Flat.SpecMap_iff]
+    exact RingHom.Flat.of_isField hK.out _
   letI : QuasiCompact (Q.parametrizingExtension K b) := by
     apply (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact)).mpr
     infer_instance

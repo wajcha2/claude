@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent generic comparison blocks
+name: LeBrun-Salamon independent generic field transport
 on:
   push:
     branches: [codex/lebrun-generic-independent-20261104]
@@ -10,46 +10,6 @@ concurrency:
   group: lebrun-generic-independent-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  generic_point12:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Check out exact immutable snapshot
-        uses: actions/checkout@v4
-      - name: Verify exact source manifest
-        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
-      - name: Restore pinned stock runtime
-        timeout-minutes: 12
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41833502528
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-family-fibres37-41833502528-1
-          run-id: 41833502528
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Restore only exact coherent native artifact union
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact independent twelve point-comparison declarations
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyPointComparison --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
-        if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-generic-point12-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
   generic_field17:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
@@ -64,17 +24,17 @@ jobs:
         timeout-minutes: 12
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41833502528
+      - name: Download verified native cache 1 from 41838985752
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-family-fibres37-41833502528-1
-          run-id: 41833502528
+          name: lebrun-generic-point12-41838985752-1
+          run-id: 41838985752
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact independent seventeen field-transport declarations
+      - name: Check exact field transport after two concrete repairs
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyFieldTransport --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts

@@ -1,0 +1,198 @@
+{
+  "schema": "lebrun-next3i-057-readonly-proof-plan-v1",
+  "scope": "Planning and conditional composition only; no production source or ledger edit; no original057 acceptance.",
+  "original": {
+    "file": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/source-checkpoint/source/LSContactLineTests.lean",
+    "source_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+    "declaration": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
+    "written_header": "theorem smooth_connected_complex_geometricallyIntegral {Y : Scheme}\n    (sY : Y \u27f6 ComplexBase) [Smooth sY] [ConnectedSpace Y] :\n    GeometricallyIntegral sY",
+    "written_header_sha256": "4d08a14157851fa1416f51768f636a3a130f6e961cf120f8e309c2b74268adc6",
+    "hypotheses": [
+      "arbitrary scheme Y",
+      "actual sY:Y\u2192ComplexBase",
+      "Smooth sY",
+      "ConnectedSpace Y"
+    ],
+    "absent_hypotheses": [
+      "proper",
+      "separated",
+      "quasi-compact",
+      "finite type",
+      "projective",
+      "integral"
+    ]
+  },
+  "recommended_route": [
+    {
+      "step": 1,
+      "criterion": "ConnectedFieldCriterion",
+      "source": "Stacks Lemma33.7.6, tag0363",
+      "url": "https://stacks.math.columbia.edu/tag/0363",
+      "content": "Over a separably closed field, geometric connectedness is equivalent to connectedness.",
+      "translation": "Obtain actual GeometricallyConnected sY from ConnectedSpace Y; IsAlgClosed \u2102 provides IsSepClosed \u2102 through pinned Mathlib."
+    },
+    {
+      "step": 2,
+      "criterion": "SmoothNormalCriterion",
+      "source": "Stacks Lemma33.25.4, tag056T; normality definition033I",
+      "urls": [
+        "https://stacks.math.columbia.edu/tag/056T",
+        "https://stacks.math.columbia.edu/tag/033I"
+      ],
+      "content": "Any scheme smooth over a field has normal local rings. NormalStalks is literally the conjunction of IsDomain and IsIntegrallyClosed for every actual structure-sheaf stalk.",
+      "translation": "After arbitrary field extension, native base-change Smooth instances give normality of the actual pullback scheme."
+    },
+    {
+      "step": 3,
+      "criterion": "NormalConnectedCriterion",
+      "source": "Stacks Remark28.7.8, tag033O, referring to Lemma28.7.7, tag033N",
+      "urls": [
+        "https://stacks.math.columbia.edu/tag/033O",
+        "https://stacks.math.columbia.edu/tag/033N"
+      ],
+      "content": "A locally Noetherian normal scheme is integral exactly when it is connected.",
+      "translation": "Smooth implies locally finite presentation and locally finite type; native Mathlib then makes the actual pullback locally Noetherian over its field. Apply this criterion to that pullback."
+    },
+    {
+      "step": 4,
+      "criterion": "Native composition",
+      "content": "The actual field-extension pullbacks are integral, hence sY is GeometricallyIntegral by the pinned Mathlib geometric-property characterization. This is project-owned proof, not a composite new published input."
+    },
+    {
+      "step": 5,
+      "criterion": "Intrinsic target square",
+      "content": "Native GeometricallyIntegral.isIntegral_of_subsingleton gives IsIntegral Y. The native flat/universally-open geometrically-integral pullback instance then gives IsIntegral(pullback sY sY), hence IrreducibleSpace. No fourth input is required."
+    }
+  ],
+  "source_contract_checks": {
+    "all_field_extensions": true,
+    "actual_Spec_algebraMap_and_pullback": true,
+    "all_geometric_properties_on_actual_schemes": true,
+    "no_added_original_hypotheses": true,
+    "connectedSpace_nonempty_retained": true,
+    "Noetherian_hypothesis_not_omitted_from_033O": true,
+    "no_use_of_pending_original057": true,
+    "no_use_of_proper_only_tag0FD3": true
+  },
+  "existing_project_reuse": {
+    "NormalScheme": "RecompileExtensionsPart04Geometry defines Descent.NormalScheme by the identical stalk formula. It can be identified by reflexivity with a generic standalone definition, without using any pending theorem.",
+    "reduced_only_leaf": "Ext01 SchemeStandardInputs.smooth_complex_reduced cites056T but supplies only reducedness over \u2102; it does not establish normality over arbitrary field extensions. No duplicate accepted normality leaf was found in the source scan.",
+    "existing_consumers": "LSContactLineTests.variety_integral and square_integral already implement the native final self-product route, conditional on original057."
+  },
+  "native_scan_limits": "Read-only review of pinned geometry Geometrically/{Basic,Connected,Integral,Irreducible,Reduced}, Smooth, SmoothFiber, Properties, Noetherian, AlgClosed.Basic and ring smooth/normality modules found the composition APIs, but no already-proved generic smooth-connected integral theorem or scheme normality API. This is a scoped source review, not a global impossibility claim.",
+  "prototype": {
+    "file": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next3i/target_integrality/LSConnectedSmoothIntegralCompositionV4.lean",
+    "source_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+    "imports": [
+      "RecompileBasePart01"
+    ],
+    "three_generic_criteria_are_explicit_proof_parameters": true,
+    "new_admissions": 0,
+    "original057_imported_or_applied": false,
+    "native_acceptance_credit": 0,
+    "completed_local_result": "V4 COMPLETE PASS32.494s,rc0,zero errors,output present,all source/runtime/import hashes unchanged. All four requested theorem declarations and axiom prints complete. Still conditional on the three explicit generic proof criteria.",
+    "current_prepared_file": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next3i/target_integrality/LSConnectedSmoothIntegralCompositionV4.lean",
+    "current_prepared_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+    "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200735840481-LSConnectedSmoothIntegralCompositionV4/receipt.json",
+    "receipt_sha256": "d8dd04c3090edef05a234ee7e3c56d06fe59955ff472467ae3641b54b0c36200",
+    "output_sha256": "2788208e72b93e18ea2a917c25233590563a30d7d142e54c90386b4afed682c9",
+    "axiom_prints": [
+      "'LeBrunSalamon.Next3i.IntegralityComposition.smooth_connected_geometricallyIntegral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+      "'LeBrunSalamon.Next3i.IntegralityComposition.complex_specialization' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+      "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_integral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+      "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_irreducible' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+    ],
+    "axioms_exactly_standard": true,
+    "history": [
+      {
+        "module": "LSConnectedSmoothIntegralComposition",
+        "source_sha256": "9f94c9cfb4bb3cb86b81be89815ff5860223ae72ed60decb2f3c6afbe6754b71",
+        "seconds": 44.835,
+        "return_code": 1,
+        "emitted_error_count": 4,
+        "complete_success": false,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": null,
+        "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200018124620-LSConnectedSmoothIntegralComposition/receipt.json",
+        "receipt_sha256": "ab3f2a9bca7f66444718b60d91421c1c7749e811e6c60b9c634506fae97c8cd9"
+      },
+      {
+        "module": "LSConnectedSmoothIntegralCompositionV2",
+        "source_sha256": "e60ccefada14c9c12e5a8575a535b8a3c2949145fc39811919e58355586813de",
+        "seconds": 46.938,
+        "return_code": 1,
+        "emitted_error_count": 2,
+        "complete_success": false,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": null,
+        "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200143421482-LSConnectedSmoothIntegralCompositionV2/receipt.json",
+        "receipt_sha256": "394998faf3af9e8d94dd3ba83d6c2bbf54efd334174624c955f03cee686fe93e"
+      },
+      {
+        "module": "LSConnectedSmoothIntegralCompositionV3",
+        "source_sha256": "d17dfa8ee76830d66f18d2760163f7d401d007bff1b6580ff14b6a0ff661eaee",
+        "seconds": 24.139,
+        "return_code": 1,
+        "emitted_error_count": 2,
+        "complete_success": false,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": null,
+        "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200547616693-LSConnectedSmoothIntegralCompositionV3/receipt.json",
+        "receipt_sha256": "fdbe668bc49bf3c18f8a1d6c2ff3d639e8b6e31a41a8dc7c75c0caacaf4a4a8e"
+      },
+      {
+        "module": "LSConnectedSmoothIntegralCompositionV4",
+        "source_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+        "seconds": 32.494,
+        "return_code": 0,
+        "emitted_error_count": 0,
+        "complete_success": true,
+        "all_source_runtime_and_import_hashes_unchanged": true,
+        "output_sha256": "2788208e72b93e18ea2a917c25233590563a30d7d142e54c90386b4afed682c9",
+        "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200735840481-LSConnectedSmoothIntegralCompositionV4/receipt.json",
+        "receipt_sha256": "d8dd04c3090edef05a234ee7e3c56d06fe59955ff472467ae3641b54b0c36200"
+      }
+    ]
+  },
+  "primary_web_refs": [
+    "turn443view0",
+    "turn443view1",
+    "turn443view2",
+    "turn443view3"
+  ],
+  "next_authorization": "Review literal three generic inputs and their publication bindings; only then prepare source repair. The current conditional prototype does not assert any of those inputs.",
+  "pinned_mathlib_commit": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+  "native_source_metadata": [
+    {
+      "path": "Mathlib/AlgebraicGeometry/Geometrically/Basic.lean",
+      "git_blob": "6c096d967f1003f2eec798f75ad53859a98d1586",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/AlgebraicGeometry/Geometrically/Basic.lean"
+    },
+    {
+      "path": "Mathlib/AlgebraicGeometry/Geometrically/Connected.lean",
+      "git_blob": "060f361329b5eda0e3bddda71c18c2d021aa1ff2",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/AlgebraicGeometry/Geometrically/Connected.lean"
+    },
+    {
+      "path": "Mathlib/AlgebraicGeometry/Geometrically/Integral.lean",
+      "git_blob": "08db49cb49c21ff86154b1f7ef8f53340d5987dc",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/AlgebraicGeometry/Geometrically/Integral.lean"
+    },
+    {
+      "path": "Mathlib/AlgebraicGeometry/Noetherian.lean",
+      "git_blob": "a8379ace8356fbda6dda0e338e485138fa708ad1",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/AlgebraicGeometry/Noetherian.lean"
+    },
+    {
+      "path": "Mathlib/FieldTheory/IsSepClosed.lean",
+      "git_blob": "69eb8c3e69b828d05585506e0015b3a688ea615d",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/FieldTheory/IsSepClosed.lean"
+    },
+    {
+      "path": "Mathlib/RingTheory/IntegralClosure/IntegrallyClosed.lean",
+      "git_blob": "aea28feb5c64ac49871a479ea3d4ca7580d31e3c",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/116662aa4c1e9106ab5c609b3214b02f6e11a65a/Mathlib/RingTheory/IntegralClosure/IntegrallyClosed.lean"
+    }
+  ],
+  "native_API_correction": "Completed V4 supplies a local ObjectProperty.IsClosedUnderIsomorphisms IsIntegral instance using native IsIntegral.of_isIso. It also types pullback expressions as Scheme in both topological contexts. These are proved project typing/transport details, with no further published input."
+}

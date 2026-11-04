@@ -1,0 +1,39 @@
+{
+  "schema": "lebrun-proposed-055-integration-v1",
+  "scope": "Isolated source proposal only; no native production selection or obligation acceptance",
+  "original_geometry_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+  "candidate_geometry_sha256": "fa5d3ff620150a3ce71ca806d2902c3ccb05edd7d2ed8356e059a4e57fef2e2f",
+  "new_generic_module_sha256": "43a0cd70213ad836841d0e6dcc9d9ce5ed581ac4d02bff1a70042bc9cfd8b171",
+  "tested_comparison_source_sha256": "59cbcc588e537e2086481618563bee2d3a84944395dbd67b868bd2b4240431de",
+  "tested_generic_normalization_source_sha256": "b80a07b1bbc10c07697424cb647653ce8f71d3a58364f44c3be5ef41bcebaf4c",
+  "generic_block_sha256": "c2ad59492fc5cf7cf251b48b299b3b73cb37d95a986361977da5b8bd11ca899f",
+  "normalization_block_sha256": "dc3be6be79a10d7de431c5886f34fda112a3991426849713fe1979e5aa7e1405",
+  "comparison_block_sha256": "cf26e6aba250f489f5e946f86427f55c1f3a77ae30a3b39b0f4b74a1822600b4",
+  "tested_proof_blocks_byte_identical": true,
+  "original_055_header_sha256": "277b0534307bd3854341c0048d64b2c59187a92fae64441e0a8fe2fa4d1b3546",
+  "original_055_header_byte_identical": true,
+  "complete_inverse_byte_identical": true,
+  "edits": [
+    {
+      "old": "import LSSectionRepresentability\n",
+      "new": "import LSRelativeHomFunctor\nimport LSSectionRepresentability\n"
+    },
+    {
+      "old": "namespace StandardInputs\n\n/-- Grothendieck, Bourbaki expose 221",
+      "new": "namespace FunctorComparison\n\nopen CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite\nopen LeBrunSalamon.RelativeMorphismsFunctor\n\n/-- Base changing the target converts the actual maps over C into\nmaps over S, with both projections retained. -/\ndef targetChangeEquiv {S Y : Scheme} (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    {d : ℕ} (X : SmoothProperComplexVariety d) (T : Over S) :\n    {f : pullback pi T.hom ⟶ X.scheme //\n      f ≫ X.structureMap = pullback.snd pi T.hom ≫ T.hom ≫ sS} ≃\n    (sourceOver pi T ⟶ Over.mk (pullback.snd X.structureMap sS)) where\n  toFun f := Over.homMk\n    (pullback.lift f.val (pullback.snd pi T.hom ≫ T.hom)\n      (by simpa [Category.assoc] using f.property))\n    (by simp [sourceOver])\n  invFun g := ⟨g.left ≫ pullback.fst X.structureMap sS, by\n    rw [Category.assoc, pullback.condition]\n    change g.left ≫ (pullback.snd X.structureMap sS ≫ sS) = _\n    rw [← Category.assoc]\n    have hg : g.left ≫ pullback.snd X.structureMap sS =\n        pullback.snd pi T.hom ≫ T.hom := g.w\n    rw [hg, Category.assoc]⟩\n  left_inv f := by\n    apply Subtype.ext\n    change pullback.lift _ _ _ ≫ pullback.fst _ _ = _\n    simp\n  right_inv g := by\n    apply Over.OverMorphism.ext\n    apply pullback.hom_ext\n    · change pullback.lift _ _ _ ≫ pullback.fst _ _ = _\n      simp\n    · simpa using g.w.symm\n\ndef presentationRepresentation {S Y : Scheme} (pi : Y ⟶ S)\n    (sS : S ⟶ ComplexBase) {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : HomDeformationInput.Presentation pi sS X) :\n    (morphismFunctor pi (pullback.snd X.structureMap sS)).RepresentableBy\n      (Over.mk H.toBase) where\n  homEquiv {T} :=\n    (SectionRepresentability.overHomEquiv (Over.mk H.toBase) T.left T.hom).symm.trans\n      ((Equiv.ofBijective\n        (fun a : {a : T.left ⟶ H.parameter // a ≫ H.toBase = T.hom} =>\n          (⟨HomDeformationInput.familyChange pi T.hom H.toBase a.val a.property ≫\n            H.evaluation, by\n              simp only [Category.assoc, H.overC, HomDeformationInput.familyChange,\n                pullback.lift_snd_assoc]\n              rw [← Category.assoc a.val H.toBase sS, a.property]⟩ :\n            {f : pullback pi T.hom ⟶ X.scheme //\n              f ≫ X.structureMap = pullback.snd pi T.hom ≫ T.hom ≫ sS}))\n        (H.universal T.left T.hom)).trans (targetChangeEquiv pi sS X T))\n  homEquiv_comp a b := by\n    apply Over.OverMorphism.ext\n    apply pullback.hom_ext\n    · change pullback.lift _ _ _ ≫ pullback.fst _ _ =\n        (sourceMap pi a ≫ pullback.lift _ _ _) ≫ pullback.fst _ _\n      simp only [Category.assoc, pullback.lift_fst]\n      change (HomDeformationInput.familyChange pi _ H.toBase (a ≫ b).left (a ≫ b).w ≫\n        H.evaluation) = sourceMap pi a ≫\n          (HomDeformationInput.familyChange pi _ H.toBase b.left b.w ≫ H.evaluation)\n      change sourceMap pi (a ≫ b) ≫ H.evaluation =\n        sourceMap pi a ≫ (sourceMap pi b ≫ H.evaluation)\n      rw [sourceMap_comp, Category.assoc]\n    · change pullback.lift _ _ _ ≫ pullback.snd _ _ =\n        (sourceMap pi a ≫ pullback.lift _ _ _) ≫ pullback.snd _ _\n      simp only [Category.assoc, pullback.lift_snd]\n      change pullback.snd pi _ ≫ _ =\n        sourceMap pi a ≫ (pullback.snd pi _ ≫ _)\n      rw [← Category.assoc, sourceMap_snd, Category.assoc, a.w]\n\n/-- The proposed generic input is kept as an explicit parameter. No\nproject Hom theorem or original admission is used by this comparison. -/\ntheorem locallyOfFinitePresentation_of_generic_input\n    (standardInput : ∀ {S Y Z : Scheme.{0}} (pi : Y ⟶ S) (q : Z ⟶ S),\n      IsProper pi → Flat pi → LocallyOfFinitePresentation pi →\n      QuasiCompact pi → QuasiSeparated pi →\n      IsSeparated q → LocallyOfFinitePresentation q → QuasiCompact q → QuasiSeparated q →\n      ∀ H : Over S, (morphismFunctor pi q).RepresentableBy H →\n        LocallyOfFinitePresentation H.hom)\n    {S Y : Scheme} (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : HomDeformationInput.Presentation pi sS X) :\n    LocallyOfFinitePresentation H.toBase := by\n  exact standardInput pi (pullback.snd X.structureMap sS)\n    inferInstance inferInstance inferInstance inferInstance inferInstance\n    inferInstance inferInstance inferInstance inferInstance\n    (Over.mk H.toBase) (presentationRepresentation pi sS X H)\n\nend FunctorComparison\n\nnamespace StandardInputs\n\n/-- Grothendieck, Bourbaki expose 221"
+    },
+    {
+      "old": "theorem locallyOfFinitePresentation {S Y : Scheme}\n    (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : Presentation pi sS X) : LocallyOfFinitePresentation H.toBase := by\n  sorry",
+      "new": "theorem locallyOfFinitePresentation {S Y : Scheme}\n    (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : Presentation pi sS X) : LocallyOfFinitePresentation H.toBase := by\n  exact FunctorComparison.locallyOfFinitePresentation_of_generic_input\n    @LeBrunSalamon.PublishedInputs.RelativeHom.locallyOfFinitePresentation pi sS X H"
+    }
+  ],
+  "new_published_inputs": [
+    "LeBrunSalamon.PublishedInputs.RelativeHom.locallyOfFinitePresentation"
+  ],
+  "new_input_scope": "Scheme-representer specialization of Stacks0D1C; generic target-base-change normalization proved explicitly",
+  "source_imports": [
+    "Mathlib"
+  ],
+  "milestone_units_added": 0,
+  "native_compilation_pending": true
+}

@@ -1,0 +1,52 @@
+--- approved_v2
++++ metadata_only_v3
+@@ -8,6 +8,7 @@
+ """
+ from __future__ import annotations
+ import argparse
++import base64
+ import hashlib
+ import json
+ import sys
+@@ -74,6 +75,32 @@
+          run["head_branch"] == "codex/lebrun-3h-native-20261104" and
+          meta["name"] == f"lebrun-3h-current-native-{run['id']}-{run['run_attempt']}",
+          "Wrong or unsuccessful official workflow/run/artifact provenance")
++
++
++def same_artifact_metadata(actual, expected):
++    """Allow only GitHub's optional, ID-checked GraphQL node identifier.
++
++    Both raw metadata documents and their hashes remain evidence. Every other
++    field, including missing/extra keys and JSON value types, must match.
++    """
++    need(type(actual) is dict and type(expected) is dict and
++         type(expected.get("id")) is int and expected["id"] > 0,
++         "Malformed expected artifact identity")
++    identity = f"08:Artifact{expected['id']}".encode("ascii")
++    def without_checked_node(meta):
++        out = dict(meta)
++        if "node_id" in out:
++            node = out.pop("node_id")
++            need(type(node) is str, "Artifact node_id is not a string")
++            try:
++                decoded = base64.b64decode(node, validate=True)
++            except (ValueError, TypeError):
++                raise ValueError("Malformed artifact node_id encoding")
++            need(decoded == identity and base64.b64encode(decoded).decode("ascii") == node,
++                 "Artifact node_id does not encode the exact expected artifact ID")
++        return out
++    return json.dumps(without_checked_node(actual), sort_keys=True, separators=(",", ":")) == \
++        json.dumps(without_checked_node(expected), sort_keys=True, separators=(",", ":"))
+ 
+ 
+ class ArchivedNative:
+@@ -379,7 +406,7 @@
+          all(x["candidate_plan_sha256"] == digest(plan_path) and
+              x["resume_record_sha256"] == plan["resume_record"]["sha256"] and
+              x["source_manifest_sha256"] == inv["sha256"] and
+-             x["official_artifact"] == resume["official_artifact"] and
++             same_artifact_metadata(x["official_artifact"], resume["official_artifact"]) and
+              x["native_runtime_fingerprint"] == baseline["runtime_fingerprint"] and
+              x["native_runtime_keys_rewritten"] is False and x["compiler_invoked"] is False
+              for x in (resume_check, baseline_resume)), "Resume validation scope or bindings differ")

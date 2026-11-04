@@ -1,0 +1,127 @@
+{
+  "schema": "independent-hom-point-lift-review-v1",
+  "scope": "Read-only mathematical and source-order review; reviewer ran no compiler and changed no root or production source; no original OBL052 acceptance.",
+  "reviewed_source": {
+    "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSHomPointLiftDeformationProbe.lean",
+    "sha256": "a42e49e67dc2cc11bddc995327bbe84171c3677294616bd7e5e2bfdb9b0f2f0c"
+  },
+  "completed_root_evidence": {
+    "receipt": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200849880761-LSHomPointLiftDeformationProbe/receipt.json",
+    "receipt_sha256": "8afb661a50d921bb1b4bf65bec0ad104bb099f2379acab269862c52f5616d014",
+    "seconds": 37.911,
+    "return_code": 0,
+    "errors": 0,
+    "output_sha256": "e021bf1e1b91f4e8a109ae185beca45689344127946f94909cdf84f8c30b116c",
+    "all_guards_stable": true,
+    "both_axiom_lists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "conclusion": "The probe is a faithful actual-map translation of full Hom representability on the dual-number test scheme. No mathematical gap or hidden smoothness, projectivity, finite-type, tangent-rank, or evaluation-dominance premise was found.",
+  "proof_audit": [
+    {
+      "declarations": "pointLift_ext; reducedParameter; zeroSection_sourceMap",
+      "finding": "PointLift equality is equality of maps with proposition fields. Reduction uses the original origin and dualToC. The source-change equality is proved against both pullback projections, retaining the actual source map."
+    },
+    {
+      "declarations": "deformationOfLift; deformationOfLift_injective",
+      "finding": "The forward family is exactly rationalSourceMap composed with H.evaluation. Injectivity uses H.universal on the nonreduced DualScheme, not equality on complex points alone."
+    },
+    {
+      "declarations": "deformationOfLift_surjective; homPointDeformationEquiv",
+      "finding": "Every actual first-order family is obtained from H.universal on DualScheme. Its reduced parameter has the same actual curve map as t; mapAt_injective forces the center to equal t. No assumed tangent-to-section identification is used."
+    },
+    {
+      "declarations": "pointLift_in_open",
+      "finding": "Surjectivity of origin puts the entire lifted map inside the range of the specified U. The actual open-immersion lift provides its factorization; monicity proves the exact reduction to u. No quasi-compactness or reducedness of H/U is required. Uniqueness, if later needed, follows from the same monicity."
+    }
+  ],
+  "existing_generic_reuse": [
+    {
+      "path": "lebrun_recovery/source-checkpoint/source/LSNodalTangent.lean",
+      "namespace": "LeBrunSalamon.Construction.Normalization.NodalTangent",
+      "declarations": [
+        "cotangentNormalization_injective",
+        "variation_bijective",
+        "homSection_dualMap",
+        "section_pullback",
+        "variation_pullback"
+      ],
+      "locator": "GenericVariation section, approximately lines328-425",
+      "finding": "All are generic in source schemes Y/Z and smooth target M; they do not use the nodal-family parameter G. variation_bijective already composes normalized cotangentHom bijectivity with internal Hom and canonical dual base change. section_pullback already gives the required compositionPullback-normalized restriction equation."
+    },
+    {
+      "path": "lebrun_recovery/source-checkpoint/source/LSTangentComparison.lean",
+      "namespace": "LeBrunSalamon.Construction.Lines.SourceTangent",
+      "declarations": [
+        "dualBaseIso",
+        "pointDeformation",
+        "pointDeformation_onDual"
+      ],
+      "finding": "These retain the actual identification of the thickening of Spec C with DualScheme. They avoid silently identifying the two source schemes."
+    },
+    {
+      "path": "lebrun_recovery/source-checkpoint/source/LSContactCompletion.lean",
+      "namespace": "LeBrunSalamon.Construction.Lines.FixedNodeHom",
+      "declarations": [
+        "markingSection_naturality",
+        "markedEvaluation",
+        "markedEvaluation_overC"
+      ],
+      "finding": "These give the exact evaluation map and parameter-change identity needed for the remaining Hom-lift comparison."
+    }
+  ],
+  "next_exact_comparison": {
+    "goal": "For p and v, prove (deformationOfLift P H t v).pullback p.map p.overC = SourceTangent.pointDeformation (push (FixedNodeHom.markedEvaluation P p H) its_overC its_center v).",
+    "center_equation": "t.val ≫ markedEvaluation P p H = p.map ≫ H.mapAt P t, by sourceAtPoint_marking followed by H.evaluation.",
+    "map_equation": "DualThickening.map p.map p.overC ≫ (deformationOfLift P H t v).map = DualThickening.parameter (id ComplexBase) ≫ v.map ≫ markedEvaluation P p H.",
+    "proof_route": "Prove DualThickening.map p p.overC = parameter(id ComplexBase) ≫ markingSection P p dualToC by pullback.hom_ext; apply markingSection_naturality to the actual parameter lift. Deformation.ext then gives the stated equality.",
+    "section_equation": "Existing section_pullback yields pullSection p.map (D.section X) ≫ compositionPullback(p.map,f,p.map≫f,rfl,TX).hom = (D.pullback p.map p.overC).section X.",
+    "raw_restriction_normalization": "Given a target point-lift section vp over (p≫f)*TX, supply hfree with unitPullbackIso(p).hom ≫ vp ≫ compositionPullback(p,f,p≫f,rfl,TX).inv. Then pullSection p σ followed by compositionPullback.hom equals vp. restrictSection has source p*O_P; replacing it by pullSection without the unit isomorphism is incorrect.",
+    "surjectivity_route": "Project an arbitrary target-square PointLift to its two point lifts; take their pointDeformation sections; transport them as the two raw hfree inputs; obtain one σ; use existing variation_bijective/sectionEquiv and homPointDeformationEquiv to obtain one parameter lift; factor it through U by the checked theorem. Keep both source markings constant and close equality of the target-square maps with pullback.hom_ext.",
+    "faithfulness": "Equality of point sections forces equality of their cotangent functionals by section_normalized, hence equality of point deformations by cotangentHom_injective, hence equality of actual point lifts by pointDeformation_onDual. No new pointwise deformation comparison leaf is needed.",
+    "remaining_after_lift_surjectivity": "Apply the 3h dual-number criterion once its current native/publication gate closes, at the distinct pair and using existing source_smooth and target-square smoothness. Density still requires the target-square irreducibility/integrality route; this probe does not supply it."
+  },
+  "source_order": {
+    "direct_import_is_cyclic": true,
+    "verified_import_paths": [
+      [
+        "LSCotangentDeformations",
+        "LSHomVelocity",
+        "LSDualThickeningNormalForm",
+        "LSFiniteFreeBaseChange",
+        "RecompileExtensionsPart02"
+      ],
+      [
+        "LSHomDegree",
+        "LSRelativeGenericSmoothness",
+        "LSIntrinsicVelocity",
+        "LSTangentComparison",
+        "LSGlobalVelocity",
+        "LSHomVelocity",
+        "LSDualThickeningNormalForm",
+        "LSFiniteFreeBaseChange",
+        "RecompileExtensionsPart02"
+      ]
+    ],
+    "original_position": "Original052 is in Ext02 around line865, before Infinitesimal.PointLift and Charts at approximately4709/4726. Its immediate fullFamily_detects_bundle_section/section/identity consumers remain live in that same file.",
+    "safe_factoring_recommendation": [
+      "First lower the elementary sourceAtPoint/fst/snd/naturality and mapAt_injective declarations into a minimal Hom-point module depending on HomSpacePresentation and pullbacks, rather than importing all LSHomDegree. Preserve namespaces and exact original proof bytes where moved.",
+      "Extract the five generic GenericVariation declarations into a module after LSCotangentDeformations, preserving their original names and replacing the nodal wrapper call with the already-proved underlying cotangentHom_bijective only if separately guarded; do not import the whole nodal geometry merely for these facts.",
+      "Before installing052, compute the actual declaration-level independent-foundation versus052-consumer closure in Ext02. Move independent Infinitesimal/Charts and needed module foundations below their earlier dependencies, then place deformation machinery and052 before its live consumers; alternatively keep Ext02 as a final facade over a verified core plus late consumer modules.",
+      "The exact minimum Ext02 split is not yet verified. Neither this passing diagnostic nor an import-only insertion proves that a proposed production split is acyclic. Avoid a direct import of this probe or LSCotangentDeformations into the current Ext02."
+    ],
+    "scope": "Planning only; no relocation, header change, or graph mutation performed."
+  },
+  "source_hashes": {
+    "LSHomDegree.lean": "a3227fc98c375200bc831f2d74f9b6d92853fc9b5c320d0ef9d5bc75b02dd3c2",
+    "LSHomVelocity.lean": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+    "LSCotangentDeformations.lean": "ebfc1c0e9d352f5e55358b3614f1d3cd84318cf66ccaecbd1c89fdfc987e6a07",
+    "LSNodalTangent.lean": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+    "LSTangentComparison.lean": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
+    "RecompileExtensionsPart02.lean": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "RecompileBasePart05B.lean": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "lebrun-step3h-independent-static-acceptance-review-v1",
+  "reviewer": "source_milestone_audit",
+  "scope": "Read-only static review of prepared acceptance and documentation writers; not an execution or actual-data acceptance review.",
+  "reviewed_files": [
+    {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/step3h/finalize_step3h_acceptance.py",
+      "sha256": "e4e86e36da11c5e3ff69e4e47d0bd65d259a2b6bf48592e56aa4124afe7ee8e6"
+    },
+    {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/step3h/render_step3h_docs.py",
+      "sha256": "fecb824522d669123517cd37dae65091bdb36f76716e269fa04c3623eb737b57"
+    },
+    {
+      "path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/scripts/finalize_continuation_evidence.py",
+      "sha256": "66387a0aa43d09ce4d75372f5e4ee13d6e3399c38002c3e59f6a1cd1c0a65a2c"
+    },
+    {
+      "path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/scripts/verify_continuation_boundaries.py",
+      "sha256": "e2e84cbbb441f4a1f1fdbac2944d7340e0cceb0b135b0a6c83b08314ac3605e7"
+    },
+    {
+      "path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/scripts/run_continuation_audit.py",
+      "sha256": "366ac7301b176136b4a38bebed723d7178f18c6287547c17d530453e6a2a8a2b"
+    }
+  ],
+  "exact_candidate_binding": {
+    "baseline_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
+    "baseline_ledger_sha256": "2863cfaa283fd3f8ab894ac74eb4469c35a8b7491342da9369ab93a092157844",
+    "previous_status_git_blob": "fa83f7dbdc4019bc7fd3ea52953627cc46735045",
+    "candidate_commit": "685761b4b974c52ed7c06fef578690156387a3c5",
+    "candidate_tree": "898da933fb0e564c9e646efc758991602bff69dd",
+    "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+    "candidate_plan_sha256": "babf6411942db5b80e8674b4b4c5a55fdc95ccb16f1427346fd0a18d10fd914a"
+  },
+  "static_gate_findings": [
+    "The writer pins the accepted baseline ledger and exact candidate commit/tree/manifest/plan.",
+    "Acceptance requires a completed successful official workflow, independently verified artifact metadata/archive and all native receipts, outputs, logs and ancestries.",
+    "The root review is bound to the exact full verification report hash and all five new publication native type/context hashes.",
+    "The upstream boundary verifier checks original native types and universe parameters before emitting the aggregate passed result.",
+    "Only OBL-044 through OBL-048 are promoted, and all existing accepted root identities remain fixed.",
+    "Current boundary accounting is exactly49 roots:39 fresh native walks and10 historical boundaries in identical native contexts.",
+    "The historical Point1 acceptance records and original190-context event are retained separately; current revalidation does not rewrite the historical audit scope.",
+    "79 accepted units equals22 retired originals+8 historical Step3b wrappers+44 Point1/additional original roots+5 Step3h originals.",
+    "54 pending units equals42 original obligations+8 definition validations+4 final gates; denominator133 remains fixed.",
+    "All8 definition validations and all4 final gates remain pending. The compiled conditional assembly does not assert the frozen unconditional endpoint."
+  ],
+  "documentation_link_correction": {
+    "original_issue": "The shared native paragraph used repository-root-relative audit/... evidence/acceptance links inside audit/MILESTONE_PROGRESS.md.",
+    "owner": "root",
+    "status": "resolved_in_reviewed_renderer",
+    "verified_change": "The renderer imports posixpath and derives native_for_progress by rebasing only the two evidence/acceptance destinations with posixpath.relpath(destination,'audit'). Only the progress document uses that variant; root README/plan preserve their original destinations.",
+    "corrected_renderer_sha256": "fecb824522d669123517cd37dae65091bdb36f76716e269fa04c3623eb737b57"
+  },
+  "unresolved_static_blockers": [],
+  "actual_data_acceptance_review": {
+    "status": "pending",
+    "required": [
+      "Final official full308 native result",
+      "Official artifact metadata/archive verification",
+      "Exact final report/schema/read-back validation",
+      "Independent review of all5 actual native published-input types",
+      "Publication read-back/source identity verification"
+    ],
+    "current_review_grants_acceptance": false,
+    "accepted_unit_delta": 0
+  },
+  "work_performed": {
+    "scripts_executed": false,
+    "tests_run": false,
+    "compiler_run": false,
+    "production_edits": false,
+    "ledger_edits": false,
+    "tree_commit_or_ref_writes": false,
+    "read_only_source_and_data_inspection": true
+  }
+}

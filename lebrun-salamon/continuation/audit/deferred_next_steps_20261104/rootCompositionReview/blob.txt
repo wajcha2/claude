@@ -1,0 +1,62 @@
+{
+  "schema": "lebrun-root-next3i-composition-review-v1",
+  "reviewer": "root",
+  "reviewed_utc": "2026-11-04T20:19:30Z",
+  "scope": "Independent mathematical/source/full-local-receipt review. Not stock native acceptance.",
+  "reviews": {
+    "integrality": {
+      "source_path": "source_milestone_audit/next3i/target_integrality/LSConnectedSmoothIntegralCompositionV4.lean",
+      "source_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+      "compiled_source_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+      "receipt_path": "root_diagnostics/runs/20261104T200735840481-LSConnectedSmoothIntegralCompositionV4/receipt.json",
+      "receipt_sha256": "d8dd04c3090edef05a234ee7e3c56d06fe59955ff472467ae3641b54b0c36200",
+      "seconds": 32.494,
+      "output_sha256": "2788208e72b93e18ea2a917c25233590563a30d7d142e54c90386b4afed682c9",
+      "full_input_fingerprints_equal": true,
+      "source_output_log_hashes_verified": true,
+      "axioms": [
+        "'LeBrunSalamon.Next3i.IntegralityComposition.smooth_connected_geometricallyIntegral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+        "'LeBrunSalamon.Next3i.IntegralityComposition.complex_specialization' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+        "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_integral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+        "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_irreducible' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+      ],
+      "mathematical_review": [
+        "ConnectedFieldCriterion is precisely the separably-closed-field consequence of Stacks0363, with arbitrary schemes and the actual structure map.",
+        "NormalStalks expands normality using literal stalk domains and integral closedness, matching Stacks033I. SmoothNormalCriterion is the original-field consequence of Stacks056T. NormalConnectedCriterion matches033O with locally-Noetherian hypothesis.",
+        "GeometricallyConnected supplies connectedness after every field extension. Actual base-change smoothness supplies local finite type and local Noetherianity. Normality and connectedness imply integrality on each field extension; the geometric criterion then closes.",
+        "The local isomorphism-closure instance is proved using IsIntegral.of_isIso. ComplexBase specialization is literal, and the self-product uses actual native geometric-integrality base-change instances.",
+        "All three generic criteria remain explicit proof parameters; the original OBL057 is not used or accepted."
+      ],
+      "primary_sources": [
+        "https://stacks.math.columbia.edu/tag/0363",
+        "https://stacks.math.columbia.edu/tag/056T",
+        "https://stacks.math.columbia.edu/tag/033O",
+        "https://stacks.math.columbia.edu/tag/033I"
+      ]
+    },
+    "hom_base_change": {
+      "source_path": "published_leaf_recovery/next3i/LSRelativeHomBaseChangeEquiv.lean",
+      "source_sha256": "b80a07b1bbc10c07697424cb647653ce8f71d3a58364f44c3be5ef41bcebaf4c",
+      "compiled_source_sha256": "66ffef957ef110c3e3cdffc898abc30ed07eeacb8965065dc6cbd84d66772351",
+      "receipt_path": "root_diagnostics/runs/20261104T200652132185-LSRelativeHomBaseChangeEquivProfile/receipt.json",
+      "receipt_sha256": "314217df27ceff34af72fbc486fdf5787f447f610946b9051cefe1d026e88289",
+      "seconds": 31.352,
+      "output_sha256": "0c21c4622ea0015ecbd4bc3a9141d55ed61ada6d73c176c1097521479e47a5e6",
+      "full_input_fingerprints_equal": true,
+      "source_output_log_hashes_verified": true,
+      "axioms": [
+        "'LeBrunSalamon.RelativeHomBaseChangeNormalization.homBaseChangeEquiv' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+        "'LeBrunSalamon.RelativeHomBaseChangeNormalization.homBaseChangeEquiv_naturality' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+      ],
+      "mathematical_review": [
+        "Forward map is the actual target pullback lift of the source map and base projection. Reverse map is composition with target pullback.fst. Over equations and both inverses are proved against actual pullback projections.",
+        "Naturality is the explicit source-and-target base-change square, checked against both projections. No representability, finite presentation, flatness, or scheme-existence hypothesis is silently introduced.",
+        "Profile diff consists only of import Lean, profiler/output options, stage markers and axiom-print commands; all proof declarations are unchanged.",
+        "The sole project import is the exact completed conditional root055 prototype, output799137c4ceb93f1e69ec0b8379e8936710484ba561075d84703735623d93af22. No production selection or original-obligation credit follows from this local diagnostic."
+      ]
+    }
+  },
+  "new_original_obligations_accepted": 0,
+  "production_source_modified": false,
+  "accepted_units_unchanged": 74
+}

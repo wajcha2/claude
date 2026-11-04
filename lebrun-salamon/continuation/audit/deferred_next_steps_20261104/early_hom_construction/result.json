@@ -1,0 +1,94 @@
+{
+  "schema": "lebrun-early-hom-construction-local-v1",
+  "scope": "Completed local proof and production-source import-order analysis; not selected or natively accepted",
+  "records": [
+    {
+      "run": "20261104T213350355408-LSRelativeHomCoreComparisonProbe",
+      "source": "root_diagnostics/next3i/LSRelativeHomCoreComparisonProbe.lean",
+      "source_sha256": "c902ab69c1f75ce8ceb187eb03040e1a1d416450cf9c3636e3ef6b335864e6b1",
+      "output_sha256": "b045bce269e8c52e41f8d5e4afc4d01812fbf613f660e2ed48c2dc13cff0b454",
+      "receipt_sha256": "056fbb5c04aacf2a6b5786b54e4b8bb9dd1629bdf65e707c1ea056492fea7687",
+      "seconds": 26.992,
+      "complete_success": true,
+      "zero_errors": true,
+      "stable_source_runtime_imports": true,
+      "independent_source_runtime_logs_output_direct_import_rehash": true,
+      "axiom_queries": [
+        "'LeBrunSalamon.RelativeMorphismsFunctor.overHomEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'LeBrunSalamon.RelativeMorphismsFunctor.universalElement_map' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ],
+      "direct_import_artifacts": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf"
+      }
+    },
+    {
+      "run": "20261104T213424409792-LSAbsoluteHomEarlyConstructionProbe",
+      "source": "root_diagnostics/next3i/LSAbsoluteHomEarlyConstructionProbe.lean",
+      "source_sha256": "f5ffd20d865a15501eb2742fdc7f152458b7688a7e32f24a251e04f87f400934",
+      "output_sha256": "889c5e26a3e0a43399ffa3d410ca241b7c5ff809008fbac37421acb38411aed4",
+      "receipt_sha256": "cbc5856ac8eec13ea66c50dd352135aefc3ac9c9e0904f885c0e836f5543abf0",
+      "seconds": 11.249,
+      "complete_success": true,
+      "zero_errors": true,
+      "stable_source_runtime_imports": true,
+      "independent_source_runtime_logs_output_direct_import_rehash": true,
+      "axiom_queries": [
+        "'LeBrunSalamon.Next3i.AbsoluteHomEarlyConstruction.familyEquiv' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+        "'LeBrunSalamon.Next3i.AbsoluteHomEarlyConstruction.ofRepresentation' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+      ],
+      "direct_import_artifacts": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean/RecompileExtensionsPart01.olean": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T213350355408-LSRelativeHomCoreComparisonProbe/LSRelativeHomCoreComparisonProbe.olean": "b045bce269e8c52e41f8d5e4afc4d01812fbf613f660e2ed48c2dc13cff0b454"
+      }
+    }
+  ],
+  "original_absolute_constructor_sha256": "4fa99ea3308b0717a4f56386daa5a500de954a11b7abe2b6a0b5046827f5a102",
+  "exact_proposed_functor_source_sha256": "43a0cd70213ad836841d0e6dcc9d9ce5ed581ac4d02bff1a70042bc9cfd8b171",
+  "pure_functor_prefix_preserved_except_explanatory_header": true,
+  "absolute_constructor_exact_after_declared_import_namespace_and_pure_overHomEquiv_substitutions": true,
+  "core_imports_only_mathlib": true,
+  "actual_ext01_source_closure": {
+    "LSAffineDerivations": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+    "LSAffineFrame": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+    "LSAffineProductRing": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+    "LSClosedIdealCoefficients": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
+    "LSConePole": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+    "LSExternalFrameCoefficients": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
+    "LSKunnethDegreeZero": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+    "LSNonvanishingPullback": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+    "LSOpenProductCoordinates": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+    "LSP1SourceAlgebra": "746cc04e37a50878168b6c7b63dc6d9978e7fdcf321aba83a07af15e6c8a9e53",
+    "LSP1TangentSections": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
+    "LSP1TensorSquare": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
+    "LSP1TensorTaylor": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
+    "LSProjectionFormula": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
+    "LSPublishedPicard": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+    "LSPublishedProjectiveSpace": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
+    "LSSecondDiagonalAlgebra": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+    "LSSectionCover": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+    "LSStandardTautological": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+    "LSStandardTautologicalP1": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+    "RecompileBase": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+    "RecompileBasePart01": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+    "RecompileBasePart02": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+    "RecompileBasePart03": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+    "RecompileBasePart04": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+    "RecompileBasePart05": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+    "RecompileBasePart05A": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+    "RecompileBasePart05B": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+    "RecompileBasePart05C": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+    "RecompileBasePart06": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+    "RecompileBasePart07": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+    "RecompileExtensionCore": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+    "RecompileExtensionsPart01": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+    "RecompileSections": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8"
+  },
+  "actual_ext01_source_closure_count": 34,
+  "late_geometry_section_representability_and_ext02_absent": true,
+  "original_all_test_HomSpacePresentation_contract_preserved": true,
+  "representer_is_an_explicit_parameter_not_an_existence_claim": true,
+  "integration_note": "The pure comparisons may be placed before Ext01. Insert the actual constructor after HomSpacePresentation is defined and before its existence theorem; do not import a module back into Ext01 that itself imports Ext01.",
+  "diagnostic_import_pool_scope": "Completed local diagnostic uses the exact accepted local native pool and exact new diagnostic core; this is not claimed as stock native verification in the new production source context.",
+  "production_proposal_311_mutated": false,
+  "milestone_units_added": 0
+}

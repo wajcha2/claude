@@ -5,16 +5,16 @@
   "metric": {
     "name": "Conservative evidence-backed acceptance-checklist completion floor",
     "denominator": 133,
-    "accepted_units": 74,
-    "pending_units": 59,
-    "percentage": 55.6390977443609,
-    "percentage_display": 55.64,
-    "rounded_percentage": 56,
-    "formula": "(22 retired original admissions +8 historically accepted wrappers +43 accepted Point1 obligations +1 separately accepted OBL-069) /133",
+    "accepted_units": 79,
+    "pending_units": 54,
+    "percentage": 59.3984962406015,
+    "percentage_display": 59.4,
+    "rounded_percentage": 59,
+    "formula": "(22 retired originals +8 historically accepted Step3b wrappers +44 accepted Point1/additional roots +5 accepted Step3h obligations) /133",
     "is_estimate_of_mathematical_effort": false,
     "is_estimate_of_time_remaining": false,
     "is_percentage_of_lines_or_rewritten_wrappers": false,
-    "numerator_boundary": "Original accepted checklist units only;43 Point1 obligations and OBL-069 now have complete native, publication and current reverse-dependency evidence."
+    "numerator_boundary": "Original accepted checklist units only; no helper, input review or build unit."
   },
   "milestone_met": false,
   "whole_current_proof_graph_kernel_verified": true,
@@ -32,8 +32,8 @@
     "publication_audit_policy": "Every original obligation includes the approval of all admitted dependencies it uses. Shared leaf reviews may serve several obligations but are not additional numerator/denominator units. Moving or splitting an admission never earns credit by itself.",
     "scope_revision_policy": "Attach discovered subtasks to the governing original obligation, definition validation, or final gate. Change the fixed denominator only by an explicit recorded scope revision.",
     "supersedes": "The earlier provisional 153-unit suggestion in TARGET_INTEGRATION.md double-counted 50 leaf reviews and is superseded by this 133-unit ledger.",
-    "remaining_original_obligations_scope": "Historical post-Step3b baseline (91). The fixed denominator is unchanged; the current pending original-obligation list contains 47.",
-    "current_pending_original_obligations": 47
+    "remaining_original_obligations_scope": "Historical post-Step3b baseline (91); current pending original obligations42. Fixed denominator unchanged.",
+    "current_pending_original_obligations": 42
   },
   "acceptance_rule": {
     "original_obligation": "Either recorded sound retirement as unused, or an implementation preserving the required statement, exact approval of admitted dependencies, proved nondefinitional project translations, and matching changed-module/reverse-dependency evidence. Current whole-graph certification is also required at GATE-02.",
@@ -42,16 +42,16 @@
     "status_update_rule": "Promote an individual unit only when its evidence meets the rule; do not infer closure from namespace, sorry count, helper compilation, or an unverified completion announcement."
   },
   "source_snapshot": {
-    "commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
-    "tree": "885ffa817897b4c686ec0264957df3326d44138f",
-    "source_module_count": 307,
+    "commit": "4d1aa547453f50736035a91f6fea81d340359143",
+    "tree": "f0b2e438b972ca9f08c96bfeffcdfb6a55ea2a67",
+    "source_module_count": 308,
     "source_manifest": "SOURCE.sha256",
-    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
     "manifest_convention": "Sorted lines: source SHA256 +two spaces +source-relative path +newline.",
     "original_csv_sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
     "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
     "toolchain_lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
-    "snapshot_utc": "2026-11-04T18:46:58Z"
+    "snapshot_utc": "2026-11-04T22:08:47.305946+00:00"
   },
   "groups": [
     {
@@ -67,7 +67,7 @@
     {
       "group": "Steps3c–3n original obligations",
       "total": 91,
-      "accepted": 44
+      "accepted": 49
     },
     {
       "group": "Step2 definition validations",
@@ -624,111 +624,6 @@
   ],
   "pending_original_obligations": [
     {
-      "id": "OBL-044",
-      "csv_data_row_1_based": 44,
-      "csv_file_line_1_based": 45,
-      "substep": "3h",
-      "declaration": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
-      "original_inventory_name": "openImmersion_cotangentMap_isIso",
-      "file": "RecompileBasePart06.lean",
-      "status": "pending_acceptance",
-      "accepted": false,
-      "weight": 1,
-      "recovered_v2_source_body_status": "still admitted",
-      "current_lexical_status": "direct_admission",
-      "acceptance_evidence_complete": false,
-      "evidence_ids": [
-        "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT"
-      ],
-      "current_source_file_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994"
-    },
-    {
-      "id": "OBL-045",
-      "csv_data_row_1_based": 45,
-      "csv_file_line_1_based": 46,
-      "substep": "3h",
-      "declaration": "LeBrunSalamon.PhaseThirty.smoothClosedImmersion_conormal_rank",
-      "original_inventory_name": "smoothClosedImmersion_conormal_rank",
-      "file": "RecompileBasePart06.lean",
-      "status": "pending_acceptance",
-      "accepted": false,
-      "weight": 1,
-      "recovered_v2_source_body_status": "still admitted",
-      "current_lexical_status": "direct_admission",
-      "acceptance_evidence_complete": false,
-      "evidence_ids": [
-        "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT"
-      ],
-      "current_source_file_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994"
-    },
-    {
-      "id": "OBL-046",
-      "csv_data_row_1_based": 46,
-      "csv_file_line_1_based": 47,
-      "substep": "3h",
-      "declaration": "LeBrunSalamon.Construction.Charts.smooth_differential_surjective",
-      "original_inventory_name": "Charts.smooth_differential_surjective",
-      "file": "RecompileExtensionsPart02.lean",
-      "status": "pending_acceptance",
-      "accepted": false,
-      "weight": 1,
-      "recovered_v2_source_body_status": "still admitted",
-      "current_lexical_status": "direct_admission",
-      "acceptance_evidence_complete": false,
-      "evidence_ids": [
-        "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT"
-      ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e"
-    },
-    {
-      "id": "OBL-047",
-      "csv_data_row_1_based": 47,
-      "csv_file_line_1_based": 48,
-      "substep": "3h",
-      "declaration": "LeBrunSalamon.Construction.Charts.differential_surjective_implies_smooth",
-      "original_inventory_name": "Charts.differential_surjective_implies_smooth",
-      "file": "RecompileExtensionsPart02.lean",
-      "status": "pending_acceptance",
-      "accepted": false,
-      "weight": 1,
-      "recovered_v2_source_body_status": "still admitted",
-      "current_lexical_status": "direct_admission",
-      "acceptance_evidence_complete": false,
-      "evidence_ids": [
-        "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT"
-      ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e"
-    },
-    {
-      "id": "OBL-048",
-      "csv_data_row_1_based": 48,
-      "csv_file_line_1_based": 49,
-      "substep": "3h",
-      "declaration": "LeBrunSalamon.Construction.Charts.tangent_dimension_of_smooth",
-      "original_inventory_name": "Charts.tangent_dimension_of_smooth",
-      "file": "RecompileExtensionsPart02.lean",
-      "status": "pending_acceptance",
-      "accepted": false,
-      "weight": 1,
-      "recovered_v2_source_body_status": "still admitted",
-      "current_lexical_status": "direct_admission",
-      "acceptance_evidence_complete": false,
-      "evidence_ids": [
-        "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT"
-      ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e"
-    },
-    {
       "id": "OBL-049",
       "csv_data_row_1_based": 49,
       "csv_file_line_1_based": 50,
@@ -810,7 +705,7 @@
         "P-ORIGINAL",
         "S-CURRENT"
       ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e"
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52"
     },
     {
       "id": "OBL-053",
@@ -1722,9 +1617,10 @@
       "partial_progress": "The exact frozen statement is preserved; the complete current conditional assembly compiles. PositiveQKSimpleConnectedness is still an explicit outstanding bridge.",
       "evidence_ids": [
         "H2",
-        "P-TARGET",
         "P-CI",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "P-TARGET"
       ],
       "status": "pending_acceptance",
       "accepted": false,
@@ -1738,7 +1634,8 @@
       "evidence_ids": [
         "P-CI",
         "P-DIAGNOSTICS",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307"
       ],
       "status": "pending_acceptance",
       "accepted": false,
@@ -1748,12 +1645,13 @@
       "id": "GATE-03",
       "name": "Exhaustive final transitive admission audit",
       "acceptance_requirement": "Native final-theorem dependencies and every source admission agree with the exact published-theorem allowlist; no novel proof, composite application, transport, or hidden extra assumption remains admitted.",
-      "partial_progress": "The44 accepted original roots have an exhaustive native dependency audit with50 eligible published leaves. The final unconditional theorem and remaining original obligations have not passed the exhaustive final audit.",
+      "partial_progress": "All49 accepted original roots have current native boundaries with 54 eligible published inputs; the final theorem and42 remaining originals are unaudited for acceptance.",
       "evidence_ids": [
         "P-CSV",
-        "P-TOPOLOGY",
         "P-LEAF-AUDIT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "P-TOPOLOGY"
       ],
       "status": "pending_acceptance",
       "accepted": false,
@@ -1767,7 +1665,8 @@
       "evidence_ids": [
         "P-CI",
         "P-ORIGINAL",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307"
       ],
       "status": "pending_acceptance",
       "accepted": false,
@@ -2165,49 +2064,63 @@
       "actual_eligible_admitted_leaves": 50,
       "point1_ancestor_modules": 190,
       "whole_current_source_modules": 307
+    },
+    "P-STEP3H-ACCEPTED-41912044307": {
+      "kind": "complete_step3h_acceptance",
+      "path": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "verification_path": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+      "verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+      "source_commit": "4d1aa547453f50736035a91f6fea81d340359143"
     }
   },
   "ledger_production": {
     "source_mutation": false,
     "lean_invoked_by_ledger_writer": false,
-    "native_evidence_run": 41888465259,
-    "historical_ledger_snapshot": "audit/history/before_point1_acceptance_20261104T184658Z/MILESTONE_PROGRESS.json",
+    "native_evidence_run": "41912044307",
+    "historical_ledger_snapshot": "audit/history/pre_step3h_20261104/MILESTONE_PROGRESS.json",
     "only_written_files": [
       "audit/MILESTONE_PROGRESS.json",
-      "audit/MILESTONE_PROGRESS.md",
-      "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+      "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json"
     ]
   },
-  "updated_utc": "2026-11-04T18:46:58Z",
+  "updated_utc": "2026-11-04T22:08:47.305946+00:00",
   "checkpoint_update": {
     "source_freeze": "SOURCE.sha256",
-    "verification": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
-    "point1_accepted": true,
-    "point1_original_roots_checked": 43,
-    "additional_inherited_roots_checked": 1,
-    "actual_eligible_leaf_count": 50,
+    "verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+    "step3h_accepted": true,
+    "new_original_roots": [
+      "OBL-044",
+      "OBL-045",
+      "OBL-046",
+      "OBL-047",
+      "OBL-048"
+    ],
+    "current_original_roots_checked": 49,
+    "fresh_native_root_walks": 39,
+    "historical_boundaries_reused_in_exact_context": 10,
+    "actual_eligible_leaf_count": 54,
     "whole_current_proof_graph_kernel_verified": true,
-    "accepted_units_added": 44,
-    "accepted_units_total": 74,
+    "accepted_units_added": 5,
+    "accepted_units_total": 79,
     "total_units": 133,
     "milestone_met": false
   },
   "latest_verified_full_graph": {
-    "run_id": 41888465259,
-    "commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
-    "source_modules_selected": 307,
+    "run_id": "41912044307",
+    "run_attempt": "1",
+    "commit": "4d1aa547453f50736035a91f6fea81d340359143",
+    "source_modules_selected": 308,
     "status": "completed",
     "conclusion": "success",
     "counts": {
-      "reused": 305,
-      "passed": 2
+      "reused": 224,
+      "passed": 84
     },
-    "accepted_count_at_that_commit": 307,
+    "accepted_count_at_that_commit": 308,
     "full_selected_graph_passed": true,
-    "fresh_native_passes": 2,
-    "native_receipts_reused": 305,
-    "evidence": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
-    "scope": "All current source modules and their complete current ancestry; the exported milestone endpoint is still conditional."
+    "evidence": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+    "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+    "scope": "All current source modules; the exported endpoint remains conditional."
   },
   "frozen_unconditional_endpoint_kernel_verified": false,
   "historical_partial_progress_before_point1": [
@@ -2384,12 +2297,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-001",
+        "declaration": "LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum",
+        "module": "RecompileBasePart05C",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "f39faba68a38f81d6f529a63e31e206b6a89b480d055f898dd6c25c7ab43b847",
+        "native_context_sha256": "7964801d65ad9c906ea733f65503ac5813cb5e04b9d9f3c6c5d6e9d3c633d627",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective"
+        ],
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "module_output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+        "module_source_ancestry_fingerprint": "85c03b4d23ab66d537c57b3c1458b14abe4340dcb537d6fe213807d3fc2061b0",
+        "native_module_receipt_sha256": "58e0091f2df93323a860bd692439ed6e51bbbf3fbbbe09a9e66d29abffafd5ac",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentyEight.externalSection_finiteSum",
+          "module": "RecompileBasePart05C",
+          "level_params": "",
+          "native_type_sha256": "f39faba68a38f81d6f529a63e31e206b6a89b480d055f898dd6c25c7ab43b847"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-001",
         "scope": "point1",
         "substep": "3c",
@@ -2457,12 +2403,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-002",
+        "declaration": "LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend",
+        "module": "RecompileBasePart05C",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "d29871a6fcb6884d34d04cb443b4a05db1ee811975db1ead79af3aca15492a1c",
+        "native_context_sha256": "7964801d65ad9c906ea733f65503ac5813cb5e04b9d9f3c6c5d6e9d3c633d627",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso"
+        ],
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "module_output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+        "module_source_ancestry_fingerprint": "85c03b4d23ab66d537c57b3c1458b14abe4340dcb537d6fe213807d3fc2061b0",
+        "native_module_receipt_sha256": "58e0091f2df93323a860bd692439ed6e51bbbf3fbbbe09a9e66d29abffafd5ac",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentyEight.locallyFree_sections_descend",
+          "module": "RecompileBasePart05C",
+          "level_params": "",
+          "native_type_sha256": "d29871a6fcb6884d34d04cb443b4a05db1ee811975db1ead79af3aca15492a1c"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-002",
         "scope": "point1",
         "substep": "3c",
@@ -2530,12 +2509,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-003",
+        "declaration": "LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback",
+        "module": "RecompileBasePart07",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "9f40c6dccdfecdd972d94cda8bb9c1f80208fab276e3a5f694a04ff52a614a04",
+        "native_context_sha256": "25db1e920bf3933633bb76b0105d5dfb0bfdbd1856e627edc12e3d771a607f69",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+        "module_output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+        "module_source_ancestry_fingerprint": "6ce32e8444a409b1c710b67c588514699b46370f4e9fee8f28e4f93ff1583222",
+        "native_module_receipt_sha256": "3cc9aaa74691b11be1007eaab9ff8b4a1c00a7cd9d517f300e606c9bcf6cfdfb",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentyEight.nonvanishingOpen_pullback",
+          "module": "RecompileBasePart07",
+          "level_params": "",
+          "native_type_sha256": "9f40c6dccdfecdd972d94cda8bb9c1f80208fab276e3a5f694a04ff52a614a04"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-003",
         "scope": "point1",
         "substep": "3c",
@@ -2603,12 +2615,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-004",
+        "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "4cf833ee2ef9989b58014dfb734a507431ef5596ae1a0bb1a744fcd48e02c336",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Core.ExternalTensorCoordinates.globalTensorMap_injective",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "4cf833ee2ef9989b58014dfb734a507431ef5596ae1a0bb1a744fcd48e02c336"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-004",
         "scope": "point1",
         "substep": "3c",
@@ -2676,12 +2721,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-005",
+        "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "211f3cfdbd0a048466abf1db0c896bc5518f51439cb751070b6cc1fdfef1a300",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Core.ExternalTensorCoordinates.diagonalRestriction_iff_quotientCoefficients",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "211f3cfdbd0a048466abf1db0c896bc5518f51439cb751070b6cc1fdfef1a300"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-005",
         "scope": "point1",
         "substep": "3c",
@@ -2750,12 +2829,43 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-006",
+        "declaration": "LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "4bc900dc13945e51c336161617a1c0b5b7d28d1052b3f9e63cd2f61b9448ad81",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Core.ExternalTensorCoordinates.smooth_diagonal_square_detected",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "u_1",
+          "native_type_sha256": "4bc900dc13945e51c336161617a1c0b5b7d28d1052b3f9e63cd2f61b9448ad81"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-006",
         "scope": "point1",
         "substep": "3c",
@@ -2820,12 +2930,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-007",
+        "declaration": "LeBrunSalamon.StandardInputs.cotangentPullback_isIso",
+        "module": "LSNodalFixedEnds",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "875eaed55e869ba02c624a22952c0ff2f2205a09e3a7dd61070db6dab2848818",
+        "native_context_sha256": "696c808583b67ca8045664608af7fdcd7fe3f88bd97abdb85c1084c720d4d325",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.cotangentPullback_isIso",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "module_output_sha256": "4f4e7c669f19fb7250e4b1fc4a07cd4e37a184102b975e6e7b03546b55f4c999",
+        "module_source_ancestry_fingerprint": "009a8f7e0b670c70e94a58b6e91badb21e18534ad91e67baadd9052b67fd9b5a",
+        "native_module_receipt_sha256": "8822f0a54f625077f82eb490aaf6cc6a8cad7cfa98ea89203036015e2a862c8f",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.cotangentPullback_isIso",
+          "module": "LSNodalFixedEnds",
+          "level_params": "u_1",
+          "native_type_sha256": "875eaed55e869ba02c624a22952c0ff2f2205a09e3a7dd61070db6dab2848818"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-007",
         "scope": "point1",
         "substep": "3d",
@@ -2902,12 +3046,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-008",
+        "declaration": "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "8db8a1627a779196609625c46dab4f962da53cac7a247e3c99dc5ab58c72a8f3",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "8db8a1627a779196609625c46dab4f962da53cac7a247e3c99dc5ab58c72a8f3"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-008",
         "scope": "point1",
         "substep": "3d",
@@ -2975,12 +3152,43 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-009",
+        "declaration": "LeBrunSalamon.Construction.fiber_dimension",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "43ad22a28980090243308839ce8cab7ae48e9cdbf42be7c4c7a53659a545b215",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.fiber_dimension",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "43ad22a28980090243308839ce8cab7ae48e9cdbf42be7c4c7a53659a545b215"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-009",
         "scope": "point1",
         "substep": "3d",
@@ -3045,12 +3253,43 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-010",
+        "declaration": "LeBrunSalamon.Construction.fiber_finite",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "e986297a03a42ad330c66905f79559de4c775755dfde6bc805788b4c1c88ca80",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.fiber_finite",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "e986297a03a42ad330c66905f79559de4c775755dfde6bc805788b4c1c88ca80"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-010",
         "scope": "point1",
         "substep": "3d",
@@ -3115,12 +3354,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-011",
+        "declaration": "LeBrunSalamon.Construction.vectorBundle_fiber_exact",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "90de69e2e30d8ee82e4a73f24dae20c794206019043fa6bb70d0280d7d69a832",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient"
+        ],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.vectorBundle_fiber_exact",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "90de69e2e30d8ee82e4a73f24dae20c794206019043fa6bb70d0280d7d69a832"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-011",
         "scope": "point1",
         "substep": "3d",
@@ -3188,12 +3460,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-012",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact",
+        "module": "RecompileExtensionsPart03",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "5634c5dc0410eaaca15fdbd8549091d104f4c9b589706672c9d6145c479cafe7",
+        "native_context_sha256": "a419bb1c5ac4faa518a2dd3f587d264f21b126d1044ea81d2676d35d19c885e0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient"
+        ],
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "module_output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+        "module_source_ancestry_fingerprint": "c14e71c5a1c0bee91065059247c0b7728c74b154943e4019bccef6fd47d32a46",
+        "native_module_receipt_sha256": "37a9751766cae3af7963fa776c468a61767dec109abed70aa019f542b7970e7d",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.vectorBundle_pullback_shortExact",
+          "module": "RecompileExtensionsPart03",
+          "level_params": "",
+          "native_type_sha256": "5634c5dc0410eaaca15fdbd8549091d104f4c9b589706672c9d6145c479cafe7"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-012",
         "scope": "point1",
         "substep": "3d",
@@ -3261,12 +3566,47 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-013",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree",
+        "module": "RecompileExtensionsPart03",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "8ee7f5d4e5218f52691d97cf35bb528170cafcf9a244eaa155303ea0a1bc665a",
+        "native_context_sha256": "a419bb1c5ac4faa518a2dd3f587d264f21b126d1044ea81d2676d35d19c885e0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+          "LeBrunSalamon.PublishedInputs.FiniteFreeHom.dualTensorHomMap_isIso",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "module_output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+        "module_source_ancestry_fingerprint": "c14e71c5a1c0bee91065059247c0b7728c74b154943e4019bccef6fd47d32a46",
+        "native_module_receipt_sha256": "37a9751766cae3af7963fa776c468a61767dec109abed70aa019f542b7970e7d",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homFiberEvaluation_injective_of_locallyFree",
+          "module": "RecompileExtensionsPart03",
+          "level_params": "",
+          "native_type_sha256": "8ee7f5d4e5218f52691d97cf35bb528170cafcf9a244eaa155303ea0a1bc665a"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-013",
         "scope": "point1",
         "substep": "3d",
@@ -3336,12 +3676,47 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-014",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso",
+        "module": "RecompileExtensionsPart03",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "893d45431c378778092c2b3c3a1fd07ac4fe43bc7d86cbf20eaa916bc778d549",
+        "native_context_sha256": "a419bb1c5ac4faa518a2dd3f587d264f21b126d1044ea81d2676d35d19c885e0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+          "LeBrunSalamon.PublishedInputs.FiniteFreeHom.dualTensorHomMap_isIso",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "module_output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+        "module_source_ancestry_fingerprint": "c14e71c5a1c0bee91065059247c0b7728c74b154943e4019bccef6fd47d32a46",
+        "native_module_receipt_sha256": "37a9751766cae3af7963fa776c468a61767dec109abed70aa019f542b7970e7d",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.BundleGeometry.homBaseChange_isIso",
+          "module": "RecompileExtensionsPart03",
+          "level_params": "",
+          "native_type_sha256": "893d45431c378778092c2b3c3a1fd07ac4fe43bc7d86cbf20eaa916bc778d549"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-014",
         "scope": "point1",
         "substep": "3d",
@@ -3411,12 +3786,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-015",
+        "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout",
+        "module": "RecompileExtensionsPart04Geometry",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "cdcb2c48b41d020293b2a84f085794cc026187959029d85a14930b61faa28097",
+        "native_context_sha256": "8f484a3ab8b0b11fe346870fb6e9fb66252b3b45a4fa31d914e954e611c3eaf0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.spec_pullback_isPushout"
+        ],
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "module_output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+        "module_source_ancestry_fingerprint": "938a71fc3adc1dfcc98a02f0f1185752e45e0c38059068c1f3d5883f731ebd12",
+        "native_module_receipt_sha256": "c2c9fded19b880b6fac9d1425551d03bb7aef195766b9edac89efb5d9874cb56",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.spec_pullback_isPushout",
+          "module": "RecompileExtensionsPart04Geometry",
+          "level_params": "",
+          "native_type_sha256": "cdcb2c48b41d020293b2a84f085794cc026187959029d85a14930b61faa28097"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-015",
         "scope": "point1",
         "substep": "3d",
@@ -3490,12 +3898,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-016",
+        "declaration": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen",
+        "module": "RecompileExtensionsPart04Geometry",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "298ba5109e9329b43ad9b283c7def2479df308e84297549baf46f9fadb5b25d3",
+        "native_context_sha256": "8f484a3ab8b0b11fe346870fb6e9fb66252b3b45a4fa31d914e954e611c3eaf0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "module_output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+        "module_source_ancestry_fingerprint": "938a71fc3adc1dfcc98a02f0f1185752e45e0c38059068c1f3d5883f731ebd12",
+        "native_module_receipt_sha256": "c2c9fded19b880b6fac9d1425551d03bb7aef195766b9edac89efb5d9874cb56",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Smoothing.CoordinateCharts.StandardInputs.generating_sections_unitOpen",
+          "module": "RecompileExtensionsPart04Geometry",
+          "level_params": "",
+          "native_type_sha256": "298ba5109e9329b43ad9b283c7def2479df308e84297549baf46f9fadb5b25d3"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-016",
         "scope": "point1",
         "substep": "3d",
@@ -3569,12 +4010,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-017",
+        "declaration": "LeBrunSalamon.Construction.Normalization.totalBundle_exists",
+        "module": "RecompileExtensionsPart04Geometry",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "3bad70b787a6f6829f8ab2263f28e673cc9b641301e604789af3138f4de33bac",
+        "native_context_sha256": "8f484a3ab8b0b11fe346870fb6e9fb66252b3b45a4fa31d914e954e611c3eaf0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree"
+        ],
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "module_output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+        "module_source_ancestry_fingerprint": "938a71fc3adc1dfcc98a02f0f1185752e45e0c38059068c1f3d5883f731ebd12",
+        "native_module_receipt_sha256": "c2c9fded19b880b6fac9d1425551d03bb7aef195766b9edac89efb5d9874cb56",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Normalization.totalBundle_exists",
+          "module": "RecompileExtensionsPart04Geometry",
+          "level_params": "",
+          "native_type_sha256": "3bad70b787a6f6829f8ab2263f28e673cc9b641301e604789af3138f4de33bac"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-017",
         "scope": "point1",
         "substep": "3d",
@@ -3648,12 +4122,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-018",
+        "declaration": "LeBrunSalamon.ClassicalReduction.StandardInputs.polarizedEmbedding_firstJets",
+        "module": "LSClassicalReduction",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "9ed0d0c74cc0bdd21a889231b20ade2ef78fb3be2bed9a4974d2060c3a0e4487",
+        "native_context_sha256": "354fd4a37f84849fa267b9b79a00154affc2d46408c2a0f56059e9c65f1db812",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "5f553b7cea8d929432e7b267a7c7e5fde6889b326ae96bf3e57d3d67cd55a3dc",
+        "module_output_sha256": "7c79fa5391d49e0afee635a7d558e2d1aff8a9d8d035877cd5afbd4e4a31345d",
+        "module_source_ancestry_fingerprint": "fb4516e5505d9d9ea815812411bf2ac98462be8106e6977bb5c193e3000313cc",
+        "native_module_receipt_sha256": "09371ab66a3440e6978a8413ab4aff60895308deabc384dcc2503c7d88129737",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.ClassicalReduction.StandardInputs.polarizedEmbedding_firstJets",
+          "module": "LSClassicalReduction",
+          "level_params": "",
+          "native_type_sha256": "9ed0d0c74cc0bdd21a889231b20ade2ef78fb3be2bed9a4974d2060c3a0e4487"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-018",
         "scope": "point1",
         "substep": "3e",
@@ -3727,12 +4234,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-019",
+        "declaration": "LeBrunSalamon.PhaseTwentyFive.smooth_cotangent_rank",
+        "module": "RecompileBasePart04",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "24a305198984df0d24396aa3761478d61770f0b7e8e31687935d9c9fa50b7c81",
+        "native_context_sha256": "d66c09508bacbc227eac18c5e8e6446703353fa94fd98261ee16704d7c6644c4",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "native_module_receipt_sha256": "63b523b12c3e95cc151defadd75ffc93fe33bcaac1a0ec0b326051897b0ebf48",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentyFive.smooth_cotangent_rank",
+          "module": "RecompileBasePart04",
+          "level_params": "",
+          "native_type_sha256": "24a305198984df0d24396aa3761478d61770f0b7e8e31687935d9c9fa50b7c81"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-019",
         "scope": "point1",
         "substep": "3e",
@@ -3801,12 +4342,49 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-020",
+        "declaration": "LeBrunSalamon.PhaseTwentySix.tangentDeterminant_anticanonical",
+        "module": "RecompileBasePart04",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "418269f39e9f9d7a749a325791ad691ae62a5eb87cce9ec493e82590207b09e9",
+        "native_context_sha256": "d66c09508bacbc227eac18c5e8e6446703353fa94fd98261ee16704d7c6644c4",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Determinant.lciExteriorMap_isIso",
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exteriorPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exterior_locallyFree"
+        ],
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "native_module_receipt_sha256": "63b523b12c3e95cc151defadd75ffc93fe33bcaac1a0ec0b326051897b0ebf48",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentySix.tangentDeterminant_anticanonical",
+          "module": "RecompileBasePart04",
+          "level_params": "",
+          "native_type_sha256": "418269f39e9f9d7a749a325791ad691ae62a5eb87cce9ec493e82590207b09e9"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-020",
         "scope": "point1",
         "substep": "3e",
@@ -3878,12 +4456,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-021",
+        "declaration": "LeBrunSalamon.PhaseTwentySix.ample_positivePower_iff",
+        "module": "RecompileBasePart04",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "9054d1a7d98de3218ce693c1b621ed62b9f35d549377a6a3c7a0e2860ac908c0",
+        "native_context_sha256": "d66c09508bacbc227eac18c5e8e6446703353fa94fd98261ee16704d7c6644c4",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Ample.positive_tensorPower"
+        ],
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "native_module_receipt_sha256": "63b523b12c3e95cc151defadd75ffc93fe33bcaac1a0ec0b326051897b0ebf48",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentySix.ample_positivePower_iff",
+          "module": "RecompileBasePart04",
+          "level_params": "",
+          "native_type_sha256": "9054d1a7d98de3218ce693c1b621ed62b9f35d549377a6a3c7a0e2860ac908c0"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-021",
         "scope": "point1",
         "substep": "3e",
@@ -3951,12 +4562,47 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-022",
+        "declaration": "LeBrunSalamon.PhaseTwentySix.determinant_shortExact",
+        "module": "RecompileBasePart04",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "eb60fd0ad1e299881823dff73ea31e04dd2f6686cc6d9ed5e802699e8d84d932",
+        "native_context_sha256": "d66c09508bacbc227eac18c5e8e6446703353fa94fd98261ee16704d7c6644c4",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Determinant.lciExteriorMap_isIso",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exteriorPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exterior_locallyFree"
+        ],
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "native_module_receipt_sha256": "63b523b12c3e95cc151defadd75ffc93fe33bcaac1a0ec0b326051897b0ebf48",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentySix.determinant_shortExact",
+          "module": "RecompileBasePart04",
+          "level_params": "",
+          "native_type_sha256": "eb60fd0ad1e299881823dff73ea31e04dd2f6686cc6d9ed5e802699e8d84d932"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-022",
         "scope": "point1",
         "substep": "3e",
@@ -4026,12 +4672,49 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-023",
+        "declaration": "LeBrunSalamon.PhaseTwentySeven.contact_distribution_determinant",
+        "module": "RecompileBasePart05A",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "8990610dfc65833c5b944bedf2e59f617b6b5a4f9e6560fe9e7d1b3f996839c1",
+        "native_context_sha256": "f2803d2aa1100673a2ec78372dadc103fd042bb2f6a7a80067f993d57bd633b1",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exteriorPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exterior_locallyFree",
+          "LeBrunSalamon.PublishedInputs.Step3e.alternatingDiscriminantTrivial"
+        ],
+        "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+        "module_output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+        "module_source_ancestry_fingerprint": "e4eaf01d939180bc3605510aa1c6c68702b7ca93ea2722e6cff18873e353984a",
+        "native_module_receipt_sha256": "0e856175ba4ec88ffd8c43ffbb614cee5323a4a1f5b23d535b5b2fec067bc137",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseTwentySeven.contact_distribution_determinant",
+          "module": "RecompileBasePart05A",
+          "level_params": "",
+          "native_type_sha256": "8990610dfc65833c5b944bedf2e59f617b6b5a4f9e6560fe9e7d1b3f996839c1"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-023",
         "scope": "point1",
         "substep": "3e",
@@ -4103,12 +4786,49 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-024",
+        "declaration": "LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "a41da8872269311ea88615f6c77a4e97f0511edfe491859072b640f7c407594f",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.properAmpleClosedImmersion",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exteriorPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.exterior_locallyFree"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirtyFive.contactFano_hasProjectiveEmbedding",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "a41da8872269311ea88615f6c77a4e97f0511edfe491859072b640f7c407594f"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-024",
         "scope": "point1",
         "substep": "3e",
@@ -4180,12 +4900,68 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-025",
+        "declaration": "LeBrunSalamon.StandardInputs.formalTrait_twoComponent_lineNormalForm",
+        "module": "LSFormalTraitModel",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "b646c2a05c60a948d41ffe6d2b1481245e29a8141e049c5aebafca47f7319f1e",
+        "native_context_sha256": "6e5fa523d0e6ace88d58323ba785a1688a3d9feea9a22b66f32194ad2a4f46a8",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.spec_pullback_isPushout",
+          "LeBrunSalamon.PublishedInputs.ClosedImmersionLocus.exists_open",
+          "LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation",
+          "LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1",
+          "LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective",
+          "LeBrunSalamon.PublishedInputs.ConicQuadratic.reduced_normalForm",
+          "LeBrunSalamon.PublishedInputs.ConicQuadratic.smooth_iff_discriminant_ne_zero",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.baseChange_line",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.canonical_regular_and_zero_locus",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.regular_zero_locus",
+          "LeBrunSalamon.PublishedInputs.LocalSplitting.finiteFreeQuotient",
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.Picard.projectiveBundle_externalLineFactor",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.nonzero_quadratic_section_regular",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.quadraticSections_bijective",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.segreQuadric",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "LeBrunSalamon.PublishedInputs.RelativeCartier.near_closed_point",
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree_affine",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_tensorProduct"
+        ],
+        "source_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
+        "module_output_sha256": "e023410c8d79ca6d73a62be17807fc7a2c20b35f7ffd64c29f6cd0d5e635e9d4",
+        "module_source_ancestry_fingerprint": "b87e6c6bd2bf8f1612cbc50b8ff0739821cc3a5e0f09f60afded6c1902c113d5",
+        "native_module_receipt_sha256": "20a55d218c7391db5dca91ee9ff24b49807eafc665c1f8cf24a9a32637c424fe",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.formalTrait_twoComponent_lineNormalForm",
+          "module": "LSFormalTraitModel",
+          "level_params": "",
+          "native_type_sha256": "b646c2a05c60a948d41ffe6d2b1481245e29a8141e049c5aebafca47f7319f1e"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-025",
         "scope": "point1",
         "substep": "3f",
@@ -4282,12 +5058,64 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-026",
+        "declaration": "LeBrunSalamon.StandardInputs.formalTrait_smooth_lineNormalForm",
+        "module": "LSFormalTraitModel",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "f2116a2e5f3c5aecd823d18677d8f085c47c776b52d34d85e01485cf4ac6c259",
+        "native_context_sha256": "6e5fa523d0e6ace88d58323ba785a1688a3d9feea9a22b66f32194ad2a4f46a8",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.ClosedImmersionLocus.exists_open",
+          "LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation",
+          "LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1",
+          "LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective",
+          "LeBrunSalamon.PublishedInputs.ConicQuadratic.smooth_normalForm",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.baseChange_line",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.canonical_regular_and_zero_locus",
+          "LeBrunSalamon.PublishedInputs.EffectiveCartier.regular_zero_locus",
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.Picard.projectiveBundle_externalLineFactor",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.nonzero_quadratic_section_regular",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.quadraticSections_bijective",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.quadraticVeronese_zeroModel",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardAffineCharts",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "LeBrunSalamon.PublishedInputs.RelativeCartier.near_closed_point",
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree_affine",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_tensorProduct"
+        ],
+        "source_sha256": "a4c26334562da566936c515fcefd123b305ed3ecf17783792890cd44272ecec6",
+        "module_output_sha256": "e023410c8d79ca6d73a62be17807fc7a2c20b35f7ffd64c29f6cd0d5e635e9d4",
+        "module_source_ancestry_fingerprint": "b87e6c6bd2bf8f1612cbc50b8ff0739821cc3a5e0f09f60afded6c1902c113d5",
+        "native_module_receipt_sha256": "20a55d218c7391db5dca91ee9ff24b49807eafc665c1f8cf24a9a32637c424fe",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.formalTrait_smooth_lineNormalForm",
+          "module": "LSFormalTraitModel",
+          "level_params": "",
+          "native_type_sha256": "f2116a2e5f3c5aecd823d18677d8f085c47c776b52d34d85e01485cf4ac6c259"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-026",
         "scope": "point1",
         "substep": "3f",
@@ -4380,12 +5208,43 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-027",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_zeroSection_surjective",
+        "module": "LSHomVelocity",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "a53027ea999bac45f5afa666db16c49216b567349e93af45050d6356dd8d388e",
+        "native_context_sha256": "a6fae01e5a9a62efc63f7462460849ce981607fdf5fe57e22be7cde3802e8bc1",
+        "direct_leaf_names": [],
+        "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+        "module_output_sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+        "module_source_ancestry_fingerprint": "7691a319be2db366d844049caf12f2f87414ccd1be85542bea7ff195045efd52",
+        "native_module_receipt_sha256": "a4d8bec765a11e25f28ce016efc1d220cae00edb42348a4c1a04e2ce7838978c",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_zeroSection_surjective",
+          "module": "LSHomVelocity",
+          "level_params": "",
+          "native_type_sha256": "a53027ea999bac45f5afa666db16c49216b567349e93af45050d6356dd8d388e"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-027",
         "scope": "point1",
         "substep": "3f",
@@ -4456,12 +5315,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-028",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+        "module": "LSHomVelocity",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "02b91eb17df29eddb3298c72b32e8dad54ef8859dbba65c901efb3a0bca95d0a",
+        "native_context_sha256": "a6fae01e5a9a62efc63f7462460849ce981607fdf5fe57e22be7cde3802e8bc1",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective"
+        ],
+        "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+        "module_output_sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+        "module_source_ancestry_fingerprint": "7691a319be2db366d844049caf12f2f87414ccd1be85542bea7ff195045efd52",
+        "native_module_receipt_sha256": "a4d8bec765a11e25f28ce016efc1d220cae00edb42348a4c1a04e2ce7838978c",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+          "module": "LSHomVelocity",
+          "level_params": "",
+          "native_type_sha256": "02b91eb17df29eddb3298c72b32e8dad54ef8859dbba65c901efb3a0bca95d0a"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-028",
         "scope": "point1",
         "substep": "3f",
@@ -4535,12 +5427,43 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-029",
+        "declaration": "LeBrunSalamon.StandardInputs.affineLine_section_divisible",
+        "module": "LSNodalFixedEnds",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "876f9e9cd5eb61c7bdfe7dbb36a3e5003419aeabe6694ccf5a830600fb0d7d48",
+        "native_context_sha256": "696c808583b67ca8045664608af7fdcd7fe3f88bd97abdb85c1084c720d4d325",
+        "direct_leaf_names": [],
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "module_output_sha256": "4f4e7c669f19fb7250e4b1fc4a07cd4e37a184102b975e6e7b03546b55f4c999",
+        "module_source_ancestry_fingerprint": "009a8f7e0b670c70e94a58b6e91badb21e18534ad91e67baadd9052b67fd9b5a",
+        "native_module_receipt_sha256": "8822f0a54f625077f82eb490aaf6cc6a8cad7cfa98ea89203036015e2a862c8f",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.affineLine_section_divisible",
+          "module": "LSNodalFixedEnds",
+          "level_params": "",
+          "native_type_sha256": "876f9e9cd5eb61c7bdfe7dbb36a3e5003419aeabe6694ccf5a830600fb0d7d48"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-029",
         "scope": "point1",
         "substep": "3f",
@@ -4611,12 +5534,47 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-030",
+        "declaration": "LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing",
+        "module": "LSNodalFixedEnds",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "021562c796e2bd6bbee4f76c79954c957bf3ec3e8262932b3dee6eb0433e37d3",
+        "native_context_sha256": "696c808583b67ca8045664608af7fdcd7fe3f88bd97abdb85c1084c720d4d325",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+          "LeBrunSalamon.PublishedInputs.ProjectionFormula.canonicalMap_isIso",
+          "LeBrunSalamon.PublishedInputs.TensorExactness.locallyFree_tensor_shortExact"
+        ],
+        "source_sha256": "2498b39217d88436c67a2efee38d3aa8e2e3a614e0f212156c3ef2485ce1c7c2",
+        "module_output_sha256": "4f4e7c669f19fb7250e4b1fc4a07cd4e37a184102b975e6e7b03546b55f4c999",
+        "module_source_ancestry_fingerprint": "009a8f7e0b670c70e94a58b6e91badb21e18534ad91e67baadd9052b67fd9b5a",
+        "native_module_receipt_sha256": "8822f0a54f625077f82eb490aaf6cc6a8cad7cfa98ea89203036015e2a862c8f",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.dualThickening_hom_vanishing",
+          "module": "LSNodalFixedEnds",
+          "level_params": "",
+          "native_type_sha256": "021562c796e2bd6bbee4f76c79954c957bf3ec3e8262932b3dee6eb0433e37d3"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-030",
         "scope": "point1",
         "substep": "3f",
@@ -4692,12 +5650,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-031",
+        "declaration": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.firstOrder_cotangentHom_bijective",
+        "module": "LSNodalTangent",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "616b05814d0778aca3d6257705d7dddc52e55965bd566531c47fc53cc84059de",
+        "native_context_sha256": "193f9412d6ce850cb4616dfa76ed45add454ae8b4d7e976121cdfe5ff35af267",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "c389faa55e764bcd2e43c8ac4307130d1dab1f10a5e07dfaeb8aa725aa0b9229",
+        "module_output_sha256": "c161eaf44a8800563c4ac60b678f336618979cb46706da0b6efa70c17506588d",
+        "module_source_ancestry_fingerprint": "22b913f845e99356d11de0f0df355cfb425f7ac86970acd5bec8dd9a29015660",
+        "native_module_receipt_sha256": "7f9092e75be8d00a7bb2e186dfb85cd3c2209e2d7c3880f52431a62268fff2ef",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.firstOrder_cotangentHom_bijective",
+          "module": "LSNodalTangent",
+          "level_params": "",
+          "native_type_sha256": "616b05814d0778aca3d6257705d7dddc52e55965bd566531c47fc53cc84059de"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-031",
         "scope": "point1",
         "substep": "3f",
@@ -4771,10 +5763,11 @@
       "acceptance_evidence_complete": true,
       "evidence_ids": [
         "P-CSV",
-        "P-ORIGINAL",
-        "S-CURRENT",
         "P-FUNDAMENTAL-CLASS-SOURCE-PROOF",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-ORIGINAL",
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
       "source_replacement": {
@@ -4789,8 +5782,46 @@
         "scope": "Exact integrated helper and wrapper bytes passed isolated diagnostic interfaces. The exhaustive boundary still names eight inherited older-interface leaves; three already have proved current replacements. Full current-source ancestry and published-leaf acceptance remain pending.",
         "whole_current_dependency_graph_verified": false
       },
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-032",
+        "declaration": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
+        "module": "LSStandardConicDifferential",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "68c205b6cc4606a55cce835689cc29cae7df924459439439b3640fabb1dba667",
+        "native_context_sha256": "0c5cb94f35f096fcc0202e952dfed18b91a36d9e40847977d3426d1143934474",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
+          "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+          "LeBrunSalamon.PublishedInputs.Differentials.openImmersionPresentation",
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological",
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
+        "module_output_sha256": "7e8523e23edf74e5391bce87bb6cf1e7c92283ab675eee7b02644568b16e126e",
+        "module_source_ancestry_fingerprint": "b490eb66698010c162477fcd78b74a12c103fecdd90c9390ef0f93b9775909fc",
+        "native_module_receipt_sha256": "1283d93fab5f9d6de73d6b1b087f7048a4fc81b9b20bc403d6e9be6233d9ca0c",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
+          "module": "LSStandardConicDifferential",
+          "level_params": "",
+          "native_type_sha256": "68c205b6cc4606a55cce835689cc29cae7df924459439439b3640fabb1dba667"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-032",
         "scope": "point1",
         "substep": "3f",
@@ -4870,12 +5901,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-033",
+        "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_exists",
+        "module": "LSAffineDerivations",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "d23775f6b8fd1995e9af6b5c26a3ae42c27fdeba3d24536a5b3130ce297acc6d",
+        "native_context_sha256": "4fb80a3989674a0b302cbf449a06db7a67486ef34fd742562ca24f8bb432686a",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative"
+        ],
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "module_output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "module_source_ancestry_fingerprint": "05945d5b58c201461b8cc0eaef7adc9caa6b10939b458b6d9f353d6fed07683b",
+        "native_module_receipt_sha256": "57e3e8c77b657f2ed84d260e9356d30c86addd68aa17ad05a8fd5a772ecd9fc7",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.affine_localDerivation_exists",
+          "module": "LSAffineDerivations",
+          "level_params": "",
+          "native_type_sha256": "d23775f6b8fd1995e9af6b5c26a3ae42c27fdeba3d24536a5b3130ce297acc6d"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-033",
         "scope": "point1",
         "substep": "3f",
@@ -4943,12 +6007,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-034",
+        "declaration": "LeBrunSalamon.StandardInputs.affine_localDerivation_ext",
+        "module": "LSAffineDerivations",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "199acf0417f5ff2b245f8f3d2b555278602d828c8a9d7f04ab0a6427ef6f964e",
+        "native_context_sha256": "4fb80a3989674a0b302cbf449a06db7a67486ef34fd742562ca24f8bb432686a",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative"
+        ],
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "module_output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "module_source_ancestry_fingerprint": "05945d5b58c201461b8cc0eaef7adc9caa6b10939b458b6d9f353d6fed07683b",
+        "native_module_receipt_sha256": "57e3e8c77b657f2ed84d260e9356d30c86addd68aa17ad05a8fd5a772ecd9fc7",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.affine_localDerivation_ext",
+          "module": "LSAffineDerivations",
+          "level_params": "",
+          "native_type_sha256": "199acf0417f5ff2b245f8f3d2b555278602d828c8a9d7f04ab0a6427ef6f964e"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-034",
         "scope": "point1",
         "substep": "3f",
@@ -5016,12 +6113,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
-      "current_source_file_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-035",
+        "declaration": "LeBrunSalamon.Refinement.Boundary.regular_of_heightOne",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "312d7c3099e05da554beab8e8a547b53b01d4a9913ad9e996969780648d8ed85",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [
+          "LeBrunSalamon.Refinement.Boundary.LeBrunSalamon.PublishedInputs.Step3f.regular_of_heightOne"
+        ],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Refinement.Boundary.regular_of_heightOne",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "u_1,u_2",
+          "native_type_sha256": "312d7c3099e05da554beab8e8a547b53b01d4a9913ad9e996969780648d8ed85"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-035",
         "scope": "point1",
         "substep": "3f",
@@ -5089,12 +6219,48 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-036",
+        "declaration": "LeBrunSalamon.StandardInputs.projectiveLineFamily_degree_constant",
+        "module": "LSContactLineTests",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "9f01f4e54ba2ea1ba29ab330e60b1e574d1b304f51ecd068b0bd77adeefbdc46",
+        "native_context_sha256": "4b48ff8f896a677c8005fb2ba7eec638f818f514699aa2a838fe342f355872ca",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.Picard.projectiveBundle_externalLineFactor",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_tensorProduct"
+        ],
+        "source_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+        "module_output_sha256": "da86f1daf623c357272708c3db59c745981311d602c64776a10430307118bce5",
+        "module_source_ancestry_fingerprint": "1724fdcf04145bd72dca7db55923fd7d5ab0893d3e7e5c6d5dc28f397ab890f6",
+        "native_module_receipt_sha256": "5764a5827090c6b252d73ceed0c9a3d502bb71298f69eb3cb288db5a5b984fca",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.StandardInputs.projectiveLineFamily_degree_constant",
+          "module": "LSContactLineTests",
+          "level_params": "",
+          "native_type_sha256": "9f01f4e54ba2ea1ba29ab330e60b1e574d1b304f51ecd068b0bd77adeefbdc46"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-036",
         "scope": "point1",
         "substep": "3g",
@@ -5171,12 +6337,48 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "6aac538547bb442e420ee79feef302e4d18505c69673af962e14ebe4a1df7f60",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-037",
+        "declaration": "LeBrunSalamon.CurveStandardInputs.exists_laurent_expansion_with_pole",
+        "module": "LSCurveLaurentStandardInputs",
+        "mode": "accepted_historical_boundary_in_exact_native_context",
+        "native_type_sha256": "3da17e4d57d0e77aa309853b1b4b425f6b363f68228dd3a904b6896749cb1cd2",
+        "native_context_sha256": "e055fc6d3f7ea7bd4eb10b20dde3ac0080c2803949f5afc0ebaf4ff36ef102b3",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.FunctionFields.completeDiscreteValuation_series",
+          "LeBrunSalamon.PublishedInputs.FunctionFields.dimension_transcendenceDegree",
+          "LeBrunSalamon.PublishedInputs.FunctionFields.exists_pole",
+          "LeBrunSalamon.PublishedInputs.FunctionFields.place_residue_finite"
+        ],
+        "source_sha256": "6aac538547bb442e420ee79feef302e4d18505c69673af962e14ebe4a1df7f60",
+        "module_output_sha256": "4a9af8c2776b11c62f9fe92303233b8cbc2a5d76fe100c859fade653617e97bf",
+        "module_source_ancestry_fingerprint": "cf7cb2daaba37e24384e079ba94dda588a0e80b04ee532b40acd63709848bfe9",
+        "native_module_receipt_sha256": "644b8f450dc6aaae46989494ceaad9019152473cbf9e6fea16fcf776a50c42b1",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.CurveStandardInputs.exists_laurent_expansion_with_pole",
+          "module": "LSCurveLaurentStandardInputs",
+          "level_params": "",
+          "native_type_sha256": "3da17e4d57d0e77aa309853b1b4b425f6b363f68228dd3a904b6896749cb1cd2"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-037",
         "scope": "point1",
         "substep": "3g",
@@ -5247,12 +6449,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
-      "current_source_file_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "current_source_file_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-038",
+        "declaration": "LeBrunSalamon.PhaseThirty.nonconstant_complexCurve_differential_ne_zero",
+        "module": "RecompileBasePart06",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "c762dd09375b4c5570c49d1a3ad326a372955cafac2736dbf1248a6e4439710b",
+        "native_context_sha256": "fb68a5b0c287f2042e9d003ae2520d88a9a8074d495481c656760b389395327f",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.ProjectiveLineGeometry.nonconstantCurveDifferential",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+        "module_output_sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4",
+        "module_source_ancestry_fingerprint": "5bf2c12668bb9172fe234e8ac2e7d2f9f72dde57ce66424380361aa9497ddb12",
+        "native_module_receipt_sha256": "6c228e8e6c08c3ca905f0b06c0b1d13532e8b79cd9b76bb557765ce4b377bb84",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirty.nonconstant_complexCurve_differential_ne_zero",
+          "module": "RecompileBasePart06",
+          "level_params": "",
+          "native_type_sha256": "c762dd09375b4c5570c49d1a3ad326a372955cafac2736dbf1248a6e4439710b"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-038",
         "scope": "point1",
         "substep": "3g",
@@ -5321,12 +6557,47 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-039",
+        "declaration": "LeBrunSalamon.PhaseThirtyTwo.birkhoffGrothendieck",
+        "module": "RecompileExtensionCore",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "1cbffd9d5f92fba29e57205ead7773c11a72a87d307cc323c50c10c91f65c0c5",
+        "native_context_sha256": "65fa474d65af62af7da7997de08dbe239155c5bd73f733d16d0ac70539c994c8",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.ProjectiveLine.splitsIntoInvertibleSheaves",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+        "module_output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+        "module_source_ancestry_fingerprint": "ab222f435478661c587d852214ee906bd9b41e6d557c87c9309b96fe981319be",
+        "native_module_receipt_sha256": "01707aa18d521668262e7dc06b6357ebbfebdcd71086a1600aadebd5905e0e7e",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirtyTwo.birkhoffGrothendieck",
+          "module": "RecompileExtensionCore",
+          "level_params": "",
+          "native_type_sha256": "1cbffd9d5f92fba29e57205ead7773c11a72a87d307cc323c50c10c91f65c0c5"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-039",
         "scope": "point1",
         "substep": "3g",
@@ -5396,12 +6667,50 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-040",
+        "declaration": "LeBrunSalamon.Skeleton.sourceBivector_existsUnique",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "685f3d9762f2b737cf5b84b81aa93768fc78c19b29cb8e8cab0358a8c784670f",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.Kunneth.canonicalMap_bijective",
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Skeleton.sourceBivector_existsUnique",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "685f3d9762f2b737cf5b84b81aa93768fc78c19b29cb8e8cab0358a8c784670f"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-040",
         "scope": "point1",
         "substep": "3g",
@@ -5474,12 +6783,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-041",
+        "declaration": "LeBrunSalamon.Skeleton.projectiveCoordinates_exists",
+        "module": "RecompileExtensionsPart01",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "7869c12b40b74dfa8d78e5e20b54966c26e35f5dfca38843317fc61a0ce13a86",
+        "native_context_sha256": "ab4a3e29e6035427c6c0b4f16e8e3d1680c358cfc4da18d19dd73760af9f65d5",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.ProjectiveSpace.standardTautological"
+        ],
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "3de05a220e2dcf8039c2b4704a32501887656c501928cc86c0dc15d7c49d3a54",
+        "native_module_receipt_sha256": "8be4789b1556e5d45b95ab435a09f23d7d6413d1de3f2bbce75311eda9d4b076",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Skeleton.projectiveCoordinates_exists",
+          "module": "RecompileExtensionsPart01",
+          "level_params": "",
+          "native_type_sha256": "7869c12b40b74dfa8d78e5e20b54966c26e35f5dfca38843317fc61a0ce13a86"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-041",
         "scope": "point1",
         "substep": "3g",
@@ -5547,12 +6889,46 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-042",
+        "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLineBundle_classification",
+        "module": "RecompileSections",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "eab5683014fc68d6cbedf2ead13eeae306597692302d7e45d260e20424edd87a",
+        "native_context_sha256": "e1ccab1871ffc1a01a9c37b1bb0581937d01957e3e710516103bd90e50c42822",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "module_output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+        "module_source_ancestry_fingerprint": "78229b7a646ddf159127ab6834625029e38f81fb2179661ebdaac03978c23cb1",
+        "native_module_receipt_sha256": "445250af95ce94be0bf97be9901cc20df733fac113b803d05ff2da93ddf2de52",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirtyTwo.projectiveLineBundle_classification",
+          "module": "RecompileSections",
+          "level_params": "",
+          "native_type_sha256": "eab5683014fc68d6cbedf2ead13eeae306597692302d7e45d260e20424edd87a"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-042",
         "scope": "point1",
         "substep": "3g",
@@ -5621,12 +6997,49 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-043",
+        "declaration": "LeBrunSalamon.PhaseThirtyTwo.projectiveLine_tangent_twist",
+        "module": "RecompileSections",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "fc7f7d853e80d7497c3b13c8d37c21c0e96cb0f7ab04dd13cbebaa7a254b9c9b",
+        "native_context_sha256": "e1ccab1871ffc1a01a9c37b1bb0581937d01957e3e710516103bd90e50c42822",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.Picard.affineUFD_trivial",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "module_output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+        "module_source_ancestry_fingerprint": "78229b7a646ddf159127ab6834625029e38f81fb2179661ebdaac03978c23cb1",
+        "native_module_receipt_sha256": "445250af95ce94be0bf97be9901cc20df733fac113b803d05ff2da93ddf2de52",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirtyTwo.projectiveLine_tangent_twist",
+          "module": "RecompileSections",
+          "level_params": "",
+          "native_type_sha256": "fc7f7d853e80d7497c3b13c8d37c21c0e96cb0f7ab04dd13cbebaa7a254b9c9b"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-043",
         "scope": "point1",
         "substep": "3g",
@@ -5682,6 +7095,284 @@
       }
     },
     {
+      "id": "OBL-044",
+      "csv_data_row_1_based": 44,
+      "csv_file_line_1_based": 45,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
+      "original_inventory_name": "openImmersion_cotangentMap_isIso",
+      "file": "RecompileBasePart06.lean",
+      "status": "accepted_current_native_and_exact_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": true,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
+      ],
+      "current_source_file_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "native_and_publication_boundary": {
+        "id": "OBL-044",
+        "declaration": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
+        "module": "RecompileBasePart06",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "bf13158ffe02b071aa440cb883ce19dbe77ce95381d2841eac49b94814e556fe",
+        "native_context_sha256": "fb68a5b0c287f2042e9d003ae2520d88a9a8074d495481c656760b389395327f",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Differentials.openImmersionPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+        "module_output_sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4",
+        "module_source_ancestry_fingerprint": "5bf2c12668bb9172fe234e8ac2e7d2f9f72dde57ce66424380361aa9497ddb12",
+        "native_module_receipt_sha256": "6c228e8e6c08c3ca905f0b06c0b1d13532e8b79cd9b76bb557765ce4b377bb84",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
+          "module": "RecompileBasePart06",
+          "level_params": "u_1",
+          "native_type_sha256": "bf13158ffe02b071aa440cb883ce19dbe77ce95381d2841eac49b94814e556fe"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      }
+    },
+    {
+      "id": "OBL-045",
+      "csv_data_row_1_based": 45,
+      "csv_file_line_1_based": 46,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.PhaseThirty.smoothClosedImmersion_conormal_rank",
+      "original_inventory_name": "smoothClosedImmersion_conormal_rank",
+      "file": "RecompileBasePart06.lean",
+      "status": "accepted_current_native_and_exact_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": true,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
+      ],
+      "current_source_file_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "native_and_publication_boundary": {
+        "id": "OBL-045",
+        "declaration": "LeBrunSalamon.PhaseThirty.smoothClosedImmersion_conormal_rank",
+        "module": "RecompileBasePart06",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "7154626a5537ac43c5f0bf064e0f5364072bec3ebc0514f22b2fbe86ff6b3c4b",
+        "native_context_sha256": "fb68a5b0c287f2042e9d003ae2520d88a9a8074d495481c656760b389395327f",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Differentials.immersionPresentationSurjection",
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.epi_kernel_locallyFreeOfRank",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+        ],
+        "source_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+        "module_output_sha256": "13123aef74d1136f95d73be31152ffb058db51df325ab8dc67503cde678291d4",
+        "module_source_ancestry_fingerprint": "5bf2c12668bb9172fe234e8ac2e7d2f9f72dde57ce66424380361aa9497ddb12",
+        "native_module_receipt_sha256": "6c228e8e6c08c3ca905f0b06c0b1d13532e8b79cd9b76bb557765ce4b377bb84",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.PhaseThirty.smoothClosedImmersion_conormal_rank",
+          "module": "RecompileBasePart06",
+          "level_params": "",
+          "native_type_sha256": "7154626a5537ac43c5f0bf064e0f5364072bec3ebc0514f22b2fbe86ff6b3c4b"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      }
+    },
+    {
+      "id": "OBL-046",
+      "csv_data_row_1_based": 46,
+      "csv_file_line_1_based": 47,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.smooth_differential_surjective",
+      "original_inventory_name": "Charts.smooth_differential_surjective",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "accepted_current_native_and_exact_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": true,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
+      ],
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "native_and_publication_boundary": {
+        "id": "OBL-046",
+        "declaration": "LeBrunSalamon.Construction.Charts.smooth_differential_surjective",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "14337ba251fad86a74ce119c908158adfd9f9bc2670d480ad46ea592ee87d002",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Smoothness.smooth_squareZero_lift"
+        ],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Charts.smooth_differential_surjective",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "14337ba251fad86a74ce119c908158adfd9f9bc2670d480ad46ea592ee87d002"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      }
+    },
+    {
+      "id": "OBL-047",
+      "csv_data_row_1_based": 47,
+      "csv_file_line_1_based": 48,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.differential_surjective_implies_smooth",
+      "original_inventory_name": "Charts.differential_surjective_implies_smooth",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "accepted_current_native_and_exact_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": true,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
+      ],
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "native_and_publication_boundary": {
+        "id": "OBL-047",
+        "declaration": "LeBrunSalamon.Construction.Charts.differential_surjective_implies_smooth",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "acb9d501d2fbb6f13a8e46709e86ffb8432fac30c0fba219c87bf6329c3c0012",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.Smoothness.smooth_of_surjective_tangent_lifts"
+        ],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Charts.differential_surjective_implies_smooth",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "acb9d501d2fbb6f13a8e46709e86ffb8432fac30c0fba219c87bf6329c3c0012"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      }
+    },
+    {
+      "id": "OBL-048",
+      "csv_data_row_1_based": 48,
+      "csv_file_line_1_based": 49,
+      "substep": "3h",
+      "declaration": "LeBrunSalamon.Construction.Charts.tangent_dimension_of_smooth",
+      "original_inventory_name": "Charts.tangent_dimension_of_smooth",
+      "file": "RecompileExtensionsPart02.lean",
+      "status": "accepted_current_native_and_exact_published_boundary",
+      "accepted": true,
+      "weight": 1,
+      "recovered_v2_source_body_status": "still admitted",
+      "current_lexical_status": "no_direct_admission",
+      "acceptance_evidence_complete": true,
+      "evidence_ids": [
+        "P-CSV",
+        "P-ORIGINAL",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
+      ],
+      "current_source_file_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+      "native_and_publication_boundary": {
+        "id": "OBL-048",
+        "declaration": "LeBrunSalamon.Construction.Charts.tangent_dimension_of_smooth",
+        "module": "RecompileExtensionsPart02",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "3bbcf70fcbfc7032ecd00d259206367eb46fb6c3d60260d5e78c37f36b500817",
+        "native_context_sha256": "89f81a35828a8fc6c18c2cc87f8a00c36f2e850ba9058e77f23a85c9a2a5bdf9",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.exists_relative",
+          "LeBrunSalamon.PublishedInputs.AffineDerivations.ext_relative",
+          "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+          "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+        ],
+        "source_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+        "module_output_sha256": "27a10fae01f7492a49ce6aafaaab1e99e24410e145a96647dabbc19cef177614",
+        "module_source_ancestry_fingerprint": "a59767b26872ad23ceca7172325e2c638ff4622307d50eb079b770444b771b64",
+        "native_module_receipt_sha256": "a0c80d3516a4937b86949088f94f8125baa6066672e8afd63960b2cbac944440",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Charts.tangent_dimension_of_smooth",
+          "module": "RecompileExtensionsPart02",
+          "level_params": "",
+          "native_type_sha256": "3bbcf70fcbfc7032ecd00d259206367eb46fb6c3d60260d5e78c37f36b500817"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      }
+    },
+    {
       "id": "OBL-069",
       "csv_data_row_1_based": 69,
       "csv_file_line_1_based": 70,
@@ -5698,12 +7389,45 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT",
-        "P-POINT1-ACCEPTED-41888465259"
+        "P-POINT1-ACCEPTED-41888465259",
+        "P-STEP3H-ACCEPTED-41912044307",
+        "S-CURRENT"
       ],
       "current_source_file_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
-      "complete_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "complete_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
       "native_and_publication_boundary": {
+        "id": "OBL-069",
+        "declaration": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+        "module": "RecompileExtensionsPart04Geometry",
+        "mode": "fresh_current_native_traversal_and_all_module_axiom_print",
+        "native_type_sha256": "d6106cb4a45c7caceb662c909b86bb090329993f5e6e1b914bf063670eca83a5",
+        "native_context_sha256": "8f484a3ab8b0b11fe346870fb6e9fb66252b3b45a4fa31d914e954e611c3eaf0",
+        "direct_leaf_names": [
+          "LeBrunSalamon.PublishedInputs.SectionRepresentability.finiteFree_affine"
+        ],
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "module_output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+        "module_source_ancestry_fingerprint": "938a71fc3adc1dfcc98a02f0f1185752e45e0c38059068c1f3d5883f731ebd12",
+        "native_module_receipt_sha256": "c2c9fded19b880b6fac9d1425551d03bb7aef195766b9edac89efb5d9874cb56",
+        "original_public_header_preserved_lexically": true,
+        "original_native_public_type_and_universes_preserved": true,
+        "current_native_signature_comparison": {
+          "name": "LeBrunSalamon.Construction.Descent.TotalLine.projection_affine",
+          "module": "RecompileExtensionsPart04Geometry",
+          "level_params": "",
+          "native_type_sha256": "d6106cb4a45c7caceb662c909b86bb090329993f5e6e1b914bf063670eca83a5"
+        },
+        "original_project_conclusion_directly_admitted": false,
+        "native_and_publication_boundary_passed": true,
+        "current_reverse_dependency_gate_passed": true,
+        "current_reverse_dependency_verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+        "current_reverse_dependency_verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
+        "independent_final_review": "audit/step3h_acceptance_41912044307/INDEPENDENT_ROOT_REVIEW.json",
+        "accepted": true,
+        "accepted_utc": "2026-11-04T22:08:47.305946+00:00"
+      },
+      "historical_point1_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+      "historical_point1_native_and_publication_boundary": {
         "id": "OBL-069",
         "scope": "additional_inherited_step3k",
         "substep": "3k",
@@ -5913,5 +7637,12 @@
       "missing_certificate_proves_work_never_completed": false,
       "acceptance_credit_from_announcement_alone": 0
     }
+  },
+  "historical_observations_before_step3h": {
+    "ledger_path": "audit/history/pre_step3h_20261104/MILESTONE_PROGRESS.json",
+    "ledger_sha256": "2863cfaa283fd3f8ab894ac74eb4469c35a8b7491342da9369ab93a092157844",
+    "accepted_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
+    "point1_native_and_publication_boundary_preserved": true,
+    "point1_acceptance_event_rewritten": false
   }
 }

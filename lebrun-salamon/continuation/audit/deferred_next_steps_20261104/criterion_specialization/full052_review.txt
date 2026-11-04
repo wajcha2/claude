@@ -1,0 +1,200 @@
+{
+  "schema": "lebrun-independent-mathematical-source-receipt-review-v1",
+  "reviewer": "source_milestone_audit",
+  "scope": "Original OBL052 conclusion proved conditionally on four explicit generic geometric criteria. No native production or ledger acceptance.",
+  "candidate": {
+    "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSHomTwoPointDominanceCompositionProbe.lean",
+    "sha256": "65369b7ba11fc8a4ecb5300b2870a803b281b7a7fdd0d75f6bcdb7dec48bc48c",
+    "declaration": "LeBrunSalamon.Next3i.TwoPointDominance.homOpen_twoPointEvaluation_dominant_from_generic_criteria"
+  },
+  "original": {
+    "baseline_path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/source-checkpoint/source/RecompileExtensionsPart02.lean",
+    "baseline_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "current_3h_path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/step3h_charts/candidate_046_048/RecompileExtensionsPart02.lean",
+    "current_3h_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+    "declaration": "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+    "written_header": "theorem _root_.LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant\n    (P : ProjectiveLineOverC) {d : \u2115}\n    (X : SmoothProperComplexVariety d) (H : HomSpacePresentation P X)\n    (U : H.parameter.Opens) (hU : Smooth (U.\u03b9 \u226b H.toC))\n    (t : PointsOver ComplexBase (\ud835\udfd9 ComplexBase) U.toScheme (U.\u03b9 \u226b H.toC))\n    (f : RationalCurve P X)\n    (hf : f.map = H.mapAt P\n      \u27e8t.val \u226b U.\u03b9, by simpa only [Category.assoc] using t.property\u27e9)\n    (hfree : IsVeryFreeRationalCurve P X (intrinsicTangentBundle X) f) :\n    DenseRange (Refinement.HomTwoPointEvaluation.evaluation P H U).base ",
+    "header_sha256": "6ec92c931c6b33a4191041e205989a34c51b239f537c6c8f1474e997ad6af924",
+    "geometric_binders_and_conclusion_sha256": "6b0e138784d1f1e5e0f573752cb895719b1939734d89696e5a4de1c7704061cf",
+    "baseline_to_3h_header_byte_identical": true,
+    "conditional_geometric_binders_and_conclusion_byte_identical": true
+  },
+  "extra_explicit_parameters": "    (hconnected : ConnectedFieldCriterion.{0})\n    (hnormal : SmoothNormalCriterion.{0})\n    (hintegral : NormalConnectedCriterion.{0})\n    (hcriterion : ComplexTangentLiftCriterion)\n",
+  "parameter_roles": {
+    "ConnectedFieldCriterion": "Target-square geometric connectedness, via conditional057 composition only.",
+    "SmoothNormalCriterion": "Target-square field-base-change normality, via conditional057 composition only.",
+    "NormalConnectedCriterion": "Target-square irreducibility from normal connected local-Noetherian schemes, via conditional057 composition only.",
+    "ComplexTangentLiftCriterion": "Smoothness near the supplied rational point of U for the fixed-pair map."
+  },
+  "mathematical_checks": [
+    "The original hfree is rewritten solely using the original hf and the literal intrinsic tangent sheaf.",
+    "Distinct source markings are chosen from hgen.1, already supplied by the original very-free hypothesis.",
+    "The fixed-pair map uses the actual FixedNodeHom.markedEvaluation projections of the supplied representing family.",
+    "Product-lift surjectivity and factorization through U preserve the entire map on the dual-number test scheme.",
+    "The rational-point criterion is applied to U.toScheme and uses exactly the original hU; no source_smooth or projectiveLineVariety is used.",
+    "Smoothness of the target square follows from the original smooth structure map of X by base change and composition.",
+    "The three057 generic parameters occur only in the target-square irreducibility theorem.",
+    "The Mathlib density bridge uses the nonempty rational source and a smooth neighborhood containing its range.",
+    "The checked fixed-markings section equality transfers density to the exact original full evaluation morphism."
+  ],
+  "concrete_blockers_found": [],
+  "receipt_check": {
+    "root_receipt": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T203057166183-LSHomTwoPointDominanceCompositionProbe/receipt.json",
+    "modules": {
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T203057166183-LSHomTwoPointDominanceCompositionProbe/receipt.json": {
+        "module": "LSHomTwoPointDominanceCompositionProbe",
+        "source_sha256": "65369b7ba11fc8a4ecb5300b2870a803b281b7a7fdd0d75f6bcdb7dec48bc48c",
+        "receipt_sha256": "2a7d166ea750af784f926f29b2b016b5ebdb0c33f5788d03c47381fd03d42348",
+        "output_sha256": "71bfffbac227a868c859f8c01bc1bf12e8d3b15b8676f813de76c6ae73cf165f",
+        "seconds": 35.487,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.TwoPointDominance.homOpen_twoPointEvaluation_dominant_from_generic_criteria' depends on axioms: [propext,\n sorryAx,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T202938713134-LSTwoPointProductLiftProbe/receipt.json": {
+        "module": "LSTwoPointProductLiftProbe",
+        "source_sha256": "c48dbebe6b85b9b734ef772f32574f0f8c43d0e6a9a416a88746fadf78f58402",
+        "receipt_sha256": "cd24958b343b209d4424417e8eeae0d4e75cbe279b40dbb1f83bd3037e9d6af1",
+        "output_sha256": "1e5899b2b6e7985fc9d4039f28c6dcecdce95f80f6f97ca714bcd8ae87e44d1d",
+        "seconds": 38.27,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.TwoPointProductLifts.product_evaluation_lifts' depends on axioms: [propext,\n sorryAx,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.TwoPointProductLifts.lift_in_open_with_composite' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T202154853011-LSTwoMarkedHomLiftSurjectivityProbe/receipt.json": {
+        "module": "LSTwoMarkedHomLiftSurjectivityProbe",
+        "source_sha256": "00ceb813df92a72ae5cf80de814c327d73ace3a36353366725768ee571fd4ebf",
+        "receipt_sha256": "f4ec0227cbefce2b625be2938a5de60cd6ff550e3328d35846e45e32b606b6d4",
+        "output_sha256": "8703c93436de535f34f6fc66d4e919ade247866cce721e91351a15d4670176d2",
+        "seconds": 45.586,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.TwoMarkedHomLifts.pointDeformation_injective' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.TwoMarkedHomLifts.twoMarkedEvaluatedLifts_surjective' depends on axioms: [propext,\n sorryAx,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T201921971653-LSTwoPointDeformationInterpolationProbe/receipt.json": {
+        "module": "LSTwoPointDeformationInterpolationProbe",
+        "source_sha256": "61da4aa2012c6d2a51ea1223b45c04199e5372e4226f2dad23c72f59f5570c2e",
+        "receipt_sha256": "0245ba3216eb6ed8c1f65eaa1bcdae0808e7c7799bf9e0243f7c6b4e97efee0b",
+        "output_sha256": "65015119335768c6bef785e6a44f6ab1bfb735057e09415112f653fea5cd02d7",
+        "seconds": 30.96,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective' depends on axioms: [propext,\n sorryAx,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T201814432146-LSHomMarkedEvaluationDeformationProfile/receipt.json": {
+        "module": "LSHomMarkedEvaluationDeformationProfile",
+        "source_sha256": "a57bfb4e6d4f03445335d72f59ae3edde2bd282e57274e1eb21fdfddcd0736a4",
+        "receipt_sha256": "db0f2a14719fcf2f9e0ffd88f51f234d1b6d14741ab58e7e1d71faa5bc242368",
+        "output_sha256": "cf5d05482f9d27ee061228487029ccd9c85897b84caf7c29131ee1ed66d143bd",
+        "seconds": 43.495,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.HomMarkedEvaluation.markedEvaluation_atCenter' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.HomMarkedEvaluation.deformationOfLift_marked' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200849880761-LSHomPointLiftDeformationProbe/receipt.json": {
+        "module": "LSHomPointLiftDeformationProbe",
+        "source_sha256": "a42e49e67dc2cc11bddc995327bbe84171c3677294616bd7e5e2bfdb9b0f2f0c",
+        "receipt_sha256": "8afb661a50d921bb1b4bf65bec0ad104bb099f2379acab269862c52f5616d014",
+        "output_sha256": "e021bf1e1b91f4e8a109ae185beca45689344127946f94909cdf84f8c30b116c",
+        "seconds": 37.911,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.HomPointDeformations.homPointDeformationEquiv' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.HomPointDeformations.pointLift_in_open' depends on axioms: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T202835008098-LSFixedMarkingsTwoPointEvaluation/receipt.json": {
+        "module": "LSFixedMarkingsTwoPointEvaluation",
+        "source_sha256": "daf6e3e44c5bfde2ef877f0489cc0485cbf41497d254d737ece20aab9593dbdb",
+        "receipt_sha256": "df175a93f83c8320ac965ddc7184a73a756870e8e71a3653859d98f5a5cbcbac",
+        "output_sha256": "5244ee998434ced2e16dbee91ecf569cead8567f4cee43e4dac163c7cc52158e",
+        "seconds": 39.469,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.FixedMarkings.pairedEvaluation' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.pairedEvaluation_overC' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_overC' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_leftSource' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_rightSource' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_evaluation_first' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_evaluation_second' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_evaluation' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.markingSection_evaluation_lift' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.liftParameter' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'LeBrunSalamon.Next3i.FixedMarkings.denseRange_of_markedPair' depends on axioms: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T202039477207-LSSmoothRestrictionDensity/receipt.json": {
+        "module": "LSSmoothRestrictionDensity",
+        "source_sha256": "b14f0846b5151a1ba5cf6bd5bb83733171399469f76c637aba43ac0d2acdd16f",
+        "receipt_sha256": "2a0c03f342f0d96b8a65e19f9f06ecef88e0003d49c793afa7fcc5732b68f364",
+        "output_sha256": "b262eca061f56cb0b9060ccc427c560d40d7ca9dd197b866ed0be1245fb0dad9",
+        "seconds": 32.349,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.SmoothRestrictionDensity.denseRange_of_smooth_composite' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.SmoothRestrictionDensity.denseRange_of_smooth_neighborhood' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.SmoothRestrictionDensity.denseRange_of_smooth_pointMap_neighborhood' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+        ]
+      },
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T200735840481-LSConnectedSmoothIntegralCompositionV4/receipt.json": {
+        "module": "LSConnectedSmoothIntegralCompositionV4",
+        "source_sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+        "receipt_sha256": "d8dd04c3090edef05a234ee7e3c56d06fe59955ff472467ae3641b54b0c36200",
+        "output_sha256": "2788208e72b93e18ea2a917c25233590563a30d7d142e54c90386b4afed682c9",
+        "seconds": 32.494,
+        "axiom_reports": [
+          "'LeBrunSalamon.Next3i.IntegralityComposition.smooth_connected_geometricallyIntegral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.IntegralityComposition.complex_specialization' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_integral' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+          "'LeBrunSalamon.Next3i.IntegralityComposition.complex_selfProduct_irreducible' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]"
+        ]
+      }
+    },
+    "edges": [
+      [
+        "LSHomTwoPointDominanceCompositionProbe",
+        "LSTwoPointProductLiftProbe"
+      ],
+      [
+        "LSTwoPointProductLiftProbe",
+        "LSTwoMarkedHomLiftSurjectivityProbe"
+      ],
+      [
+        "LSTwoMarkedHomLiftSurjectivityProbe",
+        "LSTwoPointDeformationInterpolationProbe"
+      ],
+      [
+        "LSTwoMarkedHomLiftSurjectivityProbe",
+        "LSHomMarkedEvaluationDeformationProfile"
+      ],
+      [
+        "LSHomMarkedEvaluationDeformationProfile",
+        "LSHomPointLiftDeformationProbe"
+      ],
+      [
+        "LSHomTwoPointDominanceCompositionProbe",
+        "LSFixedMarkingsTwoPointEvaluation"
+      ],
+      [
+        "LSHomTwoPointDominanceCompositionProbe",
+        "LSSmoothRestrictionDensity"
+      ],
+      [
+        "LSHomTwoPointDominanceCompositionProbe",
+        "LSConnectedSmoothIntegralCompositionV4"
+      ]
+    ]
+  },
+  "root_complete_success": true,
+  "root_seconds": 35.487,
+  "root_receipt_sha256": "2a7d166ea750af784f926f29b2b016b5ebdb0c33f5788d03c47381fd03d42348",
+  "full_axiom_report_scope": "The full printed theorem includes sorryAx inherited from imported publication leaves; this is not a standard-axioms-only theorem. The final full dependency collector is separately queued by root/Pub.",
+  "final_full_leaf_collector_pending_at_review": true,
+  "no_new_source_admissions": true,
+  "original052_054_057_not_applied": true,
+  "imports_remain_diagnostic_and_production_dependency_layering_pending": true,
+  "ledger_credit": 0,
+  "production_source_or_ledger_mutated": false
+}

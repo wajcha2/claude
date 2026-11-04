@@ -1,0 +1,62 @@
+# OBL-052: a seven-declaration source-order cut
+
+## Recommendation
+
+Move the original two-point dominance theorem and its six same-file consumers from `RecompileExtensionsPart02` into later modules. Keep the remaining Ext02 declarations in their current order. This avoids moving the generic dual-thickening and deformation infrastructure out of its existing modules.
+
+This is a **read-only, statically checked plan**. No extraction, production edit, native acceptance, or source-order proof is claimed. The checked conditional dominance prototype still takes four generic criteria explicitly; those criteria must be discharged from their reviewed inputs before an unconditional production replacement is installed.
+
+## Exact source basis
+
+- Frozen 3h Ext02 candidate: `ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52`.
+- Existing interpolation source: `61da4aa2012c6d2a51ea1223b45c04199e5372e4226f2dad23c72f59f5570c2e`.
+- Completed conditional dominance source: `65369b7ba11fc8a4ecb5300b2870a803b281b7a7fdd0d75f6bcdb7dec48bc48c`.
+- The original geometric parameters and conclusion of OBL-052, from `(P : ProjectiveLineOverC)` through the final `DenseRange`, match the conditional prototype after whitespace normalization. Their normalized SHA256 is `845719222df289ab50d0c2d7baeaa283a830cc3663cb596f1177b579c2cabcdd`. The prototype's four additional generic premises remain explicit and are not counted as discharging OBL-052.
+
+The machine-readable companion `EXT02_SEVEN_DECLARATION_CUT.json` records all seven exact declaration texts and hashes, every code occurrence of their names, existing import closures, and the simulated augmented import graph.
+
+## The seven declarations
+
+| Declaration | Planned destination | Reason it moves |
+| --- | --- | --- |
+| `LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant` | New late dominance module | Its proved construction uses existing deformation modules that already import Ext02. |
+| `LeBrunSalamon.Refinement.fullFamily_detects_bundle_section` | New late detection module | Directly invokes the dominance theorem. |
+| `LeBrunSalamon.Refinement.fullFamily_detects_section` | Same detection module | Invokes bundle-section detection. |
+| `LeBrunSalamon.Refinement.fullFamilyIdentity_symmetric` | Same detection module | Invokes section detection. |
+| `LeBrunSalamon.Refinement.fullFamilyKernel_unique` | Same detection module | Invokes section detection. |
+| `LeBrunSalamon.Refinement.FullFamilyDiagonalProof.detects_base_section` | Same detection module | Invokes bundle-section detection on the target square. |
+| `LeBrunSalamon.Refinement.fullFamily_diagonalValue` | Same detection module | Invokes base-section detection. |
+
+The six existing consumer proof bodies can be moved unchanged. Retain all seven public names, written headers, namespace context, opened namespaces, and local options. In particular, keep the original theorem's selective `open LeBrunSalamon.PhaseSeven in`; keep `detects_base_section` under `Refinement.FullFamilyDiagonalProof`. Move each theorem's own documentation, without accidentally attaching the following theorem's documentation to it.
+
+All other Ext02 definitions and proofs stay in place, including `HomTwoPointEvaluation`'s actual scheme maps, `MovingPairInputs`, the generic diagonal lemmas, `fullFamily_firstSymbol`, the point-derivation infrastructure, `Infinitesimal`, and every frozen 3h `Charts` insertion. `fullFamily_firstSymbol` receives diagonal vanishing as an explicit premise; it does not call `fullFamily_diagonalValue` and therefore need not move.
+
+## Consumer and cycle checks
+
+A comment/string-aware scan of all 308 current source modules found only three external modules referring to any of these seven names:
+
+| External module | Needed added import |
+| --- | --- |
+| `LSStableMapFamily` | New dominance module. |
+| `LSConicJets` | New detection module, which also imports dominance. |
+| `LSProjectAssembly` | New detection module. |
+
+After removing the seven recorded declaration spans in memory, no code occurrence of any of their names remains in Ext02. No production file was written.
+
+None of the three external consumers occurs in the existing import closure of `LSNodalTangent`, `LSHomDegree`, `LSTangentComparison`, `LSHomVelocity`, or `LSContactCompletion`. These closures contain 76, 78, 74, 72, and 67 modules respectively. Consequently, putting the dominance proof after those existing modules does not force an import back into Ext02.
+
+The explicit simulation includes all 308 source modules, the nine completed local prototype modules, a late detection module, and the three new consumer imports. All **318 nodes** topologically order; no cycle remains. This is an import-graph check, not a check that extracted Lean declarations elaborate under their new context.
+
+## Why this is smaller than lowering the foundations
+
+Directly importing the new dominance proof into Ext02 is cyclic: for example, `LSNodalTangent` imports `LSCotangentDeformations`, which imports `LSHomVelocity`, which reaches Ext02 through `LSDualThickeningNormalForm` and `LSFiniteFreeBaseChange`.
+
+One possible solution would extract ScalarSections, Construction's scalar/pullback core, Infinitesimal, generic FamilyVariation, marked-evaluation maps, and generic variation from several files. The seven-declaration cut avoids that broader refactor. It also avoids the separate dependency of `Charts.tangent_finite` on `Refinement.Jets.PointFrame`, which prevents blindly moving the whole Construction tail before Refinement.
+
+## Required implementation checks
+
+Before any native gate, the extraction must have an exact inverse and preserve all six moved consumer bodies. The original OBL-052 header and its instantiated generic inputs require their own exact comparison. The late module must not reimport the old admitted OBL-052 through a façade, and Ext02 must not import the late module.
+
+The current textual and graph checks do not replace elaborated constant-dependency checks: implicit theorem search or an overlooked context could still require an import adjustment. A clean source build and the required changed-module/reverse-dependency audit must validate the final arrangement. Historical receipts remain historical and cannot be relabelled as checks of relocated source.
+
+The completed final conditional dependency collector provides a useful independent guard: its full conclusion has exactly the four previously accepted published leaves, with no pending original049/052/054/057 admission in its closure. That establishes the prototype's dependency boundary; it does not install or accept the production theorem.

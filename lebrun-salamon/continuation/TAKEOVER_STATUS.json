@@ -1,7 +1,7 @@
 {
   "schema": "lebrun-takeover-status-v2",
   "recorded_utc": "2026-11-04T18:46:58Z",
-  "updated_utc": "2026-11-04T18:46:58Z",
+  "updated_utc": "2026-11-04T22:08:47.305946+00:00",
   "timezone": "Etc/UTC",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
@@ -16,7 +16,7 @@
     "source_bytes": 4995434,
     "direct_sorry": 98
   },
-  "previous_status_snapshot": "audit/history/before_point1_acceptance_20261104T184658Z/TAKEOVER_STATUS.json",
+  "previous_status_snapshot": "audit/history/pre_step3h_20261104/TAKEOVER_STATUS.json",
   "reported_complete_stages": [
     "3c",
     "3d",
@@ -45,32 +45,12 @@
     "acceptance_from_announcement_alone": false,
     "final_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
   },
-  "point1": {
-    "complete": true,
-    "original_obligations": 43,
-    "counts_by_step": {
-      "3c": 6,
-      "3d": 11,
-      "3e": 7,
-      "3f": 11,
-      "3g": 8
-    },
-    "additional_inherited_obligations": [
-      "OBL-069"
-    ],
-    "actual_native_roots_audited": 44,
-    "actual_eligible_admitted_inputs": 50,
-    "original_audited_ancestor_modules": 190,
-    "audited_boundary_unchanged_in_current_full_replay": true,
-    "required_reverse_dependencies_passed": true,
-    "evidence": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
-  },
   "current_source": {
-    "compiled_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
-    "compiled_tree": "885ffa817897b4c686ec0264957df3326d44138f",
-    "source_modules": 307,
+    "compiled_commit": "4d1aa547453f50736035a91f6fea81d340359143",
+    "compiled_tree": "f0b2e438b972ca9f08c96bfeffcdfb6a55ea2a67",
+    "source_modules": 308,
     "source_manifest": "SOURCE.sha256",
-    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
     "entire_current_source_graph_native_verified": true,
     "frozen_unconditional_endpoint_verified": false
   },
@@ -83,51 +63,49 @@
   },
   "percentage_metric": {
     "kind": "conservative accepted-checklist completion",
-    "accepted": 74,
+    "accepted": 79,
     "denominator": 133,
-    "pending": 59,
-    "percentage": 55.6390977443609,
-    "percentage_display": 55.64,
-    "rounded_percentage": 56,
+    "pending": 54,
+    "percentage": 59.3984962406015,
+    "percentage_display": 59.4,
+    "rounded_percentage": 59,
     "mathematical_effort_estimate": false,
     "time_remaining_estimate": false,
     "ledger": "audit/MILESTONE_PROGRESS.json"
   },
-  "proof_completion_percentage": 55.64,
+  "proof_completion_percentage": 59.4,
   "native_current_ci": {
-    "run_id": 41888465259,
-    "source_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
-    "verified_current_modules": 307,
-    "selected_modules": 307,
-    "fresh_native_passes": 2,
-    "reused_native_receipts": 305,
+    "run_id": "41912044307",
+    "source_commit": "4d1aa547453f50736035a91f6fea81d340359143",
+    "verified_current_modules": 308,
+    "selected_modules": 308,
     "status_counts": {
-      "reused": 305,
-      "passed": 2
+      "reused": 224,
+      "passed": 84
     },
     "complete_current_source_graph_passed": true,
-    "verification": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
-    "verification_sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded",
+    "verification": "audit/step3h_acceptance_41912044307/FULL_CONTINUATION_VERIFICATION.json",
+    "verification_sha256": "151dc0c6774581182c59c74051f7bfcd5cf84796a028fdfcb2e20544222c1fa1",
     "artifact": {
-      "id": 13353190843,
-      "name": "lebrun-final-current-native-41888465259-2",
-      "run_id": 41888465259,
-      "sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17",
-      "bytes": 68416974
+      "run_id": 41912044307,
+      "id": 13366173425,
+      "name": "lebrun-3h-current-native-41912044307-1",
+      "sha256": "aa96014256646d209d710f8b32e98ab61991c0a9c5d1020b38a66876b3e60f3d",
+      "bytes": 179280815,
+      "run_url": "https://github.com/wajcha2/claude/actions/runs/41912044307",
+      "artifact_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13366173425"
     },
     "toolchain_lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
     "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
     "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
-    "scope": "Current source graph, including the conditional assembly; not the final unconditional frozen theorem."
+    "scope": "Current source graph, including the conditional assembly; not the final unconditional frozen theorem.",
+    "run_attempt": "1",
+    "status_counts_scope": "Final full-stage invocation",
+    "baseline_contexts_preserved": 50,
+    "baseline_contexts_revalidated": 257,
+    "new_modules": 1
   },
   "remaining_original_batches": {
-    "3h": [
-      "OBL-044",
-      "OBL-045",
-      "OBL-046",
-      "OBL-047",
-      "OBL-048"
-    ],
     "3i": [
       "OBL-049",
       "OBL-050",
@@ -183,7 +161,7 @@
       "OBL-091"
     ]
   },
-  "remaining_original_obligations": 47,
+  "remaining_original_obligations": 42,
   "definition_validations": {
     "accepted": 0,
     "total": 8,
@@ -209,15 +187,59 @@
     ]
   },
   "next_execution_priorities": [
-    "Compare the remaining extension/homogeneity route with Fu arXiv:2611.01423v1, preserving accepted foundations and documenting any scope change.",
-    "Continue the47 original3h–3n obligations with exact published-input checks and proved project translations.",
-    "Validate the8 operational definition bridges and discharge the explicit simple-connectedness bridge.",
-    "Verify the unchanged unconditional frozen endpoint and all4 final milestone gates."
+    "Finish the Step3i actual relative-Hom construction, all-test upgrade, fixed-degree stratum and evaluation comparisons.",
+    "Implement the selected Fu relative-conic/coarse-family comparisons before any scope retirement.",
+    "Complete the remaining42 original obligations and8 definition validations.",
+    "Prove the simple-connectedness bridge and unchanged unconditional target; pass all4 final gates."
   ],
-  "admission_boundary_scope": "The50-leaf review certifies the44 accepted original roots. The remaining original obligations and final-theorem trust audit remain open.",
+  "admission_boundary_scope": "Current49 accepted roots and54 actual eligible published inputs; final-theorem audit remains open.",
   "notes": [
     "No new milestone units are credited for helper modules, source files, shared publication reviews or compilation receipts.",
     "Native current output reuse requires exact source, imports, direct dependency outputs, recursive source ancestry, runtime and compiler flags.",
     "Historical evidence-bound publication catalogs and audit records retain their original bytes; final acceptance is a separate event."
-  ]
+  ],
+  "historical_point1_at_acceptance": {
+    "complete": true,
+    "original_obligations": 43,
+    "counts_by_step": {
+      "3c": 6,
+      "3d": 11,
+      "3e": 7,
+      "3f": 11,
+      "3g": 8
+    },
+    "additional_inherited_obligations": [
+      "OBL-069"
+    ],
+    "actual_native_roots_audited": 44,
+    "actual_eligible_admitted_inputs": 50,
+    "original_audited_ancestor_modules": 190,
+    "audited_boundary_unchanged_in_current_full_replay": true,
+    "required_reverse_dependencies_passed": true,
+    "evidence": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+  },
+  "point1": {
+    "complete": true,
+    "historical_event": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+    "original_obligations": 43,
+    "additional_inherited_obligations": [
+      "OBL-069"
+    ],
+    "current_boundaries_revalidated": true,
+    "current_acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json"
+  },
+  "step3h": {
+    "complete": true,
+    "original_obligations": 5,
+    "ids": [
+      "OBL-044",
+      "OBL-045",
+      "OBL-046",
+      "OBL-047",
+      "OBL-048"
+    ],
+    "acceptance_record": "audit/step3h_acceptance_41912044307/STEP3H_ACCEPTANCE.json",
+    "new_generic_published_inputs": 5,
+    "new_input_review_units_credited": 0
+  }
 }

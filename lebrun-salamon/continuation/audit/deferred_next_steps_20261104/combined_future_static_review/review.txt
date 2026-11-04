@@ -1,0 +1,435 @@
+{
+  "schema": "lebrun-independent-combined-next-batch-static-review-v1",
+  "reviewer": "source_milestone_audit",
+  "scope": "Static isolated source integration review only; no Lean invocation, source selection, production or acceptance mutation.",
+  "baseline": {
+    "source_modules": 308,
+    "manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+    "source_path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source"
+  },
+  "combined": {
+    "source_modules": 311,
+    "manifest_sha256": "c6c4eb7be981426b7db7796fcc0525b3e3ac8484f91bc57299e5f0fce7039c85",
+    "manifest_record": {
+      "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next_batch_review/COMBINED_SOURCE_MANIFEST.json",
+      "sha256": "2ec5f34aca5d00d950dcc76c003ea6e2e979cccc79f2b4f87507f08cbabbaa41"
+    },
+    "cycles": [],
+    "unresolved_imports": [],
+    "scope_errors": [],
+    "diagnostic_imports": [],
+    "added_diagnostic_commands": [],
+    "affected_current_modules": 220
+  },
+  "source_changes": [
+    {
+      "module": "LSConicJets",
+      "owner": "pub",
+      "original_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d",
+      "candidate_sha256": "e4e0f0a79da6d5639c1d352335a8e18893d0e4efad232d78f6d18202581ad199",
+      "imports_before": [
+        "LSProjectiveLineReparametrization",
+        "LSTangentComparison",
+        "LSHamiltonianJets",
+        "LSContactVelocityTarget",
+        "LSIntrinsicVelocity"
+      ],
+      "imports_after": [
+        "LSHomTwoPointDominance",
+        "LSProjectiveLineReparametrization",
+        "LSTangentComparison",
+        "LSHamiltonianJets",
+        "LSContactVelocityTarget",
+        "LSIntrinsicVelocity"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/pub/source/LSConicJets.lean"
+    },
+    {
+      "module": "LSContactLineTests",
+      "owner": "source",
+      "original_sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05",
+      "candidate_sha256": "a8672c168656a66880c3fdbd45641fa62a613ae0770d0a462fe1a423216e6d1a",
+      "imports_before": [
+        "LSGenericSheets",
+        "LSP1FamilyDegree"
+      ],
+      "imports_after": [
+        "LSGenericSheets",
+        "LSP1FamilyDegree",
+        "LSGeometricIntegrality"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/source/LSContactLineTests.lean"
+    },
+    {
+      "module": "LSGeometricIntegrality",
+      "owner": "source",
+      "original_sha256": null,
+      "candidate_sha256": "97a08d7e66145fcff1af4845c587f47891c2f382164fbf7b88c8231ddc176652",
+      "imports_before": [],
+      "imports_after": [
+        "RecompileBasePart01"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/source/LSGeometricIntegrality.lean"
+    },
+    {
+      "module": "LSHomTwoPointDominance",
+      "owner": "pub",
+      "original_sha256": null,
+      "candidate_sha256": "ff2f9ee480fad311e5d02e09ccc538c25f33ba7472040105213aa99cc0d1b050",
+      "imports_before": [],
+      "imports_after": [
+        "LSNodalTangent",
+        "LSHomDegree",
+        "LSChartSmoothnessCriteria",
+        "LSGeometricIntegrality"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/pub/source/LSHomTwoPointDominance.lean"
+    },
+    {
+      "module": "LSProjectAssembly",
+      "owner": "pub",
+      "original_sha256": "2c3457445f96248a8a07f940c0b98d1376f6784084a76f84b8f287b512e59a96",
+      "candidate_sha256": "cd6b5707d9109ee906a8ebbee9a073bbf9854a059db4458a36aec4c6efbee215",
+      "imports_before": [
+        "LSDescentAssembly",
+        "LSSmoothingAssembly",
+        "LSConicJets",
+        "LSClassicalActions",
+        "LSClassicalReduction"
+      ],
+      "imports_after": [
+        "LSHomTwoPointDominance",
+        "LSDescentAssembly",
+        "LSSmoothingAssembly",
+        "LSConicJets",
+        "LSClassicalActions",
+        "LSClassicalReduction"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/pub/source/LSProjectAssembly.lean"
+    },
+    {
+      "module": "LSRelativeHomFunctor",
+      "owner": "root",
+      "original_sha256": null,
+      "candidate_sha256": "43a0cd70213ad836841d0e6dcc9d9ce5ed581ac4d02bff1a70042bc9cfd8b171",
+      "imports_before": [],
+      "imports_after": [
+        "Mathlib"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/root/LSRelativeHomFunctor.lean"
+    },
+    {
+      "module": "LSStableMapFamily",
+      "owner": "pub",
+      "original_sha256": "0360a40ba6a0fc816bd44e0887350661d51d76c5bad19e6577d94cac9f32d0b2",
+      "candidate_sha256": "c2cfbf1783b2782f33f040c31b9f24d59c478ec1a7f0af531615e382b7b3ab5a",
+      "imports_before": [
+        "RecompileExtensionsPart04",
+        "LSProjectivityDefinitions"
+      ],
+      "imports_after": [
+        "LSHomTwoPointDominance",
+        "RecompileExtensionsPart04",
+        "LSProjectivityDefinitions"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/pub/source/LSStableMapFamily.lean"
+    },
+    {
+      "module": "RecompileExtensionsPart02",
+      "owner": "pub",
+      "original_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+      "candidate_sha256": "f547b9763365e104fb088d9204ca1440ffb4379e572a99d773aa47aa61f397e9",
+      "imports_before": [
+        "RecompileExtensionsPart01",
+        "LSVectorBundlePullback",
+        "Mathlib.Algebra.Category.ModuleCat.Products",
+        "LSChartSmoothnessCriteria"
+      ],
+      "imports_after": [
+        "RecompileExtensionsPart01",
+        "LSVectorBundlePullback",
+        "Mathlib.Algebra.Category.ModuleCat.Products",
+        "LSChartSmoothnessCriteria"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/pub/source/RecompileExtensionsPart02.lean"
+    },
+    {
+      "module": "RecompileExtensionsPart04Geometry",
+      "owner": "root",
+      "original_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+      "candidate_sha256": "fa5d3ff620150a3ce71ca806d2902c3ccb05edd7d2ed8356e059a4e57fef2e2f",
+      "imports_before": [
+        "LSSectionRepresentability",
+        "LSAffineSectionRepresentability",
+        "LSGeneratingUnitOpens",
+        "RecompileExtensionsPart03",
+        "LSConicSplitting"
+      ],
+      "imports_after": [
+        "LSRelativeHomFunctor",
+        "LSSectionRepresentability",
+        "LSAffineSectionRepresentability",
+        "LSGeneratingUnitOpens",
+        "RecompileExtensionsPart03",
+        "LSConicSplitting"
+      ],
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/root/RecompileExtensionsPart04Geometry.lean"
+    }
+  ],
+  "reversible_patch_checks": {
+    "ext02_exact_seven_block_forward_and_inverse": true,
+    "three_consumer_import_only_inverses": true,
+    "geometry055_full_inverse": true,
+    "contact057_full_inverse": true
+  },
+  "preserved_original_headers": [
+    {
+      "name": "homOpen_twoPointEvaluation_dominant",
+      "header_sha256": "6ec92c931c6b33a4191041e205989a34c51b239f537c6c8f1474e997ad6af924",
+      "exact": true,
+      "body_unchanged": false
+    },
+    {
+      "name": "fullFamily_detects_bundle_section",
+      "header_sha256": "02ffe664fefe450ca155ce5c7cc04e00cee75189ef750e04a1ac4bacbc9dc10f",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "fullFamily_detects_section",
+      "header_sha256": "b07d80f89f6dfa86363c6470ae9a6d9ba24408cf3b9a9c460d534cfa1c141daf",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "fullFamilyIdentity_symmetric",
+      "header_sha256": "c9c4e81aa3fded26b8e6195a221eead17ab7e13231dc981385cf22d3a3ba06e1",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "fullFamilyKernel_unique",
+      "header_sha256": "ef0f0bf391f4c2ae51b023511631ff5fe4da0805dc18c4ea7bc189fae6b2c022",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "detects_base_section",
+      "header_sha256": "bbd2fd3fe02fe14908bd1cc289d885977cf9f86c127dea6904b3a5d6ba54bb1e",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "fullFamily_diagonalValue",
+      "header_sha256": "d7eb848ff79842a98ae478894e813c68d3fbb1eb81f32100470e124977824458",
+      "exact": true,
+      "body_unchanged": true
+    },
+    {
+      "name": "OBL-055",
+      "header_sha256": "277b0534307bd3854341c0048d64b2c59187a92fae64441e0a8fe2fa4d1b3546",
+      "exact": true
+    },
+    {
+      "name": "OBL-057",
+      "header_sha256": "4d08a14157851fa1416f51768f636a3a130f6e961cf120f8e309c2b74268adc6",
+      "exact": true
+    }
+  ],
+  "moved_public_names_exact": [
+    "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+    "LeBrunSalamon.Refinement.fullFamily_detects_bundle_section",
+    "LeBrunSalamon.Refinement.fullFamily_detects_section",
+    "LeBrunSalamon.Refinement.fullFamilyIdentity_symmetric",
+    "LeBrunSalamon.Refinement.fullFamilyKernel_unique",
+    "LeBrunSalamon.Refinement.FullFamilyDiagonalProof.detects_base_section",
+    "LeBrunSalamon.Refinement.fullFamily_diagonalValue"
+  ],
+  "six_moved_consumer_declarations_byte_identical": true,
+  "moved_name_external_consumers": {
+    "LSStableMapFamily": {
+      "names": [
+        "homOpen_twoPointEvaluation_dominant"
+      ],
+      "imports_new_module_in_closure": true
+    },
+    "LSProjectAssembly": {
+      "names": [
+        "fullFamilyIdentity_symmetric",
+        "fullFamily_diagonalValue"
+      ],
+      "imports_new_module_in_closure": true
+    },
+    "LSConicJets": {
+      "names": [
+        "fullFamily_diagonalValue",
+        "homOpen_twoPointEvaluation_dominant"
+      ],
+      "imports_new_module_in_closure": true
+    }
+  },
+  "no_new_duplicate_declaration_names": true,
+  "nine_inlined_052_helper_checks": [
+    {
+      "label": "HomPointDeformations",
+      "checked_input_sha256": "a42e49e67dc2cc11bddc995327bbe84171c3677294616bd7e5e2bfdb9b0f2f0c",
+      "production_section_sha256": "2486b3438a992d1ae9990b3cddb16d78d5525933632dada6a3291b3736920b6d",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "HomMarkedEvaluation",
+      "checked_input_sha256": "0659142fd86f59987be4205c986cc17254b4e4bb3e803f52365de522093dec0e",
+      "production_section_sha256": "f7f2d53ee57400faa6e86311924aba12ac99c3c5eba1c4c23d4de4a503ac12db",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "TwoPointDeformations",
+      "checked_input_sha256": "61da4aa2012c6d2a51ea1223b45c04199e5372e4226f2dad23c72f59f5570c2e",
+      "production_section_sha256": "f23c52001d99309e3cbaeecf86168b239676feb5e3d6b118bb33c90eeb990e1a",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "TwoMarkedHomLifts",
+      "checked_input_sha256": "00ceb813df92a72ae5cf80de814c327d73ace3a36353366725768ee571fd4ebf",
+      "production_section_sha256": "1cf226546af36616bf4adc5ec6351e474dca921179834c70330a6216aaf216b4",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "TwoPointProductLifts",
+      "checked_input_sha256": "c48dbebe6b85b9b734ef772f32574f0f8c43d0e6a9a416a88746fadf78f58402",
+      "production_section_sha256": "c95185da4958c245641255c1f35e7aebd5bbf373c5b0efde28bd7ca59a99c3b8",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "FixedMarkings",
+      "checked_input_sha256": "daf6e3e44c5bfde2ef877f0489cc0485cbf41497d254d737ece20aab9593dbdb",
+      "production_section_sha256": "4280131220b5eeb6d1b2a5aeb862a883ffc1db9c42a4d701a7d7914928aa361b",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "SmoothRestrictionDensity",
+      "checked_input_sha256": "b14f0846b5151a1ba5cf6bd5bb83733171399469f76c637aba43ac0d2acdd16f",
+      "production_section_sha256": "4479e4c87446443a088ab2b9d45644a555ac7f8c23da74c39497ce3c5def2aea",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "TwoPointDominance",
+      "checked_input_sha256": "65369b7ba11fc8a4ecb5300b2870a803b281b7a7fdd0d75f6bcdb7dec48bc48c",
+      "production_section_sha256": "4e573d047028ca2fe8c736b9bf16060cc69178399112eeec925aa1a7fdb4cfc8",
+      "exact_recorded_transformation": true
+    },
+    {
+      "label": "ComplexCriterionSpecialization",
+      "checked_input_sha256": "a0581ecdd7f4adae65efcbdeb8af479e12fbab286392f866cf6903ce50ddb2b4",
+      "production_section_sha256": "ef3fde0be3b190ba786c0ed7b8bd933f3aa12ec18ae7a44681e72dd5c9a85fd6",
+      "exact_recorded_transformation": true
+    }
+  ],
+  "three_055_generic_and_project_comparison_blocks_byte_identical_to_checked_sources": true,
+  "original_admissions_removed": [
+    {
+      "name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.locallyOfFinitePresentation",
+      "module": "RecompileExtensionsPart04Geometry",
+      "line": 688,
+      "tokens": [
+        "sorry"
+      ],
+      "published": false
+    },
+    {
+      "name": "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+      "module": "RecompileExtensionsPart02",
+      "line": 866,
+      "tokens": [
+        "sorry"
+      ],
+      "published": false
+    },
+    {
+      "name": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
+      "module": "LSContactLineTests",
+      "line": 32,
+      "tokens": [
+        "sorry"
+      ],
+      "published": false
+    }
+  ],
+  "new_generic_published_admissions": [
+    {
+      "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.geometricallyConnected_iff_connected",
+      "module": "LSGeometricIntegrality",
+      "line": 115,
+      "tokens": [
+        "sorry"
+      ],
+      "published": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.normal_integral_iff_connected",
+      "module": "LSGeometricIntegrality",
+      "line": 142,
+      "tokens": [
+        "sorry"
+      ],
+      "published": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.smooth_normal_stalks",
+      "module": "LSGeometricIntegrality",
+      "line": 128,
+      "tokens": [
+        "sorry"
+      ],
+      "published": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.RelativeHom.locallyOfFinitePresentation",
+      "module": "LSRelativeHomFunctor",
+      "line": 163,
+      "tokens": [
+        "sorry"
+      ],
+      "published": true
+    }
+  ],
+  "lexical_admission_counts": {
+    "baseline": 99,
+    "combined": 100,
+    "removed_original": 3,
+    "added_published": 4,
+    "not_an_acceptance_metric": true
+  },
+  "new_modules_direct_admission_counts": {
+    "LSGeometricIntegrality": 3,
+    "LSHomTwoPointDominance": 0,
+    "LSRelativeHomFunctor": 1
+  },
+  "step3h_preservation": {
+    "part06_source_exact": true,
+    "chart_criteria_source_exact": true,
+    "ext02_suffix_after_last_relocated_block_exact": true,
+    "preserved_suffix_sha256": "cf22e6c1a1d7e4f37a249bf4ef137655b0681b30a14609fc4b946d66c4c9fd2e",
+    "all046_047_048_translation_and_theorem_bytes_preserved": true
+  },
+  "renderer": {
+    "previous_blob": "743a98cb81db424accb7418bf29d85b9acc877cc",
+    "previous_sha256": "fecb824522d669123517cd37dae65091bdb36f76716e269fa04c3623eb737b57",
+    "current_sha256": "54ba480e2650ddcb78f9a908093cd7c15032ea4a7a5d1d17e5a5d2891c303d2a",
+    "only_changed_ast_value": "next_work",
+    "gate_count_control_and_link_logic_unchanged": true,
+    "diff_sha256": "455f3fadb58acbede8d68f8a1f5de235864b12e4ec5932d78a0df4929f35c2cd"
+  },
+  "blocking_findings": [],
+  "limitations": [
+    "Integrated candidates have not been compiled. Written-header and lexical-scope preservation is not an elaborated native type comparison.",
+    "The four new generic published leaves require exact final native type/context and publication registration review before any obligation acceptance.",
+    "The earlier conditional052 four-leaf audit does not certify the newly instantiated integration; a new exhaustive dependency audit and changed-cone replay are required.",
+    "The six unchanged moved consumers retain their existing broader dependencies; no claim that the whole new late module avoids every pending project theorem.",
+    "Canonical obligation/module locators for052 and its six moved consumers must be rebound in a future candidate plan; no ledger or metadata was edited here."
+  ],
+  "accepted_units_unchanged": 74,
+  "new_units_credited": 0,
+  "compiler_invoked": false,
+  "production_files_modified": false
+}

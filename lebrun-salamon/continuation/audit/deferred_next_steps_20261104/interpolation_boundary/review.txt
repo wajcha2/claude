@@ -1,0 +1,281 @@
+{
+  "schema": "next3i-interpolation-independent-review-v1",
+  "scope": "Complete isolated local dependency audit and mathematical review; no original052 acceptance, no production mutation, no new admission. Inherited sorryAx is explicitly present.",
+  "subject": {
+    "source": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSTwoPointDeformationInterpolationProbe.lean",
+    "source_sha256": "61da4aa2012c6d2a51ea1223b45c04199e5372e4226f2dad23c72f59f5570c2e",
+    "receipt_sha256": "0245ba3216eb6ed8c1f65eaa1bcdae0808e7c7799bf9e0243f7c6b4e97efee0b",
+    "output_sha256": "65015119335768c6bef785e6a44f6ab1bfb735057e09415112f653fea5cd02d7",
+    "seconds": 30.96,
+    "return_code": 0
+  },
+  "audit": {
+    "source": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/next3i/LSTwoPointInterpolationBoundaryAudit.lean",
+    "source_sha256": "f60ce79d097f4fabaa05323262af2d0f7f0258ac3cb48c6438d25747028fbb92",
+    "receipt": "root_diagnostics/runs/20261104T202357509048-LSTwoPointInterpolationBoundaryAudit/receipt.json",
+    "receipt_sha256": "449c495d83d1b36528312d24d16327ebc9cf7ea830ef3ae999223b2e9d5d6ee5",
+    "seconds": 42.414,
+    "return_code": 0,
+    "complete_success": true,
+    "stable_guards": true,
+    "output_sha256": "201e410a8e48588e0698de927dd73e797e06910c9b321d9dfa3c5182ef98de7e",
+    "stdout_sha256": "888ef7804e5e3e987c8f88a09e43d4ca4f751ecfd7c9b3c16f029449d9907d91",
+    "stderr_sha256": "0472e55b37c78b4123e98262f9accf50f6dca0ed58e6a9106825cc01ec1bdca7",
+    "canonical_generator_sha256": "366ac7301b176136b4a38bebed723d7178f18c6287547c17d530453e6a2a8a2b",
+    "canonical_generator_body_unmodified": true,
+    "summary": {
+      "root": "LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective",
+      "all_constants": "38369",
+      "project_constants": "643",
+      "direct_sorry_count": "4",
+      "missing_count": "0",
+      "custom_project_axiom_count": "0",
+      "nonstandard_axiom_count": "0"
+    }
+  },
+  "accepted_boundary": {
+    "record": "root_diagnostics/point1_final/audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+    "sha256": "fd965ae9b57f1e131bbd8afd0ad73662c92f4ba5060fd70cea4172d8566db918",
+    "status": "accepted_exact_published_boundary_and_current_reverse_dependencies",
+    "leaf_count": 50,
+    "catalog_git_blob": "85d7f2889a386d564c625966325a032b73ad6cfb",
+    "catalog_sha256": "b0f98b888e4d9030333ef6257c46f4f89c59f334b8294b29b5fb50d654703855",
+    "catalog_from_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
+    "binding": "Every observed leaf has identical defining source bytes and identical native module output bytes to the accepted Point1 inventory. Catalog eligibility is inherited from that reviewed record, not re-decided here."
+  },
+  "inherited_direct_admissions": [
+    {
+      "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+      "module": "RecompileExtensionsPart01",
+      "shortest_path": [
+        "LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective",
+        "LeBrunSalamon.Construction.Normalization.NodalTangent.section_pullback",
+        "LeBrunSalamon.Skeleton.dualBaseChange_isIso",
+        "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso"
+      ],
+      "expanded_type_path": "published_leaf_recovery/next3i/interpolation_boundary_types/dualBaseChange_isIso.txt",
+      "expanded_type_sha256": "8db8a1627a779196609625c46dab4f962da53cac7a247e3c99dc5ab58c72a8f3",
+      "expanded_type_characters": 806,
+      "expanded_type_has_ellipsis": false,
+      "accepted_point1_inventory": {
+        "name": "LeBrunSalamon.PublishedInputs.BaseChangeFibers.dualBaseChange_isIso",
+        "module": "RecompileExtensionsPart01",
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "module_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "module_source_ancestry_fingerprint": "4d358b9a5c7920194ffa23fb6d41265fbd43348f4bc58b46c3c033f67658b73b",
+        "printed_types": [
+          "∀ {X Y : AlgebraicGeometry.Scheme.{0}} (f : Quiver.Hom.{0, 1} X Y) {E : LeBrunSalamon.PhaseOne.OModule.{0} Y}\n  {r : ℕ},\n  LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank E r →\n    CategoryTheory.IsIso.{0, 1} (LeBrunSalamon.Skeleton.dualBaseChange f E)"
+        ],
+        "root_ids": [
+          "OBL-008",
+          "OBL-013",
+          "OBL-014",
+          "OBL-025",
+          "OBL-032"
+        ]
+      },
+      "accepted_publication_catalog_entry": {
+        "module": "RecompileExtensionsPart01",
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "classification": "eligible_published_generic",
+        "primary_sources": [
+          {
+            "url": "https://numdam.org/item/PMIHES_1960__4__5_0/",
+            "locator": "EGA I (1960), chapitre0,(5.4.5), canonical map(4.4.6); finite-rank convention at end(5.4.1)"
+          }
+        ],
+        "hypothesis_match": "Arbitrary scheme morphism and finite locally free source E. No local-freeness assumption on an unrelated target is needed.",
+        "actual_object_and_map_match": "dualBaseChange is currying of the pulled actual evaluation pairing. dualBaseChange_pullLocalSection proves the canonical evaluation formula on pulled local sections.",
+        "project_translation_outside_admission": "Use in nodal line gluing is a proof; this leaf states no gluing or family result.",
+        "exact_native_record": {
+          "file": "audit/formal_trait_normal_forms/current_20261104T022930/PUBLICATION_ELIGIBILITY.json",
+          "key": "aea16057740d91e570b43d1bc96a299258e73161db977a1a028bef89fe7576b6"
+        },
+        "currently_inspected_source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "source_changed_since_record": false,
+        "source_path": "source/RecompileExtensionsPart01.lean"
+      },
+      "source_and_native_output_exactly_match_accepted_point1": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+      "module": "RecompileBasePart04",
+      "shortest_path": [
+        "LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective",
+        "LeBrunSalamon.PhaseTwentyFive.tangentSheaf",
+        "LeBrunSalamon.PhaseTwentyFive.cotangentSheaf",
+        "LeBrunSalamon.PhaseTwentyFive.cotangentPresentation",
+        "LeBrunSalamon.PhaseTwentyFive.cotangentPresentation_exists",
+        "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation"
+      ],
+      "expanded_type_path": "published_leaf_recovery/next3i/interpolation_boundary_types/cotangentPresentation.txt",
+      "expanded_type_sha256": "a218eaeb1c06aa09472a97532fc408d0b621abcb4b4bacf421ba7c7b6ddcb63e",
+      "expanded_type_characters": 441,
+      "expanded_type_has_ellipsis": false,
+      "accepted_point1_inventory": {
+        "name": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.cotangentPresentation",
+        "module": "RecompileBasePart04",
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "printed_types": [
+          "∀ {X S : AlgebraicGeometry.Scheme.{u_1}} (s : Quiver.Hom.{u_1, u_1 + 1} X S),\n  Nonempty.{u_1 + 2} (LeBrunSalamon.PhaseTwentyFive.CotangentPresentation.{u_1} s)"
+        ],
+        "root_ids": [
+          "OBL-007",
+          "OBL-019",
+          "OBL-020",
+          "OBL-023",
+          "OBL-024",
+          "OBL-031",
+          "OBL-032",
+          "OBL-038",
+          "OBL-040",
+          "OBL-043"
+        ]
+      },
+      "accepted_publication_catalog_entry": {
+        "module": "RecompileBasePart04",
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "classification": "eligible_published_generic",
+        "primary_sources": [
+          {
+            "url": "https://stacks.math.columbia.edu/tag/01UM",
+            "locator": "Definition29.33.1, Lemma29.33.2; general existence in Modules17.28"
+          }
+        ],
+        "hypothesis_match": "Any scheme morphism and all coefficient module sheaves.",
+        "actual_object_and_map_match": "CotangentPresentation consists of an actual sheaf, relative derivation and bijective postcomposition map. This is precisely representability of the derivation functor.",
+        "project_translation_outside_admission": "Uniqueness of presentations and all chosen-presentation transports are proved.",
+        "currently_inspected_source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "source_changed_since_record": false,
+        "source_path": "source/RecompileBasePart04.lean"
+      },
+      "source_and_native_output_exactly_match_accepted_point1": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+      "module": "RecompileBasePart04",
+      "shortest_path": [
+        "LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective",
+        "LeBrunSalamon.Construction.Normalization.NodalTangent.section_pullback",
+        "LeBrunSalamon.PhaseTwentyFive.smooth_cotangent_rank",
+        "LeBrunSalamon.PublishedInputs.Step3e.smooth_cotangent_rank",
+        "LeBrunSalamon.CotangentRankProof.smooth_cotangent_rank",
+        "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation"
+      ],
+      "expanded_type_path": "published_leaf_recovery/next3i/interpolation_boundary_types/smoothCotangentPresentation.txt",
+      "expanded_type_sha256": "7d40d120ab52ebf597d360916a32b52d14af85c2b185172c559add7bc5cc0b42",
+      "expanded_type_characters": 676,
+      "expanded_type_has_ellipsis": false,
+      "accepted_point1_inventory": {
+        "name": "LeBrunSalamon.PublishedInputs.Differentials.smoothCotangentPresentation",
+        "module": "RecompileBasePart04",
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "module_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "module_source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+        "printed_types": [
+          "∀ {X S : AlgebraicGeometry.Scheme.{0}} (s : Quiver.Hom.{0, 1} X S) (d : ℕ),\n  AlgebraicGeometry.SmoothOfRelativeDimension.{0} d s →\n    ∃ P, LeBrunSalamon.PhaseOne.IsLocallyFreeOfRank (LeBrunSalamon.PhaseTwentyFive.CotangentPresentation.object.{0} P) d"
+        ],
+        "root_ids": [
+          "OBL-019",
+          "OBL-020",
+          "OBL-023",
+          "OBL-024",
+          "OBL-040",
+          "OBL-043"
+        ]
+      },
+      "accepted_publication_catalog_entry": {
+        "module": "RecompileBasePart04",
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "classification": "eligible_published_generic",
+        "primary_sources": [
+          {
+            "url": "https://stacks.math.columbia.edu/tag/02G1",
+            "locator": "Lemma29.35.12"
+          },
+          {
+            "url": "https://stacks.math.columbia.edu/tag/02G2",
+            "locator": "Definition29.35.13"
+          }
+        ],
+        "hypothesis_match": "An actual smooth morphism of the stated constant relative dimension d.",
+        "actual_object_and_map_match": "The generic input supplies a universal differential presentation with rank d. This is the documented finite-local-freeness/rank statement.",
+        "project_translation_outside_admission": "CotangentRankProof compares it to the chosen presentation using proved universal uniqueness and transports the local rank.",
+        "currently_inspected_source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "source_changed_since_record": false,
+        "source_path": "source/RecompileBasePart04.lean"
+      },
+      "source_and_native_output_exactly_match_accepted_point1": true
+    },
+    {
+      "name": "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+      "module": "LSFiniteFreeBaseChange",
+      "shortest_path": [
+        "LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective",
+        "LeBrunSalamon.Construction.Normalization.NodalTangent.section_pullback",
+        "LeBrunSalamon.Construction.Lines.FamilyVariation.Deformation.pullback_cotangentHom",
+        "LeBrunSalamon.Construction.Lines.FamilyVariation.Deformation.onFunction",
+        "LeBrunSalamon.Construction.Lines.DualThickening.coefficient",
+        "LeBrunSalamon.Construction.Lines.DualThickening.coefficients",
+        "LeBrunSalamon.Construction.StandardInputs.InfinitesimalGeometry.dualThickening_normalForm_unique",
+        "LeBrunSalamon.PublishedInputs.Step3f.dualThickening_normalForm_unique",
+        "LeBrunSalamon.DualBaseChangeAlgebra.open_normalForm_unique",
+        "LeBrunSalamon.DualBaseChangeAlgebra.global_normalForm_unique",
+        "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective"
+      ],
+      "expanded_type_path": "published_leaf_recovery/next3i/interpolation_boundary_types/structureH0_bijective.txt",
+      "expanded_type_sha256": "1a15fbc571014c2558172ab29fb63b5afef4892fc28e62b9645ddc871a400388",
+      "expanded_type_characters": 1007983,
+      "expanded_type_has_ellipsis": false,
+      "accepted_point1_inventory": {
+        "name": "LeBrunSalamon.PublishedInputs.FiniteFreeBaseChange.structureH0_bijective",
+        "module": "LSFiniteFreeBaseChange",
+        "source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+        "module_output_sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0",
+        "module_source_ancestry_fingerprint": "a9c57cdd19c1b75d6bcd1b7b6bc8dea1ab3072e5cdf03b751d15ba579f1eaeff",
+        "printed_types": [
+          "∀ (K B : Type) [inst : CommRing.{0} K] [inst_1 : CommRing.{0} B] [inst_2 : Algebra.{0, 0} K B]\n  [Module.Free.{0, 0} K B] [Module.Finite.{0, 0} K B] {X Y : AlgebraicGeometry.Scheme.{0}}\n  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧K)) (p : Quiver.Hom.{0, 1} Y X)\n  (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧B))\n  (h :\n    CategoryTheory.IsPullback.{0, 1} p q sX\n      (AlgebraicGeometry.Spec.map.{0} (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} K B)))),\n  Function.Bijective.{1, 1} ⇑(LeBrunSalamon.FiniteFreeBaseChange.globalMap K B sX p q ⋯)"
+        ],
+        "root_ids": [
+          "OBL-028",
+          "OBL-030",
+          "OBL-031"
+        ]
+      },
+      "accepted_publication_catalog_entry": {
+        "module": "LSFiniteFreeBaseChange",
+        "source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+        "classification": "eligible_published_generic",
+        "primary_sources": [
+          {
+            "url": "https://stacks.math.columbia.edu/tag/0CKW",
+            "locator": "Lemma30.5.3, degree-zero finite-free base change"
+          }
+        ],
+        "hypothesis_match": "A finite free coefficient algebra and the actual base-changed scheme; the generic theorem retains the finite-free hypothesis rather than appealing to arbitrary flat base change without needed scope.",
+        "actual_object_and_map_match": "The tensor-to-section map is the actual canonical H0 map, normalized on pure tensors.",
+        "project_translation_outside_admission": "The arbitrary-open dual-number ring normal form, literal zero-section restriction and cotangent-Hom deformation translations are proved.",
+        "currently_inspected_source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+        "source_changed_since_record": false,
+        "source_path": "source/LSFiniteFreeBaseChange.lean"
+      },
+      "source_and_native_output_exactly_match_accepted_point1": true
+    }
+  ],
+  "mathematical_review": {
+    "conclusion": "The whole-curve first-order interpolation follows from the literal two-point generation predicate and the existing bijective normalized variation map.",
+    "raw_input": "hgen surjects raw restrictSection values with source p*O; requested values are unitPullbackIso(p).hom followed by Dp.section and cp.inv.",
+    "normalization": "pullSection begins with unitPullbackIso(p).inv. Postcomposition with cp.hom cancels the two isomorphisms in exactly that order, yielding Dp.section. Same for q.",
+    "realization": "variation_bijective surjectivity realizes one common interpolating section as an actual whole-curve deformation. Its injectivity identifies complete point deformations after section_pullback and the explicit normalization.",
+    "scope": "No smoothness or projectivity of the source P1 is used beyond the supplied ProjectiveLineOverC/point types and hgen; target smoothness supplies the tangent/cotangent duality in the already accepted chain.",
+    "no_new_tangent_or_hom_deformation_leaf": true
+  },
+  "exclusions": {
+    "pending_original049_052_054_057_as_direct_admission": false,
+    "evidence": "The completed exhaustive type/value closure has four admitted leaves, all matching the accepted Point1 inventory. No missing constants or extra project/nonstandard axioms occurred.",
+    "whole_next3i_obligation_accepted": false,
+    "final_pair_density_proof_audited_by_this_walk": false
+  }
+}

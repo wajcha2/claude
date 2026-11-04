@@ -1,0 +1,110 @@
+{
+  "schema": "hom-free-open-transport-completed-preparation-v1",
+  "prepared_utc": "2026-11-04T21:58:31.626029+00:00",
+  "status": "complete_local_proof_and_exhaustive_boundary_audit; no original053 acceptance",
+  "source": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/next3i/LSHomFreeOpenTransport.lean",
+  "source_sha256": "e57ca6b134b9263c56af1ef1d295b6a6868b12b5b2f702a6c9aee6ce39df9487",
+  "profile": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/next3i/LSHomFreeOpenTransportProfile.lean",
+  "profile_sha256": "8dac0f9e34b99b99521e620384750f99ccf0e6504a49245d12ce08fca156b2c8",
+  "profile_inverse_guard_sha256": "94f8f2ac12f66132bf00363ff53c30e3c1c044ea2a85238af7dcf239fcc25f31",
+  "declaration_count": 21,
+  "original_structure_sha256": "6d8a85528ac19b7acd496b2d600b14423749a7a18680334df2f02fb0cff8f300",
+  "original_structure_field_names": [
+    "neighborhood",
+    "affine",
+    "marked",
+    "center",
+    "smooth",
+    "irreducible",
+    "smoothEvaluation",
+    "dominantEvaluation",
+    "curveAt",
+    "curveAt_spec",
+    "free",
+    "degree",
+    "preservesVeryFree"
+  ],
+  "mathematical_review": {
+    "neighborhood_affine": "Inverse image under actual canonicalIso H→K; affine open pulls back through this isomorphism.",
+    "marked_center": "The marked point goes through the inverse restricted isomorphism; forward/backward identity and actual mapAt comparison give the same f.map.",
+    "smooth_irreducible": "The parameter open is scheme-isomorphic over ComplexBase to the supplied open; inverse isomorphism is a continuous surjection.",
+    "smooth_dominant_evaluation": "The induced actual source isomorphism followed by the supplied restricted universal evaluation equals the new restricted universal evaluation. Smoothness composes; density follows from literal range inclusion and closure_mono.",
+    "curve_data": "curveAt is the identical supplied RationalCurve evaluated at the forward parameter point. curveAt_spec, freeness, fixed degree, and very-free preservation reuse the supplied fields at that same point.",
+    "scope": "Only supplied P,p,X,H,K,f,L and FreeOpen K are inputs. No projective embedding, positivity, nonempty degree stratum, or neighborhood-existence assumption is added."
+  },
+  "independent_source_review": {
+    "reviewer": "/root/source_milestone_audit",
+    "conclusion": "All 13 actual structure fields and both map orientations correct; source review only, later full receipt is authoritative."
+  },
+  "proof_run": {
+    "receipt": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T215159441734-LSHomFreeOpenTransportProfile/receipt.json",
+    "receipt_sha256": "623a41034b43bd70615787a632ffbaa4fc1ce04f108a2834b706af2d4da1bfdd",
+    "seconds": 73.791,
+    "complete_success": true,
+    "return_code": 0,
+    "errors": 0,
+    "warnings": 3,
+    "warning_scope": "Unchanged letI style suggestions only; no linter disabled or rerun for them.",
+    "all_source_runtime_import_guards_stable": true,
+    "output": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T215159441734-LSHomFreeOpenTransportProfile/LSHomFreeOpenTransportProfile.olean",
+    "output_sha256": "c4930f6c332780666c101da36ed825c9f65cc20fe461738a96d8cf39b2c56e1a",
+    "stdout_sha256": "7368f467be0e1f5519c37908810d702bb440b9d1d18beda744bdc22dd3eb663f",
+    "stderr_sha256": "19b4cdd65d24e7b14667c239ddf3523473b334414c59d3bd1e7233d1df745371",
+    "direct_imports": {
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean/RecompileExtensionsPart04Geometry.olean": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/lib/lean/Lean.olean": "6d2a1ada7981ca80c9ed68d167d62a240cff7266a1ca2789036ab1f4a077bf28",
+      "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T205735860982-LSHomPresentationComparisonProfile/LSHomPresentationComparisonProfile.olean": "30f677aec07d1b677dc8058aa1c29c659f9c96e902d64e6a33909bacdd3162ed"
+    },
+    "printed_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound",
+      "sorryAx"
+    ],
+    "inherited_input_scope": "The separate exhaustive audit identifies exactly the four accepted generic inputs; this is not a zero-sorry claim."
+  },
+  "boundary_review": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/next3i/HOM_FREE_OPEN_BOUNDARY_REVIEW.json",
+  "boundary_review_sha256": "644d165bfc79aa013fc8336f403aa55f161375bb26b5ec3eaf1a73862fedebe8",
+  "failed_prior_variants_preserved": [
+    {
+      "source_variant": "published_leaf_recovery/next3i/free_open_transport_v1/LSHomFreeOpenTransportProfile.lean",
+      "source_sha256": "d43e2b16efb285616710836d539e3f6cfbf862b3a9ced867f7fb4f8bbef8bd40",
+      "receipt": "root_diagnostics/runs/20261104T214533386787-LSHomFreeOpenTransportProfile/receipt.json",
+      "receipt_sha256": "7d5e616b0da328d4514fcd0d8ff740dde05f678d3678d4f78085fd2e8ae1b821",
+      "seconds": 49.518,
+      "errors": 1,
+      "credited_as_pass": false
+    },
+    {
+      "source_variant": "published_leaf_recovery/next3i/free_open_transport_v2/LSHomFreeOpenTransportProfile.lean",
+      "source_sha256": "7b4b9ea1553b28ec70e6e996046634329a6d17ea377624637f160454adb4fbee",
+      "receipt": "root_diagnostics/runs/20261104T214914180147-LSHomFreeOpenTransportProfile/receipt.json",
+      "receipt_sha256": "db4ab7c2b0a71b711f7057639bcff548c070529de48028e48b438cacd82a7bf1",
+      "seconds": 43.711,
+      "errors": 2,
+      "credited_as_pass": false
+    }
+  ],
+  "diagnostic_pool": {
+    "source_root": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/source-checkpoint/source",
+    "native_pool": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean",
+    "validation_path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/IMPORT_POOL_VALIDATION.json",
+    "validation_sha256": "aaec2e603fe757112b3c049b4e6db91210bf0407bf06589162f236b73118cfec",
+    "source_commit": "e79a5a00d5019e277f158be5bbe0cf690d11d618",
+    "source_manifest_sha256": "7867c5ad65b40a07545dbde03451ebd312d98b399935c4e083c5da5c5adf2ae7",
+    "purpose": "Verified stock outputs used only as imports for separate local diagnostics; no stock runtime claim for local execution.",
+    "Geometry_source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+    "Geometry_native_output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f"
+  },
+  "current_production_boundary": {
+    "source_root": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source",
+    "source_manifest_sha256": "e48fa8114d0a9eb29d6a8d67442af17a135f64e1160b5936792414b406551998",
+    "Geometry_direct_source_same": true,
+    "current_308_native_context_pass_claimed": false,
+    "integration_requirement": "Compile the clean canonical comparison module, replace the diagnostic Profile import with its exact production counterpart, and validate the new module plus affected descendants against the then-current source/native contexts. The historical diagnostic pool does not establish that gate."
+  },
+  "new_admissions": 0,
+  "original053_exists_proved": false,
+  "production_sources_refs_ledgers_or_verifiers_modified": false,
+  "milestone_units_added": 0
+}

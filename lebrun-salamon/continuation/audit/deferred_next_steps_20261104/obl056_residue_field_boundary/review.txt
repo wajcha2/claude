@@ -1,0 +1,368 @@
+{
+  "schema": "lebrun-local-ordinary-translation-review-v1",
+  "reviewer": "source_milestone_audit",
+  "scope": "OBL056: canonical residue field identifications and the actual relative residue-map isomorphism from the original hp/hb. Local diagnostic only; zero completion/acceptance credit.",
+  "actual_source": {
+    "path": "source_milestone_audit/next3i/obl056/LSRationalPointResidueCompatibilityV3.lean",
+    "sha256": "4350c46db2ce1c569baba8ddaafeec55f6e31b7a98480cc275506e4d8aab4d38",
+    "bytes": 7645
+  },
+  "compiled_profile": {
+    "path": "source_milestone_audit/next3i/obl056/LSRationalPointResidueCompatibilityProfileV3.lean",
+    "sha256": "d3c45a8b7d5a476a2e95cca0b5c9463d8a4c2660f5c1f79e782cca1025d98922",
+    "bytes": 11263
+  },
+  "namespace": "LeBrunSalamon.Next3i.RationalResidue",
+  "declarations": [
+    "field_hom_isIso_of_rightInverse",
+    "section_point",
+    "section_residue_composite",
+    "residueFieldMap_isIso_of_section",
+    "residueIsoOfSection",
+    "residueIsoOfSection_hom",
+    "relative_residueFieldMap_isIso",
+    "pointResidueIso",
+    "toBase_residueFieldMap_isIso",
+    "basePoint_overC",
+    "basePointResidueIso",
+    "toBase_residue_compatibility"
+  ],
+  "profile_inverse": {
+    "actual_bytes_recovered": true,
+    "marker_blocks_removed": 24,
+    "diagnostic_options_removed": [
+      "profiler true",
+      "stderrAsMessages false"
+    ],
+    "axiom_prints_removed": 12
+  },
+  "complete_run": {
+    "receipt": {
+      "path": "root_diagnostics/runs/20261104T213714801992-LSRationalPointResidueCompatibilityProfileV3/receipt.json",
+      "sha256": "fa5d2000a4fbbd7f6e12758a512c4b2125fda0fbcc6c21269dff9e63782f3ad3",
+      "bytes": 108238
+    },
+    "module": "LSRationalPointResidueCompatibilityProfileV3",
+    "source": {
+      "path": "source_milestone_audit/next3i/obl056/LSRationalPointResidueCompatibilityProfileV3.lean",
+      "sha256": "d3c45a8b7d5a476a2e95cca0b5c9463d8a4c2660f5c1f79e782cca1025d98922",
+      "bytes": 11263
+    },
+    "seconds": 35.545,
+    "return_code": 0,
+    "error_count": 0,
+    "errors": [],
+    "output": {
+      "path": "root_diagnostics/runs/20261104T213714801992-LSRationalPointResidueCompatibilityProfileV3/LSRationalPointResidueCompatibilityProfileV3.olean",
+      "sha256": "256c8b21f0937ab17b2195e76e7a9306a29db5814c4d2fa847ef42edcc480b71",
+      "bytes": 132984
+    },
+    "complete_success": true,
+    "all_source_runtime_import_hashes_unchanged": true,
+    "before_after_equal": true,
+    "all_artifact_hashes_recomputed": true
+  },
+  "failed_runs_preserved": [
+    {
+      "receipt": {
+        "path": "root_diagnostics/runs/20261104T213243247215-LSRationalPointResidueCompatibilityProfile/receipt.json",
+        "sha256": "36b92b97d4b59a0e59b332c57dad76bd23d1b0520a4b24a11fa574aa6b547475",
+        "bytes": 108156
+      },
+      "module": "LSRationalPointResidueCompatibilityProfile",
+      "source": {
+        "path": "source_milestone_audit/next3i/obl056/LSRationalPointResidueCompatibilityProfile.lean",
+        "sha256": "f52fdef92505ca32eb47052e79787b51eaa1e8e33fa9a5d418316b4527574978",
+        "bytes": 10189
+      },
+      "seconds": 41.325,
+      "return_code": 1,
+      "error_count": 10,
+      "errors": [
+        {
+          "position": {
+            "column": 38,
+            "line": 29
+          },
+          "message": "failed to synthesize instance of type class\n  IsSimpleRing ↑R\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+        },
+        {
+          "position": {
+            "column": 2,
+            "line": 56
+          },
+          "message": "Type mismatch: After simplification, term\n  Scheme.Hom.residueFieldMap_congr hp x\n has type\n  @Eq ((Spec ↧K).residueField ((p ≫ s) x) ⟶ (Spec ↧K).residueField x) (Scheme.Hom.residueFieldMap (p ≫ s) x)\n    ((Scheme.residueFieldCongr ⋯).hom ≫ 𝟙 ((Spec ↧K).residueField x))\nbut is expected to have type\n  @Eq ((Spec ↧K).residueField (s (p x)) ⟶ (Spec ↧K).residueField x) (Scheme.Hom.residueFieldMap (p ≫ s) x)\n    (Scheme.residueFieldCongr ⋯).hom"
+        },
+        {
+          "position": {
+            "column": 67,
+            "line": 68
+          },
+          "message": "unsolved goals\ncase hp\nK : Type u\ninst✝ : Field K\nX : Scheme\ns : X ⟶ Spec ↧K\np : Spec ↧K ⟶ X\nhp : p ≫ s = 𝟙 (Spec ↧K)\nx : ↥(Spec ↧K)\ne : (Spec ↧K).residueField (s (p x)) ≅ (Spec ↧K).residueField x := Scheme.residueFieldCongr ⋯\n⊢ p ≫ s = 𝟙 (Spec ↧K)"
+        },
+        {
+          "position": {
+            "column": 37,
+            "line": 113
+          },
+          "message": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (?f ≫ ?g) ≫ ?h\nin the target expression\n  Scheme.Hom.residueFieldMap f (p x) =\n    (Scheme.Hom.residueFieldMap f (p x) ≫ Scheme.Hom.residueFieldMap p x) ≫ inv (Scheme.Hom.residueFieldMap p x)\n\nK : Type u\ninst✝ : Field K\nX Y : Scheme\nf : X ⟶ Y\ns : Y ⟶ Spec ↧K\np : Spec ↧K ⟶ X\nhp : p ≫ f ≫ s = 𝟙 (Spec ↧K)\nx : ↥(Spec ↧K)\nthis✝ : IsIso (Scheme.Hom.residueFieldMap p x) := residueFieldMap_isIso_of_section (f ≫ s) p hp x\nhps : (p ≫ f) ≫ s = 𝟙 (Spec ↧K)\nthis : IsIso (Scheme.Hom.residueFieldMap (p ≫ f) x) := residueFieldMap_isIso_of_section s (p ≫ f) hps x\n⊢ Scheme.Hom.residueFieldMap f (p x) =\n    (Scheme.Hom.residueFieldMap f (p x) ≫ Scheme.Hom.residueFieldMap p x) ≫ inv (Scheme.Hom.residueFieldMap p x)\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    Scheme.Hom.residueFieldMap f (p x) ≫ Scheme.Hom.residueFieldMap p x\n  has type\n    Y.residueField (f (p x)) ⟶ (Spec ↧K).residueField x\n  but is expected to have type\n    Y.residueField ((p ≫ f) x) ⟶ (Spec ↧K).residueField x\n  in the application\n    CategoryStruct.comp (Scheme.Hom.residueFieldMap f (p x) ≫ Scheme.Hom.residueFieldMap p x)"
+        },
+        {
+          "position": {
+            "column": 2,
+            "line": 115
+          },
+          "message": "failed to synthesize instance of type class\n  IsIso (Scheme.Hom.residueFieldMap (p ≫ f) x ≫ inv (Scheme.Hom.residueFieldMap p x))\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+        },
+        {
+          "position": {
+            "column": 47,
+            "line": 141
+          },
+          "message": "Unknown identifier `hp`"
+        },
+        {
+          "position": {
+            "column": 54,
+            "line": 152
+          },
+          "message": "Unknown identifier `hp`"
+        },
+        {
+          "position": {
+            "column": 56,
+            "line": 161
+          },
+          "message": "Application type mismatch: The argument\n  hp\nhas type\n  p ≫ H.toBase ≫ sS = 𝟙 ComplexBase\nof sort `Prop` but is expected to have type\n  ComplexBase ⟶ S\nof sort `Type` in the application\n  basePoint_overC pi sS X H p hp"
+        },
+        {
+          "position": {
+            "column": 41,
+            "line": 174
+          },
+          "message": "Application type mismatch: The argument\n  hp\nhas type\n  p ≫ H.toBase ≫ sS = 𝟙 ComplexBase\nof sort `Prop` but is expected to have type\n  ComplexBase ⟶ S\nof sort `Type` in the application\n  basePointResidueIso pi sS X H p hp"
+        },
+        {
+          "position": {
+            "column": 6,
+            "line": 178
+          },
+          "message": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  Scheme.Hom.residueFieldMap (?f ≫ ?g) ?x\nin the target expression\n  Scheme.Hom.residueFieldMap (p ≫ H.toBase) (IsLocalRing.closedPoint ℂ) =\n    (Scheme.residueFieldCongr ⋯).hom ≫ Scheme.Hom.residueFieldMap b (IsLocalRing.closedPoint ℂ)\n\nS Y : Scheme\npi : Y ⟶ S\nsS : S ⟶ ComplexBase\nd : ℕ\nX : SmoothProperComplexVariety d\nH : HomDeformationInput.Presentation pi sS X\np : ComplexBase ⟶ H.parameter\nhp : p ≫ H.toBase ≫ sS = 𝟙 ComplexBase\nb : ComplexBase ⟶ S\nhb : p ≫ H.toBase = b\nhcomp :\n  Scheme.Hom.residueFieldMap (p ≫ H.toBase) (IsLocalRing.closedPoint ℂ) =\n    (Scheme.residueFieldCongr ⋯).hom ≫ Scheme.Hom.residueFieldMap b (IsLocalRing.closedPoint ℂ)\n⊢ (Scheme.residueFieldCongr ⋯).hom ≫ sorry =\n    Scheme.Hom.residueFieldMap H.toBase (p (IsLocalRing.closedPoint ℂ)) ≫ (pointResidueIso pi sS X H p hp).hom"
+        }
+      ],
+      "output": null,
+      "complete_success": false,
+      "all_source_runtime_import_hashes_unchanged": true,
+      "before_after_equal": true,
+      "all_artifact_hashes_recomputed": true
+    },
+    {
+      "receipt": {
+        "path": "root_diagnostics/runs/20261104T213554262198-LSRationalPointResidueCompatibilityProfileV2/receipt.json",
+        "sha256": "b4a8d66387f66650f14c0bd9010ac9028c2c4159d7114a27740b35c01d7a5640",
+        "bytes": 108177
+      },
+      "module": "LSRationalPointResidueCompatibilityProfileV2",
+      "source": {
+        "path": "source_milestone_audit/next3i/obl056/LSRationalPointResidueCompatibilityProfileV2.lean",
+        "sha256": "2c4c1742cdc5de9964aa75dbeddaaea89ca984560f5ea0e7de1806da599df9be",
+        "bytes": 11185
+      },
+      "seconds": 33.198,
+      "return_code": 1,
+      "error_count": 2,
+      "errors": [
+        {
+          "position": {
+            "column": 14,
+            "line": 58
+          },
+          "message": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression\n  𝟙 (Spec ↧K)\nhas type\n  CategoryStruct.toQuiver.1 (Spec ↧K) (Spec ↧K)\nwhich does not have the necessary form."
+        },
+        {
+          "position": {
+            "column": 8,
+            "line": 120
+          },
+          "message": "failed to synthesize instance of type class\n  IsIso (Scheme.Hom.residueFieldMap (p ≫ f) x)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+        }
+      ],
+      "output": null,
+      "complete_success": false,
+      "all_source_runtime_import_hashes_unchanged": true,
+      "before_after_equal": true,
+      "all_artifact_hashes_recomputed": true
+    }
+  ],
+  "checked_local_parents": [
+    {
+      "receipt": {
+        "path": "root_diagnostics/runs/20261104T195635285219-LSRelativeHomFunctorTranslationProbe/receipt.json",
+        "sha256": "f7a0caa897816f581b2ba746d9de481786af9e7c27153c332c0d2696f71504fd",
+        "bytes": 107097
+      },
+      "module": "LSRelativeHomFunctorTranslationProbe",
+      "source": {
+        "path": "root_diagnostics/next3i/LSRelativeHomFunctorTranslationProbe.lean",
+        "sha256": "59cbcc588e537e2086481618563bee2d3a84944395dbd67b868bd2b4240431de",
+        "bytes": 7452
+      },
+      "seconds": 32.694,
+      "return_code": 0,
+      "error_count": 0,
+      "errors": [],
+      "output": {
+        "path": "root_diagnostics/runs/20261104T195635285219-LSRelativeHomFunctorTranslationProbe/LSRelativeHomFunctorTranslationProbe.olean",
+        "sha256": "799137c4ceb93f1e69ec0b8379e8936710484ba561075d84703735623d93af22",
+        "bytes": 297000
+      },
+      "complete_success": true,
+      "all_source_runtime_import_hashes_unchanged": true,
+      "before_after_equal": true,
+      "all_artifact_hashes_recomputed": true
+    },
+    {
+      "receipt": {
+        "path": "root_diagnostics/runs/20261104T211507156471-LSRelativeHomLiftingCorrespondenceProbe/receipt.json",
+        "sha256": "5af62b26eb8980ca718773310f60473906ec8b56b1e1713123852d4e8348ad9e",
+        "bytes": 107638
+      },
+      "module": "LSRelativeHomLiftingCorrespondenceProbe",
+      "source": {
+        "path": "root_diagnostics/next3i/LSRelativeHomLiftingCorrespondenceProbe.lean",
+        "sha256": "fd744d6492bbbd1637e5d7eadc5e10702a4532c94e61b90501f8eb205635f2f7",
+        "bytes": 1685
+      },
+      "seconds": 32.584,
+      "return_code": 0,
+      "error_count": 0,
+      "errors": [],
+      "output": {
+        "path": "root_diagnostics/runs/20261104T211507156471-LSRelativeHomLiftingCorrespondenceProbe/LSRelativeHomLiftingCorrespondenceProbe.olean",
+        "sha256": "f93844db3163fbbcb3e4336410187748e63828248ce7227512f591f81d142493",
+        "bytes": 45744
+      },
+      "complete_success": true,
+      "all_source_runtime_import_hashes_unchanged": true,
+      "before_after_equal": true,
+      "all_artifact_hashes_recomputed": true
+    }
+  ],
+  "axioms": {
+    "field_hom_isIso_of_rightInverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "section_point": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "section_residue_composite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "residueFieldMap_isIso_of_section": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "residueIsoOfSection": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "residueIsoOfSection_hom": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "relative_residueFieldMap_isIso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "pointResidueIso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "toBase_residueFieldMap_isIso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "basePoint_overC": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "basePointResidueIso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "toBase_residue_compatibility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "warnings_preserved": [
+    "Try this: \n  letI̵\n\nThe goal is a proposition, so `let` is preferred over `letI`.\nThe difference between `let` and `letI` is that `letI` inlines the value.\nBut this is not relevant for proofs because of proof irrelevance.\n\nNote: This linter can be disabled with `set_option linter.style.haveILetI false`",
+    "Try this: \n  letI̵\n\nThe goal is a proposition, so `let` is preferred over `letI`.\nThe difference between `let` and `letI` is that `letI` inlines the value.\nBut this is not relevant for proofs because of proof irrelevance.\n\nNote: This linter can be disabled with `set_option linter.style.haveILetI false`"
+  ],
+  "new_admissions": 0,
+  "new_published_inputs": 0,
+  "source_056_unchanged": {
+    "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionsPart04Geometry.lean",
+    "sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+    "bytes": 292853
+  },
+  "actual_statement_scope": [
+    "pointResidueIso identifies the actual residue field H.parameter.residueField (p (closedPoint ℂ)) with CommRingCat.of ℂ through p.residueFieldMap.",
+    "toBase_residueFieldMap_isIso proves IsIso of H.toBase.residueFieldMap at that exact point. This is the relative residue-field condition of Stacks02HX.",
+    "basePointResidueIso identifies the supplied b-point residue field with ℂ using the original hb and hp.",
+    "toBase_residue_compatibility retains the explicit residueFieldCongr induced by hb and the commuting square with the actual H.toBase residue map."
+  ],
+  "mathematical_proof": [
+    "hp gives an actual section of the map to Spec K. Functoriality gives an explicit right inverse to its residue map, including the residue-field transport for the point equality.",
+    "A map of fields is injective. The right inverse makes this same map surjective, yielding its actual isomorphism.",
+    "The composite point p≫H.toBase and p have isomorphic residue maps. Pinned categorical isomorphism cancellation therefore gives the actual relative residue map.",
+    "Scheme.Spec.residueFieldIsoOfField supplies the canonical final identification with K; the result is not inferred from singletonness of Spec K."
+  ],
+  "original_hypotheses": {
+    "hp_used_exactly": true,
+    "hb_used_exactly_for_supplied_base_point": true,
+    "additional_geometric_assumptions": [],
+    "proper_flat_lfp_hH1_not_needed_for_this_boundary": true,
+    "original_056_header_or_body_changed": false
+  },
+  "pinned_mathlib_sources": [
+    {
+      "path": "Mathlib/AlgebraicGeometry/ResidueField.lean",
+      "commit": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+      "git_blob": "b050b905f28c105e27227b06562b4742a16cdbbb",
+      "apis": [
+        "Scheme.residueFieldMap_comp",
+        "Scheme.Hom.residueFieldMap_congr",
+        "Scheme.Spec.residueFieldIsoOfField"
+      ]
+    },
+    {
+      "path": "Mathlib/CategoryTheory/Iso.lean",
+      "commit": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+      "git_blob": "86c396e01326897331b481b12ed59c6baf4f1a1a",
+      "apis": [
+        "IsIso.of_isIso_fac_right"
+      ]
+    }
+  ],
+  "remaining_obl056_work": "Actual source-thickening ideal/cotangent coefficient comparison and transfer of the original fibre tangent H1 vanishing remain open. No smoothness conclusion has been substituted for them.",
+  "production_selection": false,
+  "production_or_ledger_mutation": false,
+  "milestone_units_credited": 0,
+  "integration_caution": "Isolated source currently imports a completed local diagnostic parent; later integration must guard import/namespace cleanup and pass its actual stock graph."
+}

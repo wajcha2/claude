@@ -1,0 +1,111 @@
+{
+  "schema": "independent-proposed-055-integration-review-v1",
+  "reviewer": "published_leaf_audit",
+  "created_utc": "2026-11-04T20:54:46.176004+00:00",
+  "scope": "Read-only source and publication-scope review; no integrated compilation or acceptance",
+  "review_path": "published_leaf_recovery/next3i/OBL055_PROPOSED_INTEGRATION_REVIEW.md",
+  "review_sha256": "c1f412b65883c3628a8150a2cb33251b591dac53cfc0a0e5dd134842b44ae143",
+  "artifacts": {
+    "root_diagnostics/next_batch_candidate/root/LSRelativeHomFunctor.lean": "43a0cd70213ad836841d0e6dcc9d9ce5ed581ac4d02bff1a70042bc9cfd8b171",
+    "root_diagnostics/next_batch_candidate/root/RecompileExtensionsPart04Geometry.lean": "fa5d3ff620150a3ce71ca806d2902c3ccb05edd7d2ed8356e059a4e57fef2e2f",
+    "root_diagnostics/next_batch_candidate/root/OBL055_INTEGRATION_GUARD.json": "0633ec2c6ab69a295417b0e2df7f5c6f769e6367b6ced3f216187f7e8efe348b",
+    "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionsPart04Geometry.lean": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e"
+  },
+  "all_three_forward_edits_exact": true,
+  "all_three_inverse_edits_exact": true,
+  "original_public_header_byte_identical": true,
+  "original_public_header_sha256": "277b0534307bd3854341c0048d64b2c59187a92fae64441e0a8fe2fa4d1b3546",
+  "checked_blocks": {
+    "generic": {
+      "sha256": "c2ad59492fc5cf7cf251b48b299b3b73cb37d95a986361977da5b8bd11ca899f",
+      "bytes": 2389,
+      "declarations": [
+        "sourceOver",
+        "sourceMap",
+        "sourceMap_fst",
+        "sourceMap_snd",
+        "sourceMapOver",
+        "sourceMap_id",
+        "sourceMap_comp",
+        "sourceMapOver_id",
+        "sourceMapOver_comp",
+        "morphismFunctor"
+      ],
+      "byte_exact": true
+    },
+    "normalization": {
+      "sha256": "dc3be6be79a10d7de431c5886f34fda112a3991426849713fe1979e5aa7e1405",
+      "bytes": 2901,
+      "declarations": [
+        "homBaseChangeEquiv",
+        "homBaseChangeEquiv_fst",
+        "homBaseChangeEquiv_snd",
+        "homBaseChangeEquiv_naturality"
+      ],
+      "byte_exact": true
+    },
+    "comparison": {
+      "sha256": "cf26e6aba250f489f5e946f86427f55c1f3a77ae30a3b39b0f4b74a1822600b4",
+      "bytes": 4342,
+      "declarations": [
+        "targetChangeEquiv",
+        "presentationRepresentation",
+        "locallyOfFinitePresentation_of_generic_input"
+      ],
+      "byte_exact": true
+    }
+  },
+  "new_generic_input": "LeBrunSalamon.PublishedInputs.RelativeHom.locallyOfFinitePresentation",
+  "new_generic_module_imports": [
+    "Mathlib"
+  ],
+  "direct_admission_token_counts": {
+    "original_geometry": 12,
+    "candidate_geometry": 11,
+    "new_generic_module": 1
+  },
+  "placement": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.FunctorComparison, after Presentation and before StandardInputs",
+  "combined_proposed_import_graph": {
+    "baseline_nodes": 308,
+    "nodes": 311,
+    "topologically_sorted_nodes": 311,
+    "acyclic": true,
+    "includes_isolated_052_055_057": true
+  },
+  "primary_sources_reopened": [
+    "https://stacks.math.columbia.edu/tag/0D1C",
+    "https://stacks.math.columbia.edu/tag/0D19",
+    "https://stacks.math.columbia.edu/tag/01TO"
+  ],
+  "publication_judgment": "Faithful generic scheme-representer specialization, with explicit all-test target-base-change equivalence and naturality; no scheme-existence assertion. Registry approval and native gates remain pending.",
+  "completed_diagnostic_receipts": [
+    {
+      "path": "root_diagnostics/runs/20261104T195635285219-LSRelativeHomFunctorTranslationProbe/receipt.json",
+      "sha256": "f7a0caa897816f581b2ba746d9de481786af9e7c27153c332c0d2696f71504fd",
+      "source_sha256": "59cbcc588e537e2086481618563bee2d3a84944395dbd67b868bd2b4240431de",
+      "seconds": 32.694,
+      "return_code": 0,
+      "errors": 0,
+      "complete_success": true,
+      "all_guards_stable": true,
+      "output_sha256": "799137c4ceb93f1e69ec0b8379e8936710484ba561075d84703735623d93af22",
+      "logs_and_output_rehashed_exact": true
+    },
+    {
+      "path": "root_diagnostics/runs/20261104T200652132185-LSRelativeHomBaseChangeEquivProfile/receipt.json",
+      "sha256": "314217df27ceff34af72fbc486fdf5787f447f610946b9051cefe1d026e88289",
+      "source_sha256": "66ffef957ef110c3e3cdffc898abc30ed07eeacb8965065dc6cbd84d66772351",
+      "seconds": 31.352,
+      "return_code": 0,
+      "errors": 0,
+      "complete_success": true,
+      "all_guards_stable": true,
+      "output_sha256": "0c21c4622ea0015ecbd4bc3a9141d55ed61ada6d73c176c1097521479e47a5e6",
+      "logs_and_output_rehashed_exact": true
+    }
+  ],
+  "compiler_invoked_for_this_review": false,
+  "production_mutated": false,
+  "git_refs_changed": false,
+  "milestone_units_added": 0
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "lebrun-isolated-source-integration-guard-v1",
+  "scope": "Prepared OBL057/3j source integration only. New helper and modified consumer are uncompiled and unselected; no acceptance credit.",
+  "baseline_consumer": {
+    "path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/source-checkpoint/source/LSContactLineTests.lean",
+    "sha256": "c2ad172ea1b30337d3a6c1c4d886904d7517081d0ccc5941c5b32c2b1376fd05"
+  },
+  "candidate_consumer": {
+    "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/source/LSContactLineTests.lean",
+    "sha256": "a8672c168656a66880c3fdbd45641fa62a613ae0770d0a462fe1a423216e6d1a"
+  },
+  "patches": [
+    {
+      "label": "minimal_new_module_import",
+      "old": "import LSGenericSheets\nimport LSP1FamilyDegree\n",
+      "new": "import LSGenericSheets\nimport LSP1FamilyDegree\nimport LSGeometricIntegrality\n"
+    },
+    {
+      "label": "original057_proof_only",
+      "old": "theorem smooth_connected_complex_geometricallyIntegral {Y : Scheme}\n    (sY : Y \u27f6 ComplexBase) [Smooth sY] [ConnectedSpace Y] :\n    GeometricallyIntegral sY := by sorry",
+      "new": "theorem smooth_connected_complex_geometricallyIntegral {Y : Scheme}\n    (sY : Y \u27f6 ComplexBase) [Smooth sY] [ConnectedSpace Y] :\n    GeometricallyIntegral sY := by\n  exact LeBrunSalamon.GeometricIntegrality.complex_specialization sY"
+    }
+  ],
+  "forward_replay_byte_exact": true,
+  "reverse_replay_byte_exact": true,
+  "all_other_consumer_bytes_unchanged": true,
+  "original_declaration": "LeBrunSalamon.StandardInputs.smooth_connected_complex_geometricallyIntegral",
+  "original_written_header": "theorem smooth_connected_complex_geometricallyIntegral {Y : Scheme}\n    (sY : Y \u27f6 ComplexBase) [Smooth sY] [ConnectedSpace Y] :\n    GeometricallyIntegral sY",
+  "original_written_header_sha256": "4d08a14157851fa1416f51768f636a3a130f6e961cf120f8e309c2b74268adc6",
+  "original_header_byte_identical": true,
+  "imports_before": [
+    "LSGenericSheets",
+    "LSP1FamilyDegree"
+  ],
+  "imports_after": [
+    "LSGenericSheets",
+    "LSP1FamilyDegree",
+    "LSGeometricIntegrality"
+  ],
+  "ambient_include_and_variable_context_unchanged": true,
+  "new_module": {
+    "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/source/LSGeometricIntegrality.lean",
+    "sha256": "97a08d7e66145fcff1af4845c587f47891c2f382164fbf7b88c8231ddc176652",
+    "imports": [
+      "RecompileBasePart01"
+    ],
+    "baseline_absence_checked": [
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/source-checkpoint/source/LSGeometricIntegrality.lean",
+      "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/LSGeometricIntegrality.lean"
+    ],
+    "source_defined_published_inputs": [
+      {
+        "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.geometricallyConnected_iff_connected",
+        "written_header": "theorem geometricallyConnected_iff_connected\n    (K : Type u) [Field K] [IsSepClosed K] (X : Scheme.{u})\n    (sX : X \u27f6 Spec (CommRingCat.of K)) :\n    GeometricallyConnected sX \u2194 ConnectedSpace X ",
+        "written_header_sha256": "f2ed5cf63294d60829798e529dffce4b205ea07574c18859360efa7fa92d3a9e"
+      },
+      {
+        "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.smooth_normal_stalks",
+        "written_header": "theorem smooth_normal_stalks\n    (K : Type u) [Field K] (X : Scheme.{u})\n    (sX : X \u27f6 Spec (CommRingCat.of K)) (hX : Smooth sX) :\n    \u2200 x : X, IsDomain (X.presheaf.stalk x) \u2227\n      IsIntegrallyClosed (X.presheaf.stalk x) ",
+        "written_header_sha256": "d9ac43f76746c619fd9e60db6a1e42d84e2e765a2e823f1cbbaeaf4cfd016242"
+      },
+      {
+        "name": "LeBrunSalamon.PublishedInputs.GeometricIntegrality.normal_integral_iff_connected",
+        "written_header": "theorem normal_integral_iff_connected\n    (X : Scheme.{u}) [IsLocallyNoetherian X]\n    (hX : \u2200 x : X, IsDomain (X.presheaf.stalk x) \u2227\n      IsIntegrallyClosed (X.presheaf.stalk x)) :\n    IsIntegral X \u2194 ConnectedSpace X ",
+        "written_header_sha256": "157f2d81f112b3d8e24c402b527075cb5893a6a2089922d6dbdf5e4192863eb3"
+      }
+    ],
+    "direct_new_published_input_count": 3,
+    "profile_instrumentation_present": false,
+    "compiled": false
+  },
+  "checked_conditional_source": {
+    "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next3i/target_integrality/LSConnectedSmoothIntegralCompositionV4.lean",
+    "sha256": "d2892be4f1d53e2d57e70340754095475f56b3e14c09d2f30af83132218228e3",
+    "receipt_sha256": "d8dd04c3090edef05a234ee7e3c56d06fe59955ff472467ae3641b54b0c36200",
+    "output_sha256": "2788208e72b93e18ea2a917c25233590563a30d7d142e54c90386b4afed682c9",
+    "complete_seconds": 32.494
+  },
+  "conditional_source_relation": {
+    "old_namespace": "LeBrunSalamon.Next3i.IntegralityComposition",
+    "new_definition_namespace": "LeBrunSalamon.GeometricIntegrality",
+    "new_proof_namespace": "LeBrunSalamon.GeometricIntegrality.Proof",
+    "removed_raw_marker_blocks": 4,
+    "removed_axiom_prints": 4,
+    "removed_diagnostic_options": [
+      "profiler true",
+      "stderrAsMessages false",
+      "maxErrors 1"
+    ],
+    "only_doc_normalization": {
+      "old": "/-- Same actual geometric hypotheses as original OBL057; three conditional\ngeneric inputs remain explicit and are not asserted by this prototype. -/",
+      "new": "/-- Complex specialization of the conditional composition. -/"
+    },
+    "conditional_definition_and_proof_declarations_recover_exact_clean_body": true,
+    "clean_original_body_sha256": "a3c16cd2ce288c150435ee88ea630cc9ba4e597d7cfba29b5228a1a1d6528c58",
+    "universe_context": "universe u",
+    "noncomputable_section_preserved": true,
+    "autoImplicit_false_preserved": true,
+    "added_open": "LeBrunSalamon.PhaseThree, for project-facing SelfProduct notation",
+    "closed_under_iso_instance_remains_local": true
+  },
+  "project_facing_corollaries_have_no_generic_criterion_parameters": true,
+  "new_geometric_hypotheses_on_original057": [],
+  "frozen_3h_owned_source_hashes": {
+    "/workspace/scratch/4deac2cdddbb/source_milestone_audit/step3h_charts/candidate_046_048/RecompileExtensionsPart02.lean": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+    "/workspace/scratch/4deac2cdddbb/source_milestone_audit/step3h_charts/candidate_046_048_scopefix/LSChartSmoothnessCriteria.lean": "bb2cdf41acdf281c71bac4be34daa069afff403efd1dcdbc005b209293c65d9b"
+  },
+  "production_sources_or_ledger_modified": false,
+  "native_credit": 0
+}

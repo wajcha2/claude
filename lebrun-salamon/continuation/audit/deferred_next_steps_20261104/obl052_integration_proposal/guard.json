@@ -1,0 +1,2207 @@
+{
+  "schema": "isolated-obl052-seven-declaration-integration-v1",
+  "scope": "Preparation only. No compiler invocation, native credit, production mutation, or Git ref write.",
+  "frozen_ext02_source": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionsPart02.lean",
+  "frozen_ext02_sha256": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52",
+  "ext02_inverse_exact": true,
+  "ext02_only_changes": "Seven complete declaration blocks removed.",
+  "removed_blocks": [
+    {
+      "short_name": "homOpen_twoPointEvaluation_dominant",
+      "start_line": 866,
+      "last_line": 876,
+      "declaration_sha256": "1019648d9c3c2f887a6e9a1df58174a81647547e45e4be21993fab4b1eb26636",
+      "declaration_text": "theorem _root_.LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant\n    (P : ProjectiveLineOverC) {d : ℕ}\n    (X : SmoothProperComplexVariety d) (H : HomSpacePresentation P X)\n    (U : H.parameter.Opens) (hU : Smooth (U.ι ≫ H.toC))\n    (t : PointsOver ComplexBase (𝟙 ComplexBase) U.toScheme (U.ι ≫ H.toC))\n    (f : RationalCurve P X)\n    (hf : f.map = H.mapAt P\n      ⟨t.val ≫ U.ι, by simpa only [Category.assoc] using t.property⟩)\n    (hfree : IsVeryFreeRationalCurve P X (intrinsicTangentBundle X) f) :\n    DenseRange (Refinement.HomTwoPointEvaluation.evaluation P H U).base := by\n  sorry",
+      "start_offset": 41810,
+      "end_offset": 42764,
+      "complete_block": "open LeBrunSalamon.PhaseSeven in\n/-- Kollár, Rational Curves on Algebraic Varieties II.3.5; explicit\ntwo-point version in Gounelas, Free Curves on Varieties,\nDocumenta Mathematica 21 (2016), Proposition 4.7, p.299.\nThe source and map are the actual P1-square times the Hom open and\nthe given universal evaluation, not a contact or section detector. -/\ntheorem _root_.LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant\n    (P : ProjectiveLineOverC) {d : ℕ}\n    (X : SmoothProperComplexVariety d) (H : HomSpacePresentation P X)\n    (U : H.parameter.Opens) (hU : Smooth (U.ι ≫ H.toC))\n    (t : PointsOver ComplexBase (𝟙 ComplexBase) U.toScheme (U.ι ≫ H.toC))\n    (f : RationalCurve P X)\n    (hf : f.map = H.mapAt P\n      ⟨t.val ≫ U.ι, by simpa only [Category.assoc] using t.property⟩)\n    (hfree : IsVeryFreeRationalCurve P X (intrinsicTangentBundle X) f) :\n    DenseRange (Refinement.HomTwoPointEvaluation.evaluation P H U).base := by\n  sorry",
+      "candidate_insert_offset": 41810
+    },
+    {
+      "short_name": "fullFamily_detects_bundle_section",
+      "start_line": 880,
+      "last_line": 928,
+      "declaration_sha256": "f54a6d9cbef0c859f30d8b03f49bfae93f3baa335f56c673686df9535dbe7257",
+      "declaration_text": "theorem fullFamily_detects_bundle_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g) {r : ℕ}\n    (L : AlgebraicVectorBundle (SelfProduct X.variety.structureMap) r)\n    (B C : AlgebraicSection L.sheaf)\n    (h : ∀ t, pullSection (curveSquareMap P (H.curveAt t)) B =\n      pullSection (curveSquareMap P (H.curveAt t)) C) : B = C := by\n  let Z := HomTwoPointEvaluation.Source P H.homSpace H.neighborhood\n  let s : Z ⟶ ComplexBase :=\n    HomTwoPointEvaluation.structureMap P H.homSpace H.neighborhood\n  let e : Z ⟶ SelfProduct X.variety.structureMap :=\n    HomTwoPointEvaluation.evaluation P H.homSpace H.neighborhood\n  letI : Smooth s := HomTwoPointEvaluation.source_smooth P H.homSpace H.neighborhood H.smooth\n  letI : AlgebraicGeometry.IsReduced Z :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced s\n  letI : Smooth (firstProjection X.variety.structureMap ≫ X.variety.structureMap) :=\n    inferInstance\n  letI : AlgebraicGeometry.IsReduced (SelfProduct X.variety.structureMap) :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced\n      (firstProjection X.variety.structureMap ≫ X.variety.structureMap)\n  have he : DenseRange e.base :=\n    LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant P X.variety\n      H.homSpace H.neighborhood H.smooth H.marked (H.curveAt H.marked)\n      (H.curveAt_spec H.marked) (H.veryFree H.marked)\n  apply dominant_pullSection_injective e he (fun U => inferInstance) L\n  apply ComplexPointSectionDetection.section_eq s (pullbackBundle e L)\n  intro q\n  let t := HomTwoPointEvaluation.pointParameter P H.homSpace H.neighborhood q\n  let z : ComplexBase ⟶ SelfProduct P.structureMap :=\n    q.val ≫ pullback.fst (HomTwoPointEvaluation.squareStructure P)\n      (H.neighborhood.ι ≫ H.homSpace.toC)\n  have hF : HomTwoPointEvaluation.fiberInclusion P H.homSpace H.neighborhood t ≫ e =\n      curveSquareMap P (H.curveAt t) :=\n    HomTwoPointEvaluation.fiberInclusion_evaluation P H.homSpace H.neighborhood t\n      (H.curveAt t) (H.curveAt_spec t)\n  have hq : z ≫ HomTwoPointEvaluation.fiberInclusion P H.homSpace H.neighborhood t = q.val :=\n    HomTwoPointEvaluation.point_factorization P H.homSpace H.neighborhood q\n  have hsquare : z ≫ curveSquareMap P (H.curveAt t) = q.val ≫ e := by\n    rw [← hF, ← Category.assoc, hq]\n  calc\n    pullSection q.val (pullSection e B) =\n        pullSection z (pullSection (curveSquareMap P (H.curveAt t)) B) ≫\n          (pullbackSquareIso z (curveSquareMap P (H.curveAt t)) q.val e hsquare L.sheaf).hom :=\n      (pullbackSquareIso_onSections z (curveSquareMap P (H.curveAt t)) q.val e hsquare B).symm\n    _ = pullSection z (pullSection (curveSquareMap P (H.curveAt t)) C) ≫\n          (pullbackSquareIso z (curveSquareMap P (H.curveAt t)) q.val e hsquare L.sheaf).hom := by\n      rw [h t]\n    _ = pullSection q.val (pullSection e C) :=\n      pullbackSquareIso_onSections z (curveSquareMap P (H.curveAt t)) q.val e hsquare C",
+      "start_offset": 42766,
+      "end_offset": 45948,
+      "complete_block": "/-- The actual full Hom family detects sections of any finite-rank\nbundle on the target square, through its universal two-point evaluation. -/\ntheorem fullFamily_detects_bundle_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g) {r : ℕ}\n    (L : AlgebraicVectorBundle (SelfProduct X.variety.structureMap) r)\n    (B C : AlgebraicSection L.sheaf)\n    (h : ∀ t, pullSection (curveSquareMap P (H.curveAt t)) B =\n      pullSection (curveSquareMap P (H.curveAt t)) C) : B = C := by\n  let Z := HomTwoPointEvaluation.Source P H.homSpace H.neighborhood\n  let s : Z ⟶ ComplexBase :=\n    HomTwoPointEvaluation.structureMap P H.homSpace H.neighborhood\n  let e : Z ⟶ SelfProduct X.variety.structureMap :=\n    HomTwoPointEvaluation.evaluation P H.homSpace H.neighborhood\n  letI : Smooth s := HomTwoPointEvaluation.source_smooth P H.homSpace H.neighborhood H.smooth\n  letI : AlgebraicGeometry.IsReduced Z :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced s\n  letI : Smooth (firstProjection X.variety.structureMap ≫ X.variety.structureMap) :=\n    inferInstance\n  letI : AlgebraicGeometry.IsReduced (SelfProduct X.variety.structureMap) :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced\n      (firstProjection X.variety.structureMap ≫ X.variety.structureMap)\n  have he : DenseRange e.base :=\n    LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant P X.variety\n      H.homSpace H.neighborhood H.smooth H.marked (H.curveAt H.marked)\n      (H.curveAt_spec H.marked) (H.veryFree H.marked)\n  apply dominant_pullSection_injective e he (fun U => inferInstance) L\n  apply ComplexPointSectionDetection.section_eq s (pullbackBundle e L)\n  intro q\n  let t := HomTwoPointEvaluation.pointParameter P H.homSpace H.neighborhood q\n  let z : ComplexBase ⟶ SelfProduct P.structureMap :=\n    q.val ≫ pullback.fst (HomTwoPointEvaluation.squareStructure P)\n      (H.neighborhood.ι ≫ H.homSpace.toC)\n  have hF : HomTwoPointEvaluation.fiberInclusion P H.homSpace H.neighborhood t ≫ e =\n      curveSquareMap P (H.curveAt t) :=\n    HomTwoPointEvaluation.fiberInclusion_evaluation P H.homSpace H.neighborhood t\n      (H.curveAt t) (H.curveAt_spec t)\n  have hq : z ≫ HomTwoPointEvaluation.fiberInclusion P H.homSpace H.neighborhood t = q.val :=\n    HomTwoPointEvaluation.point_factorization P H.homSpace H.neighborhood q\n  have hsquare : z ≫ curveSquareMap P (H.curveAt t) = q.val ≫ e := by\n    rw [← hF, ← Category.assoc, hq]\n  calc\n    pullSection q.val (pullSection e B) =\n        pullSection z (pullSection (curveSquareMap P (H.curveAt t)) B) ≫\n          (pullbackSquareIso z (curveSquareMap P (H.curveAt t)) q.val e hsquare L.sheaf).hom :=\n      (pullbackSquareIso_onSections z (curveSquareMap P (H.curveAt t)) q.val e hsquare B).symm\n    _ = pullSection z (pullSection (curveSquareMap P (H.curveAt t)) C) ≫\n          (pullbackSquareIso z (curveSquareMap P (H.curveAt t)) q.val e hsquare L.sheaf).hom := by\n      rw [h t]\n    _ = pullSection q.val (pullSection e C) :=\n      pullbackSquareIso_onSections z (curveSquareMap P (H.curveAt t)) q.val e hsquare C",
+      "candidate_insert_offset": 41812
+    },
+    {
+      "short_name": "fullFamily_detects_section",
+      "start_line": 934,
+      "last_line": 941,
+      "declaration_sha256": "4d32f860018199077ead1fc4cbfc69806b14b219a5671e2b18892d1724796835",
+      "declaration_text": "theorem fullFamily_detects_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B C : ExternalSquareSections X.variety X.contact.sequence.line)\n    (h : ∀ t, pullSection (curveSquareMap P (H.curveAt t)) B =\n      pullSection (curveSquareMap P (H.curveAt t)) C) : B = C := by\n  exact fullFamily_detects_bundle_section P p X g H\n    (externalSquareLine X.variety.structureMap X.contact.sequence.line) B C h",
+      "start_offset": 45951,
+      "end_offset": 46697,
+      "complete_block": "/-- Very-freeness and FULLNESS of the open Hom family imply that its\nmoving-pair evaluation is dominant. Thus its curve-square tests detect a\nsection on X x X. This is false for an arbitrary single chosen curve. -/\ntheorem fullFamily_detects_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B C : ExternalSquareSections X.variety X.contact.sequence.line)\n    (h : ∀ t, pullSection (curveSquareMap P (H.curveAt t)) B =\n      pullSection (curveSquareMap P (H.curveAt t)) C) : B = C := by\n  exact fullFamily_detects_bundle_section P p X g H\n    (externalSquareLine X.variety.structureMap X.contact.sequence.line) B C h",
+      "candidate_insert_offset": 41815
+    },
+    {
+      "short_name": "fullFamilyIdentity_symmetric",
+      "start_line": 945,
+      "last_line": 957,
+      "declaration_sha256": "8b9f97baff5a94424a593bd218383da6b05498a81ca3e65b01276aa2e1900dad",
+      "declaration_text": "theorem fullFamilyIdentity_symmetric (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B : ExternalSquareSections X.variety X.contact.sequence.line)\n    (h : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) B) :\n    IsSymmetricExternalSection X.variety.structureMap X.contact.sequence.line B := by\n  change (chosenExternalExchange X.variety.structureMap X.contact.sequence.line).identification.swapSection\n    B = B\n  apply fullFamily_detects_section P p X g H\n  intro t\n  have he := CurveExchangeProof.curveKernelIdentity_exchange P X.contact (H.curveAt t) B (h t)\n  exact ((curveKernelIdentity_iff P X.contact (H.curveAt t) _).mp he).trans\n    ((curveKernelIdentity_iff P X.contact (H.curveAt t) B).mp (h t)).symm",
+      "start_offset": 46699,
+      "end_offset": 47745,
+      "complete_block": "/-- Symmetry may be recovered from the symmetric source formula on the full family. This avoids demanding\nthat a chosen scheme cover lift the coarse-space involution. Source: ext:bivector and des:family. -/\ntheorem fullFamilyIdentity_symmetric (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B : ExternalSquareSections X.variety X.contact.sequence.line)\n    (h : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) B) :\n    IsSymmetricExternalSection X.variety.structureMap X.contact.sequence.line B := by\n  change (chosenExternalExchange X.variety.structureMap X.contact.sequence.line).identification.swapSection\n    B = B\n  apply fullFamily_detects_section P p X g H\n  intro t\n  have he := CurveExchangeProof.curveKernelIdentity_exchange P X.contact (H.curveAt t) B (h t)\n  exact ((curveKernelIdentity_iff P X.contact (H.curveAt t) _).mp he).trans\n    ((curveKernelIdentity_iff P X.contact (H.curveAt t) B).mp (h t)).symm",
+      "candidate_insert_offset": 41817
+    },
+    {
+      "short_name": "fullFamilyKernel_unique",
+      "start_line": 962,
+      "last_line": 971,
+      "declaration_sha256": "36437578763e439414c341b42422f89900a40b0835a338d896ee0d8f35cbb07a",
+      "declaration_text": "theorem fullFamilyKernel_unique (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B C : ExternalSquareSections X.variety X.contact.sequence.line)\n    (hB : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) B)\n    (hC : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) C) : B = C := by\n  apply fullFamily_detects_section P p X g H B C\n  intro t\n  exact ((curveKernelIdentity_iff P X.contact (H.curveAt t) B).mp (hB t)).trans\n    (((curveKernelIdentity_iff P X.contact (H.curveAt t) C).mp (hC t)).symm)",
+      "start_offset": 47747,
+      "end_offset": 48598,
+      "complete_block": "/-- Independent proper-source choices produce the same kernel when tested\non the SAME full neighborhood; no global uniqueness of normalized kernels\nis asserted. Higher-order terms need not be fixed by the quadratic symbol. -/\ntheorem fullFamilyKernel_unique (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g)\n    (B C : ExternalSquareSections X.variety X.contact.sequence.line)\n    (hB : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) B)\n    (hC : ∀ t, CurveKernelIdentity P X.contact (H.curveAt t) C) : B = C := by\n  apply fullFamily_detects_section P p X g H B C\n  intro t\n  exact ((curveKernelIdentity_iff P X.contact (H.curveAt t) B).mp (hB t)).trans\n    (((curveKernelIdentity_iff P X.contact (H.curveAt t) C).mp (hC t)).symm)",
+      "candidate_insert_offset": 41819
+    },
+    {
+      "short_name": "detects_base_section",
+      "start_line": 1154,
+      "last_line": 1180,
+      "declaration_sha256": "06ba2c0501a1f441915358f05fa493bed6cc2f56ca6042f8f18bc1084df31ee8",
+      "declaration_text": "theorem detects_base_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g) {r : ℕ}\n    (E : AlgebraicVectorBundle X.variety.scheme r) (a b : AlgebraicSection E.sheaf)\n    (h : ∀ t, pullSection (H.curveAt t).map a = pullSection (H.curveAt t).map b) : a = b := by\n  have hsurj : Function.Surjective (firstProjection X.variety.structureMap) := by\n    intro x\n    refine ⟨diagonal X.variety.structureMap x, ?_⟩\n    exact congrArg (fun k : X.variety.scheme ⟶ X.variety.scheme => k x)\n      (pullback.diagonal_fst X.variety.structureMap)\n  letI : AlgebraicGeometry.IsReduced X.variety.scheme :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced X.variety.structureMap\n  apply dominant_pullSection_injective (firstProjection X.variety.structureMap)\n    hsurj.denseRange (fun U => inferInstance) E\n  apply fullFamily_detects_bundle_section P p X g H\n    (pullbackBundle (firstProjection X.variety.structureMap) E)\n  intro t\n  let e := pullbackSquareIso (curveSquareMap P (H.curveAt t))\n    (firstProjection X.variety.structureMap) (firstProjection P.structureMap)\n    (H.curveAt t).map (curveSquareMap_first P (H.curveAt t)) E.sheaf\n  apply (cancel_mono e.hom).mp\n  change pullSection (curveSquareMap P (H.curveAt t))\n      (pullSection (firstProjection X.variety.structureMap) a) ≫ e.hom =\n    pullSection (curveSquareMap P (H.curveAt t))\n      (pullSection (firstProjection X.variety.structureMap) b) ≫ e.hom\n  dsimp only [e]\n  rw [pullbackSquareIso_onSections, pullbackSquareIso_onSections, h t]",
+      "start_offset": 58380,
+      "end_offset": 60208,
+      "complete_block": "/-- The same full family detects bundle sections on X: pull back to\nthe first projection, whose diagonal section makes it surjective, then\nuse the already proved detection theorem on the target square. -/\ntheorem detects_base_section (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (H : FullConicNeighborhood P p X g) {r : ℕ}\n    (E : AlgebraicVectorBundle X.variety.scheme r) (a b : AlgebraicSection E.sheaf)\n    (h : ∀ t, pullSection (H.curveAt t).map a = pullSection (H.curveAt t).map b) : a = b := by\n  have hsurj : Function.Surjective (firstProjection X.variety.structureMap) := by\n    intro x\n    refine ⟨diagonal X.variety.structureMap x, ?_⟩\n    exact congrArg (fun k : X.variety.scheme ⟶ X.variety.scheme => k x)\n      (pullback.diagonal_fst X.variety.structureMap)\n  letI : AlgebraicGeometry.IsReduced X.variety.scheme :=\n    LeBrunSalamon.SchemeStandardInputs.smooth_complex_reduced X.variety.structureMap\n  apply dominant_pullSection_injective (firstProjection X.variety.structureMap)\n    hsurj.denseRange (fun U => inferInstance) E\n  apply fullFamily_detects_bundle_section P p X g H\n    (pullbackBundle (firstProjection X.variety.structureMap) E)\n  intro t\n  let e := pullbackSquareIso (curveSquareMap P (H.curveAt t))\n    (firstProjection X.variety.structureMap) (firstProjection P.structureMap)\n    (H.curveAt t).map (curveSquareMap_first P (H.curveAt t)) E.sheaf\n  apply (cancel_mono e.hom).mp\n  change pullSection (curveSquareMap P (H.curveAt t))\n      (pullSection (firstProjection X.variety.structureMap) a) ≫ e.hom =\n    pullSection (curveSquareMap P (H.curveAt t))\n      (pullSection (firstProjection X.variety.structureMap) b) ≫ e.hom\n  dsimp only [e]\n  rw [pullbackSquareIso_onSections, pullbackSquareIso_onSections, h t]",
+      "candidate_insert_offset": 51601
+    },
+    {
+      "short_name": "fullFamily_diagonalValue",
+      "start_line": 1287,
+      "last_line": 1301,
+      "declaration_sha256": "10b6447f9c0db2eee2cc7eda6e43e5b9b16132ce0a287833283f95d88459ab32",
+      "declaration_text": "theorem fullFamily_diagonalValue (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (D : FamilyKernel P p X g) : FamilyKernel.HasZeroValue P p D := by\n  have hz : pullSection (diagonal X.variety.structureMap) D.kernel = 0 := by\n    apply FullFamilyDiagonalProof.detects_base_section P p X g D.family\n      (pullbackBundle (diagonal X.variety.structureMap)\n        (externalSquareLine X.variety.structureMap X.contact.sequence.line))\n    intro t\n    set_option backward.isDefEq.respectTransparency false in\n      exact (FullFamilyDiagonalProof.curve_diagonal_zero P X.contact\n        (D.family.curveAt t) D.kernel (D.fullIdentity t)).trans\n          (FullFamilyDiagonalProof.pullSection_zero (D.family.curveAt t).map\n            (E := pullbackModule (diagonal X.variety.structureMap)\n              (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf)).symm\n  exact FullFamilyDiagonalProof.orderOne_of_diagonal_zero X.variety.structureMap D.kernel hz",
+      "start_offset": 64991,
+      "end_offset": 66116,
+      "complete_block": "/-- SOURCE jet:curve-expansion, constant term followed by continuation. -/\ntheorem fullFamily_diagonalValue (P : ProjectiveLineOverC) (p : ProjectiveLinePoint P)\n    {n : ℕ} (X : ContactFanoManifold n) (g : VeryFreeContactConic P p X)\n    (D : FamilyKernel P p X g) : FamilyKernel.HasZeroValue P p D := by\n  have hz : pullSection (diagonal X.variety.structureMap) D.kernel = 0 := by\n    apply FullFamilyDiagonalProof.detects_base_section P p X g D.family\n      (pullbackBundle (diagonal X.variety.structureMap)\n        (externalSquareLine X.variety.structureMap X.contact.sequence.line))\n    intro t\n    set_option backward.isDefEq.respectTransparency false in\n      exact (FullFamilyDiagonalProof.curve_diagonal_zero P X.contact\n        (D.family.curveAt t) D.kernel (D.fullIdentity t)).trans\n          (FullFamilyDiagonalProof.pullSection_zero (D.family.curveAt t).map\n            (E := pullbackModule (diagonal X.variety.structureMap)\n              (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf)).symm\n  exact FullFamilyDiagonalProof.orderOne_of_diagonal_zero X.variety.structureMap D.kernel hz",
+      "candidate_insert_offset": 56384
+    }
+  ],
+  "six_consumer_declaration_bytes_exact": true,
+  "seven_original_written_headers_exact": true,
+  "seven_original_fully_qualified_names_exact": [
+    "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+    "LeBrunSalamon.Refinement.fullFamily_detects_bundle_section",
+    "LeBrunSalamon.Refinement.fullFamily_detects_section",
+    "LeBrunSalamon.Refinement.fullFamilyIdentity_symmetric",
+    "LeBrunSalamon.Refinement.fullFamilyKernel_unique",
+    "LeBrunSalamon.Refinement.FullFamilyDiagonalProof.detects_base_section",
+    "LeBrunSalamon.Refinement.fullFamily_diagonalValue"
+  ],
+  "late_module_declaration_names": [
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.pointLift_ext",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.reducedParameter",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.zeroSection_sourceMap",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.deformationOfLift",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.deformationOfLift_injective",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.deformationOfLift_surjective",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.homPointDeformationEquiv",
+    "LeBrunSalamon.HomDominanceProof.HomPointDeformations.pointLift_in_open",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.markedEvaluation_atCenter",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.evaluationPoint",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.evaluatedLift",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.thickening_map_marking",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.deformationOfLift_marked_map",
+    "LeBrunSalamon.HomDominanceProof.HomMarkedEvaluation.deformationOfLift_marked",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDeformations.exists_deformation_section",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDeformations.deformation_eq_of_section_eq",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDeformations.normalized_restriction",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDeformations.twoPointDeformations_surjective",
+    "LeBrunSalamon.HomDominanceProof.TwoMarkedHomLifts.pointDeformation_injective",
+    "LeBrunSalamon.HomDominanceProof.TwoMarkedHomLifts.twoMarkedEvaluatedLifts_surjective",
+    "LeBrunSalamon.HomDominanceProof.TwoPointProductLifts.product_evaluation_lifts",
+    "LeBrunSalamon.HomDominanceProof.TwoPointProductLifts.lift_in_open_with_composite",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairMap",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairMap_first",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairMap_second",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairMap_overC",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairedEvaluation",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairedEvaluation_first",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairedEvaluation_second",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.pairedEvaluation_overC",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_fst",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_snd",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_overC",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_leftSource",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_rightSource",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_evaluation_first",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_evaluation_second",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_evaluation",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.markingSection_evaluation_lift",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.liftParameter",
+    "LeBrunSalamon.HomDominanceProof.FixedMarkings.denseRange_of_markedPair",
+    "LeBrunSalamon.HomDominanceProof.SmoothRestrictionDensity.denseRange_of_smooth_composite",
+    "LeBrunSalamon.HomDominanceProof.SmoothRestrictionDensity.denseRange_of_smooth_neighborhood",
+    "LeBrunSalamon.HomDominanceProof.SmoothRestrictionDensity.denseRange_of_smooth_pointMap_neighborhood",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDominance.ComplexTangentLiftCriterion",
+    "LeBrunSalamon.HomDominanceProof.TwoPointDominance.homOpen_twoPointEvaluation_dominant_of_tangent_lifts",
+    "LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.dualScheme_eq",
+    "LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.dualToBase_eq",
+    "LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.origin_eq",
+    "LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.complexCriterion_of_generic",
+    "LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.complexCriterion",
+    "LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant",
+    "LeBrunSalamon.Refinement.fullFamily_detects_bundle_section",
+    "LeBrunSalamon.Refinement.fullFamily_detects_section",
+    "LeBrunSalamon.Refinement.fullFamilyIdentity_symmetric",
+    "LeBrunSalamon.Refinement.fullFamilyKernel_unique",
+    "LeBrunSalamon.Refinement.FullFamilyDiagonalProof.detects_base_section",
+    "LeBrunSalamon.Refinement.fullFamily_diagonalValue"
+  ],
+  "late_module_declaration_count": 59,
+  "original052_old_body": ":= by\n  sorry",
+  "original052_new_block": "open LeBrunSalamon.PhaseSeven in\n/-- Kollár, Rational Curves on Algebraic Varieties II.3.5; explicit\ntwo-point version in Gounelas, Free Curves on Varieties,\nDocumenta Mathematica 21 (2016), Proposition 4.7, p.299.\nThe source and map are the actual P1-square times the Hom open and\nthe given universal evaluation, not a contact or section detector. -/\ntheorem _root_.LeBrunSalamon.StandardInputs.homOpen_twoPointEvaluation_dominant\n    (P : ProjectiveLineOverC) {d : ℕ}\n    (X : SmoothProperComplexVariety d) (H : HomSpacePresentation P X)\n    (U : H.parameter.Opens) (hU : Smooth (U.ι ≫ H.toC))\n    (t : PointsOver ComplexBase (𝟙 ComplexBase) U.toScheme (U.ι ≫ H.toC))\n    (f : RationalCurve P X)\n    (hf : f.map = H.mapAt P\n      ⟨t.val ≫ U.ι, by simpa only [Category.assoc] using t.property⟩)\n    (hfree : IsVeryFreeRationalCurve P X (intrinsicTangentBundle X) f) :\n    DenseRange (Refinement.HomTwoPointEvaluation.evaluation P H U).base := by\n  exact LeBrunSalamon.HomDominanceProof.TwoPointDominance.homOpen_twoPointEvaluation_dominant_of_tangent_lifts\n    LeBrunSalamon.HomDominanceProof.ComplexCriterionSpecialization.complexCriterion\n    P X H U hU t f hf hfree",
+  "helper_sections": [
+    {
+      "label": "HomPointDeformations",
+      "input": "root_diagnostics/next3i/LSHomPointLiftDeformationProbe.lean",
+      "input_sha256": "a42e49e67dc2cc11bddc995327bbe84171c3677294616bd7e5e2bfdb9b0f2f0c",
+      "cleaned_section_sha256": "d390eb12be17050387133c6c0b2ea4e1d2b3bda8ee4108869fe93d231ed16b11",
+      "production_section_sha256": "2486b3438a992d1ae9990b3cddb16d78d5525933632dada6a3291b3736920b6d",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSCotangentDeformations\nimport LSHomDegree\n\n/-! Isolated project comparison for the two-point evaluation argument.\nNo original evaluation-dominance theorem or new admitted input is used.\nThe production source snapshot remains unchanged. -/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 128,
+            "text": "#print axioms LeBrunSalamon.Next3i.HomPointDeformations.homPointDeformationEquiv\n"
+          },
+          {
+            "section_line": 129,
+            "text": "#print axioms LeBrunSalamon.Next3i.HomPointDeformations.pointLift_in_open\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "HomMarkedEvaluation",
+      "input": "published_leaf_recovery/next3i/LSHomMarkedEvaluationDeformation.lean",
+      "input_sha256": "0659142fd86f59987be4205c986cc17254b4e4bb3e803f52365de522093dec0e",
+      "cleaned_section_sha256": "79dcd8dc41b59fd57b286c7a5d122951375e8764a3d97f7845a5982b6da9c564",
+      "production_section_sha256": "f7f2d53ee57400faa6e86311924aba12ac99c3c5eba1c4c23d4de4a503ac12db",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSHomPointLiftDeformationProbe\n\n/-! Actual marked evaluation of the universal first-order Hom family.\nThis isolated comparison uses the unchanged, checked point-lift probe.\nNo dominance conclusion or additional published input is assumed. -/\n\n",
+        "removed_diagnostic_commands": []
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "TwoPointDeformations",
+      "input": "root_diagnostics/next3i/LSTwoPointDeformationInterpolationProbe.lean",
+      "input_sha256": "61da4aa2012c6d2a51ea1223b45c04199e5372e4226f2dad23c72f59f5570c2e",
+      "cleaned_section_sha256": "f6ddcf19a616b930b8e10cdfd063dc11cd76b2033e403f19cd95bd88bc29c652",
+      "production_section_sha256": "f23c52001d99309e3cbaeecf86168b239676feb5e3d6b118bb33c90eeb990e1a",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSNodalTangent\n\n/-! Isolated next-stage composition: the literal two-point generation\nhypothesis interpolates actual first-order deformations. The production\nsource selection and accepted obligation ledger remain unchanged. -/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 75,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoPointDeformations.twoPointDeformations_surjective\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "TwoMarkedHomLifts",
+      "input": "root_diagnostics/next3i/LSTwoMarkedHomLiftSurjectivityProbe.lean",
+      "input_sha256": "00ceb813df92a72ae5cf80de814c327d73ace3a36353366725768ee571fd4ebf",
+      "cleaned_section_sha256": "c2e04f67c738cf76d70ae960ef2fc18a98ed29afe016c4349c37d4a36595bb44",
+      "production_section_sha256": "1cf226546af36616bf4adc5ec6351e474dca921179834c70330a6216aaf216b4",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSTwoPointDeformationInterpolationProbe\nimport LSHomMarkedEvaluationDeformationProfile\n\n/-! Actual two-marked evaluation on Hom parameter lifts. This isolated\ncomposition retains the original central curve and both marked points.\nIts imported interpolation uses the existing published-input boundary;\nthis file adds no admission and makes no original-obligation claim. -/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 55,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoMarkedHomLifts.pointDeformation_injective\n"
+          },
+          {
+            "section_line": 56,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoMarkedHomLifts.twoMarkedEvaluatedLifts_surjective\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "TwoPointProductLifts",
+      "input": "root_diagnostics/next3i/LSTwoPointProductLiftProbe.lean",
+      "input_sha256": "c48dbebe6b85b9b734ef772f32574f0f8c43d0e6a9a416a88746fadf78f58402",
+      "cleaned_section_sha256": "d96f8e6583da7ffca72e0e6d2d9421e5b82e54abef868ce2970ebb115be2a0b2",
+      "production_section_sha256": "c95185da4958c245641255c1f35e7aebd5bbf373c5b0efde28bd7ca59a99c3b8",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSTwoMarkedHomLiftSurjectivityProbe\n\n/-! Pass from the two marked endpoint lifts to the actual target product,\nthen factor the parameter lift into the specified open. No new admission. -/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 74,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoPointProductLifts.product_evaluation_lifts\n"
+          },
+          {
+            "section_line": 75,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoPointProductLifts.lift_in_open_with_composite\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "FixedMarkings",
+      "input": "source_milestone_audit/next3i/LSFixedMarkingsTwoPointEvaluation.lean",
+      "input_sha256": "daf6e3e44c5bfde2ef877f0489cc0485cbf41497d254d737ece20aab9593dbdb",
+      "cleaned_section_sha256": "bf838e49c8dd31d2546cc00f4b4b48896740dc3e4ee7256d3d9d0a611bbd0344",
+      "production_section_sha256": "4280131220b5eeb6d1b2a5aeb862a883ffc1db9c42a4d701a7d7914928aa361b",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import RecompileExtensionsPart02\nimport LSContactCompletion\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 3,
+            "text": "set_option profiler true\n"
+          },
+          {
+            "section_line": 4,
+            "text": "set_option stderrAsMessages false\n"
+          },
+          {
+            "section_line": 5,
+            "text": "set_option maxErrors 1\n"
+          },
+          {
+            "section_line": 23,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FIXED_MARKINGS_STAGE ENTER_PAIR\"\n  err.flush\n"
+          },
+          {
+            "section_line": 66,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FIXED_MARKINGS_STAGE EXIT_PAIR\"\n  err.putStrLn \"FIXED_MARKINGS_STAGE ENTER_SECTION\"\n  err.flush\n"
+          },
+          {
+            "section_line": 119,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FIXED_MARKINGS_STAGE EXIT_SECTION\"\n  err.putStrLn \"FIXED_MARKINGS_STAGE ENTER_EVALUATION\"\n  err.flush\n"
+          },
+          {
+            "section_line": 182,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"FIXED_MARKINGS_STAGE EXIT_EVALUATION\"\n  err.putStrLn \"FIXED_MARKINGS_COMPLETE\"\n  err.flush\n"
+          },
+          {
+            "section_line": 188,
+            "text": "#print axioms pairedEvaluation\n"
+          },
+          {
+            "section_line": 189,
+            "text": "#print axioms pairedEvaluation_overC\n"
+          },
+          {
+            "section_line": 190,
+            "text": "#print axioms markingSection\n"
+          },
+          {
+            "section_line": 191,
+            "text": "#print axioms markingSection_overC\n"
+          },
+          {
+            "section_line": 192,
+            "text": "#print axioms markingSection_leftSource\n"
+          },
+          {
+            "section_line": 193,
+            "text": "#print axioms markingSection_rightSource\n"
+          },
+          {
+            "section_line": 194,
+            "text": "#print axioms markingSection_evaluation_first\n"
+          },
+          {
+            "section_line": 195,
+            "text": "#print axioms markingSection_evaluation_second\n"
+          },
+          {
+            "section_line": 196,
+            "text": "#print axioms markingSection_evaluation\n"
+          },
+          {
+            "section_line": 197,
+            "text": "#print axioms markingSection_evaluation_lift\n"
+          },
+          {
+            "section_line": 198,
+            "text": "#print axioms liftParameter\n"
+          },
+          {
+            "section_line": 199,
+            "text": "#print axioms denseRange_of_markedPair\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "SmoothRestrictionDensity",
+      "input": "source_milestone_audit/next3i/LSSmoothRestrictionDensity.lean",
+      "input_sha256": "b14f0846b5151a1ba5cf6bd5bb83733171399469f76c637aba43ac0d2acdd16f",
+      "cleaned_section_sha256": "4875581f1f01e2ac9396191a5df0a7bd1a1ae63e992d4891d6aac1077981c133",
+      "production_section_sha256": "4479e4c87446443a088ab2b9d45644a555ac7f8c23da74c39497ce3c5def2aea",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import Mathlib\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 3,
+            "text": "set_option profiler true\n"
+          },
+          {
+            "section_line": 4,
+            "text": "set_option stderrAsMessages false\n"
+          },
+          {
+            "section_line": 5,
+            "text": "set_option maxErrors 1\n"
+          },
+          {
+            "section_line": 14,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"DENSITY_STAGE ENTER_COMPOSITE\"\n  err.flush\n"
+          },
+          {
+            "section_line": 28,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"DENSITY_STAGE EXIT_COMPOSITE\"\n  err.putStrLn \"DENSITY_STAGE ENTER_POINT_NEIGHBORHOOD\"\n  err.flush\n"
+          },
+          {
+            "section_line": 43,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"DENSITY_STAGE EXIT_POINT_NEIGHBORHOOD\"\n  err.putStrLn \"DENSITY_STAGE ENTER_POINT_MAP_NEIGHBORHOOD\"\n  err.flush\n"
+          },
+          {
+            "section_line": 59,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"DENSITY_STAGE EXIT_POINT_MAP_NEIGHBORHOOD\"\n  err.putStrLn \"DENSITY_COMPLETE\"\n  err.flush\n"
+          },
+          {
+            "section_line": 65,
+            "text": "#print axioms denseRange_of_smooth_composite\n"
+          },
+          {
+            "section_line": 66,
+            "text": "#print axioms denseRange_of_smooth_neighborhood\n"
+          },
+          {
+            "section_line": 67,
+            "text": "#print axioms denseRange_of_smooth_pointMap_neighborhood\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "TwoPointDominance",
+      "input": "root_diagnostics/next3i/LSHomTwoPointDominanceCompositionProbe.lean",
+      "input_sha256": "65369b7ba11fc8a4ecb5300b2870a803b281b7a7fdd0d75f6bcdb7dec48bc48c",
+      "cleaned_section_sha256": "a97d70b62305c59a21e0300c0962fe8f27dec4fae88f84184e36f1100be23a00",
+      "production_section_sha256": "4e573d047028ca2fe8c736b9bf16060cc69178399112eeec925aa1a7fdb4cfc8",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSTwoPointProductLiftProbe\nimport LSFixedMarkingsTwoPointEvaluation\nimport LSSmoothRestrictionDensity\nimport LSConnectedSmoothIntegralCompositionV4\n\n/-! Conditional composition of the original two-point dominance conclusion.\nOnly four generic published criteria remain explicit parameters. This is an\nisolated local prototype, not a production replacement or accepted unit. -/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 91,
+            "text": "#print axioms LeBrunSalamon.Next3i.TwoPointDominance.homOpen_twoPointEvaluation_dominant_from_generic_criteria\n"
+          }
+        ]
+      },
+      "material_replacements": [
+        {
+          "old": "open LeBrunSalamon.HomDominanceProof.IntegralityComposition\n",
+          "new": "",
+          "offset_at_step": 640
+        },
+        {
+          "old": "homOpen_twoPointEvaluation_dominant_from_generic_criteria",
+          "new": "homOpen_twoPointEvaluation_dominant_of_tangent_lifts",
+          "offset_at_step": 1684
+        },
+        {
+          "old": "    (hconnected : ConnectedFieldCriterion.{0})\n    (hnormal : SmoothNormalCriterion.{0})\n    (hintegral : NormalConnectedCriterion.{0})\n",
+          "new": "",
+          "offset_at_step": 1737
+        },
+        {
+          "old": "    complex_selfProduct_irreducible hconnected hnormal hintegral X.structureMap",
+          "new": "    GeometricIntegrality.complex_selfProduct_irreducible X.structureMap",
+          "offset_at_step": 4220
+        },
+        {
+          "old": "/-- Preserve every original geometric hypothesis and the actual evaluation.\nThe generic criteria are explicit; the original052/054/057 admissions are not\nused. Fixed source markings avoid needing smoothness of the full source. -/",
+          "new": "/-- Fixed source markings reduce dominance of the actual universal evaluation\nto the rational-point tangent-lift criterion. The target-square integrality\nis supplied by the generic geometric-integrality theorem. -/",
+          "offset_at_step": 1446
+        }
+      ],
+      "full_inverse_verified": true
+    },
+    {
+      "label": "ComplexCriterionSpecialization",
+      "input": "source_milestone_audit/next3i/LSComplexTangentCriterionSpecialization.lean",
+      "input_sha256": "a0581ecdd7f4adae65efcbdeb8af479e12fbab286392f866cf6903ce50ddb2b4",
+      "cleaned_section_sha256": "8b9609720051b847b23a1c6153f5e7f9b1bb40c6acf12e7e80e1898e125da783",
+      "production_section_sha256": "ef3fde0be3b190ba786c0ed7b8bd933f3aa12ec18ae7a44681e72dd5c9a85fd6",
+      "trailing_whitespace_normalization": {
+        "old_suffix": "\n",
+        "new_suffix": "\n"
+      },
+      "namespace_rename": [
+        "LeBrunSalamon.Next3i.",
+        "LeBrunSalamon.HomDominanceProof."
+      ],
+      "cleanup": {
+        "removed_preamble": "import LSChartSmoothnessCriteria\nimport LSHomTwoPointDominanceCompositionProbe\n\n/-! Exact complex specialization of the existing3h generic criterion.\nThe native generic helper is an independently verified, separate import.\nNo new published declaration or geometric hypothesis is introduced.\n-/\n\n",
+        "removed_diagnostic_commands": [
+          {
+            "section_line": 5,
+            "text": "set_option profiler true\n"
+          },
+          {
+            "section_line": 6,
+            "text": "set_option stderrAsMessages false\n"
+          },
+          {
+            "section_line": 7,
+            "text": "set_option maxErrors 1\n"
+          },
+          {
+            "section_line": 15,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"COMPLEX_CRITERION_STAGE ENTER_DUAL\"\n  err.flush\n"
+          },
+          {
+            "section_line": 29,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"COMPLEX_CRITERION_STAGE EXIT_DUAL\"\n  err.putStrLn \"COMPLEX_CRITERION_STAGE ENTER_SPECIALIZATION\"\n  err.flush\n"
+          },
+          {
+            "section_line": 54,
+            "text": "#eval show IO Unit from do\n  let err ← IO.getStderr\n  err.putStrLn \"COMPLEX_CRITERION_STAGE EXIT_SPECIALIZATION\"\n  err.putStrLn \"COMPLEX_CRITERION_COMPLETE\"\n  err.flush\n"
+          },
+          {
+            "section_line": 60,
+            "text": "#print axioms dualScheme_eq\n"
+          },
+          {
+            "section_line": 61,
+            "text": "#print axioms dualToBase_eq\n"
+          },
+          {
+            "section_line": 62,
+            "text": "#print axioms origin_eq\n"
+          },
+          {
+            "section_line": 63,
+            "text": "#print axioms complexCriterion_of_generic\n"
+          },
+          {
+            "section_line": 64,
+            "text": "#print axioms complexCriterion\n"
+          }
+        ]
+      },
+      "material_replacements": [],
+      "full_inverse_verified": true
+    }
+  ],
+  "helper_cleanup_inverse_exact": true,
+  "helper_namespace_rename_only_except_recorded_instantiation": true,
+  "no_new_direct_admission_in_late_module": true,
+  "no_diagnostic_commands_or_profile_imports": true,
+  "external_import_changes": [
+    {
+      "module": "LSConicJets",
+      "original_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d",
+      "candidate_sha256": "e4e0f0a79da6d5639c1d352335a8e18893d0e4efad232d78f6d18202581ad199",
+      "only_change": "import LSHomTwoPointDominance\n",
+      "inverse_verified": true
+    },
+    {
+      "module": "LSStableMapFamily",
+      "original_sha256": "0360a40ba6a0fc816bd44e0887350661d51d76c5bad19e6577d94cac9f32d0b2",
+      "candidate_sha256": "c2cfbf1783b2782f33f040c31b9f24d59c478ec1a7f0af531615e382b7b3ab5a",
+      "only_change": "import LSHomTwoPointDominance\n",
+      "inverse_verified": true
+    },
+    {
+      "module": "LSProjectAssembly",
+      "original_sha256": "2c3457445f96248a8a07f940c0b98d1376f6784084a76f84b8f287b512e59a96",
+      "candidate_sha256": "cd6b5707d9109ee906a8ebbee9a073bbf9854a059db4458a36aec4c6efbee215",
+      "only_change": "import LSHomTwoPointDominance\n",
+      "inverse_verified": true
+    }
+  ],
+  "source_owned_integrality": {
+    "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/source/LSGeometricIntegrality.lean",
+    "sha256": "97a08d7e66145fcff1af4845c587f47891c2f382164fbf7b88c8231ddc176652",
+    "api": "LeBrunSalamon.GeometricIntegrality.complex_selfProduct_irreducible",
+    "modified_by_this_script": false
+  },
+  "source_order": {
+    "graph_basis": "Current frozen3h308 source modules plus isolated pub overrides and Source integrality module; root055 changes are not included.",
+    "modules": 310,
+    "cycles": [],
+    "order": [
+      "FieldDifferentials",
+      "LSCharacteristicZeroSeparability",
+      "LSChartSmoothnessCriteria",
+      "LSClosedImmersionLocus",
+      "LSComplexQuadraticCoordinates",
+      "LSConeDiagonal",
+      "LSConePole",
+      "LSConicLogAlgebra",
+      "LSFamilyAdditiveExpansion",
+      "LSFibreIsomorphism",
+      "LSFormalTraitRing",
+      "LSFunctionFieldPlaces",
+      "LSNilpotentTopology",
+      "LSP1SourceAlgebra",
+      "LSP1TensorSquare",
+      "LSProperLocalTopology",
+      "LSReducedPushout",
+      "LSResidueFieldPresentation",
+      "LSResidueTensorLift",
+      "LSSecondDiagonalAlgebra",
+      "LSYonedaExtensionSplitting",
+      "RecompileBasePart01",
+      "LSConeArcs",
+      "LSCurveLaurentStandardInputs",
+      "LSGeometricIntegrality",
+      "LSLaurentRescaling",
+      "LSMilestoneStatement",
+      "LSP1TensorTaylor",
+      "LSResidueFibreGeometry",
+      "LSYonedaClassesRepresented",
+      "RecompileBasePart02",
+      "LSConeLocalization",
+      "LSMilestoneTopology",
+      "RecompileBasePart03",
+      "RecompileBasePart04",
+      "LSAffineDerivations",
+      "LSPublishedPicard",
+      "LSSheafSectionExact",
+      "LSTensorLocallyFreeExact",
+      "RecompileBasePart05A",
+      "LSAffineCotangentHom",
+      "RecompileBasePart05B",
+      "LSCanonicalSectionBaseChange",
+      "LSCohomologyHypotheses",
+      "LSKunnethDegreeZero",
+      "LSProjectionFormula",
+      "LSAffineProductRing",
+      "RecompileBasePart05C",
+      "LSFamilyExternalProductMap",
+      "LSNonvanishingPullback",
+      "LSSectionCover",
+      "RecompileBasePart05",
+      "RecompileBasePart06",
+      "RecompileBasePart07",
+      "LSModuleHomGluing",
+      "RecompileBase",
+      "RecompileSections",
+      "LSAffineFrame",
+      "LSLineStalkFlat",
+      "LSP1TangentSections",
+      "LSPolarizedOverIso",
+      "LSRelativeCartier",
+      "LSStandardTautological",
+      "LSTangentFrameCoordinates",
+      "RecompileExtensionCore",
+      "LSClosedIdealCoefficients",
+      "LSPublishedCohomologyBaseChange",
+      "LSPublishedProjectiveSpace",
+      "LSQuadraticVeronese",
+      "LSStandardProjectiveBaseChange",
+      "LSStandardProjectiveNonempty",
+      "LSStandardProjectiveProper",
+      "LSStandardProjectiveSmooth",
+      "LSStandardTautologicalP1",
+      "LSVectorBundlePullback",
+      "LSLineCohomologyBaseChange",
+      "LSOpenProductCoordinates",
+      "LSP1FamilyDegree",
+      "LSStandardProjectiveComposition",
+      "LSStandardProjectiveReduced",
+      "LSExternalFrameCoefficients",
+      "LSProjectiveFibreLineRigidity",
+      "LSStandardProjectivePicard",
+      "RecompileExtensionsPart01",
+      "LSFiniteFreeHomBaseChange",
+      "LSFrameTransport",
+      "LSGeneratingUnitOpens",
+      "LSP1PointTransport",
+      "LSProjectivityDefinitions",
+      "RecompileExtensionsPart02",
+      "LSDualBaseChangeAlgebra",
+      "LSFamilySchemeTransport",
+      "LSFiniteFreeBaseChange",
+      "LSFirstJetEmbedding",
+      "LSFormalTraitProjectivity",
+      "LSHomFiberInjectivity",
+      "LSProjectiveLineReparametrization",
+      "LSRelativeGeneration",
+      "LSSectionRepresentability",
+      "LSTensorLineTransport",
+      "LSAffineSectionRepresentability",
+      "LSDualThickeningNormalForm",
+      "LSLiftedProjectiveTuple",
+      "RecompileExtensionsPart03",
+      "LSConicSplitting",
+      "LSFirstCohomologyIso",
+      "LSProjectiveTransport",
+      "LSProperSections",
+      "LSSmoothFibreComparison",
+      "LSPolarizedProjectiveEmbedding",
+      "RecompileExtensionsPart04Geometry",
+      "LSConicGeneratingTuples",
+      "LSConicOverlapAlgebra",
+      "LSConicTupleChange",
+      "LSEffectiveCartierInputs",
+      "LSNormalizedSegre",
+      "LSPlaneConicPresentation",
+      "LSPlaneQuadratic",
+      "LSPolarizedEmbeddingLift",
+      "LSStandardSourceBaseChange",
+      "RecompileExtensionsPart04GluingPrefix",
+      "LSComplexQuadraticMatrix",
+      "LSConicOverlapCoordinates",
+      "LSEffectiveCartierIso",
+      "LSNormalizedSegreQuotients",
+      "LSPlaneEmbeddingCartier",
+      "LSPlaneQuadraticBaseChange",
+      "LSPlaneQuadraticPublished",
+      "LSProjectiveLinearAction",
+      "LSQuadraticPolynomial",
+      "LSVeroneseZeroModel",
+      "RecompileExtensionsPart04Gluing",
+      "LSCartierQuadraticExtraction",
+      "LSNormalizedSegrePairs",
+      "LSPlaneQuadraticEquation",
+      "LSQuadraticPrimitive",
+      "LSQuadraticSchemeBaseChange",
+      "LSQuadraticSectionEvaluation",
+      "LSRelativeVeroneseModel",
+      "RecompileExtensionsPart04GluingSections",
+      "LSPlaneConicZeroPresentation",
+      "LSPlaneFamilyQuadratic",
+      "LSQuadraticFibreCartier",
+      "LSQuadraticFibreCriteria",
+      "LSQuadraticLinearTransport",
+      "LSStandardConicTriple",
+      "RecompileExtensionsPart04Nodes",
+      "LSNodalLineCohomology",
+      "LSQuadraticPolarizedModels",
+      "LSSmoothFibreCartier",
+      "LSStandardConicZeroComparison",
+      "RecompileExtensionsPart04",
+      "LSFlatSectionDescent",
+      "LSLineValueDescent",
+      "LSMovingPairAssembly",
+      "LSNodalLineTriviality",
+      "LSTraitFibreCohomology",
+      "LSGenericSheets",
+      "LSNodalFibreComparison",
+      "LSContactLineTests",
+      "LSStandardCentralPlane",
+      "RecompileExtensions",
+      "LSBranchAlgebra",
+      "LSPositiveVariation",
+      "RecompileTail",
+      "LSBranchRamification",
+      "LSPositiveQuotient",
+      "LSSuitableDirections",
+      "LSAffineCurveSelection",
+      "LSConeOpen",
+      "LSConeRadial",
+      "LSDescentAssembly",
+      "LSPositiveHom",
+      "LSPositiveSplit",
+      "LSRadialDetection",
+      "LSSuitableLinear",
+      "LSConeAdditionAlgebra",
+      "LSConeIsotropy",
+      "LSConeTangents",
+      "LSContactGeneration",
+      "LSLeviFiber",
+      "LSPositiveIndependence",
+      "LSPositiveNodeImage",
+      "LSSelectedPair",
+      "LSConeRescaledArcs",
+      "LSContactHomBaseChange",
+      "LSContactStandardInputs",
+      "LSCurvePairing",
+      "LSLeviOpen",
+      "LSAdditionFiberPresentation",
+      "LSContactHorizontal",
+      "LSCurveFunctionField",
+      "LSContactCompletion",
+      "LSCurveLaurentGeometry",
+      "LSConeFiberRigidity",
+      "LSHomVelocity",
+      "LSAffineFiberDivisibility",
+      "LSCotangentDeformations",
+      "LSEpsilonStructureSequence",
+      "LSGlobalVelocity",
+      "LSOpenCotangentScalar",
+      "LSOpenModuleCoherence",
+      "LSStandardConicFrames",
+      "LSCotangentScalarAlgebra",
+      "LSDualStructureExact",
+      "LSTangentComparison",
+      "LSConicCotangentTools",
+      "LSContactVelocityTarget",
+      "LSDualHomVanishing",
+      "LSHamiltonianJets",
+      "LSNodalTangent",
+      "LSConicChartDerivations",
+      "LSConicCotangentExt",
+      "LSFirstJetEmbeddingGeometry",
+      "LSIntrinsicVelocity",
+      "LSLineEvaluation",
+      "LSNodalFixedEnds",
+      "LSClassicalReduction",
+      "LSConicScalarTransport",
+      "LSRelativeDifferential",
+      "LSRelativeGenericSmoothness",
+      "LSClassicalActions",
+      "LSConeDominance",
+      "LSConicScalarCompatibility",
+      "LSFamilyDerivativeRestriction",
+      "LSFiniteTypeDominance",
+      "LSHomDegree",
+      "LSNodalConic",
+      "LSConicFundamentalClassConstruction",
+      "LSContactDirections",
+      "LSHomTwoPointDominance",
+      "LSConicJets",
+      "LSPublishedDirections",
+      "LSStableMapFamily",
+      "LSStandardConicDifferential",
+      "LSConicModelSections",
+      "LSFamilyBivectors",
+      "LSFieldParametrization",
+      "LSFormalQuadraticConditions",
+      "LSFormalTraitParameters",
+      "LSP1BivectorCoordinates",
+      "LSProductGeometry",
+      "LSReducedCover",
+      "LSTraitQuadraticPresentation",
+      "LSBoundedLines",
+      "LSFamilyDescentTransport",
+      "LSFormalTraitSourceComparison",
+      "LSNodalTraitQuadraticPresentation",
+      "LSP1CoordinateGauge",
+      "LSSmoothTraitNormalForm",
+      "LSFamilyCurveProductDirect",
+      "LSFamilyDescentFibres",
+      "LSFamilySectionSums",
+      "LSNodalTraitNormalForm",
+      "LSOpenSectionTransport",
+      "LSScaledVelocities",
+      "LSFamilyBaseChange",
+      "LSFamilyReparamProductTransport",
+      "LSFamilySmoothCoordinates",
+      "LSFormalTraitModel",
+      "LSVelocityAdditionFamily",
+      "LSFamilyReparamExpansionStages",
+      "LSFiniteTypeSpreading",
+      "LSGenericGlobalFunctions",
+      "LSParametrizedBaseChange",
+      "LSScaledVelocityDifferential",
+      "LSStableFamilyTraits",
+      "LSTraitContact",
+      "LSFamilyDescentReparametrization",
+      "LSFamilyReparametrizationFibres",
+      "LSModelBivector",
+      "LSSuitablePair",
+      "LSFamilyReparametrizationFieldBaseChange",
+      "LSFamilyReparametrizationLeftFiniteType",
+      "LSFamilyReparametrizationRightFiniteType",
+      "LSFamilySmoothPointValues",
+      "LSGenericFamilyFieldTransport",
+      "LSGenericFamilyPointComparison",
+      "LSModelDifferential",
+      "LSModelGeometry",
+      "LSSmoothingAssembly",
+      "LSFamilyReparametrization",
+      "LSFamilySmoothNormalization",
+      "LSProjectAssembly",
+      "LSRegularModelPair",
+      "LSCartesianSourceDifferential",
+      "LSFamilySmoothDescent",
+      "LSFormalArcSections",
+      "LSGenericFamilyCartesianComparison",
+      "LSModelSourceProductTransport",
+      "LSFamilyBivectorDescent",
+      "LSFormalArcRegularity",
+      "LSGenericFamilyCartesianFieldComparison",
+      "LSModelGenericParametrization",
+      "LSModelSourceNumerator",
+      "LSArcParametrization",
+      "LSGenericFamilyComparison",
+      "LSModelGenericNormalization",
+      "LSModelNumeratorTransport",
+      "LSModelTensorScalar",
+      "LSRationalOpenTransport",
+      "LSFormalArcModelNormalization",
+      "LSModelContactFactor",
+      "LSFormalArcModelTransport",
+      "LSModelGenericComparison",
+      "LSFormalArcFamilyComparison",
+      "LSFormalArcComparison",
+      "LSMovingPairConstruction",
+      "LSCompletedTargets",
+      "LSMilestoneTarget"
+    ],
+    "graph": {
+      "LSNilpotentTopology": [],
+      "LSCurvePairing": [
+        "FieldDifferentials",
+        "LSConeIsotropy"
+      ],
+      "LSQuadraticSchemeBaseChange": [
+        "LSPlaneQuadraticBaseChange"
+      ],
+      "LSSmoothFibreComparison": [
+        "RecompileExtensionsPart03"
+      ],
+      "LSFamilyReparametrizationLeftFiniteType": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyDescentReparametrization",
+        "LSFamilyReparametrizationFibres",
+        "LSFamilySchemeTransport"
+      ],
+      "RecompileExtensionsPart04Nodes": [
+        "RecompileExtensionsPart04GluingSections"
+      ],
+      "LSExternalFrameCoefficients": [
+        "LSOpenProductCoordinates"
+      ],
+      "LSFiniteTypeDominance": [
+        "LSRelativeGenericSmoothness"
+      ],
+      "LSClosedIdealCoefficients": [
+        "LSAffineFrame"
+      ],
+      "LSFiniteTypeSpreading": [
+        "LSFamilyBaseChange"
+      ],
+      "LSFamilySectionSums": [
+        "LSFamilyDescentTransport"
+      ],
+      "LSProjectionFormula": [
+        "RecompileBasePart05B"
+      ],
+      "LSAffineFiberDivisibility": [
+        "LSHomVelocity"
+      ],
+      "LSCurveFunctionField": [
+        "LSAffineCurveSelection",
+        "LSCurvePairing"
+      ],
+      "LSFamilyReparametrization": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyDescentReparametrization",
+        "LSFamilyReparametrizationFibres",
+        "LSFamilyReparametrizationFieldBaseChange",
+        "LSFamilyReparametrizationLeftFiniteType",
+        "LSFamilyReparametrizationRightFiniteType"
+      ],
+      "LSAffineDerivations": [
+        "RecompileBasePart04"
+      ],
+      "LSNormalizedSegrePairs": [
+        "LSNormalizedSegreQuotients",
+        "LSStandardProjectiveBaseChange"
+      ],
+      "RecompileExtensionsPart04GluingPrefix": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSConicChartDerivations": [
+        "RecompileExtensionsPart04Geometry",
+        "LSAffineCotangentHom",
+        "LSConicLogAlgebra",
+        "LSConicCotangentTools"
+      ],
+      "LSPolarizedProjectiveEmbedding": [
+        "LSStandardProjectiveBaseChange",
+        "LSStandardTautologicalP1",
+        "LSQuadraticVeronese",
+        "LSSmoothFibreComparison"
+      ],
+      "LSHomVelocity": [
+        "LSContactCompletion",
+        "LSNilpotentTopology",
+        "LSDualThickeningNormalForm"
+      ],
+      "LSConicCotangentExt": [
+        "LSConicCotangentTools"
+      ],
+      "LSMilestoneStatement": [
+        "RecompileBasePart01"
+      ],
+      "LSYonedaClassesRepresented": [
+        "LSYonedaExtensionSplitting"
+      ],
+      "LSPlaneFamilyQuadratic": [
+        "LSStandardProjectivePicard",
+        "LSPlaneEmbeddingCartier",
+        "LSCartierQuadraticExtraction",
+        "LSQuadraticPrimitive"
+      ],
+      "LSModelNumeratorTransport": [
+        "LSModelGenericParametrization",
+        "LSFamilySchemeTransport"
+      ],
+      "LSProperSections": [
+        "RecompileExtensionsPart03"
+      ],
+      "LSFamilySmoothPointValues": [
+        "LSFamilyDescentReparametrization",
+        "LSOpenSectionTransport",
+        "LSFamilySmoothCoordinates"
+      ],
+      "LSModelBivector": [
+        "LSTraitContact",
+        "LSP1CoordinateGauge"
+      ],
+      "LSProperLocalTopology": [],
+      "LSConeOpen": [
+        "LSSuitableDirections",
+        "LSConePole"
+      ],
+      "LSNonvanishingPullback": [
+        "RecompileBasePart05C"
+      ],
+      "LSPlaneQuadraticPublished": [
+        "LSPlaneQuadratic"
+      ],
+      "LSStandardTautological": [
+        "RecompileSections"
+      ],
+      "LSFormalTraitProjectivity": [
+        "LSProjectivityDefinitions"
+      ],
+      "LSFormalArcRegularity": [
+        "LSOpenSectionTransport",
+        "LSFormalArcSections"
+      ],
+      "LSAffineProductRing": [
+        "LSKunnethDegreeZero"
+      ],
+      "LSProductGeometry": [
+        "LSPublishedDirections"
+      ],
+      "LSP1CoordinateGauge": [
+        "LSP1BivectorCoordinates"
+      ],
+      "LSContactHomBaseChange": [
+        "LSLeviFiber"
+      ],
+      "LSChartSmoothnessCriteria": [],
+      "LSPlaneEmbeddingCartier": [
+        "LSPolarizedEmbeddingLift",
+        "LSStandardProjectiveSmooth",
+        "LSRelativeCartier",
+        "LSResidueFieldPresentation"
+      ],
+      "LSPlaneQuadraticEquation": [
+        "LSPlaneQuadraticBaseChange",
+        "LSConicGeneratingTuples"
+      ],
+      "LSDualThickeningNormalForm": [
+        "LSFiniteFreeBaseChange",
+        "LSDualBaseChangeAlgebra"
+      ],
+      "LSCohomologyHypotheses": [
+        "RecompileBasePart05B"
+      ],
+      "LSP1PointTransport": [
+        "RecompileExtensionsPart01"
+      ],
+      "RecompileBasePart02": [
+        "RecompileBasePart01"
+      ],
+      "LSFormalArcSections": [
+        "LSRegularModelPair",
+        "LSStableFamilyTraits"
+      ],
+      "RecompileBasePart04": [
+        "RecompileBasePart03"
+      ],
+      "LSStableMapFamily": [
+        "LSHomTwoPointDominance",
+        "RecompileExtensionsPart04",
+        "LSProjectivityDefinitions"
+      ],
+      "LSFamilyReparamExpansionStages": [
+        "LSFamilyDescentFibres",
+        "LSFamilyExternalProductMap",
+        "LSFamilyCurveProductDirect",
+        "LSFamilyReparamProductTransport",
+        "LSFamilyAdditiveExpansion",
+        "LSFamilySectionSums"
+      ],
+      "LSFunctionFieldPlaces": [],
+      "LSContactHorizontal": [
+        "LSContactStandardInputs",
+        "LSContactGeneration",
+        "LSContactHomBaseChange",
+        "LSPositiveNodeImage"
+      ],
+      "LSStandardConicFrames": [
+        "LSHomVelocity"
+      ],
+      "LSConicLogAlgebra": [],
+      "LSFamilySmoothDescent": [
+        "LSFamilyDescentReparametrization",
+        "LSOpenSectionTransport",
+        "LSFamilySmoothCoordinates",
+        "LSFamilySmoothPointValues",
+        "LSFamilySmoothNormalization"
+      ],
+      "LSProjectiveFibreLineRigidity": [
+        "LSP1FamilyDegree"
+      ],
+      "LSGlobalVelocity": [
+        "LSHomVelocity"
+      ],
+      "LSP1SourceAlgebra": [],
+      "LSConeTangents": [
+        "LSConeRadial",
+        "LSConeLocalization"
+      ],
+      "LSGeneratingUnitOpens": [
+        "RecompileExtensionsPart01",
+        "LSNonvanishingPullback"
+      ],
+      "LSOpenSectionTransport": [
+        "LSFamilyDescentTransport"
+      ],
+      "LSConicModelSections": [
+        "LSStandardConicDifferential",
+        "LSConicCotangentTools"
+      ],
+      "LSFamilyBivectorDescent": [
+        "LSFamilyDescentReparametrization",
+        "LSOpenSectionTransport",
+        "LSFamilySmoothCoordinates",
+        "LSFamilySmoothPointValues",
+        "LSFamilySmoothDescent"
+      ],
+      "LSConeRadial": [
+        "LSSuitableDirections",
+        "LSConePole"
+      ],
+      "LSConeDiagonal": [],
+      "LSCharacteristicZeroSeparability": [],
+      "LSPolarizedOverIso": [
+        "RecompileSections"
+      ],
+      "LSTraitContact": [
+        "LSFormalTraitModel",
+        "LSStandardConicDifferential",
+        "LSRelativeDifferential"
+      ],
+      "LSKunnethDegreeZero": [
+        "RecompileBasePart05B"
+      ],
+      "LSPositiveHom": [
+        "LSPositiveQuotient"
+      ],
+      "LSFamilyReparametrizationFieldBaseChange": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyDescentReparametrization",
+        "LSFamilyReparametrizationFibres"
+      ],
+      "RecompileExtensionsPart03": [
+        "LSHomFiberInjectivity",
+        "RecompileExtensionsPart02"
+      ],
+      "LSGenericSheets": [
+        "RecompileExtensionsPart04",
+        "LSLineValueDescent"
+      ],
+      "LSAffineCurveSelection": [
+        "LSSuitableDirections",
+        "LSConeLocalization"
+      ],
+      "LSTensorLocallyFreeExact": [
+        "RecompileBasePart04"
+      ],
+      "LSDualHomVanishing": [
+        "LSHomVelocity",
+        "LSProjectionFormula",
+        "LSDualStructureExact",
+        "LSTensorLocallyFreeExact"
+      ],
+      "LSPlaneConicPresentation": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSFirstJetEmbeddingGeometry": [
+        "LSFirstJetEmbedding",
+        "LSHamiltonianJets"
+      ],
+      "LSSelectedPair": [
+        "LSSuitableLinear"
+      ],
+      "LSConicCotangentTools": [
+        "LSTangentComparison"
+      ],
+      "LSContactGeneration": [
+        "LSPositiveSplit"
+      ],
+      "LSRelativeGenericSmoothness": [
+        "LSIntrinsicVelocity"
+      ],
+      "LSFormalTraitModel": [
+        "LSFormalTraitParameters",
+        "LSSmoothTraitNormalForm",
+        "LSNodalTraitNormalForm"
+      ],
+      "LSFamilyReparametrizationRightFiniteType": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyDescentReparametrization",
+        "LSFamilyReparametrizationFibres",
+        "LSFamilySchemeTransport"
+      ],
+      "RecompileBasePart05A": [
+        "RecompileBasePart04"
+      ],
+      "RecompileExtensionsPart01": [
+        "LSP1TangentSections",
+        "LSP1SourceAlgebra",
+        "LSP1TensorSquare",
+        "LSP1TensorTaylor",
+        "LSAffineFrame",
+        "LSAffineDerivations",
+        "RecompileExtensionCore",
+        "LSConePole",
+        "LSSecondDiagonalAlgebra",
+        "LSSectionCover",
+        "LSExternalFrameCoefficients",
+        "LSPublishedProjectiveSpace",
+        "LSStandardTautologicalP1"
+      ],
+      "LSStandardConicDifferential": [
+        "LSNodalFixedEnds",
+        "LSStandardConicFrames",
+        "LSConicFundamentalClassConstruction"
+      ],
+      "LSClassicalReduction": [
+        "LSFirstJetEmbeddingGeometry"
+      ],
+      "LSFamilyDescentFibres": [
+        "LSFamilyDescentTransport"
+      ],
+      "LSConeAdditionAlgebra": [
+        "LSConeOpen",
+        "LSSuitableLinear"
+      ],
+      "LSProjectiveTransport": [
+        "RecompileExtensionsPart03"
+      ],
+      "LSModelGenericNormalization": [
+        "LSModelSourceNumerator"
+      ],
+      "LSConeRescaledArcs": [
+        "LSLaurentRescaling",
+        "LSSuitableDirections",
+        "LSConeLocalization",
+        "LSConeIsotropy"
+      ],
+      "LSFamilyBaseChange": [
+        "LSFamilyDescentFibres"
+      ],
+      "LSModuleHomGluing": [
+        "RecompileBasePart07"
+      ],
+      "LSSuitableDirections": [
+        "RecompileTail"
+      ],
+      "LSContactVelocityTarget": [
+        "LSTangentComparison"
+      ],
+      "LSReducedCover": [
+        "LSStableMapFamily"
+      ],
+      "LSOpenProductCoordinates": [
+        "LSAffineProductRing",
+        "LSClosedIdealCoefficients",
+        "LSSectionCover"
+      ],
+      "LSP1BivectorCoordinates": [
+        "LSConicJets",
+        "LSFrameTransport",
+        "LSTangentFrameCoordinates"
+      ],
+      "LSFamilyBivectors": [
+        "LSConicJets",
+        "LSNodalFixedEnds",
+        "LSStableMapFamily",
+        "LSMovingPairAssembly",
+        "LSRelativeDifferential",
+        "LSFamilyDerivativeRestriction"
+      ],
+      "RecompileExtensionsPart04GluingSections": [
+        "RecompileExtensionsPart04Gluing"
+      ],
+      "LSPositiveNodeImage": [
+        "LSPositiveSplit"
+      ],
+      "LSFamilyDescentReparametrization": [
+        "LSFamilyReparamExpansionStages"
+      ],
+      "RecompileExtensionCore": [
+        "RecompileSections"
+      ],
+      "LSConicScalarTransport": [
+        "LSConicCotangentExt",
+        "LSCotangentScalarAlgebra",
+        "LSConicOverlapCoordinates"
+      ],
+      "LSLineCohomologyBaseChange": [
+        "LSPublishedCohomologyBaseChange",
+        "LSLineStalkFlat"
+      ],
+      "LSConeDominance": [
+        "LSConeFiberRigidity",
+        "LSAdditionFiberPresentation",
+        "LSRelativeGenericSmoothness"
+      ],
+      "LSStandardConicZeroComparison": [
+        "LSStandardConicTriple",
+        "LSPlaneConicZeroPresentation"
+      ],
+      "LSConicSplitting": [
+        "RecompileExtensionsPart03"
+      ],
+      "LSConeIsotropy": [
+        "LSConeRadial",
+        "LSRadialDetection",
+        "LSConeLocalization"
+      ],
+      "LSHamiltonianJets": [
+        "LSTangentComparison"
+      ],
+      "LSVelocityAdditionFamily": [
+        "LSScaledVelocities"
+      ],
+      "LSEpsilonStructureSequence": [
+        "LSHomVelocity"
+      ],
+      "LSPlaneConicZeroPresentation": [
+        "LSPlaneQuadraticEquation",
+        "LSPlaneConicPresentation"
+      ],
+      "RecompileExtensionsPart04Geometry": [
+        "LSSectionRepresentability",
+        "LSAffineSectionRepresentability",
+        "LSGeneratingUnitOpens",
+        "RecompileExtensionsPart03",
+        "LSConicSplitting"
+      ],
+      "LSHomDegree": [
+        "LSRelativeGenericSmoothness"
+      ],
+      "LSFirstJetEmbedding": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSGenericFamilyFieldTransport": [
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothCoordinates",
+        "LSFieldParametrization",
+        "LSFamilyReparametrizationFibres"
+      ],
+      "LSPlaneQuadratic": [
+        "LSStandardTautological",
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSEffectiveCartierIso": [
+        "LSEffectiveCartierInputs"
+      ],
+      "LSQuadraticVeronese": [
+        "LSStandardTautological"
+      ],
+      "LSNodalLineTriviality": [
+        "LSNodalLineCohomology",
+        "LSNonvanishingPullback"
+      ],
+      "LSConicOverlapCoordinates": [
+        "LSConicOverlapAlgebra"
+      ],
+      "LSFamilyReparamProductTransport": [
+        "LSFamilyCurveProductDirect",
+        "LSFamilyExternalProductMap",
+        "LSFamilySchemeTransport"
+      ],
+      "LSStandardProjectiveSmooth": [
+        "LSStandardTautological"
+      ],
+      "LSResidueFieldPresentation": [],
+      "LSCanonicalSectionBaseChange": [
+        "RecompileBasePart05B",
+        "LSResidueTensorLift"
+      ],
+      "LSCartierQuadraticExtraction": [
+        "LSEffectiveCartierInputs",
+        "LSPlaneQuadraticPublished"
+      ],
+      "LSNodalTraitNormalForm": [
+        "LSNodalTraitQuadraticPresentation",
+        "LSFormalTraitSourceComparison",
+        "LSQuadraticPolarizedModels"
+      ],
+      "LSFiniteFreeBaseChange": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSStandardProjectiveProper": [
+        "LSStandardTautological"
+      ],
+      "LSP1FamilyDegree": [
+        "LSPublishedProjectiveSpace",
+        "RecompileSections"
+      ],
+      "LSScaledVelocityDifferential": [
+        "LSVelocityAdditionFamily"
+      ],
+      "LSQuadraticFibreCartier": [
+        "LSEffectiveCartierIso",
+        "LSQuadraticPrimitive",
+        "LSPlaneQuadraticPublished"
+      ],
+      "LSModelGeometry": [
+        "LSModelBivector",
+        "LSContactLineTests",
+        "LSGenericGlobalFunctions"
+      ],
+      "LSP1TensorTaylor": [
+        "LSP1SourceAlgebra"
+      ],
+      "LSConeArcs": [
+        "LSConeDiagonal",
+        "LSConePole"
+      ],
+      "RecompileBase": [
+        "RecompileBasePart07"
+      ],
+      "LSModelSourceNumerator": [
+        "LSModelDifferential",
+        "LSRegularModelPair",
+        "LSFamilyBaseChange",
+        "LSModelSourceProductTransport"
+      ],
+      "LSNodalFibreComparison": [
+        "RecompileExtensionsPart04Geometry",
+        "LSP1PointTransport",
+        "LSNodalLineTriviality"
+      ],
+      "LSRationalOpenTransport": [
+        "LSFormalArcRegularity"
+      ],
+      "LSSuitableLinear": [
+        "LSSuitableDirections"
+      ],
+      "LSPositiveVariation": [
+        "RecompileExtensions"
+      ],
+      "LSFamilySmoothNormalization": [
+        "LSFamilyDescentReparametrization",
+        "LSOpenSectionTransport",
+        "LSFamilySmoothCoordinates",
+        "LSFamilySmoothPointValues"
+      ],
+      "LSBranchRamification": [
+        "LSBranchAlgebra"
+      ],
+      "LSStableFamilyTraits": [
+        "LSFormalTraitModel",
+        "LSFormalTraitProjectivity"
+      ],
+      "LSComplexQuadraticMatrix": [
+        "LSComplexQuadraticCoordinates",
+        "LSPlaneQuadratic"
+      ],
+      "LSMilestoneTarget": [
+        "LSCompletedTargets",
+        "LSMilestoneTopology"
+      ],
+      "LSConicGeneratingTuples": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSStandardProjectiveReduced": [
+        "LSStandardProjectiveSmooth"
+      ],
+      "LSP1TangentSections": [
+        "RecompileSections"
+      ],
+      "LSAffineFrame": [
+        "RecompileSections",
+        "LSKunnethDegreeZero"
+      ],
+      "LSStandardTautologicalP1": [
+        "LSStandardTautological"
+      ],
+      "LSModelDifferential": [
+        "LSModelBivector"
+      ],
+      "LSGenericFamilyCartesianFieldComparison": [
+        "LSGenericFamilyCartesianComparison",
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothNormalization",
+        "LSFieldParametrization",
+        "LSFamilyReparametrization",
+        "LSGenericFamilyPointComparison",
+        "LSGenericFamilyFieldTransport"
+      ],
+      "LSMilestoneTopology": [
+        "LSMilestoneStatement"
+      ],
+      "LSSmoothFibreCartier": [
+        "LSVeroneseZeroModel",
+        "LSPolarizedProjectiveEmbedding",
+        "LSQuadraticFibreCartier"
+      ],
+      "LSPositiveIndependence": [
+        "LSPositiveHom",
+        "LSPositiveSplit"
+      ],
+      "LSProjectiveLineReparametrization": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSBranchAlgebra": [
+        "LSContactLineTests"
+      ],
+      "LSProjectAssembly": [
+        "LSHomTwoPointDominance",
+        "LSDescentAssembly",
+        "LSSmoothingAssembly",
+        "LSConicJets",
+        "LSClassicalActions",
+        "LSClassicalReduction"
+      ],
+      "RecompileBasePart05B": [
+        "RecompileBasePart05A"
+      ],
+      "LSConicTupleChange": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSPositiveSplit": [
+        "LSPositiveQuotient"
+      ],
+      "FieldDifferentials": [],
+      "LSStandardSourceBaseChange": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSNodalTraitQuadraticPresentation": [
+        "LSFormalTraitParameters",
+        "LSLineCohomologyBaseChange",
+        "LSPlaneFamilyQuadratic",
+        "LSQuadraticFibreCartier",
+        "LSStandardCentralPlane",
+        "LSTraitFibreCohomology",
+        "LSFormalQuadraticConditions"
+      ],
+      "LSCotangentDeformations": [
+        "LSHomVelocity"
+      ],
+      "LSFormalQuadraticConditions": [
+        "LSStableMapFamily",
+        "LSFormalTraitRing",
+        "LSStandardProjectiveReduced",
+        "LSReducedPushout",
+        "LSResidueFibreGeometry",
+        "LSFibreIsomorphism",
+        "LSSmoothFibreComparison",
+        "LSQuadraticPolynomial",
+        "LSQuadraticFibreCriteria",
+        "LSPlaneQuadraticPublished"
+      ],
+      "LSQuadraticFibreCriteria": [
+        "LSQuadraticSchemeBaseChange",
+        "LSQuadraticPolynomial",
+        "LSPlaneQuadraticPublished",
+        "LSFibreIsomorphism"
+      ],
+      "LSTangentComparison": [
+        "LSGlobalVelocity"
+      ],
+      "RecompileExtensionsPart04": [
+        "RecompileExtensionsPart04Nodes"
+      ],
+      "LSNodalTangent": [
+        "LSTangentComparison",
+        "LSCotangentDeformations"
+      ],
+      "LSFibreIsomorphism": [],
+      "LSQuadraticSectionEvaluation": [
+        "LSProjectiveLinearAction",
+        "LSPlaneQuadraticBaseChange",
+        "LSAffineFrame",
+        "LSStandardProjectiveSmooth"
+      ],
+      "LSFiniteFreeHomBaseChange": [
+        "RecompileExtensionsPart01"
+      ],
+      "LSComplexQuadraticCoordinates": [],
+      "LSResidueTensorLift": [],
+      "LSReducedPushout": [],
+      "LSQuadraticPolynomial": [
+        "LSPlaneQuadratic"
+      ],
+      "LSContactDirections": [
+        "LSConeDominance",
+        "LSSelectedPair"
+      ],
+      "LSAffineSectionRepresentability": [
+        "LSSectionRepresentability"
+      ],
+      "LSFamilyDescentTransport": [
+        "LSFamilyBivectors",
+        "LSFlatSectionDescent",
+        "LSLineValueDescent",
+        "LSReducedCover"
+      ],
+      "LSAffineCotangentHom": [
+        "LSAffineDerivations"
+      ],
+      "LSDescentAssembly": [
+        "LSBranchRamification"
+      ],
+      "LSClosedImmersionLocus": [],
+      "LSFormalArcModelNormalization": [
+        "LSFamilySmoothCoordinates",
+        "LSArcParametrization",
+        "LSRationalOpenTransport"
+      ],
+      "LSNodalLineCohomology": [
+        "RecompileExtensionsPart04Nodes",
+        "LSFirstCohomologyIso"
+      ],
+      "LSRelativeCartier": [
+        "RecompileSections",
+        "LSProperLocalTopology"
+      ],
+      "LSResidueFibreGeometry": [
+        "LSResidueFieldPresentation"
+      ],
+      "LSHomFiberInjectivity": [
+        "LSFiniteFreeHomBaseChange",
+        "RecompileExtensionsPart02"
+      ],
+      "LSNormalizedSegreQuotients": [
+        "LSNormalizedSegre"
+      ],
+      "LSMovingPairConstruction": [
+        "LSFormalArcComparison",
+        "LSFamilyBivectorDescent",
+        "LSProjectAssembly"
+      ],
+      "LSFamilySmoothCoordinates": [
+        "LSFamilyDescentFibres",
+        "LSOpenSectionTransport"
+      ],
+      "LSProjectiveLinearAction": [
+        "LSConicTupleChange",
+        "LSStandardProjectiveBaseChange"
+      ],
+      "LSPublishedPicard": [
+        "RecompileBasePart04"
+      ],
+      "LSModelTensorScalar": [
+        "LSModelGenericParametrization"
+      ],
+      "LSLiftedProjectiveTuple": [
+        "LSRelativeGeneration",
+        "LSStandardTautological"
+      ],
+      "RecompileBasePart05C": [
+        "RecompileBasePart05B",
+        "LSProjectionFormula",
+        "LSKunnethDegreeZero"
+      ],
+      "LSLaurentRescaling": [
+        "LSConePole"
+      ],
+      "LSStandardCentralPlane": [
+        "LSStandardConicZeroComparison",
+        "LSPlaneConicZeroPresentation",
+        "LSPolarizedProjectiveEmbedding",
+        "LSNodalFibreComparison"
+      ],
+      "LSRadialDetection": [
+        "LSSuitableDirections",
+        "LSConeDiagonal",
+        "LSConePole"
+      ],
+      "LSModelGenericParametrization": [
+        "LSModelDifferential",
+        "LSRegularModelPair",
+        "LSFamilyBaseChange",
+        "LSCartesianSourceDifferential",
+        "LSModelSourceProductTransport"
+      ],
+      "LSSectionCover": [
+        "RecompileBasePart05C"
+      ],
+      "LSGenericFamilyComparison": [
+        "LSGenericFamilyCartesianFieldComparison",
+        "LSGenericFamilyCartesianComparison",
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothNormalization",
+        "LSFieldParametrization",
+        "LSFamilyReparametrization",
+        "LSGenericFamilyPointComparison",
+        "LSGenericFamilyFieldTransport"
+      ],
+      "LSP1TensorSquare": [],
+      "LSConicOverlapAlgebra": [
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSFormalTraitRing": [],
+      "LSPublishedProjectiveSpace": [
+        "RecompileBasePart06",
+        "LSStandardTautological"
+      ],
+      "LSPlaneQuadraticBaseChange": [
+        "LSPlaneQuadratic",
+        "LSStandardProjectiveBaseChange"
+      ],
+      "RecompileTail": [
+        "RecompileExtensions"
+      ],
+      "LSBoundedLines": [
+        "LSHomDegree",
+        "LSProductGeometry"
+      ],
+      "LSContactStandardInputs": [
+        "LSLeviFiber"
+      ],
+      "LSRelativeVeroneseModel": [
+        "LSVeroneseZeroModel",
+        "LSStandardProjectivePicard"
+      ],
+      "LSTraitFibreCohomology": [
+        "LSNodalLineCohomology"
+      ],
+      "LSFormalTraitSourceComparison": [
+        "LSFormalTraitParameters",
+        "LSStandardConicZeroComparison"
+      ],
+      "LSConicFundamentalClassConstruction": [
+        "LSStandardConicFrames",
+        "LSConicChartDerivations",
+        "LSConicCotangentTools",
+        "LSModuleHomGluing",
+        "LSOpenCotangentScalar",
+        "LSConicOverlapAlgebra",
+        "LSLineEvaluation",
+        "LSOpenModuleCoherence",
+        "LSConicScalarCompatibility"
+      ],
+      "LSContactLineTests": [
+        "LSGenericSheets",
+        "LSP1FamilyDegree"
+      ],
+      "LSQuadraticLinearTransport": [
+        "LSQuadraticSectionEvaluation"
+      ],
+      "RecompileBasePart06": [
+        "RecompileBasePart05"
+      ],
+      "LSLineValueDescent": [
+        "RecompileExtensionsPart04",
+        "LSProperSections"
+      ],
+      "LSIntrinsicVelocity": [
+        "LSTangentComparison",
+        "LSContactVelocityTarget"
+      ],
+      "LSGenericFamilyCartesianComparison": [
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothNormalization",
+        "LSFieldParametrization",
+        "LSFamilyReparametrization",
+        "LSGenericFamilyPointComparison",
+        "LSGenericFamilyFieldTransport"
+      ],
+      "LSLeviOpen": [
+        "LSConeOpen",
+        "LSLeviFiber"
+      ],
+      "LSCurveLaurentGeometry": [
+        "LSCurveFunctionField",
+        "LSCurveLaurentStandardInputs",
+        "LSConeRescaledArcs",
+        "LSConeOpen"
+      ],
+      "LSFamilyExternalProductMap": [
+        "RecompileBasePart05C"
+      ],
+      "LSFamilyCurveProductDirect": [
+        "LSFamilyDescentTransport"
+      ],
+      "LSDualBaseChangeAlgebra": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSFamilySchemeTransport": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSLineEvaluation": [
+        "LSConicCotangentTools"
+      ],
+      "LSTangentFrameCoordinates": [
+        "RecompileSections"
+      ],
+      "LSArcParametrization": [
+        "LSFormalArcRegularity",
+        "LSFamilyBaseChange",
+        "LSFieldParametrization"
+      ],
+      "LSStandardProjectiveNonempty": [
+        "LSStandardTautological"
+      ],
+      "LSGenericFamilyPointComparison": [
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothCoordinates",
+        "LSFieldParametrization",
+        "LSFamilyReparametrizationFibres"
+      ],
+      "LSStandardConicTriple": [
+        "LSNormalizedSegrePairs",
+        "LSConicGeneratingTuples",
+        "LSStandardSourceBaseChange",
+        "LSPlaneConicPresentation",
+        "LSTensorLineTransport"
+      ],
+      "LSConicScalarCompatibility": [
+        "LSConicChartDerivations",
+        "LSConicOverlapCoordinates",
+        "LSOpenCotangentScalar",
+        "LSConicCotangentExt",
+        "LSCotangentScalarAlgebra",
+        "LSConicScalarTransport"
+      ],
+      "LSDualStructureExact": [
+        "LSEpsilonStructureSequence",
+        "LSSheafSectionExact"
+      ],
+      "LSContactCompletion": [
+        "LSContactHorizontal",
+        "LSPositiveHom",
+        "LSPositiveIndependence"
+      ],
+      "LSOpenCotangentScalar": [
+        "LSHomVelocity"
+      ],
+      "LSTensorLineTransport": [
+        "RecompileExtensionsPart02"
+      ],
+      "LSOpenModuleCoherence": [
+        "LSHomVelocity",
+        "LSModuleHomGluing"
+      ],
+      "LSNodalFixedEnds": [
+        "LSNodalTangent",
+        "LSHamiltonianJets",
+        "LSAffineFiberDivisibility",
+        "LSDualHomVanishing"
+      ],
+      "LSCompletedTargets": [
+        "LSMovingPairConstruction"
+      ],
+      "LSEffectiveCartierInputs": [
+        "LSRelativeCartier",
+        "RecompileExtensionsPart04Geometry",
+        "LSStandardTautological"
+      ],
+      "LSFieldParametrization": [
+        "LSStableMapFamily"
+      ],
+      "LSFamilyDerivativeRestriction": [
+        "LSRelativeDifferential"
+      ],
+      "LSCurveLaurentStandardInputs": [
+        "LSFunctionFieldPlaces"
+      ],
+      "LSFlatSectionDescent": [
+        "RecompileExtensionsPart04"
+      ],
+      "LSLeviFiber": [
+        "LSSuitableLinear",
+        "LSConePole"
+      ],
+      "LSQuadraticPolarizedModels": [
+        "LSQuadraticLinearTransport",
+        "LSComplexQuadraticMatrix",
+        "LSRelativeVeroneseModel",
+        "LSPolarizedOverIso"
+      ],
+      "LSCotangentScalarAlgebra": [
+        "LSOpenCotangentScalar",
+        "LSConicOverlapAlgebra"
+      ],
+      "LSPublishedDirections": [
+        "LSContactDirections"
+      ],
+      "LSFormalArcComparison": [
+        "LSGenericFamilyComparison",
+        "LSFormalArcFamilyComparison",
+        "LSArcParametrization",
+        "LSModelGenericComparison",
+        "LSRationalOpenTransport",
+        "LSFormalArcModelTransport"
+      ],
+      "LSScaledVelocities": [
+        "LSBoundedLines",
+        "LSFiniteTypeDominance"
+      ],
+      "LSFormalArcModelTransport": [
+        "LSFormalArcModelNormalization",
+        "LSParametrizedBaseChange"
+      ],
+      "LSConeFiberRigidity": [
+        "LSAdditionFiberPresentation",
+        "LSCurveLaurentGeometry"
+      ],
+      "LSSmoothingAssembly": [
+        "LSNodalConic",
+        "LSNodalFixedEnds",
+        "LSProjectiveTransport",
+        "LSSuitablePair"
+      ],
+      "LSPositiveQuotient": [
+        "RecompileTail"
+      ],
+      "LSModelGenericComparison": [
+        "LSModelDifferential",
+        "LSRegularModelPair",
+        "LSFamilyBaseChange",
+        "LSCartesianSourceDifferential",
+        "LSModelSourceProductTransport",
+        "LSModelSourceNumerator",
+        "LSModelGenericParametrization",
+        "LSModelNumeratorTransport",
+        "LSModelGenericNormalization",
+        "LSModelTensorScalar",
+        "LSModelContactFactor"
+      ],
+      "LSVectorBundlePullback": [
+        "RecompileExtensionCore"
+      ],
+      "LSSecondDiagonalAlgebra": [],
+      "LSConeLocalization": [
+        "LSConeArcs"
+      ],
+      "RecompileExtensionsPart04Gluing": [
+        "RecompileExtensionsPart04GluingPrefix"
+      ],
+      "LSVeroneseZeroModel": [
+        "LSPlaneQuadratic",
+        "LSQuadraticVeronese"
+      ],
+      "LSQuadraticPrimitive": [
+        "LSStandardProjectiveNonempty",
+        "LSEffectiveCartierInputs",
+        "LSPlaneQuadraticBaseChange"
+      ],
+      "LSSmoothTraitNormalForm": [
+        "LSFormalTraitParameters",
+        "LSTraitQuadraticPresentation",
+        "LSFormalQuadraticConditions",
+        "LSQuadraticPolarizedModels"
+      ],
+      "RecompileExtensions": [
+        "RecompileExtensionsPart04",
+        "LSGenericSheets"
+      ],
+      "RecompileBasePart05": [
+        "RecompileBasePart05C"
+      ],
+      "RecompileSections": [
+        "LSPublishedPicard",
+        "LSAffineDerivations",
+        "RecompileBase"
+      ],
+      "LSPolarizedEmbeddingLift": [
+        "LSLiftedProjectiveTuple",
+        "LSStandardProjectiveBaseChange",
+        "LSStandardProjectiveProper",
+        "LSClosedImmersionLocus",
+        "LSPolarizedProjectiveEmbedding"
+      ],
+      "LSPublishedCohomologyBaseChange": [
+        "LSCohomologyHypotheses",
+        "LSCanonicalSectionBaseChange",
+        "LSYonedaClassesRepresented",
+        "LSResidueFieldPresentation",
+        "RecompileExtensionCore"
+      ],
+      "LSStandardProjectiveComposition": [
+        "LSStandardProjectiveBaseChange"
+      ],
+      "LSSuitablePair": [
+        "LSScaledVelocityDifferential"
+      ],
+      "RecompileExtensionsPart02": [
+        "RecompileExtensionsPart01",
+        "LSVectorBundlePullback",
+        "LSChartSmoothnessCriteria"
+      ],
+      "LSModelContactFactor": [
+        "LSModelGenericParametrization",
+        "LSModelTensorScalar"
+      ],
+      "LSLineStalkFlat": [
+        "RecompileSections",
+        "LSCohomologyHypotheses"
+      ],
+      "LSParametrizedBaseChange": [
+        "LSFamilyBaseChange",
+        "LSFieldParametrization"
+      ],
+      "LSAdditionFiberPresentation": [
+        "LSAffineCurveSelection",
+        "LSConeRescaledArcs",
+        "LSConeOpen"
+      ],
+      "LSRelativeGeneration": [
+        "LSGeneratingUnitOpens",
+        "LSVectorBundlePullback",
+        "LSProperLocalTopology"
+      ],
+      "LSNormalizedSegre": [
+        "LSStandardTautological",
+        "RecompileExtensionsPart04Geometry"
+      ],
+      "LSRelativeDifferential": [
+        "LSNodalFixedEnds"
+      ],
+      "RecompileBasePart07": [
+        "RecompileBasePart06",
+        "LSNonvanishingPullback"
+      ],
+      "LSTraitQuadraticPresentation": [
+        "LSStableMapFamily",
+        "LSLineCohomologyBaseChange",
+        "LSPlaneFamilyQuadratic",
+        "LSSmoothFibreCartier",
+        "LSTraitFibreCohomology"
+      ],
+      "LSSectionRepresentability": [
+        "RecompileExtensionsPart02"
+      ],
+      "RecompileBasePart01": [],
+      "LSFrameTransport": [
+        "RecompileExtensionsPart01"
+      ],
+      "LSFamilyAdditiveExpansion": [],
+      "LSFamilyReparametrizationFibres": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyReparamExpansionStages"
+      ],
+      "LSProjectivityDefinitions": [
+        "RecompileExtensionsPart01"
+      ],
+      "LSMovingPairAssembly": [
+        "RecompileExtensionsPart04"
+      ],
+      "LSGenericGlobalFunctions": [
+        "LSFormalTraitModel"
+      ],
+      "LSYonedaExtensionSplitting": [],
+      "LSSheafSectionExact": [
+        "RecompileBasePart04"
+      ],
+      "LSConicJets": [
+        "LSHomTwoPointDominance",
+        "LSProjectiveLineReparametrization",
+        "LSTangentComparison",
+        "LSHamiltonianJets",
+        "LSContactVelocityTarget",
+        "LSIntrinsicVelocity"
+      ],
+      "LSCartesianSourceDifferential": [
+        "LSModelDifferential",
+        "LSRegularModelPair",
+        "LSFamilyBaseChange"
+      ],
+      "LSStandardProjectiveBaseChange": [
+        "LSStandardTautological"
+      ],
+      "RecompileBasePart03": [
+        "RecompileBasePart02"
+      ],
+      "LSModelSourceProductTransport": [
+        "LSModelDifferential",
+        "LSRegularModelPair",
+        "LSFamilyBaseChange"
+      ],
+      "LSFormalArcFamilyComparison": [
+        "LSGenericFamilyComparison",
+        "LSArcParametrization",
+        "LSRationalOpenTransport",
+        "LSFormalArcModelTransport"
+      ],
+      "LSStandardProjectivePicard": [
+        "LSStandardProjectiveComposition",
+        "LSProjectiveFibreLineRigidity"
+      ],
+      "LSClassicalActions": [
+        "LSHamiltonianJets",
+        "LSRelativeGenericSmoothness",
+        "LSContactLineTests"
+      ],
+      "LSRegularModelPair": [
+        "LSTraitContact",
+        "LSFamilyBivectors",
+        "LSConicModelSections",
+        "LSModelGeometry"
+      ],
+      "LSConePole": [],
+      "LSNodalConic": [
+        "LSNodalTangent",
+        "LSRelativeGenericSmoothness"
+      ],
+      "LSFormalTraitParameters": [
+        "LSStableMapFamily"
+      ],
+      "LSFirstCohomologyIso": [
+        "RecompileExtensionsPart03"
+      ],
+      "LSHomTwoPointDominance": [
+        "LSNodalTangent",
+        "LSHomDegree",
+        "LSChartSmoothnessCriteria",
+        "LSGeometricIntegrality"
+      ],
+      "LSGeometricIntegrality": [
+        "RecompileBasePart01"
+      ]
+    }
+  },
+  "candidate_sources": [
+    {
+      "module": "RecompileExtensionsPart02",
+      "path": "source/RecompileExtensionsPart02.lean",
+      "sha256": "f547b9763365e104fb088d9204ca1440ffb4379e572a99d773aa47aa61f397e9",
+      "bytes": 277693
+    },
+    {
+      "module": "LSHomTwoPointDominance",
+      "path": "source/LSHomTwoPointDominance.lean",
+      "sha256": "ff2f9ee480fad311e5d02e09ccc538c25f33ba7472040105213aa99cc0d1b050",
+      "bytes": 48160
+    },
+    {
+      "module": "LSConicJets",
+      "path": "source/LSConicJets.lean",
+      "sha256": "e4e0f0a79da6d5639c1d352335a8e18893d0e4efad232d78f6d18202581ad199",
+      "bytes": 103435
+    },
+    {
+      "module": "LSStableMapFamily",
+      "path": "source/LSStableMapFamily.lean",
+      "sha256": "c2cfbf1783b2782f33f040c31b9f24d59c478ec1a7f0af531615e382b7b3ab5a",
+      "bytes": 59512
+    },
+    {
+      "module": "LSProjectAssembly",
+      "path": "source/LSProjectAssembly.lean",
+      "sha256": "cd6b5707d9109ee906a8ebbee9a073bbf9854a059db4458a36aec4c6efbee215",
+      "bytes": 4029
+    }
+  ],
+  "manifest_sha256": "3dbfe6acfb544dc09814cbd2987f1471e6152e93114011d59046a004b857bab5",
+  "original052_module_relocation": [
+    "RecompileExtensionsPart02",
+    "LSHomTwoPointDominance"
+  ],
+  "acceptance_required": [
+    "Exact publication-input review/registration for Source integrality leaves",
+    "Production assembly and public native type comparison",
+    "Changed and reverse-dependency native replay plus boundary audit"
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "schema": "lebrun-takeover-status-v2",
+  "recorded_utc": "2026-11-04T18:46:58Z",
+  "updated_utc": "2026-11-04T18:46:58Z",
+  "timezone": "Etc/UTC",
+  "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
+  "milestone_met": false,
+  "repository": "wajcha2/claude",
+  "branch": "codex/lebrun-takeover-audit-20261103",
+  "byte_preserving_recovery_commit": "d8749550ace47a9186fcc1d8c2a38fa81d8b3ba0",
+  "recovered_archive": {
+    "name": "LeBrunSalamon_Cumulative_Precompile_Step3g_V2_20261103.zip",
+    "sha256": "722c44bc3e21211634732fc92fb0d598b429f886ac85dec3d3699318d4a3fe32",
+    "source_modules": 129,
+    "source_lines": 103239,
+    "source_bytes": 4995434,
+    "direct_sorry": 98
+  },
+  "previous_status_snapshot": "audit/history/before_point1_acceptance_20261104T184658Z/TAKEOVER_STATUS.json",
+  "reported_complete_stages": [
+    "3c",
+    "3d",
+    "3e",
+    "3f"
+  ],
+  "completion_report_reconciliation": {
+    "historical_reconciliation": {
+      "evidence_source": "user confirmation and retrieved original conversation history; matching final certificate not recovered",
+      "cumulative_3c_3d_3e": {
+        "reported_at_local": "2026-11-02T20:35:22+01:00",
+        "wording": "Passed cumulatively",
+        "claimed_archive": "LeBrunSalamon_Cumulative_Steps1_2_3a_3e_20261102.zip"
+      },
+      "step3f": {
+        "reported_at_local": "2026-11-02T22:46:26+01:00",
+        "wording": "Step 3f completed — PASSED"
+      },
+      "working_status": "reported complete; source changes recovered; completion awaiting verification and identified repairs",
+      "later_work_discarded": false,
+      "absence_of_certificate_proves_work_never_completed": false,
+      "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
+    },
+    "current_decision": "All43 original3c–3g obligations now accepted on current native/publication evidence and completed reverse dependencies.",
+    "original_announcements_preserved": true,
+    "acceptance_from_announcement_alone": false,
+    "final_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+  },
+  "point1": {
+    "complete": true,
+    "original_obligations": 43,
+    "counts_by_step": {
+      "3c": 6,
+      "3d": 11,
+      "3e": 7,
+      "3f": 11,
+      "3g": 8
+    },
+    "additional_inherited_obligations": [
+      "OBL-069"
+    ],
+    "actual_native_roots_audited": 44,
+    "actual_eligible_admitted_inputs": 50,
+    "original_audited_ancestor_modules": 190,
+    "audited_boundary_unchanged_in_current_full_replay": true,
+    "required_reverse_dependencies_passed": true,
+    "evidence": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+  },
+  "current_source": {
+    "compiled_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "compiled_tree": "885ffa817897b4c686ec0264957df3326d44138f",
+    "source_modules": 307,
+    "source_manifest": "SOURCE.sha256",
+    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "entire_current_source_graph_native_verified": true,
+    "frozen_unconditional_endpoint_verified": false
+  },
+  "frozen_target": {
+    "path": "target/MainStatement.lean",
+    "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+    "changed": false,
+    "unconditional_theorem_completed": false,
+    "outstanding_explicit_bridge": "LeBrunSalamon.Milestone.PositiveQKSimpleConnectedness"
+  },
+  "percentage_metric": {
+    "kind": "conservative accepted-checklist completion",
+    "accepted": 74,
+    "denominator": 133,
+    "pending": 59,
+    "percentage": 55.6390977443609,
+    "percentage_display": 55.64,
+    "rounded_percentage": 56,
+    "mathematical_effort_estimate": false,
+    "time_remaining_estimate": false,
+    "ledger": "audit/MILESTONE_PROGRESS.json"
+  },
+  "proof_completion_percentage": 55.64,
+  "native_current_ci": {
+    "run_id": 41888465259,
+    "source_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "verified_current_modules": 307,
+    "selected_modules": 307,
+    "fresh_native_passes": 2,
+    "reused_native_receipts": 305,
+    "status_counts": {
+      "reused": 305,
+      "passed": 2
+    },
+    "complete_current_source_graph_passed": true,
+    "verification": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
+    "verification_sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded",
+    "artifact": {
+      "id": 13353190843,
+      "name": "lebrun-final-current-native-41888465259-2",
+      "run_id": 41888465259,
+      "sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17",
+      "bytes": 68416974
+    },
+    "toolchain_lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+    "scope": "Current source graph, including the conditional assembly; not the final unconditional frozen theorem."
+  },
+  "remaining_original_batches": {
+    "3h": [
+      "OBL-044",
+      "OBL-045",
+      "OBL-046",
+      "OBL-047",
+      "OBL-048"
+    ],
+    "3i": [
+      "OBL-049",
+      "OBL-050",
+      "OBL-051",
+      "OBL-052",
+      "OBL-053",
+      "OBL-054",
+      "OBL-055",
+      "OBL-056"
+    ],
+    "3j": [
+      "OBL-057",
+      "OBL-058",
+      "OBL-059",
+      "OBL-060",
+      "OBL-061",
+      "OBL-062",
+      "OBL-063",
+      "OBL-064"
+    ],
+    "3k": [
+      "OBL-065",
+      "OBL-066",
+      "OBL-067",
+      "OBL-068",
+      "OBL-070",
+      "OBL-071",
+      "OBL-072"
+    ],
+    "3l": [
+      "OBL-073",
+      "OBL-074",
+      "OBL-075",
+      "OBL-076",
+      "OBL-077",
+      "OBL-078"
+    ],
+    "3m": [
+      "OBL-079",
+      "OBL-080",
+      "OBL-081",
+      "OBL-082",
+      "OBL-083"
+    ],
+    "3n": [
+      "OBL-084",
+      "OBL-085",
+      "OBL-086",
+      "OBL-087",
+      "OBL-088",
+      "OBL-089",
+      "OBL-090",
+      "OBL-091"
+    ]
+  },
+  "remaining_original_obligations": 47,
+  "definition_validations": {
+    "accepted": 0,
+    "total": 8,
+    "ids": [
+      "DEF-01",
+      "DEF-02",
+      "DEF-03",
+      "DEF-04",
+      "DEF-05",
+      "DEF-06",
+      "DEF-07",
+      "DEF-08"
+    ]
+  },
+  "final_gates": {
+    "accepted": 0,
+    "total": 4,
+    "ids": [
+      "GATE-01",
+      "GATE-02",
+      "GATE-03",
+      "GATE-04"
+    ]
+  },
+  "next_execution_priorities": [
+    "Compare the remaining extension/homogeneity route with Fu arXiv:2611.01423v1, preserving accepted foundations and documenting any scope change.",
+    "Continue the47 original3h–3n obligations with exact published-input checks and proved project translations.",
+    "Validate the8 operational definition bridges and discharge the explicit simple-connectedness bridge.",
+    "Verify the unchanged unconditional frozen endpoint and all4 final milestone gates."
+  ],
+  "admission_boundary_scope": "The50-leaf review certifies the44 accepted original roots. The remaining original obligations and final-theorem trust audit remain open.",
+  "notes": [
+    "No new milestone units are credited for helper modules, source files, shared publication reviews or compilation receipts.",
+    "Native current output reuse requires exact source, imports, direct dependency outputs, recursive source ancestry, runtime and compiler flags.",
+    "Historical evidence-bound publication catalogs and audit records retain their original bytes; final acceptance is a separate event."
+  ]
+}

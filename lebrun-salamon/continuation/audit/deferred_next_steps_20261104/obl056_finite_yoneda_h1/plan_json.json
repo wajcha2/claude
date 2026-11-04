@@ -1,0 +1,175 @@
+{
+  "schema": "lebrun-obl056-primary-boundary-plan-v1",
+  "scope": "Read-only source and primary-source planning. No new input, original proof, compiler output, source selection or acceptance.",
+  "original_obligation": "OBL-056",
+  "original_name": "LeBrunSalamon.Construction.Smoothing.HomDeformationInput.StandardInputs.smooth_of_firstCohomology_vanishes",
+  "original_source": {
+    "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionsPart04Geometry.lean",
+    "sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+    "bytes": 292853
+  },
+  "original_declaration": "theorem smooth_of_firstCohomology_vanishes {S Y : Scheme}\n    [IsLocallyNoetherian S] (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : Presentation pi sS X) [LocallyOfFinitePresentation H.toBase]\n    (p : ComplexBase ⟶ H.parameter) (hp : p ≫ H.toBase ≫ sS = 𝟙 ComplexBase)\n    (b : ComplexBase ⟶ S) (hb : p ≫ H.toBase = b)\n    (hH1 : HasVanishingFirstCohomology\n      (pullbackModule (familyChange pi b H.toBase p hb ≫ H.evaluation)\n        (tangentSheaf X.structureMap))) :\n    ∃ U : H.parameter.Opens, Set.range p ⊆ (U : Set H.parameter) ∧\n      Smooth (U.ι ≫ H.toBase) := by\n  sorry\n",
+  "original_declaration_sha256": "b20913a9163cc7411a3a74ac3ce29b9f3e1e7898f1d9a4f564c2e1f2c2465e16",
+  "original_header": "theorem smooth_of_firstCohomology_vanishes {S Y : Scheme}\n    [IsLocallyNoetherian S] (pi : Y ⟶ S) (sS : S ⟶ ComplexBase)\n    [IsProper pi] [Flat pi] [LocallyOfFinitePresentation pi]\n    {d : ℕ} (X : SmoothProperComplexVariety d)\n    (H : Presentation pi sS X) [LocallyOfFinitePresentation H.toBase]\n    (p : ComplexBase ⟶ H.parameter) (hp : p ≫ H.toBase ≫ sS = 𝟙 ComplexBase)\n    (b : ComplexBase ⟶ S) (hb : p ≫ H.toBase = b)\n    (hH1 : HasVanishingFirstCohomology\n      (pullbackModule (familyChange pi b H.toBase p hb ≫ H.evaluation)\n        (tangentSheaf X.structureMap))) :\n    ∃ U : H.parameter.Opens, Set.range p ⊆ (U : Set H.parameter) ∧\n      Smooth (U.ι ≫ H.toBase)",
+  "original_header_sha256": "5c2a1e972eb7569145b1b103819397c802754fc092d279f61840e8a56e275972",
+  "operational_h1_definition": "def HasVanishingFirstCohomology {X : Scheme} (E : OModule X) : Prop :=\n  ∀ (F : OModule X) (i : E ⟶ F) (p : F ⟶ structureModule X)\n    (hz : i ≫ p = 0),\n    (ShortComplex.mk i p hz).ShortExact →\n      ∃ s : structureModule X ⟶ F, s ≫ p = 𝟙 (structureModule X)",
+  "reviewed_sources": [
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileBasePart01.lean",
+      "sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+      "bytes": 155814
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileBasePart03.lean",
+      "sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+      "bytes": 134566
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileBasePart04.lean",
+      "sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+      "bytes": 163524
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionCore.lean",
+      "sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+      "bytes": 76671
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/RecompileExtensionsPart01.lean",
+      "sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+      "bytes": 320847
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/LSCohomologyHypotheses.lean",
+      "sha256": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
+      "bytes": 3593
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/LSPublishedCohomologyBaseChange.lean",
+      "sha256": "cd4d39dc15631ce06a4459b1afe75f00b705b05411f5dcc70cd7ca8883eef99f",
+      "bytes": 7070
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/LSYonedaExtensionSplitting.lean",
+      "sha256": "489e6b14c8028c55aa9c18b5fc69d385fa7cca0c08357ce311d3207adfe42421",
+      "bytes": 4099
+    },
+    {
+      "path": "github_checkpoint_audit/continuation_3h_infrastructure/repo/lebrun-salamon/continuation/source/LSYonedaClassesRepresented.lean",
+      "sha256": "a303d8d9732391d282369b848c1e6ef7c4d66893cf2d5cbd6645e28b6c350d94",
+      "bytes": 2469
+    }
+  ],
+  "existing_leaf": {
+    "name": "LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1",
+    "frozen_baseline_root_ids": [
+      "OBL-025",
+      "OBL-026"
+    ],
+    "new_admission_required": false
+  },
+  "proposed_new_boundaries": [
+    {
+      "name": "square_zero_lift_of_h1_obstruction_vanishes",
+      "source": "SGA1 III Proposition5.1/Corollary5.2",
+      "source_locator": "printed59-61; arXiv PDF zero-based pages74-76",
+      "url": "https://arxiv.org/pdf/math/0206203",
+      "conclusion": "Actual compatible global morphism lifting across one specified square-zero immersion.",
+      "excludes": [
+        "Hom representer",
+        "parameter point",
+        "smooth-open conclusion",
+        "fibre-tangent coefficient comparison"
+      ]
+    },
+    {
+      "name": "smooth_at_of_small_extension_lifting",
+      "source": "Stacks02HX Lemma37.12.1 (4) implies (1)",
+      "url": "https://stacks.math.columbia.edu/tag/02HX",
+      "small_extension_definition": "https://stacks.math.columbia.edu/tag/02HS",
+      "conclusion": "Membership of actual point in actual smooth locus of a locally finitely presented morphism over a locally Noetherian base."
+    }
+  ],
+  "primary_comparisons": [
+    {
+      "url": "https://stacks.math.columbia.edu/tag/04FH",
+      "role": "Actual lift sheaf"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/04FJ",
+      "role": "Action of actual differential Hom sheaf"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/04FK",
+      "role": "Fixed target specialization"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/08U8",
+      "role": "More general cotangent-complex obstruction; not directly the project coefficient sheaf"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/02H6",
+      "role": "Global formal smoothness criterion and torsor mechanism; not deduced globally from one fibre"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/0B3A",
+      "role": "Existing exact Ext1(O,E)-H1 comparison"
+    }
+  ],
+  "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+  "pinned_native_apis": {
+    "Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean": {
+      "git_blob": "61f13a45eae351eff67f7c31f8236290b46356df",
+      "names": [
+        "exists_smooth_of_formallySmooth_stalk",
+        "Scheme.Hom.isOpen_smoothLocus",
+        "Scheme.Hom.smoothLocus",
+        "Scheme.Hom.smoothLocus_eq_top_iff",
+        "Scheme.Hom.preimage_smoothLocus_eq"
+      ]
+    },
+    "Mathlib/Algebra/Homology/DerivedCategory/Ext/Basic.lean": {
+      "names": [
+        "Ext.addEquivBiproduct",
+        "Ext.mk₀_sum",
+        "Ext.comp_sum"
+      ]
+    },
+    "Mathlib/CategoryTheory/Limits/Shapes/Biproducts.lean": {
+      "names": [
+        "biproduct.isBilimit",
+        "biproduct.isoCoproduct"
+      ]
+    }
+  },
+  "substantive_missing_project_proofs": [
+    "residue-compatible actual centre normalization",
+    "flat base-change ideal identification",
+    "internal-Hom obstruction coefficient comparison with actual fibre tangent pullback",
+    "cohomology through nilpotent closed-fibre support",
+    "all-test parameter/family lift equivalence and actual evaluation restriction"
+  ],
+  "existing_cohomology_module_has_geometry_dependency": false,
+  "missing_original_geometric_hypothesis_found": false,
+  "unjustified_shortcuts": [
+    "applying original3h smooth-source differential criterion to unknown Hom source",
+    "dual-number-only tests",
+    "using ideal-adic Cor5.6 directly for arbitrary small extensions",
+    "global formal smoothness from one fibre",
+    "proper implies projective"
+  ],
+  "report": {
+    "path": "source_milestone_audit/next3i/obl056/OBL056_BOUNDARY_PLAN.md",
+    "sha256": "8a719b36a12f1da44f0ad79ecbf27eceb6ca772739c30c7fa0d76fc8b21626f4",
+    "bytes": 12516
+  },
+  "helper_candidate_status": "Separately prepared, not yet compiled",
+  "helper_candidate": {
+    "path": "source_milestone_audit/next3i/obl056/LSFiniteYonedaFirstCohomology.lean",
+    "sha256": "06b2170841275c624982645f54e3609dcc878e260bce2af9a99c310e624331ce",
+    "bytes": 2201
+  },
+  "production_files_modified": false,
+  "new_admissions": 0,
+  "new_acceptance_units": 0
+}

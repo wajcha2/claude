@@ -1,0 +1,59 @@
+{
+  "schema": "hom-presentation-comparison-isolated-profile-v1",
+  "scope": "Zero-new-input diagnostic; no source integration or milestone credit",
+  "source": "published_leaf_recovery/next3i/LSHomPresentationComparison.lean",
+  "source_sha256": "b69f2479a2ff71f64f25baae1cd064f062c273dac19ade1f742db0b5642f0bda",
+  "profile": "published_leaf_recovery/next3i/LSHomPresentationComparisonProfile.lean",
+  "profile_sha256": "ba3ed8fe0b1103b0dc715643a6c11bb224b943345c44cd152e62173b55dd70f2",
+  "profile_inverse_exact": true,
+  "declarations": [
+    "identityPoint",
+    "composePoint",
+    "sourceMap_identity",
+    "sourceMap_comp",
+    "comparison",
+    "comparison_toC",
+    "comparison_evaluation",
+    "comparison_unique",
+    "comparison_self",
+    "comparison_comp",
+    "canonicalIso",
+    "canonicalIso_toC",
+    "canonicalIso_inv_toC",
+    "canonicalIso_evaluation",
+    "canonicalIso_inv_evaluation",
+    "canonicalIso_unique",
+    "comparison_family",
+    "comparison_mapAt",
+    "canonicalIso_mapAt"
+  ],
+  "source_imports": [
+    "RecompileExtensionsPart01"
+  ],
+  "new_admissions": 0,
+  "production_mutated": false,
+  "milestone_units_added": 0,
+  "profile_stage_edits": [
+    {
+      "old": "/-! ## Maps of test schemes -/",
+      "new": "#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_STAGE ENTER_01\"; err.flush : IO Unit)\n\n/-! ## Maps of test schemes -/"
+    },
+    {
+      "old": "/-! ## The evaluation-preserving comparison -/",
+      "new": "#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_STAGE ENTER_02\"; err.flush : IO Unit)\n\n/-! ## The evaluation-preserving comparison -/"
+    },
+    {
+      "old": "/-! ## Identity and composition from the full universal property -/",
+      "new": "#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_STAGE ENTER_03\"; err.flush : IO Unit)\n\n/-! ## Identity and composition from the full universal property -/"
+    },
+    {
+      "old": "/-! ## The actual scheme isomorphism -/",
+      "new": "#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_STAGE ENTER_04\"; err.flush : IO Unit)\n\n/-! ## The actual scheme isomorphism -/"
+    },
+    {
+      "old": "/-! ## Evaluation on every test scheme and on actual curve points -/",
+      "new": "#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_STAGE ENTER_05\"; err.flush : IO Unit)\n\n/-! ## Evaluation on every test scheme and on actual curve points -/"
+    }
+  ],
+  "profile_final_query": "#print axioms canonicalIso\n#print axioms canonicalIso_evaluation\n#print axioms canonicalIso_mapAt\n#eval (do let err ← IO.getStderr; err.putStrLn \"HOM_PRESENTATION_COMPLETE\"; err.flush : IO Unit)\n\n"
+}

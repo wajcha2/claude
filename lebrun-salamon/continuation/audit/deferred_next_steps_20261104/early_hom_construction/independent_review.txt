@@ -1,0 +1,354 @@
+{
+  "schema": "lebrun-independent-early-hom-construction-review-v1",
+  "reviewer": "/root/published_leaf_audit",
+  "reviewed_utc": "2026-11-04T21:37:28.624645+00:00",
+  "status": "Complete independent source/evidence review passed; isolated local preparation only, zero accepted units.",
+  "sources": {
+    "core": {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSRelativeHomCoreComparisonProbe.lean",
+      "sha256": "c902ab69c1f75ce8ceb187eb03040e1a1d416450cf9c3636e3ef6b335864e6b1",
+      "direct_imports": [
+        "Mathlib"
+      ]
+    },
+    "absolute": {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSAbsoluteHomEarlyConstructionProbe.lean",
+      "sha256": "f5ffd20d865a15501eb2742fdc7f152458b7688a7e32f24a251e04f87f400934",
+      "direct_imports": [
+        "RecompileExtensionsPart01",
+        "LSRelativeHomCoreComparisonProbe"
+      ]
+    },
+    "prior_absolute": {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next3i/LSAbsoluteHomRepresentationConstructionProbe.lean",
+      "sha256": "4fa99ea3308b0717a4f56386daa5a500de954a11b7abe2b6a0b5046827f5a102"
+    },
+    "proposed_functor": {
+      "path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/next_batch_candidate/root/LSRelativeHomFunctor.lean",
+      "sha256": "43a0cd70213ad836841d0e6dcc9d9ce5ed581ac4d02bff1a70042bc9cfd8b171"
+    }
+  },
+  "source_comparison": {
+    "fourteen_declaration_prefix_byte_exact": true,
+    "prefix_sha256": "ed89c4f9a6823d75f376358348fae796c74a3ae497e3cc4ee78ceea8e21612dc",
+    "absolute_exact_forward_and_inverse_substitutions": [
+      {
+        "before": "import LSRelativeHomRepresentationConstructionProbe",
+        "after": "import RecompileExtensionsPart01\nimport LSRelativeHomCoreComparisonProbe"
+      },
+      {
+        "before": "open LeBrunSalamon.RelativeMorphismsFunctorPrototype\nopen LeBrunSalamon.Next3i.RelativeHomConstruction",
+        "after": "open LeBrunSalamon.RelativeMorphismsFunctor"
+      },
+      {
+        "before": "LeBrunSalamon.Next3i.AbsoluteHomConstruction",
+        "after": "LeBrunSalamon.Next3i.AbsoluteHomEarlyConstruction"
+      },
+      {
+        "before": "LeBrunSalamon.SectionRepresentability.overHomEquiv",
+        "after": "LeBrunSalamon.RelativeMorphismsFunctor.overHomEquiv"
+      }
+    ],
+    "all_other_absolute_bytes_unchanged": true,
+    "no_new_admission_tokens": true
+  },
+  "mathematical_review": {
+    "core": "sourceMap is the actual pullback lift with fixed source coordinate; its identities/composition define the functor on all Over S. homBaseChangeEquiv uses the actual target pullback and both projection equations, with genuine naturality. overHomEquiv identifies the literal commuting subtype with an Over morphism. universalElement_map follows from representer naturality at the identity and identifies its image with the actual source base-change map followed by the universal element.",
+    "absolute": "familyEquiv changes only the two equal base maps of the same pullback using pullback.condition. ofRepresentation uses H.left,H.hom and evaluation=(R.homEquiv(id H)).left. The universal proof compares the bijection pointwise with the original rationalSourceMap P a followed by that evaluation, using universalElement_map. All schemes T and all maps sT remain quantified.",
+    "existence_scope": "H and R are explicit supplied parameters. No representing scheme is asserted to exist, and original homSpacePresentation_exists is not called. The four completed axiom reports contain standard axioms only.",
+    "no_scope_defect_found": true
+  },
+  "dependency_review": {
+    "actual_project_import_closure": [
+      "LSAbsoluteHomEarlyConstructionProbe",
+      "LSAffineDerivations",
+      "LSAffineFrame",
+      "LSAffineProductRing",
+      "LSClosedIdealCoefficients",
+      "LSConePole",
+      "LSExternalFrameCoefficients",
+      "LSKunnethDegreeZero",
+      "LSNonvanishingPullback",
+      "LSOpenProductCoordinates",
+      "LSP1SourceAlgebra",
+      "LSP1TangentSections",
+      "LSP1TensorSquare",
+      "LSP1TensorTaylor",
+      "LSProjectionFormula",
+      "LSPublishedPicard",
+      "LSPublishedProjectiveSpace",
+      "LSRelativeHomCoreComparisonProbe",
+      "LSSecondDiagonalAlgebra",
+      "LSSectionCover",
+      "LSStandardTautological",
+      "LSStandardTautologicalP1",
+      "RecompileBase",
+      "RecompileBasePart01",
+      "RecompileBasePart02",
+      "RecompileBasePart03",
+      "RecompileBasePart04",
+      "RecompileBasePart05",
+      "RecompileBasePart05A",
+      "RecompileBasePart05B",
+      "RecompileBasePart05C",
+      "RecompileBasePart06",
+      "RecompileBasePart07",
+      "RecompileExtensionCore",
+      "RecompileExtensionsPart01",
+      "RecompileSections"
+    ],
+    "production_ancestor_count": 34,
+    "forbidden_modules_absent": [
+      "LSSectionRepresentability",
+      "RecompileExtensionsPart04Geometry",
+      "RecompileExtensionsPart02"
+    ],
+    "actual_production_sources_match_verified_native_pool": true,
+    "pool_record_sha256": "aaec2e603fe757112b3c049b4e6db91210bf0407bf06589162f236b73118cfec",
+    "production_source_bindings": {
+      "LSAffineDerivations": {
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "native_output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+        "source_ancestry_fingerprint": "05945d5b58c201461b8cc0eaef7adc9caa6b10939b458b6d9f353d6fed07683b"
+      },
+      "LSAffineFrame": {
+        "source_sha256": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+        "native_output_sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+        "source_ancestry_fingerprint": "750d005441293f1940de430d80179d18711fecf6f95bbdac20e8434bc1f2f78b"
+      },
+      "LSAffineProductRing": {
+        "source_sha256": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+        "native_output_sha256": "070707ba1d98ffd0926afbe0339b4bcd73047eb5f9f070cf44801af6fc62f91d",
+        "source_ancestry_fingerprint": "b322f8501c2065d6b41ddfc66b82efea19360089ff146a613035eda3712fd4ed"
+      },
+      "LSClosedIdealCoefficients": {
+        "source_sha256": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
+        "native_output_sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31",
+        "source_ancestry_fingerprint": "ceebf4080fc835fb07a1a16c0c6547d908bac1f657c0a5ef691ff7cdce505e39"
+      },
+      "LSConePole": {
+        "source_sha256": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+        "native_output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+        "source_ancestry_fingerprint": "254f4df8b8ba999b2d694f18daeb29f6b63f10358fe1652601fb89818345a00a"
+      },
+      "LSExternalFrameCoefficients": {
+        "source_sha256": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
+        "native_output_sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9",
+        "source_ancestry_fingerprint": "793cc0fff4cef4cbd0f6a7a0c8c037cb9897026d38d942c52ed37e6b4e282c9c"
+      },
+      "LSKunnethDegreeZero": {
+        "source_sha256": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+        "native_output_sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+        "source_ancestry_fingerprint": "944d11196537a863cf777b3ce26d0c4e975eaee368c73130a22b0a9a12bd6888"
+      },
+      "LSNonvanishingPullback": {
+        "source_sha256": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+        "native_output_sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+        "source_ancestry_fingerprint": "a2e12546dbac8e48fe205eaa9210155c504e384f9ca7107270d0e7c6477fec54"
+      },
+      "LSOpenProductCoordinates": {
+        "source_sha256": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+        "native_output_sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8",
+        "source_ancestry_fingerprint": "8fbca1bb8ca7ce3db71715baae801d6ad064d7ad685b399ae799df0add2c437d"
+      },
+      "LSP1SourceAlgebra": {
+        "source_sha256": "746cc04e37a50878168b6c7b63dc6d9978e7fdcf321aba83a07af15e6c8a9e53",
+        "native_output_sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+        "source_ancestry_fingerprint": "b50c85de277d80814d6e00c97e4cbe5231af4551b26c35cd13185bd12b15348e"
+      },
+      "LSP1TangentSections": {
+        "source_sha256": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
+        "native_output_sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e",
+        "source_ancestry_fingerprint": "d6c9391aa2198989286fcb963b06d8ef0040750ab2682f6b73ddf331b600a3b0"
+      },
+      "LSP1TensorSquare": {
+        "source_sha256": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
+        "native_output_sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf",
+        "source_ancestry_fingerprint": "11ffe1e0b4580043c378e15db049b0f4f8930bc7732122f00ba278fbc2fdf465"
+      },
+      "LSP1TensorTaylor": {
+        "source_sha256": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
+        "native_output_sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76",
+        "source_ancestry_fingerprint": "6afa158d9cdf7c09c66ab3524cead8a1c06fb1cf7e945a91e5edd3bc7f46f531"
+      },
+      "LSProjectionFormula": {
+        "source_sha256": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
+        "native_output_sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+        "source_ancestry_fingerprint": "2d7d93a5b96d7037914c2674a02a7c42ae121a5222e0bfd50d38b9de084f5032"
+      },
+      "LSPublishedPicard": {
+        "source_sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+        "native_output_sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+        "source_ancestry_fingerprint": "79f5b9299b34bb0c60eb6992bc5c41500de571beefd5dc66d76bee99efba4ec2"
+      },
+      "LSPublishedProjectiveSpace": {
+        "source_sha256": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
+        "native_output_sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66",
+        "source_ancestry_fingerprint": "492d200ee58377f96af9fb4142a562951d89619bc53f01bd15f7e0b2d7a451ca"
+      },
+      "LSSecondDiagonalAlgebra": {
+        "source_sha256": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+        "native_output_sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+        "source_ancestry_fingerprint": "aae12a4256145e43c98b8d10e7a822301300001fe6bdc73c387f676119d67bab"
+      },
+      "LSSectionCover": {
+        "source_sha256": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+        "native_output_sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+        "source_ancestry_fingerprint": "ec5149aa92f7a64a764abc0d00789dd6d11da47759fb6fa86a2c2783ae2c2a5d"
+      },
+      "LSStandardTautological": {
+        "source_sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+        "native_output_sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+        "source_ancestry_fingerprint": "f28aa06eb06553c68565fd0a867c0760832c408ca2baa93af437de40346da9d3"
+      },
+      "LSStandardTautologicalP1": {
+        "source_sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+        "native_output_sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+        "source_ancestry_fingerprint": "1eeef1245a7b86f28c15b42eefb6ca17028787403eb71d9c4da8a4566b3c4b9e"
+      },
+      "RecompileBase": {
+        "source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+        "native_output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+        "source_ancestry_fingerprint": "ebbabaa3b0929bfdc5f299bc1efb11520cc7033635eaa5d38abc8377aa2cbf08"
+      },
+      "RecompileBasePart01": {
+        "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+        "native_output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+        "source_ancestry_fingerprint": "dcb86304b3e32877b2f2bfd511584429f15e45c7043c566078478c85ff0dfa96"
+      },
+      "RecompileBasePart02": {
+        "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+        "native_output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+        "source_ancestry_fingerprint": "381b4fe8f9e6418b907fb028181a7597e922cdd4d13321550713b324db6b5094"
+      },
+      "RecompileBasePart03": {
+        "source_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+        "native_output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+        "source_ancestry_fingerprint": "32104e0e1713783eb06f281a3ac286e8b0d16a428fa0c7c5f1ed1723b7dfb019"
+      },
+      "RecompileBasePart04": {
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "native_output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+        "source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301"
+      },
+      "RecompileBasePart05": {
+        "source_sha256": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+        "native_output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+        "source_ancestry_fingerprint": "5b59b2bc4243276d4b4b6da7defbfa126e086d1d5f91c59fa437e853c10a583f"
+      },
+      "RecompileBasePart05A": {
+        "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+        "native_output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+        "source_ancestry_fingerprint": "e4eaf01d939180bc3605510aa1c6c68702b7ca93ea2722e6cff18873e353984a"
+      },
+      "RecompileBasePart05B": {
+        "source_sha256": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+        "native_output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+        "source_ancestry_fingerprint": "68de5f3e7e2dcc2ae6b8234979babcb25f5c85e755ceb7452a10a34b7ba90d0e"
+      },
+      "RecompileBasePart05C": {
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "native_output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+        "source_ancestry_fingerprint": "85c03b4d23ab66d537c57b3c1458b14abe4340dcb537d6fe213807d3fc2061b0"
+      },
+      "RecompileBasePart06": {
+        "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+        "native_output_sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+        "source_ancestry_fingerprint": "76dace83d47dcb07f6d32983030743c30a074a97954b2bb06bdade039f3116be"
+      },
+      "RecompileBasePart07": {
+        "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+        "native_output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+        "source_ancestry_fingerprint": "02ae8f98a5f7cf10c9ef6549e95c9530015c23832fb12098e73415b210f2448a"
+      },
+      "RecompileExtensionCore": {
+        "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+        "native_output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+        "source_ancestry_fingerprint": "40f84d347c282c1640d582d08ce310c06d2067cc293f6abcdd46c450f75e5d6c"
+      },
+      "RecompileExtensionsPart01": {
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "native_output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "source_ancestry_fingerprint": "4d358b9a5c7920194ffa23fb6d41265fbd43348f4bc58b46c3c033f67658b73b"
+      },
+      "RecompileSections": {
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "native_output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+        "source_ancestry_fingerprint": "7937cc5a95e85e29a21fe9a8cd8bc3970c6fafc7d0cdcf68899da11e586df299"
+      }
+    },
+    "note": "The receipt fingerprints the available pool, which is broader than the actual import closure; only graph-reachable imports are counted here."
+  },
+  "safe_source_order": "Factor the shared fourteen-declaration Mathlib-only core once, so LSRelativeHomFunctor imports it rather than redeclaring the same names. The absolute constructor may be placed after HomSpacePresentation and before its existence obligation in Ext01, importing only that early generic core. Preserve the supplied-representer premise until the separate all-test existence argument is completed. No SectionRepresentability, Geometry or Ext02 import is required.",
+  "completed_runs": [
+    {
+      "module": "LSRelativeHomCoreComparisonProbe",
+      "source_sha256": "c902ab69c1f75ce8ceb187eb03040e1a1d416450cf9c3636e3ef6b335864e6b1",
+      "scope": "Local diagnostic only; never stock native acceptance",
+      "seconds": 26.992,
+      "timeout_seconds": 90.0,
+      "return_code": 0,
+      "emitted_error_count": 0,
+      "complete_success": true,
+      "all_source_runtime_and_import_hashes_unchanged": true,
+      "output_sha256": "b045bce269e8c52e41f8d5e4afc4d01812fbf613f660e2ed48c2dc13cff0b454",
+      "stdout_sha256": "6cb4c4667724fd8b5f1de29417f3d33264981e2385ae9b533fac8b6b42fad349",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "direct_import_artifacts": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf"
+      },
+      "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T213350355408-LSRelativeHomCoreComparisonProbe/receipt.json",
+      "receipt_sha256": "056fbb5c04aacf2a6b5786b54e4b8bb9dd1629bdf65e707c1ea056492fea7687",
+      "source_logs_output_and_direct_imports_independently_rehashed": true,
+      "axioms": {
+        "LeBrunSalamon.RelativeMorphismsFunctor.overHomEquiv": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "LeBrunSalamon.RelativeMorphismsFunctor.universalElement_map": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "module": "LSAbsoluteHomEarlyConstructionProbe",
+      "source_sha256": "f5ffd20d865a15501eb2742fdc7f152458b7688a7e32f24a251e04f87f400934",
+      "scope": "Local diagnostic only; never stock native acceptance",
+      "seconds": 11.249,
+      "timeout_seconds": 90.0,
+      "return_code": 0,
+      "emitted_error_count": 0,
+      "complete_success": true,
+      "all_source_runtime_and_import_hashes_unchanged": true,
+      "output_sha256": "889c5e26a3e0a43399ffa3d410ca241b7c5ff809008fbac37421acb38411aed4",
+      "stdout_sha256": "fe3d0ddf473cf1bbefe77649732c6f765766f2ec79f4d6ac8466564be77dacd6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "direct_import_artifacts": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/verified-native/olean/RecompileExtensionsPart01.olean": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+        "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T213350355408-LSRelativeHomCoreComparisonProbe/LSRelativeHomCoreComparisonProbe.olean": "b045bce269e8c52e41f8d5e4afc4d01812fbf613f660e2ed48c2dc13cff0b454"
+      },
+      "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T213424409792-LSAbsoluteHomEarlyConstructionProbe/receipt.json",
+      "receipt_sha256": "cbc5856ac8eec13ea66c50dd352135aefc3ac9c9e0904f885c0e836f5543abf0",
+      "source_logs_output_and_direct_imports_independently_rehashed": true,
+      "axioms": {
+        "LeBrunSalamon.Next3i.AbsoluteHomEarlyConstruction.familyEquiv": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "LeBrunSalamon.Next3i.AbsoluteHomEarlyConstruction.ofRepresentation": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    }
+  ],
+  "production_sources_refs_ledgers_or_scripts_modified": false,
+  "compiler_or_workflow_launched_by_reviewer": false,
+  "milestone_units_credited": 0,
+  "native_acceptance_claim": false
+}

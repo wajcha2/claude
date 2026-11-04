@@ -1,0 +1,44 @@
+{
+  "schema": "root-independent-residue-point-lifting-review-v1",
+  "reviewer": "root",
+  "reviewed_utc": "2026-11-04T22:03:37.969836+00:00",
+  "all_seven_declarations_read": true,
+  "actual_source": {
+    "path": "source_milestone_audit/next3i/obl056/LSResiduePointLiftingV2.lean",
+    "sha256": "53da8dfb3645f25aabb232910ab67e2913451367ddda02c265ed59062582fa7c",
+    "bytes": 5041
+  },
+  "compiled_profile": {
+    "path": "source_milestone_audit/next3i/obl056/LSResiduePointLiftingProfileV2.lean",
+    "sha256": "af3fe919361221c82da31f4b5ecc1dba8767ac38ea77af858ec19673cf338ab8",
+    "bytes": 6530
+  },
+  "profile_inverse_exact_except_terminal_whitespace": true,
+  "construction_review": "The inverse of the actual f.residueFieldMap at t is followed by the equality transport from f(t) to the image of p and the actual residue embedding of p. Applying Spec contravariantly and the canonical residue point of T gives the required actual map. Naturality, inverse cancellation and the actual residue factorization prove q≫f=p; fromSpecResidueField_apply proves its exact centre. The structural equation follows by associativity.",
+  "explicit_existing_hypotheses_preserved": "The two existential lemmas explicitly include hp and hres; there is no geometric strengthening.",
+  "scope": "Arbitrary field-valued point and actual isomorphism on residue fields, including its specialization to an arbitrary commutative local test ring. Mathlib-only, no project imports.",
+  "run": {
+    "receipt_sha256": "a7edd145aae31036190e8cfdc2fab0509e707d43d0388c1ba1f9f6d8d2244809",
+    "output_sha256": "d9b6db33a867241bbd68083258c276af18612fbe9b58785da0bdf578d71fa9e6",
+    "seconds": 29.762,
+    "complete_success": true,
+    "source_runtime_logs_output_direct_import_and_all_297_input_fingerprints_recomputed": true,
+    "seven_native_axiom_queries_read": true,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "evidence": {
+    "path": "source_milestone_audit/next3i/obl056/RESIDUE_POINT_LIFTING_COMPLETE_EVIDENCE.json",
+    "sha256": "9ec62d41719d7358508a36671249afabe30a53f743c1d5af5e31ac0d40cffd6f",
+    "all_19_embedded_files_exact_and_match_disk": true,
+    "failed_v1_retained": true
+  },
+  "new_admissions": 0,
+  "original_056_accepted": false,
+  "production_mutation": false,
+  "milestone_units_added": 0,
+  "remaining": "Generic point construction is complete; original056 still needs the two proposed generic published inputs and the actual flat-family ideal, internal-Hom, residue scalar, pushforward and cohomology comparisons, full family lift and smoothness application."
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "lebrun-small-extension-kernel-local-v1",
+  "scope": "Completed Mathlib-only ordinary algebra for the actual small-extension kernel; no geometric lifting input, production edit or native acceptance",
+  "source_sha256": "68c9f8c8a871a3b2eafca65a27c26582f7a574c31640fc47e9867fd2bd1eabfd",
+  "output_sha256": "a6b6f3b2f2b94eb48d0ae171500b9c3cbb77555389c769529dc48c513722078c",
+  "receipt_sha256": "45177b12a3d97933746614bf06d704d4d25c0442097dd93161ca242cde53f119",
+  "seconds": 27.819,
+  "complete_success": true,
+  "zero_errors": true,
+  "all_guards_stable": true,
+  "independent_source_runtime_logs_output_direct_import_rehash": true,
+  "declarations": [
+    "residueLinearEquiv_of_length_one",
+    "annihilator_eq_maximalIdeal_of_length_one",
+    "maximalIdeal_smul_eq_zero_of_length_one",
+    "kernel_ne_top",
+    "kernel_residueLinearEquiv",
+    "kernel_mul_eq_zero",
+    "kernel_sq_eq_bot"
+  ],
+  "namespace": "LeBrunSalamon.Next3i.SmallExtensionKernel",
+  "axiom_queries": [
+    "'LeBrunSalamon.Next3i.SmallExtensionKernel.residueLinearEquiv_of_length_one' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+    "'LeBrunSalamon.Next3i.SmallExtensionKernel.annihilator_eq_maximalIdeal_of_length_one' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+    "'LeBrunSalamon.Next3i.SmallExtensionKernel.kernel_residueLinearEquiv' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]",
+    "'LeBrunSalamon.Next3i.SmallExtensionKernel.kernel_sq_eq_bot' depends on axioms: [propext, Classical.choice, Quot.sound]"
+  ],
+  "retained_warning_kinds": [
+    "linter.style.haveILetI",
+    "linter.unnecessarySimpa"
+  ],
+  "actual_conclusions": [
+    "A length-one module over a commutative local ring is linearly isomorphic to its literal residue field as a module over the original ring.",
+    "Its annihilator is exactly the maximal ideal; every maximal-ideal element acts by zero.",
+    "For a ring map to a nontrivial commutative ring, the literal RingHom.ker is proper. If that kernel has length one over the local source ring, every product of kernel elements vanishes and its ideal square equals bottom."
+  ],
+  "scope_limits": [
+    "The residue-module isomorphism is nonempty and need not be canonical.",
+    "These algebraic facts require neither Artinian rings nor a surjective ring map; the eventual small-extension input supplies stronger hypotheses.",
+    "Flat base-change identification of the family ideal, the differential-Hom sheaf comparison and its cohomology comparison remain explicit separate proof work."
+  ],
+  "pinned_mathlib_commit": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+  "primary_apis": {
+    "Module.length_eq_one_iff": {
+      "file": "Mathlib/RingTheory/Length.lean",
+      "git_blob": "72a0bca13087b3b697144b3787b5f2d60cfb8ed2"
+    },
+    "isSimpleModule_iff_quot_maximal / IsSimpleModule.annihilator_isMaximal": {
+      "file": "Mathlib/RingTheory/SimpleModule/Basic.lean",
+      "git_blob": "4289806e32a80059c8b92d0b688aded622a7017b"
+    },
+    "IsLocalRing.eq_maximalIdeal / le_maximalIdeal": {
+      "file": "Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+      "git_blob": "65d2c66a046287b84380312c6ec7687b5f65ee24"
+    },
+    "Module.mem_annihilator": {
+      "file": "Mathlib/RingTheory/Ideal/Maps.lean",
+      "git_blob": "d80c5a0a0a81c2fbb7729c8865a3c64fa8f7b20d"
+    },
+    "Ideal.mul_le": {
+      "file": "Mathlib/RingTheory/Ideal/Operations.lean",
+      "git_blob": "3470986ce62bde4fcb460c5e8b6455263a935961"
+    }
+  },
+  "failed_attempt_preserved": {
+    "source_sha256": "28e3d6b863cdf61b0c4476c8128f051c7e1f2b0182e3e4e67099f146f2869c09",
+    "receipt_sha256": "d8104258d4abd33fce7022cf9d47ff96b299e1a72e801e9edbe32abea22b244c",
+    "seconds": 35.742,
+    "errors": 1,
+    "output_accepted": false,
+    "diagnosis": "Annihilator membership is equality of endomorphisms and must be eliminated with Module.mem_annihilator.",
+    "only_source_repair": "Replace exact hmem m by exact (Module.mem_annihilator.mp hmem) m."
+  },
+  "milestone_units_added": 0
+}

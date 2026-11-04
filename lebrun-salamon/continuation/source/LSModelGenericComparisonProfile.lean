@@ -1,0 +1,525 @@
+import LSModelDifferential
+import LSRegularModelPair
+import LSFamilyBaseChange
+import LSCartesianSourceDifferential
+import LSModelSourceProductTransport
+import LSModelSourceNumerator
+import LSModelGenericParametrization
+import LSModelNumeratorTransport
+import LSModelGenericNormalization
+import LSModelTensorScalar
+import LSModelContactFactor
+
+/-!
+# Whole-generic-square comparison for the actual conic model
+
+The dense test used below is the residue-field point of the integral
+generic square.  The final equalities are on the complete square,
+including the diagonal and both outer endpoints.
+-/
+
+noncomputable section
+set_option profiler true
+set_option stderrAsMessages false
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseSeven LeBrunSalamon.PhaseTwentyFive
+open LeBrunSalamon.PhaseTwentySix LeBrunSalamon.PhaseTwentySeven
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirty
+open LeBrunSalamon.PhaseThirtyTwo LeBrunSalamon.PhaseThirtyFive
+open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
+
+namespace LeBrunSalamon.Construction.TraitContact.ModelGenericComparison
+
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
+open StableMaps.FormalArcs StableMaps.FormalArcs.ModelGeometry
+open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
+open FamilyBivectors
+
+variable (F : Smoothing.StandardSource) (a : Coefficients)
+
+variable {d : ℕ} (X : SmoothProperComplexVariety d)
+variable (e : Model F a ⟶ X.scheme)
+variable (he : e ≫ X.structureMap = modelProjection F a ≫ toC)
+
+private theorem parametrized_generic_pair (ha : a ≠ 0) :
+    parametrizedToGenericSquare F a ha ≫
+      ModelBivector.canonicalPair F a (toModelSquare F a) =
+        Parametrized.sourceSquare Lines.P genericBase := by
+  rw [← canonicalPair_eq, ← Category.assoc, parametrizedToModelSquare_factor,
+    parametrizedToModelSquare_source]
+
+private theorem model_numerator_restrict {T : Scheme}
+    (j : T ⟶ Square F a) (q : T ⟶ ModelNumerator.Square F a)
+    (x : T ⟶ SelfProduct Lines.P.structureMap)
+    (hq : j ≫ toModelSquare F a = q)
+    (hx : j ≫ ModelBivector.canonicalPair F a (toModelSquare F a) = x)
+    (hx' : q ≫ modelSourceSquare F a = x) :
+    pullSection j (genericSourceNumerator F a) ≫
+      (compositionPullback j (ModelBivector.canonicalPair F a (toModelSquare F a))
+        x hx
+        (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf).hom =
+      pullSection q (modelSourceNumerator F a) ≫
+        (compositionPullback q (modelSourceSquare F a) x hx'
+          (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf).hom := by
+  exact LogVelocity.section_comp
+    (E := (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)
+    j (toModelSquare F a) (modelSourceSquare F a)
+    (ModelBivector.canonicalPair F a (toModelSquare F a))
+    (genericSourceNumerator._proof_1 F a) q hq x hx hx' (modelSourceNumerator F a)
+
+private theorem scalar_section_restrict {T Y Z : Scheme}
+    (j : T ⟶ Y) (c : Y ⟶ Z) (x : T ⟶ Z) (hx : j ≫ c = x)
+    {E : OModule Z} (r : RingSections Y ⊤) (s : AlgebraicSection E) :
+    pullSection j (scalarSection r ≫ pullSection c s) ≫
+      (compositionPullback j c x hx E).hom =
+        scalarSection (j.appTop r) ≫ pullSection x s := by
+  rw [LogVelocity.pullSection_scalar j r (pullSection c s), Category.assoc]
+  exact congrArg (fun t : AlgebraicSection (pullbackModule x E) =>
+    scalarSection (j.appTop r) ≫ t) (compositionPullback_sections j c x hx s)
+
+private theorem pull_comp_section_eq {T Y Z : Scheme}
+    (j : T ⟶ Y) (c : Y ⟶ Z) (x : T ⟶ Z) (h : j ≫ c = x)
+    (E : OModule Z) (s t : AlgebraicSection (pullbackModule c E)) (hst : s = t) :
+    pullSection j s ≫ (compositionPullback j c x h E).hom =
+      pullSection j t ≫ (compositionPullback j c x h E).hom := by
+  exact congrArg (fun v : AlgebraicSection (pullbackModule c E) =>
+    pullSection j v ≫ (compositionPullback j c x h E).hom) hst
+
+private theorem scalar_section_comp_eq {T : Scheme} (E : OModule T)
+    (r r' : RingSections T ⊤) (h : r = r') (s : AlgebraicSection E) :
+    scalarSection r ≫ s = scalarSection r' ≫ s := by
+  cases h
+  rfl
+
+private theorem parametrized_numerator_restriction (ha : a ≠ 0) :
+    pullSection (parametrizedToGenericSquare F a ha) (genericSourceNumerator F a) ≫ (compositionPullback (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom = pullSection (parametrizedToModelSquare F a ha) (modelSourceNumerator F a) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (modelSourceSquare F a) (Parametrized.sourceSquare Lines.P genericBase) (parametrizedToModelSquare_source F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom := by
+  exact model_numerator_restrict F a (parametrizedToGenericSquare F a ha) (parametrizedToModelSquare F a ha) (Parametrized.sourceSquare Lines.P genericBase)
+    (parametrizedToModelSquare_factor F a ha) (parametrized_generic_pair F a ha) (parametrizedToModelSquare_source F a ha)
+
+private theorem parametrized_source_equality (ha : a ≠ 0) :
+    pullSection (parametrizedToGenericSquare F a ha) (genericSourceNumerator F a) ≫ (compositionPullback (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom = pullSection (parametrizedToGenericSquare F a ha) (scalarSection ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) ≫ pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P)) ≫ (compositionPullback (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom := by
+  exact pull_comp_section_eq (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)
+    (genericSourceNumerator F a) (scalarSection ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) ≫ pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P))
+    (genericSourceNumerator_eq F a ha)
+
+private theorem parametrized_scalar_restriction (ha : a ≠ 0) :
+    pullSection (parametrizedToGenericSquare F a ha) (scalarSection ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) ≫ pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P)) ≫ (compositionPullback (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom = scalarSection ((parametrizedToGenericSquare F a ha).appTop ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a))) ≫ pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P) := by
+  exact scalar_section_restrict (E := (externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf) (parametrizedToGenericSquare F a ha) (ModelBivector.canonicalPair F a (toModelSquare F a)) (Parametrized.sourceSquare Lines.P genericBase) (parametrized_generic_pair F a ha)
+    ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) (sourceBivector Lines.P)
+
+private theorem parametrized_coefficient (ha : a ≠ 0) :
+    (parametrizedToGenericSquare F a ha).appTop ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) = genericCoefficient F a ha := by
+  change (((parametrizedToGenericSquare F a ha) ≫ toModelSquare F a) ≫ ModelNumerator.squareProjection F a).appTop
+    (coefficientSection a) = _
+  rw [parametrizedToModelSquare_factor]
+  rfl
+
+private theorem parametrized_scalar_coefficient (ha : a ≠ 0) :
+    scalarSection ((parametrizedToGenericSquare F a ha).appTop ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a))) ≫ pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P) = scalarSection (genericCoefficient F a ha) ≫ pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P) := by
+  exact scalar_section_comp_eq (pullbackModule (Parametrized.sourceSquare Lines.P genericBase) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf))
+    ((parametrizedToGenericSquare F a ha).appTop ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a))) (genericCoefficient F a ha)
+    (parametrized_coefficient F a ha) (pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P))
+
+private theorem parametrized_source_normalization (ha : a ≠ 0) :
+    pullSection (parametrizedToModelSquare F a ha) (modelSourceNumerator F a) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (modelSourceSquare F a) (Parametrized.sourceSquare Lines.P genericBase) (parametrizedToModelSquare_source F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom = scalarSection (genericCoefficient F a ha) ≫ pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P) := by
+  exact (parametrized_numerator_restriction F a ha).symm.trans
+    ((parametrized_source_equality F a ha).trans
+      ((parametrized_scalar_restriction F a ha).trans
+        (parametrized_scalar_coefficient F a ha)))
+
+private theorem source_equation_transport {T Y Z : Scheme}
+    (k : T ⟶ Y) (f f' : Y ⟶ Z) (hf : f = f') (r r' : T ⟶ Z) (hr : r = r')
+    (h : k ≫ f = r) (h' : k ≫ f' = r') (E E' : OModule Z) (hE : E = E')
+    (s : AlgebraicSection (pullbackModule f E))
+    (s' : AlgebraicSection (pullbackModule f' E')) (hs : HEq s s')
+    (t : AlgebraicSection (pullbackModule r E))
+    (t' : AlgebraicSection (pullbackModule r' E')) (ht : HEq t t') :
+    (pullSection k s ≫ (compositionPullback k f r h E).hom = t) ↔
+      (pullSection k s' ≫ (compositionPullback k f' r' h' E').hom = t') := by
+  cases hf
+  cases hr
+  cases hE
+  have hs' : s = s' := eq_of_heq hs
+  cases hs'
+  have ht' : t = t' := eq_of_heq ht
+  cases ht'
+  rfl
+
+private theorem source_model_map_eq :
+    (RelativeSquare.evaluation (modelProjection F a) Lines.P.structureMap toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) : (ModelNumerator.Square F a) ⟶ (SelfProduct Lines.P.structureMap)) = (modelSourceSquare F a) := by rfl
+
+private theorem source_generic_map_eq :
+    (RelativeSquare.evaluation p1Parameter Lines.P.structureMap genericBase p1Projection pullback.condition : (Parametrized.Square Lines.P genericBase) ⟶ (SelfProduct Lines.P.structureMap)) = (Parametrized.sourceSquare Lines.P genericBase) := by rfl
+
+private theorem source_tensor_module_eq : (externalTensor Lines.P.structureMap (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) = ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf) := by rfl
+
+private theorem source_input_section_heq :
+    @HEq (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Lines.P.structureMap) (RelativeSquare.evaluation (modelProjection F a) Lines.P.structureMap toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a)) (externalTensor Lines.P.structureMap (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))))
+      (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a) ≫ RelativeSquare.comparison (modelProjection F a) Lines.P.structureMap toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))
+      (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Lines.P.structureMap) (modelSourceSquare F a) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)))
+      (modelSourceNumerator F a) := by rfl
+
+private theorem source_output_section_heq (ha : a ≠ 0) :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Lines.P.structureMap) (RelativeSquare.evaluation p1Parameter Lines.P.structureMap genericBase p1Projection pullback.condition) (externalTensor Lines.P.structureMap (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))))
+      (genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫ RelativeSquare.comparison p1Parameter Lines.P.structureMap genericBase p1Projection pullback.condition (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Lines.P.structureMap) (Parametrized.sourceSquare Lines.P genericBase) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)))
+      (genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫ Parametrized.sourceComparison Lines.P genericBase) := by rfl
+
+private theorem source_transport_equation_iff (ha : a ≠ 0) :
+    (pullSection (parametrizedToModelSquare F a ha)
+      (ModelNumerator.numerator F a ≫
+        RelativeSquare.boxMap (modelProjection F a) (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a) ≫
+          RelativeSquare.comparison (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha)
+        (RelativeSquare.evaluation (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a))
+        (RelativeSquare.evaluation p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition))
+        (RelativeSquare.map_evaluation p1Parameter (modelProjection F a)
+          (genericParametrization F a ha) genericPoint
+          (genericParametrization_parameter F a ha) (Lines.P.structureMap) genericBase toC
+          (p1Projection) (ModelDifferential.modelPoint F a) (pullback.condition) (ModelDifferential.modelPoint_over F a) (genericParametrization_coordinate F a ha)) (externalTensor (Lines.P.structureMap) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))).hom =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+        RelativeSquare.comparison p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) ↔
+    (pullSection (parametrizedToModelSquare F a ha) (modelSourceNumerator F a) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (modelSourceSquare F a) (Parametrized.sourceSquare Lines.P genericBase)
+        (parametrizedToModelSquare_source F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+        (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+          Parametrized.sourceComparison Lines.P genericBase) := by
+  exact @source_equation_transport (Parametrized.Square Lines.P genericBase) (ModelNumerator.Square F a) (SelfProduct Lines.P.structureMap) (parametrizedToModelSquare F a ha)
+    (RelativeSquare.evaluation (modelProjection F a) Lines.P.structureMap toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a)) (modelSourceSquare F a) (source_model_map_eq F a)
+    (RelativeSquare.evaluation p1Parameter Lines.P.structureMap genericBase p1Projection pullback.condition) (Parametrized.sourceSquare Lines.P genericBase) source_generic_map_eq
+    (RelativeSquare.map_evaluation p1Parameter (modelProjection F a) (genericParametrization F a ha) genericPoint (genericParametrization_parameter F a ha) Lines.P.structureMap genericBase toC p1Projection (ModelDifferential.modelPoint F a) pullback.condition (ModelDifferential.modelPoint_over F a) (genericParametrization_coordinate F a ha)) (parametrizedToModelSquare_source F a ha) (externalTensor Lines.P.structureMap (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf) source_tensor_module_eq
+    (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a) ≫ RelativeSquare.comparison (modelProjection F a) Lines.P.structureMap toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) (modelSourceNumerator F a) (source_input_section_heq F a)
+    (genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫ RelativeSquare.comparison p1Parameter Lines.P.structureMap genericBase p1Projection pullback.condition (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) (genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫ Parametrized.sourceComparison Lines.P genericBase) (source_output_section_heq F a ha)
+
+private theorem source_transport_presentation (ha : a ≠ 0)
+    (htransport : pullSection (parametrizedToModelSquare F a ha)
+      (ModelNumerator.numerator F a ≫
+        RelativeSquare.boxMap (modelProjection F a) (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a) ≫
+          RelativeSquare.comparison (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha)
+        (RelativeSquare.evaluation (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a))
+        (RelativeSquare.evaluation p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition))
+        (RelativeSquare.map_evaluation p1Parameter (modelProjection F a)
+          (genericParametrization F a ha) genericPoint
+          (genericParametrization_parameter F a ha) (Lines.P.structureMap) genericBase toC
+          (p1Projection) (ModelDifferential.modelPoint F a) (pullback.condition) (ModelDifferential.modelPoint_over F a) (genericParametrization_coordinate F a ha)) (externalTensor (Lines.P.structureMap) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))).hom =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+        RelativeSquare.comparison p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) :
+    pullSection (parametrizedToModelSquare F a ha) (modelSourceNumerator F a) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (modelSourceSquare F a) (Parametrized.sourceSquare Lines.P genericBase)
+        (parametrizedToModelSquare_source F a ha) ((externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine).sheaf)).hom =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+        (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+          Parametrized.sourceComparison Lines.P genericBase := by
+  exact (source_transport_equation_iff F a ha).mp htransport
+
+private theorem genericNumerator_source_of_transport (ha : a ≠ 0)
+    (htransport : pullSection (parametrizedToModelSquare F a ha)
+      (ModelNumerator.numerator F a ≫
+        RelativeSquare.boxMap (modelProjection F a) (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a) ≫
+          RelativeSquare.comparison (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha)
+        (RelativeSquare.evaluation (modelProjection F a) (Lines.P.structureMap) toC (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a))
+        (RelativeSquare.evaluation p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition))
+        (RelativeSquare.map_evaluation p1Parameter (modelProjection F a)
+          (genericParametrization F a ha) genericPoint
+          (genericParametrization_parameter F a ha) (Lines.P.structureMap) genericBase toC
+          (p1Projection) (ModelDifferential.modelPoint F a) (pullback.condition) (ModelDifferential.modelPoint_over F a) (genericParametrization_coordinate F a ha)) (externalTensor (Lines.P.structureMap) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap))).hom =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+        RelativeSquare.comparison p1Parameter (Lines.P.structureMap) genericBase (p1Projection) (pullback.condition) (tangentSheaf Lines.P.structureMap) (tangentSheaf Lines.P.structureMap)) :
+    genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+      (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) =
+        scalarSection (genericCoefficient F a ha) ≫ Parametrized.bivector Lines.P genericBase := by
+  letI := Parametrized.sourceComparison_isIso Lines.P genericBase
+  apply (cancel_mono (Parametrized.sourceComparison Lines.P genericBase)).mp
+  have hnormalized := (source_transport_presentation F a ha htransport).symm.trans
+    (parametrized_source_normalization F a ha)
+  have hcomparison := Parametrized.bivector_comparison Lines.P genericBase
+  calc
+    (genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+      (genericSourceVelocity F a ha) (genericSourceVelocity F a ha)) ≫
+        Parametrized.sourceComparison Lines.P genericBase =
+      genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+        (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) ≫
+          Parametrized.sourceComparison Lines.P genericBase := Category.assoc _ _ _
+    _ = scalarSection (genericCoefficient F a ha) ≫
+      pullSection (Parametrized.sourceSquare Lines.P genericBase) (sourceBivector Lines.P) :=
+        hnormalized
+    _ = scalarSection (genericCoefficient F a ha) ≫
+      (Parametrized.bivector Lines.P genericBase ≫
+        Parametrized.sourceComparison Lines.P genericBase) :=
+          congrArg (fun s => scalarSection (genericCoefficient F a ha) ≫ s) hcomparison.symm
+    _ = (scalarSection (genericCoefficient F a ha) ≫ Parametrized.bivector Lines.P genericBase) ≫
+      Parametrized.sourceComparison Lines.P genericBase := (Category.assoc _ _ _).symm
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE ENTER_genericNumerator_source"
+  err.flush
+
+
+/-- Pulling the global source equality through the actual complete
+generic parametrization yields the original normalized P1 bivector. -/
+theorem genericNumerator_source (ha : a ≠ 0) :
+    genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+      (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) =
+        scalarSection (genericCoefficient F a ha) ≫ Parametrized.bivector Lines.P genericBase := by
+  exact genericNumerator_source_of_transport F a ha
+    (numerator_transport F a ha Lines.P.structureMap
+      (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a)
+      p1Projection pullback.condition (genericParametrization_coordinate F a ha)
+      (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a)
+      (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) rfl rfl)
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE EXIT_genericNumerator_source"
+  err.flush
+
+
+section Contact
+
+variable {n : ℕ} (Y : ContactFanoManifold n)
+variable (f : Model F a ⟶ Y.variety.scheme)
+variable (hf : f ≫ Y.variety.structureMap = modelProjection F a ≫ toC)
+variable (ell : (modelLine F a).sheaf ≅ pullbackModule f Y.contact.sequence.line.sheaf)
+variable (c : Coefficients)
+
+variable (hc : ContactScalar.morphism Y F a f hf =
+  GlobalScalars.scalarEnd (modelLine F a).sheaf
+    ((modelProjection F a).appTop (coefficientSection a)) ≫
+      RegularModel.dividedContact Y F a f ell c)
+
+private theorem contact_model_map_eq :
+    RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf = RegularModel.evaluationSquare Y F a f hf := by rfl
+
+private theorem contact_generic_map_eq (ha : a ≠ 0) :
+    RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) = ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) := by rfl
+
+private theorem contact_left_module_eq :
+    externalTensor Y.variety.structureMap (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf = movingPairBundleLeft Y.variety Y.contact := by rfl
+
+private theorem contact_left_input_heq :
+    @HEq (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (externalTensor Y.variety.structureMap (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf))) (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)
+      (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (RegularModel.evaluationSquare Y F a f hf) (movingPairBundleLeft Y.variety Y.contact))) (RegularModel.leftSection Y F a f hf ell c) := by
+  change HEq (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) ((ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c)) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)
+  exact heq_of_eq (Category.assoc (ModelNumerator.numerator F a) (RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c)) (RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)).symm
+
+private theorem contact_left_output_heq (ha : a ≠ 0) :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Y.variety.structureMap) (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (externalTensor Y.variety.structureMap (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf))) (Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)
+      (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Y.variety.structureMap) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (movingPairBundleLeft Y.variety Y.contact))) (ParametrizedContact.leftSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by rfl
+
+private theorem contact_left_equation_iff (ha : a ≠ 0) :
+    (pullSection (parametrizedToModelSquare F a ha) (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (RelativeSquare.map_evaluation p1Parameter (modelProjection F a) (genericParametrization F a ha) genericPoint (genericParametrization_parameter F a ha) Y.variety.structureMap genericBase toC (genericEvaluation F a Y.variety f ha) f (genericEvaluation_over F a Y.variety f hf ha) hf rfl) (externalTensor Y.variety.structureMap (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)).hom =
+      Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) ↔ (pullSection (parametrizedToModelSquare F a ha) (RegularModel.leftSection Y F a f hf ell c) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (RegularModel.evaluationSquare Y F a f hf) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (parametrizedToModelSquare_evaluation F a Y.variety f hf ha) (movingPairBundleLeft Y.variety Y.contact)).hom =
+      ParametrizedContact.leftSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by
+  exact @source_equation_transport (Parametrized.Square Lines.P genericBase) (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (parametrizedToModelSquare F a ha)
+    (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (RegularModel.evaluationSquare Y F a f hf) (contact_model_map_eq F a Y f hf)
+    (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (contact_generic_map_eq F a Y f hf ha)
+    (RelativeSquare.map_evaluation p1Parameter (modelProjection F a) (genericParametrization F a ha) genericPoint (genericParametrization_parameter F a ha) Y.variety.structureMap genericBase toC (genericEvaluation F a Y.variety f ha) f (genericEvaluation_over F a Y.variety f hf ha) hf rfl) (parametrizedToModelSquare_evaluation F a Y.variety f hf ha) (externalTensor Y.variety.structureMap (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) (movingPairBundleLeft Y.variety Y.contact) (contact_left_module_eq Y)
+    (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (LogarithmicSource.velocity F a Y.variety f hf) (RegularModel.dividedContact Y F a f ell c) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) (RegularModel.leftSection Y F a f hf ell c) (contact_left_input_heq F a Y f hf ell c)
+    (Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf) (ParametrizedContact.leftSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (contact_left_output_heq F a Y f hf ha)
+
+private theorem contact_right_module_eq :
+    externalTensor Y.variety.structureMap Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap) = movingPairBundleRight Y.variety Y.contact := by rfl
+
+private theorem contact_right_input_heq :
+    @HEq (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (externalTensor Y.variety.structureMap Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)))) (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))
+      (AlgebraicSection (@pullbackModule (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (RegularModel.evaluationSquare Y F a f hf) (movingPairBundleRight Y.variety Y.contact))) (RegularModel.rightSection Y F a f hf ell c) := by
+  change HEq (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) ((ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf)) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))
+  exact heq_of_eq (Category.assoc (ModelNumerator.numerator F a) (RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf)) (RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))).symm
+
+private theorem contact_right_output_heq (ha : a ≠ 0) :
+    @HEq (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Y.variety.structureMap) (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (externalTensor Y.variety.structureMap Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)))) (Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))
+      (AlgebraicSection (@pullbackModule (Parametrized.Square Lines.P genericBase) (SelfProduct Y.variety.structureMap) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (movingPairBundleRight Y.variety Y.contact))) (ParametrizedContact.rightSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by rfl
+
+private theorem contact_right_equation_iff (ha : a ≠ 0) :
+    (pullSection (parametrizedToModelSquare F a ha) (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (RelativeSquare.map_evaluation p1Parameter (modelProjection F a) (genericParametrization F a ha) genericPoint (genericParametrization_parameter F a ha) Y.variety.structureMap genericBase toC (genericEvaluation F a Y.variety f ha) f (genericEvaluation_over F a Y.variety f hf ha) hf rfl) (externalTensor Y.variety.structureMap Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))).hom =
+      Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) ↔ (pullSection (parametrizedToModelSquare F a ha) (RegularModel.rightSection Y F a f hf ell c) ≫
+      (compositionPullback (parametrizedToModelSquare F a ha) (RegularModel.evaluationSquare Y F a f hf) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (parametrizedToModelSquare_evaluation F a Y.variety f hf ha) (movingPairBundleRight Y.variety Y.contact)).hom =
+      ParametrizedContact.rightSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by
+  exact @source_equation_transport (Parametrized.Square Lines.P genericBase) (ModelNumerator.Square F a) (SelfProduct Y.variety.structureMap) (parametrizedToModelSquare F a ha)
+    (RelativeSquare.evaluation (modelProjection F a) Y.variety.structureMap toC f hf) (RegularModel.evaluationSquare Y F a f hf) (contact_model_map_eq F a Y f hf)
+    (RelativeSquare.evaluation p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (ParametrizedContact.evaluationSquare Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (contact_generic_map_eq F a Y f hf ha)
+    (RelativeSquare.map_evaluation p1Parameter (modelProjection F a) (genericParametrization F a ha) genericPoint (genericParametrization_parameter F a ha) Y.variety.structureMap genericBase toC (genericEvaluation F a Y.variety f ha) f (genericEvaluation_over F a Y.variety f hf ha) hf rfl) (parametrizedToModelSquare_evaluation F a Y.variety f hf ha) (externalTensor Y.variety.structureMap Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) (movingPairBundleRight Y.variety Y.contact) (contact_right_module_eq Y)
+    (ModelNumerator.numerator F a ≫ RelativeSquare.boxMap (modelProjection F a) (RegularModel.dividedContact Y F a f ell c) (LogarithmicSource.velocity F a Y.variety f hf) ≫ RelativeSquare.comparison (modelProjection F a) Y.variety.structureMap toC f hf Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) (RegularModel.rightSection Y F a f hf ell c) (contact_right_input_heq F a Y f hf ell c)
+    (Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter (ParametrizedContact.velocity Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (Parametrized.differential Lines.P genericBase Y.variety (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap genericBase (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap)) (ParametrizedContact.rightSection Lines.P genericBase Y (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) (contact_right_output_heq F a Y f hf ha)
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE ENTER_generic_left_raw"
+  err.flush
+
+
+include hc in
+theorem generic_left_raw (ha : a ≠ 0) :
+    genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+      (genericSourceVelocity F a ha ≫ Parametrized.differential Lines.P genericBase
+        Y.variety (genericEvaluation F a Y.variety f ha)
+          (genericEvaluation_over F a Y.variety f hf ha))
+      (genericDividedContact F a Y f ell c ha) =
+    Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter
+      (Parametrized.differential Lines.P genericBase Y.variety
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha))
+      (ParametrizedContact.velocity Lines.P genericBase Y
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by
+  let D := Parametrized.differential Lines.P genericBase Y.variety
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)
+  let V := ParametrizedContact.velocity Lines.P genericBase Y
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)
+  have h := congrArg (fun s => s ≫ RelativeSquare.boxMap p1Parameter D V)
+    (genericNumerator_source F a ha)
+  simp only [Category.assoc, RelativeSquare.boxMap_comp] at h
+  rw [genericContact_factor F a Y f hf ell c hc ha,
+    TensorScalar.relative_right, genericCoefficient_base F a ha] at h
+  letI := scalarSection_isIso (genericCoefficient F a ha) (genericCoefficient_isUnit F a ha)
+  exact (cancel_epi (scalarSection (genericCoefficient F a ha))).mp h
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE EXIT_generic_left_raw"
+  err.flush
+
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE ENTER_generic_right_raw"
+  err.flush
+
+
+include hc in
+theorem generic_right_raw (ha : a ≠ 0) :
+    genericNumerator F a ha ≫ RelativeSquare.boxMap p1Parameter
+      (genericDividedContact F a Y f ell c ha)
+      (genericSourceVelocity F a ha ≫ Parametrized.differential Lines.P genericBase
+        Y.variety (genericEvaluation F a Y.variety f ha)
+          (genericEvaluation_over F a Y.variety f hf ha)) =
+    Parametrized.bivector Lines.P genericBase ≫ RelativeSquare.boxMap p1Parameter
+      (ParametrizedContact.velocity Lines.P genericBase Y
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha))
+      (Parametrized.differential Lines.P genericBase Y.variety
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)) := by
+  let D := Parametrized.differential Lines.P genericBase Y.variety
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)
+  let V := ParametrizedContact.velocity Lines.P genericBase Y
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha)
+  have h := congrArg (fun s => s ≫ RelativeSquare.boxMap p1Parameter V D)
+    (genericNumerator_source F a ha)
+  simp only [Category.assoc, RelativeSquare.boxMap_comp] at h
+  rw [genericContact_factor F a Y f hf ell c hc ha,
+    TensorScalar.relative_left, genericCoefficient_base F a ha] at h
+  letI := scalarSection_isIso (genericCoefficient F a ha) (genericCoefficient_isUnit F a ha)
+  exact (cancel_epi (scalarSection (genericCoefficient F a ha))).mp h
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE EXIT_generic_right_raw"
+  err.flush
+
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE ENTER_leftSection_generic"
+  err.flush
+
+
+include hc in
+/-- Exact normalization of the actual regular left vector section on
+the complete generic square.  The original source bivector, derivative
+and external target bundle are retained. -/
+theorem leftSection_generic (ha : a ≠ 0) :
+    pullSection (parametrizedToModelSquare F a ha)
+      (RegularModel.leftSection Y F a f hf ell c) ≫
+        (compositionPullback (parametrizedToModelSquare F a ha)
+          (RegularModel.evaluationSquare Y F a f hf)
+          (ParametrizedContact.evaluationSquare Lines.P genericBase Y
+            (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha))
+          (parametrizedToModelSquare_evaluation F a Y.variety f hf ha)
+          (movingPairBundleLeft Y.variety Y.contact)).hom =
+      ParametrizedContact.leftSection Lines.P genericBase Y
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) := by
+  have h := numerator_transport F a ha Y.variety.structureMap f hf
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) rfl
+    (LogarithmicSource.velocity F a Y.variety f hf)
+    (RegularModel.dividedContact Y F a f ell c)
+    (genericSourceVelocity F a ha ≫ Parametrized.differential Lines.P genericBase
+      Y.variety (genericEvaluation F a Y.variety f ha)
+        (genericEvaluation_over F a Y.variety f hf ha))
+    (genericDividedContact F a Y f ell c ha)
+    (genericVelocity_factor F a Y.variety f hf ha) rfl
+  have hraw := congrArg
+    (fun s => s ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap
+      genericBase (genericEvaluation F a Y.variety f ha)
+      (genericEvaluation_over F a Y.variety f hf ha)
+      (tangentSheaf Y.variety.structureMap) Y.contact.sequence.line.sheaf)
+    (generic_left_raw F a Y f hf ell c hc ha)
+  simp only [Category.assoc] at hraw
+  exact (contact_left_equation_iff F a Y f hf ell c ha).mp (h.trans hraw)
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE EXIT_leftSection_generic"
+  err.flush
+
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE ENTER_rightSection_generic"
+  err.flush
+
+
+include hc in
+/-- Exact normalization of the actual regular right vector section,
+on the same whole generic square. -/
+theorem rightSection_generic (ha : a ≠ 0) :
+    pullSection (parametrizedToModelSquare F a ha)
+      (RegularModel.rightSection Y F a f hf ell c) ≫
+        (compositionPullback (parametrizedToModelSquare F a ha)
+          (RegularModel.evaluationSquare Y F a f hf)
+          (ParametrizedContact.evaluationSquare Lines.P genericBase Y
+            (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha))
+          (parametrizedToModelSquare_evaluation F a Y.variety f hf ha)
+          (movingPairBundleRight Y.variety Y.contact)).hom =
+      ParametrizedContact.rightSection Lines.P genericBase Y
+        (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) := by
+  have h := numerator_transport F a ha Y.variety.structureMap f hf
+    (genericEvaluation F a Y.variety f ha) (genericEvaluation_over F a Y.variety f hf ha) rfl
+    (RegularModel.dividedContact Y F a f ell c)
+    (LogarithmicSource.velocity F a Y.variety f hf)
+    (genericDividedContact F a Y f ell c ha)
+    (genericSourceVelocity F a ha ≫ Parametrized.differential Lines.P genericBase
+      Y.variety (genericEvaluation F a Y.variety f ha)
+        (genericEvaluation_over F a Y.variety f hf ha))
+    rfl (genericVelocity_factor F a Y.variety f hf ha)
+  have hraw := congrArg
+    (fun s => s ≫ RelativeSquare.comparison p1Parameter Y.variety.structureMap
+      genericBase (genericEvaluation F a Y.variety f ha)
+      (genericEvaluation_over F a Y.variety f hf ha)
+      Y.contact.sequence.line.sheaf (tangentSheaf Y.variety.structureMap))
+    (generic_right_raw F a Y f hf ell c hc ha)
+  simp only [Category.assoc] at hraw
+  exact (contact_right_equation_iff F a Y f hf ell c ha).mp (h.trans hraw)
+
+#eval show IO Unit from do
+  let err ← IO.getStderr
+  err.putStrLn "MODEL_MAIN_STAGE EXIT_rightSection_generic"
+  err.flush
+
+
+end Contact
+
+end LeBrunSalamon.Construction.TraitContact.ModelGenericComparison
+
+end

@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T15:47:57Z",
-  "frozen_utc": "2026-11-04T15:47:57Z",
-  "parent_commit": "432b1267f92a8cd44aec63ec81119855a99dee64",
-  "base_tree": "5f1d269956cc2222ffbc3c571950603eb134eefe",
+  "announced_utc": "2026-11-04T15:48:54Z",
+  "frozen_utc": "2026-11-04T15:48:54Z",
+  "parent_commit": "c6486afed31f22fe4ea7f46cad3da10b41b7e336",
+  "base_tree": "d4f80067004b9f7a75f2d0633190f9a6eb68c56c",
   "repository": "wajcha2/claude",
-  "branch": "codex/lebrun-numerator-complete-source-20261104",
-  "source_modules": 306,
+  "branch": "codex/lebrun-numerator-model-gates-20261104",
+  "source_modules": 307,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -313,20 +313,21 @@
     "source/LSFamilyReparametrizationFieldBaseChange.lean": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2",
     "source/LSFamilySmoothNormalization.lean": "a479798fa89ad72b28a50f7652d1fd038c992a157c60c30fc010f22e29ed5213",
     "source/LSFormalArcFamilyComparison.lean": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
-    "source/LSGenericFamilyCartesianComparison.lean": "44ecb30adbef9e5be5fceaa60cb32d05af746cd3c1bb25e807bf83ab5e38975d"
+    "source/LSGenericFamilyCartesianComparison.lean": "44ecb30adbef9e5be5fceaa60cb32d05af746cd3c1bb25e807bf83ab5e38975d",
+    "source/LSModelGenericComparisonProfile.lean": "166380241917d30d836689b87181fad7b3d59b24deeb1c1513ae5d94ec669098"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "pending-current-reverse-cone",
+  "status": "pending-diagnostic-and-actual-native-gates",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Clean306 production sources: completed-local original numerator transport proof, exact baseline public header, all190 audited ancestor sources unchanged. Direct native numerator then Model5 profile/actual will run on a separate diagnostic branch.",
-  "diagnostic_scope": "Clean306 production sources only; actual numerator and model comparison remain pending native gates.",
+  "scope": "Direct actual original Num1 check, then exact Model5 profile and actual only after native prerequisite passes. Early distinct evidence after each stage. Production306 plus one diagnostic source; no acceptance promotion.",
+  "diagnostic_scope": "One exact Model5 marker profile on a derived branch. No numerator profile rerun; actual7e9408 checked directly.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
     41856517767
@@ -343,6 +344,7 @@
   "whole_source_graph_passed": false,
   "selected_native_targets": [
     "LSModelNumeratorTransport",
+    "LSModelGenericComparisonProfile",
     "LSModelGenericComparison"
   ],
   "prior_native_receipt_union": 298,
@@ -352,10 +354,12 @@
   "accepted_obligation_units": 30,
   "total_obligation_units": 133,
   "known_verified_native_module_union_before_new_helpers": 298,
-  "diagnostic_only": false,
+  "diagnostic_only": true,
   "current_native_module_union": 298,
   "production_source_modules": 306,
-  "diagnostic_modules": [],
+  "diagnostic_modules": [
+    "LSModelGenericComparisonProfile"
+  ],
   "pending_candidate_modules": [
     "LSCompletedTargets",
     "LSFormalArcComparison",
@@ -368,8 +372,11 @@
   ],
   "native_cache_union_modules": 298,
   "point1_audited_ancestors_unchanged": 190,
-  "diagnostic_only_modules": [],
+  "diagnostic_only_modules": [
+    "LSModelGenericComparisonProfile"
+  ],
   "current_review_state": "audit/point1_checkpoint/CURRENT_REVIEWABLE_STATE.json",
   "native_validated_contexts": 298,
-  "active_native_runs": []
+  "active_native_runs": [],
+  "clean_production_commit": "c6486afed31f22fe4ea7f46cad3da10b41b7e336"
 }

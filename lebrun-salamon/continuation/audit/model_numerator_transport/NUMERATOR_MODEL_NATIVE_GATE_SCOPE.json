@@ -1,0 +1,49 @@
+{
+  "schema": "lebrun-numerator-model-native-gates-v1",
+  "clean_production_commit": "c6486afed31f22fe4ea7f46cad3da10b41b7e336",
+  "production_source_modules": 306,
+  "diagnostic_modules": [
+    "LSModelGenericComparisonProfile"
+  ],
+  "cache": [
+    {
+      "artifact_dir": "lebrun-cache-inputs/0",
+      "source_run_id": 41856517767,
+      "source_artifact_name": "lebrun-covered-pair-actual-41856517767-1",
+      "artifact_id": 13337333551,
+      "artifact_sha256": "496ae46e2541f7d209e0a40d6354933a8371e2cffbb1ea60b02c136d854db05e",
+      "include_validated_unselected_cache": true
+    }
+  ],
+  "stages": [
+    {
+      "id": "numerator_actual",
+      "module": "LSModelNumeratorTransport",
+      "source_sha256": "7e9408ab8395539971c60a2daebc282bc4bf83596eb2e24cef089bca38c6d6cf",
+      "timeout_seconds": 300,
+      "diagnostic": false,
+      "complete_local_profile_not_repeated": true
+    },
+    {
+      "id": "model_profile",
+      "module": "LSModelGenericComparisonProfile",
+      "source_sha256": "166380241917d30d836689b87181fad7b3d59b24deeb1c1513ae5d94ec669098",
+      "requires": "actual numerator native rc0",
+      "timeout_seconds": 300,
+      "diagnostic": true
+    },
+    {
+      "id": "model_actual",
+      "module": "LSModelGenericComparison",
+      "source_sha256": "b6d9f9e1cd8de418c541a475984dd6060aaf0b6ff55e98aab88fce2b3d5f05de",
+      "requires": "complete model profile native rc0",
+      "timeout_seconds": 300,
+      "diagnostic": false
+    }
+  ],
+  "separate_report_and_artifact_after_each_stage": true,
+  "actual_native_counts_exclude_marker_modules": true,
+  "acceptance_ledger_unchanged": true,
+  "accepted_obligation_units": 30,
+  "total_obligation_units": 133
+}

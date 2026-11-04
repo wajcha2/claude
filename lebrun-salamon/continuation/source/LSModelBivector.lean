@@ -114,7 +114,16 @@ theorem nodeFrame_coordinate {T : Scheme} (j : T ⟶ Model F a)
     (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)
     (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)
   rw [ModelNumerator.coordinate, ← tensorPullbackComparison_onSections]
-  simp only [nodeFrame, Iso.trans_hom, Iso.symm_hom, asIso_inv,
+  change (tensorSection
+      (pullSection j (pullSection (modelLeft F a)
+        ((projectiveCoordinates 1).coordinate i)))
+      (pullSection j (pullSection (modelRight F a)
+        ((projectiveCoordinates 1).coordinate k))) ≫
+      tensorPullbackComparison j
+        (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)
+        (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)) ≫
+      (nodeFrame F a j u v hu hv).hom = _
+  simp only [nodeFrame, Iso.trans_hom, Iso.symm_hom, asIso_inv, tensorIso,
     Category.assoc, IsIso.hom_inv_id_assoc]
   rw [← Category.assoc, tensorSection_map,
     compositionPullback_sections, compositionPullback_sections]
@@ -142,7 +151,7 @@ theorem nodeEquation {T : Scheme} (j : T ⟶ Model F a)
       modelProjection F a ≫ parameterMap a := pullback.condition
   rw [hb] at hp
   simpa only [coefficient, show (1 : Fin 2) ≠ 0 by decide,
-    if_neg, if_pos rfl, one_mul, mul_one, Scheme.Hom.comp_appTop,
+    if_neg, if_pos rfl, if_true, if_false, one_mul, mul_one, Scheme.Hom.comp_appTop,
     CommRingCat.comp_apply, parameterMap_parameter] using hp
 
 /-- The canonical coordinate of the image under the actual quotient
@@ -165,6 +174,7 @@ theorem gaugedPoint_node {T : Scheme} (j : T ⟶ Model F a)
 
 theorem polynomialPoint_mem {T : Scheme} (u : T ⟶ Smoothing.AffineLine) :
     ⊤ ≤ (u ≫ polynomialChartInclusion 0) ⁻¹ᵁ SourceBivectorCoordinates.U := by
+  change ⊤ ≤ (u ≫ polynomialChartInclusion 0) ⁻¹ᵁ (chartOpen 0)
   rw [Scheme.Hom.comp_preimage, ← polynomialChartInclusion_range 0,
     Scheme.Hom.preimage_opensRange, Scheme.Hom.preimage_top]
 
@@ -175,6 +185,7 @@ theorem polynomialPoint_coordinate {T : Scheme} (u : T ⟶ Smoothing.AffineLine)
     (u ≫ polynomialChartInclusion 0).appLE SourceBivectorCoordinates.U ⊤ hU
         SourceBivectorCoordinates.coordinate = u.appTop Smoothing.parameterFunction := by
   have hi : ⊤ ≤ (polynomialChartInclusion 0) ⁻¹ᵁ SourceBivectorCoordinates.U := by
+    change ⊤ ≤ (polynomialChartInclusion 0) ⁻¹ᵁ (chartOpen 0)
     rw [← polynomialChartInclusion_range 0, Scheme.Hom.preimage_opensRange]
   have hc : (polynomialChartInclusion 0).appLE SourceBivectorCoordinates.U ⊤ hi
       SourceBivectorCoordinates.coordinate = Smoothing.parameterFunction := by
@@ -185,7 +196,6 @@ theorem polynomialPoint_coordinate {T : Scheme} (u : T ⟶ Smoothing.AffineLine)
       (polynomialChartInclusion 0).appLE SourceBivectorCoordinates.U ⊤ hi ≫ u.appTop := by
     have ht : u.appTop = u.appLE ⊤ ⊤ le_rfl := u.app_eq_appLE
     rw [ht, Scheme.Hom.appLE_comp_appLE]
-    rfl
   rw [hp]
   change u.appTop ((polynomialChartInclusion 0).appLE
     SourceBivectorCoordinates.U ⊤ hi SourceBivectorCoordinates.coordinate) = _
@@ -204,8 +214,16 @@ theorem gaugedPoint_coordinate {T : Scheme} (j : T ⟶ Model F a)
     (hU : ⊤ ≤ gaugedPoint F a j ⁻¹ᵁ SourceBivectorCoordinates.U) :
     (gaugedPoint F a j).appLE SourceBivectorCoordinates.U ⊤ hU
       SourceBivectorCoordinates.coordinate = u.appTop Smoothing.parameterFunction := by
-  rw [gaugedPoint_node F a j u hu]
-  exact polynomialPoint_coordinate u _
+  let value : {g : T ⟶ ProjectiveLine //
+      ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U} → RingSections T ⊤ :=
+    fun g => g.val.appLE SourceBivectorCoordinates.U ⊤ g.property
+      SourceBivectorCoordinates.coordinate
+  have hvalue := congrArg value
+    (Subtype.ext (gaugedPoint_node F a j u hu) :
+      (⟨gaugedPoint F a j, hU⟩ : {g : T ⟶ ProjectiveLine //
+        ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U}) =
+        ⟨u ≫ polynomialChartInclusion 0, polynomialPoint_mem u⟩)
+  exact hvalue.trans (polynomialPoint_coordinate u (polynomialPoint_mem u))
 
 section Square
 
@@ -251,7 +269,8 @@ theorem numerator_coefficient :
   rw [numeratorFrame, ModelNumerator.testFrame_numerator]
   simp only [ModelNumerator.firstCoefficient, ModelNumerator.secondCoefficient,
     nodeFrame_coordinate, scalarSection, sectionFromValue_spec, coefficient,
-    show (1 : Fin 2) ≠ 0 by decide, if_neg, if_pos rfl, one_mul, mul_one]
+    show (1 : Fin 2) ≠ 0 by decide, if_neg, if_pos rfl, if_true, if_false,
+    one_mul, mul_one]
 
 def canonicalPair : T ⟶ SelfProduct Lines.P.structureMap :=
   SourceBivectorCoordinates.TestMaps.pair (base F a f)
@@ -275,9 +294,14 @@ theorem sourceBivector_coefficient [IsAffine T] :
       (canonicalFrame F a f u w hu hw).hom =
         scalarSection ((u.appTop Smoothing.parameterFunction -
           w.appTop Smoothing.parameterFunction)^2) := by
-  rw [canonicalPair, canonicalFrame, SourceBivectorCoordinates.TestMaps.sourceBivector_coefficient,
-    gaugedPoint_coordinate F a (firstPoint F a f) u hu,
-    gaugedPoint_coordinate F a (secondPoint F a f) w hw]
+  have h := SourceBivectorCoordinates.TestMaps.sourceBivector_coefficient (base F a f)
+    (gaugedPoint F a (firstPoint F a f)) (gaugedPoint F a (secondPoint F a f))
+    (first_over F a f) (second_over F a f)
+    (gaugedPoint_mem F a (firstPoint F a f) u hu)
+    (gaugedPoint_mem F a (secondPoint F a f) w hw)
+  rw [gaugedPoint_coordinate F a (firstPoint F a f) u hu,
+    gaugedPoint_coordinate F a (secondPoint F a f) w hw] at h
+  exact h
 
 /-- Exact denominator-cleared comparison with the original source
 bivector.  The displayed u*w is the coefficient needed from the two

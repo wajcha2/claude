@@ -1,0 +1,231 @@
+{
+  "schema": "lebrun-model-bivector-guarded-repair-v2",
+  "created_utc": "2026-11-04T06:24:41.507Z",
+  "repository": "wajcha2/claude",
+  "path": "lebrun-salamon/continuation/source/LSModelBivector.lean",
+  "base_commit": "9fd3a594b3c5e5801bc81fe68e76f9abe76f8c58",
+  "base_git_blob": "138c46df78db2fd893d8e897af5fbc002ccc0f83",
+  "base_sha256": "2d92746e584b564dac39beef51a82aa0df37ffb7134af8a0f2190a7be26e78fe",
+  "candidate_git_blob": "5ebaec12d6c142316629d3ab5e0e70a0c135c454",
+  "source_sha256": "915ddcde6e905bf18f38a6edf7257043662c22da82607316c7b727fe7a285e7e",
+  "bytes": 19077,
+  "lines": 365,
+  "public_header_count": 27,
+  "all_public_headers_unchanged": true,
+  "admissions": 0,
+  "remote_roundtrip_verified": true,
+  "native_status": "uncompiled_candidate",
+  "diagnostic": {
+    "module": "LSModelBivector",
+    "status": "failed",
+    "source_sha256": "2d92746e584b564dac39beef51a82aa0df37ffb7134af8a0f2190a7be26e78fe",
+    "return_code": 1,
+    "seconds": 5.578,
+    "errors": [
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  tensorSection ?a ?b ≫ tensorMap ?f ?g\nin the target expression\n  (tensorSection (pullSection j (pullSection (modelLeft F a) ((projectiveCoordinates 1).coordinate i)))\n          (pullSection j (pullSection (modelRight F a) ((projectiveCoordinates 1).coordinate k))) ≫\n        tensorPullbackComparison j (pullbackLine (modelLeft F a) (projectiveCoordinates 1).hyperplane).sheaf\n          (pullbackLine (modelRight F a) (projectiveCoordinates 1).hyperplane).sheaf) ≫\n      inv\n          (tensorPullbackComparison j (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n            (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)) ≫\n        (tensorIso\n              (compositionPullback j (modelLeft F a) (u ≫ ↑(ratioPoint 0)) hu\n                (projectiveCoordinates 1).hyperplane.sheaf)\n              (compositionPullback j (modelRight F a) (v ≫ ↑(ratioPoint 0)) hv\n                (projectiveCoordinates 1).hyperplane.sheaf)).hom ≫\n          (productFrame u v 0 0).hom =\n    scalarSection\n      (coefficient 0 i ((ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n        coefficient 0 k ((ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction))\n\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu v : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : j ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\ni k : Fin 2\nthis : IsIso\n  (tensorPullbackComparison j (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)) :=\n  tensorPullbackComparison_isIso j (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)\n⊢ (tensorSection (pullSection j (pullSection (modelLeft F a) ((projectiveCoordinates 1).coordinate i)))\n          (pullSection j (pullSection (modelRight F a) ((projectiveCoordinates 1).coordinate k))) ≫\n        tensorPullbackComparison j (pullbackLine (modelLeft F a) (projectiveCoordinates 1).hyperplane).sheaf\n          (pullbackLine (modelRight F a) (projectiveCoordinates 1).hyperplane).sheaf) ≫\n      inv\n          (tensorPullbackComparison j (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n            (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)) ≫\n        (tensorIso\n              (compositionPullback j (modelLeft F a) (u ≫ ↑(ratioPoint 0)) hu\n                (projectiveCoordinates 1).hyperplane.sheaf)\n              (compositionPullback j (modelRight F a) (v ≫ ↑(ratioPoint 0)) hv\n                (projectiveCoordinates 1).hyperplane.sheaf)).hom ≫\n          (productFrame u v 0 0).hom =\n    scalarSection\n      (coefficient 0 i ((ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n        coefficient 0 k ((ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    structureModule T\n  has type\n    OModule T\n  but is expected to have type\n    SheafOfModules T.ringCatSheaf\n  in the application\n    SheafOfModules.unit T.ringCatSheaf ⟶ structureModule T",
+        "endPos": {
+          "column": 41,
+          "line": 119
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 24,
+          "line": 119
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  hp\n has type\n  ((if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n      if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction) =\n    (ConcreteCategory.hom (Scheme.Hom.appTop j))\n        ((ConcreteCategory.hom (Scheme.Hom.appTop (modelProjection F a))) (coefficientSection a)) *\n      ((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n        if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction)\nbut is expected to have type\n  (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction *\n      (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction =\n    (ConcreteCategory.hom (Scheme.Hom.appTop j))\n      ((ConcreteCategory.hom (Scheme.Hom.appTop (modelProjection F a))) (coefficientSection a))",
+        "endPos": {
+          "column": 60,
+          "line": 146
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 144
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  P1Charts.chartOpen 0\nin the target expression\n  ⊤ ≤ u ⁻¹ᵁ polynomialChartInclusion 0 ⁻¹ᵁ SourceBivectorCoordinates.U\n\nT : Scheme\nu : T ⟶ Smoothing.AffineLine\n⊢ ⊤ ≤ u ⁻¹ᵁ polynomialChartInclusion 0 ⁻¹ᵁ SourceBivectorCoordinates.U",
+        "endPos": {
+          "column": 66,
+          "line": 168
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 32,
+          "line": 168
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  P1Charts.chartOpen 0\nin the target expression\n  ⊤ ≤ polynomialChartInclusion 0 ⁻¹ᵁ SourceBivectorCoordinates.U\n\nT : Scheme\nu : T ⟶ Smoothing.AffineLine\nhU : ⊤ ≤ (u ≫ polynomialChartInclusion 0) ⁻¹ᵁ SourceBivectorCoordinates.U\n⊢ ⊤ ≤ polynomialChartInclusion 0 ⁻¹ᵁ SourceBivectorCoordinates.U",
+        "endPos": {
+          "column": 42,
+          "line": 178
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 8,
+          "line": 178
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "No goals to be solved",
+        "endPos": {
+          "column": 7,
+          "line": 188
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 4,
+          "line": 188
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: motive is not type correct:\n  fun _a =>\n    (ConcreteCategory.hom (Scheme.Hom.appLE _a SourceBivectorCoordinates.U ⊤ hU)) SourceBivectorCoordinates.coordinate =\n      (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction\nError: Application type mismatch: The argument\n  hU\nhas type\n  ⊤ ≤ gaugedPoint F a j ⁻¹ᵁ SourceBivectorCoordinates.U\nbut is expected to have type\n  ⊤ ≤ _a ⁻¹ᵁ SourceBivectorCoordinates.U\nin the application\n  Scheme.Hom.appLE _a SourceBivectorCoordinates.U ⊤ hU\n\nExplanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.\n\nPossible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).\n\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nj : T ⟶ Model F a\nu : T ⟶ Smoothing.AffineLine\nhu : j ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhU : ⊤ ≤ gaugedPoint F a j ⁻¹ᵁ SourceBivectorCoordinates.U\n⊢ (ConcreteCategory.hom (Scheme.Hom.appLE (gaugedPoint F a j) SourceBivectorCoordinates.U ⊤ hU))\n      SourceBivectorCoordinates.coordinate =\n    (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction",
+        "endPos": {
+          "column": 33,
+          "line": 207
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 207
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nF : Smoothing.StandardSource\na : Coefficients\nT : Scheme\nf : T ⟶ ModelNumerator.Square F a\nu v w z : T ⟶ Smoothing.AffineLine\nhu : firstPoint F a f ≫ modelLeft F a = u ≫ ↑(ratioPoint 0)\nhv : firstPoint F a f ≫ modelRight F a = v ≫ ↑(ratioPoint 0)\nhw : secondPoint F a f ≫ modelLeft F a = w ≫ ↑(ratioPoint 0)\nhz : secondPoint F a f ≫ modelRight F a = z ≫ ↑(ratioPoint 0)\n⊢ sectionFromValue\n      (((if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n              if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction) *\n            ((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop w)) Smoothing.parameterFunction) *\n              if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop z)) Smoothing.parameterFunction) +\n          ((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n              if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction) *\n            ((if False then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop w)) Smoothing.parameterFunction) *\n              if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop z)) Smoothing.parameterFunction) -\n        2 *\n            (ConcreteCategory.hom (Scheme.Hom.appTop (f ≫ ModelNumerator.squareProjection F a)))\n              (coefficientSection a) *\n          (((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction) *\n              if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction) *\n            ((if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop w)) Smoothing.parameterFunction) *\n              if True then 1 else (ConcreteCategory.hom (Scheme.Hom.appTop z)) Smoothing.parameterFunction))) =\n    sectionFromValue\n      ((ConcreteCategory.hom (Scheme.Hom.appTop u)) Smoothing.parameterFunction *\n            (ConcreteCategory.hom (Scheme.Hom.appTop z)) Smoothing.parameterFunction +\n          (ConcreteCategory.hom (Scheme.Hom.appTop v)) Smoothing.parameterFunction *\n            (ConcreteCategory.hom (Scheme.Hom.appTop w)) Smoothing.parameterFunction -\n        2 * (ConcreteCategory.hom (Scheme.Hom.appTop (f ≫ ModelNumerator.squareProjection F a))) (coefficientSection a))",
+        "endPos": {
+          "column": 73,
+          "line": 254
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 90,
+          "line": 250
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Failed to rewrite using equation theorems for `canonicalPair`",
+        "endPos": {
+          "column": 19,
+          "line": 278
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelBivector.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 278
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  },
+  "diagnostic_run": 41784692489,
+  "diagnostic_job": 126424039107,
+  "changes": [
+    {
+      "id": "MB01_root_typed_tensor_frame",
+      "before": "  letI := tensorPullbackComparison_isIso j\n    (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)\n  rw [ModelNumerator.coordinate, ← tensorPullbackComparison_onSections]\n  simp only [nodeFrame, Iso.trans_hom, Iso.symm_hom, asIso_inv,\n    Category.assoc, IsIso.hom_inv_id_assoc]\n  rw [← Category.assoc, tensorSection_map,\n    compositionPullback_sections, compositionPullback_sections]\n  change tensorSection _ _ ≫\n    (tensorMap (ratioPullFrame u 0).hom (ratioPullFrame v 0).hom ≫\n      (TensorConstruction.leftUnitIso (structureModule T)).hom) = _\n  rw [← Category.assoc, tensorSection_map, ratioPullFrame_coefficient,\n    ratioPullFrame_coefficient, tensorScalarSection]\n",
+      "after": "  letI := tensorPullbackComparison_isIso j\n    (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n    (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)\n  rw [ModelNumerator.coordinate, ← tensorPullbackComparison_onSections]\n  change (tensorSection\n      (pullSection j (pullSection (modelLeft F a)\n        ((projectiveCoordinates 1).coordinate i)))\n      (pullSection j (pullSection (modelRight F a)\n        ((projectiveCoordinates 1).coordinate k))) ≫\n      tensorPullbackComparison j\n        (pullbackModule (modelLeft F a) (projectiveCoordinates 1).hyperplane.sheaf)\n        (pullbackModule (modelRight F a) (projectiveCoordinates 1).hyperplane.sheaf)) ≫\n      (nodeFrame F a j u v hu hv).hom = _\n  simp only [nodeFrame, Iso.trans_hom, Iso.symm_hom, asIso_inv, tensorIso,\n    Category.assoc, IsIso.hom_inv_id_assoc]\n  rw [← Category.assoc, tensorSection_map,\n    compositionPullback_sections, compositionPullback_sections]\n  change tensorSection _ _ ≫\n    (tensorMap (ratioPullFrame u 0).hom (ratioPullFrame v 0).hom ≫\n      (TensorConstruction.leftUnitIso (structureModule T)).hom) = _\n  rw [← Category.assoc, tensorSection_map, ratioPullFrame_coefficient,\n    ratioPullFrame_coefficient, tensorScalarSection]\n",
+      "match_count": 1
+    },
+    {
+      "id": "MB02_reduce_coordinate_conditionals",
+      "before": "    if_neg, if_pos rfl, one_mul, mul_one, Scheme.Hom.comp_appTop,\n    CommRingCat.comp_apply, parameterMap_parameter] using hp",
+      "after": "    if_neg, if_pos rfl, if_true, if_false, one_mul, mul_one, Scheme.Hom.comp_appTop,\n    CommRingCat.comp_apply, parameterMap_parameter] using hp",
+      "match_count": 1
+    },
+    {
+      "id": "MB03_expose_canonical_chart_open",
+      "before": "  rw [Scheme.Hom.comp_preimage, ← polynomialChartInclusion_range 0,\n    Scheme.Hom.preimage_opensRange, Scheme.Hom.preimage_top]",
+      "after": "  change ⊤ ≤ (u ≫ polynomialChartInclusion 0) ⁻¹ᵁ (chartOpen 0)\n  rw [Scheme.Hom.comp_preimage, ← polynomialChartInclusion_range 0,\n    Scheme.Hom.preimage_opensRange, Scheme.Hom.preimage_top]",
+      "match_count": 1
+    },
+    {
+      "id": "MB04_expose_canonical_chart_preimage",
+      "before": "  have hi : ⊤ ≤ (polynomialChartInclusion 0) ⁻¹ᵁ SourceBivectorCoordinates.U := by\n    rw [← polynomialChartInclusion_range 0, Scheme.Hom.preimage_opensRange]",
+      "after": "  have hi : ⊤ ≤ (polynomialChartInclusion 0) ⁻¹ᵁ SourceBivectorCoordinates.U := by\n    change ⊤ ≤ (polynomialChartInclusion 0) ⁻¹ᵁ (chartOpen 0)\n    rw [← polynomialChartInclusion_range 0, Scheme.Hom.preimage_opensRange]",
+      "match_count": 1
+    },
+    {
+      "id": "MB05_remove_postclosure_rfl",
+      "before": "    rw [ht, Scheme.Hom.appLE_comp_appLE]\n    rfl\n  rw [hp]",
+      "after": "    rw [ht, Scheme.Hom.appLE_comp_appLE]\n  rw [hp]",
+      "match_count": 1
+    },
+    {
+      "id": "MB06_transport_actual_appLE_on_subtype",
+      "before": "  rw [gaugedPoint_node F a j u hu]\n  exact polynomialPoint_coordinate u _",
+      "after": "  let value : {g : T ⟶ ProjectiveLine //\n      ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U} → RingSections T ⊤ :=\n    fun g => g.val.appLE SourceBivectorCoordinates.U ⊤ g.property\n      SourceBivectorCoordinates.coordinate\n  have hvalue := congrArg value\n    (Subtype.ext (gaugedPoint_node F a j u hu) :\n      (⟨gaugedPoint F a j, hU⟩ : {g : T ⟶ ProjectiveLine //\n        ⊤ ≤ g ⁻¹ᵁ SourceBivectorCoordinates.U}) =\n        ⟨u ≫ polynomialChartInclusion 0, polynomialPoint_mem u⟩)\n  exact hvalue.trans (polynomialPoint_coordinate u (polynomialPoint_mem u))",
+      "match_count": 1
+    },
+    {
+      "id": "MB07_reduce_numerator_conditionals",
+      "before": "    show (1 : Fin 2) ≠ 0 by decide, if_neg, if_pos rfl, one_mul, mul_one]",
+      "after": "    show (1 : Fin 2) ≠ 0 by decide, if_neg, if_pos rfl, if_true, if_false,\n    one_mul, mul_one]",
+      "match_count": 1
+    },
+    {
+      "id": "MB08_apply_actual_pair_coefficient",
+      "before": "  rw [canonicalPair, canonicalFrame, SourceBivectorCoordinates.TestMaps.sourceBivector_coefficient,\n    gaugedPoint_coordinate F a (firstPoint F a f) u hu,\n    gaugedPoint_coordinate F a (secondPoint F a f) w hw]",
+      "after": "  have h := SourceBivectorCoordinates.TestMaps.sourceBivector_coefficient (base F a f)\n    (gaugedPoint F a (firstPoint F a f)) (gaugedPoint F a (secondPoint F a f))\n    (first_over F a f) (second_over F a f)\n    (gaugedPoint_mem F a (firstPoint F a f) u hu)\n    (gaugedPoint_mem F a (secondPoint F a f) w hw)\n  rw [gaugedPoint_coordinate F a (firstPoint F a f) u hu,\n    gaugedPoint_coordinate F a (secondPoint F a f) w hw] at h\n  exact h",
+      "match_count": 1
+    }
+  ],
+  "root_tensor_patch_blob": "1326f831eb728598d61a37cad21b40a270b08d21",
+  "semantic_scope": "Proof normalization only: literal tensor pullback module carriers, explicit canonical chart opens, simplification of concrete Fin2 conditionals, removal of already-closed tactic, subtype transport of the actual appLE coefficient, and direct application of the checked source-bivector coefficient formula. Original binders and hypotheses unchanged.",
+  "mutations": {
+    "unattached_blobs_only": true,
+    "commits_created": false,
+    "refs_updated": false,
+    "canonical_source_changed": false,
+    "acceptance_flags_changed": false
+  },
+  "passed_dependencies_preserved": [
+    "LSP1CoordinateGauge5ba08e33",
+    "LSP1BivectorCoordinates32e799bc",
+    "LSFrameTransport17910cf5",
+    "LSTangentFrameCoordinates08e394c7"
+  ]
+}

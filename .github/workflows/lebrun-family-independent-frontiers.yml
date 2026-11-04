@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  field-reparametrization:
+  smooth-descent-measured-budget:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -25,114 +25,21 @@ jobs:
         timeout-minutes: 12
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41831278470
+      - name: Download verified native cache 1 from 41833502528
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-family-smooth-point-values-41831278470-1
-          run-id: 41831278470
+          name: lebrun-family-fibres37-41833502528-1
+          run-id: 41833502528
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check actual 37 field fibre declarations
-        id: fibres
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrizationFibres --keep-going --timeout 300
-      - name: Report fibres exact native scope
-        if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve fibres exact evidence before continuation
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-family-fibres37-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-      - name: Profile remaining 10 original field declarations
-        id: tail_profile
-        if: steps.fibres.outcome == 'success'
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyFieldTailProfile --keep-going --timeout 300
-      - name: Report tail_profile exact native scope
-        if: always() && steps.fibres.outcome == 'success'
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Expose tail_profile receipt-bound raw markers
-        if: always() && steps.fibres.outcome == 'success'
-        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyFieldTailProfile --allow-unattempted
-      - name: Preserve tail_profile exact evidence before continuation
-        if: always() && steps.fibres.outcome == 'success'
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-family-field-tail-profile-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-      - name: Check actual uninstrumented field tail
-        id: tail_actual
-        if: steps.tail_profile.outcome == 'success'
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrization --keep-going --timeout 300
-      - name: Report tail_actual exact native scope
-        if: always() && steps.tail_profile.outcome == 'success'
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve tail_actual exact evidence before continuation
-        if: always() && steps.tail_profile.outcome == 'success'
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-family-field-tail-actual-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-      - name: Require native outcomes from all conditional gates
-        if: always()
-        env:
-          FIBRES_OUTCOME: ${{ steps.fibres.outcome }}
-          TAIL_PROFILE_OUTCOME: ${{ steps.tail_profile.outcome }}
-          TAIL_ACTUAL_OUTCOME: ${{ steps.tail_actual.outcome }}
-        run: |
-          test "$FIBRES_OUTCOME" = success
-          test "$TAIL_PROFILE_OUTCOME" = success
-          test "$TAIL_ACTUAL_OUTCOME" = success
-  smooth-descent:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Check out exact immutable snapshot
-        uses: actions/checkout@v4
-      - name: Verify exact source manifest
-        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
-      - name: Restore pinned stock runtime
-        timeout-minutes: 12
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41831278470
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-family-smooth-point-values-41831278470-1
-          run-id: 41831278470
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Restore only exact coherent native artifact union
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Profile four-repair remaining52 descent declarations
+      - name: Profile exact52 with measured cumulative budget
         id: descent_profile
         continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyDescentTailProfile --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyDescentTailProfile --keep-going --timeout 420
       - name: Report descent_profile exact native scope
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -143,18 +50,18 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-descent52-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-descent52-420-profile-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-      - name: Check actual uninstrumented descent tail
+      - name: Check exact uninstrumented52 after complete profile
         id: descent_actual
         if: steps.descent_profile.outcome == 'success'
         continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --keep-going --timeout 420
       - name: Report descent_actual exact native scope
         if: always() && steps.descent_profile.outcome == 'success'
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -162,17 +69,17 @@ jobs:
         if: always() && steps.descent_profile.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-descent52-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-descent52-420-actual-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-      - name: Require native outcomes from all conditional gates
+      - name: Require both native outcomes
         if: always()
         env:
-          DESCENT_PROFILE_OUTCOME: ${{ steps.descent_profile.outcome }}
-          DESCENT_ACTUAL_OUTCOME: ${{ steps.descent_actual.outcome }}
+          PROFILE_OUTCOME: ${{ steps.descent_profile.outcome }}
+          ACTUAL_OUTCOME: ${{ steps.descent_actual.outcome }}
         run: |
-          test "$DESCENT_PROFILE_OUTCOME" = success
-          test "$DESCENT_ACTUAL_OUTCOME" = success
+          test "$PROFILE_OUTCOME" = success
+          test "$ACTUAL_OUTCOME" = success

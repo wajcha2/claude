@@ -580,7 +580,7 @@ theorem leftRaw :
     _ = sourceBivector P ≫ (externalTensorMap P.structureMap qe qe ≫
         externalTensorMap P.structureMap qT qL ≫
           externalTensorMap P.structureMap cT cL) := by
-      simp only [Category.assoc]
+      simp only [qe, qT, qL, cT, cL, Category.assoc]
     _ = sourceBivector P ≫ externalTensorMap P.structureMap
         (Curve.differential P X g) (curveContactVelocity P X.contact g) :=
       congrArg (fun k :
@@ -629,7 +629,7 @@ theorem rightRaw :
     _ = sourceBivector P ≫ (externalTensorMap P.structureMap qe qe ≫
         externalTensorMap P.structureMap qL qT ≫
           externalTensorMap P.structureMap cL cT) := by
-      simp only [Category.assoc]
+      simp only [qe, qT, qL, cT, cL, Category.assoc]
     _ = sourceBivector P ≫ externalTensorMap P.structureMap
         (curveContactVelocity P X.contact g) (Curve.differential P X g) :=
       congrArg (fun k :

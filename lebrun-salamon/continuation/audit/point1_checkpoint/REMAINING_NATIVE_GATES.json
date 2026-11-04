@@ -1,20 +1,19 @@
 {
   "schema": "lebrun-remaining-native-gates-v1",
-  "updated_utc": "2026-11-04 18:03:06 UTC",
-  "clean_production_parent": "04272fb70e38536976d107493c07fbbe8f100553",
+  "updated_utc": "2026-11-04 18:20:01 UTC",
+  "clean_production_parent": "9988dcfd2100ba790dd31cb95765bda5080a438a",
   "source_modules": 307,
-  "native_verified_contexts": 302,
+  "native_verified_contexts": 303,
   "point1_190_unchanged": true,
   "acceptance_units": 30,
   "pending_modules": [
     "LSCompletedTargets",
     "LSFormalArcComparison",
-    "LSFormalArcFamilyComparison",
     "LSMilestoneTarget",
     "LSMovingPairConstruction"
   ],
-  "execution_plan": "One topological all-source replay; actual Arc5 consumes newly checked actual Arc4, then final three compile in the same run. Preserve every completed native output if a later frontier fails.",
-  "final_gate": "accepted_modules == selected_modules == source_modules ==307; no failed or blocked modules; all-current verification and exact190 contexts; official artifact and archived report hashes independently validated before root promotes44units.",
+  "execution_plan": "One full current-source replay reuses every exact accepted parent and compiles only changed or unaccepted descendants. Preserve completed native outputs if a later module fails.",
+  "final_gate": "accepted_modules == selected_modules == source_modules; no failures or blocked modules; all-current verification, exact190 contexts and official archive/report independently validated before root promotes44units.",
   "milestone_scope": {
     "accepted_obligation_units_current": 30,
     "total_obligation_units": 133,

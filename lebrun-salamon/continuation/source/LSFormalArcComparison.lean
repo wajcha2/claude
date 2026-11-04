@@ -215,6 +215,52 @@ theorem smooth_regular
   · exact right_regular_of_model Q gamma smoothProjection u hu smoothGenericParametrization
       smoothGenericParametrization_isPullback hU _ (smooth_model_right F gamma u hu)
 
+private def nodal_left_regular_inferred
+    (S : Smoothing.StandardSource) (a : Coefficients) (ha : a ≠ 0)
+    (u : Source F (baseArc F gamma) ≅ Model S a)
+    (hu : u.hom ≫ modelProjection S a = parameter F (baseArc F gamma))
+    (ell : (TraitPullback.line F (baseArc F gamma)).sheaf ≅
+      pullbackModule u.hom (modelLine S a).sheaf)
+    (c : Coefficients)
+    (hc : ContactScalar.morphism X S a (Transport.evaluation F gamma u)
+      (Transport.evaluation_overC F gamma (modelProjection S a) u hu) =
+    GlobalScalars.scalarEnd (modelLine S a).sheaf
+      ((modelProjection S a).appTop (coefficientSection a)) ≫
+        RegularModel.dividedContact X S a (Transport.evaluation F gamma u)
+          (Transport.line F gamma u ell) c)
+    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait)) :=
+  left_regular_of_model Q gamma (modelProjection S a) u hu
+    (ModelGenericComparison.genericParametrization S a ha)
+    (ModelGenericComparison.genericParametrization_isPullback S a ha)
+    hU
+    (RegularModel.leftSection X S a (Transport.evaluation F gamma u)
+      (Transport.evaluation_overC F gamma (modelProjection S a) u hu)
+      (Transport.line F gamma u ell) c)
+    (nodal_left_normalized F gamma S a ha u hu ell c hc)
+
+private def nodal_right_regular_inferred
+    (S : Smoothing.StandardSource) (a : Coefficients) (ha : a ≠ 0)
+    (u : Source F (baseArc F gamma) ≅ Model S a)
+    (hu : u.hom ≫ modelProjection S a = parameter F (baseArc F gamma))
+    (ell : (TraitPullback.line F (baseArc F gamma)).sheaf ≅
+      pullbackModule u.hom (modelLine S a).sheaf)
+    (c : Coefficients)
+    (hc : ContactScalar.morphism X S a (Transport.evaluation F gamma u)
+      (Transport.evaluation_overC F gamma (modelProjection S a) u hu) =
+    GlobalScalars.scalarEnd (modelLine S a).sheaf
+      ((modelProjection S a).appTop (coefficientSection a)) ≫
+        RegularModel.dividedContact X S a (Transport.evaluation F gamma u)
+          (Transport.line F gamma u ell) c)
+    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait)) :=
+  right_regular_of_model Q gamma (modelProjection S a) u hu
+    (ModelGenericComparison.genericParametrization S a ha)
+    (ModelGenericComparison.genericParametrization_isPullback S a ha)
+    hU
+    (RegularModel.rightSection X S a (Transport.evaluation F gamma u)
+      (Transport.evaluation_overC F gamma (modelProjection S a) u hu)
+      (Transport.line F gamma u ell) c)
+    (nodal_right_normalized F gamma S a ha u hu ell c hc)
+
 theorem nodal_regular (S : Smoothing.StandardSource) (a : Coefficients) (ha : a ≠ 0)
     (u : Source F (baseArc F gamma) ≅ Model S a)
     (hu : u.hom ≫ modelProjection S a = parameter F (baseArc F gamma))
@@ -224,19 +270,8 @@ theorem nodal_regular (S : Smoothing.StandardSource) (a : Coefficients) (ha : a 
     Regular (SmoothFamily.rationalPair Q).leftRational gamma.val ∧
       Regular (SmoothFamily.rationalPair Q).rightRational gamma.val := by
   obtain ⟨c, hc, _⟩ := Nodal.common_exists F gamma S a u hu ell ha
-  let k := ModelGenericComparison.genericParametrization S a ha
-  let hk := ModelGenericComparison.genericParametrization_isPullback S a ha
-  constructor
-  · apply left_regular_of_model Q gamma (modelProjection S a) u hu k hk hU
-      (RegularModel.leftSection X S a (Transport.evaluation F gamma u)
-        (Transport.evaluation_overC F gamma (modelProjection S a) u hu)
-        (Transport.line F gamma u ell) c)
-    exact nodal_left_normalized F gamma S a ha u hu ell c hc
-  · apply right_regular_of_model Q gamma (modelProjection S a) u hu k hk hU
-      (RegularModel.rightSection X S a (Transport.evaluation F gamma u)
-        (Transport.evaluation_overC F gamma (modelProjection S a) u hu)
-        (Transport.line F gamma u ell) c)
-    exact nodal_right_normalized F gamma S a ha u hu ell c hc
+  exact ⟨nodal_left_regular_inferred Q gamma S a ha u hu ell c hc hU,
+    nodal_right_regular_inferred Q gamma S a ha u hu ell c hc hU⟩
 
 /-- Both original rational sections are regular on every actual arc
 meeting their original smooth domain densely.  The degree-two source

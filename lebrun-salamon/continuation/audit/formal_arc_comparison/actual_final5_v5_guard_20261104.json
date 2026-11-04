@@ -1,0 +1,87 @@
+{
+  "schema": "arc-five-v5-contingency-source-guard-v1",
+  "status": "UNCOMPILED off-graph contingency only; no proof or acceptance claim",
+  "dispatch_policy": "Use only after actual real-parent V4 fails or caps; discard untested if V4 passes.",
+  "base_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/arc_five/LSFormalArcComparisonFiveCandidateV4.lean",
+  "base_sha256": "4e93758a009dada71a46f2bc32ab314bb57b21fd8ed9e095ae3c1c2cb22088ab",
+  "candidate_path": "/workspace/scratch/4deac2cdddbb/published_leaf_recovery/arc_five/contingency_v5/LSFormalArcComparisonFiveCandidateV5.lean",
+  "candidate_sha256": "84e409540d657fa5848790bae8332301364350b6497b625d3ea8328f68530064",
+  "candidate_git_blob_sha1": "d10a1274ef1b33e76a8098f38d05a7b77e91d740",
+  "inverse_byte_exact": true,
+  "unchanged_public_headers": [
+    {
+      "name": "smooth_regular",
+      "sha256": "74b612dae187dc8efcc4e14021f2d412f9de8e6755b02d0ba2b3b39cdd6d522f",
+      "unchanged": true
+    },
+    {
+      "name": "nodal_regular",
+      "sha256": "e2b020d5d366dfc9220397dfd6fc82bc2e77a92ad122d1a578317942c1ff1ff5",
+      "unchanged": true
+    },
+    {
+      "name": "regular",
+      "sha256": "ceab4aac7bb585ef1732ff6690784e7d5b57bda5403cebeefb9bb4effb6a3099",
+      "unchanged": true
+    },
+    {
+      "name": "left_regular",
+      "sha256": "d91179247502158e824c0966cc962becca5d25d127e014476b55fd9f674d5a78",
+      "unchanged": true
+    },
+    {
+      "name": "right_regular",
+      "sha256": "712816890cd29fbb97d4a21950b660932c2eb7dccdfe20d8bf8bb7f52660d167",
+      "unchanged": true
+    }
+  ],
+  "unchanged_checked_ingredient_count": 16,
+  "unchanged_checked_ingredient_names": [
+    "nodal_equation_transport",
+    "nodal_source_square_eq",
+    "nodal_middle_square_eq",
+    "nodal_square_map_heq",
+    "nodal_model_evaluation_heq",
+    "nodal_generic_evaluation_heq",
+    "nodal_left_input_heq",
+    "nodal_left_output_heq",
+    "nodal_left_equation_iff",
+    "nodal_right_input_heq",
+    "nodal_right_output_heq",
+    "nodal_right_equation_iff",
+    "nodal_left_native",
+    "nodal_left_normalized",
+    "nodal_right_native",
+    "nodal_right_normalized"
+  ],
+  "unchanged_checked_prefix_sha256": "40c1884181f8ebf9c8a187b082ba09e2a6eab12701494e488e41ff86d8edc38c",
+  "new_private_proof_definitions": [
+    "nodal_left_regular_inferred",
+    "nodal_right_regular_inferred"
+  ],
+  "new_assumptions_or_admissions": 0,
+  "changed_original_proof_bodies": [
+    "nodal_regular"
+  ],
+  "unchanged_original_proof_bodies": [
+    "smooth_regular",
+    "regular",
+    "left_regular",
+    "right_regular"
+  ],
+  "scope": "Same c,hc from Nodal.common_exists, same hU, model sections, normalizations, parametrization and pullback proof. Only complete regularity proof applications are named separately with inferred result types.",
+  "patches": [
+    {
+      "name": "insert_two_inferred_regular_proofs",
+      "before": "theorem nodal_regular (S : Smoothing.StandardSource)",
+      "after": "private def nodal_left_regular_inferred\n    (S : Smoothing.StandardSource) (a : Coefficients) (ha : a ≠ 0)\n    (u : Source F (baseArc F gamma) ≅ Model S a)\n    (hu : u.hom ≫ modelProjection S a = parameter F (baseArc F gamma))\n    (ell : (TraitPullback.line F (baseArc F gamma)).sheaf ≅\n      pullbackModule u.hom (modelLine S a).sheaf)\n    (c : Coefficients)\n    (hc : ContactScalar.morphism X S a (Transport.evaluation F gamma u)\n      (Transport.evaluation_overC F gamma (modelProjection S a) u hu) =\n    GlobalScalars.scalarEnd (modelLine S a).sheaf\n      ((modelProjection S a).appTop (coefficientSection a)) ≫\n        RegularModel.dividedContact X S a (Transport.evaluation F gamma u)\n          (Transport.line F gamma u ell) c)\n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait)) :=\n  left_regular_of_model Q gamma (modelProjection S a) u hu\n    (ModelGenericComparison.genericParametrization S a ha)\n    (ModelGenericComparison.genericParametrization_isPullback S a ha)\n    hU\n    (RegularModel.leftSection X S a (Transport.evaluation F gamma u)\n      (Transport.evaluation_overC F gamma (modelProjection S a) u hu)\n      (Transport.line F gamma u ell) c)\n    (nodal_left_normalized F gamma S a ha u hu ell c hc)\n\nprivate def nodal_right_regular_inferred\n    (S : Smoothing.StandardSource) (a : Coefficients) (ha : a ≠ 0)\n    (u : Source F (baseArc F gamma) ≅ Model S a)\n    (hu : u.hom ≫ modelProjection S a = parameter F (baseArc F gamma))\n    (ell : (TraitPullback.line F (baseArc F gamma)).sheaf ≅\n      pullbackModule u.hom (modelLine S a).sheaf)\n    (c : Coefficients)\n    (hc : ContactScalar.morphism X S a (Transport.evaluation F gamma u)\n      (Transport.evaluation_overC F gamma (modelProjection S a) u hu) =\n    GlobalScalars.scalarEnd (modelLine S a).sheaf\n      ((modelProjection S a).appTop (coefficientSection a)) ≫\n        RegularModel.dividedContact X S a (Transport.evaluation F gamma u)\n          (Transport.line F gamma u ell) c)\n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait)) :=\n  right_regular_of_model Q gamma (modelProjection S a) u hu\n    (ModelGenericComparison.genericParametrization S a ha)\n    (ModelGenericComparison.genericParametrization_isPullback S a ha)\n    hU\n    (RegularModel.rightSection X S a (Transport.evaluation F gamma u)\n      (Transport.evaluation_overC F gamma (modelProjection S a) u hu)\n      (Transport.line F gamma u ell) c)\n    (nodal_right_normalized F gamma S a ha u hu ell c hc)\n\ntheorem nodal_regular (S : Smoothing.StandardSource)",
+      "match_count": 1
+    },
+    {
+      "name": "assemble_nodal_pair_from_named_proofs",
+      "before": "  obtain ⟨c, hc, _⟩ := Nodal.common_exists F gamma S a u hu ell ha\n  let k := ModelGenericComparison.genericParametrization S a ha\n  let hk := ModelGenericComparison.genericParametrization_isPullback S a ha\n  constructor\n  · apply left_regular_of_model Q gamma (modelProjection S a) u hu k hk hU\n      (RegularModel.leftSection X S a (Transport.evaluation F gamma u)\n        (Transport.evaluation_overC F gamma (modelProjection S a) u hu)\n        (Transport.line F gamma u ell) c)\n    exact nodal_left_normalized F gamma S a ha u hu ell c hc\n  · apply right_regular_of_model Q gamma (modelProjection S a) u hu k hk hU\n      (RegularModel.rightSection X S a (Transport.evaluation F gamma u)\n        (Transport.evaluation_overC F gamma (modelProjection S a) u hu)\n        (Transport.line F gamma u ell) c)\n    exact nodal_right_normalized F gamma S a ha u hu ell c hc\n",
+      "after": "  obtain ⟨c, hc, _⟩ := Nodal.common_exists F gamma S a u hu ell ha\n  exact ⟨nodal_left_regular_inferred Q gamma S a ha u hu ell c hc hU,\n    nodal_right_regular_inferred Q gamma S a ha u hu ell c hc hU⟩\n",
+      "match_count": 1
+    }
+  ]
+}

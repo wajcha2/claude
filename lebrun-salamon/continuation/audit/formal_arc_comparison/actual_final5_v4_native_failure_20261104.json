@@ -1,0 +1,126 @@
+{
+  "schema": "arc-five-v4-actual-stock-failure-v1",
+  "run_id": 41883830923,
+  "job_id": 126762873140,
+  "repository": "wajcha2/claude",
+  "scope": "Exact decoded completed native log records; no proof acceptance for failed Arc5.",
+  "records": [
+    {
+      "kind": "RECEIPT",
+      "data": {
+        "module": "LSFormalArcFamilyComparison",
+        "receipt_sha256": "656d3b56bb451b50368be9a614cb241342eb53c31dd44e915510b3d539116f06",
+        "key": {
+          "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
+          "imports": [
+            "LSGenericFamilyComparison",
+            "LSArcParametrization",
+            "LSRationalOpenTransport",
+            "LSFormalArcModelTransport"
+          ],
+          "dependency_artifacts": {
+            "LSGenericFamilyComparison": {
+              "sha256": "ddad8cf270543c4df398d4345c64ddf9c9f1fe7b1d5ef6fcaf9929b09d25710a",
+              "kind": "project"
+            },
+            "LSArcParametrization": {
+              "sha256": "dc916f2c6822c933311f1f577b71a15af13fc575be0b2cbc19d1b71cba7c11a3",
+              "kind": "project"
+            },
+            "LSRationalOpenTransport": {
+              "sha256": "5b294f8bf1ab7c8f4da0be3f8ee2fce65a84d89c55dd66c6fbf510d93b78b41b",
+              "kind": "project"
+            },
+            "LSFormalArcModelTransport": {
+              "sha256": "56a2884725ef07f50a5f4cdceba088395bbb78495ee6fe5b94670725af2c046c",
+              "kind": "project"
+            }
+          },
+          "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+          "flags": [
+            "--json",
+            "-j1",
+            "-DElab.async=false",
+            "-M12000",
+            "-DmaxErrors=1000",
+            "-DmaxHeartbeats=2000000"
+          ]
+        },
+        "output_sha256": "b4963ed0defc9a6cf1bdb6a7719d0e54f59fc3214462caf7419ad5c51e871e10",
+        "source_ancestry_fingerprint": "744f8f6604ea465929b0c49f3a6240a733d55174a944bf96c346d1277f5f5aa8",
+        "seconds": 30.927,
+        "stdout_sha256": "a2c4e5532cb5326d4e5c1f4852cbc8a3bc47ef71ec112dce7b8cadd8ace53ddd",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cache_restore_provenance": null,
+        "cache_union_provenance": null
+      }
+    },
+    {
+      "kind": "DIAGNOSTIC",
+      "data": {
+        "module": "LSFormalArcComparison",
+        "status": "failed",
+        "source_sha256": "4e93758a009dada71a46f2bc32ab314bb57b21fd8ed9e095ae3c1c2cb22088ab",
+        "return_code": 1,
+        "seconds": 252.051,
+        "errors": [
+          {
+            "caption": "",
+            "data": "(kernel) deterministic timeout",
+            "endPos": {
+              "column": 21,
+              "line": 218
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcComparison.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "[anonymous]",
+            "pos": {
+              "column": 8,
+              "line": 218
+            },
+            "severity": "error"
+          },
+          {
+            "caption": "",
+            "data": "(kernel) unknown constant 'LeBrunSalamon.Construction.FormalArcComparison.nodal_regular'",
+            "endPos": {
+              "column": 15,
+              "line": 244
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcComparison.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "[anonymous]",
+            "pos": {
+              "column": 8,
+              "line": 244
+            },
+            "severity": "error"
+          }
+        ],
+        "stderr": ""
+      }
+    },
+    {
+      "kind": "REPLAY_SUMMARY",
+      "data": {
+        "schema": "lebrun-remote-stage-validation-v1",
+        "commit": "9988dcfd2100ba790dd31cb95765bda5080a438a",
+        "source_modules": 307,
+        "selected_modules": 307,
+        "accepted_modules": 303,
+        "failed_modules": [
+          "LSFormalArcComparison"
+        ],
+        "full_selected_graph_passed": false,
+        "whole_source_graph_passed": false,
+        "Point1_source_boundary_unchanged": 190,
+        "Point1_native_boundary_rechecked_in_this_stage": 190,
+        "all_final_hash_and_runtime_checks_passed": true,
+        "acceptance_ledger_modified": false
+      }
+    }
+  ]
+}
+

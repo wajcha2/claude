@@ -1,18 +1,18 @@
 {
   "schema": "lebrun-current-reviewable-proof-checkpoint-v1",
-  "updated_utc": "2026-11-04 18:03:06 UTC",
+  "updated_utc": "2026-11-04 18:20:01 UTC",
   "production_source_modules": 307,
   "diagnostic_modules": [],
-  "verified_native_production_modules": 302,
+  "verified_native_production_modules": 303,
   "accepted_obligation_units": 30,
   "total_obligation_units": 133,
   "acceptance_ledger_unchanged": true,
   "current_source_and_native_context_comparison": {
     "schema": "lebrun-current-native-union-comparison-v1",
-    "source_manifest_sha256": "3748ebf8aa4f4770257ab681fabdb88db1e9b11023acbdcbf1de0fd7be64d97f",
+    "source_manifest_sha256": "2c90f47183d3f1d9fe6ab3cf307affeccc7b6b090c95dc639ff5df5577a579a7",
     "source_modules": 307,
     "source_manifest_freeze_binding_verified": true,
-    "verified_native_module_union": 302,
+    "verified_native_module_union": 303,
     "duplicate_context_comparisons": 0,
     "conflicts": [],
     "source_dependency_problems": [],
@@ -26,52 +26,55 @@
     "pending_modules": [
       "LSCompletedTargets",
       "LSFormalArcComparison",
-      "LSFormalArcFamilyComparison",
       "LSMilestoneTarget",
       "LSMovingPairConstruction"
     ]
   },
   "all190_audited_contexts_unchanged": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
-  "latest_completed_generic_actual": {
-    "run_id": 41880948856,
-    "job_id": 126752961020,
-    "source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
-    "seconds": 14.4,
-    "native_pass": true,
-    "output_sha256": "ddad8cf270543c4df398d4345c64ddf9c9f1fe7b1d5ef6fcaf9929b09d25710a",
-    "record_blob": "e791f11a4c3bbc65fa1cf2245a2a1f3f25a4bcf9"
+  "latest_completed_full_replay": {
+    "run_id": 41883830923,
+    "job_id": 126762873140,
+    "accepted_modules": 303,
+    "selected_modules": 307,
+    "failed_modules": [
+      "LSFormalArcComparison"
+    ],
+    "failure_kind": "kernel deterministic timeout in nodal_regular",
+    "full_gate_passed": false,
+    "record_blob": "9d9affbcf7ba6b3a45aad322887ce5d5f16cd542"
+  },
+  "latest_completed_actual_arc4": {
+    "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
+    "output_sha256": "b4963ed0defc9a6cf1bdb6a7719d0e54f59fc3214462caf7419ad5c51e871e10",
+    "receipt_sha256": "656d3b56bb451b50368be9a614cb241342eb53c31dd44e915510b3d539116f06",
+    "seconds": 30.927,
+    "run_id": 41883830923
   },
   "latest_native_cache": [
     {
       "artifact_dir": "lebrun-cache-inputs/0",
-      "source_run_id": 41880948856,
-      "source_artifact_name": "lebrun-generic-field2-v13-actual-41880948856-1",
-      "artifact_id": 13349650874,
-      "artifact_sha256": "38757aab07f5459c796f5c7ab5a31c48a3b4a1770a12fee456b66c78aef3c30b",
+      "source_run_id": 41883830923,
+      "source_artifact_name": "lebrun-final-current-native-41883830923-1",
+      "artifact_id": 13351535690,
+      "artifact_sha256": "c1eeb4dd3781887f166271557ddaf5658fa5a7a4d7c08eb62b8b724d064da9f9",
       "include_validated_unselected_cache": true
     }
   ],
   "active_native_runs": [],
   "pending_native_dispatch": {
-    "branch": "codex/lebrun-final-current-307-20261104",
+    "branch": "codex/lebrun-final-current-307-v2-20261104",
     "selection": "all current production modules",
     "source_modules": 307,
     "timeout_seconds": 300
   },
   "candidate_modules": [
     {
-      "module": "LSFormalArcFamilyComparison",
-      "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
-      "source_blob": "ff339bdc27d34a07a43dea7fb93fa2c0c834beb1",
-      "status": "actual stock check pending"
-    },
-    {
       "module": "LSFormalArcComparison",
-      "source_sha256": "4e93758a009dada71a46f2bc32ab314bb57b21fd8ed9e095ae3c1c2cb22088ab",
-      "source_blob": "5916e5102652bd56eb721047a2f10eee758852ac",
+      "source_sha256": "84e409540d657fa5848790bae8332301364350b6497b625d3ea8328f68530064",
+      "source_blob": "d10a1274ef1b33e76a8098f38d05a7b77e91d740",
       "status": "actual stock check pending"
     }
   ],
-  "scope": "Actual Arc4 and Arc5 plus the unchanged final three modules are selected by a full307-source native replay, with302 exact native contexts restored. Only complete all-current native evidence can satisfy the Point1 gate; acceptance remains30/133 and all four milestone gates remain pending."
+  "scope": "Full selected graph checks all 307 current production modules using 303 exact native outputs. Every remaining actual module must pass with real native parents. The existing compiler flags and300-second module bound are unchanged. Point1 acceptance stays30/133 until the full gate; all four milestone gates remain pending."
 }

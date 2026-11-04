@@ -1,4 +1,4 @@
-name: LeBrun-Salamon middle-scheme transport helper
+name: LeBrun-Salamon per-product reparametrization transport
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  scheme-transport:
+  reparam-product:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -73,12 +73,19 @@ jobs:
           run-id: 41804404180
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/6
+      - name: Download verified native cache 8 from 41808065041
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-scheme-transport-41808065041-1
+          run-id: 41808065041
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/7
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check generic middle-scheme equality transport only
+      - name: Check actual per-product reparametrization transport
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySchemeTransport --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparamProductTransport --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -86,7 +93,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-family-scheme-transport-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-reparam-product-transport-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

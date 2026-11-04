@@ -1,0 +1,83 @@
+{
+  "schema": "lebrun-opaque-product-comparison-candidate-v1",
+  "module": "LSFamilyReparamProductTransport",
+  "source_sha256": "b26a71e895bba0b4d3414a903132d739bfca0ff45579e80d9aade9b55efbe44e",
+  "source_blob": "c4651a72c6b74d757a22c3ad9df0b9748732a781",
+  "source_imports": [
+    "LSFamilyCurveProductDirect",
+    "LSFamilyExternalProductMap",
+    "LSFamilySchemeTransport"
+  ],
+  "headers": [
+    "theorem object_transport (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety) (hg : g.map = e.hom ≫ f.map) (hk : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g) {E F : OModule X.variety.scheme} (a : AlgebraicSection (pullbackModule f.map E)) (b : AlgebraicSection (pullbackModule f.map F)) : pullSection (curveSquareMap P (curve P e he)) (externalProductSection P.structureMap a b ≫ curveExternalComparison P f E F) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) hk (externalTensor X.variety.structureMap E F)).hom = @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap) (curveSquareMap P (curve P e he)) (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F)) (externalProductSection P.structureMap a b ≫ curveExternalComparison P f E F) ≫ (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap) (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) hk (externalTensor X.variety.structureMap E F)).hom",
+    "theorem direct_product (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety) (hg : g.map = e.hom ≫ f.map) (hk : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g) {E F : OModule X.variety.scheme} (a : AlgebraicSection (pullbackModule f.map E)) (b : AlgebraicSection (pullbackModule f.map F)) : @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap) (curveSquareMap P (curve P e he)) (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F)) (externalProductSection P.structureMap a b ≫ curveExternalComparison P f E F) ≫ (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap) (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) hk (externalTensor X.variety.structureMap E F)).hom = externalProductSection P.structureMap (pullSection e.hom a ≫ (compositionPullback e.hom f.map g.map hg.symm E).hom) (pullSection e.hom b ≫ (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F",
+    "theorem map_product (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety) (hg : g.map = e.hom ≫ f.map) (hk : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g) {E F : OModule X.variety.scheme} (a : AlgebraicSection (pullbackModule f.map E)) (b : AlgebraicSection (pullbackModule f.map F)) : externalProductSection P.structureMap (pullSection e.hom a ≫ (compositionPullback e.hom f.map g.map hg.symm E).hom) (pullSection e.hom b ≫ (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F = (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫ externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map hg.symm E).hom (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F",
+    "theorem comparison (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine) (he : e.hom ≫ P.structureMap = P.structureMap) {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety) (hg : g.map = e.hom ≫ f.map) (hk : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g) {E F : OModule X.variety.scheme} (a : AlgebraicSection (pullbackModule f.map E)) (b : AlgebraicSection (pullbackModule f.map F)) : pullSection (curveSquareMap P (curve P e he)) (externalProductSection P.structureMap a b ≫ curveExternalComparison P f E F) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) hk (externalTensor X.variety.structureMap E F)).hom = (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫ externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map hg.symm E).hom (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F"
+  ],
+  "admissions": 0,
+  "scope": "Four exact proof stages; completed local diagnostic with exact instrumented proof bodies. Stock verification pending.",
+  "instrumentation_inverse_verified": true,
+  "markers_removed": 8,
+  "profile_sha256": "319c98e954ae91d059b9daee7e59bfa6c79145884bcedd07a0c262553dc2bc49",
+  "local_receipt": {
+    "schema": "lebrun-local-diagnostic-v1",
+    "scope": "Local diagnostic only: pinned stock frontend with recorded path adapter and M7200; stock CI remains acceptance authority.",
+    "module": "LSFamilyReparamProductStages",
+    "status": "passed",
+    "return_code": 0,
+    "seconds": 33.876,
+    "source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/reparam_diagnostics/LSFamilyReparamProductStages.lean",
+    "source_sha256": "319c98e954ae91d059b9daee7e59bfa6c79145884bcedd07a0c262553dc2bc49",
+    "output_sha256": "02b2018ce229b7c9cd999b436daebb8b9010b76c6da250bf605f66461566d8e9",
+    "source_and_runtime_and_direct_dependency_unchanged": true,
+    "direct_dependencies": {
+      "LSFamilyCurveProductDirect": {
+        "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_product_stages/20261104T093614/olean/LSFamilyCurveProductDirect.olean",
+        "sha256": "04307b0405a12ae93994b121d0ba73c64ada0e173522f7e14e64ec9d0ceac53c"
+      },
+      "LSFamilyExternalProductMap": {
+        "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_product_stages/20261104T093614/olean/LSFamilyExternalProductMap.olean",
+        "sha256": "b5d2b697517403639c8cc60ee37c39c4aa0db128762ed38794e64c2d04d36c0c"
+      },
+      "LSFamilySchemeTransportProfile": {
+        "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_product_stages/20261104T093614/olean/LSFamilySchemeTransportProfile.olean",
+        "sha256": "21663c923e8bbcf23afc0c698d6c437f40028c8de89c61bcbffb89260d88c96f"
+      }
+    },
+    "execution_wrapper": "stdbuf -oL -eL (diagnostic log flushing only)",
+    "validated_transitive_import_context": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean",
+    "config_sha256": "704664d3d62bb5757dab27451a33ec8f3e817ad8ffe923f9d6245f07ef18a3b4",
+    "runtime_flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M7200",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ],
+    "runtime_fingerprint_files": {
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/repository/lebrun-salamon/continuation/audit/runtime/explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6"
+    },
+    "peak_rss_kib": 5896724,
+    "cpu_user_seconds": 10.111906,
+    "cpu_system_seconds": 6.606243,
+    "stdout_sha256": "ed90f1bd769e515c0880745356954d1528b0b022c3f28d727cf4dc99f15bd284",
+    "stderr_sha256": "98b35fe618a76f47606d86af5195cbb9c2df5ecbb81fbbcc26364fa4ab415f47",
+    "errors": []
+  },
+  "raw_profile": "PRODUCT_STAGE_ENTER_object_transport\nPRODUCT_STAGE_EXIT_object_transport\nPRODUCT_STAGE_ENTER_direct_product\ntactic execution of Lean.Parser.Tactic.exact took 1.62s\nelaboration took 109ms\nPRODUCT_STAGE_EXIT_direct_product\nPRODUCT_STAGE_ENTER_map_product\nPRODUCT_STAGE_EXIT_map_product\nPRODUCT_STAGE_ENTER_comparison\nPRODUCT_STAGE_EXIT_comparison\ncumulative profiling times:\n\tattribute application 2ms\n\tcompilation (IR) 2.52ms\n\tcompilation (LCNF base) 25.6ms\n\tcompilation (LCNF impure) 4.75ms\n\tcompilation (LCNF mono) 11.4ms\n\tdeclTypeLinter 0.525ms\n\tdo element elaborator 35.1ms\n\telaboration 326ms\n\tfix level params 0.312ms\n\tinstantiate metavars 0.298ms\n\tinterpretation 0.905ms\n\tlet-to-have transformation 0.139ms\n\tlinting 15.9ms\n\tparsing 8.52ms\n\tprocess pre-definitions 27.2ms\n\tshare common exprs 2.23ms\n\ttactic execution 1.72s\n\ttacticAnalysis 0.731ms\n\ttype checking 62.5ms\n\ttypeclass inference 76.6ms\n",
+  "type_inspection_blob": "325dfbb51470691b4fed02327c474e8bc3225bc7",
+  "proof_description": "Separate the actual middle-scheme transport, literal direct product specialization, product-map naturality, and transitivity. The final per-product parameters and conclusion are unchanged from the original single-product specialization."
+}

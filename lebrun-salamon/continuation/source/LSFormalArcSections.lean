@@ -89,12 +89,20 @@ same target pair, including when either source point is the node. -/
     pair F gamma piM u hu ≫ evaluationSquare F gamma piM u hu =
       gamma.val ≫ F.squareEvaluation := by
   apply pullback.hom_ext
-  · rw [Category.assoc, RelativeSquare.evaluation_left]
-    simp only [← Category.assoc, pair_first, first, evaluation,
-      Category.assoc, u.hom_inv_id_assoc, firstSection_evaluation]
-  · rw [Category.assoc, RelativeSquare.evaluation_right]
-    simp only [← Category.assoc, pair_second, second, evaluation,
-      Category.assoc, u.hom_inv_id_assoc, secondSection_evaluation]
+  · change (pair F gamma piM u hu ≫ evaluationSquare F gamma piM u hu) ≫
+        firstProjection X.variety.structureMap =
+      (gamma.val ≫ F.squareEvaluation) ≫ firstProjection X.variety.structureMap
+    rw [evaluationSquare, Category.assoc, RelativeSquare.evaluation_left,
+      ← Category.assoc, pair_first]
+    simp only [first, evaluation, Category.assoc,
+      u.hom_inv_id_assoc, firstSection_evaluation]
+  · change (pair F gamma piM u hu ≫ evaluationSquare F gamma piM u hu) ≫
+        secondProjection X.variety.structureMap =
+      (gamma.val ≫ F.squareEvaluation) ≫ secondProjection X.variety.structureMap
+    rw [evaluationSquare, Category.assoc, RelativeSquare.evaluation_right,
+      ← Category.assoc, pair_second]
+    simp only [second, evaluation, Category.assoc,
+      u.hom_inv_id_assoc, secondSection_evaluation]
 
 def «section» {E : OModule (SelfProduct X.variety.structureMap)}
     (v : AlgebraicSection (pullbackModule (evaluationSquare F gamma piM u hu) E)) :

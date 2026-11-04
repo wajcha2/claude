@@ -1,0 +1,19 @@
+{
+  "schema": "guarded-native-diagnostic-repair-v1",
+  "module": "LSFormalArcSections",
+  "base_source_sha256": "28d0250e13671937142f7c1b78026f8754f6fe32400cf2dbce8e0ea5ec7dcbb3",
+  "candidate_source_sha256": "701af4edf15458cfa0ad573d1f11cba61c2be69a41c2545e50120a267172f379",
+  "diagnostic_run": 41790116116,
+  "diagnostic_job": 126441263865,
+  "patches": [
+    {
+      "old": "  apply pullback.hom_ext\n  · rw [Category.assoc, RelativeSquare.evaluation_left]\n    simp only [← Category.assoc, pair_first, first, evaluation,\n      Category.assoc, u.hom_inv_id_assoc, firstSection_evaluation]\n  · rw [Category.assoc, RelativeSquare.evaluation_right]\n    simp only [← Category.assoc, pair_second, second, evaluation,\n      Category.assoc, u.hom_inv_id_assoc, secondSection_evaluation]",
+      "new": "  apply pullback.hom_ext\n  · change (pair F gamma piM u hu ≫ evaluationSquare F gamma piM u hu) ≫\n        firstProjection X.variety.structureMap =\n      (gamma.val ≫ F.squareEvaluation) ≫ firstProjection X.variety.structureMap\n    rw [evaluationSquare, Category.assoc, RelativeSquare.evaluation_left,\n      ← Category.assoc, pair_first]\n    simp only [first, evaluation, Category.assoc,\n      u.hom_inv_id_assoc, firstSection_evaluation]\n  · change (pair F gamma piM u hu ≫ evaluationSquare F gamma piM u hu) ≫\n        secondProjection X.variety.structureMap =\n      (gamma.val ≫ F.squareEvaluation) ≫ secondProjection X.variety.structureMap\n    rw [evaluationSquare, Category.assoc, RelativeSquare.evaluation_right,\n      ← Category.assoc, pair_second]\n    simp only [second, evaluation, Category.assoc,\n      u.hom_inv_id_assoc, secondSection_evaluation]",
+      "label": "Identify the actual target projections, expose evaluationSquare, and apply the proved evaluation and trait-point projection equations"
+    }
+  ],
+  "all_public_headers_lexically_preserved": true,
+  "new_admissions": 0,
+  "inverse_patch_restores_original_bytes": true,
+  "status": "candidate_not_yet_kernel_checked"
+}

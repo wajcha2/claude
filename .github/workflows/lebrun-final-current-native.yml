@@ -1,0 +1,89 @@
+name: LeBrun final all-current native verification
+on:
+  push:
+    branches: [codex/lebrun-final-current-307-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-final-native-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  full_current_native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41880948856
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-generic-field2-v13-actual-41880948856-1
+          run-id: 41880948856
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check every current production source module
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence  --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Require exact whole-source native gate
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          v=json.loads(Path("kernel-evidence/FULL_REPLAY_VERIFICATION.json").read_text())
+          expected=307
+          assert v["commit"] == os.environ["GITHUB_SHA"]
+          assert v["source_modules"] == v["selected_modules"] == v["accepted_modules"] == expected
+          manifest=v["complete_source_manifest"]
+          assert isinstance(manifest, str)
+          rows=manifest.strip().splitlines()
+          assert len(rows) == expected
+          assert len({row[66:] for row in rows}) == expected
+          import hashlib, re
+          assert all(re.fullmatch(r"[a-f0-9]{64}  source/.+\.lean", row) for row in rows)
+          assert hashlib.sha256(manifest.encode()).hexdigest() == v["source_manifest_sha256"]
+          assert v["source_manifest_sha256"] == "3748ebf8aa4f4770257ab681fabdb88db1e9b11023acbdcbf1de0fd7be64d97f"
+          assert v["all_current_sources_kernel_checked"] is True
+          assert v["failures"] == []
+          assert not any(v["status_counts"].get(k,0) for k in ("failed","blocked","timed_out"))
+          assert v["fresh_native_passes"] + v["native_receipts_reused"] == expected
+          assert v["source_target_lock_manifest_git_blob_binding_verified"] is True
+          assert v["all_accepted_output_log_receipt_dependency_and_recursive_ancestry_hashes_verified"] is True
+          assert v["all_final_source_graph_and_runtime_hashes_verified"] is True
+          assert v["frozen_target_sha256"] == "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296"
+          assert v["toolchain_lock_sha256"] == "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19"
+          assert v["runtime_fingerprint"] == "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004"
+          assert v["runtime_flags"] == ["--json","-j1","-DElab.async=false","-M12000","-DmaxErrors=1000","-DmaxHeartbeats=2000000"]
+          b=v["point1_boundary"]
+          assert b["basis_sha256"] == "b4681aeb45d66ae34215850d7957f4d9a64c04c50470b8c517c796a1347db533"
+          assert b["source_and_import_comparisons"] == b["native_output_dependency_and_recursive_stamp_comparisons"] == 190
+          assert b["all190_compared_and_unchanged"] is True
+          assert v["acceptance_ledger_modified"] is False
+          print("FINAL_CURRENT_NATIVE_GATE_PASSED", expected, v["commit"])
+          PY
+      - name: Preserve current native frontier evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-final-current-native-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn

@@ -1,0 +1,69 @@
+{
+  "schema": "lebrun-arc-family-real-native-adaptation-v1",
+  "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
+  "profile_sha256": "013b05a174b4a79e2b2ce576e47c33768680bcc3ca982179de992c92d318160a",
+  "prepared_source_sha256": "fdfde9cbd1210c2f945d8ef859872d20f853b50fc5f7fb6166d5739498733564",
+  "conditional_baseline_sha256": "3c0b125cf05f02c0ee104f25859814305618270f274deecb1a260647bc855144",
+  "original_public_source_sha256": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
+  "original_four_public_headers": [
+    {
+      "name": "smoothLeft_normalization",
+      "sha256": "8b4d8751a10ba6b61fb33cd4b539e1fafd5f23384061bf1147a606f17ea30458",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "smoothRight_normalization",
+      "sha256": "9b5f38708c2e14a8729516f53401f766364cc678491592b8f31c3baaa2662111",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "left_regular_of_model",
+      "sha256": "445a10e659a50d1cde3bad814d20e9bdef1d0ff33125cb1bdb7d9d0d307e93c2",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "right_regular_of_model",
+      "sha256": "afce5e4e669e2f16ef349acdb00683d35453c4bc46ce2ac55806b03e24180117",
+      "byte_exact_to_original": true
+    }
+  ],
+  "prepared_derivation_guard_sha256": "95e657776dd0525b9462e0411ae4dda24eecc6eebcfb91944d25c52276cfbb97",
+  "actual_parent_source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
+  "actual_parent_output_sha256": "ddad8cf270543c4df398d4345c64ddf9c9f1fe7b1d5ef6fcaf9929b09d25710a",
+  "native_type_query_source_sha256": "1c7d9faf3ba017474554be369d88810140fcd98a6047178da4a9e190894e95da",
+  "native_type_query_run": "root_diagnostics/runs/20261104T175728064141-LSFormalArcRealFieldTypes",
+  "native_type_findings_sha256": "a28973ae21555a98400159834312d754f0fb531a91e58b9e2def835dc8973b4b",
+  "witness_findings": {
+    "overC_proof": {
+      "left_right_whitespace_normalized_terms_identical": true,
+      "head": "@LeBrunSalamon.Construction.FamilyBivectors.FieldComparison.evaluation_overC",
+      "T_is_literal_Spec_K": true,
+      "T_print_sha256": "715822a307fc3517e129ae1e0c1e255689223f68865d35abc2d39b2f0262df66"
+    },
+    "composition_proof": {
+      "left_right_whitespace_normalized_terms_identical": true,
+      "head": "@LeBrunSalamon.Construction.FamilyBivectors.FieldComparison.square_evaluation",
+      "T_is_literal_Spec_K": true,
+      "T_print_sha256": "dcb7ec71752dd4f16b6acb523bc45d44ab38417e7bd3d24e7ece57e6de39dde7"
+    }
+  },
+  "no_generated_proof_names_in_native_equations": true,
+  "both_native_types_zero_elisions_and_error_terms": true,
+  "patches": [
+    {
+      "before": "FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)",
+      "after": "FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)\n    (T := Spec (CommRingCat.of (FractionRing Coefficients)))",
+      "count": 4
+    },
+    {
+      "before": "FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)",
+      "after": "FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)\n    (T := Spec (CommRingCat.of (FractionRing Coefficients)))",
+      "count": 4
+    }
+  ],
+  "inverse_to_prepared_source_byte_exact": true,
+  "interfaces_and_extra_proof_parameters_absent": true,
+  "original_actual_imports_preserved": true,
+  "new_admissions": 0,
+  "scope": "Actual candidate against verified native Generic2; pending complete local/stock checks, no production ref update."
+}

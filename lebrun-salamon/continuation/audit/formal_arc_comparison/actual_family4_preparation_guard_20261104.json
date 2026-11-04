@@ -1,0 +1,326 @@
+{
+  "schema": "lebrun-arc-family-actual-prepared-from-complete-conditional-v1",
+  "conditional_source_sha256": "3c0b125cf05f02c0ee104f25859814305618270f274deecb1a260647bc855144",
+  "original_actual_source_sha256": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
+  "source_sha256": "fdfde9cbd1210c2f945d8ef859872d20f853b50fc5f7fb6166d5739498733564",
+  "profile_sha256": "b6d7f0abbdc9fc3ea637f74300e2a19dfe31c2c1d695f71dbd82987ae51f38dc",
+  "original_four_public_headers": [
+    {
+      "name": "smoothLeft_normalization",
+      "sha256": "8b4d8751a10ba6b61fb33cd4b539e1fafd5f23384061bf1147a606f17ea30458",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "smoothRight_normalization",
+      "sha256": "9b5f38708c2e14a8729516f53401f766364cc678491592b8f31c3baaa2662111",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "left_regular_of_model",
+      "sha256": "445a10e659a50d1cde3bad814d20e9bdef1d0ff33125cb1bdb7d9d0d307e93c2",
+      "byte_exact_to_original": true
+    },
+    {
+      "name": "right_regular_of_model",
+      "sha256": "afce5e4e669e2f16ef349acdb00683d35453c4bc46ce2ac55806b03e24180117",
+      "byte_exact_to_original": true
+    }
+  ],
+  "actual_imports_byte_exact_to_original": true,
+  "conditional_interfaces_removed": true,
+  "all_diagnostic_proof_parameters_removed": true,
+  "actual_field_applications": "Exact original actual FieldComparison.smoothLeft/right calls with original local Fact instances, isolated as inferred private definitions.",
+  "stored_witness_status": "Prepared using public evaluation_overC/square_evaluation proofs; exact native stored-witness selection awaits real-parent #check. No generated name is guessed.",
+  "all_generated_proof_names_removed": true,
+  "new_admissions": 0,
+  "production_file_unchanged": true,
+  "guarded_patches_from_complete_conditional": [
+    {
+      "before": "import LSGenericFamilyCartesianComparison\nimport LSGenericFamilyFieldTransport\n",
+      "after": "import LSGenericFamilyComparison\n",
+      "count": 1,
+      "before_offsets": [
+        0
+      ],
+      "after_offsets": [
+        0
+      ]
+    },
+    {
+      "before": "-- Diagnostic proof parameters only; no production assumption is added.\nprivate abbrev FieldLeftInterface : Prop :=\n  ∀ (K : CommRingCat) [hK : Fact (IsField K)] (sK : Spec K ⟶ ComplexBase)\n    (b : Spec K ⟶ F.smoothOpen.toScheme)\n    (hb : (b ≫ F.smoothOpen.ι) ≫ F.toC = sK)\n    (k : Parametrized.Source Lines.P sK ⟶ F.source)\n    (hk : IsPullback k (Parametrized.parameter Lines.P sK) F.parameter (b ≫ F.smoothOpen.ι))\n    (a : Parametrized.Square Lines.P sK ⟶ F.smoothSquareOpen.toScheme)\n    (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.parameter Lines.P sK)\n      F.parameter k (b ≫ F.smoothOpen.ι) hk.w),\n    pullSection a (SmoothFamily.smoothLeft Q) ≫\n      (compositionPullback a (SmoothFamily.smoothEvaluation (F := F))\n        (ParametrizedContact.evaluationSquare Lines.P sK X (k ≫ F.evaluation)\n          (FieldComparison.evaluation_overC sK b hb k hk))\n        (FieldComparison.square_evaluation sK b hb k hk a ha)\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection Lines.P sK X (k ≫ F.evaluation)\n        (FieldComparison.evaluation_overC sK b hb k hk)\n\nprivate abbrev FieldRightInterface : Prop :=\n  ∀ (K : CommRingCat) [hK : Fact (IsField K)] (sK : Spec K ⟶ ComplexBase)\n    (b : Spec K ⟶ F.smoothOpen.toScheme)\n    (hb : (b ≫ F.smoothOpen.ι) ≫ F.toC = sK)\n    (k : Parametrized.Source Lines.P sK ⟶ F.source)\n    (hk : IsPullback k (Parametrized.parameter Lines.P sK) F.parameter (b ≫ F.smoothOpen.ι))\n    (a : Parametrized.Square Lines.P sK ⟶ F.smoothSquareOpen.toScheme)\n    (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.parameter Lines.P sK)\n      F.parameter k (b ≫ F.smoothOpen.ι) hk.w),\n    pullSection a (SmoothFamily.smoothRight Q) ≫\n      (compositionPullback a (SmoothFamily.smoothEvaluation (F := F))\n        (ParametrizedContact.evaluationSquare Lines.P sK X (k ≫ F.evaluation)\n          (FieldComparison.evaluation_overC sK b hb k hk))\n        (FieldComparison.square_evaluation sK b hb k hk a ha)\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection Lines.P sK X (k ≫ F.evaluation)\n        (FieldComparison.evaluation_overC sK b hb k hk)\n\n",
+      "after": "",
+      "count": 1,
+      "before_offsets": [
+        3476
+      ],
+      "after_offsets": [
+        3476
+      ]
+    },
+    {
+      "before": "private def arcLeftFieldClosed (hFieldLeft : FieldLeftInterface Q) :=\n  @hFieldLeft (CommRingCat.of (FractionRing Coefficients))\n    ⟨Field.toIsField (FractionRing Coefficients)⟩\n    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)\n    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)\n    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n    (toSmoothSquare_family F gamma piM u hu k hk b hb)\n\n",
+      "after": "private def arcLeftFieldClosed :=\n  letI : Fact (IsField (CommRingCat.of (FractionRing Coefficients))) :=\n    ⟨Field.toIsField (FractionRing Coefficients)⟩\n  FieldComparison.smoothLeft Q (CommRingCat.of (FractionRing Coefficients))\n    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)\n    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)\n    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n    (toSmoothSquare_family F gamma piM u hu k hk b hb)\n\n",
+      "count": 1,
+      "before_offsets": [
+        7303
+      ],
+      "after_offsets": [
+        7303
+      ]
+    },
+    {
+      "before": "private def arcRightFieldClosed (hFieldRight : FieldRightInterface Q) :=\n  @hFieldRight (CommRingCat.of (FractionRing Coefficients))\n    ⟨Field.toIsField (FractionRing Coefficients)⟩\n    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)\n    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)\n    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n    (toSmoothSquare_family F gamma piM u hu k hk b hb)\n\n",
+      "after": "private def arcRightFieldClosed :=\n  letI : Fact (IsField (CommRingCat.of (FractionRing Coefficients))) :=\n    ⟨Field.toIsField (FractionRing Coefficients)⟩\n  FieldComparison.smoothRight Q (CommRingCat.of (FractionRing Coefficients))\n    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)\n    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)\n    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n    (toSmoothSquare_family F gamma piM u hu k hk b hb)\n\n",
+      "count": 1,
+      "before_offsets": [
+        13359
+      ],
+      "after_offsets": [
+        13359
+      ]
+    },
+    {
+      "before": "(@FieldLeftInterface._proof_2 n X F\n    (CommRingCat.of (FractionRing Coefficients)) (genericPoint ≫ toC) b",
+      "after": "(FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)\n    (genericPoint ≫ toC) b",
+      "count": 4,
+      "before_offsets": [
+        4537,
+        6245,
+        10586,
+        12299
+      ],
+      "after_offsets": [
+        4537,
+        6231,
+        10558,
+        12257
+      ]
+    },
+    {
+      "before": "(@FieldLeftInterface._proof_3 n X F\n    (CommRingCat.of (FractionRing Coefficients)) (genericPoint ≫ toC) b",
+      "after": "(FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)\n    (genericPoint ≫ toC) b",
+      "count": 4,
+      "before_offsets": [
+        4763,
+        6457,
+        10784,
+        12483
+      ],
+      "after_offsets": [
+        4763,
+        6444,
+        10758,
+        12444
+      ]
+    },
+    {
+      "before": "(hFieldLeft : FieldLeftInterface Q)",
+      "after": "",
+      "count": 5,
+      "before_offsets": [
+        7768,
+        8121,
+        8777,
+        9154,
+        15993
+      ],
+      "after_offsets": [
+        7768,
+        8086,
+        8707,
+        9049,
+        15853
+      ]
+    },
+    {
+      "before": " hFieldLeft",
+      "after": "",
+      "count": 5,
+      "before_offsets": [
+        8035,
+        8346,
+        8978,
+        9753,
+        18112
+      ],
+      "after_offsets": [
+        8035,
+        8335,
+        8956,
+        9720,
+        18068
+      ]
+    },
+    {
+      "before": "(hFieldRight : FieldRightInterface Q)",
+      "after": "",
+      "count": 5,
+      "before_offsets": [
+        13589,
+        13948,
+        14613,
+        14996,
+        18126
+      ],
+      "after_offsets": [
+        13589,
+        13911,
+        14539,
+        14885,
+        17978
+      ]
+    },
+    {
+      "before": " hFieldRight",
+      "after": "",
+      "count": 5,
+      "before_offsets": [
+        13858,
+        14173,
+        14812,
+        15593,
+        20251
+      ],
+      "after_offsets": [
+        13858,
+        14161,
+        14788,
+        15557,
+        20203
+      ]
+    },
+    {
+      "before": "Closed  :=",
+      "after": "Closed :=",
+      "count": 6,
+      "before_offsets": [
+        7761,
+        8068,
+        8678,
+        13582,
+        13892,
+        14508
+      ],
+      "after_offsets": [
+        7761,
+        8067,
+        8676,
+        13579,
+        13888,
+        14503
+      ]
+    },
+    {
+      "before": "private theorem conditional_smoothLeft_normalization",
+      "after": "theorem smoothLeft_normalization",
+      "count": 1,
+      "before_offsets": [
+        8956
+      ],
+      "after_offsets": [
+        8956
+      ]
+    },
+    {
+      "before": "conditional_smoothLeft_normalization",
+      "after": "smoothLeft_normalization",
+      "count": 1,
+      "before_offsets": [
+        17783
+      ],
+      "after_offsets": [
+        17783
+      ]
+    },
+    {
+      "before": "theorem smoothLeft_normalization\n     :\n    pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n      (SmoothFamily.smoothLeft Q) ≫\n      (compositionPullback (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n        (SmoothFamily.smoothEvaluation (F := F))\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by",
+      "after": "theorem smoothLeft_normalization :\n    pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n      (SmoothFamily.smoothLeft Q) ≫\n      (compositionPullback (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n        (SmoothFamily.smoothEvaluation (F := F))\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by",
+      "count": 1,
+      "before_offsets": [
+        8956
+      ],
+      "after_offsets": [
+        8956
+      ]
+    },
+    {
+      "before": "private theorem conditional_smoothRight_normalization",
+      "after": "theorem smoothRight_normalization",
+      "count": 1,
+      "before_offsets": [
+        14760
+      ],
+      "after_offsets": [
+        14760
+      ]
+    },
+    {
+      "before": "conditional_smoothRight_normalization",
+      "after": "smoothRight_normalization",
+      "count": 1,
+      "before_offsets": [
+        20076
+      ],
+      "after_offsets": [
+        20076
+      ]
+    },
+    {
+      "before": "theorem smoothRight_normalization\n     :\n    pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n      (SmoothFamily.smoothRight Q) ≫\n      (compositionPullback (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n        (SmoothFamily.smoothEvaluation (F := F))\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by",
+      "after": "theorem smoothRight_normalization :\n    pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n      (SmoothFamily.smoothRight Q) ≫\n      (compositionPullback (Generic.toSmoothSquare F gamma piM u hu k hk b hb)\n        (SmoothFamily.smoothEvaluation (F := F))\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by",
+      "count": 1,
+      "before_offsets": [
+        14760
+      ],
+      "after_offsets": [
+        14760
+      ]
+    },
+    {
+      "before": "private theorem conditional_left_regular_of_model",
+      "after": "theorem left_regular_of_model",
+      "count": 1,
+      "before_offsets": [
+        15503
+      ],
+      "after_offsets": [
+        15503
+      ]
+    },
+    {
+      "before": "theorem left_regular_of_model\n    \n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait))\n    (v : AlgebraicSection (pullbackModule (Transport.evaluationSquare F gamma piM u hu)\n      (movingPairBundleLeft X.variety X.contact)))\n    (hv : pullSection (Generic.toModelSquare piM k hk) v ≫\n      (compositionPullback (Generic.toModelSquare piM k hk)\n        (Transport.evaluationSquare F gamma piM u hu)\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toModelSquare_evaluation F gamma piM u hu k hk)\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk)) :\n    Regular (SmoothFamily.rationalPair Q).leftRational gamma.val := by",
+      "after": "theorem left_regular_of_model\n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait))\n    (v : AlgebraicSection (pullbackModule (Transport.evaluationSquare F gamma piM u hu)\n      (movingPairBundleLeft X.variety X.contact)))\n    (hv : pullSection (Generic.toModelSquare piM k hk) v ≫\n      (compositionPullback (Generic.toModelSquare piM k hk)\n        (Transport.evaluationSquare F gamma piM u hu)\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toModelSquare_evaluation F gamma piM u hu k hk)\n        (movingPairBundleLeft X.variety X.contact)).hom =\n      ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk)) :\n    Regular (SmoothFamily.rationalPair Q).leftRational gamma.val := by",
+      "count": 1,
+      "before_offsets": [
+        15503
+      ],
+      "after_offsets": [
+        15503
+      ]
+    },
+    {
+      "before": "private theorem conditional_right_regular_of_model",
+      "after": "theorem right_regular_of_model",
+      "count": 1,
+      "before_offsets": [
+        17782
+      ],
+      "after_offsets": [
+        17782
+      ]
+    },
+    {
+      "before": "theorem right_regular_of_model\n    \n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait))\n    (v : AlgebraicSection (pullbackModule (Transport.evaluationSquare F gamma piM u hu)\n      (movingPairBundleRight X.variety X.contact)))\n    (hv : pullSection (Generic.toModelSquare piM k hk) v ≫\n      (compositionPullback (Generic.toModelSquare piM k hk)\n        (Transport.evaluationSquare F gamma piM u hu)\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toModelSquare_evaluation F gamma piM u hu k hk)\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk)) :\n    Regular (SmoothFamily.rationalPair Q).rightRational gamma.val := by",
+      "after": "theorem right_regular_of_model\n    (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait))\n    (v : AlgebraicSection (pullbackModule (Transport.evaluationSquare F gamma piM u hu)\n      (movingPairBundleRight X.variety X.contact)))\n    (hv : pullSection (Generic.toModelSquare piM k hk) v ≫\n      (compositionPullback (Generic.toModelSquare piM k hk)\n        (Transport.evaluationSquare F gamma piM u hu)\n        (genericEvaluationSquare F gamma piM u hu k hk)\n        (toModelSquare_evaluation F gamma piM u hu k hk)\n        (movingPairBundleRight X.variety X.contact)).hom =\n      ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X\n        (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk)) :\n    Regular (SmoothFamily.rationalPair Q).rightRational gamma.val := by",
+      "count": 1,
+      "before_offsets": [
+        17782
+      ],
+      "after_offsets": [
+        17782
+      ]
+    }
+  ],
+  "forward_and_inverse_guards_reconstruct_both_sources_byte_exact": true,
+  "scope": "Prepared actual candidate only, uncompiled. Wait for real native Generic2 and exact witness inspection; no production mutation or acceptance."
+}

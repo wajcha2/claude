@@ -1,115 +1,29 @@
 {
   "schema": "lebrun-remaining-native-gates-v1",
-  "updated_utc": "2026-11-04 17:48:35 UTC",
-  "clean_production_base": "generic_field2_v13_actual",
+  "updated_utc": "2026-11-04 18:03:06 UTC",
+  "clean_production_parent": "04272fb70e38536976d107493c07fbbe8f100553",
   "source_modules": 307,
-  "native_verified_contexts": 301,
+  "native_verified_contexts": 302,
   "point1_190_unchanged": true,
   "acceptance_units": 30,
-  "gates": [
-    {
-      "module": "LSGenericFamilyCartesianComparison",
-      "owner": "root",
-      "source_sha256": "44ecb30adbef9e5be5fceaa60cb32d05af746cd3c1bb25e807bf83ab5e38975d",
-      "source_blob": "eb603f8a220f7c6135691a910e5d331d268883a6",
-      "run_id": 41855037253,
-      "status": "actual_native_passed_3.727s_124_of_124",
-      "output_sha256": "04e0298d8548126b83018f7079d40c9262357319a93fc94efd2d57d598b36ea9"
-    },
-    {
-      "module": "LSGenericFamilyCartesianFieldComparison",
-      "owner": "root",
-      "status": "actual native passed9.842s;125/125 selected",
-      "source_sha256": "f1cd8c9194ebefc0beb79d5775082b200b9f3208a5213afee8994427aaf460e0",
-      "source_blob": "501716b80d0a45be220c2a4aba7acd6ac9b3590d",
-      "run_id": 41871118148,
-      "output_sha256": "d82e5196f5a7e89dd6d3609c104bc596d20259df9e32012d1880fe086cdec638",
-      "receipt_sha256": "6744ce145e9127c11135104af261fa9865a41795c780229370615e15dccb4b5e"
-    },
-    {
-      "module": "LSGenericFamilyComparison",
-      "owner": "root",
-      "status": "V13 complete local31 pass47.553s; actual native gate pending",
-      "do_not_retry_unchanged": true,
-      "source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
-      "source_blob": "c078b39705600df13a91b949030cced4695c540f",
-      "run_id": null
-    },
-    {
-      "module": "LSFamilyBivectorDescent",
-      "owner": "source_milestone_audit",
-      "status": "actual_native_passed_21.157s_112_of_112",
-      "parent": "LSFamilySmoothDescent1035_already_stock_passed",
-      "do_not_retry_unchanged": false,
-      "run_id": 41856517767,
-      "source_sha256": "c26abea08ed7b0f84e6f5b3875b6827a77e8422fe92e35789772e43ccd123f9e",
-      "output_sha256": "2e66a28450369a3452e70224902a13c9261750e63962b184d60bda8be446990f"
-    },
-    {
-      "module": "LSModelNumeratorTransport",
-      "owner": "published_leaf_audit",
-      "status": "actual_native_passed_13.093s_214_of_214",
-      "source_sha256": "7e9408ab8395539971c60a2daebc282bc4bf83596eb2e24cef089bca38c6d6cf",
-      "run_id": 41861657697,
-      "output_sha256": "8b7ba762f886111e261eff4f4c6952bfdf067b85fb87977efccb04b6cb80f910"
-    },
-    {
-      "module": "LSModelGenericComparison",
-      "owner": "root",
-      "source_sha256": "b6d9f9e1cd8de418c541a475984dd6060aaf0b6ff55e98aab88fce2b3d5f05de",
-      "source_blob": "aa72c5e2aef823659bbd3637bd582c55dba02975",
-      "profile_blob": "c06516671ce8773e1145c4fd5b9ed3d6860b992e",
-      "status": "actual_native_passed_10.842s_219_of_219",
-      "run_id": 41861657697,
-      "output_sha256": "fd3294acc46fedefda135b95920d8f2df4108fd77aa9eea6bd32e55f8a7d4455"
-    },
-    {
-      "module": "LSFormalArcFamilyComparison",
-      "owner": "source_milestone_audit",
-      "source_sha256": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
-      "profile_sha256": "e95a6d58c450e3ab7687b711bf96790a96f69191c774579900443023fe738d78",
-      "profile_blob": "9043098a1435f34c3e5852f280837e0d6d0cf76c",
-      "status": "Full changed conditional23 local pass80.879s, zero errors; actual original261e unchanged pending real Generic2 adaptation; no native dispatch",
-      "old_d96_profile_not_to_run": true,
-      "old_261e_uncompiled": true
-    },
-    {
-      "module": "LSFormalArcComparison",
-      "owner": "published_leaf_audit",
-      "source_sha256": "469faa9848c7e9110b0524250170b7f74501a3bf779c2250c233204669b8ea7e",
-      "status": "Local16 ingredients and premise type inspection passed; full conditional5 timed; held actualV4 4e937 awaits real Arc4 and root authorization",
-      "do_not_retry_unchanged": true
-    },
-    {
-      "module": "LSMovingPairConstruction",
-      "status": "unchanged_continuation_after_Arc5_and_Covered2"
-    },
-    {
-      "module": "LSCompletedTargets",
-      "status": "unchanged_continuation_after_MovingPair"
-    },
-    {
-      "module": "LSMilestoneTarget",
-      "status": "unchanged_continuation_after_CompletedTargets"
-    }
+  "pending_modules": [
+    "LSCompletedTargets",
+    "LSFormalArcComparison",
+    "LSFormalArcFamilyComparison",
+    "LSMilestoneTarget",
+    "LSMovingPairConstruction"
   ],
-  "final_gate": "Clean production source manifest only; full all-current native verification, exact190 contexts and official artifact/report hashes before root promotes44units; metadata publication must preserve final totals.",
-  "clean_production_parent": "4274007de8deb55e2300d553f2e611c22686f056",
-  "active_native_runs": [],
-  "pending_native_dispatch": {
-    "branch": "codex/lebrun-generic-field2-v13-20261104",
-    "module": "LSGenericFamilyComparison",
-    "source_sha256": "418aae5b32cb2b6a0e0dae164a17c63ca2aac61161232a41ccc4bf825f3d0e6d",
-    "timeout_seconds": 300,
-    "mode": "direct actual module"
-  },
-  "obsolete_v11_supersession": {
-    "authorized_obsolete_run_id": 41879102797,
-    "obsolete_commit": "709e7b54493d2e3690843ea6ec0a954c894624ca",
-    "obsolete_branch": "codex/lebrun-generic-field2-v11-20261104",
-    "exact_unique_group": "lebrun-generic-field2-v11-refs/heads/codex/lebrun-generic-field2-v11-20261104",
-    "cancel_in_progress": true,
-    "documentation_url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency",
-    "scope": "Root authorized canceling only the obsolete V11 run. This exact concurrency group is taken from its frozen workflow; no other workflow group is affected."
+  "execution_plan": "One topological all-source replay; actual Arc5 consumes newly checked actual Arc4, then final three compile in the same run. Preserve every completed native output if a later frontier fails.",
+  "final_gate": "accepted_modules == selected_modules == source_modules ==307; no failed or blocked modules; all-current verification and exact190 contexts; official artifact and archived report hashes independently validated before root promotes44units.",
+  "milestone_scope": {
+    "accepted_obligation_units_current": 30,
+    "total_obligation_units": 133,
+    "authorized_point1_new_units": 44,
+    "result_after_root_approval": 74,
+    "authorized_ids": "OBL-001 through OBL-043 plus OBL-069",
+    "milestone_gates_all_remain_pending": true,
+    "GATE_01": "Exact unconditional frozen endpoint; PositiveQKSimpleConnectedness bridge",
+    "GATE_02": "Dependency-complete current compilation",
+    "scope": "Current-source replay and Point1 acceptance do not imply milestone completion or any final-gate credit."
   }
 }

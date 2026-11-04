@@ -1,0 +1,146 @@
+{
+  "schema": "lebrun-generic-family-comparison-remaining2-v11-native-failure-v1",
+  "source_commit": "709e7b54493d2e3690843ea6ec0a954c894624ca",
+  "run_id": 41879102797,
+  "job_id": 126746641244,
+  "module": "LSGenericFamilyComparison",
+  "source_sha256": "d5368a852abd18555d6e82a366fe6425fc6dccd812a92405298c5d6580790eac",
+  "artifact": {
+    "id": 13347658695,
+    "name": "lebrun-generic-field2-v11-actual-41879102797-1",
+    "run_id": 41879102797,
+    "size_in_bytes": 67856900,
+    "sha256": "b93e74abc48a744c4c1e5f75edf89cf226eedd6e0e411d2b96200f626d82f48f"
+  },
+  "independent_archive_verification": {
+    "schema": "lebrun-independent-failed-native-archive-validation-v1",
+    "artifact_id": 13347658695,
+    "artifact_name": "lebrun-generic-field2-v11-actual-41879102797-1",
+    "run_id": 41879102797,
+    "source_commit": "709e7b54493d2e3690843ea6ec0a954c894624ca",
+    "archive_sha256": "b93e74abc48a744c4c1e5f75edf89cf226eedd6e0e411d2b96200f626d82f48f",
+    "full_verification_sha256": "e8a9683c0d4fe06efccb523b3949e84dd66970ed1eec42df5369cf3e3a35a7b1",
+    "source_sha256": "d5368a852abd18555d6e82a366fe6425fc6dccd812a92405298c5d6580790eac",
+    "failed_receipt_sha256": "7ccce2353b18bff67d2393028c319983d21f538062d568f82a3f40799a9362cf",
+    "failed_receipt": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "failed",
+      "module": "LSGenericFamilyComparison",
+      "source_ancestry_fingerprint": "576ef142b97790f5364aed0f4117c00e0269702e1ae2791813c3808e36980963",
+      "key": {
+        "source_sha256": "d5368a852abd18555d6e82a366fe6425fc6dccd812a92405298c5d6580790eac",
+        "imports": [
+          "LSGenericFamilyCartesianFieldComparison",
+          "LSGenericFamilyCartesianComparison",
+          "LSFamilyBaseChange",
+          "LSParametrizedBaseChange",
+          "LSFamilySmoothNormalization",
+          "LSFieldParametrization",
+          "LSFamilyReparametrization",
+          "LSGenericFamilyPointComparison",
+          "LSGenericFamilyFieldTransport"
+        ],
+        "dependency_artifacts": {
+          "LSGenericFamilyCartesianFieldComparison": {
+            "sha256": "d82e5196f5a7e89dd6d3609c104bc596d20259df9e32012d1880fe086cdec638",
+            "kind": "project"
+          },
+          "LSGenericFamilyCartesianComparison": {
+            "sha256": "04e0298d8548126b83018f7079d40c9262357319a93fc94efd2d57d598b36ea9",
+            "kind": "project"
+          },
+          "LSFamilyBaseChange": {
+            "sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+            "kind": "project"
+          },
+          "LSParametrizedBaseChange": {
+            "sha256": "490d99845a2caf29dcd498d4f6cd858078a545182171d4ba57c94a27ada68126",
+            "kind": "project"
+          },
+          "LSFamilySmoothNormalization": {
+            "sha256": "988995458843147593d805fbda3014755656c64da845658671469d4c04e4f44c",
+            "kind": "project"
+          },
+          "LSFieldParametrization": {
+            "sha256": "43679b2b27df70bdba5f81f0e2088ca5fdc4ca177e69158db85f360c0c8f5952",
+            "kind": "project"
+          },
+          "LSFamilyReparametrization": {
+            "sha256": "fe1be3ba76365e86a5a2596376b2d8d03a4c094975467f5c8e10bfa4e7fe79cd",
+            "kind": "project"
+          },
+          "LSGenericFamilyPointComparison": {
+            "sha256": "e2378d881bdd62a82c5c6af9dae70fddd1ac4eb07689f8a9895c93b48b279e7d",
+            "kind": "project"
+          },
+          "LSGenericFamilyFieldTransport": {
+            "sha256": "51ad30f844199c9a9ba2c4b1bea575e3bd52d0262287660e0031e0ce023ee32f",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+        "-o",
+        "/home/runner/work/claude/claude/kernel-evidence/olean/LSGenericFamilyComparison.olean",
+        "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSGenericFamilyComparison.lean"
+      ],
+      "started_utc": "2026-11-04T17:39:13.467167+00:00",
+      "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T173913467135.stdout.jsonl",
+      "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T173913467135.stderr.txt",
+      "return_code": 124,
+      "finished_utc": "2026-11-04T17:44:13.825946+00:00",
+      "seconds": 300.358,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "accepted_parent_contexts_exactly_matched": 301,
+    "all_parent_outputs_logs_native_keys_recursive_stamps_verified": true,
+    "failed_source_and_input_stamps_verified": true,
+    "failed_output_absent": true,
+    "export_directory": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41879102797-generic-field2-v11-d536",
+    "acceptance_credit": false
+  },
+  "scope": {
+    "completed_stock_result": "wall-clock timeout",
+    "return_code": 124,
+    "seconds": 300.358,
+    "emitted_error_count": 0,
+    "output_artifact": false,
+    "selected_modules": 126,
+    "accepted_modules": 125,
+    "prior_native_contexts_verified": 301,
+    "point1_190_unchanged": true,
+    "completed_before_v13_supersession": true,
+    "was_cancelled": false,
+    "whole_module_proof_pass": false,
+    "accepted_obligation_units": 30,
+    "total_obligation_units": 133
+  },
+  "note": "This immutable completed failure is preserved separately from the later source418aae5b V13 native pass. Empty streams establish no declaration coverage."
+}

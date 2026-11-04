@@ -35,6 +35,42 @@ open FamilyBivectors FormalArcSections TraitContact
 
 variable {n : ℕ} {X : ContactFanoManifold n}
 
+private theorem family_section_equation_transport
+    (P : ProjectiveLineOverC) {B : Scheme} (sB : B ⟶ ComplexBase)
+    {m : ℕ} (V : ContactFanoManifold m)
+    (E : OModule (SelfProduct V.variety.structureMap))
+    (sigma : (e : Parametrized.Source P sB ⟶ V.variety.scheme) →
+      (he : e ≫ V.variety.structureMap = Parametrized.parameter P sB ≫ sB) →
+      AlgebraicSection (pullbackModule
+        (ParametrizedContact.evaluationSquare P sB V e he) E))
+    {T Y : Scheme} (hT : Parametrized.Square P sB = T)
+    (q : Parametrized.Square P sB ⟶ Y) (q' : T ⟶ Y) (hq : HEq q q')
+    (f : Y ⟶ SelfProduct V.variety.structureMap)
+    (e e' : Parametrized.Source P sB ⟶ V.variety.scheme)
+    (he : e ≫ V.variety.structureMap = Parametrized.parameter P sB ≫ sB)
+    (he' : e' ≫ V.variety.structureMap = Parametrized.parameter P sB ≫ sB)
+    (hee : e = e')
+    (r : T ⟶ SelfProduct V.variety.structureMap)
+    (hr : HEq (ParametrizedContact.evaluationSquare P sB V e' he') r)
+    (h : q ≫ f = ParametrizedContact.evaluationSquare P sB V e he)
+    (h' : q' ≫ f = r)
+    (s : AlgebraicSection (pullbackModule f E))
+    (t : AlgebraicSection (pullbackModule r E))
+    (ht : HEq (sigma e' he') t) :
+    (pullSection q s ≫
+      (compositionPullback q f
+        (ParametrizedContact.evaluationSquare P sB V e he) h E).hom = sigma e he) ↔
+    (pullSection q' s ≫ (compositionPullback q' f r h' E).hom = t) := by
+  cases hT
+  have hq' : q = q' := eq_of_heq hq
+  cases hq'
+  cases hee
+  have hr' : ParametrizedContact.evaluationSquare P sB V e he = r := eq_of_heq hr
+  cases hr'
+  have ht' : sigma e he = t := eq_of_heq ht
+  cases ht'
+  rfl
+
 section FamilyComparison
 
 variable {g : VeryFreeContactConic Lines.P Lines.marking X}
@@ -52,6 +88,104 @@ variable (hk : IsPullback k Generic.projection piM genericPoint)
 variable (b : GenericPoint ⟶ F.smoothOpen.toScheme)
 variable (hb : b ≫ F.smoothOpen.ι = genericPoint ≫ (baseArc F gamma).val)
 
+private theorem family_left_pull_input {T Y : Scheme} (q : T ⟶ Y)
+    (f : Y ⟶ SelfProduct X.variety.structureMap)
+    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
+    (s : AlgebraicSection (MovingPair.leftBundle f).sheaf) :
+    (@pullSection T Y q (MovingPair.leftBundle f).sheaf s ≫
+      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) =
+    (@pullSection T Y q (pullbackModule f (movingPairBundleLeft X.variety X.contact)) s ≫
+      (compositionPullback q f r h (movingPairBundleLeft X.variety X.contact)).hom) := by
+  rfl
+
+private def arcLeftStoredIff :=
+  let heK := (FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb))
+  let hqK := (FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (toSmoothSquare_family F gamma piM u hu k hk b hb))
+  (family_section_equation_transport Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC) X
+    (movingPairBundleLeft X.variety X.contact)
+    (fun e he => ParametrizedContact.leftSection Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC) X e he)
+    (T := RelativeSquare.Space Generic.projection) (Y := F.smoothSquareOpen.toScheme) rfl
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb) (by rfl)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (Generic.toFamily F gamma u k ≫ F.evaluation) (genericEvaluation F gamma u k)
+    heK
+    (genericEvaluation_overC F gamma piM u hu k hk)
+    (family_evaluation F gamma u k)
+    (genericEvaluationSquare F gamma piM u hu k hk) (by rfl)
+    hqK
+    (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothLeft Q)
+    (ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X
+      (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk))
+    (by rfl))
+
+private def arcLeftStoredInput :=
+  let heK := (FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb))
+  let hqK := (FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (toSmoothSquare_family F gamma piM u hu k hk b hb))
+  family_left_pull_input (X := X)
+    (T := Parametrized.Square Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC))
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (ParametrizedContact.evaluationSquare Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients))))
+      (genericPoint ≫ toC) X (Generic.toFamily F gamma u k ≫ F.evaluation) heK)
+    hqK (SmoothFamily.smoothLeft Q)
+
+private def arcLeftFieldClosed :=
+  letI : Fact (IsField (CommRingCat.of (FractionRing Coefficients))) :=
+    ⟨Field.toIsField (FractionRing Coefficients)⟩
+  FieldComparison.smoothLeft Q (CommRingCat.of (FractionRing Coefficients))
+    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)
+    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (toSmoothSquare_family F gamma piM u hu k hk b hb)
+
+private def arcLeftIncomingClosed :=
+  (arcLeftStoredInput (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).symm.trans
+    (arcLeftFieldClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
+
+private def arcLeftTransportedClosed :=
+  (arcLeftStoredIff (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).mp
+    (arcLeftIncomingClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
+
+private def arcLeftOutgoingClosed :=
+  family_left_pull_input (X := X)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (genericEvaluationSquare F gamma piM u hu k hk)
+    (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothLeft Q)
+
+private def arcLeftFinalClosed :=
+  (arcLeftOutgoingClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).trans
+    (arcLeftTransportedClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
+
 theorem smoothLeft_normalization :
     pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
       (SmoothFamily.smoothLeft Q) ≫
@@ -62,15 +196,106 @@ theorem smoothLeft_normalization :
         (movingPairBundleLeft X.variety X.contact)).hom =
       ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X
         (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by
+  exact arcLeftFinalClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)
+
+private theorem family_right_pull_input {T Y : Scheme} (q : T ⟶ Y)
+    (f : Y ⟶ SelfProduct X.variety.structureMap)
+    (r : T ⟶ SelfProduct X.variety.structureMap) (h : q ≫ f = r)
+    (s : AlgebraicSection (MovingPair.rightBundle f).sheaf) :
+    (@pullSection T Y q (MovingPair.rightBundle f).sheaf s ≫
+      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) =
+    (@pullSection T Y q (pullbackModule f (movingPairBundleRight X.variety X.contact)) s ≫
+      (compositionPullback q f r h (movingPairBundleRight X.variety X.contact)).hom) := by
+  rfl
+
+private def arcRightStoredIff :=
+  let heK := (FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb))
+  let hqK := (FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (toSmoothSquare_family F gamma piM u hu k hk b hb))
+  (family_section_equation_transport Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC) X
+    (movingPairBundleRight X.variety X.contact)
+    (fun e he => ParametrizedContact.rightSection Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC) X e he)
+    (T := RelativeSquare.Space Generic.projection) (Y := F.smoothSquareOpen.toScheme) rfl
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb) (by rfl)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (Generic.toFamily F gamma u k ≫ F.evaluation) (genericEvaluation F gamma u k)
+    heK
+    (genericEvaluation_overC F gamma piM u hu k hk)
+    (family_evaluation F gamma u k)
+    (genericEvaluationSquare F gamma piM u hu k hk) (by rfl)
+    hqK
+    (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothRight Q)
+    (ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X
+      (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk))
+    (by rfl))
+
+private def arcRightStoredInput :=
+  let heK := (FieldComparison.evaluation_overC (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb))
+  let hqK := (FieldComparison.square_evaluation (P := Lines.P) (X := X) (F := F)
+    (T := Spec (CommRingCat.of (FractionRing Coefficients)))
+    (genericPoint ≫ toC) b
+    (smoothBase_overC F gamma b hb) (Generic.toFamily F gamma u k)
+    (family_isPullback F gamma piM u hu k hk b hb)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (toSmoothSquare_family F gamma piM u hu k hk b hb))
+  family_right_pull_input (X := X)
+    (T := Parametrized.Square Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients)))) (genericPoint ≫ toC))
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (ParametrizedContact.evaluationSquare Lines.P (B := (Spec (CommRingCat.of (FractionRing Coefficients))))
+      (genericPoint ≫ toC) X (Generic.toFamily F gamma u k ≫ F.evaluation) heK)
+    hqK (SmoothFamily.smoothRight Q)
+
+private def arcRightFieldClosed :=
   letI : Fact (IsField (CommRingCat.of (FractionRing Coefficients))) :=
     ⟨Field.toIsField (FractionRing Coefficients)⟩
-  have h := FieldComparison.smoothLeft Q (CommRingCat.of (FractionRing Coefficients))
+  FieldComparison.smoothRight Q (CommRingCat.of (FractionRing Coefficients))
     (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)
     (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)
     (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
     (toSmoothSquare_family F gamma piM u hu k hk b hb)
-  simpa only [genericEvaluationSquare, genericEvaluation, Generic.toFamily,
-    Generic.inverseSource, Transport.evaluation, TraitPullback.evaluation, Category.assoc] using h
+
+private def arcRightIncomingClosed :=
+  (arcRightStoredInput (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).symm.trans
+    (arcRightFieldClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
+
+private def arcRightTransportedClosed :=
+  (arcRightStoredIff (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).mp
+    (arcRightIncomingClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
+
+private def arcRightOutgoingClosed :=
+  family_right_pull_input (X := X)
+    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothEvaluation (F := F))
+    (genericEvaluationSquare F gamma piM u hu k hk)
+    (toSmoothSquare_evaluation F gamma piM u hu k hk b hb)
+    (SmoothFamily.smoothRight Q)
+
+private def arcRightFinalClosed :=
+  (arcRightOutgoingClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)).trans
+    (arcRightTransportedClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb))
 
 theorem smoothRight_normalization :
     pullSection (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
@@ -82,15 +307,8 @@ theorem smoothRight_normalization :
         (movingPairBundleRight X.variety X.contact)).hom =
       ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X
         (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk) := by
-  letI : Fact (IsField (CommRingCat.of (FractionRing Coefficients))) :=
-    ⟨Field.toIsField (FractionRing Coefficients)⟩
-  have h := FieldComparison.smoothRight Q (CommRingCat.of (FractionRing Coefficients))
-    (genericPoint ≫ toC) b (smoothBase_overC F gamma b hb)
-    (Generic.toFamily F gamma u k) (family_isPullback F gamma piM u hu k hk b hb)
-    (Generic.toSmoothSquare F gamma piM u hu k hk b hb)
-    (toSmoothSquare_family F gamma piM u hu k hk b hb)
-  simpa only [genericEvaluationSquare, genericEvaluation, Generic.toFamily,
-    Generic.inverseSource, Transport.evaluation, TraitPullback.evaluation, Category.assoc] using h
+  exact arcRightFinalClosed (Q := Q) (gamma := gamma) (piM := piM) (u := u) (hu := hu)
+    (k := k) (hk := hk) (b := b) (hb := hb)
 
 theorem left_regular_of_model
     (hU : Dense (gamma.val ⁻¹ᵁ F.smoothSquareOpen : Set Trait))
@@ -111,8 +329,16 @@ theorem left_regular_of_model
     (Transport.section F gamma piM u hu v)
     (genericToSmooth F gamma piM u hu k hk b hb)
     (genericToSmooth_inclusion F gamma piM u hu k hk b hb)
-  simpa only [MovingPair.RationalVectorPair.leftRational,
-    SmoothFamily.rationalPair_left_open, SmoothFamily.restrictedLeft] using
+  change pullSection genericPoint (Transport.section F gamma piM u hu v) ≫
+      (compositionPullback genericPoint gamma.val (genericPoint ≫ gamma.val) rfl
+        (pullbackModule F.squareEvaluation (movingPairBundleLeft X.variety X.contact))).hom =
+    pullSection (genericToSmooth F gamma piM u hu k hk b hb)
+      (OpenSection.fromValue F.smoothSquareOpen (SmoothFamily.rationalPair Q).leftSection) ≫
+      (compositionPullback (genericToSmooth F gamma piM u hu k hk b hb)
+        F.smoothSquareOpen.ι (genericPoint ≫ gamma.val)
+        (genericToSmooth_inclusion F gamma piM u hu k hk b hb)
+        (pullbackModule F.squareEvaluation (movingPairBundleLeft X.variety X.contact))).hom
+  simpa only [SmoothFamily.rationalPair_left_open, SmoothFamily.restrictedLeft] using
     model_normalization F gamma piM u hu k hk b hb v (SmoothFamily.smoothLeft Q)
       (ParametrizedContact.leftSection Lines.P (genericPoint ≫ toC) X
         (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk))
@@ -137,8 +363,16 @@ theorem right_regular_of_model
     (Transport.section F gamma piM u hu v)
     (genericToSmooth F gamma piM u hu k hk b hb)
     (genericToSmooth_inclusion F gamma piM u hu k hk b hb)
-  simpa only [MovingPair.RationalVectorPair.rightRational,
-    SmoothFamily.rationalPair_right_open, SmoothFamily.restrictedRight] using
+  change pullSection genericPoint (Transport.section F gamma piM u hu v) ≫
+      (compositionPullback genericPoint gamma.val (genericPoint ≫ gamma.val) rfl
+        (pullbackModule F.squareEvaluation (movingPairBundleRight X.variety X.contact))).hom =
+    pullSection (genericToSmooth F gamma piM u hu k hk b hb)
+      (OpenSection.fromValue F.smoothSquareOpen (SmoothFamily.rationalPair Q).rightSection) ≫
+      (compositionPullback (genericToSmooth F gamma piM u hu k hk b hb)
+        F.smoothSquareOpen.ι (genericPoint ≫ gamma.val)
+        (genericToSmooth_inclusion F gamma piM u hu k hk b hb)
+        (pullbackModule F.squareEvaluation (movingPairBundleRight X.variety X.contact))).hom
+  simpa only [SmoothFamily.rationalPair_right_open, SmoothFamily.restrictedRight] using
     model_normalization F gamma piM u hu k hk b hb v (SmoothFamily.smoothRight Q)
       (ParametrizedContact.rightSection Lines.P (genericPoint ≫ toC) X
         (genericEvaluation F gamma u k) (genericEvaluation_overC F gamma piM u hu k hk))

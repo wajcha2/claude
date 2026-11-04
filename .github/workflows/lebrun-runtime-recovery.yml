@@ -1,0 +1,54 @@
+name: LeBrun-Salamon exact official Lean archive recovery
+
+on:
+  push:
+    branches:
+      - codex/lebrun-runtime-recovery-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  official-lean-archive:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Retrieve and verify unchanged official release archive
+        run: |
+          mkdir -p recovered-runtime
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 30 --max-time 600 https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst --output recovered-runtime/lean-4.36.0-rc1-linux.tar.zst
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json, os
+          p = Path("recovered-runtime/lean-4.36.0-rc1-linux.tar.zst")
+          h = hashlib.sha256()
+          with p.open("rb") as f:
+              for chunk in iter(lambda: f.read(1048576), b""):
+                  h.update(chunk)
+          expected = "26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2"
+          assert h.hexdigest() == expected, h.hexdigest()
+          record = {
+              "schema": "lebrun-official-lean-archive-recovery-v1",
+              "source_url": "https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst",
+              "release": "v4.36.0-rc1",
+              "archive": p.name,
+              "sha256": expected,
+              "bytes": p.stat().st_size,
+              "run_id": os.environ["GITHUB_RUN_ID"],
+              "source_commit": os.environ["GITHUB_SHA"],
+              "archive_bytes_modified": False,
+              "compiler_invoked": False,
+              "proof_acceptance_claim": False
+          }
+          (p.parent / "OFFICIAL_LEAN_SOURCE.json").write_text(json.dumps(record, indent=2) + "\n")
+          print(json.dumps(record), flush=True)
+          PY
+      - name: Preserve unchanged official release archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-official-lean-4.36.0-rc1-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovered-runtime/
+          compression-level: 0
+          if-no-files-found: error

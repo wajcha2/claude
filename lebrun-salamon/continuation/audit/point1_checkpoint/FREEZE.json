@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T16:29:36Z",
-  "frozen_utc": "2026-11-04T16:29:36Z",
-  "parent_commit": "f96574488448be1c59dd779acd5a607c246ba9f8",
-  "base_tree": "d5f6ced00efad38a1b9a83e2f7a679ad5bb293ce",
+  "announced_utc": "2026-11-04T16:31:01Z",
+  "frozen_utc": "2026-11-04T16:31:01Z",
+  "parent_commit": "e60fee45b27618e3f35e43ae7bfa65633e9cce69",
+  "base_tree": "0e2e4c7a7c43d147f5671c6814c6963e7b2aff2f",
   "repository": "wajcha2/claude",
-  "branch": "codex/lebrun-generic-field4-v5-source-20261104",
-  "source_modules": 306,
+  "branch": "codex/lebrun-generic-field4-v5-20261104",
+  "source_modules": 307,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -313,19 +313,20 @@
     "source/LSFamilyReparametrizationFieldBaseChange.lean": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2",
     "source/LSFamilySmoothNormalization.lean": "a479798fa89ad72b28a50f7652d1fd038c992a157c60c30fc010f22e29ed5213",
     "source/LSFormalArcFamilyComparison.lean": "261e56f10ed6c6b4130ae324915af52b9abd94327240ce2edecf705df4137eeb",
-    "source/LSGenericFamilyCartesianComparison.lean": "44ecb30adbef9e5be5fceaa60cb32d05af746cd3c1bb25e807bf83ab5e38975d"
+    "source/LSGenericFamilyCartesianComparison.lean": "44ecb30adbef9e5be5fceaa60cb32d05af746cd3c1bb25e807bf83ab5e38975d",
+    "source/LSGenericFamilyComparisonFieldProfile.lean": "263b309e0dbfc15479f3d176f6b39ba8ec2c0219b0c3b31ff1554298b8f557fb"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "pending-current-reverse-cone",
+  "status": "isolated-native-diagnostic-pending",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Stage changed Generic4 V5 while preserving all300 exact native contexts and190 audited ancestors. Four original headers/final2 bodies unchanged, no new admissions. Native profile→actual gate pending; Arc candidates remain off graph.",
+  "scope": "Isolated changed V5 full-profile300s followed by actual Generic4 only on completed profile pass; restore exact300 native contexts. Arc4/Arc5 held. Diagnostic profile excluded from production accounting and acceptance.",
   "diagnostic_scope": "Clean306 production source snapshot, no marker modules. V5 is an unaccepted changed proof candidate.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -341,7 +342,10 @@
   "newly_accepted_units": 0,
   "point1_accepted": false,
   "whole_source_graph_passed": false,
-  "selected_native_targets": [],
+  "selected_native_targets": [
+    "LSGenericFamilyComparisonFieldProfile",
+    "LSGenericFamilyComparison"
+  ],
   "prior_native_receipt_union": 300,
   "metadata_only_checkpoint": false,
   "known_verified_native_module_union_before_new_helper": 300,
@@ -349,10 +353,12 @@
   "accepted_obligation_units": 30,
   "total_obligation_units": 133,
   "known_verified_native_module_union_before_new_helpers": 300,
-  "diagnostic_only": false,
+  "diagnostic_only": true,
   "current_native_module_union": 300,
   "production_source_modules": 306,
-  "diagnostic_modules": [],
+  "diagnostic_modules": [
+    "LSGenericFamilyComparisonFieldProfile"
+  ],
   "pending_candidate_modules": [
     "LSCompletedTargets",
     "LSFormalArcComparison",
@@ -363,7 +369,9 @@
   ],
   "native_cache_union_modules": 300,
   "point1_audited_ancestors_unchanged": 190,
-  "diagnostic_only_modules": [],
+  "diagnostic_only_modules": [
+    "LSGenericFamilyComparisonFieldProfile"
+  ],
   "current_review_state": "audit/point1_checkpoint/CURRENT_REVIEWABLE_STATE.json",
   "native_validated_contexts": 300,
   "active_native_runs": []

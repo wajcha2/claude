@@ -1,0 +1,89 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCurveLaurentStandardInputs",
+  "key": {
+    "source_sha256": "6aac538547bb442e420ee79feef302e4d18505c69673af962e14ebe4a1df7f60",
+    "imports": [
+      "LSFunctionFieldPlaces",
+      "Mathlib.Data.Complex.Basic",
+      "Mathlib.RingTheory.FiniteType",
+      "Mathlib.RingTheory.KrullDimension.Basic",
+      "Mathlib.RingTheory.Localization.FractionRing",
+      "Mathlib.RingTheory.LaurentSeries"
+    ],
+    "dependency_artifacts": {
+      "LSFunctionFieldPlaces": {
+        "sha256": "2ae2fc95bb8529c5d6a622b2b149f3d0b29802ad38e552237fa365f6f4bffab5",
+        "kind": "project"
+      },
+      "Mathlib.Data.Complex.Basic": {
+        "sha256": "bde77a1e75cf77c67a878f7ead8be6318cb77636eec41fda0b4375981278f1e2",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.FiniteType": {
+        "sha256": "cdbdf315280d9f97b6c29b30cddc30326c27d74836e20d55a8f5dc71c23b32f3",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.KrullDimension.Basic": {
+        "sha256": "c6cf1f90effed7791b148a1880c45e70e173701e84864fa255814284372d6ff6",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Localization.FractionRing": {
+        "sha256": "319f6e1c492162cdfb604836f93ced7502a9570e979bb2eae9b9a23f7e914b9a",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.LaurentSeries": {
+        "sha256": "2443963abcc3a72025d7f1183546c601d1fbb74f1894e7a33d7f80a1b7fd74d1",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCurveLaurentStandardInputs.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCurveLaurentStandardInputs.lean"
+  ],
+  "started_utc": "2026-11-03T22:14:43.208645+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveLaurentStandardInputs.20261103T221443208620.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveLaurentStandardInputs.20261103T221443208620.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-03T22:14:44.777892+00:00",
+  "seconds": 1.569,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "5520c3e4aeaa879b4156282c984aafba158591b8dd2ea40496ab5d895501c5d6",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "4a9af8c2776b11c62f9fe92303233b8cbc2a5d76fe100c859fade653617e97bf",
+  "evidence_kind": "native_kernel_compilation",
+  "cache_restore_provenance": {
+    "source_run_id": 41745746489,
+    "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+    "prior_receipt_sha256": "216178adbb2a5449417256d2f6bf9a2f70f4629c216242f498c617aa1fe5c8e9",
+    "restored_utc": "2026-11-04T01:12:06.165673+00:00"
+  }
+}

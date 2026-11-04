@@ -1,6 +1,6 @@
 {
-  "timestamp_utc": "2026-11-04T01:03:35.529282+00:00",
-  "scope": "29 helpers have native diagnostic passes and are integrated as new modules. The checks use the frozen cdf interfaces and the explicitly selected diagnostic helpers; the unchanged closed-immersion-locus module has its earlier Mathlib-only pass. This does not remove either formalTrait normal-form admission. The combined current dependency and reverse-cone replay remains required.",
+  "timestamp_utc": "2026-11-04T01:35:26.689717+00:00",
+  "scope": "40 helpers have native diagnostic passes and are integrated as new modules. The checks use the frozen cdf interfaces and the explicitly selected diagnostic helpers; the unchanged closed-immersion-locus module has its earlier Mathlib-only pass. This does not remove either formalTrait normal-form admission. The combined current dependency and reverse-cone replay remains required.",
   "current_dependency_closure_verified": false,
   "production_integration": true,
   "sources_sha256": {
@@ -33,15 +33,24 @@
     "LSCartierQuadraticExtraction": "a0a882de0523a00494afa75fb43c3b6f875664a998ce7f9ff6648a11d23527fe",
     "LSQuadraticPrimitive": "b3e7b5e3662607c2545f652627db1e83bfa261f1d31455a97f9f15eb65008220",
     "LSQuadraticFibreCartier": "4cce55d26a061fb62d425e2de26751d32f499fef5216ad7a14b8e065287e8765",
-    "LSPlaneFamilyQuadratic": "608390e3d69e31d7885dbc5afe04c1ac4925e604c7d2d19e7ad64534efdf0132"
+    "LSPlaneFamilyQuadratic": "608390e3d69e31d7885dbc5afe04c1ac4925e604c7d2d19e7ad64534efdf0132",
+    "LSVeroneseZeroModel": "aaf02884e6c58d51ce93f0f0010d0d851b7ff3dcaedd667f7fc1938da92b38ab",
+    "LSSmoothFibreCartier": "a3669706be437e9fe9dc329b9935bb3acf2e745e9d3fdcecd294a14e7604bfe6",
+    "LSFibreIsomorphism": "20f59e7504bc8a20f76bd1248d6e45f18f813aa8b8d2d7ca7a7bb33b79f16ed8",
+    "LSTraitQuadraticPresentation": "15426720fa4c9d2b3cee88c4344f87e0fa8e5d6e348ee6c44088a5289853c6a4",
+    "LSResidueFibreGeometry": "52331e7537f94a892078101def20947fc0a2d9581aa83bc6a0dfa215a39b102d",
+    "LSRelativeVeroneseModel": "8c65aeef6e9cea7debb1fee948091703b6696947779c84f79127f61780bc575c",
+    "LSQuadraticSchemeBaseChange": "e05bff53687491b3db30c5f7324c8f2f91d7e32825e52c5a903b963ca9f47ffe",
+    "LSQuadraticPolynomial": "5688e3d4c3496516fc32b7b6263ac066cc4cd32b72b60906107e9c76d2a1d7df",
+    "LSQuadraticFibreCriteria": "5898a799d164c372af4f89b47317078b5ff4690784133a437b450d7ed9a917a5",
+    "LSFormalQuadraticConditions": "867c4107793ce01879e3296709f5b19f6dcd0b8963cf1554d7fb2900df1b20c5",
+    "LSPolarizedOverIso": "713640c041c8469f247bf523a1a09637c8c80d19649f4b11d22f91b354ed2504"
   },
   "remaining": [
-    "Canonical H0 base-change, relative flatness and actual Ext/H1 comparison (parallel worker)",
-    "Standard central-fibre plane embedding with actual quadratic zero-scheme comparison (parallel worker)",
-    "Transport projective-bundle Picard rigidity to the actual polynomial Proj and fibre maps",
-    "Extract the actual global quadratic and prove primitive coefficient and normal-form conditions",
-    "Assemble the polarized family isomorphism and remove both original formalTrait composite admissions",
-    "Integrate the constructive standard-conic fundamental class (parallel worker)",
+    "Standard central-fibre plane embedding and its actual quadratic zero-scheme comparison",
+    "Actual GL3 projective action and normalized quadratic zero-scheme transport",
+    "Final formal-trait normal-form assembly, including generic and closed-fibre conditions",
+    "Remove both original formalTrait composite admissions after their exact proofs pass",
     "Complete exact publication audits and affected current dependency/reverse-cone replay"
   ],
   "closed_union_source_review": {
@@ -113,7 +122,23 @@
       "statement": "Canonical regular divisor section and its zero scheme; Cartier pullback line and section; regular-section zero locus; nonzero positive-degree section on projective space over a field is regular.",
       "root_review": true,
       "independent_review": true,
-      "citation_correction_pending_exact_source_recheck": "O(1) tensor O(1)=O(2) uses Lemma27.10.3 and multiplication27.10.1.1, rather than graded action27.10.1.4; corrected draft awaiting routine exact-byte native refresh."
+      "citation_correction_verified": "The corrected exact source passed natively; source SHA2e4cc1785bf56947609136c1cc523fae9dd7e81f021f84375de696dfaff06302."
+    },
+    {
+      "module": "LSVeroneseZeroModel",
+      "statement": "Exact standard quadratic Veronese zero scheme uw-v^2 over arbitrary R, preserving the base map, actual O(1) pullback and three monomial coordinates.",
+      "source": "https://math.stanford.edu/~vakil/216blog/FOAGjun2711publicimperfect.pdf",
+      "locations": [
+        "7.4.D",
+        "9.2.6 and9.2.I (printedp198)",
+        "16.2.D",
+        "17.4.5-6",
+        "21.1.D (printedp434)"
+      ],
+      "root_review": true,
+      "independent_review": true,
+      "project_translation": "The selected smooth fibre and degree-two line are compared by the actual degree classifier in LSSmoothFibreCartier; LSTraitQuadraticPresentation proves the full actual primitive-equation construction from the original family hypotheses.",
+      "native_source_sha256": "aaf02884e6c58d51ce93f0f0010d0d851b7ff3dcaedd667f7fc1938da92b38ab"
     }
   ],
   "integrated_helpers": {
@@ -319,7 +344,93 @@
       "elapsed_seconds": 4.129,
       "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
       "current_dependency_closure_verified": false
+    },
+    "LSVeroneseZeroModel": {
+      "source_sha256": "aaf02884e6c58d51ce93f0f0010d0d851b7ff3dcaedd667f7fc1938da92b38ab",
+      "output_sha256": "ac017011dbe66a4553e1557da2748ffe6eaa35842eb212cdb553bfe66d9a06af",
+      "elapsed_seconds": 5.635,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSSmoothFibreCartier": {
+      "source_sha256": "a3669706be437e9fe9dc329b9935bb3acf2e745e9d3fdcecd294a14e7604bfe6",
+      "output_sha256": "57380009e72abc67d16048a3c09dfb45ea430b8548c0e79587a28d0457c9cd47",
+      "elapsed_seconds": 5.081,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSFibreIsomorphism": {
+      "source_sha256": "20f59e7504bc8a20f76bd1248d6e45f18f813aa8b8d2d7ca7a7bb33b79f16ed8",
+      "output_sha256": "d4013f1c57d2eab95b5e122960735b59d780ab80e9b77db1d4877df4651dd7d4",
+      "elapsed_seconds": 2.07,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSTraitQuadraticPresentation": {
+      "source_sha256": "15426720fa4c9d2b3cee88c4344f87e0fa8e5d6e348ee6c44088a5289853c6a4",
+      "output_sha256": "4d3f8ef8b1075deedbd4360b44fe61af14cddf15fbc75a19e633bd4504edb677",
+      "elapsed_seconds": 4.128,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSResidueFibreGeometry": {
+      "source_sha256": "52331e7537f94a892078101def20947fc0a2d9581aa83bc6a0dfa215a39b102d",
+      "output_sha256": "c77500e21c051ce97de84b0107292a5c57e6feb0a4a8f655db56beab4a592f77",
+      "elapsed_seconds": 4.542,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSRelativeVeroneseModel": {
+      "source_sha256": "8c65aeef6e9cea7debb1fee948091703b6696947779c84f79127f61780bc575c",
+      "output_sha256": "a5d7a3c030c8d8697ffe70b791161ac75967c700bf468792120333a34db5ac36",
+      "elapsed_seconds": 3.726,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSQuadraticSchemeBaseChange": {
+      "source_sha256": "e05bff53687491b3db30c5f7324c8f2f91d7e32825e52c5a903b963ca9f47ffe",
+      "output_sha256": "128c8087cc6da7146542b86e9c29b08bdee35def64bfb355ab0e935db1f80c6f",
+      "elapsed_seconds": 4.181,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSQuadraticPolynomial": {
+      "source_sha256": "5688e3d4c3496516fc32b7b6263ac066cc4cd32b72b60906107e9c76d2a1d7df",
+      "output_sha256": "2b100353b0149dd37a5d5e3101514162257c5db17d5022609a2d62b659c1457d",
+      "elapsed_seconds": 8.392,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSQuadraticFibreCriteria": {
+      "source_sha256": "5898a799d164c372af4f89b47317078b5ff4690784133a437b450d7ed9a917a5",
+      "output_sha256": "fd4fc4293a25d1827f5d52ac599c60e7b717e41ae822ef7554b6b06ed119375f",
+      "elapsed_seconds": 4.078,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSFormalQuadraticConditions": {
+      "source_sha256": "867c4107793ce01879e3296709f5b19f6dcd0b8963cf1554d7fb2900df1b20c5",
+      "output_sha256": "6c158e777c03af5f37c737b93b66dede7fec4fa566bf66831ffa706507bedad9",
+      "elapsed_seconds": 5.181,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
+    },
+    "LSPolarizedOverIso": {
+      "source_sha256": "713640c041c8469f247bf523a1a09637c8c80d19649f4b11d22f91b354ed2504",
+      "output_sha256": "ec999999210055bad4cb2573229e76342c36975defb434161ae7005059cd94c7",
+      "elapsed_seconds": 4.489,
+      "diagnostic_scope": "isolated_frozen_interface_diagnostic_only",
+      "current_dependency_closure_verified": false
     }
   },
-  "point1_complete": false
+  "point1_complete": false,
+  "completed_constructions": [
+    "Actual H1 vanishing from the original degree hypotheses",
+    "Actual section restriction surjectivity (parallel H0 audit)",
+    "Actual polarized family embedding and exact closed-fibre cartesian comparison",
+    "Relative Cartier property of the original embedding kernel",
+    "Standard-Proj Picard rigidity and positive-divisor O(2) comparison",
+    "Extraction of the actual quadratic and its primitive coefficient proof",
+    "Full primitive-quadratic presentation for the original smooth-fibre trait family"
+  ]
 }

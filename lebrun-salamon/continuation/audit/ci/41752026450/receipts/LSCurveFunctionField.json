@@ -1,0 +1,83 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSCurveFunctionField",
+  "key": {
+    "source_sha256": "78420d6ae6acdd9986fd6ed352759134118f1e568ffd9c781c6f624a002b1887",
+    "imports": [
+      "LSAffineCurveSelection",
+      "LSCurvePairing",
+      "Mathlib.AlgebraicGeometry.FunctionField",
+      "Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra",
+      "Mathlib.RingTheory.Localization.FractionRing",
+      "Mathlib.RingTheory.Nullstellensatz"
+    ],
+    "dependency_artifacts": {
+      "LSAffineCurveSelection": {
+        "sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216",
+        "kind": "project"
+      },
+      "LSCurvePairing": {
+        "sha256": "e323f23472e523880eafd307b353aa3a5c9bcfdf8c73e9e3bfdaacb6c1a267c4",
+        "kind": "project"
+      },
+      "Mathlib.AlgebraicGeometry.FunctionField": {
+        "sha256": "af9515637ddf2eaab208181fe67ecbd3310bf009ef59292e54344241fca1edab",
+        "kind": "external"
+      },
+      "Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra": {
+        "sha256": "26fb0090911afd481a486b6d5128ef071a19147359e6c1f447cc070390f793b7",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Localization.FractionRing": {
+        "sha256": "319f6e1c492162cdfb604836f93ced7502a9570e979bb2eae9b9a23f7e914b9a",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Nullstellensatz": {
+        "sha256": "12725a67ade272f6b630184146bdacd693d61996985cea7e05bcf5446c1724d5",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSCurveFunctionField.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCurveFunctionField.lean"
+  ],
+  "started_utc": "2026-11-04T01:29:07.463130+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveFunctionField.20261104T012907463104.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSCurveFunctionField.20261104T012907463104.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:29:12.192699+00:00",
+  "seconds": 4.726,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "ce6a794cc1a497b43835bacf6a153f6dcec1a18ecc73bbaeb1ba0e4a449c47c3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "a1ac98d87c747ad546504c7c0776fab461cdd43af1eae5c02e58e21afd0d3c25",
+  "evidence_kind": "native_kernel_compilation"
+}

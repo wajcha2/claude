@@ -1,0 +1,73 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSDualHomVanishing",
+  "key": {
+    "source_sha256": "cdb27623588991f84d99507837eba5ab6dc8575682a95bf4105c629e9d237f88",
+    "imports": [
+      "LSHomVelocity",
+      "LSProjectionFormula",
+      "LSDualStructureExact",
+      "LSTensorLocallyFreeExact"
+    ],
+    "dependency_artifacts": {
+      "LSHomVelocity": {
+        "sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+        "kind": "project"
+      },
+      "LSProjectionFormula": {
+        "sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+        "kind": "project"
+      },
+      "LSDualStructureExact": {
+        "sha256": "eac4b14d12c0f432b6b4d45f94656188e07c16cb5f09aa65b6ff935ddb98dfe3",
+        "kind": "project"
+      },
+      "LSTensorLocallyFreeExact": {
+        "sha256": "1ab25ab5a7312547389b4477ec313f7f3f54e22c5e4b90c622f19b30a213c475",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSDualHomVanishing.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSDualHomVanishing.lean"
+  ],
+  "started_utc": "2026-11-04T01:32:03.443860+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSDualHomVanishing.20261104T013203443825.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSDualHomVanishing.20261104T013203443825.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:32:06.374167+00:00",
+  "seconds": 2.926,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "19cfaa79646698eec5a91227e4dbbb25cc921ea89fc6e034a25a430dc0c837af",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "3b96293c83b8d6418cfb9d5168717ed9627674bcc3bbbc077405bac97138f4d5",
+  "evidence_kind": "native_kernel_compilation"
+}

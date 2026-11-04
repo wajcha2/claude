@@ -1,0 +1,152 @@
+SUMMARY root=LeBrunSalamon.CanonicalSectionBaseChange.lift_finite_tuple all_constants=22026 project_constants=91 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+
+
+SUMMARY root=LeBrunSalamon.CohomologyHypotheses.finitePresentation_of_locallyFreeRank all_constants=19420 project_constants=8 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+
+
+SUMMARY root=LeBrunSalamon.YonedaExtensionSplitting.classesRepresented all_constants=18233 project_constants=2 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+
+
+SUMMARY root=LeBrunSalamon.LineStalkFlat.relativelyFlat all_constants=35506 project_constants=86 direct_sorry_count=0 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.lift_line_tuple -> LeBrunSalamon.CohomologyBaseChange.lift_bundle_tuple -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+TYPE ∀ {R : Type} [inst : CommRing.{0} R] [IsNoetherianRing.{0} R] [inst_2 : IsLocalRing.{0} R]
+  {X Y : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsNoetherian.{0} X]
+  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧R)) [AlgebraicGeometry.IsProper.{0} sX]
+  (p : Quiver.Hom.{0, 1} Y X) (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧(IsLocalRing.ResidueField.{0} R)))
+  (hsq :
+    CategoryTheory.IsPullback.{0, 1} p q sX
+      (AlgebraicGeometry.Spec.map.{0}
+        (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} R (IsLocalRing.ResidueField.{0} R)))))
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E →
+    LeBrunSalamon.CohomologyHypotheses.RelativelyFlat sX E →
+      Subsingleton.{1} (LeBrunSalamon.CohomologyHypotheses.H1 (LeBrunSalamon.PhaseTwo.pullbackModule.{0} p E)) →
+        Function.Bijective.{1, 1} ⇑(LeBrunSalamon.CanonicalSectionBaseChange.canonicalMap sX p q ⋯ E)
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.lift_line_tuple -> LeBrunSalamon.CohomologyBaseChange.lift_bundle_tuple -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.coherent_of_locallyFreeRank -> LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsLocallyNoetherian.{0} X]
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E ↔ SheafOfModules.IsFinitePresentation.{0, 0, 0} E
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.lift_line_tuple -> LeBrunSalamon.CohomologyBaseChange.lift_bundle_tuple -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.firstCohomology_iff_h1 -> LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  Nonempty.{1}
+    (Equiv.{1, 1} (CategoryTheory.Abelian.Ext.{0, 0, 1} (LeBrunSalamon.PhaseTwentyFive.structureModule.{0} X) E 1)
+      (LeBrunSalamon.CohomologyHypotheses.H1 E))
+
+SUMMARY root=LeBrunSalamon.CohomologyBaseChange.lift_line_tuple all_constants=48016 project_constants=207 direct_sorry_count=3 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+LeBrunSalamon.CohomologyBaseChange.lift_line_tuple
+LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+TYPE ∀ {R : Type} [inst : CommRing.{0} R] [IsNoetherianRing.{0} R] [inst_2 : IsLocalRing.{0} R]
+  {X Y : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsNoetherian.{0} X]
+  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧R)) [AlgebraicGeometry.IsProper.{0} sX]
+  (p : Quiver.Hom.{0, 1} Y X) (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧(IsLocalRing.ResidueField.{0} R)))
+  (hsq :
+    CategoryTheory.IsPullback.{0, 1} p q sX
+      (AlgebraicGeometry.Spec.map.{0}
+        (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} R (IsLocalRing.ResidueField.{0} R)))))
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E →
+    LeBrunSalamon.CohomologyHypotheses.RelativelyFlat sX E →
+      Subsingleton.{1} (LeBrunSalamon.CohomologyHypotheses.H1 (LeBrunSalamon.PhaseTwo.pullbackModule.{0} p E)) →
+        Function.Bijective.{1, 1} ⇑(LeBrunSalamon.CanonicalSectionBaseChange.canonicalMap sX p q ⋯ E)
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.coherent_of_locallyFreeRank -> LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsLocallyNoetherian.{0} X]
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E ↔ SheafOfModules.IsFinitePresentation.{0, 0, 0} E
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.firstCohomology_iff_h1 -> LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  Nonempty.{1}
+    (Equiv.{1, 1} (CategoryTheory.Abelian.Ext.{0, 0, 1} (LeBrunSalamon.PhaseTwentyFive.structureModule.{0} X) E 1)
+      (LeBrunSalamon.CohomologyHypotheses.H1 E))
+
+SUMMARY root=LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 all_constants=52359 project_constants=213 direct_sorry_count=3 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+TYPE ∀ {R : Type} [inst : CommRing.{0} R] [IsNoetherianRing.{0} R] [inst_2 : IsLocalRing.{0} R]
+  {X Y : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsNoetherian.{0} X]
+  (sX : Quiver.Hom.{0, 1} X (AlgebraicGeometry.Spec.{0} ↧R)) [AlgebraicGeometry.IsProper.{0} sX]
+  (p : Quiver.Hom.{0, 1} Y X) (q : Quiver.Hom.{0, 1} Y (AlgebraicGeometry.Spec.{0} ↧(IsLocalRing.ResidueField.{0} R)))
+  (hsq :
+    CategoryTheory.IsPullback.{0, 1} p q sX
+      (AlgebraicGeometry.Spec.map.{0}
+        (CommRingCat.ofHom.{0} (Algebra.algebraMap.{0, 0} R (IsLocalRing.ResidueField.{0} R)))))
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E →
+    LeBrunSalamon.CohomologyHypotheses.RelativelyFlat sX E →
+      Subsingleton.{1} (LeBrunSalamon.CohomologyHypotheses.H1 (LeBrunSalamon.PhaseTwo.pullbackModule.{0} p E)) →
+        Function.Bijective.{1, 1} ⇑(LeBrunSalamon.CanonicalSectionBaseChange.canonicalMap sX p q ⋯ E)
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.coherent_of_locallyFreeRank -> LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} [AlgebraicGeometry.IsLocallyNoetherian.{0} X]
+  (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  LeBrunSalamon.CohomologyHypotheses.Coherent E ↔ SheafOfModules.IsFinitePresentation.{0, 0, 0} E
+
+DIRECT_SORRY LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+MODULE LSPublishedCohomologyBaseChange
+SHORTEST_PATH LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1 -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective_of_field_quotient -> LeBrunSalamon.CohomologyBaseChange.line_restriction_surjective -> LeBrunSalamon.CohomologyBaseChange.bundle_residue_baseChange -> LeBrunSalamon.CohomologyBaseChange.firstCohomology_iff_h1 -> LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+TYPE ∀ {X : AlgebraicGeometry.Scheme.{0}} (E : LeBrunSalamon.PhaseOne.OModule.{0} X),
+  Nonempty.{1}
+    (Equiv.{1, 1} (CategoryTheory.Abelian.Ext.{0, 0, 1} (LeBrunSalamon.PhaseTwentyFive.structureModule.{0} X) E 1)
+      (LeBrunSalamon.CohomologyHypotheses.H1 E))
+
+SUMMARY root=LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective all_constants=53775 project_constants=215 direct_sorry_count=3 missing_count=0 custom_project_axiom_count=0
+
+CHECKED_SPECIAL_NAMES
+LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation
+LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1
+LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective
+
+'LeBrunSalamon.CanonicalSectionBaseChange.lift_finite_tuple' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+'LeBrunSalamon.YonedaExtensionSplitting.classesRepresented' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+
+'LeBrunSalamon.LineStalkFlat.relativelyFlat' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+
+'LeBrunSalamon.CohomologyBaseChange.lift_line_tuple' depends on axioms: [propext,
+ sorryAx.{u},
+ Classical.choice.{u},
+ Quot.sound.{u}]

@@ -1,0 +1,26 @@
+{
+  "schema": "lebrun-transitive-reuse-repair-v1",
+  "status": "fixture_verified_integrated",
+  "proof_sources_changed": false,
+  "native_compiler_invoked": false,
+  "historical_native_receipts_changed": false,
+  "before_stale_reuse_reproduced": true,
+  "after_transitive_dependent_rechecked": true,
+  "explicit_seed_cases_passed": 3,
+  "cache_restore_cases_passed": 10,
+  "current_fixed_source_ci_result_affected": false,
+  "new_rule": "Own receipts and explicit seeds must carry a recursive source/import/dependency-output ancestry fingerprint. Strict CI restoration derives it only after full prior-graph validation; unstamped local seeds are rejected.",
+  "new_source_sha256": {
+    "replay_checkpoint.py": "7da05127ca383df49acf649c4db64442e533addc509d80b996a76949b7c9f485",
+    "restore_replay_cache.py": "1200952ccf5aabe794a7f6e7b476125bf131b41b89447453d36b3f18c59b9834",
+    "collect_ci_evidence.py": "07449fdcf63a83ddf35734c436a28d58581eabe716a620617b7d09b522ba3513",
+    "stamp_ci_seeds.py": "b068fc2cecaf2781c8b8e77f3ca7116597672447ad20f955014c64b57f29c023"
+  },
+  "migrated_frozen_seed_runs": [
+    41714131927,
+    41732181431,
+    41745746489,
+    41752026450
+  ],
+  "migration_outputs": "New FROZEN_HEAD_DIAGNOSTIC_SEEDS_V2.json and CURRENT_LIVE_SEEDS_V2.json files beside original downloaded CI evidence; old seed/receipt/log/source files preserved."
+}

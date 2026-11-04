@@ -59,6 +59,19 @@ def runtime_context(root, config):
     return identity, fingerprint
 
 
+def source_ancestry_fingerprint(module, key, project_ancestors):
+    """Bind every transitive source/import/output context, independently of paths.
+
+    An intermediate .olean can remain byte-identical after one of its imports
+    changes. Direct output hashes therefore cannot identify the environment in
+    which a downstream proof was checked. Runtime identity is checked separately.
+    """
+    identity = {'module': module, 'source_sha256': key['source_sha256'],
+                'imports': key['imports'], 'dependency_artifacts': key['dependency_artifacts'],
+                'project_ancestors': project_ancestors}
+    return hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+
+
 def source_graph(src):
     sources = {p.relative_to(src).with_suffix('').as_posix().replace('/', '.'): p
                for p in src.rglob('*.lean')}
@@ -148,20 +161,25 @@ def main():
         key = {'source_sha256': digest(sources[m]), 'imports': imports[m],
                'dependency_artifacts': deps, 'runtime_fingerprint': runtime_hash,
                'flags': flags}
+        ancestry = source_ancestry_fingerprint(m, key,
+            {d: good[d]['source_ancestry_fingerprint'] for d in graph[m]})
         artifact = out / Path(*m.split('.')).with_suffix('.olean')
         artifact.parent.mkdir(parents=True, exist_ok=True)
         receipt_path = receipts / (m + '.json')
         old = read_json(receipt_path)
         if (old and old.get('status') == 'passed' and old.get('key') == key
+                and old.get('source_ancestry_fingerprint') == ancestry
                 and artifact.is_file() and digest(artifact) == old.get('output_sha256')):
             good[m] = old
             summary['modules'][m] = {'status': 'reused', 'output_sha256': old['output_sha256']}
             print('REUSE ' + m, flush=True)
             continue
         seed = seeds.get(m)
-        # A seed must supply the exact expected direct dependency hashes as well
-        # as source/output hashes. The caller retains its provenance separately.
+        # Legacy unstamped seeds must be revalidated against their complete
+        # original source graph before use; direct dependency hashes are not
+        # sufficient to migrate them implicitly.
         if (seed and seed.get('source_sha256') == key['source_sha256']
+                and seed.get('source_ancestry_fingerprint') == ancestry
                 and seed.get('imports') == key['imports']
                 and seed.get('dependency_artifacts') == deps
                 and seed.get('toolchain_lock_sha256') == runtime_identity['toolchain_lock_sha256']
@@ -170,6 +188,7 @@ def main():
             shutil.copy2(seed['artifact_path'], artifact)
             rec = {'schema': 'lebrun-module-receipt-v1', 'status': 'passed', 'module': m,
                    'key': key, 'output_sha256': digest(artifact),
+                   'source_ancestry_fingerprint': ancestry,
                    'evidence_kind': 'explicit_validated_historical_seed',
                    'seed_provenance': seed.get('provenance'), 'accepted_utc': utc()}
             write_json(receipt_path, rec)
@@ -187,6 +206,7 @@ def main():
         log_prefix = logs / (m + '.' + stamp)
         cmd = [*command, *flags, '--root=' + str(src), '-o', str(artifact), str(sources[m])]
         rec = {'schema': 'lebrun-module-receipt-v1', 'status': 'running', 'module': m,
+               'source_ancestry_fingerprint': ancestry,
                'key': key, 'command': cmd, 'started_utc': utc(),
                'stdout': str(log_prefix) + '.stdout.jsonl',
                'stderr': str(log_prefix) + '.stderr.txt'}

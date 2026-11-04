@@ -196,7 +196,7 @@
     "remaining_adapter": "Native-check LSYonedaClassesRepresented and the actual sheaf H1 comparison adapter. The only contemplated comparison input is the general Ext1(O,E)-H1 theorem0B3A; Ext representation itself is proved.",
     "no_chosen_line_embedding_admitted": true
   },
-  "updated_utc": "2026-11-04T00:55:02.078179+00:00",
+  "updated_utc": "2026-11-04T01:09:46.604300+00:00",
   "h0_adapter_work": {
     "status": "First focused native pass completed: LSLocalBaseSections passed11.952s; canonical section base change, finite-rank/cohomology hypotheses and Yoneda class representation have isolated elaboration diagnostics under repair. No current graph acceptance.",
     "drafts": [
@@ -272,28 +272,101 @@
       "LSCanonicalSectionBaseChange": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0"
     },
     "latest_evidence": "audit/tautological_lifting_build/normalized_audit_h0_20261104T004734/",
-    "remaining_native_work": "LSCohomologyHypotheses actual stalk Type coercion repaired off graph, pending retry; then LSLineStalkFlat and generic cohomology specialization adapter. No published H0 input integrated yet.",
-    "pending_native_sources": {
-      "LSCohomologyHypotheses": {
-        "file": "published_leaf_work/LSCohomologyHypotheses.lean",
-        "sha256": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
-        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+    "remaining_native_work": "Current live containing modules and full reverse-cone replay only; complete H0 helper chain and exhaustive actual-map boundary audit passed against frozen cdf.",
+    "pending_native_sources": {},
+    "complete_native_evidence": "audit/tautological_lifting_build/h0_complete_20261104T010754/",
+    "native_boundary": {
+      "LeBrunSalamon.CanonicalSectionBaseChange.lift_finite_tuple": {
+        "all_constants": 22026,
+        "project_constants": 91,
+        "direct_sorry_count": 0,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
       },
-      "LSLineStalkFlat": {
-        "file": "published_leaf_work/LSLineStalkFlat.lean",
-        "sha256": "43728dca714878b6b684433f17018ca6aee26e4833bc3a948e638973dd9cf8e7",
-        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      "LeBrunSalamon.CohomologyHypotheses.finitePresentation_of_locallyFreeRank": {
+        "all_constants": 19420,
+        "project_constants": 8,
+        "direct_sorry_count": 0,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
       },
-      "LSPublishedCohomologyBaseChange": {
-        "file": "published_leaf_work/LSPublishedCohomologyBaseChange.lean",
-        "sha256": "36377adc98be5111b4c29ba63e49eb8c59bfa137dcea775bfd8e8c362b566412",
-        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      "LeBrunSalamon.YonedaExtensionSplitting.classesRepresented": {
+        "all_constants": 18233,
+        "project_constants": 2,
+        "direct_sorry_count": 0,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
       },
-      "LSCohomologyBaseChangeNativeAudit": {
-        "file": "published_leaf_work/LSCohomologyBaseChangeNativeAudit.lean",
-        "sha256": "32cb928f63ccb15d91f4f805b625938c327ec8e730082a67e210d3c030693576",
-        "status": "off-graph, repaired or expanded after last diagnostic; not natively accepted"
+      "LeBrunSalamon.LineStalkFlat.relativelyFlat": {
+        "all_constants": 35506,
+        "project_constants": 86,
+        "direct_sorry_count": 0,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
+      },
+      "LeBrunSalamon.CohomologyBaseChange.lift_line_tuple": {
+        "all_constants": 48016,
+        "project_constants": 207,
+        "direct_sorry_count": 3,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
+      },
+      "LeBrunSalamon.CohomologyBaseChange.fibre_restriction_surjective_of_h1": {
+        "all_constants": 52359,
+        "project_constants": 213,
+        "direct_sorry_count": 3,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
+      },
+      "LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective": {
+        "all_constants": 53775,
+        "project_constants": 215,
+        "direct_sorry_count": 3,
+        "missing_count": 0,
+        "custom_project_axiom_count": 0
       }
+    },
+    "exact_direct_admitted_leaves": [
+      {
+        "declaration": "LeBrunSalamon.PublishedInputs.Cohomology.coherent_iff_finitePresentation",
+        "source": "https://stacks.math.columbia.edu/tag/01XZ",
+        "locator": "Lemma30.9.1, clauses1 and3"
+      },
+      {
+        "declaration": "LeBrunSalamon.PublishedInputs.Cohomology.ext1_unit_h1",
+        "source": "https://stacks.math.columbia.edu/tag/0B3A",
+        "locator": "Lemma20.5.1, actual Ext1(O,E)-H1 bijection"
+      },
+      {
+        "declaration": "LeBrunSalamon.PublishedInputs.Cohomology.h0_residue_baseChange_bijective",
+        "source": "https://www.math.u-bordeaux.fr/~damienrobert/pro/publications/books/avtheory.pdf",
+        "locator": "AppendixA.1, LemmaA.1.1, third corollary bullet, printedp81/PDFindex86; canonical affine tensor presentation also Ogus basechange.pdf Theorem8(2)-(3)"
+      }
+    ],
+    "integrated_complete_modules": {
+      "LSResidueTensorLift": "8431d2f77c020993f7034a71bdf92bebb970ed878271c4c869cabfd34c8cb2dd",
+      "LSYonedaExtensionSplitting": "489e6b14c8028c55aa9c18b5fc69d385fa7cca0c08357ce311d3207adfe42421",
+      "LSYonedaClassesRepresented": "a303d8d9732391d282369b848c1e6ef7c4d66893cf2d5cbd6645e28b6c350d94",
+      "LSResidueFieldPresentation": "237dd68efc84f62f5ab98a9b55102026a85a2f51a3d2ae3a939e05d3b1de792b",
+      "LSCanonicalSectionBaseChange": "419aeb5d3e1605dbc15d0602124c08be779a7e172d0cc8fc1c25a8ae1d8fefb0",
+      "LSCohomologyHypotheses": "53c8f94cb61547e90843c45a1c21346d5d96d33020f465e693233799e08822c2",
+      "LSLineStalkFlat": "94aeddf5d0c13ab3b193604da099b69bd908d0c79398966f10c1b8005e409238",
+      "LSPublishedCohomologyBaseChange": "cd4d39dc15631ce06a4459b1afe75f00b705b05411f5dcc70cd7ca8883eef99f",
+      "LSLineCohomologyBaseChange": "6f29fd97b76c1c2003f1f6204a2fc11e6f5facb6c6d01b8a695f6ee69aa19d47"
+    },
+    "public_hsections_api": {
+      "module": "LSLineCohomologyBaseChange",
+      "theorem": "LeBrunSalamon.CohomologyBaseChange.powerSeries_fibre_restriction_surjective",
+      "statement": "For a proper flat scheme over K[[t]], a specified line with original Yoneda H1 vanishing on the actual constant-term fibre has surjective original pullSection along the literal pullback.fst.",
+      "identity_retained": [
+        "actual constantCoeff map",
+        "actual fibre object",
+        "literal pullback.fst",
+        "original line",
+        "original HasVanishingFirstCohomology",
+        "actual section restriction"
+      ],
+      "map_proof": "CanonicalSectionBaseChange.canonicalMap_tmul and canonicalMap_tmul_one, followed by the proved residue tensor surjection; no replacement map or tuple admission."
     }
   },
   "closed_union_review": {
@@ -404,5 +477,21 @@
     ],
     "verdict": "Canonical kernel-dual line and inclusion section match the source definitions. Both actual invertible ideals explicitly supply defined Cartier pullback. SectionEquality graph-fibre-product zero locus is acceptable through its proved universal property, retaining scheme structure. Quadratic regularity is the exact degree-two instance after the standard tensor identification. Citation correction: equation27.10.1.4 is only the graded module action, not the tensor isomorphism; use Lemma27.10.3. All selected-family and quadratic extraction conclusions remain separate proofs.",
     "kernel_status": "Independent source review only; root owns exact native receipts and live integration."
+  },
+  "veronese_zero_model_review": {
+    "file": "root_work/LSVeroneseZeroModel.lean",
+    "sha256": "7ce9d88c48e5f3c47e2b624beb7e21765e5b87c5a34f7a2f3b35f674b0a17556",
+    "primary_url": "https://math.stanford.edu/~vakil/216blog/FOAGjun2711publicimperfect.pdf",
+    "version": "June27,2011",
+    "locators": [
+      "Exercise7.4.D, printedp158/PDFindex157: Proj is unchanged by the Veronese subring",
+      "9.2.6 and Exercise9.2.I, printedp198/PDFindex197: subring generated by x^2,xy,y^2 is the quotient by uw-v^2",
+      "Remark9.2.8 and Exercise21.1.D, printedp434/PDFindex433: construction is over arbitrary base rings",
+      "Exercise16.2.D and17.4.5-6: tensor-square line and actual monomial section normalization"
+    ],
+    "coefficient_check": "PlaneQuadratic uses a*x^2+b*y^2+c*z^2+alpha*y*z+beta*z*x+gamma*x*y. The vector [0,-1,0,0,1,0] is z*x-y^2, equal to x*z-y^2 over any commutative ring.",
+    "source_verdict": "Eligible generic standard Veronese scheme-image statement with actual coefficient base map, canonical line and monomials. The section-graph zero scheme is identified by its proved all-test-scheme universal property, not a point-set equation. Chosen fibre/degree2 line/Cartier transport are separate proofs in LSSmoothFibreCartier.",
+    "locator_correction": "Use Exercise7.4.D for the Proj isomorphism. Exercise7.4.E only establishes generation in degree1.",
+    "kernel_status": "Independent source review only; root owns native validation. This review does not assert acceptance of the containing current graph."
   }
 }

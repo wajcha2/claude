@@ -23,7 +23,7 @@ def main():
     fake.write_text("import pathlib,sys\na=sys.argv[1:]\npathlib.Path(a[a.index('-o')+1]).write_bytes(b'SIMULATED_NOT_LEAN\\n'+pathlib.Path(a[-1]).read_bytes())\n")
     results = []
     for name, expected in (
-        ('unchanged', ['A', 'B']), ('ancestor_source', []), ('leaf_source', ['A']),
+        ('unchanged', ['A', 'B']), ('legacy_unchanged', ['A', 'B']), ('ancestor_source', []), ('leaf_source', ['A']),
         ('output_corruption', []), ('runtime_change', []), ('lock_change', []),
         ('external_change', []), ('log_corruption', []), ('non_native_receipt', ['A']),
     ):
@@ -50,7 +50,12 @@ def main():
                               '--runtime-config', str(config), '--build-dir', str(old)],
                              capture_output=True, text=True)
         assert run.returncode == 0, (name, run.stdout, run.stderr)
-        if name == 'ancestor_source':
+        if name == 'legacy_unchanged':
+            for path in (old / 'receipts').glob('*.json'):
+                rec = json.loads(path.read_text())
+                rec.pop('source_ancestry_fingerprint', None)
+                path.write_text(json.dumps(rec))
+        elif name == 'ancestor_source':
             (root / 'source/A.lean').write_text('import External\ndef a := 2\n')
         elif name == 'leaf_source':
             (root / 'source/B.lean').write_text('import A\ndef b := a + 1\n')
@@ -81,7 +86,7 @@ def main():
         copied = list(result['copied_modules'])
         accepted = copied == expected
         reused = None
-        if name == 'unchanged':
+        if name in {'unchanged', 'legacy_unchanged'}:
             rerun = subprocess.run([sys.executable, str(driver), '--root', str(root),
                                     '--runtime-config', str(config), '--build-dir', str(new)],
                                    capture_output=True, text=True)

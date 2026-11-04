@@ -15,6 +15,7 @@ import shutil
 from replay_checkpoint import (
     digest, read_json, runtime_context, source_graph, utc, write_json,
     dependency_order, FROZEN_TARGET_SHA256,
+    source_ancestry_fingerprint,
 )
 
 
@@ -68,6 +69,7 @@ def main():
     flags = config.get('flags', ['--json', '-j1', '-DElab.async=false',
                                  '-M7200', '-DmaxErrors=1000', '-DmaxHeartbeats=2000000'])
     good = {}
+    ancestry = {}
     for module in order:
         old_summary = prior_status.get('modules', {}).get(module)
         if not old_summary or old_summary.get('status') not in {'passed', 'reused'}:
@@ -97,8 +99,12 @@ def main():
                     deps[dep] = {'sha256': digest(path), 'kind': 'external'}
         key = {'source_sha256': digest(sources[module]), 'imports': imports[module],
                'dependency_artifacts': deps, 'runtime_fingerprint': fingerprint, 'flags': flags}
+        stamp = source_ancestry_fingerprint(module, key,
+            {dep: ancestry[dep] for dep in graph[module] if dep in ancestry})
         if receipt.get('key') != key:
             reasons.append('Current source/import/dependency/runtime key differs.')
+        if receipt.get('source_ancestry_fingerprint') not in {None, stamp}:
+            reasons.append('Transitive source/dependency ancestry differs.')
         if old_summary.get('output_sha256') != receipt.get('output_sha256'):
             reasons.append('Run summary and module receipt disagree.')
         artifact = previous / 'olean' / Path(*module.split('.')).with_suffix('.olean')
@@ -118,6 +124,9 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(artifact, target)
         restored = dict(receipt)
+        # The complete original native ancestry was checked recursively above.
+        # This also safely upgrades old fixed-source CI receipts to the stamp.
+        restored['source_ancestry_fingerprint'] = stamp
         for stream, path in log_paths.items():
             log_target = build / 'logs' / path.name
             log_target.parent.mkdir(parents=True, exist_ok=True)
@@ -130,6 +139,7 @@ def main():
         }
         write_json(build / 'receipts' / (module + '.json'), restored)
         good[module] = receipt['output_sha256']
+        ancestry[module] = stamp
         summary['copied_modules'][module] = {
             'source_sha256': key['source_sha256'], 'output_sha256': good[module],
             'prior_receipt_sha256': digest(receipt_path),

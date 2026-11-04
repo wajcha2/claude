@@ -1,0 +1,542 @@
+{
+  "schema": "lebrun-github-ci-evidence-v2",
+  "verified_utc": "2026-11-04T01:17:20.284173+00:00",
+  "run": {
+    "id": 41752026450,
+    "name": "LeBrun-Salamon takeover kernel checks",
+    "head_branch": "codex/lebrun-takeover-audit-20261103",
+    "head_sha": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
+    "path": ".github/workflows/lebrun-takeover-kernel.yml",
+    "event": "push",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41752026450",
+    "created_at": "2026-11-04T01:09:04Z",
+    "updated_at": "2026-11-04T01:09:08Z",
+    "run_started_at": "2026-11-04T01:09:04Z",
+    "run_attempt": 1
+  },
+  "stage": "early_ext01",
+  "artifact_name": "lebrun-takeover-early-ext01-41752026450-1",
+  "artifact_id": 13287426683,
+  "artifact_zip_sha256": "19be5fdcdd8243b1d37d18593bceec5a4d11c184e11e424f5c1ebadfe27c5424",
+  "artifact_zip_verified": true,
+  "compiler_kind": "stock_pinned_frontend",
+  "compiler_flags": [
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000"
+  ],
+  "counts": {
+    "reused": 30,
+    "passed": 4
+  },
+  "accepted_count": 34,
+  "selected_module_count": 34,
+  "full_selected_graph_passed": true,
+  "milestone_met": false,
+  "whole_committed_source_graph_passed": false,
+  "final_validation": {
+    "checked_utc": "2026-11-04T01:14:46.824400+00:00",
+    "checked_module_count": 34,
+    "invalidated_modules": {},
+    "changed_runtime_files": []
+  },
+  "failures": [],
+  "error_count": 0,
+  "modules": [
+    {
+      "module": "LSConePole",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.625,
+      "source_sha256": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+      "output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "c057c47be74f6d868670ee4244696bd940029a2bebc0acfb60db051fa30cd27e",
+        "restored_utc": "2026-11-04T01:12:06.145454+00:00"
+      }
+    },
+    {
+      "module": "LSP1SourceAlgebra",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.472,
+      "source_sha256": "746cc04e37a50878168b6c7b63dc6d9978e7fdcf321aba83a07af15e6c8a9e53",
+      "output_sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "acb8a5a1096cb7e057dd330e3a1627cb49b51fca2cd215aeacb50c32c217b386",
+        "restored_utc": "2026-11-04T01:12:06.152836+00:00"
+      }
+    },
+    {
+      "module": "LSP1TensorSquare",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.921,
+      "source_sha256": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
+      "output_sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "9ebe9b8eccf67398e81c8ee6bb3c20c2e2759def05ac4e6d957f3f6f36aa5b7f",
+        "restored_utc": "2026-11-04T01:12:06.153999+00:00"
+      }
+    },
+    {
+      "module": "LSSecondDiagonalAlgebra",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.426,
+      "source_sha256": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+      "output_sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "9aa34958782b8da12ef5606943ac90e7b9ae82ba22f7bad2e1d4290333b888ea",
+        "restored_utc": "2026-11-04T01:12:06.156323+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart01",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 35.697,
+      "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+      "output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "7709b44f6d1df0e76d2fe69ac9c69f32c16e184243d424c71c618ebdeecac38d",
+        "restored_utc": "2026-11-04T01:12:06.163181+00:00"
+      }
+    },
+    {
+      "module": "LSP1TensorTaylor",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.323,
+      "source_sha256": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
+      "output_sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "30564a01ebfee841e1bfdfb4ba52e625ffce6c0204053a7c952992907d12b306",
+        "restored_utc": "2026-11-04T01:12:06.169279+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart02",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 18.409,
+      "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "39e6b620c493f801274f0b011fcb4455af4b7639f97df5eee5284a17c9348c4b",
+        "restored_utc": "2026-11-04T01:12:06.173839+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart03",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 130.579,
+      "source_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+      "output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "7579e00a2224c0b50895aa75c30fa39192634ff5cccd289a6b98deeb2a05aae0",
+        "restored_utc": "2026-11-04T01:12:06.183426+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart04",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 136.373,
+      "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+      "output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "5e1a144616e538dbea10f1f8808019a0ad8d5a5f86a12f0c3f26e47a3d269d5b",
+        "restored_utc": "2026-11-04T01:12:06.190962+00:00"
+      }
+    },
+    {
+      "module": "LSAffineDerivations",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.526,
+      "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+      "output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "9ec1e65592851e33c665e355e02d49b528989f8ac3db670100d7a1a15d999d91",
+        "restored_utc": "2026-11-04T01:12:06.191712+00:00"
+      }
+    },
+    {
+      "module": "LSPublishedPicard",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.674,
+      "source_sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+      "output_sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "c98386afe7970b491df258a5577c3a8fae703206a6ddb47f71007a78d78df0ef",
+        "restored_utc": "2026-11-04T01:12:06.192180+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05A",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 33.453,
+      "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+      "output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "0cc3456cf9431e2de9f308b8754efd087c92350020a6f7afd9948c8bad3dd168",
+        "restored_utc": "2026-11-04T01:12:06.195487+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05B",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 48.635,
+      "source_sha256": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+      "output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "34a43b59596cc33276853fccf62092aab274bed620a1573aa1b402640af1daed",
+        "restored_utc": "2026-11-04T01:12:06.198695+00:00"
+      }
+    },
+    {
+      "module": "LSKunnethDegreeZero",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 7.382,
+      "source_sha256": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+      "output_sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "1f2aeeebeff24968a5f24304a0ee11dfd83041703a92857ca1fd9e616a3e130e",
+        "restored_utc": "2026-11-04T01:12:06.199828+00:00"
+      }
+    },
+    {
+      "module": "LSProjectionFormula",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 11.493,
+      "source_sha256": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
+      "output_sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "6cb3a01a443aceae49da18d3fd562ddfbaeaf977e3e4ab6ae72505119639d1f2",
+        "restored_utc": "2026-11-04T01:12:06.201091+00:00"
+      }
+    },
+    {
+      "module": "LSAffineProductRing",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 7.835,
+      "source_sha256": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+      "output_sha256": "070707ba1d98ffd0926afbe0339b4bcd73047eb5f9f070cf44801af6fc62f91d",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "8f7a1719650aa98ed439ec3835463f3f178a17626447d9fe9782161512c61d82",
+        "restored_utc": "2026-11-04T01:12:06.202149+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05C",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 86.462,
+      "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+      "output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "70c3f788cd72c70e2213d45249cf0801946a18b2ffb92d9dff7c3f28ea707ae4",
+        "restored_utc": "2026-11-04T01:12:06.204438+00:00"
+      }
+    },
+    {
+      "module": "LSNonvanishingPullback",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 4.526,
+      "source_sha256": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+      "output_sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "ae06f3d4d11970ef70637b8c8f10c87568b8a4af6d55f94fa6fef6866fae2a41",
+        "restored_utc": "2026-11-04T01:12:06.205295+00:00"
+      }
+    },
+    {
+      "module": "LSSectionCover",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.323,
+      "source_sha256": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+      "output_sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "63cff23457e36f2832b3031a45abdc2ba15151a485d25ab0aa3a75e4e460f626",
+        "restored_utc": "2026-11-04T01:12:06.205960+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart05",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.822,
+      "source_sha256": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+      "output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "b30c97c5d10d35e64f7bc83cbc1723ce059632565b9bd2855ce35184990cf35e",
+        "restored_utc": "2026-11-04T01:12:06.206366+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart06",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 36.948,
+      "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+      "output_sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "e580ac4990686005d4eec5232cfbe92de93643a183fa80c84d1ff0865f6034b8",
+        "restored_utc": "2026-11-04T01:12:06.210929+00:00"
+      }
+    },
+    {
+      "module": "RecompileBasePart07",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 422.832,
+      "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+      "output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "bdf226d9f3c655df5b964559253e09d22b1677da49d8a970bab5b145b3327cd3",
+        "restored_utc": "2026-11-04T01:12:06.215737+00:00"
+      }
+    },
+    {
+      "module": "RecompileBase",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 2.471,
+      "source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+      "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "81452a0918ea0a4addac991134bb9d4037d0c7fa7d45338f6a6d38293a9d40ea",
+        "restored_utc": "2026-11-04T01:12:06.216212+00:00"
+      }
+    },
+    {
+      "module": "RecompileSections",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 160.281,
+      "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+      "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "17f6897e7b046db28de7451a7fb0648486553e48e72e1f22e7fc071364346d9a",
+        "restored_utc": "2026-11-04T01:12:06.223210+00:00"
+      }
+    },
+    {
+      "module": "LSAffineFrame",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 14.155,
+      "source_sha256": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+      "output_sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "1e07d57d74b4a77bf668d2f6b6299937f53ca99bf05541dc7f37ac037d505199",
+        "restored_utc": "2026-11-04T01:12:06.224712+00:00"
+      }
+    },
+    {
+      "module": "LSP1TangentSections",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.825,
+      "source_sha256": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
+      "output_sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "b182807e191ab583b37eda791028b626e669181cc7a410463bc886236b288bac",
+        "restored_utc": "2026-11-04T01:12:06.225437+00:00"
+      }
+    },
+    {
+      "module": "LSStandardTautological",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.576,
+      "source_sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+      "output_sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "RecompileExtensionCore",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 24.013,
+      "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+      "output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "5b8b3059376a74f9f83656762766e7cc65e94a16bb8e781443822f95270ad438",
+        "restored_utc": "2026-11-04T01:12:06.229513+00:00"
+      }
+    },
+    {
+      "module": "LSClosedIdealCoefficients",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 3.522,
+      "source_sha256": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
+      "output_sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "e09e8c80db5919871c15ffd4f016e2a2ab0e9cf9da7dd2ac2a9b755b2de1cb9e",
+        "restored_utc": "2026-11-04T01:12:06.230160+00:00"
+      }
+    },
+    {
+      "module": "LSPublishedProjectiveSpace",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 19.227,
+      "source_sha256": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
+      "output_sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSStandardTautologicalP1",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 3.977,
+      "source_sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+      "output_sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    },
+    {
+      "module": "LSOpenProductCoordinates",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.776,
+      "source_sha256": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+      "output_sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "6b96b10911fd40791a01ae0639a409e59c43b7e28948f1e4e5cb6356a4ae11c8",
+        "restored_utc": "2026-11-04T01:12:06.232460+00:00"
+      }
+    },
+    {
+      "module": "LSExternalFrameCoefficients",
+      "status": "reused",
+      "return_code": 0,
+      "seconds": 5.526,
+      "source_sha256": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
+      "output_sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": {
+        "source_run_id": 41745746489,
+        "source_artifact_name": "lebrun-takeover-kernel-41745746489-1",
+        "prior_receipt_sha256": "08b2523ec4783a0ecfaf33084dd559e3c4f5b2dd10dc1436172ab38d0b2006b3",
+        "restored_utc": "2026-11-04T01:12:06.233952+00:00"
+      }
+    },
+    {
+      "module": "RecompileExtensionsPart01",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 131.875,
+      "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+      "output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+      "evidence_kind": "native_kernel_compilation",
+      "cache_restore_provenance": null
+    }
+  ]
+}

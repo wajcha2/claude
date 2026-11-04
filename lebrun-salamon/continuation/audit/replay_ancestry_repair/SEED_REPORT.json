@@ -1,0 +1,37 @@
+{
+  "compiler": "simulated; no Lean invoked",
+  "cases": [
+    {
+      "case": "unchanged_seed",
+      "return_code": 0,
+      "statuses": {
+        "A": "historical_reuse",
+        "B": "historical_reuse",
+        "C": "historical_reuse"
+      },
+      "passed": true
+    },
+    {
+      "case": "changed_transitive_seed",
+      "return_code": 1,
+      "statuses": {
+        "A": "passed",
+        "B": "passed",
+        "C": "failed"
+      },
+      "passed": true
+    },
+    {
+      "case": "legacy_unstamped_seed",
+      "return_code": 1,
+      "statuses": {
+        "A": "passed",
+        "B": "passed",
+        "C": "failed"
+      },
+      "passed": true
+    }
+  ],
+  "passed": 3,
+  "total": 3
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSFirstJetEmbeddingGeometry",
+  "key": {
+    "source_sha256": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
+    "imports": [
+      "LSFirstJetEmbedding",
+      "LSHamiltonianJets"
+    ],
+    "dependency_artifacts": {
+      "LSFirstJetEmbedding": {
+        "sha256": "c91fa4141a9c3f7cb65729ac410685dcce7156ed226a4bb85ecd5223081ea638",
+        "kind": "project"
+      },
+      "LSHamiltonianJets": {
+        "sha256": "b40084cdf93426b3450442b64e941de897ddc1fd1aa0a79a07b4a6aa15f66d4c",
+        "kind": "project"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSFirstJetEmbeddingGeometry.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFirstJetEmbeddingGeometry.lean"
+  ],
+  "started_utc": "2026-11-04T01:33:19.559226+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFirstJetEmbeddingGeometry.20261104T013319559196.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFirstJetEmbeddingGeometry.20261104T013319559196.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:33:24.340672+00:00",
+  "seconds": 4.777,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "afe552bb9142eac3e538557252eb098843a117332adb32d77e5ee967791d7617",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "91637ea09990bdd64bb4e84e3d5f7d12b4fc3d59fce068f550e858b6e0cee8ff",
+  "evidence_kind": "native_kernel_compilation"
+}

@@ -1,0 +1,173 @@
+{
+  "schema": "lebrun-cache-integrity-fixture-v1",
+  "compiler_kind": "simulated Python fixture; no Lean invoked",
+  "driver_sha256": "7da05127ca383df49acf649c4db64442e533addc509d80b996a76949b7c9f485",
+  "cache_restore_sha256": "1200952ccf5aabe794a7f6e7b476125bf131b41b89447453d36b3f18c59b9834",
+  "passed": 10,
+  "total": 10,
+  "cases": [
+    {
+      "case": "unchanged",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "rejected_modules": {}
+    },
+    {
+      "case": "legacy_unchanged",
+      "passed": true,
+      "expected_copied": [
+        "A",
+        "B"
+      ],
+      "copied": [
+        "A",
+        "B"
+      ],
+      "replayed_statuses": {
+        "A": "reused",
+        "B": "reused"
+      },
+      "global_rejection": null,
+      "rejected_modules": {}
+    },
+    {
+      "case": "ancestor_source",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "leaf_source",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "B": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "output_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Output artifact missing or hash differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "runtime_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "rejected_modules": {}
+    },
+    {
+      "case": "lock_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": "Runtime paths, pinned bytes, flags, environment or toolchain lock differ.",
+      "rejected_modules": {}
+    },
+    {
+      "case": "external_change",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "log_corruption",
+      "passed": true,
+      "expected_copied": [],
+      "copied": [],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "A": [
+          "Compiler diagnostic log missing or hash differs: stdout"
+        ],
+        "B": [
+          "Unvalidated project ancestor: A",
+          "Current source/import/dependency/runtime key differs.",
+          "Transitive source/dependency ancestry differs."
+        ]
+      }
+    },
+    {
+      "case": "non_native_receipt",
+      "passed": true,
+      "expected_copied": [
+        "A"
+      ],
+      "copied": [
+        "A"
+      ],
+      "replayed_statuses": null,
+      "global_rejection": null,
+      "rejected_modules": {
+        "B": [
+          "No successful native compiler receipt."
+        ]
+      }
+    }
+  ]
+}

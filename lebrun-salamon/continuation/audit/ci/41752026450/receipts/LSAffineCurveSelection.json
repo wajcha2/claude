@@ -1,0 +1,88 @@
+{
+  "schema": "lebrun-module-receipt-v1",
+  "status": "passed",
+  "module": "LSAffineCurveSelection",
+  "key": {
+    "source_sha256": "f4152399a2e7ed3d56a333cdb5d86ef16941d4a9830d75c5f0e077217d1bdb6c",
+    "imports": [
+      "LSSuitableDirections",
+      "LSConeLocalization",
+      "Mathlib.RingTheory.KrullDimension.Polynomial",
+      "Mathlib.RingTheory.KrullDimension.Field",
+      "Mathlib.RingTheory.KrullDimension.NonZeroDivisors",
+      "Mathlib.RingTheory.Localization.Away.Basic",
+      "Mathlib.RingTheory.Localization.Away.AdjoinRoot"
+    ],
+    "dependency_artifacts": {
+      "LSSuitableDirections": {
+        "sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+        "kind": "project"
+      },
+      "LSConeLocalization": {
+        "sha256": "7f73a031f8e1b1eb7017b8eb99b089d99d3b40b344a6b9f08cd295ad05e7083d",
+        "kind": "project"
+      },
+      "Mathlib.RingTheory.KrullDimension.Polynomial": {
+        "sha256": "d32a6b03c6ec95866bb1e9a78bc78e1f5009360bc606221eff5b238f1a26dba9",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.KrullDimension.Field": {
+        "sha256": "86f51fa7836ca31ddfca66dc6282c83cf51e85da4ad942e46260324d79f2aaf0",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.KrullDimension.NonZeroDivisors": {
+        "sha256": "33443744d22c08f2d094f5f7ae6c13c36e2e46958204102bafa703495b9ce3b1",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Localization.Away.Basic": {
+        "sha256": "2996d7c1dcb2d3efdf8d944f2d5921b035fd1666f97b81d2d36ffe9e300fadd8",
+        "kind": "external"
+      },
+      "Mathlib.RingTheory.Localization.Away.AdjoinRoot": {
+        "sha256": "d80a846dbd10b196bb9299277bfd257fa0ed87c3d2549b0bb75abf89dfddd26a",
+        "kind": "external"
+      }
+    },
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "flags": [
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000"
+    ]
+  },
+  "command": [
+    "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+    "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+    "--json",
+    "-j1",
+    "-DElab.async=false",
+    "-M12000",
+    "-DmaxErrors=1000",
+    "-DmaxHeartbeats=2000000",
+    "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+    "-o",
+    "/home/runner/work/claude/claude/kernel-evidence/olean/LSAffineCurveSelection.olean",
+    "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSAffineCurveSelection.lean"
+  ],
+  "started_utc": "2026-11-04T01:27:53.569435+00:00",
+  "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSAffineCurveSelection.20261104T012753569407.stdout.jsonl",
+  "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSAffineCurveSelection.20261104T012753569407.stderr.txt",
+  "return_code": 0,
+  "finished_utc": "2026-11-04T01:27:58.499253+00:00",
+  "seconds": 4.927,
+  "source_and_dependencies_unchanged": true,
+  "stdout_sha256": "6d799f20428d6672889c9f45e07e4108e345ccc12aebe68064c5ae22617a8ab6",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_sha256": "cf51daee0fd52e5dc2682eb511b1e276b60b01ebfbfc17fc15038787e7ea0216",
+  "evidence_kind": "native_kernel_compilation"
+}

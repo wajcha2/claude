@@ -19,19 +19,21 @@ def main():
     ap.add_argument('--root', type=Path, required=True)
     ap.add_argument('--local-runtime', type=Path, required=True)
     ap.add_argument('--previous-base', type=Path)
-    ap.add_argument('--stage', choices=('full_graph', 'early_ext01'), default='full_graph',
+    ap.add_argument('--stage', choices=('full_graph', 'early_ext01', 'early_geometry'), default='full_graph',
                     help='Keep completed early-closure evidence separate from the full-run result.')
     args = ap.parse_args()
     base, root = args.base.resolve(), args.root.resolve()
     sys.path.insert(0, str(root / 'scripts'))
-    from replay_checkpoint import digest, read_json, write_json, utc, source_graph, dependency_order
+    from replay_checkpoint import (digest, read_json, write_json, utc, source_graph,
+                                   dependency_order, source_ancestry_fingerprint)
     original = base / 'head_snapshot'
     extracted = base / 'extracted'
     build = extracted / 'kernel-evidence'
     run = read_json(base / 'RUN_METADATA.json')
     artifacts = read_json(base / 'ARTIFACTS.json')
-    artifact_prefix = ('lebrun-takeover-kernel-' if args.stage == 'full_graph'
-                       else 'lebrun-takeover-early-ext01-')
+    artifact_prefix = {'full_graph':'lebrun-takeover-kernel-',
+                       'early_ext01':'lebrun-takeover-early-ext01-',
+                       'early_geometry':'lebrun-takeover-early-geometry-'}[args.stage]
     artifact = next(x for x in artifacts['artifacts'] if x['name'].startswith(artifact_prefix))
     if args.stage == 'full_graph':
         assert run['status'] == 'completed', 'The full CI run is still pending.'
@@ -72,8 +74,10 @@ def main():
         blob = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
         assert git_entries.get(prefix + path.relative_to(original).as_posix()) == blob, 'Snapshot bytes differ from committed Git blob: ' + str(path)
     assert set(status['selected_modules']) <= sources.keys()
-    if args.stage == 'early_ext01':
-        assert status['requested_targets'] == ['RecompileExtensionsPart01']
+    if args.stage != 'full_graph':
+        target = {'early_ext01':'RecompileExtensionsPart01',
+                  'early_geometry':'RecompileExtensionsPart04Geometry'}[args.stage]
+        assert status['requested_targets'] == [target]
         closure = set()
         def add_ancestors(module):
             if module in closure:
@@ -81,11 +85,12 @@ def main():
             closure.add(module)
             for dependency in graph[module]:
                 add_ancestors(dependency)
-        add_ancestors('RecompileExtensionsPart01')
+        add_ancestors(target)
         assert set(status['selected_modules']) == closure, 'Early artifact has the wrong dependency closure.'
     external_roots = [local_runtime / p.split('/lebrun-runtime/', 1)[1]
                       for p in config['external_olean_roots']]
     good, errors, checked = {}, [], []
+    ancestry = {}
     external_hashes = {}
     counts = Counter(x['status'] for x in status['modules'].values())
     for module in order:
@@ -113,6 +118,9 @@ def main():
                     external_hashes[dep] = digest(found)
                 deps[dep] = {'sha256': external_hashes[dep], 'kind': 'external'}
         assert key['dependency_artifacts'] == deps, 'Dependency key mismatch: ' + module
+        stamp = source_ancestry_fingerprint(module, key,
+            {dep:ancestry[dep] for dep in graph[module]})
+        assert rec.get('source_ancestry_fingerprint') in {None, stamp}, 'Ancestry stamp mismatch: ' + module
         module_errors = []
         for stream in ('stdout', 'stderr'):
             log = build / 'logs' / Path(rec[stream]).name
@@ -149,9 +157,11 @@ def main():
                     run_started = datetime.fromisoformat(run['run_started_at'].replace('Z', '+00:00'))
                     assert started >= run_started, 'Unproven reuse predates this CI run.'
             good[module] = rec
+            ancestry[module] = stamp
         checked.append({'module': module, 'status': item['status'], 'return_code': rec.get('return_code'),
                         'seconds': rec.get('seconds'), 'source_sha256': key['source_sha256'],
                         'output_sha256': rec.get('output_sha256'), 'evidence_kind': rec.get('evidence_kind'),
+                        'source_ancestry_fingerprint':stamp,
                         'cache_restore_provenance': rec.get('cache_restore_provenance')})
     assert status['final_validation']['checked_module_count'] == len(good)
     live_sources, live_imports, live_graph = source_graph(root / 'source')
@@ -181,6 +191,7 @@ def main():
             'dependency_artifacts': rec['key']['dependency_artifacts'], 'toolchain_lock_sha256': lock_sha,
             'artifact_path': str(build / 'olean' / Path(*module.split('.')).with_suffix('.olean')),
             'output_sha256': rec['output_sha256'],
+            'source_ancestry_fingerprint':ancestry[module],
             'provenance': {'kind': 'stock_github_ci' if not rec.get('cache_restore_provenance')
                           else 'revalidated_prior_stock_github_ci', 'run_id': run['id'],
                           'head_sha': run['head_sha'], 'run_url': run['html_url'],
@@ -191,8 +202,8 @@ def main():
                           'direct_external_artifacts_match_local_runtime': True},
         }
     dest = root / 'audit/ci' / str(run['id'])
-    if args.stage == 'early_ext01':
-        dest = dest / 'early_ext01'
+    if args.stage != 'full_graph':
+        dest = dest / args.stage
     dest.mkdir(parents=True, exist_ok=True)
     for name in ('RUN_METADATA.json', 'ARTIFACTS.json', 'FINAL_JOBS.json', 'HEAD_SOURCE_TREE.json'):
         if (base / name).exists():
@@ -217,13 +228,13 @@ def main():
                 'error_count':len(errors), 'modules':checked}
     write_json(dest / 'CI_RECEIPT.json', evidence)
     write_json(dest / 'ERRORS.json', errors)
-    write_json(dest / 'VALIDATED_SEEDS.json', {'schema':'lebrun-explicit-validated-seeds-v1',
+    write_json(dest / 'VALIDATED_SEEDS.json', {'schema':'lebrun-explicit-validated-seeds-v2',
                'validated_utc':utc(), 'source_commit':run['head_sha'], 'module_count':len(seeds),
                'validation':'Exact committed source and dependency ancestry verified, then filtered for unchanged live source and entire live ancestry; pinned stock compiler and direct external artifacts match local runtime.',
                'modules':seeds, 'excluded':excluded})
     write_json(dest / 'STATUS.json', {**{k:v for k,v in evidence.items() if k!='modules'},
                'schema':'lebrun-final-ci-snapshot-v2',
-               'phase':'completed' if args.stage == 'full_graph' else 'early_ext01_completed',
+               'phase':'completed' if args.stage == 'full_graph' else args.stage + '_completed',
                'validated_seed_count':len(seeds), 'seed_file':'VALIDATED_SEEDS.json'})
     (dest / 'SOURCE_HEAD.sha256').write_text(''.join(digest(sources[m]) + '  source/' + sources[m].relative_to(original/'source').as_posix() + '\n' for m in sorted(sources)))
     (dest / 'FILES.sha256').write_text(''.join(digest(p)+'  '+p.relative_to(dest).as_posix()+'\n'

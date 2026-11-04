@@ -40,12 +40,12 @@
     "status_update_rule": "Promote an individual unit only when its evidence meets the rule; do not infer closure from namespace, sorry count, helper compilation, or an unverified completion announcement."
   },
   "source_snapshot": {
-    "source_module_count": 213,
-    "aggregate_sha256": "ef0dca74eef6528db3f68bd95d94ca7e87e5a6b5064c957b621ef6c89b6a8382",
+    "source_module_count": 246,
+    "aggregate_sha256": "f4674db6050d625ad79ff29ee8e3e15a249aabbb555f8ef42620e50ac5ad0b16",
     "aggregate_convention": "SHA256 of sorted lines filename + space + file SHA256 + newline; current source only.",
     "original_csv_sha256": "f940dd2fb3d6cc03ee5eee62d50f71346a95051caf4f4215f4f87e20cde86573",
     "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
-    "snapshot_utc": "2026-11-04T01:05:53.044287+00:00"
+    "snapshot_utc": "2026-11-04T01:50:48.958539+00:00"
   },
   "groups": [
     {
@@ -1132,7 +1132,7 @@
         "P-ORIGINAL",
         "S-CURRENT"
       ],
-      "current_source_file_sha256": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce"
+      "current_source_file_sha256": "6d9459c5f0b39613382f76bd352728d795e60e90203772a2fe80a7a95a998d3d"
     },
     {
       "id": "OBL-026",
@@ -1153,7 +1153,7 @@
         "P-ORIGINAL",
         "S-CURRENT"
       ],
-      "current_source_file_sha256": "2f214d4372ff7bb584002f79e0ea76f4e2e6b7ec740295cced4f94ca8131f0ce"
+      "current_source_file_sha256": "6d9459c5f0b39613382f76bd352728d795e60e90203772a2fe80a7a95a998d3d"
     },
     {
       "id": "OBL-027",
@@ -1268,7 +1268,7 @@
       "declaration": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
       "original_inventory_name": "LeBrunSalamon.StandardInputs.standardConic_fundamentalClass_exists",
       "file": "LSStandardConicDifferential.lean",
-      "status": "pending_acceptance",
+      "status": "source_proved_pending_current_graph",
       "accepted": false,
       "weight": 1,
       "recovered_v2_source_body_status": "no direct admission; not compilation-certified",
@@ -1277,9 +1277,22 @@
       "evidence_ids": [
         "P-CSV",
         "P-ORIGINAL",
-        "S-CURRENT"
+        "S-CURRENT",
+        "P-FUNDAMENTAL-CLASS-SOURCE-PROOF"
       ],
-      "current_source_file_sha256": "12617f4ed2e6b96eafd61598ec9cbbfa1475ab010c6ddcb24f32357c33d9bc25"
+      "current_source_file_sha256": "7dbef87db30259002ede4fb50836d02e91152da72c20d5ff77b2ae500c7514c9",
+      "source_replacement": {
+        "integrated_utc": "2026-11-04T01:23:24.752682+00:00",
+        "exact_original_wrapper_native_seconds": 8.071,
+        "new_helper_modules": 16,
+        "source_composite_admissions_removed": 1,
+        "new_direct_admissions": 0,
+        "construction": "Actual normalized affine cotangent maps; two overlap scalar identities; three-open sheaf gluing; exact original chart coefficients and signs.",
+        "evidence": "audit/step3f_fundamental_class/SCOPE.json",
+        "evidence_sha256": "60bad5d65cbab2288bb14e539868cec626425f0fc4c221abc1388ee44d714ca6",
+        "scope": "Exact integrated helper and wrapper bytes passed isolated diagnostic interfaces. The exhaustive boundary still names eight inherited older-interface leaves; three already have proved current replacements. Full current-source ancestry and published-leaf acceptance remain pending.",
+        "whole_current_dependency_graph_verified": false
+      }
     },
     {
       "id": "OBL-033",
@@ -2792,10 +2805,32 @@
       "accepted_units_added": 0
     },
     {
-      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T01:05:53.044287+00:00",
+      "id": "PARTIAL-FUNDAMENTAL-CLASS-20261104",
+      "description": "Original fundamental-class composite replaced by actual affine cotangent maps, overlap identities, sheaf gluing, and exact chart coefficients. Sixteen zero-admission helpers and the unchanged public wrapper have native diagnostic evidence; current graph gate remains open.",
+      "evidence_ids": [
+        "P-FUNDAMENTAL-CLASS-SOURCE-PROOF"
+      ],
+      "supports": [
+        "GATE-02"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T01:50:48.958539+00:00",
       "description": "All17 Step3c/3d obligations have native/source evidence and actual source-bivector proof is integrated; full current-graph acceptance remains pending.",
       "evidence_ids": [
-        "P-CI-41745746489"
+        "P-CI-41752026450"
+      ],
+      "supports": [
+        "GATE-02"
+      ],
+      "accepted_units_added": 0
+    },
+    {
+      "id": "PARTIAL-POINT1-COMBINED-2026-11-04T01:50:48.958539+00:00",
+      "description": "All17 Step3c/3d obligations have native/source evidence and actual source-bivector proof is integrated; full current-graph acceptance remains pending.",
+      "evidence_ids": [
+        "P-CI-41752026450"
       ],
       "supports": [
         "GATE-02"
@@ -3082,14 +3117,21 @@
       "source_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
       "current_source_full_graph_verified": false
     },
-    "P-CI-41745746489": {
-      "path": "audit/ci/41745746489/CI_RECEIPT.json",
-      "sha256": "c8bae8e1136beb0107a203f48b0958f3ecf23fb5d6f7bab344c9265abec40122",
+    "P-FUNDAMENTAL-CLASS-SOURCE-PROOF": {
+      "path": "audit/step3f_fundamental_class/SCOPE.json",
+      "sha256": "60bad5d65cbab2288bb14e539868cec626425f0fc4c221abc1388ee44d714ca6",
+      "kind": "exact_source_replacement_with_isolated_native_diagnostics",
+      "accepted_units_added": 0,
+      "current_dependency_closure_verified": false
+    },
+    "P-CI-41752026450": {
+      "path": "audit/ci/41752026450/CI_RECEIPT.json",
+      "sha256": "626677d4fe4b1c46f3849387ed4f49ef74934ccec7ec3df157601acc92021036",
       "kind": "historical_exact_commit_native_ci",
-      "accepted_modules": 139,
+      "accepted_modules": 182,
       "failed": 3,
-      "blocked": 30,
-      "source_commit": "6b976918d73e771813e661711f0395137b94c4f5",
+      "blocked": 28,
+      "source_commit": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
       "current_source_full_graph_verified": false
     }
   },
@@ -3101,30 +3143,30 @@
       "audit/MILESTONE_PROGRESS.md"
     ]
   },
-  "updated_utc": "2026-11-04T01:05:53.044287+00:00",
+  "updated_utc": "2026-11-04T01:50:48.958539+00:00",
   "checkpoint_update": {
     "source_freeze": "audit/point1_checkpoint/FREEZE.json",
     "latest_full_ci": {
-      "run_id": 41745746489,
-      "commit": "6b976918d73e771813e661711f0395137b94c4f5",
-      "source_modules_selected": 172,
+      "run_id": 41752026450,
+      "commit": "c8e5d28e619410cf3c87f5903a5bedb1cba85dde",
+      "source_modules_selected": 213,
       "compiler_memory_cap_mb": 12000,
       "status": "completed",
       "conclusion": "failure",
       "counts": {
-        "reused": 30,
-        "passed": 109,
+        "reused": 50,
+        "passed": 132,
         "failed": 3,
-        "blocked": 30
+        "blocked": 28
       },
-      "accepted_count_at_that_commit": 139,
+      "accepted_count_at_that_commit": 182,
       "failed_modules": [
         "LSConicJets",
-        "LSStandardConicDifferential",
-        "LSProductGeometry"
+        "LSTraitContact",
+        "LSBoundedLines"
       ],
       "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41745746489/CI_RECEIPT.json",
+      "evidence": "audit/ci/41752026450/CI_RECEIPT.json",
       "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
     },
     "new_full_ci": "pending",

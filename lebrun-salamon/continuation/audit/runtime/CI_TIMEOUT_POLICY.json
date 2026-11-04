@@ -1,0 +1,18 @@
+{
+  "schema": "lebrun-ci-timeout-policy-v1",
+  "compiler_memory_cap_mb": 12000,
+  "timeout_seconds_per_module": 900,
+  "job_timeout_minutes": 120,
+  "measured_successful_maxima_seconds": {
+    "RecompileBasePart07": 566.455,
+    "RecompileExtensionsPart04Geometry": 336.134,
+    "RecompileSections": 194.477
+  },
+  "evidence_runs": [
+    41714131927,
+    41732181431,
+    41745746489
+  ],
+  "reason": "900 seconds leaves more than five minutes above the longest observed successful module while preventing one stalled declaration from consuming the previous 2400-second default. Completed early Ext01 and Geometry closures are uploaded before the full graph.",
+  "running_213_module_job_modified_or_cancelled": false
+}

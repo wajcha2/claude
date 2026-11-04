@@ -1,0 +1,21 @@
+{
+  "schema": "lebrun-native-runtime-download-infrastructure-failure-v1",
+  "source_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+  "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+  "run_id": 41888465259,
+  "job_id": 126779164326,
+  "run_attempt": 1,
+  "failed_step": "Restore pinned stock runtime",
+  "cause": "HTTP503: Egress is over the account limit while downloading mathlib-full-ir-manifest from runtime run41309680327",
+  "native_compilation_started": false,
+  "compiler_diagnostics": [],
+  "verified_native_contexts_retained": 305,
+  "point1_boundary_contexts_unchanged": 190,
+  "raw_decoded_job_log_sha256": "ba8d33494f6fe90bf709255f14f78b50465b03e4850f908b2aed622885099380",
+  "sanitized_diagnostic_excerpt": [
+    "2026-11-04T18:35:20.6631830Z error downloading mathlib-full-ir-manifest: HTTP 503: 503 Egress is over the account limit. (<temporary artifact download URL redacted>)",
+    "2026-11-04T18:35:20.7066449Z subprocess.CalledProcessError: Command '['gh', 'run', 'download', '41309680327', '--repo', 'wajcha2/claude', '--pattern', 'mathlib-full-ir-*', '--dir', '/home/runner/work/_temp/lebrun-runtime/downloads/41309680327']' returned non-zero exit status 1."
+  ],
+  "authorized_response": "One retry of the same failed job at identical source, runtime and flags; no source or acceptance change",
+  "acceptance_units": 30
+}

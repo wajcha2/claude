@@ -1,0 +1,139 @@
+{
+  "schema": "lebrun-final-current-native-pass-record-v1",
+  "compiled_snapshot": {
+    "commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "tree": "885ffa817897b4c686ec0264957df3326d44138f",
+    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "source_modules": 307
+  },
+  "official_workflow": {
+    "run_id": 41888465259,
+    "run_attempt": 2,
+    "job_id": 126780737996,
+    "status": "completed",
+    "conclusion": "success",
+    "path": ".github/workflows/lebrun-final-current-native.yml",
+    "html_url": "https://github.com/wajcha2/claude/actions/runs/41888465259"
+  },
+  "official_artifact": {
+    "id": 13353190843,
+    "name": "lebrun-final-current-native-41888465259-2",
+    "run_id": 41888465259,
+    "run_attempt": 2,
+    "size_in_bytes": 68416974,
+    "sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17"
+  },
+  "full_replay_verification": {
+    "repository_path": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
+    "archive_path": "kernel-evidence/FULL_REPLAY_VERIFICATION.json",
+    "blob": "c2a0525d9c7c8121bc662bc86b666b70057c7c52",
+    "sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded"
+  },
+  "independent_verification": {
+    "repository_path": "audit/ci/41888465259/INDEPENDENT_FULL_REPLAY_VERIFICATION.json",
+    "blob": "811a1be0cd675cd840b784029854d392dacfb9a6",
+    "sha256": "89fe16536a6f5ba917a37677ddd72ad65227272c65a68059a9f343823d82aa59"
+  },
+  "verified_scope": {
+    "source_modules": 307,
+    "selected_modules": 307,
+    "accepted_modules": 307,
+    "fresh_native_passes": 2,
+    "native_receipts_reused": 305,
+    "failed_modules": [],
+    "blocked_modules": [],
+    "all_current_sources_kernel_checked": true,
+    "prior_native_contexts_exactly_matched": 305,
+    "point1_native_contexts_exactly_matched": 190,
+    "source_output_log_receipt_runtime_direct_and_recursive_bindings_verified": true,
+    "native_evidence_not_rewritten": true
+  },
+  "frozen": {
+    "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+    "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
+    "basis_sha256": "b4681aeb45d66ae34215850d7957f4d9a64c04c50470b8c517c796a1347db533",
+    "native_runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004"
+  },
+  "fresh_native_receipts": [
+    {
+      "module": "LSCompletedTargets",
+      "receipt_sha256": "fc44695cad22d9af1aa17e8b291d1605e72130f737065d850c7a0a3b129ca6bf",
+      "key": {
+        "source_sha256": "46182a1882b3f92b34fa5e89fec5786596b89a2cc4637b38fa214e854c740db1",
+        "imports": [
+          "LSMovingPairConstruction"
+        ],
+        "dependency_artifacts": {
+          "LSMovingPairConstruction": {
+            "sha256": "cf7c16b31d287d8c7c98ecedf8997ebd77c09f6f353cb710f0caf59b8f0e10ef",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "2fda8cf4798f13da2a4ebd2ec247e77f06607626e9c3ee60195f2a6cdc9bfcdc",
+      "source_ancestry_fingerprint": "0f59b5b135231c0e40245a538f9c5292d52a13e839e76dff5c8d0624cbd2353e",
+      "seconds": 3.523,
+      "stdout_sha256": "a029c11cb12e94f5d1571b3289971bbc63c73a0231356ccf0dc697ee503358f8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    },
+    {
+      "module": "LSMilestoneTarget",
+      "receipt_sha256": "de6640e603ceb7af38440d15d7f746646f873f0864301d3f2b4a82ee9c2e4821",
+      "key": {
+        "source_sha256": "a34ed6741b765ccb20131b23211677e9c2f46022c7a093758a413edb9bfc2baf",
+        "imports": [
+          "LSCompletedTargets",
+          "LSMilestoneTopology"
+        ],
+        "dependency_artifacts": {
+          "LSCompletedTargets": {
+            "sha256": "2fda8cf4798f13da2a4ebd2ec247e77f06607626e9c3ee60195f2a6cdc9bfcdc",
+            "kind": "project"
+          },
+          "LSMilestoneTopology": {
+            "sha256": "8d337cddbd3f00697aa6c496ece31873f381b269bfde0439f6136ce595a545f3",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7bfe05ea6e669db8e9c25a96ba5fe84809f1c63bc49cc92fa622527b01098f78",
+      "source_ancestry_fingerprint": "d37cec14052556b83e7757b267976ae984af81882c5964668a688c2102670082",
+      "seconds": 3.925,
+      "stdout_sha256": "c3fe532683f0ad3c91aaa60be0e9e2a2290a6e41cb662dacb6f64a3fbe351952",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    }
+  ],
+  "infrastructure_history": {
+    "attempt": 1,
+    "job_id": 126779164326,
+    "record_path": "audit/ci/final_current/runtime_download_503_attempt1_20261104.json",
+    "record_blob": "a8b88208f6d46f70f298f2f38021a16a2e52da28",
+    "record_sha256": "62eaaaa8b3c1c361159ad8810a7f6eba1acdf0656a77da02c03971d619eb6f67",
+    "native_check_started": false,
+    "source_runtime_flags_changed_between_attempts": false
+  },
+  "accounting_scope": "This native evidence record does not modify the acceptance ledger. The separate final Point1 acceptance event may promote only OBL-001 through OBL-043 and OBL-069 after review; unconditional milestone completion is not inferred.",
+  "acceptance_ledger_modified": false
+}

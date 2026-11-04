@@ -1,0 +1,99 @@
+{
+  "schema": "lebrun-independent-full-current-native-archive-v1",
+  "artifact_id": 13353190843,
+  "artifact_name": "lebrun-final-current-native-41888465259-2",
+  "run_id": 41888465259,
+  "official_archive_sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17",
+  "source_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+  "source_tree": "885ffa817897b4c686ec0264957df3326d44138f",
+  "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+  "source_modules": 307,
+  "selected_modules": 307,
+  "accepted_modules": 307,
+  "fresh_native_passes": 2,
+  "native_receipts_reused": 305,
+  "prior_native_contexts_exactly_matched": 305,
+  "point1_native_contexts_exactly_matched": 190,
+  "all_current_sources_kernel_checked": true,
+  "failed_modules": [],
+  "blocked_modules": [],
+  "all_native_source_output_log_receipt_runtime_dependency_and_recursive_hashes_verified": true,
+  "full_replay_verification_archive_path": "kernel-evidence/FULL_REPLAY_VERIFICATION.json",
+  "full_replay_verification_sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded",
+  "complete_native_receipts_sha256": "50f1ebbc9f3c588d1de80368d82a83da9fe3236ce0f78754eefffbe2c967afe1",
+  "native_evidence_not_rewritten": true,
+  "compiler_not_invoked_by_export": true,
+  "acceptance_ledger_modified": false,
+  "fresh_native_receipts": [
+    {
+      "module": "LSCompletedTargets",
+      "receipt_sha256": "fc44695cad22d9af1aa17e8b291d1605e72130f737065d850c7a0a3b129ca6bf",
+      "key": {
+        "source_sha256": "46182a1882b3f92b34fa5e89fec5786596b89a2cc4637b38fa214e854c740db1",
+        "imports": [
+          "LSMovingPairConstruction"
+        ],
+        "dependency_artifacts": {
+          "LSMovingPairConstruction": {
+            "sha256": "cf7c16b31d287d8c7c98ecedf8997ebd77c09f6f353cb710f0caf59b8f0e10ef",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "2fda8cf4798f13da2a4ebd2ec247e77f06607626e9c3ee60195f2a6cdc9bfcdc",
+      "source_ancestry_fingerprint": "0f59b5b135231c0e40245a538f9c5292d52a13e839e76dff5c8d0624cbd2353e",
+      "seconds": 3.523,
+      "stdout_sha256": "a029c11cb12e94f5d1571b3289971bbc63c73a0231356ccf0dc697ee503358f8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    },
+    {
+      "module": "LSMilestoneTarget",
+      "receipt_sha256": "de6640e603ceb7af38440d15d7f746646f873f0864301d3f2b4a82ee9c2e4821",
+      "key": {
+        "source_sha256": "a34ed6741b765ccb20131b23211677e9c2f46022c7a093758a413edb9bfc2baf",
+        "imports": [
+          "LSCompletedTargets",
+          "LSMilestoneTopology"
+        ],
+        "dependency_artifacts": {
+          "LSCompletedTargets": {
+            "sha256": "2fda8cf4798f13da2a4ebd2ec247e77f06607626e9c3ee60195f2a6cdc9bfcdc",
+            "kind": "project"
+          },
+          "LSMilestoneTopology": {
+            "sha256": "8d337cddbd3f00697aa6c496ece31873f381b269bfde0439f6136ce595a545f3",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7bfe05ea6e669db8e9c25a96ba5fe84809f1c63bc49cc92fa622527b01098f78",
+      "source_ancestry_fingerprint": "d37cec14052556b83e7757b267976ae984af81882c5964668a688c2102670082",
+      "seconds": 3.925,
+      "stdout_sha256": "c3fe532683f0ad3c91aaa60be0e9e2a2290a6e41cb662dacb6f64a3fbe351952",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    }
+  ],
+  "export_directory": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_full/41888465259-attempt2-final307-80bbb"
+}

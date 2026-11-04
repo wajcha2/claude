@@ -1,8 +1,8 @@
 {
-  "schema": "lebrun-takeover-status-v1",
-  "date_local": "2026-11-04",
-  "timezone": "Europe/Berlin",
-  "recorded_utc": "2026-11-04T04:42:58.979865+00:00",
+  "schema": "lebrun-takeover-status-v2",
+  "recorded_utc": "2026-11-04T18:46:58Z",
+  "updated_utc": "2026-11-04T18:46:58Z",
+  "timezone": "Etc/UTC",
   "milestone": "compiling frozen theorem with sorry only for exact known published theorems",
   "milestone_met": false,
   "repository": "wajcha2/claude",
@@ -16,92 +16,7 @@
     "source_bytes": 4995434,
     "direct_sorry": 98
   },
-  "last_recorded_passing_incremental_stage": {
-    "stage": "3b",
-    "date": "2026-11-01",
-    "remaining_nonpublished_obligations": 91,
-    "direct_sorry": 99,
-    "published_leaves_accepted_in_that_record": 8,
-    "scope": "two changed modules plus compatibility import of73 prior artifacts; not a full clean build of final source"
-  },
-  "current_source": {
-    "modules": 269,
-    "lines": 122693,
-    "bytes": 5921585,
-    "admissions": {
-      "sorry": 99,
-      "admit": 0,
-      "axiom": 0,
-      "opaque": 0
-    },
-    "published_namespace_count_not_certification": 53,
-    "other_direct_admissions": 46,
-    "rewritten_original_wrappers_awaiting_acceptance": 43,
-    "kernel_verified": false,
-    "static_integrity_passed": true,
-    "snapshot_utc": "2026-11-04T04:42:58.979865+00:00",
-    "aggregate_sha256": "e167ba8f5851aa2c0de439f53d3fe64a5b126f41c81931f28e6fb74669d38f4e",
-    "freeze_receipt": "audit/point1_checkpoint/FREEZE.json"
-  },
-  "frozen_target": {
-    "path": "target/MainStatement.lean",
-    "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
-    "preserved": true,
-    "connected_to_final_theorem": false,
-    "missing_conclusion": "Unconditional frozen Wolf-homothety conclusion; conditional assembly now exists.",
-    "importable_formulation_present": true,
-    "conditional_exact_endpoint_present": true,
-    "remaining_endpoint_bridge": "PositiveQKSimpleConnectedness; exact frozen conclusion is assembled conditionally, not proved unconditionally",
-    "importable_formulation_kernel_verified": true,
-    "topology_module_kernel_verified": true,
-    "conditional_assembly_kernel_verified": false,
-    "unconditional_endpoint_proved": false
-  },
-  "repair_candidate": {
-    "path": "source/RecompileBasePart05A.lean",
-    "sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
-    "change": "restrict alternating-discriminant leaf to smooth proper complex bases; prove determinant conversion by tensor cancellation and supply actual Levi alternation",
-    "new_sorry": 0,
-    "kernel_status": "Passed with the original current ancestry in historical CI; subsequent Base04 edits invalidate that ancestry and require a fresh dependency build.",
-    "exact_full_scope_published_reference": "Auel 2009 thesis Proposition1.10 and Definition1.7; leaf restricted to smooth proper connected complex bases, determinant conversion proved",
-    "current_native_dependency_audit": "audit/current_determinant_build/DETERMINANT_DEPENDENCY_SUMMARY.json (historical exact-source scope; see its source hashes)",
-    "old_false_input_in_environment": false,
-    "old_false_input_in_dependency_closure": false,
-    "current_direct_admissions": 5
-  },
-  "rebuild_plan": {
-    "changed_modules": 172,
-    "affected_modules": 260,
-    "old_replay_modules": 21,
-    "omitted_affected_descendants": 239,
-    "source": "audit/current/REBUILD_PLAN.json",
-    "compiler_driver_replacement_required": false,
-    "driver": "scripts/replay_checkpoint.py",
-    "omitted_affected_descendants_at_recovery": 99
-  },
-  "remaining_original_batches": {
-    "3h": 5,
-    "3i": 8,
-    "3j": 8,
-    "3k": 8,
-    "3l": 6,
-    "3m": 5,
-    "3n": 8
-  },
-  "open_acceptance_requirements": [
-    "complete exact-publication audit of every admitted leaf",
-    "prove project-specific and composite translations",
-    "integrate and prove frozen Wolf-homothety target and definition bridges",
-    "compile unchecked or invalidated modules against exact dependency receipts",
-    "native transitive admission audit of final theorem"
-  ],
-  "lean_invoked_during_takeover": true,
-  "proof_completion_percentage": 22.56,
-  "notes": [
-    "Historical running metadata is not evidence of a currently running job.",
-    "Namespace admission counts are not counts of verified published theorems.",
-    "Source admission names and import graph are lexical inventories pending native Lean confirmation."
-  ],
+  "previous_status_snapshot": "audit/history/before_point1_acceptance_20261104T184658Z/TAKEOVER_STATUS.json",
   "reported_complete_stages": [
     "3c",
     "3d",
@@ -109,601 +24,200 @@
     "3f"
   ],
   "completion_report_reconciliation": {
-    "evidence_source": "user confirmation and retrieved original conversation history; matching final certificate not recovered",
-    "cumulative_3c_3d_3e": {
-      "reported_at_local": "2026-11-02T20:35:22+01:00",
-      "wording": "Passed cumulatively",
-      "claimed_archive": "LeBrunSalamon_Cumulative_Steps1_2_3a_3e_20261102.zip"
+    "historical_reconciliation": {
+      "evidence_source": "user confirmation and retrieved original conversation history; matching final certificate not recovered",
+      "cumulative_3c_3d_3e": {
+        "reported_at_local": "2026-11-02T20:35:22+01:00",
+        "wording": "Passed cumulatively",
+        "claimed_archive": "LeBrunSalamon_Cumulative_Steps1_2_3a_3e_20261102.zip"
+      },
+      "step3f": {
+        "reported_at_local": "2026-11-02T22:46:26+01:00",
+        "wording": "Step 3f completed — PASSED"
+      },
+      "working_status": "reported complete; source changes recovered; completion awaiting verification and identified repairs",
+      "later_work_discarded": false,
+      "absence_of_certificate_proves_work_never_completed": false,
+      "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
     },
-    "step3f": {
-      "reported_at_local": "2026-11-02T22:46:26+01:00",
-      "wording": "Step 3f completed — PASSED"
+    "current_decision": "All43 original3c–3g obligations now accepted on current native/publication evidence and completed reverse dependencies.",
+    "original_announcements_preserved": true,
+    "acceptance_from_announcement_alone": false,
+    "final_acceptance_record": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+  },
+  "point1": {
+    "complete": true,
+    "original_obligations": 43,
+    "counts_by_step": {
+      "3c": 6,
+      "3d": 11,
+      "3e": 7,
+      "3f": 11,
+      "3g": 8
     },
-    "working_status": "reported complete; source changes recovered; completion awaiting verification and identified repairs",
-    "later_work_discarded": false,
-    "absence_of_certificate_proves_work_never_completed": false,
-    "note": "Earlier failed or pending records alone do not exclude a later successful run. Specific source defects and missing historical certification are separate findings."
+    "additional_inherited_obligations": [
+      "OBL-069"
+    ],
+    "actual_native_roots_audited": 44,
+    "actual_eligible_admitted_inputs": 50,
+    "original_audited_ancestor_modules": 190,
+    "audited_boundary_unchanged_in_current_full_replay": true,
+    "required_reverse_dependencies_passed": true,
+    "evidence": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json"
+  },
+  "current_source": {
+    "compiled_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "compiled_tree": "885ffa817897b4c686ec0264957df3326d44138f",
+    "source_modules": 307,
+    "source_manifest": "SOURCE.sha256",
+    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "entire_current_source_graph_native_verified": true,
+    "frozen_unconditional_endpoint_verified": false
+  },
+  "frozen_target": {
+    "path": "target/MainStatement.lean",
+    "sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+    "changed": false,
+    "unconditional_theorem_completed": false,
+    "outstanding_explicit_bridge": "LeBrunSalamon.Milestone.PositiveQKSimpleConnectedness"
   },
   "percentage_metric": {
-    "kind": "conservative acceptance-checklist completion floor",
+    "kind": "conservative accepted-checklist completion",
+    "accepted": 74,
     "denominator": 133,
-    "accepted": 30,
-    "rounded_percentage": 23,
+    "pending": 59,
+    "percentage": 55.6390977443609,
+    "percentage_display": 55.64,
+    "rounded_percentage": 56,
     "mathematical_effort_estimate": false,
+    "time_remaining_estimate": false,
     "ledger": "audit/MILESTONE_PROGRESS.json"
   },
+  "proof_completion_percentage": 55.64,
   "native_current_ci": {
-    "run_id": 41680976758,
-    "commit": "194d98fd9e8bfcd014a9578dd10bfabe74f05cf1",
-    "conclusion": "success",
-    "modules": [
-      "LSNilpotentTopology",
-      "RecompileBasePart01",
-      "LSMilestoneStatement",
-      "LSMilestoneTopology"
-    ],
-    "all_built_fresh": true,
-    "evidence": "audit/ci/41680976758/CI_RECEIPT.json"
+    "run_id": 41888465259,
+    "source_commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "verified_current_modules": 307,
+    "selected_modules": 307,
+    "fresh_native_passes": 2,
+    "reused_native_receipts": 305,
+    "status_counts": {
+      "reused": 305,
+      "passed": 2
+    },
+    "complete_current_source_graph_passed": true,
+    "verification": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
+    "verification_sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded",
+    "artifact": {
+      "id": 13353190843,
+      "name": "lebrun-final-current-native-41888465259-2",
+      "run_id": 41888465259,
+      "sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17",
+      "bytes": 68416974
+    },
+    "toolchain_lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
+    "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+    "mathlib_revision": "116662aa4c1e9106ab5c609b3214b02f6e11a65a",
+    "scope": "Current source graph, including the conditional assembly; not the final unconditional frozen theorem."
   },
-  "cumulative_ci_attempt": {
-    "status": "awaiting_commit_and_automatic_push_trigger",
-    "result_not_yet_accepted": true,
-    "source_modules_selected": 269,
-    "source_freeze_utc": "2026-11-04T04:42:58.979865+00:00",
-    "compiler_memory_cap_mb": 12000,
-    "compiler_timeout_seconds_per_module": 900,
-    "cache_source_stage": "full_graph",
-    "strict_cache_source_run_id": 41769360325,
-    "expected_full_ancestry_cache_count": 241,
-    "first_early_target": "LSSmoothingAssembly",
-    "early_smoothing_timeout_seconds_per_module": 900,
-    "early_interface_target": "RecompileExtensionsPart01",
-    "second_early_interface_target": "RecompileExtensionsPart04Geometry",
-    "point1_closure_target_manifest": "audit/point1_checkpoint/POINT1_MODULE_TARGETS.json",
-    "point1_target_module_count": 19,
-    "early_interface_artifact_is_full_graph_acceptance": false,
-    "full_selected_graph_passed": false
-  },
-  "cumulative_ci_attempts": [
-    {
-      "run_id": 41682674689,
-      "commit": "7b624261fff0a5eda25b14a035d637e238e3454a",
-      "compiler_memory_cap_mb": 7200,
-      "conclusion": "failure",
-      "fresh_passed_modules": 19,
-      "failed_modules": [
-        "RecompileBasePart07"
-      ],
-      "blocked_modules": 115,
-      "first_error": "(kernel) excessive memory consumption detected at RecompileBasePart07:264",
-      "total_errors": 54,
-      "memory_cap_errors": 27,
-      "other_errors": "27 subsequent diagnostics, not classified independently before a sufficient-memory replay",
-      "evidence": "audit/ci/41682674689/CI_RECEIPT.json"
-    },
-    {
-      "run_id": 41685948946,
-      "commit": "71d2406f3e748649a2b6e65b208e225fbc20cb89",
-      "source_modules_selected": 135,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "passed": 32,
-        "failed": 1,
-        "blocked": 102
-      },
-      "accepted_count_at_that_commit": 32,
-      "failed_modules": [
-        "RecompileExtensionsPart04Geometry"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41685948946/CI_RECEIPT.json",
-      "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
-    },
-    {
-      "run_id": 41714131927,
-      "commit": "0e7a654645d92fe82473e358a925b47101305e97",
-      "source_modules_selected": 135,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "reused": 32,
-        "passed": 65,
-        "failed": 5,
-        "blocked": 33
-      },
-      "accepted_count_at_that_commit": 97,
-      "failed_modules": [
-        "LSBranchRamification",
-        "LSNodalFixedEnds",
-        "LSConicJets",
-        "LSClassicalActions",
-        "LSProductGeometry"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41714131927/CI_RECEIPT.json",
-      "scope": "Exact historical source commit and dependency graph only; subsequent source edits require receipt validation and replay."
-    },
-    {
-      "run_id": 41728791345,
-      "commit": "6fa6ee1a25735be73e73be455aed94ad88eae8e1",
-      "source_modules_selected": 149,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "reused": 12,
-        "passed": 17,
-        "failed": 1,
-        "blocked": 119
-      },
-      "accepted_count_at_that_commit": 29,
-      "failed_modules": [
-        "LSPublishedPicard"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41728791345/CI_RECEIPT.json",
-      "scope": "Exact committed source and ancestry only; live affine-derivation edit excluded from the 28 current-safe cache outputs."
-    },
-    {
-      "run_id": 41732181431,
-      "commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
-      "source_modules_selected": 155,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "reused": 28,
-        "passed": 93,
-        "failed": 4,
-        "blocked": 30
-      },
-      "accepted_count_at_that_commit": 121,
-      "failed_modules": [
-        "LSConicJets",
-        "LSRelativeDifferential",
-        "LSStandardConicDifferential",
-        "LSProductGeometry"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41732181431/CI_RECEIPT.json",
-      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
-    },
-    {
-      "run_id": 41763014879,
-      "commit": "3656bd1c17a200bf9d80edc86f289fb1861ff4d2",
-      "source_modules_selected": 268,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "reused": 200,
-        "passed": 40,
-        "failed": 2,
-        "blocked": 26
-      },
-      "accepted_count_at_that_commit": 240,
-      "failed_modules": [
-        "LSConicJets",
-        "LSScaledVelocities"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41763014879/CI_RECEIPT.json",
-      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
-    },
-    {
-      "run_id": 41769360325,
-      "commit": "d660456c481c27fcd49666f306222521034f1616",
-      "source_modules_selected": 268,
-      "compiler_memory_cap_mb": 12000,
-      "status": "completed",
-      "conclusion": "failure",
-      "counts": {
-        "reused": 241,
-        "failed": 2,
-        "blocked": 25
-      },
-      "accepted_count_at_that_commit": 241,
-      "failed_modules": [
-        "LSConicJets",
-        "LSVelocityAdditionFamily"
-      ],
-      "full_selected_graph_passed": false,
-      "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
-      "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
-    }
-  ],
-  "proof_batch_previous_checkpoint": {
-    "status": "two project admissions replaced by proved code; five native diagnostic passes;19 modules passed fresh cumulative CI before a Part07 memory-cap failure",
-    "removed_direct_admissions": [
-      "polarizedEmbedding_firstJets",
-      "dualThickening_zeroSection_surjective"
+  "remaining_original_batches": {
+    "3h": [
+      "OBL-044",
+      "OBL-045",
+      "OBL-046",
+      "OBL-047",
+      "OBL-048"
     ],
-    "sorry_before": 98,
-    "sorry_after": 96,
-    "new_admissions": 0,
-    "kernel_accepted": false,
-    "new_target_modules": [
-      "LSMilestoneStatement",
-      "LSMilestoneTopology",
-      "LSMilestoneTarget"
+    "3i": [
+      "OBL-049",
+      "OBL-050",
+      "OBL-051",
+      "OBL-052",
+      "OBL-053",
+      "OBL-054",
+      "OBL-055",
+      "OBL-056"
     ],
-    "new_proof_modules": [
-      "LSFirstJetEmbedding",
-      "LSFirstJetEmbeddingGeometry",
-      "LSNilpotentTopology"
+    "3j": [
+      "OBL-057",
+      "OBL-058",
+      "OBL-059",
+      "OBL-060",
+      "OBL-061",
+      "OBL-062",
+      "OBL-063",
+      "OBL-064"
     ],
-    "ci": "run41682674689:19 passed,1 memory-cap failure,115 blocked; retry41685948946 uses12000MB cap on identical135 Lean sources",
-    "native_diagnostic_modules": [
-      "RecompileBasePart05A",
-      "LSFirstJetEmbedding",
-      "LSFirstJetEmbeddingGeometry",
-      "LSClassicalReduction",
-      "LSHomVelocity"
+    "3k": [
+      "OBL-065",
+      "OBL-066",
+      "OBL-067",
+      "OBL-068",
+      "OBL-070",
+      "OBL-071",
+      "OBL-072"
     ],
-    "native_diagnostic_evidence": "audit/proof_batch_build/DIAGNOSTIC_SCOPE.json",
-    "zero_section_surjectivity_sorryAx": false,
-    "firstjet_direct_inherited_admissions": [
-      "LeBrunSalamon.PublishedInputs.SheafFunctoriality.pullback_locallyFree"
+    "3l": [
+      "OBL-073",
+      "OBL-074",
+      "OBL-075",
+      "OBL-076",
+      "OBL-077",
+      "OBL-078"
     ],
-    "firstjet_dependency_audit": "audit/proof_batch_build/FIRST_JET_DEPENDENCY_SUMMARY.json",
-    "firstjet_dependency_audit_summary": {
-      "all_constants": 78870,
-      "project_constants": 583,
-      "direct_sorry_count": 1,
-      "missing_count": 0,
-      "custom_project_axioms": 0,
-      "historical_firstjet_claim_used": false,
-      "defective_determinant_used": false,
-      "rank_reference": "audit/PULLBACK_RANK_REFERENCE.md"
-    }
-  },
-  "proof_batch": {
-    "status": "All 43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with 50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
-    "kernel_accepted": false,
-    "accepted_units_added": 0,
-    "point1_obligation_count": 43,
-    "point1_complete": false,
-    "point1_native_and_publication_roots_passed": 43,
-    "additional_inherited_roots_passed": 1,
-    "actual_eligible_leaf_count": 50,
-    "point1_dependency_closure_native_modules": 190,
-    "required_reverse_cone_passed": false,
-    "step3cd_native_or_exact_source_evidence": 17,
-    "evidence_directories": [
-      "audit/step3cd_build",
-      "audit/step3cd_projection_build",
-      "audit/step3cd_kunneth_cover_build",
-      "audit/tangent_determinant_build",
-      "audit/step3e_remaining_build",
-      "audit/step3f_native_batch",
-      "audit/point1_projective_laurent_build",
-      "audit/p1_picard_build",
-      "audit/p1_tangent_build",
-      "audit/ci_compatibility_repairs",
-      "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-      "audit/step3f_nodal_compatibility",
-      "audit/step3f_hom_vanishing",
-      "audit/STEP3F_HOM_VANISHING.json",
-      "audit/STEP3F_AFFINE_RELATIVE.json",
-      "audit/p1_family_degree_build",
-      "audit/ci/41728791345",
-      "audit/STEP3D_INTEGRATION_READY.json",
-      "audit/step3d_transport_build",
-      "audit/step3d_exactness_build/cdf_replay_20261103T233324",
-      "audit/step3cd_diagonal_build",
-      "audit/p1_source_bivector_work",
-      "audit/ci/41732181431",
-      "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
-      "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
-      "audit/ci/41763014879",
-      "audit/ci/41769360325"
+    "3m": [
+      "OBL-079",
+      "OBL-080",
+      "OBL-081",
+      "OBL-082",
+      "OBL-083"
+    ],
+    "3n": [
+      "OBL-084",
+      "OBL-085",
+      "OBL-086",
+      "OBL-087",
+      "OBL-088",
+      "OBL-089",
+      "OBL-090",
+      "OBL-091"
     ]
   },
-  "compatibility_repairs": {
-    "scope": "Each module retains its separately recorded diagnostic ancestry; current full dependency graph acceptance is pending.",
-    "modules": {
-      "LSClassicalActions": {
-        "native_status": "passed",
-        "seconds": 4.381,
-        "source_sha256_tested": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
-        "source_sha256_current": "56a55a25a0192b8fb40d953c7f2fe8f27e2a80c72b1a199778a4572de74d7b87",
-        "return_code": 0,
-        "current_source_bytes_match_tested": true
-      },
-      "LSBranchRamification": {
-        "native_status": "passed",
-        "seconds": 5.582,
-        "source_sha256_tested": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
-        "source_sha256_current": "a12747b7dd5b9d810117d4866412b2f3debcd8d5e3e0ddebe5222b704fec5068",
-        "return_code": 0,
-        "current_source_bytes_match_tested": true
-      },
-      "LSProductGeometry": {
-        "schema": "lebrun-compatibility-diagnostic-result-v1",
-        "module": "LSProductGeometry",
-        "native_status": "passed",
-        "source_sha256": "3c866e6a890dc46b57b98b3ded1803a4578ffb1d2bd571848da861135dcfd774",
-        "previous_source_sha256": "a86a581fbb1ea005f683ec77c592c99daf439084daea09119ca515527bbe1b2c",
-        "return_code": 0,
-        "seconds": 5.735,
-        "finished_utc": "2026-11-04T00:52:50.824064+00:00",
-        "output_sha256": "ac3944e75c742603ca9e9e6cc22ed24645462f05e112cac906d6f309a717d9de",
-        "compiler_memory_cap_mb": 7200,
-        "source_heartbeats_bound": 250000,
-        "ancestor_count": 81,
-        "ancestor_commit": "cdf4d8a5ae81407900431d905634c97bae4c9996",
-        "ancestor_ci_run": 41732181431,
-        "final_validation": {
-          "checked_utc": "2026-11-04T00:52:52.202022+00:00",
-          "checked_module_count": 82,
-          "invalidated_modules": {},
-          "changed_runtime_files": []
-        },
-        "source_sha256_current": "3c866e6a890dc46b57b98b3ded1803a4578ffb1d2bd571848da861135dcfd774",
-        "current_source_bytes_match_tested": true,
-        "public_theorem_type_unchanged": true,
-        "existing_admitted_theorem_bytes_unchanged": true,
-        "direct_sorry_count": 1,
-        "new_admissions": 0,
-        "full_current_graph_passed": false,
-        "accepted_units_added": 0,
-        "evidence_directory": "audit/ci_compatibility_repairs/product_cdf_20261104T005252",
-        "change": "Prove finite-type tensor transitivity for abstract algebras before specializing to cone quotient rings; explicitly identify the principal-open ring and affine-open proposition.",
-        "scope": "Whole ProductGeometry source passes against coherent frozen-cdf ancestors. Current early ancestor changes require the next full graph replay. The existing generic product-geometry admission remains a later Step3m obligation."
-      }
-    },
-    "unchanged_theorem_types_and_admissions": true,
-    "full_current_graph_passed": false,
-    "relative_differential_evidence": "audit/STEP3F_RELATIVE_DIFFERENTIAL.json"
-  },
-  "latest_completed_cumulative_ci_attempt": {
-    "run_id": 41769360325,
-    "commit": "d660456c481c27fcd49666f306222521034f1616",
-    "source_modules_selected": 268,
-    "compiler_memory_cap_mb": 12000,
-    "status": "completed",
-    "conclusion": "failure",
-    "counts": {
-      "reused": 241,
-      "failed": 2,
-      "blocked": 25
-    },
-    "accepted_count_at_that_commit": 241,
-    "failed_modules": [
-      "LSConicJets",
-      "LSVelocityAdditionFamily"
-    ],
-    "full_selected_graph_passed": false,
-    "evidence": "audit/ci/41769360325/CI_RECEIPT.json",
-    "scope": "Exact committed source and ancestry only; later source edits are separately revalidated."
-  },
-  "proof_batch_history": [
-    {
-      "status": "Integrated mathematical translations and compatibility candidates; native diagnostic evidence retained; full current-source replay pending.",
-      "kernel_accepted": false,
-      "accepted_units_added": 0,
-      "evidence_directories": [
-        "audit/step3cd_build",
-        "audit/step3cd_projection_build",
-        "audit/step3cd_kunneth_cover_build",
-        "audit/tangent_determinant_build",
-        "audit/step3e_remaining_build",
-        "audit/step3f_native_batch",
-        "audit/point1_projective_laurent_build",
-        "audit/p1_picard_build",
-        "audit/p1_tangent_build",
-        "audit/ci_compatibility_repairs",
-        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-        "audit/step3f_nodal_compatibility"
-      ],
-      "point1_obligation_count": 43,
-      "point1_complete": false
-    },
-    {
-      "status": "Picard namespace repair and completed Hom/family integrations; exact native diagnostic evidence retained; full frozen-source replay pending.",
-      "kernel_accepted": false,
-      "accepted_units_added": 0,
-      "point1_obligation_count": 43,
-      "point1_complete": false,
-      "evidence_directories": [
-        "audit/step3cd_build",
-        "audit/step3cd_projection_build",
-        "audit/step3cd_kunneth_cover_build",
-        "audit/tangent_determinant_build",
-        "audit/step3e_remaining_build",
-        "audit/step3f_native_batch",
-        "audit/point1_projective_laurent_build",
-        "audit/p1_picard_build",
-        "audit/p1_tangent_build",
-        "audit/ci_compatibility_repairs",
-        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-        "audit/step3f_nodal_compatibility",
-        "audit/step3f_hom_vanishing",
-        "audit/STEP3F_HOM_VANISHING.json",
-        "audit/STEP3F_AFFINE_RELATIVE.json",
-        "audit/p1_family_degree_build",
-        "audit/ci/41728791345"
-      ]
-    },
-    {
-      "status": "Step3c/3d actual-map translations and source-bivector proof integrated with native diagnostic evidence; full frozen-source replay and Point1 acceptance pending.",
-      "kernel_accepted": false,
-      "accepted_units_added": 0,
-      "point1_obligation_count": 43,
-      "point1_complete": false,
-      "step3cd_native_or_exact_source_evidence": 17,
-      "evidence_directories": [
-        "audit/step3cd_build",
-        "audit/step3cd_projection_build",
-        "audit/step3cd_kunneth_cover_build",
-        "audit/tangent_determinant_build",
-        "audit/step3e_remaining_build",
-        "audit/step3f_native_batch",
-        "audit/point1_projective_laurent_build",
-        "audit/p1_picard_build",
-        "audit/p1_tangent_build",
-        "audit/ci_compatibility_repairs",
-        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-        "audit/step3f_nodal_compatibility",
-        "audit/step3f_hom_vanishing",
-        "audit/STEP3F_HOM_VANISHING.json",
-        "audit/STEP3F_AFFINE_RELATIVE.json",
-        "audit/p1_family_degree_build",
-        "audit/ci/41728791345",
-        "audit/STEP3D_INTEGRATION_READY.json",
-        "audit/step3d_transport_build",
-        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
-        "audit/step3cd_diagonal_build",
-        "audit/p1_source_bivector_work",
-        "audit/ci/41732181431"
-      ]
-    },
-    {
-      "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
-      "kernel_accepted": false,
-      "accepted_units_added": 0,
-      "point1_obligation_count": 43,
-      "point1_complete": false,
-      "point1_native_and_publication_roots_passed": 43,
-      "additional_inherited_roots_passed": 1,
-      "actual_eligible_leaf_count": 50,
-      "point1_dependency_closure_native_modules": 190,
-      "required_reverse_cone_passed": false,
-      "step3cd_native_or_exact_source_evidence": 17,
-      "evidence_directories": [
-        "audit/step3cd_build",
-        "audit/step3cd_projection_build",
-        "audit/step3cd_kunneth_cover_build",
-        "audit/tangent_determinant_build",
-        "audit/step3e_remaining_build",
-        "audit/step3f_native_batch",
-        "audit/point1_projective_laurent_build",
-        "audit/p1_picard_build",
-        "audit/p1_tangent_build",
-        "audit/ci_compatibility_repairs",
-        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-        "audit/step3f_nodal_compatibility",
-        "audit/step3f_hom_vanishing",
-        "audit/STEP3F_HOM_VANISHING.json",
-        "audit/STEP3F_AFFINE_RELATIVE.json",
-        "audit/p1_family_degree_build",
-        "audit/ci/41728791345",
-        "audit/STEP3D_INTEGRATION_READY.json",
-        "audit/step3d_transport_build",
-        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
-        "audit/step3cd_diagonal_build",
-        "audit/p1_source_bivector_work",
-        "audit/ci/41732181431",
-        "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
-        "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
-        "audit/ci/41763014879"
-      ]
-    },
-    {
-      "status": "All43 original Point1 roots plus inherited OBL-069 have current native and independent publication boundaries passed, with50 actual eligible leaves; the required current reverse cone remains the sole acceptance gate.",
-      "kernel_accepted": false,
-      "accepted_units_added": 0,
-      "point1_obligation_count": 43,
-      "point1_complete": false,
-      "point1_native_and_publication_roots_passed": 43,
-      "additional_inherited_roots_passed": 1,
-      "actual_eligible_leaf_count": 50,
-      "point1_dependency_closure_native_modules": 190,
-      "required_reverse_cone_passed": false,
-      "step3cd_native_or_exact_source_evidence": 17,
-      "evidence_directories": [
-        "audit/step3cd_build",
-        "audit/step3cd_projection_build",
-        "audit/step3cd_kunneth_cover_build",
-        "audit/tangent_determinant_build",
-        "audit/step3e_remaining_build",
-        "audit/step3f_native_batch",
-        "audit/point1_projective_laurent_build",
-        "audit/p1_picard_build",
-        "audit/p1_tangent_build",
-        "audit/ci_compatibility_repairs",
-        "audit/STEP3F_NODAL_COMPATIBILITY_CANDIDATE.json",
-        "audit/step3f_nodal_compatibility",
-        "audit/step3f_hom_vanishing",
-        "audit/STEP3F_HOM_VANISHING.json",
-        "audit/STEP3F_AFFINE_RELATIVE.json",
-        "audit/p1_family_degree_build",
-        "audit/ci/41728791345",
-        "audit/STEP3D_INTEGRATION_READY.json",
-        "audit/step3d_transport_build",
-        "audit/step3d_exactness_build/cdf_replay_20261103T233324",
-        "audit/step3cd_diagonal_build",
-        "audit/p1_source_bivector_work",
-        "audit/ci/41732181431",
-        "audit/point1_acceptance_current_20261104T031351/POINT1_ACCEPTANCE.json",
-        "audit/point1_publication_review/current_20261104T031351/PUBLICATION_REVIEW_SUMMARY.json",
-        "audit/ci/41763014879"
-      ]
-    }
-  ],
-  "targeted_compatibility_repair": {
-    "module": "LSVelocityAdditionFamily",
-    "source_sha256": "c04edfdb2d6936c0cada7ab90e8aa8e296be0bb85ef491fee50a643fe158cbb7",
-    "native_seconds": 30.362,
-    "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
-    "whole_reverse_cone_passed": false
-  },
-  "updated_utc": "2026-11-04T04:10:51.568985+00:00",
-  "current_compatible_native_frontier": {
-    "schema": "lebrun-current-native-frontier-v1",
-    "validated_utc": "2026-11-04T04:40:49.413040+00:00",
-    "current_source_modules": 269,
-    "accepted_compatible_modules": 247,
-    "remaining_modules": 22,
-    "scope": "Exact current-source native union. The remaining current reverse-dependency cone is pending, and no original milestone unit is promoted here.",
-    "seed_inventory": "audit/ci_compatibility_repairs/current_frontier_20261104T044154/CURRENT_VALIDATED_SEEDS_V2.json",
-    "seed_inventory_sha256": "3a1e30d2d169bcb887cd2e38a3cbabfadffcf320a4a7a2b713e3a9e956e7403f",
-    "base_full_ci_run": 41769360325,
-    "base_full_ci_accepted_modules": 241,
-    "whole_current_graph_passed": false,
-    "original_point1_boundary_unchanged": true,
-    "accepted_milestone_units": 30,
-    "denominator": 133,
-    "new_local_passes": [
-      {
-        "module": "LSProjectiveLineReparametrization",
-        "seconds": 26.009,
-        "evidence": "audit/ci_compatibility_repairs/conic_velocity_current_20261104T042139",
-        "source_sha256": "edeb936371687e45db0fc2ca13f56e71b6e6a3214cf95c965ee3a006cbd4383b"
-      },
-      {
-        "module": "LSConicJets",
-        "seconds": 186.003,
-        "evidence": "audit/ci_compatibility_repairs/conic_current_pass_20261104T0432",
-        "source_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d"
-      },
-      {
-        "module": "LSVelocityAdditionFamily",
-        "seconds": 30.362,
-        "evidence": "audit/scaled_branch_compatibility/current_20261104T040003",
-        "source_sha256": "c04edfdb2d6936c0cada7ab90e8aa8e296be0bb85ef491fee50a643fe158cbb7"
-      },
-      {
-        "module": "LSScaledVelocityDifferential",
-        "seconds": 33.222,
-        "evidence": "audit/scaled_branch_compatibility/current_20261104T041556",
-        "source_sha256": "08d08abcdea910eaf33677360020ff3fe412dc1f986d8b54eb3044188006b93b"
-      },
-      {
-        "module": "LSSuitablePair",
-        "seconds": 33.87,
-        "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
-        "source_sha256": "2e32c83ef6fabb9a99dfa3d5c7a90f3a097e02302c61f8e5fce12190b05ac9f6"
-      },
-      {
-        "module": "LSSmoothingAssembly",
-        "seconds": 25.451,
-        "evidence": "audit/scaled_branch_compatibility/current_20261104T043610",
-        "source_sha256": "e22946cef90f27e548a5fb8388027c72aabc69e619455493446c0f9d5ca2478c"
-      }
+  "remaining_original_obligations": 47,
+  "definition_validations": {
+    "accepted": 0,
+    "total": 8,
+    "ids": [
+      "DEF-01",
+      "DEF-02",
+      "DEF-03",
+      "DEF-04",
+      "DEF-05",
+      "DEF-06",
+      "DEF-07",
+      "DEF-08"
     ]
-  }
+  },
+  "final_gates": {
+    "accepted": 0,
+    "total": 4,
+    "ids": [
+      "GATE-01",
+      "GATE-02",
+      "GATE-03",
+      "GATE-04"
+    ]
+  },
+  "next_execution_priorities": [
+    "Compare the remaining extension/homogeneity route with Fu arXiv:2611.01423v1, preserving accepted foundations and documenting any scope change.",
+    "Continue the47 original3h–3n obligations with exact published-input checks and proved project translations.",
+    "Validate the8 operational definition bridges and discharge the explicit simple-connectedness bridge.",
+    "Verify the unchanged unconditional frozen endpoint and all4 final milestone gates."
+  ],
+  "admission_boundary_scope": "The50-leaf review certifies the44 accepted original roots. The remaining original obligations and final-theorem trust audit remain open.",
+  "notes": [
+    "No new milestone units are credited for helper modules, source files, shared publication reviews or compilation receipts.",
+    "Native current output reuse requires exact source, imports, direct dependency outputs, recursive source ancestry, runtime and compiler flags.",
+    "Historical evidence-bound publication catalogs and audit records retain their original bytes; final acceptance is a separate event."
+  ]
 }

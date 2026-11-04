@@ -1,74 +1,50 @@
 {
   "schema": "lebrun-current-reviewable-proof-checkpoint-v1",
-  "updated_utc": "2026-11-04 18:34:11 UTC",
+  "updated_utc": "2026-11-04T18:46:58Z",
   "production_source_modules": 307,
   "diagnostic_modules": [],
-  "verified_native_production_modules": 305,
-  "accepted_obligation_units": 30,
+  "verified_native_production_modules": 307,
+  "accepted_obligation_units": 74,
   "total_obligation_units": 133,
-  "acceptance_ledger_unchanged": true,
+  "acceptance_ledger_unchanged": false,
   "current_source_and_native_context_comparison": {
     "schema": "lebrun-current-native-union-comparison-v1",
     "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
     "source_modules": 307,
     "source_manifest_freeze_binding_verified": true,
-    "verified_native_module_union": 305,
+    "verified_native_module_union": 307,
     "duplicate_context_comparisons": 0,
     "conflicts": [],
     "source_dependency_problems": [],
     "all_recursive_ancestry_fingerprints_recomputed": true,
     "point1_native_ancestor_comparisons": 190,
     "point1_changes": [],
-    "whole_source_graph_passed": false,
-    "point1_acceptance": false,
-    "accepted_obligation_units": 30,
+    "whole_source_graph_passed": true,
+    "point1_acceptance": true,
+    "accepted_obligation_units": 74,
     "total_obligation_units": 133,
-    "pending_modules": [
-      "LSCompletedTargets",
-      "LSMilestoneTarget"
-    ]
+    "pending_modules": []
   },
   "all190_audited_contexts_unchanged": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "latest_completed_full_replay": {
-    "run_id": 41887472423,
-    "job_id": 126775695754,
-    "accepted_modules": 305,
+    "run_id": 41888465259,
+    "run_attempt": 2,
+    "job_id": 126780737996,
+    "commit": "80bbb1ce6343260cdba2de6a1d067a3a4e65fd91",
+    "tree": "885ffa817897b4c686ec0264957df3326d44138f",
+    "accepted_modules": 307,
     "selected_modules": 307,
-    "failed_modules": [
-      "LSCompletedTargets"
-    ],
-    "native_diagnostics": [
-      {
-        "module": "LSCompletedTargets",
-        "status": "failed",
-        "source_sha256": "39c34956a681b3d8f374feeb6b3e90880ca8350b2d67eed3ee8341b3697a4a63",
-        "return_code": 1,
-        "seconds": 3.672,
-        "errors": [
-          {
-            "caption": "",
-            "data": "Unknown identifier `TangentEvaluationAt`\n\nNote: It is not possible to treat `TangentEvaluationAt` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
-            "endPos": {
-              "column": 28,
-              "line": 41
-            },
-            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCompletedTargets.lean",
-            "isSilent": false,
-            "keepFullRange": false,
-            "kind": "lean.unknownIdentifier._namedError",
-            "pos": {
-              "column": 9,
-              "line": 41
-            },
-            "severity": "error"
-          }
-        ],
-        "stderr": ""
-      }
-    ],
-    "full_gate_passed": false,
-    "record_blob": "0be82bc49d235699acd71cf28d026e4a3363d02d"
+    "source_modules": 307,
+    "fresh_native_passes": 2,
+    "native_receipts_reused": 305,
+    "failed_modules": [],
+    "blocked_modules": [],
+    "full_gate_passed": true,
+    "all_current_sources_kernel_checked": true,
+    "report_path": "audit/ci/41888465259/FULL_REPLAY_VERIFICATION.json",
+    "report_sha256": "5fb8ddf4c4ddf2c2a6ed0332b029f8a711bc5fc183b9abb0394e75e2231deded",
+    "record_blob": "baa42f6c90159406c230ded21d13a573d62d551c"
   },
   "latest_completed_actual_arc4": {
     "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
@@ -80,27 +56,25 @@
   "latest_native_cache": [
     {
       "artifact_dir": "lebrun-cache-inputs/0",
-      "source_run_id": 41887472423,
-      "source_artifact_name": "lebrun-final-current-native-41887472423-1",
-      "artifact_id": 13351383484,
-      "artifact_sha256": "13d6146536914e1417eb20c6308173e95b4247772140ff0c662640fdbc8b2862",
+      "source_run_id": 41888465259,
+      "source_artifact_name": "lebrun-final-current-native-41888465259-2",
+      "artifact_id": 13353190843,
+      "artifact_sha256": "fb2fdcf74f8fce00ddc325b481f97bad29cd3b164a2d29d73227028d0d33dc17",
       "include_validated_unselected_cache": true
     }
   ],
   "active_native_runs": [],
-  "pending_native_dispatch": {
-    "branch": "codex/lebrun-final-current-307-v4-20261104",
-    "selection": "all current production modules",
-    "source_modules": 307,
-    "timeout_seconds": 300
-  },
-  "candidate_modules": [
-    {
-      "module": "LSCompletedTargets",
-      "source_sha256": "46182a1882b3f92b34fa5e89fec5786596b89a2cc4637b38fa214e854c740db1",
-      "source_blob": "e93d37221aa82d5c08495f3a8dee5e2660a4ba3c",
-      "status": "actual stock check pending"
-    }
-  ],
-  "scope": "Full selected graph checks all 307 current production modules using 305 exact native outputs. Every remaining actual module must pass with real native parents. The existing compiler flags and300-second module bound are unchanged. Point1 acceptance stays30/133 until the full gate; all four milestone gates remain pending."
+  "pending_native_dispatch": null,
+  "candidate_modules": [],
+  "scope": "All307 current production modules passed with exact native source/runtime/recursive dependency evidence. Point1 now accepts43 original3c–3g obligations plus OBL-069, moving the fixed checklist from30/133 to74/133. The50 audited published leaves certify44 original roots and do not add units. All four final milestone gates and eight definition validations remain pending; the current conditional endpoint is not the unchanged unconditional frozen theorem.",
+  "pending_obligation_units": 59,
+  "point1_accepted": true,
+  "whole_theorem_milestone_met": false,
+  "accepted_event": "audit/point1_acceptance_final_20261104T184658Z/POINT1_ACCEPTANCE.json",
+  "accepted_event_sha256": "fd965ae9b57f1e131bbd8afd0ad73662c92f4ba5060fd70cea4172d8566db918",
+  "original_units_newly_accepted": 44,
+  "native_audited_original_roots": 44,
+  "eligible_published_leaves": 50,
+  "final_milestone_gates_promoted": 0,
+  "definition_validations_promoted": 0
 }

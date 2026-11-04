@@ -1,0 +1,106 @@
+{
+  "schema": "lebrun-current-reviewable-proof-checkpoint-v1",
+  "updated_utc": "2026-11-04 18:34:11 UTC",
+  "production_source_modules": 307,
+  "diagnostic_modules": [],
+  "verified_native_production_modules": 305,
+  "accepted_obligation_units": 30,
+  "total_obligation_units": 133,
+  "acceptance_ledger_unchanged": true,
+  "current_source_and_native_context_comparison": {
+    "schema": "lebrun-current-native-union-comparison-v1",
+    "source_manifest_sha256": "e19bfd5e8fbd5a687b798edf53b2f645c53c90731ff078608c5be6effce45ee0",
+    "source_modules": 307,
+    "source_manifest_freeze_binding_verified": true,
+    "verified_native_module_union": 305,
+    "duplicate_context_comparisons": 0,
+    "conflicts": [],
+    "source_dependency_problems": [],
+    "all_recursive_ancestry_fingerprints_recomputed": true,
+    "point1_native_ancestor_comparisons": 190,
+    "point1_changes": [],
+    "whole_source_graph_passed": false,
+    "point1_acceptance": false,
+    "accepted_obligation_units": 30,
+    "total_obligation_units": 133,
+    "pending_modules": [
+      "LSCompletedTargets",
+      "LSMilestoneTarget"
+    ]
+  },
+  "all190_audited_contexts_unchanged": true,
+  "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+  "latest_completed_full_replay": {
+    "run_id": 41887472423,
+    "job_id": 126775695754,
+    "accepted_modules": 305,
+    "selected_modules": 307,
+    "failed_modules": [
+      "LSCompletedTargets"
+    ],
+    "native_diagnostics": [
+      {
+        "module": "LSCompletedTargets",
+        "status": "failed",
+        "source_sha256": "39c34956a681b3d8f374feeb6b3e90880ca8350b2d67eed3ee8341b3697a4a63",
+        "return_code": 1,
+        "seconds": 3.672,
+        "errors": [
+          {
+            "caption": "",
+            "data": "Unknown identifier `TangentEvaluationAt`\n\nNote: It is not possible to treat `TangentEvaluationAt` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+            "endPos": {
+              "column": 28,
+              "line": 41
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCompletedTargets.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "lean.unknownIdentifier._namedError",
+            "pos": {
+              "column": 9,
+              "line": 41
+            },
+            "severity": "error"
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "full_gate_passed": false,
+    "record_blob": "0be82bc49d235699acd71cf28d026e4a3363d02d"
+  },
+  "latest_completed_actual_arc4": {
+    "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
+    "output_sha256": "b4963ed0defc9a6cf1bdb6a7719d0e54f59fc3214462caf7419ad5c51e871e10",
+    "receipt_sha256": "656d3b56bb451b50368be9a614cb241342eb53c31dd44e915510b3d539116f06",
+    "seconds": 30.927,
+    "run_id": 41883830923
+  },
+  "latest_native_cache": [
+    {
+      "artifact_dir": "lebrun-cache-inputs/0",
+      "source_run_id": 41887472423,
+      "source_artifact_name": "lebrun-final-current-native-41887472423-1",
+      "artifact_id": 13351383484,
+      "artifact_sha256": "13d6146536914e1417eb20c6308173e95b4247772140ff0c662640fdbc8b2862",
+      "include_validated_unselected_cache": true
+    }
+  ],
+  "active_native_runs": [],
+  "pending_native_dispatch": {
+    "branch": "codex/lebrun-final-current-307-v4-20261104",
+    "selection": "all current production modules",
+    "source_modules": 307,
+    "timeout_seconds": 300
+  },
+  "candidate_modules": [
+    {
+      "module": "LSCompletedTargets",
+      "source_sha256": "46182a1882b3f92b34fa5e89fec5786596b89a2cc4637b38fa214e854c740db1",
+      "source_blob": "e93d37221aa82d5c08495f3a8dee5e2660a4ba3c",
+      "status": "actual stock check pending"
+    }
+  ],
+  "scope": "Full selected graph checks all 307 current production modules using 305 exact native outputs. Every remaining actual module must pass with real native parents. The existing compiler flags and300-second module bound are unchanged. Point1 acceptance stays30/133 until the full gate; all four milestone gates remain pending."
+}

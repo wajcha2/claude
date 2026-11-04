@@ -1,4 +1,4 @@
-name: LeBrun-Salamon abstract frame diagnostic
+name: LeBrun-Salamon refined coordinate and model diagnostic
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  frame:
+  coordinates:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     env:
@@ -34,17 +34,17 @@ jobs:
       - name: Restore only exact current ancestry and runtime matches
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41775309669 --source-artifact-name lebrun-takeover-kernel-41775309669-1
-      - name: Check the abstract frame helper before concrete specialization
+      - name: Check the generic helpers and concrete coordinate/model closure
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFrameTransport --keep-going --timeout 180
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFrameTransport --module LSTangentFrameCoordinates --module LSModelGeometry --module LSModelDifferential --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve abstract frame evidence
+      - name: Preserve coordinate/model native evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-frame-frontier-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-coordinates-refined-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

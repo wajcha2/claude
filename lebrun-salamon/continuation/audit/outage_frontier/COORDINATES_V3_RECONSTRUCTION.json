@@ -1,0 +1,219 @@
+{
+  "schema": "lebrun-coordinates-guarded-v3",
+  "created_utc": "2026-11-04T05:28:22.532Z",
+  "repository": "wajcha2/claude",
+  "source_path": "lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+  "original_commit": "160282d03eb0b46c7a2cb96144539c047ec06a70",
+  "original_source_sha256": "dbd304dee6f15e83337f6f76dab06c9825a797b4c7605023dbabca05c6be45bd",
+  "frozen_base_commit": "7f01f0026042d5b77f304bcebb379dbe709d4057",
+  "frozen_base_source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+  "previous_candidate_blob": "6303e88029be7aaa49e8f004a6cfe86cbc0aaede",
+  "previous_change_record_blob": "0219b3e9822f76a429c4e24c5531f0bc3392a919",
+  "candidate_blob": "d4b816ebc4f146e9d277d4cb5456ed8905fffa48",
+  "candidate_statistics": {
+    "sha256": "66bd6eec6dc154b26785a92d930c5be316c85d2aa0019a75ece1333c41929939",
+    "bytes": 23630,
+    "lines": 471,
+    "headers": 45,
+    "unchanged_headers": 42,
+    "elaboration_annotations": [
+      {
+        "name": "polynomialMap_eq_aeval",
+        "before": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate)",
+        "after": "theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) : polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤)"
+      },
+      {
+        "name": "coefficient_evaluation",
+        "before": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (f.appLE U ⊤ hU coordinate) (polynomial a)",
+        "after": "theorem coefficient_evaluation (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : AlgebraicSection TangentLine.sheaf) : f.appLE U ⊤ hU (frame.localCoefficient a) = Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤) (polynomial a)"
+      },
+      {
+        "name": "frameSection_apply",
+        "before": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a",
+        "after": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a"
+      }
+    ],
+    "admissions": 0
+  },
+  "exact_patches_from_v2": [
+    {
+      "id": "C01_import_generic_proof_helpers",
+      "before": "import LSConicJets\n",
+      "after": "import LSConicJets\nimport LSFrameTransport\nimport LSTangentFrameCoordinates\n",
+      "match_count": 1
+    },
+    {
+      "id": "C02_normalized_actual_frame_bijectivity",
+      "before": "theorem coordinateFunctional_injective : Function.Injective coordinateFunctional := by\n  intro v w h\n  apply TangentAffine.affine_tangent_action_faithful P.structureMap U\n    (chartOpen_affine 0) v w\n  intro a\n  apply chartAlgebraEquiv.injective\n  rw [action_polynomial, action_polynomial]\n  exact congrArg (fun z => (chartAlgebraEquiv a).derivative * chartAlgebraEquiv z) h\n\ntheorem coordinateFunctional_surjective : Function.Surjective coordinateFunctional := by\n  let D : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=\n    fun a => chartAlgebraEquiv.symm (chartAlgebraEquiv a).derivative\n  obtain ⟨v, hv⟩ := TangentAffine.affine_tangent_action_exists P.structureMap U\n    (chartOpen_affine 0) D\n    (by simp [D])\n    (fun a b => by simp [D, Polynomial.derivative_add])\n    (fun a b => by simp [D, Polynomial.derivative_mul, mul_comm])\n    (fun c => by\n      change chartAlgebraEquiv.symm\n        (chartAlgebraEquiv (constants P.structureMap U c)).derivative = 0\n      rw [chartAlgebraEquiv.commutes, Polynomial.derivative_C, map_zero])\n  have hcoord : coordinateFunctional v = 1 := by\n    change tangentActs P.structureMap U v coordinate = 1\n    rw [hv]\n    simp [D, coordinate]\n  intro a\n  exact ⟨a • v, by rw [map_smul, hcoord, smul_eq_mul, mul_one]⟩",
+      "after": "private theorem coordinateFunctional_bijective : Function.Bijective coordinateFunctional := by\n  exact TangentFrameCoordinates.action_bijective P.structureMap U\n    (P1TangentTranslation.derivativeFrame P 0) coordinate\n    (P1TangentTranslation.derivativeFrame_coordinate P 0)\n\ntheorem coordinateFunctional_injective : Function.Injective coordinateFunctional :=\n  coordinateFunctional_bijective.1\n\ntheorem coordinateFunctional_surjective : Function.Surjective coordinateFunctional :=\n  coordinateFunctional_bijective.2",
+      "match_count": 1
+    },
+    {
+      "id": "C03_use_generic_frame_constructor",
+      "before": "private def sectionsLinearEquiv {Y : Scheme} {E F : OModule Y}\n    (e : E ≅ F) (V : Y.Opens) :\n    SectionsOn E V ≃ₗ[RingSections Y V] SectionsOn F V where\n  toFun := Scheme.Modules.Hom.app e.hom V\n  invFun := Scheme.Modules.Hom.app e.inv V\n  left_inv v := congrArg (fun k : E ⟶ E => Scheme.Modules.Hom.app k V v) e.hom_inv_id\n  right_inv v := congrArg (fun k : F ⟶ F => Scheme.Modules.Hom.app k V v) e.inv_hom_id\n  map_add' v w := (Scheme.Modules.Hom.app e.hom V).hom.map_add v w\n  map_smul' c v := Scheme.Modules.Hom.app_smul e.hom c v\n\ndef twistFrame (e : TangentLine.sheaf ≅ (projectiveTwist P Lines.marking 2).sheaf) :\n    AffineLineFrame TangentLine where\n  openSet := U\n  isAffine := chartOpen_affine 0\n  coefficient := (sectionsLinearEquiv e U).trans\n    (coordinates (twistOverFrame P Lines.marking 2 0))",
+      "after": "def twistFrame (e : TangentLine.sheaf ≅ (projectiveTwist P Lines.marking 2).sheaf) :\n    AffineLineFrame TangentLine :=\n  FrameTransport.frame e U (chartOpen_affine 0)\n    (coordinates (twistOverFrame P Lines.marking 2 0))",
+      "match_count": 1
+    },
+    {
+      "id": "C04_use_generic_local_coefficient_calculation",
+      "before": "  rw [algebraicMatchingEquiv_fst]\n  change chartAlgebraEquiv\n      (coordinates (twistOverFrame P Lines.marking 2 0)\n        (e.hom.app U (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U)))) =\n    polynomialCoordinates P Lines.marking 2 0\n      ((projectiveTwist P Lines.marking 2).sheaf.presheaf.map\n        (homOfLE (show U ≤ ⊤ from le_top)).op (sectionValue (a ≫ e.hom)))\n  rw [← section_app_one (a ≫ e.hom) U]\n  rfl",
+      "after": "  rw [twistFrame, FrameTransport.frame_localCoefficient, algebraicMatchingEquiv_fst]\n  rfl",
+      "match_count": 1
+    },
+    {
+      "id": "C05_remove_underconstrained_scalar_instance",
+      "before": "local instance testSectionsAlgebra : Algebra ℂ (RingSections T ⊤) :=\n  coefficientsAlgebra sT ⊤\n\n",
+      "after": "",
+      "match_count": 1
+    },
+    {
+      "id": "C06_pin_actual_polynomial_evaluation_carrier",
+      "expected_matches": 2,
+      "before": "Polynomial.aeval (f.appLE U ⊤ hU coordinate)",
+      "after": "Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤)",
+      "match_count": 2
+    }
+  ],
+  "helper_dependencies": [
+    {
+      "file": "LSFrameTransport.lean",
+      "git_blob_sha": "3c30e8b1838db3daa811d0beb0537babefe4afe1",
+      "sha256": "17910cf565eb2cee8123b5833f7b9d0074c1cc2b04bede76e5bf5ed783923c1e",
+      "owner": "root",
+      "status": "native_pending_separate_ci"
+    },
+    {
+      "file": "LSTangentFrameCoordinates.lean",
+      "git_blob_sha": "bf3fa36d5b54215360780986e069832644b1ef2e",
+      "sha256": "08e394c7074a53885fb23afdf85ea4dda392dae25a5faa17ad286dcf4c1acb3d",
+      "owner": "published_leaf_audit",
+      "status": "uncompiled",
+      "new_admissions": 0
+    }
+  ],
+  "exact_frozen433_cloud_diagnostic": {
+    "module": "LSP1BivectorCoordinates",
+    "status": "failed",
+    "return_code": 124,
+    "seconds": 300.418,
+    "source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+    "errors": [
+      {
+        "caption": "",
+        "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+        "endPos": {
+          "column": 84,
+          "line": 96
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "runtime.maxHeartbeats",
+        "pos": {
+          "column": 84,
+          "line": 89
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nD : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=\n  fun a => chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))\na b : RingSections ProjectiveLine U\n⊢ b * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a)) +\n      a * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv b)) =\n    a * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv b)) +\n      b * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))",
+        "endPos": {
+          "column": 64,
+          "line": 105
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 16,
+          "line": 105
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  chartAlgebraEquiv ((algebraMap ℂ (Coefficients P.structureMap U)) ?r)\nin the target expression\n  chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv ((constants P.structureMap U) c))) = 0\n\nD : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=\n  fun a => chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))\nc : ℂ\n⊢ chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv ((constants P.structureMap U) c))) = 0\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (constants P.structureMap U) c\n  has type\n    RingSections ProjectiveLine U\n  but is expected to have type\n    Coefficients P.structureMap U\n  in the application\n    chartAlgebraEquiv ((constants P.structureMap U) c)",
+        "endPos": {
+          "column": 36,
+          "line": 109
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 10,
+          "line": 109
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Unknown identifier `coordinateFunctional_injective`",
+        "endPos": {
+          "column": 35,
+          "line": 123
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.unknownIdentifier._namedError",
+        "pos": {
+          "column": 5,
+          "line": 123
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Invalid field `map_smul`: The environment does not contain `AddMonoidHom.map_smul`, so it is not possible to project the field `map_smul` from an expression\n  AddCommGrpCat.Hom.hom (Scheme.Modules.Hom.app e.hom V)\nof type `↑Γ(E, V) →+ ↑Γ(F, V)`",
+        "endPos": {
+          "column": 64,
+          "line": 152
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.invalidField._namedError",
+        "pos": {
+          "column": 56,
+          "line": 152
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "(kernel) excessive memory consumption detected",
+        "endPos": {
+          "column": 29,
+          "line": 161
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 8,
+          "line": 161
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  },
+  "changes_rationale": [
+    "Reuse the existing actual normalized derivative frame. The generic action-coordinate formula uses local-frame reconstruction, the actual tangent scalar action, and its proved derivative normalization. No affine derivation assumptions are added.",
+    "Use the generic section-isomorphism/frame-coefficient calculation before specializing the large projective tangent/twist objects.",
+    "Remove the underconstrained RingSections algebra instance and explicitly annotate both aeval arguments with Coefficients sT top, preserving the actual supplied base map.",
+    "Retain every reviewed v2 algebra, carrier, actual map and finite-sum repair unless superseded by the generic frame helper."
+  ],
+  "native_status": "uncompiled_candidate_no_acceptance",
+  "source_roundtrip_verified": true,
+  "downstream_model_record_blob": "96bd1a31f2a16f50de445e9a624007990c8c1f1b",
+  "requested_cache_context": 41775309669,
+  "acceptance_change": 0,
+  "canonical_source_changed": false,
+  "refs_changed": false
+}

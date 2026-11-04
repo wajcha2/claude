@@ -1,4 +1,6 @@
 import LSConicJets
+import LSFrameTransport
+import LSTangentFrameCoordinates
 
 /-!
 # Polynomial coordinates of the normalized source bivector
@@ -86,33 +88,16 @@ def coordinateFunctional :
   map_add' v w := tangentActs_add_field P.structureMap U v w coordinate
   map_smul' a v := TangentActionProof.smul_field P.structureMap U v a coordinate
 
-theorem coordinateFunctional_injective : Function.Injective coordinateFunctional := by
-  intro v w h
-  apply TangentAffine.affine_tangent_action_faithful P.structureMap U
-    (chartOpen_affine 0) v w
-  intro a
-  apply chartAlgebraEquiv.injective
-  rw [action_polynomial, action_polynomial]
-  exact congrArg (fun z => (chartAlgebraEquiv a).derivative * chartAlgebraEquiv z) h
+private theorem coordinateFunctional_bijective : Function.Bijective coordinateFunctional := by
+  exact TangentFrameCoordinates.action_bijective P.structureMap U
+    (P1TangentTranslation.derivativeFrame P 0) coordinate
+    (P1TangentTranslation.derivativeFrame_coordinate P 0)
 
-theorem coordinateFunctional_surjective : Function.Surjective coordinateFunctional := by
-  let D : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=
-    fun a => chartAlgebraEquiv.symm (chartAlgebraEquiv a).derivative
-  obtain ⟨v, hv⟩ := TangentAffine.affine_tangent_action_exists P.structureMap U
-    (chartOpen_affine 0) D
-    (by simp [D])
-    (fun a b => by simp [D, Polynomial.derivative_add])
-    (fun a b => by simp [D, Polynomial.derivative_mul, mul_comm])
-    (fun c => by
-      change chartAlgebraEquiv.symm
-        (chartAlgebraEquiv (constants P.structureMap U c)).derivative = 0
-      rw [chartAlgebraEquiv.commutes, Polynomial.derivative_C, map_zero])
-  have hcoord : coordinateFunctional v = 1 := by
-    change tangentActs P.structureMap U v coordinate = 1
-    rw [hv]
-    simp [D, coordinate]
-  intro a
-  exact ⟨a • v, by rw [map_smul, hcoord, smul_eq_mul, mul_one]⟩
+theorem coordinateFunctional_injective : Function.Injective coordinateFunctional :=
+  coordinateFunctional_bijective.1
+
+theorem coordinateFunctional_surjective : Function.Surjective coordinateFunctional :=
+  coordinateFunctional_bijective.2
 
 /-- The coefficient is the value on dz. Thus its inverse generator is
 the genuine d/dz field, without choosing a scalar normalization. -/
@@ -141,21 +126,9 @@ theorem coordinateVector_action (a : RingSections ProjectiveLine U) :
 def polynomial (a : AlgebraicSection TangentLine.sheaf) : Polynomial ℂ :=
   chartAlgebraEquiv (frame.localCoefficient a)
 
-private def sectionsLinearEquiv {Y : Scheme} {E F : OModule Y}
-    (e : E ≅ F) (V : Y.Opens) :
-    SectionsOn E V ≃ₗ[RingSections Y V] SectionsOn F V where
-  toFun := Scheme.Modules.Hom.app e.hom V
-  invFun := Scheme.Modules.Hom.app e.inv V
-  left_inv v := congrArg (fun k : E ⟶ E => Scheme.Modules.Hom.app k V v) e.hom_inv_id
-  right_inv v := congrArg (fun k : F ⟶ F => Scheme.Modules.Hom.app k V v) e.inv_hom_id
-  map_add' v w := (Scheme.Modules.Hom.app e.hom V).hom.map_add v w
-  map_smul' c v := Scheme.Modules.Hom.app_smul e.hom c v
-
 def twistFrame (e : TangentLine.sheaf ≅ (projectiveTwist P Lines.marking 2).sheaf) :
-    AffineLineFrame TangentLine where
-  openSet := U
-  isAffine := chartOpen_affine 0
-  coefficient := (sectionsLinearEquiv e U).trans
+    AffineLineFrame TangentLine :=
+  FrameTransport.frame e U (chartOpen_affine 0)
     (coordinates (twistOverFrame P Lines.marking 2 0))
 
 theorem twistFrame_polynomial
@@ -163,14 +136,7 @@ theorem twistFrame_polynomial
     (a : AlgebraicSection TangentLine.sheaf) :
     chartAlgebraEquiv ((twistFrame e).localCoefficient a) =
       (algebraicMatchingEquiv P Lines.marking 2 (a ≫ e.hom)).val.1 := by
-  rw [algebraicMatchingEquiv_fst]
-  change chartAlgebraEquiv
-      (coordinates (twistOverFrame P Lines.marking 2 0)
-        (e.hom.app U (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U)))) =
-    polynomialCoordinates P Lines.marking 2 0
-      ((projectiveTwist P Lines.marking 2).sheaf.presheaf.map
-        (homOfLE (show U ≤ ⊤ from le_top)).op (sectionValue (a ≫ e.hom)))
-  rw [← section_app_one (a ≫ e.hom) U]
+  rw [twistFrame, FrameTransport.frame_localCoefficient, algebraicMatchingEquiv_fst]
   rfl
 
 /-- The degree bound is transported from the actual Laurent matching
@@ -305,9 +271,6 @@ open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 
 variable {T : Scheme} (sT : T ⟶ ComplexBase)
 
-local instance testSectionsAlgebra : Algebra ℂ (RingSections T ⊤) :=
-  coefficientsAlgebra sT ⊤
-
 /-- Actual pullback of chart functions, including the complex structure
 on the test scheme and the original appLE map. -/
 def onCoefficients (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT)
@@ -324,7 +287,7 @@ def polynomialMap (f : T ⟶ ProjectiveLine) (hf : f ≫ P.structureMap = sT)
 
 theorem polynomialMap_eq_aeval (f : T ⟶ ProjectiveLine)
     (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U) :
-    polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate) := by
+    polynomialMap sT f hf hU = Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤) := by
   apply Polynomial.algHom_ext
   rw [Polynomial.aeval_X]
   rfl
@@ -333,7 +296,7 @@ theorem coefficient_evaluation (f : T ⟶ ProjectiveLine)
     (hf : f ≫ P.structureMap = sT) (hU : ⊤ ≤ f ⁻¹ᵁ U)
     (a : AlgebraicSection TangentLine.sheaf) :
     f.appLE U ⊤ hU (frame.localCoefficient a) =
-      Polynomial.aeval (f.appLE U ⊤ hU coordinate) (polynomial a) := by
+      Polynomial.aeval (f.appLE U ⊤ hU coordinate : Coefficients sT ⊤) (polynomial a) := by
   rw [← polynomialMap_eq_aeval sT f hf hU]
   change _ = f.appLE U ⊤ hU (chartAlgebraEquiv.symm
     (chartAlgebraEquiv (frame.localCoefficient a)))

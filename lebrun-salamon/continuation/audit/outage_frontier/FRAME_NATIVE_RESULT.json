@@ -1,0 +1,75 @@
+{
+  "schema": "lebrun-remote-native-summary-v1",
+  "run_id": 41779342196,
+  "job_id": 126407049787,
+  "commit": "16c618c0d3ee10ec6b4cd1556644c59575c949d6",
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "16c618c0d3ee10ec6b4cd1556644c59575c949d6",
+      "source_modules": 271,
+      "selected_modules": 35,
+      "accepted_modules": 35,
+      "failed_modules": [],
+      "full_selected_graph_passed": true,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 34,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "helper_receipt": {
+    "module": "LSFrameTransport",
+    "receipt_sha256": "c2fba21b118fc671c17466ac95bcfaed06df77698bbec1c74569be99740eb77a",
+    "key": {
+      "source_sha256": "17910cf565eb2cee8123b5833f7b9d0074c1cc2b04bede76e5bf5ed783923c1e",
+      "imports": [
+        "RecompileExtensionsPart01"
+      ],
+      "dependency_artifacts": {
+        "RecompileExtensionsPart01": {
+          "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+          "kind": "project"
+        }
+      },
+      "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ]
+    },
+    "output_sha256": "80e7f8f691269b0947c7865facee380530d3f906ef96b82dbcad51d94dbe3678",
+    "source_ancestry_fingerprint": "e6bc58e31da40a362bac51e4f15d73633483ec5920ced7df8d9619b970be23ac",
+    "seconds": 4.585,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cache_restore_provenance": null
+  },
+  "artifacts": [
+    {
+      "id": 13297689042,
+      "name": "lebrun-frame-frontier-41779342196-1",
+      "size_in_bytes": 62430782,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13297689042",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13297689042/zip",
+      "expired": false,
+      "created_at": "2026-11-04T05:29:50Z",
+      "expires_at": "2027-02-02T05:27:18Z",
+      "updated_at": "2026-11-04T05:29:50Z",
+      "digest": "sha256:8f5fb3700a9fa7d9ab748ef5babcc4b8001e745f29d4dc0cf398c45a0d2484c4",
+      "workflow_run": {
+        "id": 41779342196,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-coordinates-refined-20261104",
+        "head_sha": "16c618c0d3ee10ec6b4cd1556644c59575c949d6"
+      }
+    }
+  ],
+  "scope": "Exact selected 35-module cloud replay. Does not assert whole-source acceptance."
+}

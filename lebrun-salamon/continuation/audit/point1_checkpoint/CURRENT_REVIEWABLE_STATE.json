@@ -1,18 +1,18 @@
 {
   "schema": "lebrun-current-reviewable-proof-checkpoint-v1",
-  "updated_utc": "2026-11-04 18:20:01 UTC",
+  "updated_utc": "2026-11-04 18:27:51 UTC",
   "production_source_modules": 307,
   "diagnostic_modules": [],
-  "verified_native_production_modules": 303,
+  "verified_native_production_modules": 304,
   "accepted_obligation_units": 30,
   "total_obligation_units": 133,
   "acceptance_ledger_unchanged": true,
   "current_source_and_native_context_comparison": {
     "schema": "lebrun-current-native-union-comparison-v1",
-    "source_manifest_sha256": "2c90f47183d3f1d9fe6ab3cf307affeccc7b6b090c95dc639ff5df5577a579a7",
+    "source_manifest_sha256": "7b5521c9c1e27b498cdc2a6375dc8fdf8240ea88018543e1c2170ee7076ad3ea",
     "source_modules": 307,
     "source_manifest_freeze_binding_verified": true,
-    "verified_native_module_union": 303,
+    "verified_native_module_union": 304,
     "duplicate_context_comparisons": 0,
     "conflicts": [],
     "source_dependency_problems": [],
@@ -25,7 +25,6 @@
     "total_obligation_units": 133,
     "pending_modules": [
       "LSCompletedTargets",
-      "LSFormalArcComparison",
       "LSMilestoneTarget",
       "LSMovingPairConstruction"
     ]
@@ -33,16 +32,95 @@
   "all190_audited_contexts_unchanged": true,
   "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "latest_completed_full_replay": {
-    "run_id": 41883830923,
-    "job_id": 126762873140,
-    "accepted_modules": 303,
+    "run_id": 41886204364,
+    "job_id": 126771217203,
+    "accepted_modules": 304,
     "selected_modules": 307,
     "failed_modules": [
-      "LSFormalArcComparison"
+      "LSMovingPairConstruction"
     ],
-    "failure_kind": "kernel deterministic timeout in nodal_regular",
+    "native_diagnostics": [
+      {
+        "module": "LSMovingPairConstruction",
+        "status": "failed",
+        "source_sha256": "6483beae01bb3123c3b9125df17a4878a2e8b4d72c0a117f64a94ea3ca9e027f",
+        "return_code": 1,
+        "seconds": 2.471,
+        "errors": [
+          {
+            "caption": "",
+            "data": "Unknown identifier `VeryFreeContactConic`\n\nNote: It is not possible to treat `VeryFreeContactConic` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+            "endPos": {
+              "column": 34,
+              "line": 38
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSMovingPairConstruction.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "lean.unknownIdentifier._namedError",
+            "pos": {
+              "column": 14,
+              "line": 38
+            },
+            "severity": "error"
+          },
+          {
+            "caption": "",
+            "data": "Unknown identifier `g.curve`",
+            "endPos": {
+              "column": 55,
+              "line": 62
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSMovingPairConstruction.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "lean.unknownIdentifier._namedError",
+            "pos": {
+              "column": 48,
+              "line": 62
+            },
+            "severity": "error"
+          },
+          {
+            "caption": "",
+            "data": "Unknown identifier `g.veryFree`",
+            "endPos": {
+              "column": 80,
+              "line": 62
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSMovingPairConstruction.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "lean.unknownIdentifier._namedError",
+            "pos": {
+              "column": 70,
+              "line": 62
+            },
+            "severity": "error"
+          },
+          {
+            "caption": "",
+            "data": "Unknown identifier `VeryFreeContactConic`\n\nNote: It is not possible to treat `VeryFreeContactConic` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+            "endPos": {
+              "column": 29,
+              "line": 75
+            },
+            "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSMovingPairConstruction.lean",
+            "isSilent": false,
+            "keepFullRange": false,
+            "kind": "lean.unknownIdentifier._namedError",
+            "pos": {
+              "column": 9,
+              "line": 75
+            },
+            "severity": "error"
+          }
+        ],
+        "stderr": ""
+      }
+    ],
     "full_gate_passed": false,
-    "record_blob": "9d9affbcf7ba6b3a45aad322887ce5d5f16cd542"
+    "record_blob": "ad1eb0891a6e9cffa7d4e3bd658a0f0e11d17b6e"
   },
   "latest_completed_actual_arc4": {
     "source_sha256": "53d3232b93318af8d45d2c89ba9286ed4daec82538a92360569ee06020859948",
@@ -54,27 +132,34 @@
   "latest_native_cache": [
     {
       "artifact_dir": "lebrun-cache-inputs/0",
-      "source_run_id": 41883830923,
-      "source_artifact_name": "lebrun-final-current-native-41883830923-1",
-      "artifact_id": 13351535690,
-      "artifact_sha256": "c1eeb4dd3781887f166271557ddaf5658fa5a7a4d7c08eb62b8b724d064da9f9",
+      "source_run_id": 41886204364,
+      "source_artifact_name": "lebrun-final-current-native-41886204364-1",
+      "artifact_id": 13350863017,
+      "artifact_sha256": "cfac9e1aa7fe4f13cb7cb4cdb7e22786d6821d927698ce18ecf95a48d9e646ad",
       "include_validated_unselected_cache": true
     }
   ],
   "active_native_runs": [],
   "pending_native_dispatch": {
-    "branch": "codex/lebrun-final-current-307-v2-20261104",
+    "branch": "codex/lebrun-final-current-307-v3-20261104",
     "selection": "all current production modules",
     "source_modules": 307,
     "timeout_seconds": 300
   },
   "candidate_modules": [
     {
-      "module": "LSFormalArcComparison",
-      "source_sha256": "84e409540d657fa5848790bae8332301364350b6497b625d3ea8328f68530064",
-      "source_blob": "d10a1274ef1b33e76a8098f38d05a7b77e91d740",
+      "module": "LSMovingPairConstruction",
+      "source_sha256": "4337fa66a18ea4833e2da84ab338768e67f234892218f5c5bee830e3e8aeea82",
+      "source_blob": "eb6b481a6e5b4c43335765b18e8e0b3b97da6ef0",
       "status": "actual stock check pending"
     }
   ],
-  "scope": "Full selected graph checks all 307 current production modules using 303 exact native outputs. Every remaining actual module must pass with real native parents. The existing compiler flags and300-second module bound are unchanged. Point1 acceptance stays30/133 until the full gate; all four milestone gates remain pending."
+  "scope": "Full selected graph checks all 307 current production modules using 304 exact native outputs. Every remaining actual module must pass with real native parents. The existing compiler flags and300-second module bound are unchanged. Point1 acceptance stays30/133 until the full gate; all four milestone gates remain pending.",
+  "latest_completed_actual_arc5": {
+    "source_sha256": "84e409540d657fa5848790bae8332301364350b6497b625d3ea8328f68530064",
+    "output_sha256": "2197e4757af57244b047649d3e86f61b7b9dcda44d1996e34133bbfa8eed2e8a",
+    "receipt_sha256": "10dd03c8ada82222daf4c1204f21fb425d8779785b7beee2ecec01bb26287d6c",
+    "seconds": 7.835,
+    "run_id": 41886204364
+  }
 }

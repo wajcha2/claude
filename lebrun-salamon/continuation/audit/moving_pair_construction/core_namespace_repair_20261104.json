@@ -1,0 +1,72 @@
+{
+  "schema": "moving-pair-selective-namespace-repair-v1",
+  "scope": "One selective namespace opening, prompted by exact stock missing-identifier diagnostics; no Lean invoked by this record.",
+  "target_path": "lebrun-salamon/continuation/source/LSMovingPairConstruction.lean",
+  "baseline_source_sha256": "6483beae01bb3123c3b9125df17a4878a2e8b4d72c0a117f64a94ea3ca9e027f",
+  "baseline_blob": "5f7e7b3ca21098327b48e8128b0c6db56a6adc61",
+  "candidate_source_sha256": "4337fa66a18ea4833e2da84ab338768e67f234892218f5c5bee830e3e8aeea82",
+  "candidate_git_blob_sha1": "eb6b481a6e5b4c43335765b18e8e0b3b97da6ef0",
+  "patches": [
+    {
+      "before": "open LeBrunSalamon.Skeleton LeBrunSalamon.Refinement\n",
+      "after": "open LeBrunSalamon.Skeleton LeBrunSalamon.Refinement\nopen LeBrunSalamon.Core (VeryFreeContactConic)\n",
+      "match_count": 1
+    }
+  ],
+  "inverse_byte_exact": true,
+  "all7_original_theorem_headers_unchanged": [
+    {
+      "name": "extension_exists",
+      "sha256": "6b59fe11d8dd9416a38e82389c0a5e2bdc283f8af685feb18a9baefb196603c7",
+      "unchanged": true
+    },
+    {
+      "name": "dominant",
+      "sha256": "c4c67b4ab43895053f9ead67b53bbc3c969eb449d34d5608ba43ea5ab8eda6ee",
+      "unchanged": true
+    },
+    {
+      "name": "coveredMovingPair",
+      "sha256": "ad7d955cde913a731a0c692d99e873d460fa9ec6efe2c026b5a477e8fe25d47c",
+      "unchanged": true
+    },
+    {
+      "name": "coveredMovingPair_exists",
+      "sha256": "20096e45d1b5dcafe0c7219cde0aa3b43ccb3787275f8c554ccce96cc35bd170",
+      "unchanged": true
+    },
+    {
+      "name": "constructedKernelExtensionInputs",
+      "sha256": "84bb5ccb6e7052101e24d257032e6a8282bd543395f53be26945899b5dbfadb3",
+      "unchanged": true
+    },
+    {
+      "name": "constructedAlgebraicInputs",
+      "sha256": "cd581acf208a8903fa881b1ee0fe39cd8bd6006d35de4bce12b33d306a7718c1",
+      "unchanged": true
+    },
+    {
+      "name": "constructedProjectInputs",
+      "sha256": "7762a9a419f6171df5e330b18fc16c8ddfe207c03b85a718b77b015b65f6e592",
+      "unchanged": true
+    }
+  ],
+  "all_original_theorem_bodies_unchanged": true,
+  "all_original_variable_headers_unchanged": true,
+  "imports_unchanged": true,
+  "new_admissions": 0,
+  "new_mathematical_assumptions": 0,
+  "identifier_resolution": {
+    "name": "LeBrunSalamon.Core.VeryFreeContactConic",
+    "owner_module": "RecompileExtensionsPart01",
+    "owner_source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+    "namespace_start_line": 1301,
+    "definition_line": 2476,
+    "namespace_end_line": 2552,
+    "declaration": "structure VeryFreeContactConic (P : ProjectiveLineOverC)\n    (p : ProjectiveLinePoint P) {n : ℕ} (X : ContactFanoManifold n) where\n  curve : RationalCurve P X.variety\n  contactDegreeTwo : IsIntrinsicContactConic P p X.contact curve\n  veryFree : IsVeryFreeRationalCurve P X.variety\n    (intrinsicTangentBundle X.variety) curve",
+    "reason": "Definition already exists in the imported closure. Missing namespace causes both VeryFreeContactConic errors and leaves g without its curve/veryFree projections."
+  },
+  "native_status": "Uncompiled candidate. Direct stock replay should expose any remaining actual issue; no local test requested.",
+  "compiler_invoked": false,
+  "canonical_source_or_acceptance_modified": false
+}

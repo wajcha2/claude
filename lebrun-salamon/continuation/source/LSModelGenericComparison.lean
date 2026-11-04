@@ -6,6 +6,7 @@ import LSModelSourceProductTransport
 import LSModelSourceNumerator
 import LSModelGenericParametrization
 import LSModelNumeratorTransport
+import LSModelGenericNormalization
 
 /-!
 # Whole-generic-square comparison for the actual conic model
@@ -37,63 +38,6 @@ open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 open FamilyBivectors
 
 variable (F : Smoothing.StandardSource) (a : Coefficients)
-
-/-- Equality on the dense affine node test extends to the complete
-generic square because the actual target is a line bundle and the
-generic square is integral. -/
-theorem genericSourceNumerator_eq (ha : a ≠ 0) :
-    genericSourceNumerator F a =
-      scalarSection ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop
-        (coefficientSection a)) ≫
-      pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P) := by
-  letI : IsIntegral (Square F a) := square_integral F a ha
-  obtain ⟨T, j, hT, hj, u, v, w, z, hu, hv, hw, hz⟩ := denseNodeTest_exists F a ha
-  letI := hT
-  let E := externalSquareLine Lines.P.structureMap SourceBivectorCoordinates.TangentLine
-  let c := ModelBivector.canonicalPair F a (toModelSquare F a)
-  let c' := ModelBivector.canonicalPair F a (j ≫ toModelSquare F a)
-  let hcc := canonicalPair_comp F a j (toModelSquare F a)
-  apply dominant_pullSection_injective j hj (fun _ => inferInstance) (pullbackLine c E)
-  apply (cancel_mono (compositionPullback j c c' hcc E.sheaf).hom).mp
-  have hs := LogVelocity.section_comp j (toModelSquare F a) (modelSourceSquare F a)
-    c (canonicalPair_eq F a (toModelSquare F a)) (j ≫ toModelSquare F a) rfl
-    c' hcc (canonicalPair_eq F a (j ≫ toModelSquare F a)) (modelSourceNumerator F a)
-  change pullSection j (genericSourceNumerator F a) ≫
-    (compositionPullback j c c' hcc E.sheaf).hom = _ at hs
-  rw [hs, sourceNumerator_pullback, LogVelocity.pullSection_scalar,
-    Category.assoc, compositionPullback_sections j c c' hcc
-      (E := E.sheaf) (sourceBivector Lines.P)]
-  have hn := ModelDifferential.numerator_sourceBivector_denominatorCleared F a
-    (j ≫ toModelSquare F a) u v w z hu hv hw hz
-  simpa only [c', Scheme.Hom.comp_appTop, CommRingCat.comp_apply, Category.assoc] using hn
-
-/-- The two actual logarithmic source differentials send the global
-numerator to a times the original normalized source bivector on the
-entire smooth generic square. -/
-theorem generic_source_denominatorCleared (ha : a ≠ 0) :
-    pullSection (toModelSquare F a) (ModelNumerator.numerator F a) ≫
-      ModelDifferential.squareVelocity F a (toModelSquare F a) =
-      scalarSection ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop
-        (coefficientSection a)) ≫
-      pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P) := by
-  exact (sourceNumerator_pullback F a (toModelSquare F a)).symm.trans
-    (genericSourceNumerator_eq F a ha)
-
-theorem genericParameter_isUnit (ha : a ≠ 0) :
-    IsUnit ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) :=
-  ModelBivector.parameter_isUnit_of_generic a ha
-    (toModelSquare F a ≫ ModelNumerator.squareProjection F a) (squareBase F a)
-    (toModelSquare_base F a).symm
-
-/-- Exact normalized equality on the complete generic square, retaining
-both outer endpoints and the diagonal. -/
-theorem generic_source_normalized (ha : a ≠ 0) :
-    scalarSection (↑(genericParameter_isUnit F a ha).unit⁻¹ : RingSections (Square F a) ⊤) ≫
-      pullSection (toModelSquare F a) (ModelNumerator.numerator F a) ≫
-        ModelDifferential.squareVelocity F a (toModelSquare F a) =
-      pullSection (ModelBivector.canonicalPair F a (toModelSquare F a)) (sourceBivector Lines.P) := by
-  rw [generic_source_denominatorCleared F a ha, ← Category.assoc, ← scalarSection_mul,
-    (genericParameter_isUnit F a ha).val_inv_mul, scalarSection_one, Category.id_comp]
 
 variable {d : ℕ} (X : SmoothProperComplexVariety d)
 variable (e : Model F a ⟶ X.scheme)

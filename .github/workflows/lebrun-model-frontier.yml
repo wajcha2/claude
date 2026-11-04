@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent model foundations
+name: LeBrun-Salamon actual generic model normalization
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  source-numerator:
+  generic-normalization:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -22,21 +22,29 @@ jobs:
       - name: Verify exact source manifest
         run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
       - name: Restore pinned stock runtime
+        timeout-minutes: 12
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41809372491
+      - name: Download verified native cache 1 from 41813067384
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-reparam-product-transport-41809372491-1
-          run-id: 41809372491
+          name: lebrun-model-parametrization-33-41813067384-1
+          run-id: 41813067384
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
+      - name: Download verified native cache 2 from 41813067384
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-model-source-numerator-41813067384-1
+          run-id: 41813067384
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/1
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact first two source-numerator declarations
+      - name: Check the original four generic normalization theorems
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelSourceNumerator --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericNormalization --keep-going --timeout 300
       - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
@@ -44,46 +52,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-model-source-numerator-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-  parametrization:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Check out exact immutable snapshot
-        uses: actions/checkout@v4
-      - name: Verify exact source manifest
-        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
-      - name: Restore pinned stock runtime
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41809372491
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-reparam-product-transport-41809372491-1
-          run-id: 41809372491
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Restore only exact coherent native artifact union
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact first 33 generic-parametrization declarations
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericParametrization --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
-        if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-model-parametrization-33-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-generic-normalization-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/

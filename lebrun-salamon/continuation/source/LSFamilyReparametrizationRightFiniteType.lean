@@ -2,6 +2,7 @@ import LSFiniteTypeSpreading
 import LSContactLineTests
 import LSFamilyDescentReparametrization
 import LSFamilyReparametrizationFibres
+import LSFamilySchemeTransport
 
 /-!
 # Reparametrization in families and over arbitrary fields
@@ -43,20 +44,54 @@ variable (g : Source P sB ⟶ X.variety.scheme)
 variable (hg : g ≫ X.variety.structureMap = parameter P sB ≫ sB)
 variable (hcomp : e.hom ≫ f = g)
 
+private theorem finiteType_sections_eq_of_fibres_sheaf
+    [AlgebraicGeometry.IsReduced (Square P sB)]
+    [LocallyOfFiniteType (squareToC P sB)] {r : ℕ}
+    (E : AlgebraicVectorBundle (Square P sB) r)
+    (G : OModule (Square P sB)) (hG : E.sheaf = G)
+    (a b : AlgebraicSection G)
+    (h : ∀ t : BasePoint sB,
+      pullSection (fibreSquare P sB t) a = pullSection (fibreSquare P sB t) b) :
+    a = b := by
+  cases hG
+  exact sections_eq_of_fibres P sB E a b h
+
+private theorem finiteType_rightBundle_sheaf {Y : Scheme}
+    (r : Y ⟶ SelfProduct X.variety.structureMap) :
+    (MovingPair.rightBundle (X := X) r).sheaf =
+      pullbackModule r (movingPairBundleRight X.variety X.contact) := rfl
+
+private theorem finiteType_right_curve_normalized
+    (a : ProjectiveLine ≅ ProjectiveLine)
+    (ha : a.hom ≫ P.structureMap = P.structureMap)
+    (u v : RationalCurve P X.variety) (huv : v.map = a.hom ≫ u.map) :
+    @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+        (curveSquareMap P (Reparametrization.curve P a ha))
+        (pullbackModule (curveSquareMap P u) (movingPairBundleRight X.variety X.contact))
+        (Curve.rightSection P X u) ≫
+      (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)
+        (SelfProduct X.variety.structureMap)
+        (curveSquareMap P (Reparametrization.curve P a ha))
+        (curveSquareMap P u) (curveSquareMap P v)
+        (Reparametrization.square_comp P a ha X u v huv)
+        (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X v := by
+  exact (FamilySchemeTransport.projective_pull_comp P
+    (curveSquareMap P (Reparametrization.curve P a ha))
+    (curveSquareMap P u) (curveSquareMap P v)
+    (Reparametrization.square_comp P a ha X u v huv)
+    (movingPairBundleRight X.variety X.contact) (Curve.rightSection P X u)).symm.trans
+      (Reparametrization.rightSection P a ha X u v huv)
+
 include C in
-theorem rightSection_finiteType [AlgebraicGeometry.IsReduced B] [LocallyOfFiniteType sB] :
-    pullSection (squareMap P sB e he) (ParametrizedContact.rightSection P sB X f hf) ≫
+private theorem finiteType_right_on_fibre (t : BasePoint sB) :
+    pullSection (fibreSquare P sB t)
+      (pullSection (squareMap P sB e he) (ParametrizedContact.rightSection P sB X f hf) ≫
         (compositionPullback (squareMap P sB e he)
           (ParametrizedContact.evaluationSquare P sB X f hf)
           (ParametrizedContact.evaluationSquare P sB X g hg)
           (squareMap_evaluation P sB e he X f hf g hg hcomp)
-          (movingPairBundleRight X.variety X.contact)).hom =
-      ParametrizedContact.rightSection P sB X g hg := by
-  letI : AlgebraicGeometry.IsReduced (Square P sB) := square_reduced P sB
-  letI : LocallyOfFiniteType (squareToC P sB) := square_locallyOfFiniteType P sB
-  apply sections_eq_of_fibres P sB
-    (MovingPair.rightBundle (ParametrizedContact.evaluationSquare P sB X g hg))
-  intro t
+          (movingPairBundleRight X.variety X.contact)).hom) =
+      pullSection (fibreSquare P sB t) (ParametrizedContact.rightSection P sB X g hg) := by
   let D := reparametrizedFamily P sB e he X f C g hcomp
   let a := fibreIso P sB e he t
   have ha : a.hom ≫ P.structureMap = P.structureMap := fibreIso_overC P sB e he t
@@ -74,7 +109,27 @@ theorem rightSection_finiteType [AlgebraicGeometry.IsReduced B] [LocallyOfFinite
     (ParametrizedContact.rightSection P sB X g hg)
     (Curve.rightSection P X (C.curve t)) (Curve.rightSection P X (D.curve t))
     (right_at_fibre P sB X f hf C t) (right_at_fibre P sB X g hg D t)
-    (Reparametrization.rightSection P a ha X (C.curve t) (D.curve t) hg')
+    (finiteType_right_curve_normalized P X a ha (C.curve t) (D.curve t) hg')
+
+include C in
+theorem rightSection_finiteType [AlgebraicGeometry.IsReduced B] [LocallyOfFiniteType sB] :
+    pullSection (squareMap P sB e he) (ParametrizedContact.rightSection P sB X f hf) ≫
+        (compositionPullback (squareMap P sB e he)
+          (ParametrizedContact.evaluationSquare P sB X f hf)
+          (ParametrizedContact.evaluationSquare P sB X g hg)
+          (squareMap_evaluation P sB e he X f hf g hg hcomp)
+          (movingPairBundleRight X.variety X.contact)).hom =
+      ParametrizedContact.rightSection P sB X g hg := by
+
+  letI : AlgebraicGeometry.IsReduced (Square P sB) := square_reduced P sB
+  letI : LocallyOfFiniteType (squareToC P sB) := square_locallyOfFiniteType P sB
+  apply finiteType_sections_eq_of_fibres_sheaf P sB
+    (MovingPair.rightBundle (ParametrizedContact.evaluationSquare P sB X g hg))
+    (pullbackModule (ParametrizedContact.evaluationSquare P sB X g hg)
+      (movingPairBundleRight X.variety X.contact))
+    (finiteType_rightBundle_sheaf X (ParametrizedContact.evaluationSquare P sB X g hg))
+  intro t
+  exact finiteType_right_on_fibre P sB e he X f hf C g hg hcomp t
 
 end FamilyReparametrization
 

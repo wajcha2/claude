@@ -1,0 +1,38 @@
+{
+  "schema": "lebrun-finite-type-literal-middle-scheme-repair-v2",
+  "target_module": "LSFamilyReparametrizationLeftFiniteType",
+  "original_sha256": "1b9026cf28b779492d08e84be958b4cdaf68c35ecbc8fef90a93f3abf387c25d",
+  "source_sha256": "79840fd5560415c399beb7002ab12dcd690f57b2dde47fb9636bc92f30ad9aff",
+  "profile_sha256": "7d623e05138d4ff9ce257467fc452b2aaf69504622a387cdb83ae226c72f7107",
+  "patches": [
+    {
+      "before": "import LSFamilyReparametrizationFibres\n",
+      "after": "import LSFamilyReparametrizationFibres\nimport LSFamilySchemeTransport\n",
+      "count": 1
+    },
+    {
+      "before": "include C in\n/-- Actual reparametrization invariance",
+      "after": "private theorem finiteType_sections_eq_of_fibres_sheaf\n    [AlgebraicGeometry.IsReduced (Square P sB)]\n    [LocallyOfFiniteType (squareToC P sB)] {r : ℕ}\n    (E : AlgebraicVectorBundle (Square P sB) r)\n    (G : OModule (Square P sB)) (hG : E.sheaf = G)\n    (a b : AlgebraicSection G)\n    (h : ∀ t : BasePoint sB,\n      pullSection (fibreSquare P sB t) a = pullSection (fibreSquare P sB t) b) :\n    a = b := by\n  cases hG\n  exact sections_eq_of_fibres P sB E a b h\n\nprivate theorem finiteType_leftBundle_sheaf {Y : Scheme}\n    (r : Y ⟶ SelfProduct X.variety.structureMap) :\n    (MovingPair.leftBundle (X := X) r).sheaf =\n      pullbackModule r (movingPairBundleLeft X.variety X.contact) := rfl\n\nprivate theorem finiteType_left_curve_normalized\n    (a : ProjectiveLine ≅ ProjectiveLine)\n    (ha : a.hom ≫ P.structureMap = P.structureMap)\n    (u v : RationalCurve P X.variety) (huv : v.map = a.hom ≫ u.map) :\n    @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap)\n        (curveSquareMap P (Reparametrization.curve P a ha))\n        (pullbackModule (curveSquareMap P u) (movingPairBundleLeft X.variety X.contact))\n        (Curve.leftSection P X u) ≫\n      (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)\n        (SelfProduct X.variety.structureMap)\n        (curveSquareMap P (Reparametrization.curve P a ha))\n        (curveSquareMap P u) (curveSquareMap P v)\n        (Reparametrization.square_comp P a ha X u v huv)\n        (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X v := by\n  exact (FamilySchemeTransport.projective_pull_comp P\n    (curveSquareMap P (Reparametrization.curve P a ha))\n    (curveSquareMap P u) (curveSquareMap P v)\n    (Reparametrization.square_comp P a ha X u v huv)\n    (movingPairBundleLeft X.variety X.contact) (Curve.leftSection P X u)).symm.trans\n      (Reparametrization.leftSection P a ha X u v huv)\n\ninclude C in\nprivate theorem finiteType_left_on_fibre (t : BasePoint sB) :\n    pullSection (fibreSquare P sB t)\n      (pullSection (squareMap P sB e he) (ParametrizedContact.leftSection P sB X f hf) ≫\n        (compositionPullback (squareMap P sB e he)\n          (ParametrizedContact.evaluationSquare P sB X f hf)\n          (ParametrizedContact.evaluationSquare P sB X g hg)\n          (squareMap_evaluation P sB e he X f hf g hg hcomp)\n          (movingPairBundleLeft X.variety X.contact)).hom) =\n      pullSection (fibreSquare P sB t) (ParametrizedContact.leftSection P sB X g hg) := by\n  let D := reparametrizedFamily P sB e he X f C g hcomp\n  let a := fibreIso P sB e he t\n  have ha : a.hom ≫ P.structureMap = P.structureMap := fibreIso_overC P sB e he t\n  have hg' : (D.curve t).map = a.hom ≫ (C.curve t).map := rfl\n  exact SectionTransport.reparametrization_on_fibre (fibreSquare P sB t)\n    (squareMap P sB e he) (curveSquareMap P (Reparametrization.curve P a ha))\n    (fibreSquare_squareMap P sB e he t)\n    (ParametrizedContact.evaluationSquare P sB X f hf)\n    (ParametrizedContact.evaluationSquare P sB X g hg)\n    (squareMap_evaluation P sB e he X f hf g hg hcomp)\n    (curveSquareMap P (C.curve t)) (curveSquareMap P (D.curve t))\n    (fibreSquare_evaluation P sB X f hf C t) (fibreSquare_evaluation P sB X g hg D t)\n    (Reparametrization.square_comp P a ha X (C.curve t) (D.curve t) hg')\n    (ParametrizedContact.leftSection P sB X f hf)\n    (ParametrizedContact.leftSection P sB X g hg)\n    (Curve.leftSection P X (C.curve t)) (Curve.leftSection P X (D.curve t))\n    (left_at_fibre P sB X f hf C t) (left_at_fibre P sB X g hg D t)\n    (finiteType_left_curve_normalized P X a ha (C.curve t) (D.curve t) hg')\n\ninclude C in\n/-- Actual reparametrization invariance",
+      "count": 1
+    },
+    {
+      "before": "  letI : AlgebraicGeometry.IsReduced (Square P sB) := square_reduced P sB\n  letI : LocallyOfFiniteType (squareToC P sB) := square_locallyOfFiniteType P sB\n  apply sections_eq_of_fibres P sB\n    (MovingPair.leftBundle (ParametrizedContact.evaluationSquare P sB X g hg))\n  intro t\n  let D := reparametrizedFamily P sB e he X f C g hcomp\n  let a := fibreIso P sB e he t\n  have ha : a.hom ≫ P.structureMap = P.structureMap := fibreIso_overC P sB e he t\n  have hg' : (D.curve t).map = a.hom ≫ (C.curve t).map := rfl\n  exact SectionTransport.reparametrization_on_fibre (fibreSquare P sB t)\n    (squareMap P sB e he) (curveSquareMap P (Reparametrization.curve P a ha))\n    (fibreSquare_squareMap P sB e he t)\n    (ParametrizedContact.evaluationSquare P sB X f hf)\n    (ParametrizedContact.evaluationSquare P sB X g hg)\n    (squareMap_evaluation P sB e he X f hf g hg hcomp)\n    (curveSquareMap P (C.curve t)) (curveSquareMap P (D.curve t))\n    (fibreSquare_evaluation P sB X f hf C t) (fibreSquare_evaluation P sB X g hg D t)\n    (Reparametrization.square_comp P a ha X (C.curve t) (D.curve t) hg')\n    (ParametrizedContact.leftSection P sB X f hf)\n    (ParametrizedContact.leftSection P sB X g hg)\n    (Curve.leftSection P X (C.curve t)) (Curve.leftSection P X (D.curve t))\n    (left_at_fibre P sB X f hf C t) (left_at_fibre P sB X g hg D t)\n    (Reparametrization.leftSection P a ha X (C.curve t) (D.curve t) hg')\n",
+      "after": "\n  letI : AlgebraicGeometry.IsReduced (Square P sB) := square_reduced P sB\n  letI : LocallyOfFiniteType (squareToC P sB) := square_locallyOfFiniteType P sB\n  apply finiteType_sections_eq_of_fibres_sheaf P sB\n    (MovingPair.leftBundle (ParametrizedContact.evaluationSquare P sB X g hg))\n    (pullbackModule (ParametrizedContact.evaluationSquare P sB X g hg)\n      (movingPairBundleLeft X.variety X.contact))\n    (finiteType_leftBundle_sheaf X (ParametrizedContact.evaluationSquare P sB X g hg))\n  intro t\n  exact finiteType_left_on_fibre P sB e he X f hf C g hg hcomp t\n",
+      "count": 1
+    }
+  ],
+  "original_public_header_and_include_C_exact": true,
+  "ambient_parameter_context_unchanged": true,
+  "exact_inverse_recovers_original": true,
+  "new_admissions": 0,
+  "existing_stock_transport_used": "FamilySchemeTransport.projective_pull_comp",
+  "profile_options_and_markers_removed_to_exact_actual": true,
+  "status": "local_complete_profile_pass_pending_stock",
+  "local_result": {
+    "seconds": 31.458,
+    "return_code": 0,
+    "error_count": 0,
+    "output_sha256": "60097fc746fa73af7a55b8d74c21d6f49fdf54823705eb4d23b25b98636d5122",
+    "receipt": "root_diagnostics/runs/20261104T141139232383-LSFamilyLeftFiniteTypeSchemeBridgeProfile/receipt.json"
+  }
+}

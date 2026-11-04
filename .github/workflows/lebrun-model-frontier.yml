@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent native frontiers
+name: LeBrun-Salamon Cartesian gate and remaining model tail
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  cartesian-and-spreading:
+  model:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -31,165 +31,76 @@ jobs:
           run-id: 41782933633
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
-      - name: Download verified native cache 2 from 41796955283
+      - name: Download verified native cache 2 from 41802436148
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-independent-model-41796955283-1
-          run-id: 41796955283
+          name: lebrun-model-product-41802436148-1
+          run-id: 41802436148
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/1
-      - name: Download verified native cache 3 from 41799583931
+      - name: Download verified native cache 3 from 41802436148
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-cartesian-spreading-41802436148-1
+          run-id: 41802436148
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/2
+      - name: Download verified native cache 4 from 41799583931
         uses: actions/download-artifact@v4
         with:
           name: lebrun-independent-rational-41799583931-1
           run-id: 41799583931
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/2
-      - name: Download verified native cache 4 from 41800804867
+          path: lebrun-cache-inputs/3
+      - name: Download verified native cache 5 from 41800804867
         uses: actions/download-artifact@v4
         with:
           name: lebrun-arc-spreading-41800804867-1
           run-id: 41800804867
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/3
+          path: lebrun-cache-inputs/4
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact Cartesian helper and namespace-repaired spreading
+      - name: Check exact Cartesian transport first
+        id: cartesian
+        continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSCartesianSourceDifferential --module LSFiniteTypeSpreading --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSCartesianSourceDifferential --keep-going --timeout 300
+      - name: Expose early Cartesian diagnostics and receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
+      - name: Upload early Cartesian evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-cartesian-spreading-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-cartesian-early-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-
-  product:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Check out exact immutable snapshot
-        uses: actions/checkout@v4
-      - name: Verify exact source manifest
-        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
-      - name: Restore pinned stock runtime
+      - name: Check remaining model tail only after Cartesian passes
+        id: model
+        if: steps.cartesian.outcome == 'success'
+        continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41782933633
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-current-full-41782933633-1
-          run-id: 41782933633
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Download verified native cache 2 from 41796955283
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-model-41796955283-1
-          run-id: 41796955283
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/1
-      - name: Download verified native cache 3 from 41799583931
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-rational-41799583931-1
-          run-id: 41799583931
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/2
-      - name: Download verified native cache 4 from 41800804867
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-arc-spreading-41800804867-1
-          run-id: 41800804867
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/3
-      - name: Restore only exact coherent native artifact union
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check measured model source-product helper
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelSourceProductTransport --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericComparison --keep-going --timeout 300
+      - name: Expose final exact native model diagnostics and receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
+      - name: Upload final native model evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-model-product-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-model-tail-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-
-  smooth:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Check out exact immutable snapshot
-        uses: actions/checkout@v4
-      - name: Verify exact source manifest
-        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
-      - name: Restore pinned stock runtime
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
-      - name: Download verified native cache 1 from 41782933633
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-current-full-41782933633-1
-          run-id: 41782933633
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/0
-      - name: Download verified native cache 2 from 41796955283
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-model-41796955283-1
-          run-id: 41796955283
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/1
-      - name: Download verified native cache 3 from 41799583931
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-rational-41799583931-1
-          run-id: 41799583931
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/2
-      - name: Download verified native cache 4 from 41800804867
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-arc-spreading-41800804867-1
-          run-id: 41800804867
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/3
-      - name: Restore only exact coherent native artifact union
-        run: |
-          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact smooth-family coordinate block
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothCoordinates --keep-going --timeout 300
-      - name: Expose exact native diagnostics and revalidated receipts
+      - name: Enforce successful Cartesian and model gates
         if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native frontier evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-family-smooth-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
+        run: |
+          test "${{ steps.cartesian.outcome }}" = success
+          test "${{ steps.model.outcome }}" = success

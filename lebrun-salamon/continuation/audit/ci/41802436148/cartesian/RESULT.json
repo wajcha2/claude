@@ -1,0 +1,105 @@
+{
+  "schema": "lebrun-native-frontier-result-v1",
+  "run_id": 41802436148,
+  "job_id": 126481210495,
+  "commit": "8d8accc012d4f9808bcd79174bdaf8a6e9cae0f4",
+  "summary": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "8d8accc012d4f9808bcd79174bdaf8a6e9cae0f4",
+    "source_modules": 279,
+    "selected_modules": 211,
+    "accepted_modules": 210,
+    "failed_modules": [
+      "LSCartesianSourceDifferential"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 185,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "diagnostics": [
+    {
+      "module": "LSCartesianSourceDifferential",
+      "status": "failed",
+      "source_sha256": "764d237726758e71360cbc3f1c6350515b94db90b19535eb3e7caf007c724403",
+      "return_code": 1,
+      "seconds": 8.837,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\ncase h\nC D B : Scheme\npiC : C ⟶ B\npiD : D ⟶ B\nr : C ⟶ D\nhr : r ≫ piD = piC\nh : r ≫ piD = piC ≫ 𝟙 B\nU : D.Opens\nz : RingSections D U\n⊢ r ≫ piD = piC",
+          "endPos": {
+            "column": 54,
+            "line": 55
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCartesianSourceDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 67,
+            "line": 44
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "typeclass instance problem is stuck\n  IsIso (?m.475 ≫ RelativeDifferential.cotangent piC piD r b ⋯)\n\nNote: Lean will not try to resolve this typeclass instance problem because the third and fifth type arguments to `IsIso` contain metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.\n\nHint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.",
+          "endPos": {
+            "column": 36,
+            "line": 93
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCartesianSourceDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 93
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `transpose_comp`",
+          "endPos": {
+            "column": 22,
+            "line": 112
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCartesianSourceDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 8,
+            "line": 112
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nB : Scheme\nP : ProjectiveLineOverC\nsB : B ⟶ ComplexBase\nM : OModule (Parametrized.Source P sB)\nq : cotangentSheaf (Parametrized.parameter P sB) ⟶ dualSheaf M\nd : ℕ\nX : SmoothProperComplexVariety d\ne : Parametrized.Source P sB ⟶ X.scheme\nhe : e ≫ X.structureMap = Parametrized.parameter P sB ≫ sB\nthis✝ : IsIso (dualBaseChange (Parametrized.projection P sB) (cotangentSheaf P.structureMap)) :=\n  dualBaseChange_isIso (Parametrized.projection P sB)\n    (smooth_cotangent_rank P.structureMap 1 (projectiveLineVariety P).smooth)\nthis : IsIso (CotangentBaseChange.canonicalMap P.structureMap sB) :=\n  StandardInputs.cotangentPullback_isIso P.structureMap sB\n⊢ StandardConicDifferential.transpose\n        (RelativeDifferential.cotangent (Parametrized.parameter P sB) (projectiveLineVariety P).structureMap\n            (Parametrized.projection P sB) sB ⋯ ≫\n          q) ≫\n      inv (dualBaseChange (Parametrized.projection P sB) (cotangentSheaf (projectiveLineVariety P).structureMap)) ≫\n        dualBaseChange (Parametrized.projection P sB) (cotangentSheaf P.structureMap) ≫\n          dualMap (Parametrized.relativeCotangent P sB X e he) ≫\n            inv (dualBaseChange e (cotangentSheaf X.structureMap)) =\n    StandardConicDifferential.transpose\n        (RelativeDifferential.cotangent (Parametrized.parameter P sB) X.structureMap e sB he ≫ q) ≫\n      inv (dualBaseChange e (cotangentSheaf X.structureMap))",
+          "endPos": {
+            "column": 11,
+            "line": 123
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSCartesianSourceDifferential.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 74,
+            "line": 106
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "raw_job_log_sha256": "047671d14f8e67a94cff46fd005218ed2a2d839797f9c2b7084f1d6775d02495",
+  "acceptance_ledger_modified": false,
+  "scope": "Exact selected-module result only. The overall279-source graph and Point1 reverse-dependency acceptance gate remain pending."
+}

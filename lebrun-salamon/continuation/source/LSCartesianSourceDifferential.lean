@@ -52,7 +52,7 @@ theorem sameBase {C D B : Scheme} (piC : C ⟶ B) (piD : D ⟶ B)
         (pullLocalSection r (cotangentSheaf piD) U
           ((cotangentPresentation piD).differential.apply U z)))
   rw [RelativeDifferential.cotangent_differential,
-    cotangentMap_differential, differential_transport]
+    cotangentMap_differential, differential_transport (r ≫ piD) piC hr]
 
 /-- Canonical relative differentials are isomorphisms on every
 Cartesian source square, including a separately named source model. -/
@@ -90,7 +90,10 @@ theorem isIso_of_isPullback {C A D B : Scheme}
         RelativeDifferential.cotangent piC piD r b h.w) := by
     rw [hc']
     infer_instance
-  exact IsIso.of_isIso_comp_left _ _
+  exact IsIso.of_isIso_comp_left
+    (compositionPullback i.hom (pullback.fst piD b) r
+      h.isoPullback_hom_fst (cotangentSheaf piD)).hom
+    (RelativeDifferential.cotangent piC piD r b h.w)
 
 /-- An arbitrary actual source form factors through the relative
 derivative of a parametrized target map, with no scalar normalization. -/
@@ -107,9 +110,9 @@ theorem fromForm_factor {B : Scheme} (P : ProjectiveLineOverC)
   letI := dualBaseChange_isIso (Parametrized.projection P sB)
     (smooth_cotangent_rank P.structureMap 1 (projectiveLineVariety P).smooth)
   letI := LeBrunSalamon.StandardInputs.cotangentPullback_isIso P.structureMap sB
-  simp only [LogVelocity.fromForm, Parametrized.differential, Category.assoc,
-    IsIso.inv_hom_id_assoc]
-  rw [← transpose_comp]
+  simp only [LogVelocity.fromForm, Parametrized.differential, projectiveLineVariety,
+    Category.assoc, IsIso.inv_hom_id_assoc]
+  rw [← Category.assoc, ← StandardConicDifferential.transpose_comp]
   have hcot : Parametrized.relativeCotangent P sB X e he ≫
       (RelativeDifferential.cotangent (Parametrized.parameter P sB) P.structureMap
         (Parametrized.projection P sB) sB pullback.condition ≫ q) =

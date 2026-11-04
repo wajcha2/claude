@@ -1,0 +1,82 @@
+{
+  "schema": "lebrun-scoped-native-passes-v1",
+  "receipts": [
+    {
+      "module": "LSModelSourceProductTransport",
+      "receipt_sha256": "045345ff3bfeb2513a3bfe5c82a64de3dd18ec83e652315ede0b801eb1ec7be8",
+      "key": {
+        "source_sha256": "95e73ed916ce7d46610c4287113a9387c9c7537340d08354837b3dbb4efa0e7b",
+        "imports": [
+          "LSModelDifferential",
+          "LSRegularModelPair",
+          "LSFamilyBaseChange"
+        ],
+        "dependency_artifacts": {
+          "LSModelDifferential": {
+            "sha256": "d08d407440be1a44471bd212311cb17b9e0509145b1a1f9c005be34581c9171a",
+            "kind": "project"
+          },
+          "LSRegularModelPair": {
+            "sha256": "1ab9b268b191823c12670be2c8d0f8c097d9f7abcdf4a11e79bcfb135029a990",
+            "kind": "project"
+          },
+          "LSFamilyBaseChange": {
+            "sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "8bd93eafebb57b0d38f79740f511efe6761fa5d1dcad18373084cc9378844531",
+      "source_ancestry_fingerprint": "3b877612c47f9553c27cd749bd96e24d9198356cde5d176fd7400ebc39e47f9e",
+      "seconds": 81.033,
+      "stdout_sha256": "1eb9c0ae4410464fc488403fc483d9b217323456c77d6c38bd8f7ab070f954f2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    },
+    {
+      "module": "LSFiniteTypeSpreading",
+      "receipt_sha256": "b1cdc315242fa06a0d3a640c29e98114eac8b261759264c273d711a70077e57a",
+      "key": {
+        "source_sha256": "d8abe410ba3abc712370cb762b6f5a0587435e94d075c126c4beae3962e26b3a",
+        "imports": [
+          "LSFamilyBaseChange"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyBaseChange": {
+            "sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "ce1852b635f58d506f3f661cd25bca4c4902a792628aaec14b7deccabdd35706",
+      "source_ancestry_fingerprint": "df8a8143a9fc0bdadfce5b6636d2c364bd07cdc71be5e5c3fb4e57e1709fbb72",
+      "seconds": 3.223,
+      "stdout_sha256": "5b7cbc2ff3f3882128c7c75b74de478eb2b5c0f3ba505f2f818fd8b90fa035ee",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    }
+  ],
+  "point1_accepted": false,
+  "whole_source_graph_passed": false,
+  "acceptance_ledger_modified": false
+}

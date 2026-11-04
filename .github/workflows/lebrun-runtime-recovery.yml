@@ -1,4 +1,4 @@
-name: LeBrun-Salamon exact official Lean archive recovery
+name: LeBrun-Salamon exact source recovery package
 
 on:
   push:
@@ -11,44 +11,79 @@ permissions:
   actions: read
 
 jobs:
-  official-lean-archive:
+  exact-source-package:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Retrieve and verify unchanged official release archive
+      - name: Check out exact native279 source context
+        uses: actions/checkout@v4
+        with:
+          ref: 62490515bee8c335bd32077dffc369370f6b9d1f
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /lebrun-salamon/continuation/source/
+            /lebrun-salamon/continuation/scripts/
+            /lebrun-salamon/continuation/target/
+            /lebrun-salamon/continuation/SOURCE.sha256
+            /lebrun-salamon/continuation/CONTINUATION_FILES.sha256
+            /lebrun-salamon/continuation/TOOLCHAIN.lock.json
+            /lebrun-salamon/continuation/audit/point1_checkpoint/FREEZE.json
+            /lebrun-salamon/continuation/audit/ci/41763014879/point1/VALIDATED_SEEDS.json
+      - name: Bind exact source and fixed native-boundary metadata
         run: |
-          mkdir -p recovered-runtime
-          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 30 --max-time 600 https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst --output recovered-runtime/lean-4.36.0-rc1-linux.tar.zst
           python3 - <<'PY'
           from pathlib import Path
-          import hashlib, json, os
-          p = Path("recovered-runtime/lean-4.36.0-rc1-linux.tar.zst")
-          h = hashlib.sha256()
-          with p.open("rb") as f:
-              for chunk in iter(lambda: f.read(1048576), b""):
-                  h.update(chunk)
-          expected = "26b3cea1a006ad419215520b8668dcd3f6a9eeba1a123756563a739f9c6274b2"
-          assert h.hexdigest() == expected, h.hexdigest()
+          import hashlib, json, os, shutil, subprocess
+          root = Path("lebrun-salamon/continuation")
+          target = Path("source-recovery/lebrun-salamon/continuation")
+          commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          assert commit == "62490515bee8c335bd32077dffc369370f6b9d1f"
+          digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          manifest = root / "SOURCE.sha256"
+          assert digest(manifest) == "ad8b562cfd3ac350b0826c218fc29a5229f4d6d6546b9fa6cf81202bada5cd9b"
+          rows = {}
+          for line in manifest.read_text().splitlines():
+              h, name = line.split("  ", 1)
+              assert digest(root / name) == h, name
+              rows[name] = h
+          freeze = json.loads((root / "audit/point1_checkpoint/FREEZE.json").read_text())
+          assert len(rows) == 291 == freeze["source_modules"]
+          assert rows == freeze["source_sha256"]
+          fixed = {
+              "TOOLCHAIN.lock.json": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
+              "target/MainStatement.lean": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+              "audit/ci/41763014879/point1/VALIDATED_SEEDS.json": "b4681aeb45d66ae34215850d7957f4d9a64c04c50470b8c517c796a1347db533"
+          }
+          for name, expected in fixed.items():
+              assert digest(root / name) == expected, name
+          for name in ("source", "scripts", "target"):
+              shutil.copytree(root / name, target / name)
+          files = ["SOURCE.sha256", "CONTINUATION_FILES.sha256", "TOOLCHAIN.lock.json", "audit/point1_checkpoint/FREEZE.json", "audit/ci/41763014879/point1/VALIDATED_SEEDS.json"]
+          for name in files:
+              dest = target / name
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(root / name, dest)
+          copied = {str(p.relative_to(target)): digest(p) for p in sorted(target.rglob("*")) if p.is_file()}
           record = {
-              "schema": "lebrun-official-lean-archive-recovery-v1",
-              "source_url": "https://github.com/leanprover/lean4/releases/download/v4.36.0-rc1/lean-4.36.0-rc1-linux.tar.zst",
-              "release": "v4.36.0-rc1",
-              "archive": p.name,
-              "sha256": expected,
-              "bytes": p.stat().st_size,
+              "schema": "lebrun-exact-source-recovery-package-v1",
+              "source_commit": commit,
+              "workflow_commit": os.environ["GITHUB_SHA"],
               "run_id": os.environ["GITHUB_RUN_ID"],
-              "source_commit": os.environ["GITHUB_SHA"],
-              "archive_bytes_modified": False,
+              "source_modules": 291,
+              "source_manifest_sha256": digest(manifest),
+              "fixed_hashes": fixed,
+              "copied_files_sha256": copied,
+              "scope": "Partial source recovery package. All source files, scripts, frozen target, and required190 basis are exact. Historical audit files not listed here are intentionally outside the package; the original complete CONTINUATION_FILES manifest is preserved as provenance only.",
               "compiler_invoked": False,
               "proof_acceptance_claim": False
           }
-          (p.parent / "OFFICIAL_LEAN_SOURCE.json").write_text(json.dumps(record, indent=2) + "\n")
-          print(json.dumps(record), flush=True)
+          Path("source-recovery/SOURCE_RECOVERY_RECEIPT.json").write_text(json.dumps(record, indent=2) + "\n")
+          print(json.dumps({"source_commit": commit, "source_modules": 291, "copied_files": len(copied), "fixed_hashes_verified": True}), flush=True)
           PY
-      - name: Preserve unchanged official release archive
+      - name: Preserve exact partial source checkout
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-official-lean-4.36.0-rc1-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovered-runtime/
-          compression-level: 0
+          name: lebrun-source-recovery-62490515-${{ github.run_id }}-${{ github.run_attempt }}
+          path: source-recovery/
+          compression-level: 6
           if-no-files-found: error

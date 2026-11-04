@@ -1,0 +1,66 @@
+{
+  "schema": "lebrun-model-numerator-transport-delivery-v1",
+  "scope": "Complete local kernel-checked diagnostic profile, with exact uninstrumented source recovered by inverse instrumentation. Actual stock/native replay remains required; no acceptance flags or existing native receipt keys modified.",
+  "baseline": {
+    "git_blob": "a345fffa3f4e4bef7ab2f2b7766b70dabac97e05",
+    "sha256": "dce28b1732f8e0db7dc2ccc0190db455932ec112eb3b558028a7a21eb1d616ad"
+  },
+  "candidate": {
+    "module": "LSModelNumeratorTransport",
+    "git_blob": "b33164b35f7695013430f17ea1225e25417ac2ca",
+    "sha256": "7e9408ab8395539971c60a2daebc282bc4bf83596eb2e24cef089bca38c6d6cf",
+    "imports": [
+      "LSModelGenericParametrization",
+      "LSFamilySchemeTransport"
+    ],
+    "declaration_count": 53,
+    "new_admission_tokens": 0
+  },
+  "public_header": {
+    "declaration": "LeBrunSalamon.Construction.TraitContact.ModelGenericComparison.numerator_transport",
+    "exact_bytes_equal": true,
+    "characters": 1776,
+    "sha256": "c0e04d46a0272cef93215b7a034255b6db3e4510ac40f285a125bf9785cb40b1",
+    "scope": "Exact lexical header equality; actual stock theorem checking remains required."
+  },
+  "profile": {
+    "sha256": "5ab7e1421b31c2ff88f9ff2ddd4bbc4b5d627695f56c03d50442210516356fda",
+    "marker_commands_removed": 54,
+    "added_imports": [
+      "Lean"
+    ],
+    "added_options": [
+      "stderrAsMessages false",
+      "Elab.async false",
+      "profiler true"
+    ],
+    "inverse_recovers_actual_exactly": true,
+    "run": "root_diagnostics/runs/20261104T154035841198-LSModelNumeratorFullAssemblyProfileV4",
+    "seconds": 62.307,
+    "return_code": 0,
+    "emitted_error_count": 0,
+    "complete_success": true,
+    "all_guards_stable": true,
+    "output_sha256": "5b371554eb614bd4119d65852d47196f3c510fc941d2a02c6af36ced77635cc9"
+  },
+  "prior_guards": [
+    "5004ff62994d79a505702de631087dd09c6f9385",
+    "8aa2ae3e9bebd0360522fdd39fc4814f924a4ea2"
+  ],
+  "component_evidence": [
+    "c030a8c0412ec1bbae89324b109db42745c5ec6d",
+    "b68eb86a4417db2895fdf40ea63999001c5326bc"
+  ],
+  "input_composition_helper": {
+    "source_blob": "db0b65e7054cc1086a137afe0b80bfdead6d47a3",
+    "local_evidence_blob": "a95fa1c8e33ca166c6dc0243080b9de89885b0ed",
+    "copied_block_unchanged": true
+  },
+  "changes": [
+    "Proves product pullback transport with explicit source/middle scheme equality transport and generic naturality.",
+    "Uses a generic distribution law and equality transport of the exact carriers/operations; the raw coefficient function is normalized generically.",
+    "Closes homogeneous section-composition and coefficient equalities independently; final distribution is opaque transitivity.",
+    "Closes each of three concrete product instances and the coefficient instance before the final generic three-term congruence.",
+    "Retains original public theorem header and discharges it with the proved expanded-source, term-transport, and expanded-target equalities."
+  ]
+}

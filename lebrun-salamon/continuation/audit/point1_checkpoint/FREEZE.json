@@ -1,11 +1,11 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T15:41:06Z",
-  "frozen_utc": "2026-11-04T15:41:06Z",
-  "parent_commit": "be5a1deb6924c1bdc459969f2027b8b59c50da37",
-  "base_tree": "c047098362533806b4cb2768df09688ed2b5fd9a",
+  "announced_utc": "2026-11-04T15:47:57Z",
+  "frozen_utc": "2026-11-04T15:47:57Z",
+  "parent_commit": "432b1267f92a8cd44aec63ec81119855a99dee64",
+  "base_tree": "5f1d269956cc2222ffbc3c571950603eb134eefe",
   "repository": "wajcha2/claude",
-  "branch": "codex/lebrun-current-proof-checkpoint-20261104",
+  "branch": "codex/lebrun-numerator-complete-source-20261104",
   "source_modules": 306,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
@@ -293,7 +293,7 @@
     "source/LSFamilyReparamProductTransport.lean": "b26a71e895bba0b4d3414a903132d739bfca0ff45579e80d9aade9b55efbe44e",
     "source/LSModelGenericParametrization.lean": "51aeeee65048a3354af9fa376a634637233b72c8db5aa7fd37760f95d375f1e0",
     "source/LSFormalArcModelTransport.lean": "030a551fc90167385c122676c55d80e5ac7626302a51bf7fe1405132505d85b8",
-    "source/LSModelNumeratorTransport.lean": "dce28b1732f8e0db7dc2ccc0190db455932ec112eb3b558028a7a21eb1d616ad",
+    "source/LSModelNumeratorTransport.lean": "7e9408ab8395539971c60a2daebc282bc4bf83596eb2e24cef089bca38c6d6cf",
     "source/LSModelSourceNumerator.lean": "f97017649a98db6612dce9e95792dfd1bf4961d4fcc802c2a39cee6e062995d9",
     "source/LSModelGenericNormalization.lean": "3bd01dee5f726fc0bf35eecadb60384de62776274c401b5c5357f87b7a562be0",
     "source/LSFamilyAdditiveExpansion.lean": "f8f416b600ce6d10d3b9d0a51c6513fbcaee9a26fb8ea9f5ef83f3621f7f8fff",
@@ -325,8 +325,8 @@
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Metadata and evidence only: preserve exact298 native production contexts and all190 audited ancestors; record completed Generic4 profile timeout and separate conditional/local findings. No proof-source or ledger change.",
-  "diagnostic_scope": "Clean306 production sources unchanged; diagnostic evidence is historical and supplies no actual-module acceptance.",
+  "scope": "Clean306 production sources: completed-local original numerator transport proof, exact baseline public header, all190 audited ancestor sources unchanged. Direct native numerator then Model5 profile/actual will run on a separate diagnostic branch.",
+  "diagnostic_scope": "Clean306 production sources only; actual numerator and model comparison remain pending native gates.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
     41856517767
@@ -341,9 +341,12 @@
   "newly_accepted_units": 0,
   "point1_accepted": false,
   "whole_source_graph_passed": false,
-  "selected_native_targets": [],
+  "selected_native_targets": [
+    "LSModelNumeratorTransport",
+    "LSModelGenericComparison"
+  ],
   "prior_native_receipt_union": 298,
-  "metadata_only_checkpoint": true,
+  "metadata_only_checkpoint": false,
   "known_verified_native_module_union_before_new_helper": 298,
   "point1_acceptance": false,
   "accepted_obligation_units": 30,

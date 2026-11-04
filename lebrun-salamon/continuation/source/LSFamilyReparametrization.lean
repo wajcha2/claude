@@ -1,5 +1,6 @@
 import LSFiniteTypeSpreading
 import LSContactLineTests
+import LSFamilyDescentReparametrization
 
 /-!
 # Reparametrization in families and over arbitrary fields

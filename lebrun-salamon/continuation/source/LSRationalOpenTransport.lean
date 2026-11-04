@@ -20,6 +20,7 @@ open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.Skeleton
 open LeBrunSalamon.PhaseTwentyEight.ExternalExchangeCoherenceProof
+open LeBrunSalamon.Refinement (pullbackSquareIso)
 
 namespace LeBrunSalamon.Construction.FamilyBivectors.OpenSection
 
@@ -53,6 +54,10 @@ theorem fromValue_eq_onWhole {Y : Scheme} (U : Y.Opens) {E : OModule Y}
         (E.presheaf.map (homOfLE (U.ι.image_preimage_le U)).op s))
   congr 1
   simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp, ← op_comp]
+  have hmap : eqToHom U.ι_image_top =
+      U.ι.opensFunctor.map (homOfLE U.ι_preimage_self.ge) ≫
+        homOfLE (U.ι.image_preimage_le U) := Subsingleton.elim _ _
+  rw [hmap]
 
 /-- Pullback of a globally realized local section is the successive
 local unit pullback on the actual inverse-image open. -/

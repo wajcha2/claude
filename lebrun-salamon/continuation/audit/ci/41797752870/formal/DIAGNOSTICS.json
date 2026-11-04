@@ -1,0 +1,63 @@
+[
+  {
+    "module": "LSRationalOpenTransport",
+    "status": "failed",
+    "source_sha256": "0d818fe5252249bb0b4c683586ce309c5227d698019173dbc26fdbff77d4ea00",
+    "return_code": 1,
+    "seconds": 4.925,
+    "errors": [
+      {
+        "caption": "",
+        "data": "unsolved goals\ncase e_6\nY : Scheme\nU : Y.Opens\nE : OModule Y\ns : SectionsOn E U\nhunit :\n  (Scheme.Modules.restrictAdjunction U.ι).unit.app E ≫\n      (Scheme.Modules.pushforward U.ι).map\n        (((Scheme.Modules.restrictAdjunction U.ι).leftAdjointUniq\n                (Scheme.Modules.pullbackPushforwardAdjunction U.ι)).hom.app\n          E) =\n    (Scheme.Modules.pullbackPushforwardAdjunction U.ι).unit.app E\nhu :\n  (ConcreteCategory.hom\n        (Scheme.Modules.Hom.app ((Scheme.Modules.restrictFunctorIsoPullback U.ι).hom.app E) (U.ι ⁻¹ᵁ U)))\n      ((ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (homOfLE ⋯).op)) s) =\n    pullLocalSection U.ι E U s\n⊢ (ConcreteCategory.hom ((Scheme.Modules.presheaf E).map (eqToHom ⋯).op)) s =\n    (ConcreteCategory.hom\n        ((Scheme.Modules.presheaf E).map ((Scheme.Hom.opensFunctor U.ι).map (homOfLE ⋯) ≫ homOfLE ⋯).op))\n      s",
+        "endPos": {
+          "column": 74,
+          "line": 55
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSRationalOpenTransport.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 62,
+          "line": 37
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Unknown identifier `pullbackSquareIso`\n\nNote: It is not possible to treat `pullbackSquareIso` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+        "endPos": {
+          "column": 26,
+          "line": 114
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSRationalOpenTransport.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.unknownIdentifier._namedError",
+        "pos": {
+          "column": 9,
+          "line": 114
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Unknown identifier `pullbackSquareIso`\n\nNote: It is not possible to treat `pullbackSquareIso` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+        "endPos": {
+          "column": 26,
+          "line": 129
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSRationalOpenTransport.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "lean.unknownIdentifier._namedError",
+        "pos": {
+          "column": 9,
+          "line": 129
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  }
+]

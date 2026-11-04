@@ -1,4 +1,5 @@
 import LSFamilyBaseChange
+import LSFamilyBivectorDescent
 import LSFieldParametrization
 import LSFamilyReparametrization
 

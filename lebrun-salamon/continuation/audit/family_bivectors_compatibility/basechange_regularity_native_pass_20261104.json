@@ -1,0 +1,110 @@
+{
+  "schema": "lebrun-independent-basechange-regularity-stock-passes-v1",
+  "created_utc": "2026-11-04T08:19:18.410Z",
+  "modules": [
+    {
+      "name": "LSFamilyBaseChange",
+      "source_git_blob": "1de656f0200be8b986f6fb28b42110b9a26bb97d",
+      "guard_record_git_blob": "b9afc386118426e749ea148d7fbda148863afb22",
+      "run": 41796955283,
+      "job": 126463190853,
+      "commit": "d7b9526da91d6e2848695b4b8ed60b0e6925fb3c",
+      "receipt": {
+        "module": "LSFamilyBaseChange",
+        "receipt_sha256": "6f48345be522b2f975f8554d1d8b000b45feeb99655dfde2c1801692724b58c0",
+        "key": {
+          "source_sha256": "103af662237b7852f746f7b548a118cbc1c7efbefa6f2acb3825f97e67bf64c8",
+          "imports": [
+            "LSFamilyDescentFibres"
+          ],
+          "dependency_artifacts": {
+            "LSFamilyDescentFibres": {
+              "sha256": "e4222af5b7902df30ff49eaf41040ced1098197cdb864a89eb2d964d4578e977",
+              "kind": "project"
+            }
+          },
+          "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+          "flags": [
+            "--json",
+            "-j1",
+            "-DElab.async=false",
+            "-M12000",
+            "-DmaxErrors=1000",
+            "-DmaxHeartbeats=2000000"
+          ]
+        },
+        "output_sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+        "source_ancestry_fingerprint": "a8f8f790fb02c854680f86e1059d67923122b6d0d26f2952731a6b96329a59f8",
+        "seconds": 174.558,
+        "stdout_sha256": "876d7a7696f28f18b4262c2e4f9fdf4f231c03801718c79ef5f92ee1ba483685",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cache_restore_provenance": null,
+        "cache_union_provenance": null
+      },
+      "selected_module_count": 99,
+      "selected_graph_all_passed": true,
+      "source_unchanged_Point1_nodes": 190,
+      "native_rechecked_Point1_nodes": 86,
+      "stock_status": "passed"
+    },
+    {
+      "name": "LSFormalArcRegularity",
+      "source_git_blob": "701a574e43d3c05c66e59f61c3be93fcb76561ab",
+      "guard_record_git_blob": "5a66aae839ba31a2eb4e0e032d7c624224fb59f0",
+      "run": 41797752870,
+      "job": 126465802095,
+      "commit": "d9787eb2e6b4965ed2a12c88672f574ab83ad67d",
+      "receipt": {
+        "module": "LSFormalArcRegularity",
+        "receipt_sha256": "5e51a382a3c38955e4cd9d4330504161eb27dbd8a5484ff8792bab454c667845",
+        "key": {
+          "source_sha256": "dfb4e62d36259b9709b539bfca175e2cdb4e091c9eb66659733de3c4ceb50431",
+          "imports": [
+            "LSOpenSectionTransport",
+            "LSFormalArcSections"
+          ],
+          "dependency_artifacts": {
+            "LSOpenSectionTransport": {
+              "sha256": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+              "kind": "project"
+            },
+            "LSFormalArcSections": {
+              "sha256": "aa777c2b413e57857fdecd0d874a6dfe4a653e14092325f69de1f33583fd64d5",
+              "kind": "project"
+            }
+          },
+          "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+          "flags": [
+            "--json",
+            "-j1",
+            "-DElab.async=false",
+            "-M12000",
+            "-DmaxErrors=1000",
+            "-DmaxHeartbeats=2000000"
+          ]
+        },
+        "output_sha256": "6fdc17600ec90c04b85f94855644a9e6d5d63e8bc767b8479462a0ac50a5f855",
+        "source_ancestry_fingerprint": "82736f023d1dd91273b554bd93c1079181300c9e9dc68bdcb6490387e0e1313d",
+        "seconds": 3.071,
+        "stdout_sha256": "803b3d0c8b5dcd4d35d407632daf283ecfc231834914f3a78a74ff331f0fc23a",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cache_restore_provenance": null,
+        "cache_union_provenance": null
+      },
+      "selected_module_count": 211,
+      "selected_graph_all_passed": true,
+      "source_unchanged_Point1_nodes": 190,
+      "native_rechecked_Point1_nodes": 185,
+      "stock_status": "passed"
+    }
+  ],
+  "public_statements_and_hypotheses_unchanged": true,
+  "new_admissions": 0,
+  "whole_graph_complete": false,
+  "acceptance_flags_modified": false,
+  "scope": "Two independent exact stock-compiler passes. Their later descendants respectively ModelGenericComparison and RationalOpenTransport still failed, and the whole reverse cone remains pending. Local diagnostic history is not promoted into stock receipts.",
+  "history": {
+    "basechange_local_whole_timeout_receipt": "4e3ff984f46a781a19c1bed621de2a1a02648628",
+    "basechange_generic_prefix_record": "64031d39ddcf1bd9f966d7be9055dbf26fb555a4"
+  }
+}

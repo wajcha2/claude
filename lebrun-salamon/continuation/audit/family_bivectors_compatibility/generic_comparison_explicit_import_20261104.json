@@ -1,0 +1,20 @@
+{
+  "schema": "lebrun-generic-family-explicit-import-v1",
+  "created_utc": "2026-11-04T08:07:18.987Z",
+  "module": "LSGenericFamilyComparison",
+  "baseline_sha256": "6c27e461fa7bd48862c2139544baf46d13ccbe4946b9d7de365814bf21d22b13",
+  "baseline_git_blob": "4f3b1cd29a4b207774835bc59500c47813bd4038",
+  "candidate_sha256": "f8aee18fde27a5ce53754d22bc6a58b96ddb5b1c54222bb5796c0c9f4c5d4a63",
+  "candidate_git_blob": "47a9d5a25d5c46500ad8294526b6639927117fc9",
+  "patch": {
+    "before": "import LSFamilyBaseChange\n",
+    "after": "import LSFamilyBaseChange\nimport LSFamilyBivectorDescent\n",
+    "expected_matches": 1
+  },
+  "all_existing_bytes_other_than_import_insertion_unchanged": true,
+  "proofs_and_public_headers_unchanged": true,
+  "new_admissions": 0,
+  "status": "pending original Descent tail and FamilyReparametrization native prerequisites",
+  "reason": "After BaseChange explicitly imports only Fibres, this module must explicitly import the original Descent tail it uses: SmoothFamily.smoothLeft/smoothRight/evaluation and their descent normalization. No generic fibre theorem is silently substituted for those definitions.",
+  "scope": "Dependency-only candidate, not compiled and no accepted source/ref/ledger mutation."
+}

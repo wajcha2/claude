@@ -90,7 +90,7 @@ theorem unitPlane_parameter :
     ((polynomialLine (parameterPolynomial 0)).appTop Smoothing.parameterFunction) = _
   rw [polynomialLine_parameter, unitPlane, planeFromFunctions_apply,
     parameterMap_parameter]
-  simp only [parameterPolynomial, if_pos rfl, MvPolynomial.eval₂_mul,
+  simp only [parameterPolynomial, if_pos rfl, if_true, if_false, MvPolynomial.eval₂_mul,
     MvPolynomial.eval₂_X, show (1 : Fin 2) ≠ 0 by decide, if_neg, one_mul]
 
 def unitModel : Trait ⟶ Model F a :=
@@ -109,14 +109,14 @@ def unitModel : Trait ⟶ Model F a :=
   change unitModel F a ≫ (LogarithmicSource.toUniversal F a ≫ F.left) = _
   rw [← Category.assoc, unitModel_universal, Category.assoc, (modelMap_spec F 0).2.1]
   simp only [leftPolynomial, leftIndex, if_pos rfl, show (0 : Fin 3) ≠ 1 by decide,
-    if_neg, Category.assoc]
+    if_neg, if_true, if_false, Category.assoc]
 
 @[reassoc] theorem unitModel_right : unitModel F a ≫ modelRight F a =
     (unitPlane a ≫ polynomialLine (MvPolynomial.X 1)) ≫ (ratioPoint 0).val := by
   change unitModel F a ≫ (LogarithmicSource.toUniversal F a ≫ F.right) = _
   rw [← Category.assoc, unitModel_universal, Category.assoc, (modelMap_spec F 0).2.2]
   simp only [rightPolynomial, rightIndex, show (0 : Fin 3) ≠ 1 by decide,
-    show (0 : Fin 3) ≠ 2 by decide, if_neg, Category.assoc]
+    show (0 : Fin 3) ≠ 2 by decide, if_neg, if_true, if_false, Category.assoc]
 
 def genericUnit : GenericPoint ⟶ source F a :=
   pullback.lift (genericPoint ≫ unitModel F a) (𝟙 GenericPoint) (by
@@ -186,14 +186,18 @@ theorem nodeOpen_nonempty : (nodeOpen F a : Set (Square F a)).Nonempty := by
         modelRight F a) x ∈ ratioOpen 0)
   constructor
   · constructor
-    · rw [hl, ← ratioPoint_range]
+    · change _ ∈ (ratioOpen 0 : Set ProjectiveLine)
+      rw [hl, ← ratioPoint_range]
       exact ⟨((genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) x, rfl⟩
-    · rw [hr, ← ratioPoint_range]
+    · change _ ∈ (ratioOpen 0 : Set ProjectiveLine)
+      rw [hr, ← ratioPoint_range]
       exact ⟨((genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) x, rfl⟩
   · constructor
-    · rw [hl', ← ratioPoint_range]
+    · change _ ∈ (ratioOpen 0 : Set ProjectiveLine)
+      rw [hl', ← ratioPoint_range]
       exact ⟨((genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) x, rfl⟩
-    · rw [hr', ← ratioPoint_range]
+    · change _ ∈ (ratioOpen 0 : Set ProjectiveLine)
+      rw [hr', ← ratioPoint_range]
       exact ⟨((genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) x, rfl⟩
 
 /-- The node chart contains an actual dense affine test of the whole
@@ -925,7 +929,7 @@ theorem right {Y : Scheme} {E E' H H' : OModule Y}
   rw [tensorMap_apply, GlobalScalars.scalarEnd_app, map_smul, tensorMap_apply]
   simp only [GlobalScalars.scalarEnd_app, map_smul, LinearMap.smul_apply]
 
-theorem section {Y : Scheme} {E : OModule Y} (s : AlgebraicSection E)
+theorem «section» {Y : Scheme} {E : OModule Y} (s : AlgebraicSection E)
     (r : RingSections Y ⊤) :
     s ≫ GlobalScalars.scalarEnd E r = scalarSection r ≫ s := by
   rw [← section_scale]
@@ -946,7 +950,7 @@ theorem relative_right {C B : Scheme} (pi : C ⟶ B)
     rw [← pullback.condition]
   unfold RelativeSquare.boxMap
   rw [Functor.map_comp, LineEndomorphisms.scalarEnd_pullback, hr, right,
-    ← Category.assoc, section]
+    ← Category.assoc, «section»]
   simp only [Category.assoc]
 
 theorem relative_left {C B : Scheme} (pi : C ⟶ B)

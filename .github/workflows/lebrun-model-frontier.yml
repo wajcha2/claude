@@ -1,4 +1,4 @@
-name: LeBrun-Salamon independent current comparison frontiers
+name: LeBrun-Salamon independent rational and arc frontiers
 
 on:
   push:
@@ -17,9 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: formal-arc
-            early: LSFormalArcRegularity
+          - id: rational
             target: LSRationalOpenTransport
+          - id: arc-parametrization
+            target: LSArcParametrization
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -39,55 +40,30 @@ jobs:
           run-id: 41782933633
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/0
-      - name: Download exact native cache 2 from 41793572611
+      - name: Download exact native cache 2 from 41796955283
         uses: actions/download-artifact@v4
         with:
-          name: lebrun-model-frontier-41793572611-1
-          run-id: 41793572611
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/1
-      - name: Download exact native cache 3 from 41792520758
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-descent-resource-41792520758-1
-          run-id: 41792520758
-          github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/2
-      - name: Download the passed OpenSection and formal-arc dependency context
-        uses: actions/download-artifact@v4
-        with:
-          name: lebrun-independent-formal-arc-41796955283-1
+          name: lebrun-independent-model-41796955283-1
           run-id: 41796955283
           github-token: ${{ github.token }}
-          path: lebrun-cache-inputs/3
+          path: lebrun-cache-inputs/1
+      - name: Download exact native cache 3 from 41797752870
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-independent-formal-arc-41797752870-1
+          run-id: 41797752870
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/2
       - name: Restore only exact coherent native artifact unions
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check the independent early prerequisite
-        id: early
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module ${{ matrix.early }} --keep-going --timeout 300
-      - name: Verify early native results and expose exact diagnostics
-        id: early_report
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve early native evidence immediately
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-independent-${{ matrix.id }}-early-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: error
-      - name: Check the dependent comparison
-        if: steps.early.outcome == 'success'
+      - name: Check the independent frontier with exact stock dependencies
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module ${{ matrix.target }} --keep-going --timeout 300
-      - name: Expose exact final diagnostics and revalidated receipts
-        if: always() && steps.early_report.outcome == 'success'
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Preserve current native comparison evidence
+      - name: Preserve current native frontier evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -97,6 +73,3 @@ jobs:
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-      - name: Keep an unsuccessful prerequisite visible in the job result
-        if: always()
-        run: test "${{ steps.early.outcome }}" = success

@@ -1,0 +1,131 @@
+[
+  {
+    "module": "LSModelGenericComparison",
+    "status": "failed",
+    "source_sha256": "28cefd2265aecf4b7f6a352276cc709158f09edeed7e0b368dcbed065e73fd0c",
+    "return_code": 124,
+    "seconds": 300.375,
+    "errors": [
+      {
+        "caption": "",
+        "data": "unsolved goals\ncase h\na : Coefficients\n⊢ MvPolynomial.eval₂ (complexConstants toC) (fun i => if i = 0 then 1 else coefficientSection a)\n      (if True then MvPolynomial.X 0 * MvPolynomial.X 1 else MvPolynomial.X 0) =\n    coefficientSection a",
+        "endPos": {
+          "column": 74,
+          "line": 94
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 77,
+          "line": 84
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nF : Smoothing.StandardSource\na : Coefficients\n⊢ unitPlane a ≫\n      polynomialLine\n          (if True then MvPolynomial.X 0 else if False then MvPolynomial.X 1 else MvPolynomial.X 0 * MvPolynomial.X 1) ≫\n        ↑(ratioPoint (if False then 1 else 0)) =\n    unitPlane a ≫ polynomialLine (MvPolynomial.X 0) ≫ ↑(ratioPoint 0)",
+        "endPos": {
+          "column": 27,
+          "line": 112
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 78,
+          "line": 108
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\nF : Smoothing.StandardSource\na : Coefficients\n⊢ unitPlane a ≫\n      polynomialLine (if False then MvPolynomial.X 0 * MvPolynomial.X 1 else MvPolynomial.X 1) ≫\n        ↑(ratioPoint (if False then 1 else 0)) =\n    unitPlane a ≫ polynomialLine (MvPolynomial.X 1) ≫ ↑(ratioPoint 0)",
+        "endPos": {
+          "column": 59,
+          "line": 119
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 78,
+          "line": 115
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0\n\ncase left.left\nF : Smoothing.StandardSource\na : Coefficients\nx : ↥GenericPoint := default\nhl :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\nhl' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\n⊢ (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0",
+        "endPos": {
+          "column": 32,
+          "line": 189
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 14,
+          "line": 189
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0\n\ncase left.right\nF : Smoothing.StandardSource\na : Coefficients\nx : ↥GenericPoint := default\nhl :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\nhl' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\n⊢ (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0",
+        "endPos": {
+          "column": 32,
+          "line": 191
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 14,
+          "line": 191
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0\n\ncase right.left\nF : Smoothing.StandardSource\na : Coefficients\nx : ↥GenericPoint := default\nhl :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\nhl' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\n⊢ (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0",
+        "endPos": {
+          "column": 33,
+          "line": 194
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 15,
+          "line": 194
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ↑(ratioOpen ?i)\nin the target expression\n  (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0\n\ncase right.right\nF : Smoothing.StandardSource\na : Coefficients\nx : ↥GenericPoint := default\nhl :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.first (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\nhl' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelLeft F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 0)) ≫ ↑(ratioPoint 0)\nhr' :\n  ((unitSquare F a ≫ toModelSquare F a) ≫ RelativeBox.second (modelProjection F a)) ≫ modelRight F a =\n    ((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)\n⊢ (((StableMaps.FormalArcs.genericPoint ≫ unitPlane a) ≫ polynomialLine (MvPolynomial.X 1)) ≫ ↑(ratioPoint 0)) x ∈\n    ratioOpen 0",
+        "endPos": {
+          "column": 33,
+          "line": 196
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSModelGenericComparison.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 15,
+          "line": 196
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": ""
+  }
+]

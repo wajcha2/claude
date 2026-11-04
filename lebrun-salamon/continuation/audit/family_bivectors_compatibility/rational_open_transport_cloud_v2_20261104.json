@@ -1,0 +1,72 @@
+{
+  "schema": "lebrun-rational-open-transport-repair-v2",
+  "created_utc": "2026-11-04T08:21:20.796Z",
+  "module": "LSRationalOpenTransport",
+  "baseline_commit": "d9787eb2e6b4965ed2a12c88672f574ab83ad67d",
+  "baseline_sha256": "0d818fe5252249bb0b4c683586ce309c5227d698019173dbc26fdbff77d4ea00",
+  "baseline_git_blob": "c278165d739e67c43f3ddbe1406291ab766fc7e3",
+  "candidate_sha256": "434f723eea81e5734162471946e21ac58cc9fe9178da55d4d019015465f87a02",
+  "candidate_git_blob": "f8ac0a9729f96770f57713280f2318177de45518",
+  "patches": [
+    {
+      "id": "open_only_actual_pullbackSquareIso_name",
+      "before": "open LeBrunSalamon.PhaseTwentyEight.ExternalExchangeCoherenceProof\n",
+      "after": "open LeBrunSalamon.PhaseTwentyEight.ExternalExchangeCoherenceProof\nopen LeBrunSalamon.Refinement (pullbackSquareIso)\n",
+      "expected_matches": 1
+    },
+    {
+      "id": "identify_the_actual_two_opens_category_arrows",
+      "before": "  congr 1\n  simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp, ← op_comp]\n",
+      "after": "  congr 1\n  simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp, ← op_comp]\n  have hmap : eqToHom U.ι_image_top =\n      U.ι.opensFunctor.map (homOfLE U.ι_preimage_self.ge) ≫\n        homOfLE (U.ι.image_preimage_le U) := Subsingleton.elim _ _\n  rw [hmap]\n",
+      "expected_matches": 1
+    }
+  ],
+  "diagnostic_run": 41797752870,
+  "diagnostic_job": 126465802095,
+  "diagnostic": {
+    "seconds": 4.925,
+    "error_count": 3,
+    "independent_causes": [
+      "residual equality of restriction maps along the unique arrows between two opens",
+      "two headers need the actual existing Refinement.pullbackSquareIso name"
+    ]
+  },
+  "public_headers_unchanged": true,
+  "public_declarations": [
+    "onWhole",
+    "fromValue_eq_onWhole",
+    "onWhole_pull",
+    "onWhole_local_comp",
+    "onWhole_local_composition",
+    "onWhole_composition",
+    "fromValue_pullback",
+    "fromValue_morphismRestrict",
+    "regular_of_normalized_generic_comparison"
+  ],
+  "new_admissions": 0,
+  "roundtrip_verified": true,
+  "local_diagnostic": {
+    "regularity": {
+      "status": "passed",
+      "seconds": 32.66,
+      "source_sha256": "dfb4e62d36259b9709b539bfca175e2cdb4e091c9eb66659733de3c4ceb50431",
+      "output_sha256": "6ab48ba24f043b595b0dfe0800a9eb5a8cb99123b8bae07ad300b516743fe67b",
+      "matches_stock_output": false
+    },
+    "rational": {
+      "status": "timed_out",
+      "seconds": 45.367,
+      "return_code": 124,
+      "emitted_errors": 0,
+      "source_and_direct_import_stable": true,
+      "output_produced": false
+    },
+    "receipt_git_blobs": {
+      "regularity_receipt": "c11f6de9d0a1aef7a4c76bc9ff37c2d773820367",
+      "rational_receipt": "575d917b0aad7fffd979c680807c1b547be169de"
+    },
+    "scope": "Immutable263 stock imports plus privately checked exact-source Regularity; diagnostic only. Local output differs from the stock artifact and is not used as a stock seed."
+  },
+  "status": "candidate sent for full stock replay; not accepted",
+  "scope": "The actual generic-point/open maps, nine public headers and all hypotheses are retained. The missing name is opened selectively; the extra proof identifies actual arrows in the thin category of opens. No target or acceptance ledger change."
+}

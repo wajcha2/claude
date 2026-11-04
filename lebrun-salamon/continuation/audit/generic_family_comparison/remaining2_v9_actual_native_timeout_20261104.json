@@ -1,0 +1,282 @@
+{
+  "schema": "lebrun-actual-native-failure-record-v1",
+  "module": "LSGenericFamilyComparison",
+  "candidate": "V9",
+  "source_sha256": "e0d0bea47e911707b85be43978a91ca885db7cc4659089e4d0822d50b7807906",
+  "source_blob": "d46f89f360dca24ea47689ac531cd992b959a872",
+  "commit": "aafd48cedd0f0411b399b8b8f36c084d85dd3184",
+  "run_id": 41876790558,
+  "job_id": 126738220926,
+  "official_artifact": {
+    "id": 13346928899,
+    "name": "lebrun-generic-field2-v9-actual-41876790558-1",
+    "size_in_bytes": 67857146,
+    "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13346928899",
+    "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13346928899/zip",
+    "expired": false,
+    "created_at": "2026-11-04T17:29:14Z",
+    "expires_at": "2027-02-02T17:21:14Z",
+    "updated_at": "2026-11-04T17:29:14Z",
+    "digest": "sha256:efc8638cec86c5f5799615e10db8240b2c477be65aad687fe14750faf0f22d37",
+    "workflow_run": {
+      "id": 41876790558,
+      "repository_id": 1384963622,
+      "head_repository_id": 1384963622,
+      "head_branch": "codex/lebrun-generic-field2-v9-20261104",
+      "head_sha": "aafd48cedd0f0411b399b8b8f36c084d85dd3184"
+    }
+  },
+  "scope": "A completed bounded actual-module attempt. Timeout with empty streams and no output gives no theorem acceptance or declaration-level localization. Do not retry this unchanged candidate without new evidence.",
+  "diagnostic": {
+    "module": "LSGenericFamilyComparison",
+    "status": "failed",
+    "source_sha256": "e0d0bea47e911707b85be43978a91ca885db7cc4659089e4d0822d50b7807906",
+    "return_code": 124,
+    "seconds": 300.336,
+    "errors": [],
+    "stderr": ""
+  },
+  "selected_stage": {
+    "schema": "lebrun-remote-stage-validation-v1",
+    "commit": "aafd48cedd0f0411b399b8b8f36c084d85dd3184",
+    "source_modules": 307,
+    "selected_modules": 126,
+    "accepted_modules": 125,
+    "failed_modules": [
+      "LSGenericFamilyComparison"
+    ],
+    "full_selected_graph_passed": false,
+    "whole_source_graph_passed": false,
+    "Point1_source_boundary_unchanged": 190,
+    "Point1_native_boundary_rechecked_in_this_stage": 88,
+    "all_final_hash_and_runtime_checks_passed": true,
+    "acceptance_ledger_modified": false
+  },
+  "failed_receipt": {
+    "schema": "lebrun-module-receipt-v1",
+    "status": "failed",
+    "module": "LSGenericFamilyComparison",
+    "source_ancestry_fingerprint": "383c787e61515216531053d8b129e703b2f35c10a6b4b9b8d885b5135aa3b74d",
+    "key": {
+      "source_sha256": "e0d0bea47e911707b85be43978a91ca885db7cc4659089e4d0822d50b7807906",
+      "imports": [
+        "LSGenericFamilyCartesianFieldComparison",
+        "LSGenericFamilyCartesianComparison",
+        "LSFamilyBaseChange",
+        "LSParametrizedBaseChange",
+        "LSFamilySmoothNormalization",
+        "LSFieldParametrization",
+        "LSFamilyReparametrization",
+        "LSGenericFamilyPointComparison",
+        "LSGenericFamilyFieldTransport"
+      ],
+      "dependency_artifacts": {
+        "LSGenericFamilyCartesianFieldComparison": {
+          "sha256": "d82e5196f5a7e89dd6d3609c104bc596d20259df9e32012d1880fe086cdec638",
+          "kind": "project"
+        },
+        "LSGenericFamilyCartesianComparison": {
+          "sha256": "04e0298d8548126b83018f7079d40c9262357319a93fc94efd2d57d598b36ea9",
+          "kind": "project"
+        },
+        "LSFamilyBaseChange": {
+          "sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+          "kind": "project"
+        },
+        "LSParametrizedBaseChange": {
+          "sha256": "490d99845a2caf29dcd498d4f6cd858078a545182171d4ba57c94a27ada68126",
+          "kind": "project"
+        },
+        "LSFamilySmoothNormalization": {
+          "sha256": "988995458843147593d805fbda3014755656c64da845658671469d4c04e4f44c",
+          "kind": "project"
+        },
+        "LSFieldParametrization": {
+          "sha256": "43679b2b27df70bdba5f81f0e2088ca5fdc4ca177e69158db85f360c0c8f5952",
+          "kind": "project"
+        },
+        "LSFamilyReparametrization": {
+          "sha256": "fe1be3ba76365e86a5a2596376b2d8d03a4c094975467f5c8e10bfa4e7fe79cd",
+          "kind": "project"
+        },
+        "LSGenericFamilyPointComparison": {
+          "sha256": "e2378d881bdd62a82c5c6af9dae70fddd1ac4eb07689f8a9895c93b48b279e7d",
+          "kind": "project"
+        },
+        "LSGenericFamilyFieldTransport": {
+          "sha256": "51ad30f844199c9a9ba2c4b1bea575e3bd52d0262287660e0031e0ce023ee32f",
+          "kind": "project"
+        }
+      },
+      "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ]
+    },
+    "command": [
+      "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000",
+      "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+      "-o",
+      "/home/runner/work/claude/claude/kernel-evidence/olean/LSGenericFamilyComparison.olean",
+      "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSGenericFamilyComparison.lean"
+    ],
+    "started_utc": "2026-11-04T17:24:01.878016+00:00",
+    "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T172401877983.stdout.jsonl",
+    "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T172401877983.stderr.txt",
+    "return_code": 124,
+    "finished_utc": "2026-11-04T17:29:02.215149+00:00",
+    "seconds": 300.336,
+    "source_and_dependencies_unchanged": true,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "failed_receipt_sha256": "21cd1b48115aa1b95bf497d13409e10c6f84e439a3d2e859e5f9552b866c426f",
+  "full_replay_verification_sha256": "98b504baf945029d76559142c183a92de47e89b59233092e37da1282a42d9813",
+  "decoded_job_log_sha256": "aa2f77eef0e6d5a6492d82202e4c63727e552d574d0a28c4b02bddf42c573539",
+  "independent_archive_verification": {
+    "schema": "lebrun-independent-failed-native-archive-validation-v1",
+    "artifact_id": 13346928899,
+    "artifact_name": "lebrun-generic-field2-v9-actual-41876790558-1",
+    "run_id": 41876790558,
+    "source_commit": "aafd48cedd0f0411b399b8b8f36c084d85dd3184",
+    "archive_sha256": "efc8638cec86c5f5799615e10db8240b2c477be65aad687fe14750faf0f22d37",
+    "full_verification_sha256": "98b504baf945029d76559142c183a92de47e89b59233092e37da1282a42d9813",
+    "source_sha256": "e0d0bea47e911707b85be43978a91ca885db7cc4659089e4d0822d50b7807906",
+    "failed_receipt_sha256": "21cd1b48115aa1b95bf497d13409e10c6f84e439a3d2e859e5f9552b866c426f",
+    "failed_receipt": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "failed",
+      "module": "LSGenericFamilyComparison",
+      "source_ancestry_fingerprint": "383c787e61515216531053d8b129e703b2f35c10a6b4b9b8d885b5135aa3b74d",
+      "key": {
+        "source_sha256": "e0d0bea47e911707b85be43978a91ca885db7cc4659089e4d0822d50b7807906",
+        "imports": [
+          "LSGenericFamilyCartesianFieldComparison",
+          "LSGenericFamilyCartesianComparison",
+          "LSFamilyBaseChange",
+          "LSParametrizedBaseChange",
+          "LSFamilySmoothNormalization",
+          "LSFieldParametrization",
+          "LSFamilyReparametrization",
+          "LSGenericFamilyPointComparison",
+          "LSGenericFamilyFieldTransport"
+        ],
+        "dependency_artifacts": {
+          "LSGenericFamilyCartesianFieldComparison": {
+            "sha256": "d82e5196f5a7e89dd6d3609c104bc596d20259df9e32012d1880fe086cdec638",
+            "kind": "project"
+          },
+          "LSGenericFamilyCartesianComparison": {
+            "sha256": "04e0298d8548126b83018f7079d40c9262357319a93fc94efd2d57d598b36ea9",
+            "kind": "project"
+          },
+          "LSFamilyBaseChange": {
+            "sha256": "5f5380e5aed8c71a18975091bd0b888a96f2cac7b73e37892da45cfca6039f14",
+            "kind": "project"
+          },
+          "LSParametrizedBaseChange": {
+            "sha256": "490d99845a2caf29dcd498d4f6cd858078a545182171d4ba57c94a27ada68126",
+            "kind": "project"
+          },
+          "LSFamilySmoothNormalization": {
+            "sha256": "988995458843147593d805fbda3014755656c64da845658671469d4c04e4f44c",
+            "kind": "project"
+          },
+          "LSFieldParametrization": {
+            "sha256": "43679b2b27df70bdba5f81f0e2088ca5fdc4ca177e69158db85f360c0c8f5952",
+            "kind": "project"
+          },
+          "LSFamilyReparametrization": {
+            "sha256": "fe1be3ba76365e86a5a2596376b2d8d03a4c094975467f5c8e10bfa4e7fe79cd",
+            "kind": "project"
+          },
+          "LSGenericFamilyPointComparison": {
+            "sha256": "e2378d881bdd62a82c5c6af9dae70fddd1ac4eb07689f8a9895c93b48b279e7d",
+            "kind": "project"
+          },
+          "LSGenericFamilyFieldTransport": {
+            "sha256": "51ad30f844199c9a9ba2c4b1bea575e3bd52d0262287660e0031e0ce023ee32f",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+        "-o",
+        "/home/runner/work/claude/claude/kernel-evidence/olean/LSGenericFamilyComparison.olean",
+        "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSGenericFamilyComparison.lean"
+      ],
+      "started_utc": "2026-11-04T17:24:01.878016+00:00",
+      "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T172401877983.stdout.jsonl",
+      "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSGenericFamilyComparison.20261104T172401877983.stderr.txt",
+      "return_code": 124,
+      "finished_utc": "2026-11-04T17:29:02.215149+00:00",
+      "seconds": 300.336,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "accepted_parent_contexts_exactly_matched": 301,
+    "all_parent_outputs_logs_native_keys_recursive_stamps_verified": true,
+    "failed_source_and_input_stamps_verified": true,
+    "failed_output_absent": true,
+    "export_directory": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41876790558-generic-field2-v9-e0d0",
+    "acceptance_credit": false
+  },
+  "point1_comparison_scope": {
+    "source_and_import_comparisons_in_stage": 190,
+    "native_boundary_outputs_rechecked_in_selected_stage": 88,
+    "all190_native_contexts_preserved_by_exact_matching_of_all301_previous_contexts": true
+  },
+  "production_native_contexts_retained": 301,
+  "production_source_modules": 307,
+  "original2_headers_and_scopes_preserved": true,
+  "independent_source_inverse_guard_blob": "221fee1e7592f182e723a658a9f7d129c31208bc",
+  "accepted_obligation_units": 30,
+  "total_obligation_units": 133,
+  "acceptance_ledger_modified": false,
+  "new_native_modules": 0
+}

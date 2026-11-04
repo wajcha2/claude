@@ -1,0 +1,94 @@
+{
+  "schema": "lebrun-direct-product-explicit-candidate-v1",
+  "production_module": "LSFamilyCurveProductDirect",
+  "source_git_blob": "3c0bb9f6cfad9cfeb79e9a59b1eaf85b0a55386a",
+  "source_sha256": "8b8012e3d9e7bfb36063c98904f818a92b36cb9acc3c90379a6f148d3e3db6a2",
+  "baseline_sha256": "ea6ee9342ea61bb4cf46c1841ec41ea353743a4fa0d752437c1ff0fc79697f84",
+  "header_guard": {
+    "baseline_sha256": "ea6ee9342ea61bb4cf46c1841ec41ea353743a4fa0d752437c1ff0fc79697f84",
+    "candidate_sha256": "8b8012e3d9e7bfb36063c98904f818a92b36cb9acc3c90379a6f148d3e3db6a2",
+    "header_count": 4,
+    "all_headers_identical": true,
+    "new_admissions": 0
+  },
+  "patch": {
+    "baseline_sha256": "ea6ee9342ea61bb4cf46c1841ec41ea353743a4fa0d752437c1ff0fc79697f84",
+    "candidate_sha256": "8b8012e3d9e7bfb36063c98904f818a92b36cb9acc3c90379a6f148d3e3db6a2",
+    "changes": [
+      {
+        "before": "  rw [product_comparison, ← Category.assoc]",
+        "after": "  rw [product_comparison P X f a b, ← Category.assoc]"
+      },
+      {
+        "before": "    (E := pullbackModule (firstProjection X.structureMap) E)\n    (F := pullbackModule (secondProjection X.structureMap) F)]",
+        "after": "    (E := pullbackModule (firstProjection X.structureMap) E)\n    (F := pullbackModule (secondProjection X.structureMap) F)\n    (pullSection (firstProjection P.structureMap) a ≫\n      (pullbackSquareIso (firstProjection P.structureMap) f.map\n        (curveSquareMap P f) (firstProjection X.structureMap)\n        (curveSquareMap_first P f).symm E).hom)\n    (pullSection (secondProjection P.structureMap) b ≫\n      (pullbackSquareIso (secondProjection P.structureMap) f.map\n        (curveSquareMap P f) (secondProjection X.structureMap)\n        (curveSquareMap_second P f).symm F).hom)]"
+      },
+      {
+        "before": "  rw [tensorSection_map]\n  congr 1\n  · rw [pullSection_naturality]",
+        "after": "  rw [tensorSection_map]\n  apply congrArg₂ (fun (u : AlgebraicSection (pullbackModule x₁ E))\n    (v : AlgebraicSection (pullbackModule x₂ F)) => tensorSection u v)\n  · rw [pullSection_naturality]"
+      },
+      {
+        "before": "  rw [product_comparison]\n",
+        "after": "  rw [product_comparison P X f a b]\n"
+      },
+      {
+        "before": "  rw [tensorSection_map]\n  congr 1\n  · rw [Category.assoc]",
+        "after": "  rw [tensorSection_map]\n  apply congrArg₂ (fun\n    (u : AlgebraicSection (pullbackModule (firstProjection P.structureMap ≫ f.map) E))\n    (v : AlgebraicSection (pullbackModule (secondProjection P.structureMap ≫ f.map) F)) =>\n      tensorSection u v)\n  · rw [Category.assoc]"
+      }
+    ],
+    "status": "instrumented exact proof bytes locally passed; production stock pending",
+    "new_admissions": 0
+  },
+  "local_diagnostic": {
+    "receipt": {
+      "schema": "lebrun-local-diagnostic-v1",
+      "scope": "Local diagnostic only: pinned stock frontend with recorded path adapter and M7200; stock CI remains acceptance authority.",
+      "module": "LSFamilyCurveProductDirectExplicitProfile",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 85.391,
+      "source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/reparam_diagnostics/LSFamilyCurveProductDirectExplicitProfile.lean",
+      "source_sha256": "b403381ca3078491752df0db9dceca5405351472cd4187778a3b3142f23ea47c",
+      "output_sha256": "b8a16a66bd76e25e364230d6ac747aa2ac7926e9361c68181c81dc3e31e205ff",
+      "source_and_runtime_and_direct_dependency_unchanged": true,
+      "direct_dependencies": {
+        "LSFamilyDescentTransport": {
+          "path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean/LSFamilyDescentTransport.olean",
+          "sha256": "62817e6f18d3be9507f62da2128f3aa81e7bb7c7ad97c4dc369d7942040741fc"
+        }
+      },
+      "validated_transitive_import_context": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean",
+      "config_sha256": "704664d3d62bb5757dab27451a33ec8f3e817ad8ffe923f9d6245f07ef18a3b4",
+      "runtime_flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M7200",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ],
+      "runtime_fingerprint_files": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/repository/lebrun-salamon/continuation/audit/runtime/explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6"
+      },
+      "stdout_sha256": "5a2a73c2804395e3f4b32960ba0ad2a159810d93d1bb7e1112c53607e5cf9331",
+      "stderr_sha256": "826012da5d1f0364da12c85d9e879b7329c965059063f67c880fccfa3cdf4c16",
+      "errors": []
+    },
+    "raw_profile": "DIRECT_EXPLICIT_ENTER_product_comparison\ntype checking took 14.3s\nDIRECT_EXPLICIT_ENTER_product_pullback\ntactic execution of Lean.Parser.Tactic.rewriteSeq took 9.05s\ntactic execution of Lean.Parser.Tactic.withAnnotateState took 138ms\ntype checking took 5.1s\nDIRECT_EXPLICIT_ENTER_product_normalize\nsimp took 271ms\nsimp took 260ms\ntype checking took 24.5s\nDIRECT_EXPLICIT_ENTER_product_atCurve\nDIRECT_EXPLICIT_EXIT_product_atCurve\ncumulative profiling times:\n\tattribute application 0.148ms\n\tcompilation (IR) 1.71ms\n\tcompilation (LCNF base) 18.4ms\n\tcompilation (LCNF impure) 3.06ms\n\tcompilation (LCNF mono) 7.76ms\n\tcongr simp thm 3.93ms\n\tdeclTypeLinter 1.04ms\n\tdo element elaborator 11.9ms\n\telaboration 175ms\n\tfix level params 0.509ms\n\tinstantiate metavars 1.55ms\n\tinterpretation 0.586ms\n\tlet-to-have transformation 0.563ms\n\tlinting 24ms\n\tparsing 8.07ms\n\tprocess pre-definitions 21.4ms\n\tshare common exprs 3.61ms\n\tsimp 560ms\n\ttactic execution 9.37s\n\ttacticAnalysis 1.35ms\n\ttype checking 44s\n\ttypeclass inference 140ms\n",
+    "scope": "Instrumented exact proof bytes passed with local path adapter and M7200; uninstrumented production source still requires stock CI. No acceptance is asserted from this diagnostic."
+  },
+  "new_admissions": 0,
+  "ref_updated": false
+}

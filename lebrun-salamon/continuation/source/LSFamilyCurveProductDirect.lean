@@ -68,15 +68,24 @@ theorem product_pullback (P : ProjectiveLineOverC) {d : ℕ}
   letI := tensorPullbackComparison_isIso r
     (pullbackModule (firstProjection X.structureMap) E)
     (pullbackModule (secondProjection X.structureMap) F)
-  rw [product_comparison, ← Category.assoc]
+  rw [product_comparison P X f a b, ← Category.assoc]
   erw [SectionTransport.tensor_pullback q (curveSquareMap P f) r hqr
     (E := pullbackModule (firstProjection X.structureMap) E)
-    (F := pullbackModule (secondProjection X.structureMap) F)]
+    (F := pullbackModule (secondProjection X.structureMap) F)
+    (pullSection (firstProjection P.structureMap) a ≫
+      (pullbackSquareIso (firstProjection P.structureMap) f.map
+        (curveSquareMap P f) (firstProjection X.structureMap)
+        (curveSquareMap_first P f).symm E).hom)
+    (pullSection (secondProjection P.structureMap) b ≫
+      (pullbackSquareIso (secondProjection P.structureMap) f.map
+        (curveSquareMap P f) (secondProjection X.structureMap)
+        (curveSquareMap_second P f).symm F).hom)]
   simp only [SectionTransport.tensor, Descent.LineValue.externalAlongIso,
     Iso.trans_inv, Iso.symm_inv, tensorIso, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
   rw [tensorSection_map]
-  congr 1
+  apply congrArg₂ (fun (u : AlgebraicSection (pullbackModule x₁ E))
+    (v : AlgebraicSection (pullbackModule x₂ F)) => tensorSection u v)
   · rw [pullSection_naturality]
     simp only [Category.assoc]
     rw [SectionTransport.square_comp q (firstProjection P.structureMap) f.map
@@ -110,12 +119,15 @@ theorem product_normalize (P : ProjectiveLineOverC) {d : ℕ}
   letI := tensorPullbackComparison_isIso (curveSquareMap P f)
     (pullbackModule (firstProjection X.structureMap) E)
     (pullbackModule (secondProjection X.structureMap) F)
-  rw [product_comparison]
+  rw [product_comparison P X f a b]
   simp only [SectionTransport.tensor, Descent.LineValue.externalAlongIso,
     Iso.trans_inv, Iso.symm_inv, tensorIso, asIso_inv,
     Category.assoc, IsIso.hom_inv_id_assoc]
   rw [tensorSection_map]
-  congr 1
+  apply congrArg₂ (fun
+    (u : AlgebraicSection (pullbackModule (firstProjection P.structureMap ≫ f.map) E))
+    (v : AlgebraicSection (pullbackModule (secondProjection P.structureMap ≫ f.map) F)) =>
+      tensorSection u v)
   · rw [Category.assoc]
     apply congrArg (fun h => pullSection (firstProjection P.structureMap) a ≫ h)
     simp [pullbackSquareIso, compositionPullback, Category.assoc]

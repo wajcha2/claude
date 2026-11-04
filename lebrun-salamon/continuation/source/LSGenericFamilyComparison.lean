@@ -1,6 +1,6 @@
 import LSFamilyBaseChange
 import LSParametrizedBaseChange
-import LSFamilyBivectorDescent
+import LSFamilySmoothDescent
 import LSFieldParametrization
 import LSFamilyReparametrization
 import LSGenericFamilyPointComparison

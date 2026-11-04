@@ -1,4 +1,5 @@
 import LSFormalArcComparison
+import LSFamilyBivectorDescent
 import LSProjectAssembly
 
 /-!

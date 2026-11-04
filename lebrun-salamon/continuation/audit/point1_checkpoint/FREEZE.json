@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T09:49:27Z",
-  "frozen_utc": "2026-11-04T09:49:27Z",
-  "parent_commit": "b1d6b447a49d1850e501006699d09939f057d880",
-  "base_tree": "8fb4b1d22f3a0f5b57ac355344d0418bc0b967a8",
+  "announced_utc": "2026-11-04T09:57:50Z",
+  "frozen_utc": "2026-11-04T09:57:50Z",
+  "parent_commit": "4ae2c4d4f13b914ab91ea01bf2388b9464794cfa",
+  "base_tree": "2783d81de1035d8714fcaf253d7cbde125cf551f",
   "repository": "wajcha2/claude",
   "branch": "codex/lebrun-model-frontier-20261104",
-  "source_modules": 284,
+  "source_modules": 285,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -96,7 +96,7 @@
     "source/LSFirstJetEmbedding.lean": "165b776ccb8c20d18aed5ac3c4ed2058dc921a7f326509aaa131c25dc14dbd58",
     "source/LSFirstJetEmbeddingGeometry.lean": "1354e7f1649edd2b8e2a501766b01d2790711b6fb62986333251615bbe89cb04",
     "source/LSFlatSectionDescent.lean": "71cc99686042fe923a9f684b00153f5f9dfc6725cf75fe459b98d721f8e7bed8",
-    "source/LSFormalArcComparison.lean": "71384ed60c55e1cabcd10ea2df54e89800b2684c8815eee74f09bd990be391b4",
+    "source/LSFormalArcComparison.lean": "325c8a9f566526022d0093e92c0fa57e32529f9063ecd5e35963afea7ddfca70",
     "source/LSFormalArcRegularity.lean": "dfb4e62d36259b9709b539bfca175e2cdb4e091c9eb66659733de3c4ceb50431",
     "source/LSFormalArcSections.lean": "701af4edf15458cfa0ad573d1f11cba61c2be69a41c2545e50120a267172f379",
     "source/LSFormalQuadraticConditions.lean": "867c4107793ce01879e3296709f5b19f6dcd0b8963cf1554d7fb2900df1b20c5",
@@ -291,7 +291,8 @@
     "source/LSFamilyExternalProductMap.lean": "5e8a6fba99f7e0e39763e52059ffd3440bc79c31cb0238e30f818124627eb656",
     "source/LSFamilySchemeTransport.lean": "6a4e031823f23a1d3bf0f865312d2d6fa62149e05afeba81a23be081f35a5ffe",
     "source/LSFamilyReparamProductTransport.lean": "b26a71e895bba0b4d3414a903132d739bfca0ff45579e80d9aade9b55efbe44e",
-    "source/LSModelGenericParametrization.lean": "eaae542667009b2124da414e3dee94fbdbef8f9fdfb97c9022e46865d9a5a2c6"
+    "source/LSModelGenericParametrization.lean": "eaae542667009b2124da414e3dee94fbdbef8f9fdfb97c9022e46865d9a5a2c6",
+    "source/LSFormalArcModelTransport.lean": "349ae227fc9c4105646b167170833c5fcfd37df412f36f75ff3fbd5a4b633df9"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
@@ -303,7 +304,7 @@
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Move 34 original independent generic-parametrization declarations into a helper, preserving exact bodies, namespaces and variable contexts. The remaining 19 model declarations include three explicitly recorded proof-only API fixes but remain unselected/pending. Run only the independent helper. Preserve the 190 audited module contexts and 30/133 obligation baseline.",
+  "scope": "Move 18 original independent formal-arc model transport declarations into a helper with unchanged proof bodies and headers. The ten-declaration original remainder retains genuine family/model comparison imports and stays unselected. Run helper only using the already validated seven-artifact native union; cache consolidation remains under separate validation. No Point1 ancestor source or admission changes; acceptance stays 30/133.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [

@@ -509,6 +509,7 @@ def mixedPull (E F : OModule ProjectiveLine)
   erw [pullbackSquare_naturality, pullbackSquare_naturality]
   rw [tensorMap_comp, Category.assoc, tensorPullback_naturality]
   simp only [Category.assoc]
+  rfl
 
 theorem mixedPull_map {E E' F F' : OModule ProjectiveLine}
     (a : E ⟶ E') (b : F ⟶ F')
@@ -555,11 +556,40 @@ theorem leftRaw :
         (SourceReparamProof.derivativeIso P e he).hom
         (SourceReparamProof.derivativeIso P e he).hom :=
     mixedPull_source P e he
+  let qe := (SourceReparamProof.derivativeIso P e he).hom
+  let qT := (Scheme.Modules.pullback e.hom).map (Curve.differential P X f)
+  let qL := (Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)
+  let cT := (compositionPullback e.hom f.map g.map hg.symm
+    (tangentSheaf X.variety.structureMap)).hom
+  let cL := (compositionPullback e.hom f.map g.map hg.symm
+    X.contact.sequence.line.sheaf).hom
+  have hT : qe ≫ qT ≫ cT = Curve.differential P X g :=
+    Curve.differential_comp P X f g e he hg
+  have hL : qe ≫ qL ≫ cL = curveContactVelocity P X.contact g :=
+    SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg
+  have hmaps : externalTensorMap P.structureMap qe qe ≫
+      externalTensorMap P.structureMap qT qL ≫
+        externalTensorMap P.structureMap cT cL =
+      externalTensorMap P.structureMap (qe ≫ qT ≫ cT) (qe ≫ qL ≫ cL) :=
+    (congrArg (fun k => externalTensorMap P.structureMap qe qe ≫ k)
+      (externalTensorMap_comp P.structureMap qT cT qL cL)).trans
+        (externalTensorMap_comp P.structureMap qe (qT ≫ cT) qe (qL ≫ cL))
+  rw [hT, hL] at hmaps
   rw [Curve.leftRaw, mixedPull_map, hS]
-  simp only [Category.assoc, externalTensorMap_comp]
-  rw [Curve.differential_comp P X f g e he hg,
-    SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg]
-  rfl
+  calc
+    _ = sourceBivector P ≫ (externalTensorMap P.structureMap qe qe ≫
+        externalTensorMap P.structureMap qT qL ≫
+          externalTensorMap P.structureMap cT cL) := by
+      simp only [Category.assoc]
+    _ = sourceBivector P ≫ externalTensorMap P.structureMap
+        (Curve.differential P X g) (curveContactVelocity P X.contact g) :=
+      congrArg (fun k :
+        externalTensor P.structureMap (tangentSheaf P.structureMap)
+            (tangentSheaf P.structureMap) ⟶
+          externalTensor P.structureMap (pullbackModule g.map (tangentSheaf X.variety.structureMap))
+            (pullbackModule g.map X.contact.sequence.line.sheaf) =>
+        sourceBivector P ≫ k) hmaps
+    _ = Curve.leftRaw P X g := rfl
 
 theorem rightRaw :
     mixedPull P e he (pullbackModule f.map X.contact.sequence.line.sheaf)
@@ -575,11 +605,40 @@ theorem rightRaw :
         (SourceReparamProof.derivativeIso P e he).hom
         (SourceReparamProof.derivativeIso P e he).hom :=
     mixedPull_source P e he
+  let qe := (SourceReparamProof.derivativeIso P e he).hom
+  let qT := (Scheme.Modules.pullback e.hom).map (Curve.differential P X f)
+  let qL := (Scheme.Modules.pullback e.hom).map (curveContactVelocity P X.contact f)
+  let cT := (compositionPullback e.hom f.map g.map hg.symm
+    (tangentSheaf X.variety.structureMap)).hom
+  let cL := (compositionPullback e.hom f.map g.map hg.symm
+    X.contact.sequence.line.sheaf).hom
+  have hT : qe ≫ qT ≫ cT = Curve.differential P X g :=
+    Curve.differential_comp P X f g e he hg
+  have hL : qe ≫ qL ≫ cL = curveContactVelocity P X.contact g :=
+    SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg
+  have hmaps : externalTensorMap P.structureMap qe qe ≫
+      externalTensorMap P.structureMap qL qT ≫
+        externalTensorMap P.structureMap cL cT =
+      externalTensorMap P.structureMap (qe ≫ qL ≫ cL) (qe ≫ qT ≫ cT) :=
+    (congrArg (fun k => externalTensorMap P.structureMap qe qe ≫ k)
+      (externalTensorMap_comp P.structureMap qL cL qT cT)).trans
+        (externalTensorMap_comp P.structureMap qe (qL ≫ cL) qe (qT ≫ cT))
+  rw [hL, hT] at hmaps
   rw [Curve.rightRaw, mixedPull_map, hS]
-  simp only [Category.assoc, externalTensorMap_comp]
-  rw [SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg,
-    Curve.differential_comp P X f g e he hg]
-  rfl
+  calc
+    _ = sourceBivector P ≫ (externalTensorMap P.structureMap qe qe ≫
+        externalTensorMap P.structureMap qL qT ≫
+          externalTensorMap P.structureMap cL cT) := by
+      simp only [Category.assoc]
+    _ = sourceBivector P ≫ externalTensorMap P.structureMap
+        (curveContactVelocity P X.contact g) (Curve.differential P X g) :=
+      congrArg (fun k :
+        externalTensor P.structureMap (tangentSheaf P.structureMap)
+            (tangentSheaf P.structureMap) ⟶
+          externalTensor P.structureMap (pullbackModule g.map X.contact.sequence.line.sheaf)
+            (pullbackModule g.map (tangentSheaf X.variety.structureMap)) =>
+        sourceBivector P ≫ k) hmaps
+    _ = Curve.rightRaw P X g := rfl
 
 end Reparametrization
 

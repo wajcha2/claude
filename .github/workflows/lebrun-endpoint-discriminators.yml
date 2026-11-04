@@ -1,0 +1,99 @@
+name: LeBrun-Salamon measured family endpoint discriminators
+
+on:
+  push:
+    branches:
+      - codex/lebrun-endpoint-discriminators-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  family-left-diagnostics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41815600585
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-family-reparametrization-six-41815600585-1
+          run-id: 41815600585
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check the exact original first four statements
+        id: prefix
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparamExpansionStages --keep-going --timeout 180
+      - name: Report exact prefix native evidence
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve exact prefix before endpoint diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-endpoint-prefix-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check two independently closed endpoint discriminators
+        id: endpoints
+        if: steps.prefix.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparamLeftExpansion --module LSFamilyReparamLeftOriginalSteps --keep-going --timeout 180
+      - name: Report exact endpoint diagnostic scopes
+        if: always() && steps.prefix.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose complete raw marker and profiler streams
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path("kernel-evidence/logs")
+          modules = ["LSFamilyReparamExpansionStages", "LSFamilyReparamLeftExpansion", "LSFamilyReparamLeftOriginalSteps"]
+          for module in modules:
+              for suffix in ("stdout.jsonl", "stderr.txt"):
+                  p = root / (module + "." + suffix)
+                  print("PROFILE_LOG_BEGIN " + module + " " + suffix, flush=True)
+                  if p.exists():
+                      print(p.read_text(), end="", flush=True)
+                  else:
+                      print("PROFILE_LOG_NOT_CREATED", flush=True)
+                  print("PROFILE_LOG_END " + module + " " + suffix, flush=True)
+          PY
+      - name: Preserve all endpoint diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-endpoint-discriminators-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Record incomplete diagnostic result as a failed job
+        if: always()
+        env:
+          PREFIX_OUTCOME: ${{ steps.prefix.outcome }}
+          ENDPOINT_OUTCOME: ${{ steps.endpoints.outcome }}
+        run: |
+          test "$PREFIX_OUTCOME" = success
+          test "$ENDPOINT_OUTCOME" = success

@@ -1,0 +1,119 @@
+{
+  "schema": "lebrun-reparam-final-left-stock-diagnostic-v1",
+  "status": "unexecuted diagnostic bundle; production d5 unchanged",
+  "production_source_sha256": "d5e07bfb1d9d3e71883e94ba8ea9e4c5c9e1a737ade1e2dc2ab869d824bc4cda",
+  "prefix": {
+    "module": "LSFamilyReparamExpansionStages",
+    "blob": "31b638a92a8008af25faa471d15de8532ff2a47f",
+    "source_sha256": "5a042dc169d5d85c32295e0b86e4e0fda917328d04d2d6499c0c6b54ff7b9ee5",
+    "proof_body_exact": true,
+    "locally_passed_equivalent_profile_receipt": {
+      "schema": "lebrun-local-diagnostic-v1",
+      "scope": "Local diagnostic only: pinned stock frontend with recorded path adapter and M7200; stock CI remains acceptance authority.",
+      "module": "LSFamilyReparamExpansionStages",
+      "status": "passed",
+      "return_code": 0,
+      "seconds": 33.322,
+      "source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/reparam_diagnostics/LSFamilyReparamExpansionStages.lean",
+      "source_sha256": "d2cad6f82ad8e9102a5aa8f9d0e1dc169abf234f3e50c6480403ec8ee3ddf5e1",
+      "output_sha256": "4cac25175de2aa505bed1dba0739a05e4aa6c59d832bd5ae27def56b9d31a524",
+      "source_and_runtime_and_direct_dependency_unchanged": true,
+      "direct_dependencies": {
+        "LSFamilyDescentFibres": {
+          "path": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean/LSFamilyDescentFibres.olean",
+          "sha256": "e4222af5b7902df30ff49eaf41040ced1098197cdb864a89eb2d964d4578e977"
+        },
+        "LSFamilyExternalProductMap": {
+          "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_endpoint_group/20261104T102539/olean/LSFamilyExternalProductMap.olean",
+          "sha256": "b5d2b697517403639c8cc60ee37c39c4aa0db128762ed38794e64c2d04d36c0c"
+        },
+        "LSFamilyCurveProductDirect": {
+          "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_endpoint_group/20261104T102539/olean/LSFamilyCurveProductDirect.olean",
+          "sha256": "04307b0405a12ae93994b121d0ba73c64ada0e173522f7e14e64ec9d0ceac53c"
+        },
+        "LSFamilyReparamProductStages": {
+          "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_endpoint_group/20261104T102539/olean/LSFamilyReparamProductStages.olean",
+          "sha256": "02b2018ce229b7c9cd999b436daebb8b9010b76c6da250bf605f66461566d8e9"
+        },
+        "LSFamilyAdditiveExpansion": {
+          "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_endpoint_group/20261104T102539/olean/LSFamilyAdditiveExpansion.olean",
+          "sha256": "c13337325cdd20ce9c603d6a9c06164cdab0143a1c0d5550c7f74fb14d562fa9"
+        },
+        "LSFamilySectionSums": {
+          "path": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/local_reparam_endpoint_group/20261104T102539/olean/LSFamilySectionSums.olean",
+          "sha256": "4c4f3a5684bc6ffed8cf5ad4e6319a085e6507b2571efa8004c63bcc159e485f"
+        }
+      },
+      "execution_wrapper": "stdbuf -oL -eL (diagnostic log flushing only)",
+      "validated_transitive_import_context": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/diagnostic-imports-263/olean",
+      "config_sha256": "704664d3d62bb5757dab27451a33ec8f3e817ad8ffe923f9d6245f07ef18a3b4",
+      "runtime_flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M7200",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ],
+      "runtime_fingerprint_files": {
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/bin/lean": "db7f559d05795e7af52e42bc966c90240a39dcb9712161c54c97afa546e20c00",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/toolchain/lib/lean/libleanshared.so": "593af26b21d188f3f256f03de4da380c1288816202eef941652200eaab265990",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so": "4e5e740eb8b35079bbe1f7ea8fccee88f8a6678cdcb772f85b74afd273ba0825",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so": "a9d52bffaea63a373b97c97883cdc38a58314bdbfbb40a71bef5a8c061e75f39",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so": "899445050ef5e913a5b7a47fdb57cf260f534a3b55085808f914af6cf4dadb7b",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so": "05f8c95c7c2ae0530f692b3df3aafb3305cda17270a2fd89faddce5db824e58f",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so": "d47f2c1e7ae78e8ab63c5ddb3ec0ed7867a9c5fd216852e914ca81a032a7a2a1",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so": "c7a687d420a8bcf03c801285327664f6d5b1c766f24a7e6916d90ea4e8ac3bdb",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so": "674489dce2e64879d2a6c90bc37da9445fcf570ed38d03da3e47f913c401b678",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so": "4df382f4047d43f5701c936de3c99a43b9eda2fcf024cd182516fe214f01ed80",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/repository/lebrun-salamon/continuation/audit/runtime/explicit_exec_path.c": "4767a460ae1ae6bbb07b32706a30e7d90029cd2d2641bde2a207c93ccba62bbf",
+        "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/libexplicit_exec_path.so": "078b02268a61b1cc58ec2b69eed9e265fd2b8811924358dcb94ed90b66b3eae6"
+      },
+      "peak_rss_kib": 5979928,
+      "cpu_user_seconds": 18.440239,
+      "cpu_system_seconds": 14.2868,
+      "stdout_sha256": "34ec3ba26c11885b9aeb64913dd1d82b401b0a86eab3f5f351414e9374999dd0",
+      "stderr_sha256": "ffa5e5fe40badf849a36594cd36db448b2722004251e4634f720e495153393c8",
+      "errors": []
+    },
+    "scope": "The production comparison prefix with only namespace/section closures appended. No diagnostics or imported profile modules remain in this source. It is a separate diagnostic module, not a changed production reparametrization file."
+  },
+  "diagnostic_sources": [
+    {
+      "module": "LSFamilyReparamLeftExpansion",
+      "blob": "53909497abb82b769d4edecb284c20beeed2990d",
+      "sha256": "a41031b137d4e8ae856de2f2ebf25ad3b3a404b911fcdf96d8ab3d4fe43dcb0e",
+      "compiled": false
+    },
+    {
+      "module": "LSFamilyReparamLeftOriginalSteps",
+      "blob": "1b223febc69b78c9a02a80948a8c5b8521c5b21e",
+      "sha256": "c754f9b7834c28b177b0695e6c420772191be3bb5e55266df8510630ceb7b79e",
+      "compiled": false
+    }
+  ],
+  "raw_expansion_scope": "Exact original hB cancellation proof closed with an explicit ExternalExpansion parameter. No assumption was added to an original declaration.",
+  "original_left_scope": "Original leftSection header/proof unchanged after removing raw run_tac and command markers. RightSection omitted to ensure command completion flushes any ordinary diagnostics.",
+  "production_gate": "Full six-wrapper d5 timed out300.279 s; no pass or descendant coverage. No unchanged full-module retry.",
+  "stock_passed_generic_helpers": {
+    "AdditiveExpansion": {
+      "source_sha256": "f8f416b600ce6d10d3b9d0a51c6513fbcaee9a26fb8ea9f5ef83f3621f7f8fff",
+      "output_sha256": "c13337325cdd20ce9c603d6a9c06164cdab0143a1c0d5550c7f74fb14d562fa9",
+      "seconds": 0.767
+    },
+    "SectionSums": {
+      "source_sha256": "bc444c3041af20902358c19a7dfcba84f690234ae6e2a150ec300f34395eade3",
+      "output_sha256": "4c4f3a5684bc6ffed8cf5ad4e6319a085e6507b2571efa8004c63bcc159e485f",
+      "seconds": 2.772
+    }
+  },
+  "current_artifact": {
+    "run_id": 41815600585,
+    "job_id": 126525440608,
+    "artifact_id": 13315535214,
+    "name": "lebrun-family-reparametrization-six-41815600585-1",
+    "sha256": "ebaae66d6328aa9fef24e6af564d8d5f8d2df50567761316a4c4c2b458c12339"
+  },
+  "proof_and_header_guard": "All six original declaration headers are unchanged in production. The first four exact declarations and all eleven internal helper declarations form the prefix; each diagnostic is independently closed and has no sorry/admit/axiom."
+}

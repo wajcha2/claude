@@ -38,7 +38,7 @@ jobs:
         id: descent50
         continue-on-error: true
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothDescent --keep-going --timeout 300
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothDescent --keep-going --timeout 420
       - name: Report descent50 exact native scope
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py

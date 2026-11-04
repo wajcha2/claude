@@ -149,7 +149,11 @@ theorem sourcePoint_factor
       pullback.lift_fst, Category.comp_id]
   · simp only [StableMaps.FullHomComparison.complexSourceInclusion, Category.assoc,
       pullback.lift_snd]
-    rw [← Category.assoc, hz, Category.id_comp, ha]
+    calc
+      _ = q.val := by
+        simpa only [Category.assoc, Category.id_comp] using
+          congrArg (fun k : ComplexBase ⟶ ComplexBase => k ≫ q.val) hz
+      _ = _ := ha.symm
 
 @[reassoc] theorem point_factorization (t : Point Q) :
     coordinatePair Q t ≫ fibreSquare Q (coverPoint Q t) = t.val := by
@@ -178,7 +182,7 @@ theorem same_base (t₀ t₁ : Point Q)
     (coverPoint Q t₀).val ≫ Q.coverToBase =
       (coverPoint Q t₁).val ≫ Q.coverToBase := by
   have hb := congrArg (fun k => k ≫ F.smoothSquareParameter ≫ F.smoothOpen.ι) h
-  simpa only [coverPoint, Category.assoc, Q.parametrizedSquareToSmooth_base,
+  simpa only [coverPoint, Category.assoc, Q.parametrizedSquareToSmooth_base_assoc,
     StableMaps.FullHomComparison.coverToBase] using hb
 
 theorem complexSourceMap_ext
@@ -197,8 +201,10 @@ theorem complexSourceMap_ext
       t.val ≫ RelativeSquare.left Q.parametrizedParameter ≫ Q.sourceMap := by
   rw [StableMaps.FullHomComparison.complexSourceMap, ← Category.assoc,
     ← Category.assoc, coordinatePair_left]
-  rw [sourcePoint_factor Q (coverPoint Q t)
-    (t.val ≫ RelativeSquare.left Q.parametrizedParameter) rfl]
+  simpa only [Category.assoc] using congrArg
+    (fun k : ComplexBase ⟶ Q.parametrizedSource => k ≫ Q.sourceMap)
+    (sourcePoint_factor Q (coverPoint Q t)
+      (t.val ≫ RelativeSquare.left Q.parametrizedParameter) rfl)
 
 @[reassoc] theorem coordinatePair_source_right (t : Point Q) :
     coordinatePair Q t ≫ secondProjection P.structureMap ≫
@@ -210,8 +216,10 @@ theorem complexSourceMap_ext
       Q.parametrizedParameter = (coverPoint Q t).val := by
     simpa only [coverPoint, Category.assoc] using
       congrArg (fun k => t.val ≫ k) Q.parametrizedSquare_second_parameter
-  rw [sourcePoint_factor Q (coverPoint Q t)
-    (t.val ≫ RelativeSquare.right Q.parametrizedParameter) hp]
+  simpa only [Category.assoc] using congrArg
+    (fun k : ComplexBase ⟶ Q.parametrizedSource => k ≫ Q.sourceMap)
+    (sourcePoint_factor Q (coverPoint Q t)
+      (t.val ≫ RelativeSquare.right Q.parametrizedParameter) hp)
 
 theorem transition_curves (t₀ t₁ : Point Q)
     (h : t₀.val ≫ Q.parametrizedSquareToSmooth =
@@ -240,22 +248,33 @@ theorem transition_coordinates (t₀ t₁ : Point Q)
       t₁.val ≫ Q.parametrizedSquareToFamily := by
     simpa only [Category.assoc, Q.parametrizedSquareToSmooth_ι] using
       congrArg (fun k => k ≫ F.smoothSquareOpen.ι) h
+  change coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he) =
+    coordinatePair Q t₁
   apply pullback.hom_ext
-  · simp only [Category.assoc, curveSquareMap_first]
+  · change (coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he)) ≫
+        firstProjection P.structureMap = coordinatePair Q t₁ ≫ firstProjection P.structureMap
+    rw [Category.assoc, curveSquareMap_first P (Reparametrization.curve P e he)]
+    change coordinatePair Q t₀ ≫ firstProjection P.structureMap ≫ e.hom =
+      coordinatePair Q t₁ ≫ firstProjection P.structureMap
     apply complexSourceMap_ext Q (coverPoint Q t₁)
-    · simp only [Category.assoc, Q.complexTransition_source,
-        coordinatePair_source_left]
-      simpa only [Category.assoc, Q.parametrizedSquareToFamily_first] using
+    · simp only [Category.assoc, e, Q.complexTransition_source, coordinatePair_source_left]
+      simpa only [Category.assoc, Q.parametrizedSquareToFamily_first,
+        RelativeSquare.left] using
         congrArg (fun k => k ≫ pullback.fst F.parameter F.parameter) hfamily
     · simp only [Category.assoc, he, coordinatePair_toC]
-  · simp only [Category.assoc, curveSquareMap_second]
+  · change (coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he)) ≫
+        secondProjection P.structureMap = coordinatePair Q t₁ ≫ secondProjection P.structureMap
+    rw [Category.assoc, curveSquareMap_second P (Reparametrization.curve P e he)]
+    change coordinatePair Q t₀ ≫ secondProjection P.structureMap ≫ e.hom =
+      coordinatePair Q t₁ ≫ secondProjection P.structureMap
     apply complexSourceMap_ext Q (coverPoint Q t₁)
-    · simp only [Category.assoc, Q.complexTransition_source,
-        coordinatePair_source_right]
-      simpa only [Category.assoc, Q.parametrizedSquareToFamily_second] using
+    · simp only [Category.assoc, e, Q.complexTransition_source, coordinatePair_source_right]
+      simpa only [Category.assoc, Q.parametrizedSquareToFamily_second,
+        RelativeSquare.right] using
         congrArg (fun k => k ≫ pullback.snd F.parameter F.parameter) hfamily
-    · simp only [Category.assoc, he]
-      simpa only [← pullback.condition] using
+    · have hsecond : secondProjection P.structureMap ≫ P.structureMap =
+          firstProjection P.structureMap ≫ P.structureMap := pullback.condition.symm
+      simpa only [Category.assoc, he, hsecond] using
         (coordinatePair_toC Q t₀).trans (coordinatePair_toC Q t₁).symm
 
 abbrev left : AlgebraicSection

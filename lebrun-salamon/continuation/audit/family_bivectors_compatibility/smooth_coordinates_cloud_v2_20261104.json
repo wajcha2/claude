@@ -1,0 +1,191 @@
+{
+  "schema": "lebrun-smooth-coordinate-compatibility-v1",
+  "module": "LSFamilySmoothCoordinates",
+  "baseline_sha256": "7e8c06a57f730892173c53b9452c53897a6210adf94eaa468de2c053ecdc5956",
+  "baseline_git_blob": "497ed62a0f286d6505f6ee54c0760eab4e870911",
+  "candidate_sha256": "fd3915430a3d996a4b94ca555120262c27a691663c646fdc756361ebcaa2df0d",
+  "candidate_git_blob": "680f012e79049aca1ce2b7d7841d41ee7be36b54",
+  "changes": [
+    {
+      "id": "source_point_association",
+      "before": "    rw [← Category.assoc, hz, Category.id_comp, ha]",
+      "after": "    calc\n      _ = q.val := by\n        simpa only [Category.assoc, Category.id_comp] using\n          congrArg (fun k : ComplexBase ⟶ ComplexBase => k ≫ q.val) hz\n      _ = _ := ha.symm",
+      "expected_matches": 1
+    },
+    {
+      "id": "same_base_reassociated_map",
+      "before": "  simpa only [coverPoint, Category.assoc, Q.parametrizedSquareToSmooth_base,\n    StableMaps.FullHomComparison.coverToBase] using hb",
+      "after": "  simpa only [coverPoint, Category.assoc, Q.parametrizedSquareToSmooth_base_assoc,\n    StableMaps.FullHomComparison.coverToBase] using hb",
+      "expected_matches": 1
+    },
+    {
+      "id": "left_source_explicit_postcomposition",
+      "before": "  rw [sourcePoint_factor Q (coverPoint Q t)\n    (t.val ≫ RelativeSquare.left Q.parametrizedParameter) rfl]",
+      "after": "  simpa only [Category.assoc] using congrArg\n    (fun k : ComplexBase ⟶ Q.parametrizedSource => k ≫ Q.sourceMap)\n    (sourcePoint_factor Q (coverPoint Q t)\n      (t.val ≫ RelativeSquare.left Q.parametrizedParameter) rfl)",
+      "expected_matches": 1
+    },
+    {
+      "id": "right_source_explicit_postcomposition",
+      "before": "  rw [sourcePoint_factor Q (coverPoint Q t)\n    (t.val ≫ RelativeSquare.right Q.parametrizedParameter) hp]",
+      "after": "  simpa only [Category.assoc] using congrArg\n    (fun k : ComplexBase ⟶ Q.parametrizedSource => k ≫ Q.sourceMap)\n    (sourcePoint_factor Q (coverPoint Q t)\n      (t.val ≫ RelativeSquare.right Q.parametrizedParameter) hp)",
+      "expected_matches": 1
+    },
+    {
+      "id": "transition_coordinates_typed_projections",
+      "before": "theorem transition_coordinates (t₀ t₁ : Point Q)\n    (h : t₀.val ≫ Q.parametrizedSquareToSmooth =\n      t₁.val ≫ Q.parametrizedSquareToSmooth) :\n    coordinatePair Q t₀ ≫ curveSquareMap P\n      (Reparametrization.curve P\n        (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h))\n        (Q.complexTransition_overC (coverPoint Q t₀) (coverPoint Q t₁)\n          (same_base Q t₀ t₁ h))) = coordinatePair Q t₁ := by\n  let e := Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h)\n  have he : e.hom ≫ P.structureMap = P.structureMap :=\n    Q.complexTransition_overC _ _ _\n  have hfamily : t₀.val ≫ Q.parametrizedSquareToFamily =\n      t₁.val ≫ Q.parametrizedSquareToFamily := by\n    simpa only [Category.assoc, Q.parametrizedSquareToSmooth_ι] using\n      congrArg (fun k => k ≫ F.smoothSquareOpen.ι) h\n  apply pullback.hom_ext\n  · simp only [Category.assoc, curveSquareMap_first]\n    apply complexSourceMap_ext Q (coverPoint Q t₁)\n    · simp only [Category.assoc, Q.complexTransition_source,\n        coordinatePair_source_left]\n      simpa only [Category.assoc, Q.parametrizedSquareToFamily_first] using\n        congrArg (fun k => k ≫ pullback.fst F.parameter F.parameter) hfamily\n    · simp only [Category.assoc, he, coordinatePair_toC]\n  · simp only [Category.assoc, curveSquareMap_second]\n    apply complexSourceMap_ext Q (coverPoint Q t₁)\n    · simp only [Category.assoc, Q.complexTransition_source,\n        coordinatePair_source_right]\n      simpa only [Category.assoc, Q.parametrizedSquareToFamily_second] using\n        congrArg (fun k => k ≫ pullback.snd F.parameter F.parameter) hfamily\n    · simp only [Category.assoc, he]\n      simpa only [← pullback.condition] using\n        (coordinatePair_toC Q t₀).trans (coordinatePair_toC Q t₁).symm\n",
+      "after": "theorem transition_coordinates (t₀ t₁ : Point Q)\n    (h : t₀.val ≫ Q.parametrizedSquareToSmooth =\n      t₁.val ≫ Q.parametrizedSquareToSmooth) :\n    coordinatePair Q t₀ ≫ curveSquareMap P\n      (Reparametrization.curve P\n        (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h))\n        (Q.complexTransition_overC (coverPoint Q t₀) (coverPoint Q t₁)\n          (same_base Q t₀ t₁ h))) = coordinatePair Q t₁ := by\n  let e := Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) (same_base Q t₀ t₁ h)\n  have he : e.hom ≫ P.structureMap = P.structureMap :=\n    Q.complexTransition_overC _ _ _\n  have hfamily : t₀.val ≫ Q.parametrizedSquareToFamily =\n      t₁.val ≫ Q.parametrizedSquareToFamily := by\n    simpa only [Category.assoc, Q.parametrizedSquareToSmooth_ι] using\n      congrArg (fun k => k ≫ F.smoothSquareOpen.ι) h\n  change coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he) =\n    coordinatePair Q t₁\n  apply pullback.hom_ext\n  · change (coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he)) ≫\n        firstProjection P.structureMap = coordinatePair Q t₁ ≫ firstProjection P.structureMap\n    rw [Category.assoc, curveSquareMap_first P (Reparametrization.curve P e he)]\n    change coordinatePair Q t₀ ≫ firstProjection P.structureMap ≫ e.hom =\n      coordinatePair Q t₁ ≫ firstProjection P.structureMap\n    apply complexSourceMap_ext Q (coverPoint Q t₁)\n    · simp only [Category.assoc, e, Q.complexTransition_source, coordinatePair_source_left]\n      simpa only [Category.assoc, Q.parametrizedSquareToFamily_first,\n        RelativeSquare.left] using\n        congrArg (fun k => k ≫ pullback.fst F.parameter F.parameter) hfamily\n    · simp only [Category.assoc, he, coordinatePair_toC]\n  · change (coordinatePair Q t₀ ≫ curveSquareMap P (Reparametrization.curve P e he)) ≫\n        secondProjection P.structureMap = coordinatePair Q t₁ ≫ secondProjection P.structureMap\n    rw [Category.assoc, curveSquareMap_second P (Reparametrization.curve P e he)]\n    change coordinatePair Q t₀ ≫ secondProjection P.structureMap ≫ e.hom =\n      coordinatePair Q t₁ ≫ secondProjection P.structureMap\n    apply complexSourceMap_ext Q (coverPoint Q t₁)\n    · simp only [Category.assoc, e, Q.complexTransition_source, coordinatePair_source_right]\n      simpa only [Category.assoc, Q.parametrizedSquareToFamily_second,\n        RelativeSquare.right] using\n        congrArg (fun k => k ≫ pullback.snd F.parameter F.parameter) hfamily\n    · have hsecond : secondProjection P.structureMap ≫ P.structureMap =\n          firstProjection P.structureMap ≫ P.structureMap := pullback.condition.symm\n      simpa only [Category.assoc, he, hsecond] using\n        (coordinatePair_toC Q t₀).trans (coordinatePair_toC Q t₁).symm\n",
+      "expected_matches": 1
+    }
+  ],
+  "independent_transition_patch": "eb187f554ee23affde2389c117654ca3ac71f7bc",
+  "native_failure": {
+    "run": 41802436148,
+    "job": 126481210158,
+    "module": "LSFamilySmoothCoordinates",
+    "seconds": 133.962,
+    "source_sha256": "7e8c06a57f730892173c53b9452c53897a6210adf94eaa468de2c053ecdc5956",
+    "errors": [
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (a ≫ Parametrized.projection P Q.coverToC) ≫ P.structureMap\nin the target expression\n  (a ≫ Parametrized.projection P Q.coverToC) ≫ P.structureMap ≫ ↑q = a ≫ pullback.snd P.structureMap Q.coverToC\n\ncase h₁\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nq : PointsOver ComplexBase (𝟙 ComplexBase) Q.cover Q.coverToC\na : ComplexBase ⟶ Q.parametrizedSource\nha : a ≫ Q.parametrizedParameter = ↑q\nhz : (a ≫ Parametrized.projection P Q.coverToC) ≫ P.structureMap = 𝟙 ComplexBase\n⊢ (a ≫ Parametrized.projection P Q.coverToC) ≫ P.structureMap ≫ ↑q = a ≫ pullback.snd P.structureMap Q.coverToC",
+        "endPos": {
+          "column": 28,
+          "line": 152
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 26,
+          "line": 152
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  hb\n has type\n  ↑t₀ ≫ Q.parametrizedSquareToSmooth ≫ F.smoothSquareParameter ≫ F.smoothOpen.ι =\n    ↑t₁ ≫ Q.parametrizedSquareToSmooth ≫ F.smoothSquareParameter ≫ F.smoothOpen.ι\nbut is expected to have type\n  ↑t₀ ≫\n      pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫\n        Q.parametrizedParameter ≫ Q.toSmooth ≫ F.smoothOpen.ι =\n    ↑t₁ ≫\n      pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫\n        Q.parametrizedParameter ≫ Q.toSmooth ≫ F.smoothOpen.ι",
+        "endPos": {
+          "column": 54,
+          "line": 182
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 181
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ((↑t ≫ RelativeSquare.left Q.parametrizedParameter) ≫ Parametrized.projection P Q.coverToC) ≫\n    Q.complexSourceInclusion (coverPoint Q t)\nin the target expression\n  ((↑t ≫ RelativeSquare.left Q.parametrizedParameter ≫ Parametrized.projection P Q.coverToC) ≫\n        Q.complexSourceInclusion (coverPoint Q t)) ≫\n      Q.sourceMap =\n    ↑t ≫ RelativeSquare.left Q.parametrizedParameter ≫ Q.sourceMap\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nt : Point Q\n⊢ ((↑t ≫ RelativeSquare.left Q.parametrizedParameter ≫ Parametrized.projection P Q.coverToC) ≫\n        Q.complexSourceInclusion (coverPoint Q t)) ≫\n      Q.sourceMap =\n    ↑t ≫ RelativeSquare.left Q.parametrizedParameter ≫ Q.sourceMap",
+        "endPos": {
+          "column": 61,
+          "line": 201
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 200
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ((↑t ≫ RelativeSquare.right Q.parametrizedParameter) ≫ Parametrized.projection P Q.coverToC) ≫\n    Q.complexSourceInclusion (coverPoint Q t)\nin the target expression\n  ((↑t ≫ RelativeSquare.right Q.parametrizedParameter ≫ Parametrized.projection P Q.coverToC) ≫\n        Q.complexSourceInclusion (coverPoint Q t)) ≫\n      Q.sourceMap =\n    ↑t ≫ RelativeSquare.right Q.parametrizedParameter ≫ Q.sourceMap\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nt : Point Q\nhp : (↑t ≫ RelativeSquare.right Q.parametrizedParameter) ≫ Q.parametrizedParameter = ↑(coverPoint Q t)\n⊢ ((↑t ≫ RelativeSquare.right Q.parametrizedParameter ≫ Parametrized.projection P Q.coverToC) ≫\n        Q.complexSourceInclusion (coverPoint Q t)) ≫\n      Q.sourceMap =\n    ↑t ≫ RelativeSquare.right Q.parametrizedParameter ≫ Q.sourceMap",
+        "endPos": {
+          "column": 61,
+          "line": 214
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 213
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  congrArg (fun k => k ≫ pullback.fst F.parameter F.parameter) hfamily\n has type\n  ↑t₀ ≫ pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫ Q.sourceMap =\n    ↑t₁ ≫ pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫ Q.sourceMap\nbut is expected to have type\n  coordinatePair Q t₀ ≫\n      curveSquareMap P (Reparametrization.curve P (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) ⋯) ⋯) ≫\n        pullback.fst P.structureMap P.structureMap ≫ Q.complexSourceMap (coverPoint Q t₁) =\n    ↑t₁ ≫ RelativeSquare.left Q.parametrizedParameter ≫ Q.sourceMap",
+        "endPos": {
+          "column": 76,
+          "line": 249
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 248
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "unsolved goals\ncase h₀.hc\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nt₀ t₁ : Point Q\nh : ↑t₀ ≫ Q.parametrizedSquareToSmooth = ↑t₁ ≫ Q.parametrizedSquareToSmooth\ne : ProjectiveLine ≅ ProjectiveLine := Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) ⋯\nhe : e.hom ≫ P.structureMap = P.structureMap\nhfamily : ↑t₀ ≫ Q.parametrizedSquareToFamily = ↑t₁ ≫ Q.parametrizedSquareToFamily\n⊢ coordinatePair Q t₀ ≫\n      curveSquareMap P (Reparametrization.curve P (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) ⋯) ⋯) ≫\n        pullback.fst P.structureMap P.structureMap ≫ P.structureMap =\n    𝟙 ComplexBase",
+        "endPos": {
+          "column": 56,
+          "line": 250
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "Tactic.unsolvedGoals",
+        "pos": {
+          "column": 4,
+          "line": 250
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  congrArg (fun k => k ≫ pullback.snd F.parameter F.parameter) hfamily\n has type\n  ↑t₀ ≫ pullback.snd Q.parametrizedParameter Q.parametrizedParameter ≫ Q.sourceMap =\n    ↑t₁ ≫ pullback.snd Q.parametrizedParameter Q.parametrizedParameter ≫ Q.sourceMap\nbut is expected to have type\n  coordinatePair Q t₀ ≫\n      curveSquareMap P (Reparametrization.curve P (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) ⋯) ⋯) ≫\n        pullback.snd P.structureMap P.structureMap ≫ Q.complexSourceMap (coverPoint Q t₁) =\n    ↑t₁ ≫ RelativeSquare.right Q.parametrizedParameter ≫ Q.sourceMap",
+        "endPos": {
+          "column": 76,
+          "line": 256
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 255
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch: After simplification, term\n  Eq.trans (coordinatePair_toC Q t₀) (Eq.symm (coordinatePair_toC Q t₁))\n has type\n  coordinatePair Q t₀ ≫ firstProjection P.structureMap ≫ P.structureMap =\n    coordinatePair Q t₁ ≫ firstProjection P.structureMap ≫ P.structureMap\nbut is expected to have type\n  coordinatePair Q t₀ ≫\n      curveSquareMap P (Reparametrization.curve P (Q.complexTransition (coverPoint Q t₀) (coverPoint Q t₁) ⋯) ⋯) ≫\n        pullback.fst P.structureMap P.structureMap ≫ P.structureMap =\n    coordinatePair Q t₁ ≫ pullback.fst P.structureMap P.structureMap ≫ P.structureMap",
+        "endPos": {
+          "column": 70,
+          "line": 259
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothCoordinates.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 6,
+          "line": 258
+        },
+        "severity": "error"
+      }
+    ]
+  },
+  "all_34_public_headers_identical": true,
+  "new_admissions": 0,
+  "remaining_tail_untouched": true,
+  "native_status": "uncompiled combined candidate addressing eight concrete stock diagnostics",
+  "ref_updated": false
+}

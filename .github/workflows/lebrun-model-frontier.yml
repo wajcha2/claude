@@ -1,4 +1,4 @@
-name: LeBrun-Salamon Cartesian gate and remaining model tail
+name: LeBrun-Salamon repaired smooth coordinate block
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 jobs:
-  model:
+  smooth:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     env:
@@ -59,48 +59,29 @@ jobs:
           run-id: 41800804867
           github-token: ${{ github.token }}
           path: lebrun-cache-inputs/4
+      - name: Download verified native cache 6 from 41803036193
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-direct-curve-product-41803036193-1
+          run-id: 41803036193
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/5
       - name: Restore only exact coherent native artifact union
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
-      - name: Check exact Cartesian transport first
-        id: cartesian
-        continue-on-error: true
+      - name: Check eight-error smooth-coordinate repair with unchanged public statements
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSCartesianSourceDifferential --keep-going --timeout 300
-      - name: Expose early Cartesian diagnostics and receipts
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothCoordinates --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Upload early Cartesian evidence
+      - name: Preserve current native frontier evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lebrun-model-cartesian-early-${{ github.run_id }}-${{ github.run_attempt }}
+          name: lebrun-family-smooth-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             runtime-config.json
             diagnostic-static/
             kernel-evidence/
           if-no-files-found: warn
-      - name: Check remaining model tail only after Cartesian passes
-        id: model
-        if: steps.cartesian.outcome == 'success'
-        continue-on-error: true
-        run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelGenericComparison --keep-going --timeout 300
-      - name: Expose final exact native model diagnostics and receipts
-        if: always()
-        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
-      - name: Upload final native model evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lebrun-model-tail-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            runtime-config.json
-            diagnostic-static/
-            kernel-evidence/
-          if-no-files-found: warn
-      - name: Enforce successful Cartesian and model gates
-        if: always()
-        run: |
-          test "${{ steps.cartesian.outcome }}" = success
-          test "${{ steps.model.outcome }}" = success

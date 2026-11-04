@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T08:44:12Z",
-  "frozen_utc": "2026-11-04T08:44:12Z",
-  "parent_commit": "661744ba632a46ed75e8d6ec40ba49ae521a04d2",
-  "base_tree": "4c5a554b2df4b715145425d9e1b334744d45e641",
+  "announced_utc": "2026-11-04T08:46:02Z",
+  "frozen_utc": "2026-11-04T08:46:02Z",
+  "parent_commit": "77c5eae902f3aee11568f7d7b78b4d7cd82ce6e9",
+  "base_tree": "ca4c709e6a9b263b5c0f06f5a4a875009d2bbef1",
   "repository": "wajcha2/claude",
   "branch": "codex/lebrun-model-frontier-20261104",
-  "source_modules": 277,
+  "source_modules": 279,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -82,7 +82,7 @@
     "source/LSEpsilonStructureSequence.lean": "95266571a860b7278b5d211984898a4448ae40413d0079b91ca8175133d38c01",
     "source/LSExternalFrameCoefficients.lean": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
     "source/LSFamilyBaseChange.lean": "103af662237b7852f746f7b548a118cbc1c7efbefa6f2acb3825f97e67bf64c8",
-    "source/LSFamilyBivectorDescent.lean": "b611f20a1f0a9148b2d0c4981b72221b1c37cc026ddd904d3be4b2506ec11c04",
+    "source/LSFamilyBivectorDescent.lean": "a4629d43fdf324dedc9ed053db3ce187becc92ec59ba74873956950183cd36ed",
     "source/LSFamilyBivectors.lean": "4d73f36e6dfe9ba0a5fb24613dcddae007bc6e40b2bbf9a8030999fa4ea48539",
     "source/LSFamilyDerivativeRestriction.lean": "b326245d700446323c2e1943e2bf082cdf3b330619aa10fdfa18bb5fb3e5b6bc",
     "source/LSFamilyReparametrization.lean": "f2eb68b36418016d1cea1db2ab6707d83e6669c330ce6017d5d8c7c63450e022",
@@ -131,7 +131,7 @@
     "source/LSMilestoneTopology.lean": "492f9ca32d4b5b0d46fac387da4e082876f7aaf8e2a9e169721f504da0fcde15",
     "source/LSModelBivector.lean": "915ddcde6e905bf18f38a6edf7257043662c22da82607316c7b727fe7a285e7e",
     "source/LSModelDifferential.lean": "5e1f333fb08b4cd48f808acae675b889283e699abb973e41d3c010776d57eb6c",
-    "source/LSModelGenericComparison.lean": "908f4b56f113c81fa150813a76cf044fefc87d131684db46ad14c5260411abee",
+    "source/LSModelGenericComparison.lean": "d51fd9aaec38cf782b51578a213d74d98531538c8911e92648c93c605591ad03",
     "source/LSModelGeometry.lean": "4dabadf3b4fd92b664ec9ed1879330491a30090440e31c50c3137d942acdaf3a",
     "source/LSModuleHomGluing.lean": "2b79f20c2c91b25c3cd3901ad8442a19d7123de1a2cdcc4c09b7410fb17dd1d2",
     "source/LSMovingPairAssembly.lean": "8c115263b78128696b197f7f09df143c388a71e3faf69d50f4b7cc351a37dae7",
@@ -284,19 +284,21 @@
     "source/LSFamilyDescentFibres.lean": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28",
     "source/LSFamilyDescentReparametrization.lean": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4",
     "source/LSOpenSectionTransport.lean": "2ccfc2b88329ca2a2b0b392e99a0af9a8e338a261136e3e2f97a6fbc2fa8c862",
-    "source/LSCartesianSourceDifferential.lean": "764d237726758e71360cbc3f1c6350515b94db90b19535eb3e7caf007c724403"
+    "source/LSCartesianSourceDifferential.lean": "764d237726758e71360cbc3f1c6350515b94db90b19535eb3e7caf007c724403",
+    "source/LSModelSourceProductTransport.lean": "95e73ed916ce7d46610c4287113a9387c9c7537340d08354837b3dbb4efa0e7b",
+    "source/LSFamilySmoothCoordinates.lean": "7e8c06a57f730892173c53b9452c53897a6210adf94eaa468de2c053ecdc5956"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "pending_native_cartesian_and_spreading_frontiers",
+  "status": "pending_native_product_and_smooth_frontiers",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Exact Cartesian namespace extraction and minimal spreading namespace fix; native helper and spreading checks only. The factored model main and remaining reverse cone remain pending. Point1 accounting is unchanged at30/133.",
+  "scope": "Independent exact source blocks isolate the measured model sourceProduct kernel cost and the first smooth-family coordinate definitions. New helpers are selected separately,300 seconds each. Both main tails remain pending; no accepted obligation or audited boundary source changes.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -316,8 +318,8 @@
   "point1_accepted": false,
   "whole_source_graph_passed": false,
   "selected_native_targets": [
-    "LSCartesianSourceDifferential",
-    "LSFiniteTypeSpreading"
+    "LSModelSourceProductTransport",
+    "LSFamilySmoothCoordinates"
   ],
   "prior_native_receipt_union": 266
 }

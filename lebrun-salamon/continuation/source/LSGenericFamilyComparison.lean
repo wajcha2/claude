@@ -3,6 +3,8 @@ import LSParametrizedBaseChange
 import LSFamilyBivectorDescent
 import LSFieldParametrization
 import LSFamilyReparametrization
+import LSGenericFamilyPointComparison
+import LSGenericFamilyFieldTransport
 
 /-!
 # Comparison with actual field-valued parametrizations
@@ -37,95 +39,8 @@ variable {F : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.
 variable (Q : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood
   X.contact.sequence.line 2 F)
 
-theorem cover_locallyOfFiniteType : LocallyOfFiniteType Q.coverToC := by
-  letI : IsProper F.toC := F.baseProper
-  letI : Smooth Q.toSmooth := Q.smooth
-  have hc : Q.coverToC = (Q.toSmooth ≫ F.smoothOpen.ι) ≫ F.toC := Q.overC.symm
-  rw [hc]
-  infer_instance
-
-theorem cover_reduced : AlgebraicGeometry.IsReduced Q.cover := by
-  letI : IsIntegral F.base := F.baseIntegral
-  letI : IsLocallyNoetherian F.base := F.base_locallyNoetherian
-  letI : AlgebraicGeometry.IsReduced F.smoothOpen.toScheme :=
-    isReduced_of_isOpenImmersion F.smoothOpen.ι
-  letI : IsLocallyNoetherian F.smoothOpen.toScheme :=
-    LocallyOfFiniteType.isLocallyNoetherian F.smoothOpen.ι
-  letI : Smooth Q.toSmooth := Q.smooth
-  letI : GeometricallyIntegral Q.toSmooth := Q.geometricallyIntegral
-  exact GeometricallyReduced.isReduced_of_flat_of_isLocallyNoetherian Q.toSmooth
-
-/-- The curve data used by reparametrization come from the original
-full Hom family; no new nonconstancy hypothesis is introduced. -/
-def nonconstantFamily : FamilyReparametrization.NonconstantFamily P Q.coverToC X
-    (evaluation Q) where
-  curve := curve Q
-  curve_spec := fibre_evaluation Q
-
 variable {T : Scheme} (sT : T ⟶ ComplexBase)
 variable (q : PointsOver T sT Q.cover Q.coverToC)
-
-abbrev atPointEvaluation : Parametrized.Source P sT ⟶ X.variety.scheme :=
-  Q.atPointSource sT q ≫ evaluation Q
-
-theorem atPointEvaluation_overC :
-    atPointEvaluation Q sT q ≫ X.variety.structureMap =
-      Parametrized.parameter P sT ≫ sT := by
-  rw [atPointEvaluation, Category.assoc, evaluation_overC, ← Category.assoc,
-    Q.atPointSource_parameter, Category.assoc, q.property]
-
-def atPointSquare : Parametrized.Square P sT ⟶ Q.ParametrizedSquare :=
-  RelativeSquare.map (Parametrized.parameter P sT) Q.parametrizedParameter
-    (Q.atPointSource sT q) q.val (Q.atPointSource_parameter sT q)
-
-def atPointSmooth : Parametrized.Square P sT ⟶ F.smoothSquareOpen.toScheme :=
-  atPointSquare Q sT q ≫ Q.parametrizedSquareToSmooth
-
-abbrev atPointSquareEvaluation : Parametrized.Square P sT ⟶
-    SelfProduct X.variety.structureMap :=
-  ParametrizedContact.evaluationSquare P sT X (atPointEvaluation Q sT q)
-    (atPointEvaluation_overC Q sT q)
-
-@[reassoc] theorem atPointSquare_evaluation :
-    atPointSquare Q sT q ≫ parametrizedEvaluation Q = atPointSquareEvaluation Q sT q :=
-  RelativeSquare.map_evaluation (Parametrized.parameter P sT) Q.parametrizedParameter
-    (Q.atPointSource sT q) q.val (Q.atPointSource_parameter sT q)
-    X.variety.structureMap sT Q.coverToC (atPointEvaluation Q sT q) (evaluation Q)
-    (atPointEvaluation_overC Q sT q) (evaluation_overC Q) rfl
-
-@[reassoc] theorem atPointSmooth_evaluation :
-    atPointSmooth Q sT q ≫ smoothEvaluation (F := F) = atPointSquareEvaluation Q sT q := by
-  rw [atPointSmooth, Category.assoc, evaluation_commutes, atPointSquare_evaluation]
-
-/-- Universal base change of the normalized left section to an actual
-point of Q over an arbitrary scheme. -/
-theorem atPoint_left :
-    pullSection (atPointSquare Q sT q) (left Q) ≫
-      (compositionPullback (atPointSquare Q sT q) (parametrizedEvaluation Q)
-        (atPointSquareEvaluation Q sT q) (atPointSquare_evaluation Q sT q)
-        (movingPairBundleLeft X.variety X.contact)).hom =
-      ParametrizedContact.leftSection P sT X (atPointEvaluation Q sT q)
-        (atPointEvaluation_overC Q sT q) :=
-  ParametrizedContact.leftSection_baseChange P sT Q.coverToC q.val q.property
-    (Q.atPointSource sT q) (Q.atPointSource_first sT q) (Q.atPointSource_parameter sT q)
-    X (evaluation Q) (evaluation_overC Q) (atPointEvaluation Q sT q)
-    (atPointEvaluation_overC Q sT q) rfl (atPointSquare Q sT q)
-    (RelativeSquare.map_left _ _ _ _ _) (RelativeSquare.map_right _ _ _ _ _)
-    (atPointSquare_evaluation Q sT q)
-
-theorem atPoint_right :
-    pullSection (atPointSquare Q sT q) (right Q) ≫
-      (compositionPullback (atPointSquare Q sT q) (parametrizedEvaluation Q)
-        (atPointSquareEvaluation Q sT q) (atPointSquare_evaluation Q sT q)
-        (movingPairBundleRight X.variety X.contact)).hom =
-      ParametrizedContact.rightSection P sT X (atPointEvaluation Q sT q)
-        (atPointEvaluation_overC Q sT q) :=
-  ParametrizedContact.rightSection_baseChange P sT Q.coverToC q.val q.property
-    (Q.atPointSource sT q) (Q.atPointSource_first sT q) (Q.atPointSource_parameter sT q)
-    X (evaluation Q) (evaluation_overC Q) (atPointEvaluation Q sT q)
-    (atPointEvaluation_overC Q sT q) rfl (atPointSquare Q sT q)
-    (RelativeSquare.map_left _ _ _ _ _) (RelativeSquare.map_right _ _ _ _ _)
-    (atPointSquare_evaluation Q sT q)
 
 /-- The descended section agrees with the actual parametrized tensor
 on the entire source square over the supplied test base. -/
@@ -401,34 +316,6 @@ variable {F : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.
 variable (Q : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood
   X.contact.sequence.line 2 F)
 
-/-- A Cartesian parametrization has the original complex structure on
-its evaluation map. -/
-theorem evaluation_overC {T : Scheme} (sT : T ⟶ ComplexBase)
-    (b : T ⟶ F.smoothOpen.toScheme) (hb : (b ≫ F.smoothOpen.ι) ≫ F.toC = sT)
-    (k : Parametrized.Source P sT ⟶ F.source)
-    (hk : IsPullback k (Parametrized.parameter P sT) F.parameter (b ≫ F.smoothOpen.ι)) :
-    (k ≫ F.evaluation) ≫ X.variety.structureMap = Parametrized.parameter P sT ≫ sT := by
-  rw [Category.assoc, F.overC, ← Category.assoc, hk.w, Category.assoc, hb]
-
-theorem square_evaluation {T : Scheme} (sT : T ⟶ ComplexBase)
-    (b : T ⟶ F.smoothOpen.toScheme) (hb : (b ≫ F.smoothOpen.ι) ≫ F.toC = sT)
-    (k : Parametrized.Source P sT ⟶ F.source)
-    (hk : IsPullback k (Parametrized.parameter P sT) F.parameter (b ≫ F.smoothOpen.ι))
-    (a : Parametrized.Square P sT ⟶ F.smoothSquareOpen.toScheme)
-    (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.parameter P sT)
-      F.parameter k (b ≫ F.smoothOpen.ι) hk.w) :
-    a ≫ SmoothFamily.smoothEvaluation (F := F) =
-      ParametrizedContact.evaluationSquare P sT X (k ≫ F.evaluation)
-        (evaluation_overC sT b hb k hk) := by
-  rw [SmoothFamily.smoothEvaluation, ← Category.assoc, ha]
-  apply pullback.hom_ext
-  · simp only [ParametrizedContact.evaluationSquare, Parametrized.evaluationSquare,
-      Category.assoc, F.squareEvaluation_first, RelativeSquare.map_left_assoc,
-      RelativeSquare.evaluation_left]
-  · simp only [ParametrizedContact.evaluationSquare, Parametrized.evaluationSquare,
-      Category.assoc, F.squareEvaluation_second, RelativeSquare.map_right_assoc,
-      RelativeSquare.evaluation_right]
-
 -- A field structure is chosen only from the actual bundled ring predicate.
 variable (K : CommRingCat) [hK : Fact (IsField K)] (sK : Spec K ⟶ ComplexBase)
 
@@ -440,166 +327,9 @@ variable (hk : IsPullback k (Parametrized.parameter P sK) F.parameter (b ≫ F.s
 
 local instance : Surjective Q.toSmooth := Q.smoothSurjective
 
-abbrev extensionToC : Spec (Q.parametrizingField K b) ⟶ ComplexBase :=
-  Q.parametrizingExtension K b ≫ sK
-
-def coverPoint : PointsOver (Spec (Q.parametrizingField K b)) (extensionToC Q K sK b)
-    Q.cover Q.coverToC :=
-  ⟨Q.parametrizingPoint K b, Q.parametrizingPoint_overC K b sK hb⟩
-
-abbrev extendedBase : Spec (Q.parametrizingField K b) ⟶ F.smoothOpen.toScheme :=
-  Q.parametrizingExtension K b ≫ b
-
-@[reassoc] theorem coverPoint_base :
-    (coverPoint Q K sK b hb).val ≫ Q.toSmooth = extendedBase Q K b :=
-  Q.parametrizingPoint_base K b
-
-include hb in
-theorem extendedBase_overC :
-    (extendedBase Q K b ≫ F.smoothOpen.ι) ≫ F.toC = extensionToC Q K sK b := by
-  simp only [extendedBase, extensionToC, Category.assoc] at hb ⊢
-  rw [hb]
-
-abbrev sourceMap : Parametrized.Source P (extensionToC Q K sK b) ⟶ Parametrized.Source P sK :=
-  Parametrized.baseChangeSource P (extensionToC Q K sK b) sK
-    (Q.parametrizingExtension K b) rfl
-
-abbrev squareMap : Parametrized.Square P (extensionToC Q K sK b) ⟶ Parametrized.Square P sK :=
-  Parametrized.baseChangeSquare P (extensionToC Q K sK b) sK
-    (Q.parametrizingExtension K b) rfl
-
-abbrev extendedSource : Parametrized.Source P (extensionToC Q K sK b) ⟶ F.source :=
-  sourceMap Q K sK b ≫ k
-
-include hk in
-theorem extendedSource_isPullback :
-    IsPullback (extendedSource Q K sK b k)
-      (Parametrized.parameter P (extensionToC Q K sK b)) F.parameter
-      (extendedBase Q K b ≫ F.smoothOpen.ι) := by
-  simpa only [extendedSource, sourceMap, extendedBase, Category.assoc] using
-    (Parametrized.baseChangeSource_isPullback P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl).paste_horiz hk
-
-@[reassoc] theorem evaluationSquare_baseChange :
-    squareMap Q K sK b ≫
-        ParametrizedContact.evaluationSquare P sK X (k ≫ F.evaluation)
-          (evaluation_overC sK b hb k hk) =
-      ParametrizedContact.evaluationSquare P (extensionToC Q K sK b) X
-        (extendedSource Q K sK b k ≫ F.evaluation)
-        (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-          (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-          (extendedSource_isPullback Q K sK b k hk)) :=
-  RelativeSquare.map_evaluation (Parametrized.parameter P (extensionToC Q K sK b))
-    (Parametrized.parameter P sK) (sourceMap Q K sK b) (Q.parametrizingExtension K b)
-    (Parametrized.baseChangeSource_parameter P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl)
-    X.variety.structureMap (extensionToC Q K sK b) sK
-    (extendedSource Q K sK b k ≫ F.evaluation) (k ≫ F.evaluation)
-    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-      (extendedSource_isPullback Q K sK b k hk))
-    (evaluation_overC sK b hb k hk) (Category.assoc _ _ _).symm
-
-theorem left_baseChange :
-    pullSection (squareMap Q K sK b)
-        (ParametrizedContact.leftSection P sK X (k ≫ F.evaluation)
-          (evaluation_overC sK b hb k hk)) ≫
-      (compositionPullback (squareMap Q K sK b)
-        (ParametrizedContact.evaluationSquare P sK X (k ≫ F.evaluation)
-          (evaluation_overC sK b hb k hk))
-        (ParametrizedContact.evaluationSquare P (extensionToC Q K sK b) X
-          (extendedSource Q K sK b k ≫ F.evaluation)
-          (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-            (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-            (extendedSource_isPullback Q K sK b k hk)))
-        (evaluationSquare_baseChange Q K sK b hb k hk)
-        (movingPairBundleLeft X.variety X.contact)).hom =
-      ParametrizedContact.leftSection P (extensionToC Q K sK b) X
-        (extendedSource Q K sK b k ≫ F.evaluation)
-        (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-          (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-          (extendedSource_isPullback Q K sK b k hk)) :=
-  ParametrizedContact.leftSection_baseChange P (extensionToC Q K sK b) sK
-    (Q.parametrizingExtension K b) rfl (sourceMap Q K sK b)
-    (Parametrized.baseChangeSource_first P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl)
-    (Parametrized.baseChangeSource_parameter P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl)
-    X (k ≫ F.evaluation) (evaluation_overC sK b hb k hk)
-    (extendedSource Q K sK b k ≫ F.evaluation)
-    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-      (extendedSource_isPullback Q K sK b k hk))
-    (Category.assoc _ _ _).symm (squareMap Q K sK b)
-    (RelativeSquare.map_left _ _ _ _ _) (RelativeSquare.map_right _ _ _ _ _)
-    (evaluationSquare_baseChange Q K sK b hb k hk)
-
-theorem right_baseChange :
-    pullSection (squareMap Q K sK b)
-        (ParametrizedContact.rightSection P sK X (k ≫ F.evaluation)
-          (evaluation_overC sK b hb k hk)) ≫
-      (compositionPullback (squareMap Q K sK b)
-        (ParametrizedContact.evaluationSquare P sK X (k ≫ F.evaluation)
-          (evaluation_overC sK b hb k hk))
-        (ParametrizedContact.evaluationSquare P (extensionToC Q K sK b) X
-          (extendedSource Q K sK b k ≫ F.evaluation)
-          (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-            (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-            (extendedSource_isPullback Q K sK b k hk)))
-        (evaluationSquare_baseChange Q K sK b hb k hk)
-        (movingPairBundleRight X.variety X.contact)).hom =
-      ParametrizedContact.rightSection P (extensionToC Q K sK b) X
-        (extendedSource Q K sK b k ≫ F.evaluation)
-        (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-          (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-          (extendedSource_isPullback Q K sK b k hk)) :=
-  ParametrizedContact.rightSection_baseChange P (extensionToC Q K sK b) sK
-    (Q.parametrizingExtension K b) rfl (sourceMap Q K sK b)
-    (Parametrized.baseChangeSource_first P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl)
-    (Parametrized.baseChangeSource_parameter P (extensionToC Q K sK b) sK
-      (Q.parametrizingExtension K b) rfl)
-    X (k ≫ F.evaluation) (evaluation_overC sK b hb k hk)
-    (extendedSource Q K sK b k ≫ F.evaluation)
-    (evaluation_overC (extensionToC Q K sK b) (extendedBase Q K b)
-      (extendedBase_overC Q K sK b hb) (extendedSource Q K sK b k)
-      (extendedSource_isPullback Q K sK b k hk))
-    (Category.assoc _ _ _).symm (squareMap Q K sK b)
-    (RelativeSquare.map_left _ _ _ _ _) (RelativeSquare.map_right _ _ _ _ _)
-    (evaluationSquare_baseChange Q K sK b hb k hk)
-
 variable (a : Parametrized.Square P sK ⟶ F.smoothSquareOpen.toScheme)
 variable (ha : a ≫ F.smoothSquareOpen.ι = RelativeSquare.map (Parametrized.parameter P sK)
   F.parameter k (b ≫ F.smoothOpen.ι) hk.w)
-
-abbrev extendedSquare : Parametrized.Square P (extensionToC Q K sK b) ⟶
-    F.smoothSquareOpen.toScheme := squareMap Q K sK b ≫ a
-
-@[reassoc] theorem extendedSquare_family :
-    extendedSquare Q K sK b a ≫ F.smoothSquareOpen.ι =
-      RelativeSquare.map (Parametrized.parameter P (extensionToC Q K sK b))
-        F.parameter (extendedSource Q K sK b k) (extendedBase Q K b ≫ F.smoothOpen.ι)
-        (extendedSource_isPullback Q K sK b k hk).w := by
-  rw [extendedSquare, Category.assoc, ha]
-  apply pullback.hom_ext
-  · simp only [squareMap, Parametrized.baseChangeSquare, Category.assoc,
-      RelativeSquare.map_left, RelativeSquare.map_left_assoc, extendedSource, sourceMap]
-  · simp only [squareMap, Parametrized.baseChangeSquare, Category.assoc,
-      RelativeSquare.map_right, RelativeSquare.map_right_assoc, extendedSource, sourceMap]
-
-/-- The whole-square extension is a faithfully flat quasi-compact
-cover, so the field comparison can descend without selecting a section. -/
-theorem squareMap_section_injective {r : ℕ}
-    (E : AlgebraicVectorBundle (Parametrized.Square P sK) r) :
-    Function.Injective (fun s : AlgebraicSection E.sheaf =>
-      pullSection (squareMap Q K sK b) s) := by
-  letI : Surjective (Q.parametrizingExtension K b) := Q.parametrizingExtension_surjective K b
-  letI : Flat (Q.parametrizingExtension K b) := inferInstance
-  letI : QuasiCompact (Q.parametrizingExtension K b) := by
-    apply (HasAffineProperty.iff_of_isAffine (P := @QuasiCompact)).mpr
-    infer_instance
-  exact Parametrized.baseChangeSquare_section_injective P (extensionToC Q K sK b) sK
-    (Q.parametrizingExtension K b) rfl E
 
 /-- The descended left section agrees with the intrinsic tensor of
 every Cartesian P1 parametrization over an arbitrary field over C.

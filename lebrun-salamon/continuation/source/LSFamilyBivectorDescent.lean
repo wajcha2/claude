@@ -230,6 +230,10 @@ theorem smooth_commonContact :
   letI : Surjective Q.parametrizedSquareToSmooth := Q.parametrizedSquareToSmooth_surjective
   apply FlatSectionDescent.pullSection_injective_fppf Q.parametrizedSquareToSmooth
     (MovingPair.valueBundle (smoothEvaluation (F := F)))
+  change pullSection Q.parametrizedSquareToSmooth
+      (smoothLeft Q ≫ MovingPair.leftContact (smoothEvaluation (F := F))) =
+    pullSection Q.parametrizedSquareToSmooth
+      (smoothRight Q ≫ MovingPair.rightContact (smoothEvaluation (F := F)))
   apply (cancel_mono (compositionPullback Q.parametrizedSquareToSmooth
     (smoothEvaluation (F := F)) (parametrizedEvaluation Q) (evaluation_commutes Q)
     (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom).mp
@@ -267,6 +271,7 @@ theorem restricted_commonContact :
   rw [← Descent.LineValue.composition_inv_naturality,
     ← Descent.LineValue.composition_inv_naturality,
     ← Category.assoc, smooth_commonContact]
+  simp only [MovingPair.rightContact, Category.assoc]
 
 /-- The two actual rational sections on the compactified square. Their
 domain is exactly the original smooth square open. -/

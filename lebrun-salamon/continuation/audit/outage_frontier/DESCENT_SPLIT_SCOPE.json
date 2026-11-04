@@ -1,0 +1,32 @@
+{
+  "schema": "lebrun-split-scope-v1",
+  "sources": [
+    {
+      "path": "source/LSFamilyDescentTransport.lean",
+      "blob": "ccf56f9a9432fe560c7750bb5f26ba193df8817d",
+      "sha256": "4d2bcfb20815846115d3368087edde9a13f64f3d392d9258cee2f8149e2a888f"
+    },
+    {
+      "path": "source/LSFamilyDescentFibres.lean",
+      "blob": "d487debd0b7a545dc0985a1e4ab4d6dcaedde9b5",
+      "sha256": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28"
+    },
+    {
+      "path": "source/LSFamilyDescentReparametrization.lean",
+      "blob": "f8f4e0a82ab96031c38cc06af84de6f43c491624",
+      "sha256": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4"
+    },
+    {
+      "path": "source/LSFamilyBivectorDescent.lean",
+      "blob": "ca1cfa4ac39c09f88a511b336ad8b587cf19b4c4",
+      "sha256": "d07b3b6ba3e53648f6ad7a127e888a17c1afb9db29d85d69cab83dff15816313"
+    }
+  ],
+  "namespace_body_guards_independently_verified": true,
+  "production_modules": 275,
+  "wall_bound_per_module_seconds": 600,
+  "early_target": "LSFamilyDescentFibres",
+  "final_target": "LSFamilyReparametrization",
+  "scope": "Three new production modules separate transport, fibre comparison and reparametrization from the original tail. All135 v2 declarations retain their exact bodies and original public headers;0 new admissions. Same600-second per-module bound. Early stock artifact after the transport/fibre blocks; original tail and family branch continue using their verified outputs. Audited190 source files and accepted Family source remain unchanged.",
+  "accepted": false
+}

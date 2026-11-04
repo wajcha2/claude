@@ -1,0 +1,107 @@
+{
+  "schema": "lebrun-exact-namespace-split-v1",
+  "original_module": "LSFamilyBivectorDescent",
+  "parent_source_sha256": "195974cc00680ee852a77903fab6b214a0638410d152158eed067db9487328cb",
+  "parent_git_blob": "3829753b8360e18864edc9ef1eec30b4c5f93462",
+  "parent_native_status": "600.310s timeout, zero emitted errors; not accepted",
+  "evidence": {
+    "run_id": 41790755305,
+    "job_id": 126443322597,
+    "diagnostic_sha256": "3b98b8eb529feeadf6d7181e4028aec6f70f7b2c273cd1ca32078cc2863b422d",
+    "raw_stderr_verified": true,
+    "diagnostic_seconds": 300.228,
+    "left_atCurve_kernel_seconds": 77.8,
+    "right_atCurve_kernel_seconds": 76.8,
+    "last_completed_marker": "EXIT_square_comp_ENTER_compared_of_expansion",
+    "note": "The generic finite-sum refactor did not reduce the concrete restriction costs. Completed earlier blocks consume most of the300-second prefix budget; the split allows their native outputs to be reused while checking remaining blocks independently."
+  },
+  "modules": [
+    {
+      "module": "LSFamilyDescentTransport",
+      "path": "source/LSFamilyDescentTransport.lean",
+      "git_blob": "ccf56f9a9432fe560c7750bb5f26ba193df8817d",
+      "sha256": "4d2bcfb20815846115d3368087edde9a13f64f3d392d9258cee2f8149e2a888f",
+      "declarations": 17,
+      "body_sha256": "edbec76ee010c0a42ca7fc4b794901a11e6c685cbb80063d872f5ae8470f2d2a",
+      "body_code_units": 18986
+    },
+    {
+      "module": "LSFamilyDescentFibres",
+      "path": "source/LSFamilyDescentFibres.lean",
+      "git_blob": "d487debd0b7a545dc0985a1e4ab4d6dcaedde9b5",
+      "sha256": "a4f8696aa5a68ca7e066513979d3d49922bf85c26b07ea8c4d5989b158b9ef28",
+      "declarations": 18,
+      "body_sha256": "420d2d3b3d77f377f314ae2e3a3b6b327e2f57a4df8a45b4ae589976aa61a369",
+      "body_code_units": 17416
+    },
+    {
+      "module": "LSFamilyDescentReparametrization",
+      "path": "source/LSFamilyDescentReparametrization.lean",
+      "git_blob": "f8f4e0a82ab96031c38cc06af84de6f43c491624",
+      "sha256": "a01966feb758bcd9839324166af1c4278a4c2a97c1bd8cdc030628ccd96cb6d4",
+      "declarations": 6,
+      "body_sha256": "0b1f745f4e3c120ea88fd792f07a28ee28d6b21da60b196391aeb480919715f4",
+      "body_code_units": 5784
+    },
+    {
+      "module": "LSFamilyBivectorDescent",
+      "path": "source/LSFamilyBivectorDescent.lean",
+      "git_blob": "ca1cfa4ac39c09f88a511b336ad8b587cf19b4c4",
+      "sha256": "d07b3b6ba3e53648f6ad7a127e888a17c1afb9db29d85d69cab83dff15816313",
+      "declarations": 94,
+      "body_sha256": "a24b9f53b579774aff639091624485edcdcfc6c7db403c9fa34faaf6d0b12e9d",
+      "body_code_units": 50878
+    }
+  ],
+  "proof_body_changes": 0,
+  "namespace_bodies_exact": [
+    {
+      "module": "LSFamilyDescentTransport",
+      "first": "SectionTransport",
+      "last": "RelativeSquare",
+      "start": 1125,
+      "end": 20111,
+      "body_sha256": "edbec76ee010c0a42ca7fc4b794901a11e6c685cbb80063d872f5ae8470f2d2a"
+    },
+    {
+      "module": "LSFamilyDescentFibres",
+      "first": "Curve",
+      "last": "ParametrizedContact",
+      "start": 20326,
+      "end": 37742,
+      "body_sha256": "420d2d3b3d77f377f314ae2e3a3b6b327e2f57a4df8a45b4ae589976aa61a369"
+    },
+    {
+      "module": "LSFamilyDescentReparametrization",
+      "first": "Reparametrization",
+      "last": "Reparametrization",
+      "start": 37743,
+      "end": 43527,
+      "body_sha256": "0b1f745f4e3c120ea88fd792f07a28ee28d6b21da60b196391aeb480919715f4"
+    },
+    {
+      "module": "LSFamilyBivectorDescent",
+      "first": "OpenSection",
+      "last": "SmoothFamily",
+      "start": 43528,
+      "end": 94406,
+      "body_sha256": "a24b9f53b579774aff639091624485edcdcfc6c7db403c9fa34faaf6d0b12e9d"
+    }
+  ],
+  "total_existing_public_headers_retained": 135,
+  "original_134_headers_retained": true,
+  "existing_v2_generic_helper_retained": 1,
+  "extra_declarations_in_split": 0,
+  "new_admissions": 0,
+  "global_scopes": "All namespace blocks retain their exact variable declarations; there are no cross-boundary private declarations or local notations. Each file retains the original open namespaces and elaboration options. The original local reducibility settings are repeated in all blocks after RelativeSquare.",
+  "public_header_sequence_sha256": "3ed2eb0fae514a7d710b83022f6729a8fef588be369929d746772ce82525b3fa",
+  "changed_existing_sources": [
+    "source/LSFamilyBivectorDescent.lean"
+  ],
+  "new_source_modules": 3,
+  "audited_190_source_changes": [],
+  "family_source_unchanged": "4d73f36e6dfe9ba0a5fb24613dcddae007bc6e40b2bbf9a8030999fa4ea48539",
+  "native_acceptance": false,
+  "recommended_build": "Use unchanged600-second per-module limit and exact accepted Family/253 cache, target LSFamilyReparametrization with keep-going; preserve every successful split-prefix receipt/output even if a later block fails.",
+  "note": "Production sources contain no profiler or IO-marker commands. Static preservation is not kernel acceptance."
+}

@@ -1,3 +1,11 @@
+# Isolated Coordinates diagnostic branch
+
+This branch checks only the 80-module LSP1BivectorCoordinates closure, with the frozen zero-admission candidate 433e562e and all 79 prerequisite sources identical to parent160282d0. It is separate from the canonical continuation and adds no acceptance credit. The retained parent documentation below describes its frozen historical full-graph checkpoint; this branch executes only the diagnostic workflow.
+
+[Exact diagnostic scope](audit/coordinates_diagnostic/SCOPE.json).
+
+---
+
 # LeBrun–Salamon formalisation: continuation
 
 **Status on 4 November 2026: working candidate; the published-theorems-only milestone is not met.**

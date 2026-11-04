@@ -1,0 +1,55 @@
+name: LeBrun-Salamon isolated Coordinates diagnostic
+
+on:
+  push:
+    branches:
+      - codex/lebrun-coordinates-diagnostic-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  coordinates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact isolated candidate
+        uses: actions/checkout@v4
+      - name: Verify frozen source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned runtime without rebuilding mathlib
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py \
+            --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download completed native evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-takeover-kernel-41769360325-1
+          run-id: 41769360325
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/lebrun-prior-evidence
+      - name: Restore only exact source and runtime matches
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py \
+            --root lebrun-salamon/continuation --runtime-config runtime-config.json \
+            --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence \
+            --source-run-id 41769360325 --source-artifact-name lebrun-takeover-kernel-41769360325-1
+      - name: Check only Coordinates and its exact dependency closure
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py \
+            --root lebrun-salamon/continuation --runtime-config runtime-config.json \
+            --build-dir kernel-evidence --module LSP1BivectorCoordinates --keep-going --timeout 300
+      - name: Preserve isolated diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-coordinates-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn

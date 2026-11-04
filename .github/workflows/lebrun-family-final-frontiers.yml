@@ -1,0 +1,170 @@
+name: LeBrun-Salamon independent member and generic family frontiers
+on:
+  push:
+    branches: [codex/lebrun-family-final-frontiers-20261104]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-family-final-frontiers-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  smooth_members:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41849303775
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-smooth-normalization28-41849303775-1
+          run-id: 41849303775
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Check actual repaired22 member declarations directly
+        id: members_actual
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilySmoothDescent --keep-going --timeout 300
+      - name: Report members_actual exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve members_actual exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-smooth-members22-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Localize exact final covered pair on actual member output
+        id: covered_profile
+        if: steps.members_actual.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyCoveredPairProfile --keep-going --timeout 300
+      - name: Report covered_profile exact native scope
+        if: always() && steps.members_actual.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose covered_profile receipt-bound raw markers
+        if: always() && steps.members_actual.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyCoveredPairProfile --allow-unattempted
+      - name: Preserve covered_profile exact evidence before continuation
+        if: always() && steps.members_actual.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-covered-pair-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual original final covered pair
+        id: covered_actual
+        if: steps.members_actual.outcome == 'success' && steps.covered_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --keep-going --timeout 300
+      - name: Report covered_actual exact native scope
+        if: always() && steps.members_actual.outcome == 'success' && steps.covered_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve covered_actual exact evidence before continuation
+        if: always() && steps.members_actual.outcome == 'success' && steps.covered_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-covered-pair-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require actual member and covered-pair outcomes
+        if: always()
+        run: |
+          test "${{ steps.members_actual.outcome }}" = success
+          test "${{ steps.covered_profile.outcome }}" = success
+          test "${{ steps.covered_actual.outcome }}" = success
+  generic_comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41849303775
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-smooth-normalization28-41849303775-1
+          run-id: 41849303775
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Localize exact22 generic-family comparisons on passed parents
+        id: generic_profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyComparison22Profile --keep-going --timeout 300
+      - name: Report generic_profile exact native scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose generic_profile receipt-bound raw markers
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSGenericFamilyComparison22Profile --allow-unattempted
+      - name: Preserve generic_profile exact evidence before continuation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-generic-comparison22-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual original22 generic-family comparisons
+        id: generic_actual
+        if: steps.generic_profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyComparison --keep-going --timeout 300
+      - name: Report generic_actual exact native scope
+        if: always() && steps.generic_profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve generic_actual exact evidence before continuation
+        if: always() && steps.generic_profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-generic-comparison22-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require completed diagnostic and actual generic comparison
+        if: always()
+        run: |
+          test "${{ steps.generic_profile.outcome }}" = success
+          test "${{ steps.generic_actual.outcome }}" = success

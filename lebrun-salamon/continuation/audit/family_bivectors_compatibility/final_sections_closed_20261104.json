@@ -1,0 +1,177 @@
+{
+  "schema": "lebrun-reparam-final-opaque-endpoints-v1",
+  "status": "uncompiled materially changed candidate; no acceptance claim",
+  "production_sources": [
+    {
+      "module": "LSFamilyReparamExpansionStages",
+      "sha256": "5a042dc169d5d85c32295e0b86e4e0fda917328d04d2d6499c0c6b54ff7b9ee5",
+      "blob": "31b638a92a8008af25faa471d15de8532ff2a47f",
+      "kind": "byte-exact stock-passed first-four prefix; proposed promotion as production dependency"
+    },
+    {
+      "module": "LSFamilyDescentReparametrization",
+      "sha256": "a1e37766146c2a6dd82265fcbf27b2ada3a956c9c47608d073ca75219ad3684e",
+      "blob": "715d4c69617937b3383aee89280f5259cdcb27cb",
+      "kind": "production candidate, uncompiled"
+    }
+  ],
+  "profile": {
+    "module": "LSFamilyReparamFinalStagesProfile",
+    "sha256": "17f7121a872431ef5de0dc25c8c45610f19429a25062b4d2c26b66c41e44959c",
+    "blob": "12eea05b339a795c81d8851e73b10eca0b9b497e",
+    "kind": "diagnostic profile with exact proof/header bytes, uncompiled"
+  },
+  "guard": {
+    "baseline_sha256": "d5e07bfb1d9d3e71883e94ba8ea9e4c5c9e1a737ade1e2dc2ab869d824bc4cda",
+    "prefix_sha256": "5a042dc169d5d85c32295e0b86e4e0fda917328d04d2d6499c0c6b54ff7b9ee5",
+    "final_module_sha256": "a1e37766146c2a6dd82265fcbf27b2ada3a956c9c47608d073ca75219ad3684e",
+    "original_headers": [
+      "theorem mixedPull_product {E F : OModule ProjectiveLine} (a : AlgebraicSection E) (b : AlgebraicSection F) : mixedPull P e he E F (externalProductSection P.structureMap a b) = externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b)",
+      "theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ} (a : Fin N → AlgebraicSection (externalTensor P.structureMap E F)) : mixedPull P e he E F (∑ i, a i) = ∑ i, mixedPull P e he E F (a i)",
+      "@[reassoc] theorem square_comp : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g",
+      "theorem compared_of_expansion {E F : OModule X.variety.scheme} (B : AlgebraicSection (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) {N : ℕ} (a : Fin N → AlgebraicSection (pullbackModule f.map E)) (b : Fin N → AlgebraicSection (pullbackModule f.map F)) (hB : B = ∑ i, externalProductSection P.structureMap (a i) (b i)) : pullSection (curveSquareMap P (curve P e he)) (B ≫ curveExternalComparison P f E F) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (externalTensor X.variety.structureMap E F)).hom = (mixedPull P e he (pullbackModule f.map E) (pullbackModule f.map F) B ≫ externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map hg.symm E).hom (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F",
+      "theorem leftSection : pullSection (curveSquareMap P (curve P e he)) (Curve.leftSection P X f) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X g",
+      "theorem rightSection : pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X g"
+    ],
+    "all_original_headers_preserved": true,
+    "original_ambient_lines": [
+      "variable (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)",
+      "variable (he : e.hom ≫ P.structureMap = P.structureMap)",
+      "variable {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety)",
+      "variable (hg : g.map = e.hom ≫ f.map)",
+      "include hg in",
+      "variable {E F : OModule X.variety.scheme}"
+    ],
+    "new_final_ambient_lines": [
+      "variable (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)",
+      "variable (he : e.hom ≫ P.structureMap = P.structureMap)",
+      "variable {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety)",
+      "variable (hg : g.map = e.hom ≫ f.map)"
+    ],
+    "closed_raw_left_proof_matches_stock_probe": true,
+    "new_admissions": 0,
+    "scope": "Uncompiled original-final-two repair. Move the exact stock-passed comparison prefix into a production helper; retain all original names/statements. Replace only final proof bodies with typed opaque endpoint equalities and transitivity."
+  },
+  "profile_inverse_exact": true,
+  "proof_changes": "Eight closed internal lemmas: the two raw finite expansions, two explicit specializations of the proved comparison, two typed postcompositions of the proved raw-tensor reparametrization, and two literal definition equalities. Each original final theorem only chooses the existing external expansion and composes opaque equalities.",
+  "completed_discriminator": {
+    "prefix": {
+      "tag": "NATIVE_RECEIPT",
+      "module": "LSFamilyReparamExpansionStages",
+      "receipt_sha256": "a33940e3f266bb75aeb44d0b572029a032c7e1084183edc1c34f3e1d6d5fd874",
+      "key": {
+        "source_sha256": "5a042dc169d5d85c32295e0b86e4e0fda917328d04d2d6499c0c6b54ff7b9ee5",
+        "imports": [
+          "LSFamilyDescentFibres",
+          "LSFamilyExternalProductMap",
+          "LSFamilyCurveProductDirect",
+          "LSFamilyReparamProductTransport",
+          "LSFamilyAdditiveExpansion",
+          "LSFamilySectionSums"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyDescentFibres": {
+            "sha256": "e4222af5b7902df30ff49eaf41040ced1098197cdb864a89eb2d964d4578e977",
+            "kind": "project"
+          },
+          "LSFamilyExternalProductMap": {
+            "sha256": "b5d2b697517403639c8cc60ee37c39c4aa0db128762ed38794e64c2d04d36c0c",
+            "kind": "project"
+          },
+          "LSFamilyCurveProductDirect": {
+            "sha256": "04307b0405a12ae93994b121d0ba73c64ada0e173522f7e14e64ec9d0ceac53c",
+            "kind": "project"
+          },
+          "LSFamilyReparamProductTransport": {
+            "sha256": "743ee7c0dd43c87273ee36a50bea888ab6284ddf807f38b7aafc765ac235a086",
+            "kind": "project"
+          },
+          "LSFamilyAdditiveExpansion": {
+            "sha256": "c13337325cdd20ce9c603d6a9c06164cdab0143a1c0d5550c7f74fb14d562fa9",
+            "kind": "project"
+          },
+          "LSFamilySectionSums": {
+            "sha256": "4c4f3a5684bc6ffed8cf5ad4e6319a085e6507b2571efa8004c63bcc159e485f",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "596f9bb657d388126dce9f5bf4cada4222a5523986f8a48f95ef00c9d38da28b",
+      "source_ancestry_fingerprint": "6d588d4b0ba48f90ee3955dfbd7d59346e1f35f0c552ff0d8ec7c44b1df2a747",
+      "seconds": 4.027,
+      "stdout_sha256": "5301284dc669838db5824d114541493115957d536d8bc6f22dc097267fa6fa58",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    },
+    "rawExpansion": {
+      "tag": "NATIVE_RECEIPT",
+      "module": "LSFamilyReparamLeftExpansion",
+      "receipt_sha256": "5681e53a9df6efb3e77ff417981bc061110a47fc8d3388bcd89e67ee5785ff94",
+      "key": {
+        "source_sha256": "a41031b137d4e8ae856de2f2ebf25ad3b3a404b911fcdf96d8ab3d4fe43dcb0e",
+        "imports": [
+          "LSFamilyReparamExpansionStages"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyReparamExpansionStages": {
+            "sha256": "596f9bb657d388126dce9f5bf4cada4222a5523986f8a48f95ef00c9d38da28b",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a6d7b38a27c2c76e08fdd66af285c819d6fc1ac2da0b8fdec1dc9c42a51ae190",
+      "source_ancestry_fingerprint": "ca00f485fbefdebc4f22d18451409a1e1f81c429d2a836a5d495c8064925a1d8",
+      "seconds": 3.476,
+      "stdout_sha256": "4e47c2aaab89dbacfc31ee3ca3320f569b6810525d6cac3a71edb24993894c62",
+      "stderr_sha256": "591c5d775b6eb5e8a774f89de5c407c2c4456c60671388c7b931f71932e35ace",
+      "cache_restore_provenance": null,
+      "cache_union_provenance": null
+    },
+    "originalLeft": {
+      "tag": "NATIVE_DIAGNOSTIC",
+      "module": "LSFamilyReparamLeftOriginalSteps",
+      "status": "failed",
+      "source_sha256": "c754f9b7834c28b177b0695e6c420772191be3bb5e55266df8510630ceb7b79e",
+      "return_code": 124,
+      "seconds": 180.372,
+      "errors": [],
+      "stderr": "LEFT_WRAPPER_ENTER_original_left\nLEFT_WRAPPER_STEP_ENTER\nLEFT_WRAPPER_STEP_AFTER_OBTAIN\nLEFT_WRAPPER_STEP_HB_AFTER_INSTANCE\nLEFT_WRAPPER_STEP_HB_AFTER_CANCEL\nLEFT_WRAPPER_STEP_AFTER_HB\nLEFT_WRAPPER_STEP_AFTER_RW\n"
+    }
+  },
+  "completed_job": {
+    "run": 41817146860,
+    "job": 126530665965,
+    "returned_joblog_sha256": "8e5ae60876725bfe431478158392100866fc8fc29765d540d090fcd60738e6f1"
+  },
+  "diagnosis": "The raw expansion passed separately. The original left rewrite returned, but the declaration timed out after AFTER_RW, so no claim is made that its rewrite proof term was kernel checked.",
+  "original_public_headers": [
+    "theorem mixedPull_product {E F : OModule ProjectiveLine} (a : AlgebraicSection E) (b : AlgebraicSection F) : mixedPull P e he E F (externalProductSection P.structureMap a b) = externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b)",
+    "theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ} (a : Fin N → AlgebraicSection (externalTensor P.structureMap E F)) : mixedPull P e he E F (∑ i, a i) = ∑ i, mixedPull P e he E F (a i)",
+    "@[reassoc] theorem square_comp : curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g",
+    "theorem compared_of_expansion {E F : OModule X.variety.scheme} (B : AlgebraicSection (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) {N : ℕ} (a : Fin N → AlgebraicSection (pullbackModule f.map E)) (b : Fin N → AlgebraicSection (pullbackModule f.map F)) (hB : B = ∑ i, externalProductSection P.structureMap (a i) (b i)) : pullSection (curveSquareMap P (curve P e he)) (B ≫ curveExternalComparison P f E F) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (externalTensor X.variety.structureMap E F)).hom = (mixedPull P e he (pullbackModule f.map E) (pullbackModule f.map F) B ≫ externalTensorMap P.structureMap (compositionPullback e.hom f.map g.map hg.symm E).hom (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫ curveExternalComparison P g E F",
+    "theorem leftSection : pullSection (curveSquareMap P (curve P e he)) (Curve.leftSection P X f) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X g",
+    "theorem rightSection : pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫ (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg) (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X g"
+  ],
+  "fixed_190_source_boundary_changed": false,
+  "pending_gates": "Profile and exact production final module; original SmoothFamily tail a462 and explicit-import FamilyReparametrization f2eb; full reverse-cone acceptance.",
+  "parent_authorization": "Root requested typed separate endpoint equalities and opaque transitivity, preserving six original headers and ambient assumptions, and authorized exact first4/final2 factoring when useful."
+}

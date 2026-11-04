@@ -1,0 +1,197 @@
+{
+  "schema": "lebrun-covered-comparison-generic-naturality-repair-v1",
+  "baseline_sha256": "3d596cf5f35f6b69cb49c2c33f6cd4e07cc11da2c6bc82caf5e505ace83dba66",
+  "candidate_sha256": "c26abea08ed7b0f84e6f5b3875b6827a77e8422fe92e35789772e43ccd123f9e",
+  "patches": [
+    {
+      "old": "namespace SmoothFamily\n",
+      "new": "private theorem covered_pull_map {T Y W Z : Scheme}\n    (a : T ⟶ Y) (b : Y ⟶ Z) (c : T ⟶ W) (d : W ⟶ Z)\n    (h : a ≫ b = c ≫ d) {V L : OModule Z} (v : V ⟶ L)\n    (s : AlgebraicSection (pullbackModule b V))\n    (t : AlgebraicSection (pullbackModule d V))\n    (hs : pullSection a s ≫ (pullbackSquareIso a b c d h V).hom = pullSection c t) :\n    pullSection a (s ≫ (Scheme.Modules.pullback b).map v) ≫\n        (pullbackSquareIso a b c d h L).hom =\n      pullSection c (t ≫ (Scheme.Modules.pullback d).map v) := by\n  rw [pullSection_naturality a s ((Scheme.Modules.pullback b).map v),\n    Category.assoc, pullbackSquare_naturality a b c d h v,\n    ← Category.assoc, hs,\n    ← pullSection_naturality c t ((Scheme.Modules.pullback d).map v)]\n\nprivate theorem extension_covered_identity\n    {P : ProjectiveLineOverC} {n : ℕ} {X : ContactFanoManifold n}\n    {Y T : Scheme} (r : Y ⟶ SelfProduct X.variety.structureMap)\n    (R : MovingPair.RationalVectorPair (X := X) r) (E : R.Extension)\n    (hp : IsProper r) (hd : DenseRange (fun y : Y => r y)) (hI : IntegralScheme Y)\n    (f : RationalCurve P X.variety) (a : T ⟶ Y) (c : T ⟶ SelfProduct P.structureMap)\n    (h : a ≫ r = c ≫ curveSquareMap P f)\n    (hs : pullSection a E.leftSection ≫\n        (pullbackSquareIso a r c (curveSquareMap P f) h\n          (movingPairBundleLeft X.variety X.contact)).hom =\n      pullSection c (Curve.leftSection P X f)) :\n    pullSection a (E.properPair hp hd hI).value ≫\n        (pullbackSquareIso a (E.properPair hp hd hI).pair.data.projection c\n          (curveSquareMap P f) h\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom =\n      pullSection c (sourceContactValue P X.contact f) := by\n  change pullSection a (E.properPair hp hd hI).value ≫\n      (pullbackSquareIso a r c (curveSquareMap P f) h\n        (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom = _\n  calc\n    _ = pullSection a\n        (E.leftSection ≫ (Scheme.Modules.pullback r).map\n          (movingPairContactLeft X.variety X.contact)) ≫\n        (pullbackSquareIso a r c (curveSquareMap P f) h\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom := by\n      exact congrArg\n        (fun w : AlgebraicSection (pullbackModule r\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf) =>\n            pullSection a w ≫\n              (pullbackSquareIso a r c (curveSquareMap P f) h\n                (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom)\n        (E.properPair_value hp hd hI)\n    _ = pullSection c\n        (Curve.leftSection P X f ≫ (Scheme.Modules.pullback (curveSquareMap P f)).map\n          (movingPairContactLeft X.variety X.contact)) :=\n      covered_pull_map a r c (curveSquareMap P f) h\n        (movingPairContactLeft X.variety X.contact) E.leftSection (Curve.leftSection P X f) hs\n    _ = pullSection c (sourceContactValue P X.contact f) :=\n      congrArg\n        (fun w : AlgebraicSection (pullbackModule (curveSquareMap P f)\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf) => pullSection c w)\n        (Curve.leftSection_contact P X f)\n\nnamespace SmoothFamily\n"
+    },
+    {
+      "old": "  identity := by\n    rw [E.properPair_value hp hd F.square_integralScheme, pullSection_naturality]\n    simp only [Category.assoc]\n    rw [pullbackSquare_naturality, ← Category.assoc, extension_left_member Q t E,\n      ← pullSection_naturality, Curve.leftSection_contact]",
+      "new": "  identity := extension_covered_identity F.squareEvaluation (rationalPair Q) E\n    hp hd F.square_integralScheme (N.curveAt t)\n    (memberToFamily Q t) (Q.reducedMemberToSquare t)\n    (memberToFamily_evaluation Q t) (extension_left_member Q t E)"
+    },
+    {
+      "old": "namespace SmoothFamily\n",
+      "new": "private def extension_covered_comparison\n    {P : ProjectiveLineOverC} {n : ℕ} {X : ContactFanoManifold n}\n    {Y T : Scheme} (r : Y ⟶ SelfProduct X.variety.structureMap)\n    (R : MovingPair.RationalVectorPair (X := X) r) (E : R.Extension)\n    (hp : IsProper r) (hd : DenseRange (fun y : Y => r y)) (hI : IntegralScheme Y)\n    (f : RationalCurve P X.variety) (a : T ⟶ Y) (c : T ⟶ SelfProduct P.structureMap)\n    (h : a ≫ r = c ≫ curveSquareMap P f)\n    (hc : IsProper c) (hcs : Function.Surjective (fun z : T => c z))\n    (hs : pullSection a E.leftSection ≫\n        (pullbackSquareIso a r c (curveSquareMap P f) h\n          (movingPairBundleLeft X.variety X.contact)).hom =\n      pullSection c (Curve.leftSection P X f)) :\n    CoveredCurveComparison P X (E.properPair hp hd hI) f where\n  cover := T\n  toSquare := c\n  proper := hc\n  surjective := hcs\n  toSource := a\n  commutes := h\n  identity := extension_covered_identity r R E hp hd hI f a c h hs\n\nnamespace SmoothFamily\n"
+    },
+    {
+      "old": "    CoveredCurveComparison P X (E.properPair hp hd F.square_integralScheme) (N.curveAt t) where\n  cover := Q.ReducedMemberCover t\n  toSquare := Q.reducedMemberToSquare t\n  proper := Q.reducedMemberToSquare_proper t\n  surjective := Q.reducedMemberToSquare_surjective t\n  toSource := memberToFamily Q t\n  commutes := memberToFamily_evaluation Q t\n  identity := extension_covered_identity F.squareEvaluation (rationalPair Q) E\n    hp hd F.square_integralScheme (N.curveAt t)\n    (memberToFamily Q t) (Q.reducedMemberToSquare t)\n    (memberToFamily_evaluation Q t) (extension_left_member Q t E)",
+      "new": "    CoveredCurveComparison P X (E.properPair hp hd F.square_integralScheme) (N.curveAt t) :=\n  extension_covered_comparison (P := P) (X := X) (Y := F.Square)\n    (T := Q.ReducedMemberCover t) F.squareEvaluation (rationalPair Q) E\n    hp hd F.square_integralScheme (N.curveAt t)\n    (memberToFamily Q t) (Q.reducedMemberToSquare t)\n    (memberToFamily_evaluation Q t) (Q.reducedMemberToSquare_proper t)\n    (Q.reducedMemberToSquare_surjective t) (extension_left_member Q t E)"
+    },
+    {
+      "old": "(hI : IntegralScheme Y)",
+      "new": "(hI : Descent.IntegralScheme Y)",
+      "occurrences": 2
+    }
+  ],
+  "scope": "Three new private generic proof/constructor helpers; original coveredComparison uses the generic constructor with exactly the original cover, maps, properties and commutes. Original public written headers and coveredMovingPair body unchanged. No new assumptions or admissions. Uncompiled candidate. Exact two new helper binder names qualified after completed62.859s diagnostic; no other change.",
+  "inverse_restores_baseline_bytes": true,
+  "original_written_public_headers": [
+    "def coveredComparison (E : (rationalPair Q).Extension) (hp : IsProper F.squareEvaluation) (hd : DenseRange (fun y : F.Square => F.squareEvaluation y)) : CoveredCurveComparison P X (E.properPair hp hd F.square_integralScheme) (N.curveAt t)",
+    "def coveredMovingPair (E : (rationalPair Q).Extension) (hd : DenseRange (fun y : F.Square => F.squareEvaluation y)) : CoveredMovingPair P p X g"
+  ],
+  "candidate_written_public_headers": [
+    "def coveredComparison (E : (rationalPair Q).Extension) (hp : IsProper F.squareEvaluation) (hd : DenseRange (fun y : F.Square => F.squareEvaluation y)) : CoveredCurveComparison P X (E.properPair hp hd F.square_integralScheme) (N.curveAt t)",
+    "def coveredMovingPair (E : (rationalPair Q).Extension) (hd : DenseRange (fun y : F.Square => F.squareEvaluation y)) : CoveredMovingPair P p X g"
+  ],
+  "written_public_headers_unchanged": true,
+  "profile_guard": {
+    "schema": "lebrun-exact-declaration-marker-profile-v1",
+    "actual_source": "source_milestone_audit/covered_pair_repair/LSFamilyCoveredComparisonRepairV3.lean",
+    "actual_source_sha256": "c26abea08ed7b0f84e6f5b3875b6827a77e8422fe92e35789772e43ccd123f9e",
+    "profile_source_sha256": "101ce9a98d2693c0310ef9ba44da61428c12757064f6b87a788683cc747390ec",
+    "declaration_count": 5,
+    "raw_marker_blocks": 10,
+    "diagnostic_options": [
+      "set_option profiler true",
+      "set_option stderrAsMessages false",
+      "set_option maxErrors 1"
+    ],
+    "stripped_profile_equals_actual_bytes": true,
+    "all_actual_declaration_headers_bodies_contexts_and_imports_unchanged": true,
+    "profile_is_diagnostic_only": true,
+    "declarations": [
+      {
+        "name": "covered_pull_map",
+        "namespace": "LeBrunSalamon.Construction.FamilyBivectors",
+        "line": 35,
+        "start": 1388,
+        "end": 2125
+      },
+      {
+        "name": "extension_covered_identity",
+        "namespace": "LeBrunSalamon.Construction.FamilyBivectors",
+        "line": 49,
+        "start": 2125,
+        "end": 4588
+      },
+      {
+        "name": "extension_covered_comparison",
+        "namespace": "LeBrunSalamon.Construction.FamilyBivectors",
+        "line": 92,
+        "start": 4588,
+        "end": 5546
+      },
+      {
+        "name": "coveredComparison",
+        "namespace": "SmoothFamily",
+        "line": 128,
+        "start": 6077,
+        "end": 6853
+      },
+      {
+        "name": "coveredMovingPair",
+        "namespace": "SmoothFamily",
+        "line": 142,
+        "start": 6853,
+        "end": 7400
+      }
+    ]
+  },
+  "local_result": {
+    "module": "LSFamilyCoveredComparisonRepairV3Profile",
+    "source_sha256": "101ce9a98d2693c0310ef9ba44da61428c12757064f6b87a788683cc747390ec",
+    "seconds": 59.879,
+    "timeout_seconds": 90,
+    "return_code": 0,
+    "emitted_error_count": 0,
+    "complete_success": true,
+    "all_source_runtime_and_import_hashes_unchanged": true,
+    "output_sha256": "48181d5d55e1e36412d92021ecc1fece3982b7e6e5673e3590dbb8ab8e5b0f4d",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "a87f17b39069e03ed89bd6339f2e5abc0016e114930a574cfb89813ac3d5dd32",
+    "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T151314635099-LSFamilyCoveredComparisonRepairV3Profile/receipt.json",
+    "receipt_sha256": "a5ee8b531a186926bd2f4272051a199182fec5a22bffc1671c6fea70db8bbb2e"
+  },
+  "original_stock_failure_record": "ad9f4edf5d44772b3b7685ce4646b53bbee375b4",
+  "prior_local_results": [
+    {
+      "module": "LSFamilyCoveredComparisonRepairProfile",
+      "source_sha256": "275e1a0f23a5079abf3f2ce0151cac515f245247c96f28249ed84f41b5a351a0",
+      "seconds": 90.608,
+      "return_code": 124,
+      "timed_out": true,
+      "emitted_error_count": 0,
+      "complete_success": false,
+      "all_source_runtime_and_import_hashes_unchanged": true,
+      "output_sha256": null,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b00d4b8c01d2b39f9c1f289c8de1627ae246a5234703d21fdc96ae6fc3e60253",
+      "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T150422551462-LSFamilyCoveredComparisonRepairProfile/receipt.json",
+      "stderr": "COVERED_REPAIR_STAGE ENTER_01_LeBrunSalamon.Construction.FamilyBivectors_covered_pull_map\nCOVERED_REPAIR_STAGE EXIT_01_LeBrunSalamon.Construction.FamilyBivectors_covered_pull_map\nCOVERED_REPAIR_STAGE ENTER_02_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_identity\ntactic execution of Lean.Parser.Tactic.change took 435ms\ntype checking took 12.1s\nCOVERED_REPAIR_STAGE EXIT_02_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_identity\nCOVERED_REPAIR_STAGE ENTER_03_SmoothFamily_coveredComparison\n",
+      "diagnostics": []
+    },
+    {
+      "module": "LSFamilyCoveredComparisonRepairV2Profile",
+      "source_sha256": "a32d2d5b07704d170771361a5c7c9efd0d96c68329770a63f693370be3fb924a",
+      "seconds": 62.859,
+      "return_code": 1,
+      "timed_out": false,
+      "emitted_error_count": 2,
+      "complete_success": false,
+      "all_source_runtime_and_import_hashes_unchanged": true,
+      "output_sha256": null,
+      "stdout_sha256": "d0571117046acc0337b26830fe83773cf09ecd6772a08e91ed21ab38d6ea46f5",
+      "stderr_sha256": "ee744172e02d755a74d20f86a41311742d905388b6195dd3ad3028be89748251",
+      "receipt_path": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T151030824399-LSFamilyCoveredComparisonRepairV2Profile/receipt.json",
+      "stderr": "COVERED_REPAIR_V2_STAGE ENTER_01_LeBrunSalamon.Construction.FamilyBivectors_covered_pull_map\nCOVERED_REPAIR_V2_STAGE EXIT_01_LeBrunSalamon.Construction.FamilyBivectors_covered_pull_map\nCOVERED_REPAIR_V2_STAGE ENTER_02_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_identity\ntactic execution of Lean.Parser.Tactic.change took 452ms\ntype checking took 10.7s\nCOVERED_REPAIR_V2_STAGE EXIT_02_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_identity\nCOVERED_REPAIR_V2_STAGE ENTER_03_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_comparison\ntype checking took 11.3s\nelaboration took 747ms\nCOVERED_REPAIR_V2_STAGE EXIT_03_LeBrunSalamon.Construction.FamilyBivectors_extension_covered_comparison\nCOVERED_REPAIR_V2_STAGE ENTER_04_SmoothFamily_coveredComparison\nCOVERED_REPAIR_V2_STAGE EXIT_04_SmoothFamily_coveredComparison\nCOVERED_REPAIR_V2_STAGE ENTER_05_SmoothFamily_coveredMovingPair\nCOVERED_REPAIR_V2_STAGE EXIT_05_SmoothFamily_coveredMovingPair\ncumulative profiling times:\n\tattribute application 1.4ms\n\tcompilation (IR) 1.74ms\n\tcompilation (LCNF base) 26ms\n\tcompilation (LCNF impure) 5.46ms\n\tcompilation (LCNF mono) 12.3ms\n\tdeclTypeLinter 0.635ms\n\tdo element elaborator 11.5ms\n\telaboration 927ms\n\tfix level params 0.479ms\n\tinstantiate metavars 0.14ms\n\tinterpretation 1.32ms\n\tlet-to-have transformation 0.235ms\n\tlinting 14.8ms\n\tparsing 7.66ms\n\tprocess pre-definitions 35.4ms\n\tshare common exprs 2.53ms\n\ttactic execution 534ms\n\ttacticAnalysis 0.39ms\n\ttype checking 22s\n\ttypeclass inference 90ms\n",
+      "diagnostics": [
+        {
+          "caption": "",
+          "data": "Unknown identifier `IntegralScheme`\n\nNote: It is not possible to treat `IntegralScheme` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 79,
+            "line": 74
+          },
+          "fileName": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/covered_pair_repair/LSFamilyCoveredComparisonRepairV2Profile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 65,
+            "line": 74
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `IntegralScheme`\n\nNote: It is not possible to treat `IntegralScheme` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.",
+          "endPos": {
+            "column": 79,
+            "line": 129
+          },
+          "fileName": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/covered_pair_repair/LSFamilyCoveredComparisonRepairV2Profile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 65,
+            "line": 129
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "declaration uses `sorry`",
+          "endPos": {
+            "column": 21,
+            "line": 173
+          },
+          "fileName": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/covered_pair_repair/LSFamilyCoveredComparisonRepairV2Profile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "hasSorry",
+          "pos": {
+            "column": 4,
+            "line": 173
+          },
+          "severity": "warning"
+        }
+      ]
+    }
+  ],
+  "native_status": "pending exact actual stock check",
+  "new_admissions": 0,
+  "source_blob": "6419edc85f2b0524f7567cbdaae841ff6ed5c3ad"
+}

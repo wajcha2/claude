@@ -1,0 +1,200 @@
+{
+  "schema": "lebrun-covered-pair-completed-native-diagnostic-v1",
+  "commit": "0afbbeb632eec015c743505203981465c2e9934d",
+  "run_id": 41850180524,
+  "job_id": 126644075667,
+  "profile_sha256": "1af4893241fe57221a8f3945b65aa5bb394f6567d9347aa49d3ee467883db454",
+  "actual_source_sha256": "3d596cf5f35f6b69cb49c2c33f6cd4e07cc11da2c6bc82caf5e505ace83dba66",
+  "diagnostics": [
+    {
+      "module": "LSFamilyCoveredPairProfile",
+      "status": "failed",
+      "source_sha256": "1af4893241fe57221a8f3945b65aa5bb394f6567d9347aa49d3ee467883db454",
+      "return_code": 1,
+      "seconds": 263.34,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  (Scheme.Modules.pullback ?a).map ((Scheme.Modules.pullback ?b).map ?v) ≫ (pullbackSquareIso ?a ?b ?c ?d ?h ?E').hom\nin the target expression\n  pullSection (memberToFamily Q t) E.leftSection ≫\n      (Scheme.Modules.pullback (memberToFamily Q t)).map (MovingPair.leftContact F.squareEvaluation) ≫\n        (pullbackSquareIso (memberToFamily Q t) (E.properPair hp hd ⋯).pair.data.projection (Q.reducedMemberToSquare t)\n            (curveSquareMap P (N.curveAt t)) ⋯\n            (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom =\n    pullSection (Q.reducedMemberToSquare t) (sourceContactValue P X.contact (N.curveAt t))\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nt : PointsOver ComplexBase (𝟙 ComplexBase) (↑N.neighborhood) (N.neighborhood.ι ≫ N.homSpace.toC)\nE : (rationalPair Q).Extension\nhp : IsProper F.squareEvaluation\nhd : DenseRange fun y => F.squareEvaluation y\n⊢ pullSection (memberToFamily Q t) E.leftSection ≫\n      (Scheme.Modules.pullback (memberToFamily Q t)).map (MovingPair.leftContact F.squareEvaluation) ≫\n        (pullbackSquareIso (memberToFamily Q t) (E.properPair hp hd ⋯).pair.data.projection (Q.reducedMemberToSquare t)\n            (curveSquareMap P (N.curveAt t)) ⋯\n            (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom =\n    pullSection (Q.reducedMemberToSquare t) (sourceContactValue P X.contact (N.curveAt t))\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    pullbackModule (Q.reducedMemberToSquare t)\n      (pullbackModule (curveSquareMap P (N.curveAt t))\n        (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf)\n  has type\n    OModule (Q.ReducedMemberCover t)\n  but is expected to have type\n    SheafOfModules (Q.ReducedMemberCover t).ringCatSheaf\n  in the application\n    SheafOfModules.unit (Q.ReducedMemberCover t).ringCatSheaf ⟶\n      pullbackModule (Q.reducedMemberToSquare t)\n        (pullbackModule (curveSquareMap P (N.curveAt t))\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf)",
+          "endPos": {
+            "column": 33,
+            "line": 71
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyCoveredPairProfile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 71
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "(deterministic) timeout at `«abstract nested proofs»`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+          "endPos": {
+            "column": 21,
+            "line": 58
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyCoveredPairProfile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "runtime.maxHeartbeats",
+          "pos": {
+            "column": 4,
+            "line": 58
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `coveredComparison`",
+          "endPos": {
+            "column": 42,
+            "line": 92
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyCoveredPairProfile.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 25,
+            "line": 92
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": "DESCENT_FINAL2_STAGE ENTER_coveredComparison\ntype checking took 130s\ntype checking took 130s\nDESCENT_FINAL2_STAGE EXIT_coveredComparison\nDESCENT_FINAL2_STAGE ENTER_coveredMovingPair\nDESCENT_FINAL2_STAGE EXIT_coveredMovingPair\ncumulative profiling times:\n\tattribute application 0.0708ms\n\tcompilation (IR) 0.398ms\n\tcompilation (LCNF base) 9.37ms\n\tcompilation (LCNF impure) 1.78ms\n\tcompilation (LCNF mono) 4.46ms\n\tcongr simp thm 1.32ms\n\tdeclTypeLinter 0.258ms\n\tdo element elaborator 4.15ms\n\telaboration 92.4ms\n\tfix level params 0.195ms\n\tinstantiate metavars 0.0297ms\n\tinterpretation 0.29ms\n\tlet-to-have transformation 0.0481ms\n\tlinting 6.49ms\n\tparsing 3.01ms\n\tprocess pre-definitions 17.2ms\n\tshare common exprs 1.04ms\n\tsimp 8.02ms\n\ttactic execution 38.8ms\n\ttacticAnalysis 0.174ms\n\ttype checking 260s\n\ttypeclass inference 26.1ms\n"
+    }
+  ],
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "0afbbeb632eec015c743505203981465c2e9934d",
+      "source_modules": 306,
+      "selected_modules": 111,
+      "accepted_modules": 111,
+      "failed_modules": [],
+      "full_selected_graph_passed": true,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    },
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "0afbbeb632eec015c743505203981465c2e9934d",
+      "source_modules": 306,
+      "selected_modules": 112,
+      "accepted_modules": 111,
+      "failed_modules": [
+        "LSFamilyCoveredPairProfile"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "archive_validation": {
+    "schema": "lebrun-independent-failed-native-archive-validation-v1",
+    "artifact_id": 13336051685,
+    "artifact_name": "lebrun-covered-pair-profile-41850180524-1",
+    "run_id": 41850180524,
+    "source_commit": "0afbbeb632eec015c743505203981465c2e9934d",
+    "archive_sha256": "6e46c8f617c2c1b58f533a290f507547d0284dfb1ae96a4a6d58e3f96c17f1f6",
+    "full_verification_sha256": "5caa19dcd583b065dd1bba9d03b75adc7e21c9cb7242f0385b75c1e59b73c173",
+    "source_sha256": "1af4893241fe57221a8f3945b65aa5bb394f6567d9347aa49d3ee467883db454",
+    "failed_receipt_sha256": "2a3093a0d4c82fab79c4c079967c0ab1428b03b8e8e42826378f19fc672574f3",
+    "failed_receipt": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "failed",
+      "module": "LSFamilyCoveredPairProfile",
+      "source_ancestry_fingerprint": "67a80903c7109b739146ec1af818163db1084e4f25c978cb11bb5820570d69ab",
+      "key": {
+        "source_sha256": "1af4893241fe57221a8f3945b65aa5bb394f6567d9347aa49d3ee467883db454",
+        "imports": [
+          "LSFamilyDescentReparametrization",
+          "LSOpenSectionTransport",
+          "LSFamilySmoothCoordinates",
+          "LSFamilySmoothPointValues",
+          "LSFamilySmoothDescent"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyDescentReparametrization": {
+            "sha256": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+            "kind": "project"
+          },
+          "LSOpenSectionTransport": {
+            "sha256": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+            "kind": "project"
+          },
+          "LSFamilySmoothCoordinates": {
+            "sha256": "d8549a93bcf0b0f966b920692f25d0afbbe533a8b5381313ac6e5a5900a93fdc",
+            "kind": "project"
+          },
+          "LSFamilySmoothPointValues": {
+            "sha256": "88063fc496708f00592c866213eeb37a4b1fe51c6a2e5962aba12bd9d28c2ed9",
+            "kind": "project"
+          },
+          "LSFamilySmoothDescent": {
+            "sha256": "c08c28d0c7712b46f3a2c43372fe13f9b5aa585ad8823f0f385561d15942a524",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+        "-o",
+        "/home/runner/work/claude/claude/kernel-evidence/olean/LSFamilyCoveredPairProfile.olean",
+        "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyCoveredPairProfile.lean"
+      ],
+      "started_utc": "2026-11-04T14:50:33.489981+00:00",
+      "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyCoveredPairProfile.20261104T145033489942.stdout.jsonl",
+      "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyCoveredPairProfile.20261104T145033489942.stderr.txt",
+      "return_code": 1,
+      "finished_utc": "2026-11-04T14:54:56.831229+00:00",
+      "seconds": 263.34,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "b32eb2699c5bfc5164ab134f913ea9ebe12ed4fc259620c1fec1143b8da659e9",
+      "stderr_sha256": "08c70157a5a3fab96915856abe9d4e3e80e13c4866a95fc2df573f18d20ea591"
+    },
+    "accepted_parent_contexts_exactly_matched": 296,
+    "all_parent_outputs_logs_native_keys_recursive_stamps_verified": true,
+    "failed_source_and_input_stamps_verified": true,
+    "failed_output_absent": true,
+    "export_directory": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41850180524-covered2-1af",
+    "acceptance_credit": false
+  },
+  "decoded_job_log_sha256": "cf45d11707432866da7babd403aae5b53841ef1a990854f55c5e9207880f4a81",
+  "scope": "Completed rc1 with rewrite carrier mismatch, deterministic2M heartbeat failure and missing-name cascade; actual final2 skipped. EXIT markers did not establish successful declarations. Actual member22 remains separately passed and reusable.",
+  "acceptance_ledger_modified": false
+}

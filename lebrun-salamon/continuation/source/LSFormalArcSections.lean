@@ -1,4 +1,5 @@
 import LSRegularModelPair
+import LSStableFamilyTraits
 
 /-!
 # Whole-trait sections obtained from the actual source normal forms
@@ -95,7 +96,7 @@ same target pair, including when either source point is the node. -/
     simp only [← Category.assoc, pair_second, second, evaluation,
       Category.assoc, u.hom_inv_id_assoc, secondSection_evaluation]
 
-def section {E : OModule (SelfProduct X.variety.structureMap)}
+def «section» {E : OModule (SelfProduct X.variety.structureMap)}
     (v : AlgebraicSection (pullbackModule (evaluationSquare F gamma piM u hu) E)) :
     AlgebraicSection (pullbackModule gamma.val (pullbackModule F.squareEvaluation E)) :=
   pullSection (pair F gamma piM u hu) v ≫
@@ -106,12 +107,12 @@ def section {E : OModule (SelfProduct X.variety.structureMap)}
 @[reassoc] theorem section_map
     {E G : OModule (SelfProduct X.variety.structureMap)} (f : E ⟶ G)
     (v : AlgebraicSection (pullbackModule (evaluationSquare F gamma piM u hu) E)) :
-    section F gamma piM u hu v ≫
+    «section» F gamma piM u hu v ≫
         (Scheme.Modules.pullback gamma.val).map
           ((Scheme.Modules.pullback F.squareEvaluation).map f) =
-      section F gamma piM u hu
+      «section» F gamma piM u hu
         (v ≫ (Scheme.Modules.pullback (evaluationSquare F gamma piM u hu)).map f) := by
-  unfold section
+  unfold «section»
   rw [Category.assoc, ← FamilyBivectors.pullbackSquare_naturality]
   simp only [pullSection, restrictSection, Functor.map_comp, Category.assoc]
 
@@ -126,15 +127,15 @@ theorem common
         (movingPairContactLeft X.variety X.contact) =
       w ≫ (Scheme.Modules.pullback (evaluationSquare F gamma piM u hu)).map
         (movingPairContactRight X.variety X.contact)) :
-    section F gamma piM u hu v ≫
+    «section» F gamma piM u hu v ≫
         (Scheme.Modules.pullback gamma.val).map (MovingPair.leftContact F.squareEvaluation) =
-      section F gamma piM u hu w ≫
+      «section» F gamma piM u hu w ≫
         (Scheme.Modules.pullback gamma.val).map (MovingPair.rightContact F.squareEvaluation) := by
-  change section F gamma piM u hu v ≫
+  change «section» F gamma piM u hu v ≫
       (Scheme.Modules.pullback gamma.val).map
         ((Scheme.Modules.pullback F.squareEvaluation).map
           (movingPairContactLeft X.variety X.contact)) =
-    section F gamma piM u hu w ≫
+    «section» F gamma piM u hu w ≫
       (Scheme.Modules.pullback gamma.val).map
         ((Scheme.Modules.pullback F.squareEvaluation).map
           (movingPairContactRight X.variety X.contact))

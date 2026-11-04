@@ -1,0 +1,47 @@
+{
+  "schema": "guarded-native-diagnostic-repair-v1",
+  "module": "LSFormalArcSections",
+  "base_commit": "1502fd3b1c901452c6ce1086734146fc65b24fac",
+  "base_blob": "f084b5cd42cbcc1a32ee110ad277b8d33513520c",
+  "base_source_sha256": "94dde9960a901ae25d3e5138be53e36156e62f71b611d2a332a400ff155e1404",
+  "candidate_source_sha256": "28d0250e13671937142f7c1b78026f8754f6fe32400cf2dbce8e0ea5ec7dcbb3",
+  "diagnostic_run": 41789253692,
+  "diagnostic_job": 126438536920,
+  "patches": [
+    {
+      "label": "Import the already-existing actual trait pullback construction",
+      "old": "import LSRegularModelPair\n",
+      "new": "import LSRegularModelPair\nimport LSStableFamilyTraits\n",
+      "count": 1
+    },
+    {
+      "label": "Escape the existing declaration name section, a Lean keyword",
+      "old": "def section {E :",
+      "new": "def «section» {E :",
+      "count": 1
+    },
+    {
+      "label": "Escape bare term references without renaming the declaration",
+      "old": "    section F gamma",
+      "new": "    «section» F gamma",
+      "count": 5
+    },
+    {
+      "label": "Escape bare term reference in the change tactic",
+      "old": "  change section F gamma",
+      "new": "  change «section» F gamma",
+      "count": 1
+    },
+    {
+      "label": "Escape bare term reference in the unfold tactic",
+      "old": "  unfold section\n",
+      "new": "  unfold «section»\n",
+      "count": 1
+    }
+  ],
+  "public_header_lexical_change": "Keyword-escape section as «section» in its declaration and unqualified uses; identical Lean identifier after parsing.",
+  "all_source_bytes_otherwise_unchanged_except_existing_dependency_import": true,
+  "new_admissions": 0,
+  "inverse_patches_restore_original_bytes": true,
+  "status": "candidate_not_yet_kernel_checked"
+}

@@ -20,6 +20,7 @@ set_option autoImplicit false
 open CategoryTheory AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentyEight
+open LeBrunSalamon.PhaseTwentySeven LeBrunSalamon.PhaseThirtyTwo
 open LeBrunSalamon.PhaseThirtyFive LeBrunSalamon.Core LeBrunSalamon.Skeleton
 
 namespace LeBrunSalamon.Construction

@@ -29,6 +29,8 @@ open LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.TraitContact
 
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
 namespace ScalarTensor
 
 /-- A scalar may be moved from one source tensor factor to the other.

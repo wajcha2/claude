@@ -1,0 +1,186 @@
+{
+  "schema": "lebrun-coordinates-remote-reconstruction-v2",
+  "created_utc": "2026-11-04T05:15:30.273Z",
+  "repository": "wajcha2/claude",
+  "source_path": "lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+  "base_commit": "7f01f0026042d5b77f304bcebb379dbe709d4057",
+  "base_git_blob_sha": "8d3465b9a9982e5d71fb1f26bd384e0d21560e43",
+  "base_source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+  "original_source_sha256": "dbd304dee6f15e83337f6f76dab06c9825a797b4c7605023dbabca05c6be45bd",
+  "candidate_git_blob_sha": "6303e88029be7aaa49e8f004a6cfe86cbc0aaede",
+  "candidate_source_sha256": "c1b3d5584bd1fec8b652d488b4d7d4660e2b890e419cb069b1ac46f97fd013d8",
+  "candidate_utf8_bytes": 25353,
+  "candidate_lines": 508,
+  "original_public_header_count": 45,
+  "candidate_original_public_header_count": 45,
+  "unchanged_public_headers": 44,
+  "approved_map_qualification_only": [
+    {
+      "name": "frameSection_apply",
+      "old": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a",
+      "new": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) (a : RingSections T ⊤) : Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a"
+    }
+  ],
+  "admission_tokens": [],
+  "native_status": "uncompiled_candidate_no_acceptance",
+  "independent_remote_fetch_verifies_exact_candidate": true,
+  "reconstruction": "Fetch exact frozen433e GitHub source; verify SHA256 with self-tested pure-JS implementation; each listed exact replacement matches once; create unattached Git blob; fetch it back and require exact UTF8 text equality.",
+  "patches": [
+    {
+      "id": "A01_actual_module_scalar_action",
+      "match_count": 1,
+      "before": "  map_smul' c v := (Scheme.Modules.Hom.app e.hom V).hom.map_smul c v",
+      "after": "  map_smul' c v := Scheme.Modules.Hom.app_smul e.hom c v",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A02_first_derivative_carrier",
+      "match_count": 1,
+      "before": "theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by\n  have h := congrArg chartAlgebraEquiv\n    (expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector)\n  simpa only [ExternalExpansion.secondSlotFirst, map_sum, map_mul, map_zero,\n    coordinateVector_action, left, right, polynomial] using h",
+      "after": "theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by\n  have h := expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector\n  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *\n      tangentActs P.structureMap U coordinateVector\n        (frame.localCoefficient (expansion.right i))) = (0 : RingSections ProjectiveLine U) at h\n  have hp := congrArg chartAlgebraEquiv h\n  simpa only [map_sum, map_mul, map_zero,\n    coordinateVector_action, left, right, polynomial] using hp",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A03_second_derivative_carrier",
+      "match_count": 1,
+      "before": "theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by\n  have h := congrArg chartAlgebraEquiv\n    (kernel.expansion_normalized frame coordinateVector coordinateVector)\n  change chartAlgebraEquiv\n      (∑ i, frame.localCoefficient (expansion.left i) *\n        tangentActs P.structureMap U coordinateVector\n          (tangentActs P.structureMap U coordinateVector\n            (frame.localCoefficient (expansion.right i)))) =\n    chartAlgebraEquiv (2 * frame.coefficient coordinateVector *\n      frame.coefficient coordinateVector) at h\n  simpa only [map_sum, map_mul, coordinateVector_action,\n    coordinateVector_coefficient, map_one, map_ofNat, mul_one,\n    left, right, polynomial] using h",
+      "after": "theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by\n  have h := kernel.expansion_normalized frame coordinateVector coordinateVector\n  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *\n        tangentActs P.structureMap U coordinateVector\n          (tangentActs P.structureMap U coordinateVector\n            (frame.localCoefficient (expansion.right i)))) =\n    (2 : RingSections ProjectiveLine U) *\n      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) *\n      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) at h\n  have hp := congrArg chartAlgebraEquiv h\n  simpa only [map_sum, map_mul, coordinateVector_action,\n    coordinateVector_coefficient, map_one, map_ofNat, mul_one,\n    left, right, polynomial] using hp",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A04_reuse_proved_quadratic_taylor",
+      "match_count": 1,
+      "before": "  have he : q = Polynomial.C (q.coeff 0) + Polynomial.C (q.coeff 1) * Polynomial.X +\n      Polynomial.C (q.coeff 2) * Polynomial.X^2 := by\n    simpa only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add,\n      pow_zero, mul_one, pow_one] using\n      q.as_sum_range_C_mul_X_pow' (show q.natDegree < 3 by omega)\n  conv_lhs => rw [he]\n  conv_rhs => rw [he]\n  simp only [Polynomial.derivative_add, Polynomial.derivative_mul,\n    Polynomial.derivative_C, Polynomial.derivative_X, Polynomial.derivative_X_sq,\n    Polynomial.derivative_zero, Polynomial.derivative_one,\n    map_add, map_mul, map_pow, Polynomial.aeval_C, Polynomial.aeval_X,\n    zero_mul, mul_zero, zero_add, add_zero, one_mul, mul_one, pow_one,\n    Nat.reduceSub, Nat.cast_ofNat, map_ofNat, pow_zero]\n  have hhalf : (algebraMap ℂ R (1 / 2)) * 2 = 1 := by\n    have h := congrArg (algebraMap ℂ R) (show (1 / 2 : ℂ) * 2 = 1 by norm_num)\n    simpa only [map_mul, map_ofNat, map_one] using h\n  linear_combination\n    -((algebraMap ℂ R (q.coeff 2)) * (w - z)^2) * hhalf",
+      "after": "  exact P1SourceAlgebra.taylor_two q hq z w",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A05_explicit_finite_sum_associativity",
+      "match_count": 1,
+      "before": "    rw [Finset.sum_mul, Finset.mul_sum]\n    apply Finset.sum_congr rfl\n    intro i hi\n    ring",
+      "after": "    calc\n      _ = ∑ i, ((algebraMap ℂ R (1 / 2)) *\n          (Polynomial.aeval z (left i) * Polynomial.aeval z (right i).derivative.derivative)) *\n            (w - z)^2 := by\n        apply Finset.sum_congr rfl\n        intro i hi\n        ring\n      _ = (∑ i, (algebraMap ℂ R (1 / 2)) *\n          (Polynomial.aeval z (left i) * Polynomial.aeval z (right i).derivative.derivative)) *\n            (w - z)^2 := by rw [Finset.sum_mul]\n      _ = _ := by rw [Finset.mul_sum]",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A06_actual_top_sections_complex_algebra",
+      "match_count": 1,
+      "before": "variable {T : Scheme} (sT : T ⟶ ComplexBase)\n",
+      "after": "variable {T : Scheme} (sT : T ⟶ ComplexBase)\n\nlocal instance testSectionsAlgebra : Algebra ℂ (RingSections T ⊤) :=\n  coefficientsAlgebra sT ⊤\n",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A07_qualified_frame_section_application",
+      "match_count": 1,
+      "before": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U)\n    (a : RingSections T ⊤) :\n    (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a := by\n  have h1 : (frameSection f hU).app ⊤ (1 : RingSections T ⊤) =\n      (pulledCoefficient f hU).symm 1 := sectionFromValue_spec _\n  calc\n    _ = a • (frameSection f hU).app ⊤ (1 : RingSections T ⊤) := by\n      simpa only [smul_eq_mul, mul_one] using\n        ((frameSection f hU).app ⊤).hom.map_smul a (1 : RingSections T ⊤)",
+      "after": "theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U)\n    (a : RingSections T ⊤) :\n    Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a := by\n  have h1 : Scheme.Modules.Hom.app (frameSection f hU) ⊤ (1 : RingSections T ⊤) =\n      (pulledCoefficient f hU).symm 1 := sectionFromValue_spec _\n  calc\n    _ = a • Scheme.Modules.Hom.app (frameSection f hU) ⊤ (1 : RingSections T ⊤) := by\n      simpa only [smul_eq_mul, mul_one] using\n        (Scheme.Modules.Hom.app_smul (frameSection f hU) a (1 : RingSections T ⊤))",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A08_qualified_frame_inverse_application",
+      "match_count": 1,
+      "before": "  change (frameIso f hU).hom.app ⊤\n    ((frameSection f hU).app ⊤ (pulledCoefficient f hU a)) = pulledCoefficient f hU a at h",
+      "after": "  change (frameIso f hU).hom.app ⊤\n    (Scheme.Modules.Hom.app (frameSection f hU) ⊤ (pulledCoefficient f hU a)) =\n      pulledCoefficient f hU a at h",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A09_actual_global_coefficient_map",
+      "match_count": 1,
+      "before": "  simpa only [scalarSection, sectionFromValue_spec, homOfLE_refl, op_id,\n    CategoryTheory.Functor.map_id, ModuleCat.id_apply] using coefficientOn_global frame f ⊤ hU a",
+      "after": "  have hc := coefficientOn_global frame f ⊤ hU a\n  simp only [homOfLE_refl, op_id, CategoryTheory.Functor.map_id] at hc\n  change pulledCoefficient f hU (sectionValue (pullSection f a)) =\n    f.appLE U ⊤ hU (frame.localCoefficient a) at hc\n  simpa only [scalarSection, sectionFromValue_spec] using hc",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "A10_expose_actual_tensor_map",
+      "match_count": 1,
+      "before": "  simp only [pairPullIso, Iso.trans_hom, Iso.symm_hom, asIso_hom, asIso_inv,\n    Category.assoc, IsIso.hom_inv_id_assoc]",
+      "after": "  simp only [pairPullIso, Iso.trans_hom, Iso.symm_hom, asIso_hom, asIso_inv,\n    Category.assoc, IsIso.hom_inv_id_assoc, tensorIso]",
+      "local_history": "Already applied to the unavailable local v2 draft before the executor outage; reconstructed here against the frozen433e source."
+    },
+    {
+      "id": "B01_prove_section_value_finite_sum",
+      "match_count": 1,
+      "before": "  rw [hhalf, one_mul]\n  ring\n\nnamespace TestMaps",
+      "after": "  rw [hhalf, one_mul]\n  ring\n\nprivate theorem sectionValue_finsetSum {Y : Scheme} {E : OModule Y}\n    {ι : Type*} (s : Finset ι) (a : ι → AlgebraicSection E) :\n    sectionValue (s.sum a) = s.sum (fun i => sectionValue (a i)) := by\n  classical\n  induction s using Finset.induction_on with\n  | empty => simp only [Finset.sum_empty, sectionValue_zero]\n  | @insert i s hi ih =>\n      simp only [Finset.sum_insert hi, sectionValue_add, ih]\n\nnamespace TestMaps",
+      "local_history": "Prior local apply_patch failed before execution during executor outage. Reviewed and first applied to this remote candidate."
+    },
+    {
+      "id": "B02_use_typed_section_value_sum",
+      "match_count": 1,
+      "before": "  change (sectionAddEquiv (structureModule T)) (∑ i, scalarSection\n    (f.appLE U ⊤ hU (frame.localCoefficient (expansion.left i)) *\n      g.appLE U ⊤ hV (frame.localCoefficient (expansion.right i)))) = _\n  rw [map_sum]\n  change (∑ i, sectionValue (scalarSection\n    (f.appLE U ⊤ hU (frame.localCoefficient (expansion.left i)) *\n      g.appLE U ⊤ hV (frame.localCoefficient (expansion.right i))))) = _",
+      "after": "  rw [sectionValue_finsetSum]",
+      "local_history": "Prior local apply_patch failed before execution during executor outage. Reviewed and first applied to this remote candidate."
+    }
+  ],
+  "finite_sum_review": {
+    "scope": "Private direct Finset induction with existing sectionValue_zero and sectionValue_add; no new premise or admitted input.",
+    "exact_source": "lebrun-salamon/continuation/source/RecompileBasePart05B.lean",
+    "source_ref": "7f01f0026042d5b77f304bcebb379dbe709d4057",
+    "native_check": "pending"
+  },
+  "original_diagnostics": {
+    "run_id": 41775309669,
+    "source_sha256": "dbd304dee6f15e83337f6f76dab06c9825a797b4c7605023dbabca05c6be45bd",
+    "status": "failed",
+    "exit_code": 1,
+    "wall_seconds": 202.261,
+    "errors": 26,
+    "scope": "Original whole module completed with diagnostics; not a timeout."
+  },
+  "frozen_candidate_diagnostics": [
+    {
+      "kind": "local_whole_module",
+      "source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+      "status": "time_cap",
+      "exit_code": 124,
+      "wall_seconds": 75.325,
+      "logs": "empty",
+      "prerequisites_accepted": 79,
+      "final_invalidations": 0,
+      "acceptance": false
+    },
+    {
+      "kind": "local_exact_action_prefix",
+      "module": "LSP1BivectorCoordinatesActionPrefix",
+      "status": "passed",
+      "wall_seconds": 28.352,
+      "selected_count": 80,
+      "final_invalidations": 0,
+      "output_sha256": "20b6c4e659c2d84ac10e111ec1a51059d1f1e671e5e6e8fa15c50d3c63dde644",
+      "scope": "Prefix ending after action_polynomial only; no whole-module acceptance."
+    },
+    {
+      "kind": "local_exact_degree_prefix",
+      "module": "LSP1BivectorCoordinatesDegreePrefix",
+      "status": "unknown_after_executor_outage",
+      "intended_wall_cap_seconds": 90,
+      "session_id": 37895,
+      "scope": "Prefix ending before abbrev kernel; final exit, output and receipt unavailable. No timeout/pass claim."
+    },
+    {
+      "kind": "remote_whole_module",
+      "run_id": 41776581766,
+      "commit": "7f01f0026042d5b77f304bcebb379dbe709d4057",
+      "status": "time_cap",
+      "wall_seconds": 300.418,
+      "compiler_memory_mb": 12000,
+      "accepted_count": 79,
+      "selected_count": 80,
+      "final_invalidations": 0,
+      "artifact_id": 13297119084,
+      "acceptance": false
+    }
+  ],
+  "requested_next_scope": {
+    "cache_run_id": 41775309669,
+    "selected_module": "LSP1BivectorCoordinates",
+    "prerequisites": 79,
+    "note": "Use exact source/output/recursive ancestry validation. Do not blend old local output bytes with cloud prerequisites. CI agent owns commit, refs and compiler execution."
+  },
+  "mutations": {
+    "unattached_blobs_only": true,
+    "commits_created": false,
+    "refs_updated": false,
+    "canonical_source_changed": false,
+    "acceptance_flags_changed": false
+  }
+}

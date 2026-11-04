@@ -25,6 +25,8 @@ open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.TraitContact.ModelGenericComparison
 
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
 open StableMaps.FormalArcs StableMaps.FormalArcs.ModelGeometry
 open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 open FamilyBivectors

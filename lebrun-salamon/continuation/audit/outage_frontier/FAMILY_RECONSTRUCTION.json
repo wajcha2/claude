@@ -1,0 +1,126 @@
+{
+  "schema": "lebrun-family-reconstructed-candidate-v1",
+  "recorded_utc": "2026-11-04T05:12:23.894Z",
+  "repository": "wajcha2/claude",
+  "base_ref": "160282d0",
+  "base_path": "lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+  "original_sha256": "2c27d10eca505bdf5d3fdbc3fab44327bd74d57efcef94698f316d150cd6538d",
+  "candidate_sha256": "631d53ec434ebdb24efb811adf7b0c3961d46a0ff542457639dbb69e53aa8777",
+  "matches_pre_outage_candidate_sha256": true,
+  "helper_sha256": "b326245d700446323c2e1943e2bf082cdf3b330619aa10fdfa18bb5fb3e5b6bc",
+  "helper_reconstruction": "Exact logged source addition plus the two logged guarded corrections: explicit j p hj E in dualBaseChange_section and Category.assoc at ht.",
+  "helper_prior_native_seconds": 26.864,
+  "helper_prior_native_modules": 86,
+  "helper_prior_artifact_hash_recheck_pending_executor_recovery": true,
+  "original_public_header_count": 55,
+  "normalized_lexical_headers_equal": true,
+  "header_scope": "Source header comparison only; no claim of reconstructed old elaborated type equality.",
+  "source_direct_admission_tokens": {
+    "original": 0,
+    "candidate": 0,
+    "helper": 0
+  },
+  "candidate_kernel_verified": false,
+  "candidate_accepted": false,
+  "milestone_met": false,
+  "last_checked_family_sha256": "44b5a3feeae40e4fadee5f1f0c93132e3576976761c32f1a03147939ed101337",
+  "last_checked_family_seconds": 136.369,
+  "last_checked_family_errors": 5,
+  "last_checked_family_result": "Completed with five late rewrite errors; generic cotangent/derivative restrictions produced no error. Final candidate addresses these five and is not yet checked.",
+  "cloud_seed_sha256": "fb1ee8f6e8e84700794baf9a8e4a36a8bef918b2314a8f3ad0e17242fb5e1792",
+  "cloud_seed_module_count": 247,
+  "frozen_target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
+  "operations": [
+    {
+      "old": "import LSRelativeDifferential\n",
+      "new": "import LSRelativeDifferential\nimport LSFamilyDerivativeRestriction\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "set_option backward.isDefEq.respectTransparency false\n",
+      "new": "set_option backward.isDefEq.respectTransparency false\nset_option backward.isDefEq.respectTransparency.types false\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "namespace LeBrunSalamon.Construction.FamilyBivectors\n",
+      "new": "namespace LeBrunSalamon.Construction.FamilyBivectors\n\nopen ContactDerivativeIsoProof\n\n-- Expose the same existing type aliases used by the checked conic chain rule.\nset_option allowUnsafeReducibility true\nattribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  simp only [pullbackSquareIso, Iso.trans_hom, Iso.symm_hom,\n    eqToIso.hom, Iso.app_hom, Iso.app_inv, Category.assoc]\n  rw [← Category.assoc, (Scheme.Modules.pullbackComp a b).hom.naturality]\n  rw [Category.assoc, ← Category.assoc,\n    pullbackEquality_naturality h v, Category.assoc]\n  rw [(Scheme.Modules.pullbackComp c d).inv.naturality]\n",
+      "new": "  have hab := (Scheme.Modules.pullbackComp a b).hom.naturality v\n  change (Scheme.Modules.pullback a).map ((Scheme.Modules.pullback b).map v) ≫\n      (Scheme.Modules.pullbackComp a b).hom.app E' =\n    (Scheme.Modules.pullbackComp a b).hom.app E ≫\n      (Scheme.Modules.pullback (a ≫ b)).map v at hab\n  have hcd := (Scheme.Modules.pullbackComp c d).inv.naturality v\n  change (Scheme.Modules.pullback (c ≫ d)).map v ≫\n      (Scheme.Modules.pullbackComp c d).inv.app E' =\n    (Scheme.Modules.pullbackComp c d).inv.app E ≫\n      (Scheme.Modules.pullback c).map ((Scheme.Modules.pullback d).map v) at hcd\n  have h₁ := congrArg (fun u :\n      pullbackModule a (pullbackModule b E) ⟶ pullbackModule (a ≫ b) E' =>\n    u ≫ eqToHom (congrArg (fun q => pullbackModule q E') h) ≫\n      (Scheme.Modules.pullbackComp c d).inv.app E') hab\n  have h₂ := congrArg (fun u : pullbackModule (a ≫ b) E ⟶ pullbackModule (c ≫ d) E' =>\n    (Scheme.Modules.pullbackComp a b).hom.app E ≫ u ≫\n      (Scheme.Modules.pullbackComp c d).inv.app E')\n    (pullbackEquality_naturality h v)\n  have h₃ := congrArg (fun u :\n      pullbackModule (c ≫ d) E ⟶ pullbackModule c (pullbackModule d E') =>\n    (Scheme.Modules.pullbackComp a b).hom.app E ≫\n      eqToHom (congrArg (fun q => pullbackModule q E) h) ≫ u) hcd\n  simp only [Category.assoc] at h₁ h₂ h₃\n  simp only [pullbackSquareIso, Iso.trans_hom, Iso.symm_hom,\n    eqToIso.hom, Iso.app_hom, Iso.app_inv, Category.assoc]\n  exact h₁.trans (h₂.trans h₃)\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  rw [tensorMap_comp, Category.assoc, tensorPullback_naturality]\n",
+      "new": "  rw [tensorMap_comp, Category.assoc, tensorPullback_naturality]\n  simp only [Category.assoc]\n",
+      "expected_count": 2,
+      "replace_all": true
+    },
+    {
+      "old": "    ContactDerivativeIsoProof.differential_transport,\n",
+      "new": "    ContactDerivativeIsoProof.differential_transport _ _ he,\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  rw [RelativeDifferential.cotangent_overC (projectiveLineVariety P) X (j ≫ e) hf]\n",
+      "new": "  exact congrArg (fun k : pullbackModule (j ≫ e) (cotangentSheaf X.structureMap) ⟶\n      cotangentSheaf P.structureMap =>\n    (Scheme.Modules.pullbackComp j e).hom.app (cotangentSheaf X.structureMap) ≫ k)\n    (RelativeDifferential.cotangent_overC (projectiveLineVariety P) X (j ≫ e) hf\n      (by\n        change (j ≫ e) ≫ X.structureMap = P.structureMap ≫ 𝟙 ComplexBase\n        exact hf.trans (Category.comp_id P.structureMap).symm))\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  letI := dualBaseChange_isIso e\n    (smooth_cotangent_rank X.structureMap d X.smooth)\n  letI := dualBaseChange_isIso (j ≫ e)\n    (smooth_cotangent_rank X.structureMap d X.smooth)\n  let S := RelativeDifferential.sectionPullbackIso j (projection P sB) hj₁\n    (tangentSheaf P.structureMap)\n  let C := RelativeDifferential.sectionPullbackIso j (projection P sB) hj₁\n    (cotangentSheaf P.structureMap)\n  apply (cancel_epi S.hom).mp\n  simp only [← Category.assoc, S, Iso.hom_inv_id, Category.id_comp]\n  apply (cancel_mono (dualBaseChange (j ≫ e) (cotangentSheaf X.structureMap))).mp\n  rw [ContactDerivativeIsoProof.differentialOver_dual]\n  simp only [differential, Functor.map_comp, Functor.map_inv,\n    Category.assoc, IsIso.inv_hom_id, Category.comp_id]\n  rw [ContactDerivativeIsoProof.dualBaseChange_comp]\n  simp only [Category.assoc, IsIso.inv_hom_id_assoc]\n  rw [ContactDerivativeIsoProof.dualBaseChange_naturality_assoc]\n  rw [← Category.assoc, RelativeDifferential.dualBaseChange_section]\n  simp only [Category.assoc, ← ContactDerivativeIsoProof.dualMap_comp]\n  have hc := relativeCotangent_atSection P sB X e he b hb j hj₁ hj₂ hf\n  have ht := congrArg (fun k =>\n    (Scheme.Modules.pullbackComp j e).inv.app (cotangentSheaf X.structureMap) ≫ k) hc\n  simp only [← Category.assoc, Iso.inv_hom_id_app, Category.id_comp] at ht\n  rw [ht]\n",
+      "new": "  letI := dualBaseChange_isIso e\n    (smooth_cotangent_rank X.structureMap d X.smooth)\n  letI := dualBaseChange_isIso (j ≫ e)\n    (smooth_cotangent_rank X.structureMap d X.smooth)\n  rw [ContactDerivativeIsoProof.differentialOver_dual]\n  exact FamilyDerivativeRestriction.section_morphism\n    j (projection P sB) e hj₁\n    (cotangentSheaf P.structureMap) (cotangentSheaf X.structureMap)\n    (relativeCotangent P sB X e he)\n    (ContactDerivativeIsoProof.cotangentOver (projectiveLineVariety P) X (j ≫ e) hf)\n    (relativeCotangent_atSection P sB X e he b hb j hj₁ hj₂ hf)\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality]\n  rw [← Category.assoc, RelativeSquare.boxMap_comp]\n  simp only [CategoryTheory.Functor.map_id, Category.comp_id]\n  rfl",
+      "new": "  simp only [Category.assoc]\n  erw [← RelativeSquare.comparison_naturality (Parametrized.parameter P sB)\n    X.variety.structureMap sB e he X.contact.sequence.form (𝟙 X.contact.sequence.line.sheaf)]\n  rw [RelativeSquare.boxMap_comp_assoc]\n  simp only [CategoryTheory.Functor.map_id, Category.comp_id]\n  rfl",
+      "expected_count": 2,
+      "replace_all": false
+    },
+    {
+      "old": "  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality]\n  rw [← Category.assoc, RelativeSquare.boxMap_comp]\n  simp only [CategoryTheory.Functor.map_id, Category.comp_id]\n  rfl",
+      "new": "  simp only [Category.assoc]\n  erw [← RelativeSquare.comparison_naturality (Parametrized.parameter P sB)\n    X.variety.structureMap sB e he (𝟙 X.contact.sequence.line.sheaf) X.contact.sequence.form]\n  rw [RelativeSquare.boxMap_comp_assoc]\n  simp only [CategoryTheory.Functor.map_id, Category.comp_id]\n  rfl",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  unfold curveExternalComparison externalTensorMap\n  rw [← Category.assoc, ← tensorMap_comp]\n  rw [pullbackSquare_naturality, pullbackSquare_naturality]\n",
+      "new": "  unfold curveExternalComparison externalTensorMap\n  rw [← Category.assoc, ← tensorMap_comp]\n  erw [pullbackSquare_naturality, pullbackSquare_naturality]\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  rw [Curve.leftRaw, mixedPull_map, mixedPull_source]\n",
+      "new": "  have hS : mixedPull P e he (identityCurveContact P).sequence.line.sheaf\n      (identityCurveContact P).sequence.line.sheaf (sourceBivector P) =\n      sourceBivector P ≫ externalTensorMap P.structureMap\n        (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom :=\n    mixedPull_source P e he\n  rw [Curve.leftRaw, mixedPull_map, hS]\n",
+      "expected_count": 1,
+      "replace_all": true
+    },
+    {
+      "old": "  rw [Curve.rightRaw, mixedPull_map, mixedPull_source]\n",
+      "new": "  have hS : mixedPull P e he (identityCurveContact P).sequence.line.sheaf\n      (identityCurveContact P).sequence.line.sheaf (sourceBivector P) =\n      sourceBivector P ≫ externalTensorMap P.structureMap\n        (SourceReparamProof.derivativeIso P e he).hom\n        (SourceReparamProof.derivativeIso P e he).hom :=\n    mixedPull_source P e he\n  rw [Curve.rightRaw, mixedPull_map, hS]\n",
+      "expected_count": 1,
+      "replace_all": true
+    }
+  ],
+  "source_blobs": [
+    {
+      "path": "lebrun-salamon/continuation/source/LSFamilyDerivativeRestriction.lean",
+      "git_blob_sha": "e22108f4e6cf5ebdb1683930c9344ca9dff78ac3",
+      "source_sha256": "b326245d700446323c2e1943e2bf082cdf3b330619aa10fdfa18bb5fb3e5b6bc"
+    },
+    {
+      "path": "lebrun-salamon/continuation/source/LSFamilyBivectors.lean",
+      "git_blob_sha": "bbf09382a2864372cac48ece3bd76219c6ec1fca",
+      "source_sha256": "631d53ec434ebdb24efb811adf7b0c3961d46a0ff542457639dbb69e53aa8777"
+    }
+  ],
+  "publication_action": "Unattached blobs only; this worker did not create a commit or update a ref."
+}

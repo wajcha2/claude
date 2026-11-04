@@ -28,6 +28,8 @@ open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.FormalArcComparison
 
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
 open StableMaps StableMaps.FormalArcs StableMaps.TraitPullback
 open FamilyBivectors FormalArcSections TraitContact
 

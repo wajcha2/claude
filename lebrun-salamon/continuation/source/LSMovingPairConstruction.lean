@@ -23,6 +23,7 @@ set_option autoImplicit false
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentySeven
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirtyFive
 open LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 

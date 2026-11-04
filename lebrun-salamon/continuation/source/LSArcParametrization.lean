@@ -18,6 +18,7 @@ set_option backward.isDefEq.respectTransparency false
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
 open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentySeven
 open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.Skeleton
 
 namespace LeBrunSalamon.Construction.FormalArcSections.Generic

@@ -1,0 +1,2777 @@
+{
+  "summary": {
+    "schema": "lebrun-remote-artifact-validation-v1",
+    "run": 41776581766,
+    "source_head": "7f01f0026042d5b77f304bcebb379dbe709d4057",
+    "artifact_id": 13297119084,
+    "artifact_sha256": "9c0b68de950045a6e75b3d0fe66142cba83374002f275bd3524029f580f7b309",
+    "independently_validated_reference_artifact": 13297271203,
+    "reference_sha256": "545442a93eb8539147b7caa2e1703ec7b5e29d2566687beeb64c1ccb1244891b",
+    "selected_modules": 80,
+    "accepted_modules": 79,
+    "failed_modules": [
+      "LSP1BivectorCoordinates"
+    ],
+    "source_graph_modules": 269,
+    "runtime_matches_previously_verified_stock_runtime": true,
+    "source_git_tree_binding_checked": true,
+    "all_log_output_dependency_recursive_stamps_checked": true,
+    "reference_context_differences": [],
+    "candidate_source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+    "canonical_source_integrated": false,
+    "whole_current_graph_acceptance": false
+  },
+  "errors": [
+    {
+      "module": "LSP1BivectorCoordinates",
+      "status": "failed",
+      "return_code": 124,
+      "seconds": 300.418,
+      "source_sha256": "433e562ea91275849343f5dd994521daa77a76578427436f54e6915b9fb37e8f",
+      "errors": [
+        {
+          "caption": "",
+          "data": "(deterministic) timeout at `whnf`, maximum number of heartbeats (2000000) has been reached\n\nNote: Use `set_option maxHeartbeats <num>` to set the limit.\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+          "endPos": {
+            "column": 84,
+            "line": 96
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "runtime.maxHeartbeats",
+          "pos": {
+            "column": 84,
+            "line": 89
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nD : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=\n  fun a => chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))\na b : RingSections ProjectiveLine U\n⊢ b * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a)) +\n      a * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv b)) =\n    a * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv b)) +\n      b * chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))",
+          "endPos": {
+            "column": 64,
+            "line": 105
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 16,
+            "line": 105
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  chartAlgebraEquiv ((algebraMap ℂ (Coefficients P.structureMap U)) ?r)\nin the target expression\n  chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv ((constants P.structureMap U) c))) = 0\n\nD : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=\n  fun a => chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv a))\nc : ℂ\n⊢ chartAlgebraEquiv.symm (Polynomial.derivative (chartAlgebraEquiv ((constants P.structureMap U) c))) = 0\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    (constants P.structureMap U) c\n  has type\n    RingSections ProjectiveLine U\n  but is expected to have type\n    Coefficients P.structureMap U\n  in the application\n    chartAlgebraEquiv ((constants P.structureMap U) c)",
+          "endPos": {
+            "column": 36,
+            "line": 109
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 10,
+            "line": 109
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Unknown identifier `coordinateFunctional_injective`",
+          "endPos": {
+            "column": 35,
+            "line": 123
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.unknownIdentifier._namedError",
+          "pos": {
+            "column": 5,
+            "line": 123
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Invalid field `map_smul`: The environment does not contain `AddMonoidHom.map_smul`, so it is not possible to project the field `map_smul` from an expression\n  AddCommGrpCat.Hom.hom (Scheme.Modules.Hom.app e.hom V)\nof type `↑Γ(E, V) →+ ↑Γ(F, V)`",
+          "endPos": {
+            "column": 64,
+            "line": 152
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "lean.invalidField._namedError",
+          "pos": {
+            "column": 56,
+            "line": 152
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "(kernel) excessive memory consumption detected",
+          "endPos": {
+            "column": 29,
+            "line": 161
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSP1BivectorCoordinates.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 8,
+            "line": 161
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "receipts": [
+    {
+      "module": "LSConePole",
+      "receipt_sha256": "006b58600448593bc831558c9b75f79e158296be7b54a27dc5d2e386058d8aec",
+      "key": {
+        "source_sha256": "b54168e1279ac548e1dd1efc77c34a018e04074c57b1a43fd94db8de2a34733e",
+        "imports": [
+          "Mathlib"
+        ],
+        "dependency_artifacts": {
+          "Mathlib": {
+            "sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+      "source_ancestry_fingerprint": "254f4df8b8ba999b2d694f18daeb29f6b63f10358fe1652601fb89818345a00a",
+      "seconds": 4.625,
+      "stdout_sha256": "671e114ef5a1fc31a3e0b253652fe330c614080429afeed5afe2f7bee20e39a7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSNilpotentTopology",
+      "receipt_sha256": "b8e3d9a2d9ecd464959dfb955c438b5e824894122031846d8965ec1871be0ce5",
+      "key": {
+        "source_sha256": "173e9d4c76d87bdc27eb22b33c9e0546885580a64bc0ef41fda113495d3470da",
+        "imports": [
+          "Mathlib.AlgebraicGeometry.PullbackCarrier"
+        ],
+        "dependency_artifacts": {
+          "Mathlib.AlgebraicGeometry.PullbackCarrier": {
+            "sha256": "5640988aa4952ce2f439142fd5a683e1a0a9f6d46d22ee67c30cb60ac690786a",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "e39a5e90e094034528432c112315cc44b14e0d26b9dfc91b056271aeadc6fd38",
+      "source_ancestry_fingerprint": "ebd2dec5387db7414ce14d839afe09004fffc527efbbcbcfd313e967d360eba7",
+      "seconds": 1.568,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSP1SourceAlgebra",
+      "receipt_sha256": "febe5ececca6b3e8d9686f0613da81de42b24665bebcd4e844764106e274a8cc",
+      "key": {
+        "source_sha256": "746cc04e37a50878168b6c7b63dc6d9978e7fdcf321aba83a07af15e6c8a9e53",
+        "imports": [
+          "Mathlib"
+        ],
+        "dependency_artifacts": {
+          "Mathlib": {
+            "sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+      "source_ancestry_fingerprint": "b50c85de277d80814d6e00c97e4cbe5231af4551b26c35cd13185bd12b15348e",
+      "seconds": 3.472,
+      "stdout_sha256": "64ee624b77e567981d98aa6f69db9a037fab7544d3407379b41aeb9e9318956b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSP1TensorSquare",
+      "receipt_sha256": "860e4df477264327b39fdd5359e0f0d6e731cfaf1b2c0d79cdccc43ecb46ea7b",
+      "key": {
+        "source_sha256": "bfe5b669feab0d2aace273a54908a36aec6f75b9482410d63ecdf4d5aba5bafc",
+        "imports": [
+          "Mathlib"
+        ],
+        "dependency_artifacts": {
+          "Mathlib": {
+            "sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf",
+      "source_ancestry_fingerprint": "11ffe1e0b4580043c378e15db049b0f4f8930bc7732122f00ba278fbc2fdf465",
+      "seconds": 2.921,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSSecondDiagonalAlgebra",
+      "receipt_sha256": "831a0c86a294d77e1672e006a5b6e9cb3807c541bf5771b2a0fd26284622b56e",
+      "key": {
+        "source_sha256": "ca288367ea5ed3c24d19cb9722e8ba7d50de1f542d44123c51ee80f484a869d4",
+        "imports": [
+          "Mathlib.RingTheory.Smooth.Basic",
+          "Mathlib.RingTheory.Finiteness.Projective",
+          "Mathlib.Analysis.Complex.Basic",
+          "Mathlib.Tactic"
+        ],
+        "dependency_artifacts": {
+          "Mathlib.RingTheory.Smooth.Basic": {
+            "sha256": "d8b1212c16bc35a0d9cbb79cb7f29a215c36776d8832a3feac0c755ff6c95929",
+            "kind": "external"
+          },
+          "Mathlib.RingTheory.Finiteness.Projective": {
+            "sha256": "85516f3cd9816548f3c1d06790cf40fe37943e1e856d83437fd90ddec2727c4f",
+            "kind": "external"
+          },
+          "Mathlib.Analysis.Complex.Basic": {
+            "sha256": "74b1fe2c3e7ad6ac32ab05bb774fa62dabb48cc55d36158039503ed7f0c5e64c",
+            "kind": "external"
+          },
+          "Mathlib.Tactic": {
+            "sha256": "5a0509ad892c9b7d6d0939c9a1ecd9835fe206be561b3485a563860fcd7b0beb",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+      "source_ancestry_fingerprint": "aae12a4256145e43c98b8d10e7a822301300001fe6bdc73c387f676119d67bab",
+      "seconds": 4.426,
+      "stdout_sha256": "d96fe896ccdc4f9a4eb99b26f79caaf103456e146385ce9cf0902871a8e1d938",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart01",
+      "receipt_sha256": "7763b2d65900f9edf3b981ef31d41744f2a74945e3310c77b42a66fea7151aea",
+      "key": {
+        "source_sha256": "46d783aa22de8543b21fe79accb874576a18c8fe68ffbf717a7e86f5dbce61bf",
+        "imports": [
+          "Mathlib"
+        ],
+        "dependency_artifacts": {
+          "Mathlib": {
+            "sha256": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+      "source_ancestry_fingerprint": "dcb86304b3e32877b2f2bfd511584429f15e45c7043c566078478c85ff0dfa96",
+      "seconds": 35.697,
+      "stdout_sha256": "10c4793bcd5f959c9f500fd4f20948a60e3310740ca376c1d132173cfc1d11cf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSP1TensorTaylor",
+      "receipt_sha256": "afeeca3583bbd17d21f9354134e4445166c684bb7a684055efe5670234e9b947",
+      "key": {
+        "source_sha256": "42ea161ef9ef4b118e7565e01f304becf4c6c533c3b51e7f247ddfbc70e55887",
+        "imports": [
+          "LSP1SourceAlgebra"
+        ],
+        "dependency_artifacts": {
+          "LSP1SourceAlgebra": {
+            "sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76",
+      "source_ancestry_fingerprint": "6afa158d9cdf7c09c66ab3524cead8a1c06fb1cf7e945a91e5edd3bc7f46f531",
+      "seconds": 3.323,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart02",
+      "receipt_sha256": "25978e51d7109d7ac363f3ec662638601f69932b917fec08eabbcd8e6ce80c34",
+      "key": {
+        "source_sha256": "2948effe75d3a6933119fe5e5b6e432f7bc273d020ce1056017313acc72c06f7",
+        "imports": [
+          "RecompileBasePart01"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart01": {
+            "sha256": "a9f3c384ac4831b59f8d005fd2b08345219ca0c0e832eec50f90e806f07dab74",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+      "source_ancestry_fingerprint": "381b4fe8f9e6418b907fb028181a7597e922cdd4d13321550713b324db6b5094",
+      "seconds": 18.409,
+      "stdout_sha256": "ca50753aaeb12c4b55128391ac703bb562c30c94193443e4b461a2df4cf9296f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart03",
+      "receipt_sha256": "7464570405f769a62eb445d9262e60d381b0d6a9f3fcaca31947094b0a7eb878",
+      "key": {
+        "source_sha256": "44e6f996c575e9de863f2cad7063eea49b03f7aebb4d7b57b30e11d52f8ae228",
+        "imports": [
+          "RecompileBasePart02"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart02": {
+            "sha256": "8f050b44735d9d4b4afe537a976aabf2364d9eb2f34c39e8c738299f7922ec21",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+      "source_ancestry_fingerprint": "32104e0e1713783eb06f281a3ac286e8b0d16a428fa0c7c5f1ed1723b7dfb019",
+      "seconds": 130.579,
+      "stdout_sha256": "cbae9a7da3bf668c5c099a9a303389baeb4b973c32166fe6d1031fca98dca3f5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart04",
+      "receipt_sha256": "874819e252053243c04c81428eab192524f4aa5092edbf490518b2d72395a9d3",
+      "key": {
+        "source_sha256": "666d5d122490b015e7bd84c07b3d6758a5bb112a0aef039f80e76f20834d616a",
+        "imports": [
+          "RecompileBasePart03"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart03": {
+            "sha256": "37d2f48e206753e3efd299b660f9ee142662f0ba4139b938d4ced946966e72e3",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+      "source_ancestry_fingerprint": "3b518a0aa1e6593990b01665a65be710c01ad0675b31ce010d2c41f0f96a1301",
+      "seconds": 136.373,
+      "stdout_sha256": "a6349535956f3e013e2932b251495163ad49524043758e417156b4fe0baf02fc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSAffineDerivations",
+      "receipt_sha256": "2d9e0833d396fe45fa80ecafbda72b1edfd0e6d1f55fb27d1a5d0cc623566370",
+      "key": {
+        "source_sha256": "4f21412b475379b9b8766bb5ade7534a64a05058d92d0491a1d84e8732f120a4",
+        "imports": [
+          "RecompileBasePart04"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart04": {
+            "sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+      "source_ancestry_fingerprint": "05945d5b58c201461b8cc0eaef7adc9caa6b10939b458b6d9f353d6fed07683b",
+      "seconds": 3.526,
+      "stdout_sha256": "462046bc9264adeaece019408f29b2c813074b1c0a9de5dc8249783ea96687d1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPublishedPicard",
+      "receipt_sha256": "7603849cea6ac2255020b86ca491d2d8f609f3c0ddccf20256b00c18cfdc2465",
+      "key": {
+        "source_sha256": "cacf780049a65c3894f2c6f53286ffbb319ae086cf1491507d64bcdc06b9abb0",
+        "imports": [
+          "RecompileBasePart04"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart04": {
+            "sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+      "source_ancestry_fingerprint": "79f5b9299b34bb0c60eb6992bc5c41500de571beefd5dc66d76bee99efba4ec2",
+      "seconds": 2.674,
+      "stdout_sha256": "5d51108a966d09ed3eae439fe5b85f6fe0a77e128c76dab475bf9b0c9f7e2ee0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart05A",
+      "receipt_sha256": "d83a431752b2c589f16d24ad418d0888404d428e0aff2bcf9ab8a41e4201c0d2",
+      "key": {
+        "source_sha256": "7e6497b17a33f6b700418f118b45624833c7f8407a989e685813cb648fe9cf05",
+        "imports": [
+          "RecompileBasePart04"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart04": {
+            "sha256": "35a345ef7b3c37501679dc50ee12eb8f3348697bd3e7d24230c136d5662c2f32",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+      "source_ancestry_fingerprint": "e4eaf01d939180bc3605510aa1c6c68702b7ca93ea2722e6cff18873e353984a",
+      "seconds": 33.453,
+      "stdout_sha256": "3db26dae562d33d4bdccd66f2acbd8bf83132f31b17540600990b3556a9b0479",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart05B",
+      "receipt_sha256": "5502b1ca13e157f799bed2ec71121a8a62384791d58883ab2d96a18cfdfd699f",
+      "key": {
+        "source_sha256": "ae759d3e6b2763fb3068fd91d649b3935b65a92ead8a05ce3fe48510e8f7d313",
+        "imports": [
+          "RecompileBasePart05A"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05A": {
+            "sha256": "5ecc5bae10083aa752ab572247acf972b85c878f35407f38dd2ec26f261a9818",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+      "source_ancestry_fingerprint": "68de5f3e7e2dcc2ae6b8234979babcb25f5c85e755ceb7452a10a34b7ba90d0e",
+      "seconds": 48.635,
+      "stdout_sha256": "4f79c9f0c3f08ed7df91a8d468796d516c6c6aa7978fccc01086e3b2db7a88ac",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSKunnethDegreeZero",
+      "receipt_sha256": "f301de7100832f3042d2c20b551444d8cf830ec540c57b7550968e94d8f7bfd1",
+      "key": {
+        "source_sha256": "a0b80bb141c3ca88a90db1a06594d489a1e2b5af38e8bb37b03f93c37ec9e6d5",
+        "imports": [
+          "RecompileBasePart05B"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05B": {
+            "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+      "source_ancestry_fingerprint": "944d11196537a863cf777b3ce26d0c4e975eaee368c73130a22b0a9a12bd6888",
+      "seconds": 7.382,
+      "stdout_sha256": "0ff5fa9c7e47699aeb01f11fc23387f194ceb89c312c89315a4bd7435230bed8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSProjectionFormula",
+      "receipt_sha256": "3b8827bdf437456d5046c9bb4cdea6e80f25b54f0cb4503ade9b2297606f90ef",
+      "key": {
+        "source_sha256": "ae01b4db2e346ce43e6afd2ad4da06fc6888037a2490b795309e71289838325e",
+        "imports": [
+          "RecompileBasePart05B"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05B": {
+            "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+      "source_ancestry_fingerprint": "2d7d93a5b96d7037914c2674a02a7c42ae121a5222e0bfd50d38b9de084f5032",
+      "seconds": 11.493,
+      "stdout_sha256": "00ee5c38a05389c73f2d9c637729f8257e6825e09bdaa2ed0e2a4637a08888f0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSAffineProductRing",
+      "receipt_sha256": "a612817281af41c6db5279a4b76f0c9280c44ef9520ca990e9ce80af223c08b6",
+      "key": {
+        "source_sha256": "92f3fbd7ae1479e56ba1a46700a66649e316f45afd5a95cfb87cc549feaf292b",
+        "imports": [
+          "LSKunnethDegreeZero"
+        ],
+        "dependency_artifacts": {
+          "LSKunnethDegreeZero": {
+            "sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "070707ba1d98ffd0926afbe0339b4bcd73047eb5f9f070cf44801af6fc62f91d",
+      "source_ancestry_fingerprint": "b322f8501c2065d6b41ddfc66b82efea19360089ff146a613035eda3712fd4ed",
+      "seconds": 7.835,
+      "stdout_sha256": "d0bd589b1283da35eef9ba02291f4c4bbfe8d46c1c4eb5e0aa205255d8282c1c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart05C",
+      "receipt_sha256": "748def725bbfbf79f0f09b3d9526a828db4892aa317dff0222d76b1405400616",
+      "key": {
+        "source_sha256": "4e2a0d3bf68f1689f7ca645f43733ea736ab5808cd79638171bc1dd257c382db",
+        "imports": [
+          "RecompileBasePart05B",
+          "LSProjectionFormula",
+          "LSKunnethDegreeZero"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05B": {
+            "sha256": "da7d7e6135e6dcd45a5c1ac1a9fee919805f2e5b45dbcf0c9bf4a96ca75e10a3",
+            "kind": "project"
+          },
+          "LSProjectionFormula": {
+            "sha256": "0a35206b65af31c08248ef7f4f1ad5eeaa08c5bcdbd335caa74baa9615cb2ed5",
+            "kind": "project"
+          },
+          "LSKunnethDegreeZero": {
+            "sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+      "source_ancestry_fingerprint": "85c03b4d23ab66d537c57b3c1458b14abe4340dcb537d6fe213807d3fc2061b0",
+      "seconds": 86.462,
+      "stdout_sha256": "7b0a9d318ae21a1e70f275685ec2f295ee9c7d79f52e3c911009ef092b84cf95",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSNonvanishingPullback",
+      "receipt_sha256": "2a6c4279b11fbac08fdefe343af818cddd8913709df140daca81257dbb30f9eb",
+      "key": {
+        "source_sha256": "f314c6847a8087911ddd5cc4f94cc3d823f93df7e3001dc6a8a35eb68c6f06cf",
+        "imports": [
+          "RecompileBasePart05C"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05C": {
+            "sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+      "source_ancestry_fingerprint": "a2e12546dbac8e48fe205eaa9210155c504e384f9ca7107270d0e7c6477fec54",
+      "seconds": 4.526,
+      "stdout_sha256": "e854b7c38d72c8327cc3e147a039f8b1615ccc49519268c6a76f02af16ab7f89",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSSectionCover",
+      "receipt_sha256": "53fd5a8e70b0846ab9f1a5e3db246ce86a44465b32dfc34ac8da1f590db899cf",
+      "key": {
+        "source_sha256": "3782dd7a7c0f9e42cf777c0f61bab49bd9c36046b9ee74000c2a4efc4b00e061",
+        "imports": [
+          "RecompileBasePart05C"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05C": {
+            "sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+      "source_ancestry_fingerprint": "ec5149aa92f7a64a764abc0d00789dd6d11da47759fb6fa86a2c2783ae2c2a5d",
+      "seconds": 3.323,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart05",
+      "receipt_sha256": "080a8ed83670c9749d3b865348c0935f7ef4c7699b9f617b9742faf3224fe175",
+      "key": {
+        "source_sha256": "4cbb7783ee535cc01981bd59356611987648380206fe9356f791bee4ef7e53f9",
+        "imports": [
+          "RecompileBasePart05C"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05C": {
+            "sha256": "18d47fecb5fd5a8967cb08140d1aa406a178a857aaaeebdfe4ca952b588b2436",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+      "source_ancestry_fingerprint": "5b59b2bc4243276d4b4b6da7defbfa126e086d1d5f91c59fa437e853c10a583f",
+      "seconds": 2.822,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart06",
+      "receipt_sha256": "6f7d2feeeaa4f6144a673f585ab2760a5d496a96cb9825c4783505f932b357c1",
+      "key": {
+        "source_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+        "imports": [
+          "RecompileBasePart05"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart05": {
+            "sha256": "7d01c584f5c5d092e853f5698476267c217624542f33b6145c444ed00c803f3b",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+      "source_ancestry_fingerprint": "76dace83d47dcb07f6d32983030743c30a074a97954b2bb06bdade039f3116be",
+      "seconds": 36.948,
+      "stdout_sha256": "05496faf3bfc6ce2ce1c3baa221a4fdf49bef89c1dea260dc2320fd96cfdd769",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBasePart07",
+      "receipt_sha256": "ca88aaeae5a80efff9de26faa5129211db0eb3ecd579af941e12f23236267c50",
+      "key": {
+        "source_sha256": "8d4977fedcc550100d776f2cdbaf85d082da8f27d8d1e8f2966bf31498703ac2",
+        "imports": [
+          "RecompileBasePart06",
+          "LSNonvanishingPullback"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart06": {
+            "sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+            "kind": "project"
+          },
+          "LSNonvanishingPullback": {
+            "sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+      "source_ancestry_fingerprint": "02ae8f98a5f7cf10c9ef6549e95c9530015c23832fb12098e73415b210f2448a",
+      "seconds": 422.832,
+      "stdout_sha256": "f6b37c91f2a86c5774db3a328dd5b9b72ba7dc796278c9f9a7b533560664f94b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileBase",
+      "receipt_sha256": "62ace323eebf5b597952ad42f57df542ff52ad0eedf1a31df1a7b16084ab3158",
+      "key": {
+        "source_sha256": "dafda7a938748a9116e01afb87867fde5ec5bf4252646716f2ed60ce80d2c096",
+        "imports": [
+          "RecompileBasePart07"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart07": {
+            "sha256": "f5bc59350c81e5a5abc89586793d708dc2f96ccff01b2f2d76f8abbcbe931918",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+      "source_ancestry_fingerprint": "ebbabaa3b0929bfdc5f299bc1efb11520cc7033635eaa5d38abc8377aa2cbf08",
+      "seconds": 2.471,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileSections",
+      "receipt_sha256": "ad1e33222ebe965034152a2a65c585b296deaaee7efdcd0659d4a408b801bd6b",
+      "key": {
+        "source_sha256": "3287c3045cce9275387a76f631e42f90c873b06057e43cdb11b9914ecf8c28a8",
+        "imports": [
+          "LSPublishedPicard",
+          "LSAffineDerivations",
+          "RecompileBase"
+        ],
+        "dependency_artifacts": {
+          "LSPublishedPicard": {
+            "sha256": "f2d0056aadbf683a6aba60e367bfe5429e068f520bbaf0cb90543e7385cade20",
+            "kind": "project"
+          },
+          "LSAffineDerivations": {
+            "sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+            "kind": "project"
+          },
+          "RecompileBase": {
+            "sha256": "bd029dda042288dc111377ad0e07dd6a7fa8d9de5f261016b531cff4ecba113f",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+      "source_ancestry_fingerprint": "7937cc5a95e85e29a21fe9a8cd8bc3970c6fafc7d0cdcf68899da11e586df299",
+      "seconds": 160.281,
+      "stdout_sha256": "05614ec0896ffa5c50c192bd105cfc4f9d3c64ec9f20f6b0ee18bec584be5b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSAffineFrame",
+      "receipt_sha256": "1492ddb5028476122927b880c5a4d31b7f417158dff64495f8da0bdb4c70de66",
+      "key": {
+        "source_sha256": "cb4608c1b0cc12387d4b15bc75025225dc2fb4d8bbe4b5ac414a2e98d7c558a4",
+        "imports": [
+          "RecompileSections",
+          "LSKunnethDegreeZero"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          },
+          "LSKunnethDegreeZero": {
+            "sha256": "c516afa3b452966c79c82692712b710b29ad100ea6406df4991c72799942aa6d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+      "source_ancestry_fingerprint": "750d005441293f1940de430d80179d18711fecf6f95bbdac20e8434bc1f2f78b",
+      "seconds": 14.155,
+      "stdout_sha256": "9ba6ae947e34b42f482c3bdc753c096164dafdfe9da4df9d68c8c794d1ba3ae7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSP1TangentSections",
+      "receipt_sha256": "c667e5663a9e1c38df7719ef502d9c2945fc71256da7a0afa2adedff20fb5058",
+      "key": {
+        "source_sha256": "95e1586363c71e3fbea3f039ae061eef369b905719411928c5d1be54291cae54",
+        "imports": [
+          "RecompileSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e",
+      "source_ancestry_fingerprint": "d6c9391aa2198989286fcb963b06d8ef0040750ab2682f6b73ddf331b600a3b0",
+      "seconds": 3.825,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSStandardTautological",
+      "receipt_sha256": "152396fd76b3eaa46b6114f39ae3abd75d2ba798ea5ec516aa12fc20198d3d27",
+      "key": {
+        "source_sha256": "a05e46ead73107776d2243a66d586e9c9189ed19d0f18fc4c8671d3d61eb3ddb",
+        "imports": [
+          "RecompileSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+      "source_ancestry_fingerprint": "f28aa06eb06553c68565fd0a867c0760832c408ca2baa93af437de40346da9d3",
+      "seconds": 3.576,
+      "stdout_sha256": "2c4097a6150e0335fdedc39a1edbbf2022490fe0f529e842cf1dd2cf661e7fb8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionCore",
+      "receipt_sha256": "c3ae6f923e4cb57f42291630650528ca45e016fd547f94c7de941b94e388bb3c",
+      "key": {
+        "source_sha256": "a1ddceb86afb0751094186bea5909c38de440e5e427b39f2d5e560ce99460d1c",
+        "imports": [
+          "RecompileSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileSections": {
+            "sha256": "c8c98825fefdd8498047ca6e32f3ffaf06b0b6295b788fb83359be78376f8753",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+      "source_ancestry_fingerprint": "40f84d347c282c1640d582d08ce310c06d2067cc293f6abcdd46c450f75e5d6c",
+      "seconds": 24.013,
+      "stdout_sha256": "53d7842123a1ce110168c92ad71377b6ec09f1949efae7801f22d06bb5369f79",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSClosedIdealCoefficients",
+      "receipt_sha256": "1a1b5aa50c5f23a3e9b2dab5f19c7fa02170bdcacf596b3988822a8cf88ff43f",
+      "key": {
+        "source_sha256": "035851853fe22e6e6fc1865d6f36c4b8fe6e780913f92af75d33dee8ffe3cf7d",
+        "imports": [
+          "LSAffineFrame"
+        ],
+        "dependency_artifacts": {
+          "LSAffineFrame": {
+            "sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31",
+      "source_ancestry_fingerprint": "ceebf4080fc835fb07a1a16c0c6547d908bac1f657c0a5ef691ff7cdce505e39",
+      "seconds": 3.522,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPublishedProjectiveSpace",
+      "receipt_sha256": "d5cfac12827b916e58907f8ed89e64b73c79ea227a23b39deee8c3173fd4f6f4",
+      "key": {
+        "source_sha256": "c06beeff97f95ac06fc9b3fc2f358b332e95a62e538a966870ae46d7137ca70a",
+        "imports": [
+          "RecompileBasePart06",
+          "LSStandardTautological"
+        ],
+        "dependency_artifacts": {
+          "RecompileBasePart06": {
+            "sha256": "e902efc594517fd8bdbeb5d3d00ef11d235fa701783839b9680a397d53f1eacc",
+            "kind": "project"
+          },
+          "LSStandardTautological": {
+            "sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66",
+      "source_ancestry_fingerprint": "492d200ee58377f96af9fb4142a562951d89619bc53f01bd15f7e0b2d7a451ca",
+      "seconds": 19.227,
+      "stdout_sha256": "a5b10354f0a1d556c10c9945dfa949bd6fc8a4ae117fb2da0ce2cd5cbadae61c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSStandardTautologicalP1",
+      "receipt_sha256": "aeff2c5d3e68536ff76b5b0b8b8cafbfd2417d56bbdadf79ff5a5ac4696cd7f7",
+      "key": {
+        "source_sha256": "d0bcb8e18fa710b23e87b0bc9345fc7f8962d5aff729d58e616a01a0a583f9a0",
+        "imports": [
+          "LSStandardTautological"
+        ],
+        "dependency_artifacts": {
+          "LSStandardTautological": {
+            "sha256": "f49e2cfe463b4cd5ae4388af5bb5f9f3594acd40e576d2fd37ccd9160e72377e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+      "source_ancestry_fingerprint": "1eeef1245a7b86f28c15b42eefb6ca17028787403eb71d9c4da8a4566b3c4b9e",
+      "seconds": 3.977,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSVectorBundlePullback",
+      "receipt_sha256": "b0d6519f5198834b4ce073d8c0a485e3be7f5643044d10ef2e10713a5b4e59aa",
+      "key": {
+        "source_sha256": "63e1a145e5871bdb4d3627ba835bd0f61cea3a51919ae60dfa5666aef5386d5b",
+        "imports": [
+          "RecompileExtensionCore"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionCore": {
+            "sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a25b6ee480980f6f499795229ad2b7fb244cf8186d58caf874716637eb1f51e9",
+      "source_ancestry_fingerprint": "4badcc17af007ffe9cabcf3a38ae3226d3e51195767f6adeb82102fb8c6a2c9d",
+      "seconds": 6.428,
+      "stdout_sha256": "745ce88f97178abc6e03b2fb7c87743377f1afcf5f2d6702483fb3b3f4e66512",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSOpenProductCoordinates",
+      "receipt_sha256": "f55158e66b1b0abf8043cd58010e8ee7cefb9fc2da597d1b6b2711bc3cf7bc30",
+      "key": {
+        "source_sha256": "2f0deac7c3422e895ae1616d3fa8d20dae1200120a4b5b09da3d7acb5e677ee8",
+        "imports": [
+          "LSAffineProductRing",
+          "LSClosedIdealCoefficients",
+          "LSSectionCover"
+        ],
+        "dependency_artifacts": {
+          "LSAffineProductRing": {
+            "sha256": "070707ba1d98ffd0926afbe0339b4bcd73047eb5f9f070cf44801af6fc62f91d",
+            "kind": "project"
+          },
+          "LSClosedIdealCoefficients": {
+            "sha256": "3b5b4d1596b4de30661fb92a94361c0c2f12a5d46fa5ece3d351ecab31d44a31",
+            "kind": "project"
+          },
+          "LSSectionCover": {
+            "sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8",
+      "source_ancestry_fingerprint": "8fbca1bb8ca7ce3db71715baae801d6ad064d7ad685b399ae799df0add2c437d",
+      "seconds": 5.776,
+      "stdout_sha256": "33c8c6229b63af2f54239ba62064281dd6c75aabc9cb19026117898b610052fa",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSExternalFrameCoefficients",
+      "receipt_sha256": "28c3d0d21c4a52d12cfd10248561ec650aa2bd8e3c06440166d7a1203ded6532",
+      "key": {
+        "source_sha256": "b42e23fe93455f919697ee3ce6086ba987d4b15208c281d382232f1e90e78d94",
+        "imports": [
+          "LSOpenProductCoordinates"
+        ],
+        "dependency_artifacts": {
+          "LSOpenProductCoordinates": {
+            "sha256": "545c487c4b830b4000f38402a336ea08a2998ba69a86776f93bf71ef2856a7e8",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9",
+      "source_ancestry_fingerprint": "793cc0fff4cef4cbd0f6a7a0c8c037cb9897026d38d942c52ed37e6b4e282c9c",
+      "seconds": 5.526,
+      "stdout_sha256": "6586a581c09c4a697c14254273b2e919602f863bdae55fdbe43d8354ee0a72df",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart01",
+      "receipt_sha256": "e69086013b365fefd33f014edf08fe5261a26b1a4d544172686071587c0b68ff",
+      "key": {
+        "source_sha256": "0e7f9ecf29272720c7d0bde3d09fdef2872e5ea38e7b357887fa49586444bc3b",
+        "imports": [
+          "LSP1TangentSections",
+          "LSP1SourceAlgebra",
+          "LSP1TensorSquare",
+          "LSP1TensorTaylor",
+          "LSAffineFrame",
+          "LSAffineDerivations",
+          "RecompileExtensionCore",
+          "LSConePole",
+          "LSSecondDiagonalAlgebra",
+          "LSSectionCover",
+          "LSExternalFrameCoefficients",
+          "LSPublishedProjectiveSpace",
+          "LSStandardTautologicalP1",
+          "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule",
+          "Mathlib.Topology.Sheaves.SheafCondition.Sites"
+        ],
+        "dependency_artifacts": {
+          "LSP1TangentSections": {
+            "sha256": "45ad4f16c84c7ecb6b15b9ba36de6acacec5ae6b894c34577e300b057ddd715e",
+            "kind": "project"
+          },
+          "LSP1SourceAlgebra": {
+            "sha256": "68ee508992950dba8e55e38b100b10f13f89c9cca1d3b0f0425eb34ff0e98708",
+            "kind": "project"
+          },
+          "LSP1TensorSquare": {
+            "sha256": "963d90ad0026d8689ad2a4c5b40c5a994be27eb2d5d724f0059ca4f92ec91aaf",
+            "kind": "project"
+          },
+          "LSP1TensorTaylor": {
+            "sha256": "c4dd5b88f3026f0ba24dce505bdb2a1fb88d78b18ea3c4d2b07b92edd3a65b76",
+            "kind": "project"
+          },
+          "LSAffineFrame": {
+            "sha256": "ac4e3c34f42343cf6df8ab84564643b7fcabb920b43972412009075ebe236265",
+            "kind": "project"
+          },
+          "LSAffineDerivations": {
+            "sha256": "a12c23129ceaccea9abc1c3b2c12e30f3a5306d5978ec7f713c73c282b05b79e",
+            "kind": "project"
+          },
+          "RecompileExtensionCore": {
+            "sha256": "52999567eca5065dace92067697dfd604748ef2cd9f3fd7b3aa0ac40dc913eb0",
+            "kind": "project"
+          },
+          "LSConePole": {
+            "sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+            "kind": "project"
+          },
+          "LSSecondDiagonalAlgebra": {
+            "sha256": "c6bd1c3ca1d30dbc22505b4c6e9f8ac09962ff4e1e454a9b5a28250bf9f870cd",
+            "kind": "project"
+          },
+          "LSSectionCover": {
+            "sha256": "a362d2fcb84cfeb31c64a4e88298a36b2181b8cfbd0058e5bc68b43e34b19e22",
+            "kind": "project"
+          },
+          "LSExternalFrameCoefficients": {
+            "sha256": "92ef69f33f7774a10cd82c0ce6cc3e6ab5d23c50b02a458af248039a185fe6c9",
+            "kind": "project"
+          },
+          "LSPublishedProjectiveSpace": {
+            "sha256": "28a70dcd1a2aa71ac9445d5ac2b4a827d4ccd04f5c27ee9d4b616adc38eefb66",
+            "kind": "project"
+          },
+          "LSStandardTautologicalP1": {
+            "sha256": "13ae9edb3f401d871c5d0871ea5d3bc71f33a20fb625fc3b17eece8243a24099",
+            "kind": "project"
+          },
+          "Mathlib.Algebra.Category.ModuleCat.Sheaf.Submodule": {
+            "sha256": "3e80ea517b07ba9b2703a1d1297d52851eac73e28bc387f076fd97eee2b73caf",
+            "kind": "external"
+          },
+          "Mathlib.Topology.Sheaves.SheafCondition.Sites": {
+            "sha256": "5e91ca06c95bc5e5b738d878d3111d7d83a79dacd956bbc88fbb59079e88c86f",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+      "source_ancestry_fingerprint": "4d358b9a5c7920194ffa23fb6d41265fbd43348f4bc58b46c3c033f67658b73b",
+      "seconds": 131.875,
+      "stdout_sha256": "9f66e22094f5bb5aefd91167e5da0fb51184430f61e65bdb6c82e557b520dbc9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSFiniteFreeHomBaseChange",
+      "receipt_sha256": "22120fc85c0362ade0b204a165c932ae708263546d40a49a4cc64751761da4fb",
+      "key": {
+        "source_sha256": "eac99012709545fe5c6960aa7e1a6c162bc091ff52e4118668029c132a4fc1dd",
+        "imports": [
+          "RecompileExtensionsPart01"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart01": {
+            "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "3d6560f6f30b17c2a437fc9586b108927f6f901c583488aa1185552e41a9a6f6",
+      "source_ancestry_fingerprint": "b0e9e6c3f84b27fdc628a652f2bbec4fd82aaaab690d46ecbcb7316351365bc3",
+      "seconds": 4.183,
+      "stdout_sha256": "18550932090564f2bace7425628b88687c0ec6cbeddc8f00317780980061b707",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSGeneratingUnitOpens",
+      "receipt_sha256": "696666d45a59daefc442bfb09e378229378181368f10076ed6ac58b9480ee734",
+      "key": {
+        "source_sha256": "dfe5be9319a3a003740147e7ca9f955a44adaec009b8a396cadc2076daf3a1e4",
+        "imports": [
+          "RecompileExtensionsPart01",
+          "LSNonvanishingPullback"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart01": {
+            "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+            "kind": "project"
+          },
+          "LSNonvanishingPullback": {
+            "sha256": "3f1bea795174e4abf9ffbc0d1751664ceac1799c7ae94dfd89a025c0de4c7b97",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "168a3242d90a86b3e31c7dbd4720926ff8736d14439aeb3432890682e08c6f9f",
+      "source_ancestry_fingerprint": "3162d643de04920a2038d4dfca34ab75f7c2341da174231aafa2ea268e7c1291",
+      "seconds": 5.487,
+      "stdout_sha256": "0548a289c0e58e2aae3f8692756fd50090a4c1b550759f7df3f31d71daf6aefb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart02",
+      "receipt_sha256": "55c9486b4a8c36dfa5e41a402363aab7971a679bb019c339af426ccb1b163dfd",
+      "key": {
+        "source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "imports": [
+          "RecompileExtensionsPart01",
+          "LSVectorBundlePullback",
+          "Mathlib.Algebra.Category.ModuleCat.Products"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart01": {
+            "sha256": "fc4ff9799069871e4f9e3af4d49f8b4343063cdc1b51fbaed72b63690d891afe",
+            "kind": "project"
+          },
+          "LSVectorBundlePullback": {
+            "sha256": "a25b6ee480980f6f499795229ad2b7fb244cf8186d58caf874716637eb1f51e9",
+            "kind": "project"
+          },
+          "Mathlib.Algebra.Category.ModuleCat.Products": {
+            "sha256": "24fd2fdedd6e9b0e4d45b16987bdb2001956293563e5b13c0121ae37da129d87",
+            "kind": "external"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+      "source_ancestry_fingerprint": "b5d00dd5493a474c1f26aaf670eb5775a97114165f9aade60c7809b616d34ec3",
+      "seconds": 108.194,
+      "stdout_sha256": "aeb25bacf28c386a0adcef7e582d4b019750145164df926f21a70429165fcbc9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSDualBaseChangeAlgebra",
+      "receipt_sha256": "0424f70136308651301ebd78fc8a01a3729fef68bf804d865308f70bef7783d5",
+      "key": {
+        "source_sha256": "11df6ff89baf37a5754b0ae3a446d6ab16b4447a34c61f230103dede7292bf1e",
+        "imports": [
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085",
+      "source_ancestry_fingerprint": "c39dcdea440197f8a99a77a46795d3649233cc178206ae0fc525732d356ea369",
+      "seconds": 3.029,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSFiniteFreeBaseChange",
+      "receipt_sha256": "10d107296082be5b811e55b75d2737102f4dc557903cace63b98d67b7bd84914",
+      "key": {
+        "source_sha256": "e75bc6d4ef9484c199c2df244182ededd53960f274ca6760bbbfcf4d62bd51dd",
+        "imports": [
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0",
+      "source_ancestry_fingerprint": "a9c57cdd19c1b75d6bcd1b7b6bc8dea1ab3072e5cdf03b751d15ba579f1eaeff",
+      "seconds": 2.576,
+      "stdout_sha256": "6561f467e174f6cefd5dfe6ae05162943c1fe2a6a202efc2a825859fc30496d7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSHomFiberInjectivity",
+      "receipt_sha256": "05a6fd85523170e312a2b65454a0e5a54373fbdd0e293be7024605f39488230c",
+      "key": {
+        "source_sha256": "c2cd7be15f7b953ecfa08a7ff81e2cc710175c99804e36a42bc6e7e2f673afd9",
+        "imports": [
+          "LSFiniteFreeHomBaseChange",
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "LSFiniteFreeHomBaseChange": {
+            "sha256": "3d6560f6f30b17c2a437fc9586b108927f6f901c583488aa1185552e41a9a6f6",
+            "kind": "project"
+          },
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "5044e406079bd991af31a3fc4910cc5de1286965ddea31833a48f0f0cc796cca",
+      "source_ancestry_fingerprint": "39ce1467cabf4e18facfac60ecb48809b275b768ee66e83c9274e1d5be8fced7",
+      "seconds": 2.579,
+      "stdout_sha256": "f052ba18a896b6636c11ad2fe1eaef7cfe6164e295bae3afd885559fc0f1430a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSProjectiveLineReparametrization",
+      "receipt_sha256": "0396a651f8e536689eb27af5a4f84a478bdf08b6a8cf8f2c10f9a85433d06c1f",
+      "key": {
+        "source_sha256": "edeb936371687e45db0fc2ca13f56e71b6e6a3214cf95c965ee3a006cbd4383b",
+        "imports": [
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f4cb4af544511404bbb19643e34c5fdf8bfdc1cb742edb3bb27ebb2a340fe3f6",
+      "source_ancestry_fingerprint": "5e9bbe0a4aaf517fe46ed09df81e0ed602e66ebfca8dcaea30b7df02fb0cc5e1",
+      "seconds": 3.732,
+      "stdout_sha256": "c25b3b88f364f922049266ea7722ce143f7b6c63fd04305dcd5f4f686186604d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSSectionRepresentability",
+      "receipt_sha256": "b3471b2555d29d8073980b1a6ae19e103e1f00822e88f66b3703735553ca66fe",
+      "key": {
+        "source_sha256": "0db7ba9b6b7c8e51efb69efe31c429471e787e994f5d898bcdbe15ddd39b705e",
+        "imports": [
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "8bb2c1d155b389c601f8629ea4060f46d0341b5b310f8891b0af287bf1f78d4e",
+      "source_ancestry_fingerprint": "f422b5538cea306b06bae7ec64596503a5d9741b59b8ae76f4fcd4e5dd05ef3d",
+      "seconds": 18.063,
+      "stdout_sha256": "267a8226f3f9fc6b32c0e5c9af310cd1d841b6529b0a5e1960b71baffa6c3ecb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSAffineSectionRepresentability",
+      "receipt_sha256": "dc6db72464bcd7195c705722e6fff4850470d64039aabe0e2b224018ce4565a6",
+      "key": {
+        "source_sha256": "65f44a7b10490ef6dc5ada997673c70eae6f8f7247af652d239f8f8d0439c0f3",
+        "imports": [
+          "LSSectionRepresentability"
+        ],
+        "dependency_artifacts": {
+          "LSSectionRepresentability": {
+            "sha256": "8bb2c1d155b389c601f8629ea4060f46d0341b5b310f8891b0af287bf1f78d4e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "f4d97ce8b0faf306eba421b56485a4b3ea1547013ccd13d818f6ec9eb0b98fda",
+      "source_ancestry_fingerprint": "24b9063433cb62497a760c7bccdef22dfb2da56cc27dd77f302eb860c179ce37",
+      "seconds": 56.82,
+      "stdout_sha256": "c71c5e03cb8f9e59d45d4ad34e06de5c54c4b6b836c3d87a9c32a0dc00067764",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSDualThickeningNormalForm",
+      "receipt_sha256": "f9c82a31d68c6ce5c35687b110ffd6b521af7d80f646e0d62d36d498b8d91ad0",
+      "key": {
+        "source_sha256": "bd299b62c30cc560fcd89d6835c94c99ff26d899ef4de1d49f9a25f26132f422",
+        "imports": [
+          "LSFiniteFreeBaseChange",
+          "LSDualBaseChangeAlgebra"
+        ],
+        "dependency_artifacts": {
+          "LSFiniteFreeBaseChange": {
+            "sha256": "8cafc2fef9ec51c218e9d6ab3c868cb66324a8d112923adc1bb0cb959ab836b0",
+            "kind": "project"
+          },
+          "LSDualBaseChangeAlgebra": {
+            "sha256": "1266572e3b708a07a56e707f6217309fbaa9edb80dc5535751f7d28d67c60085",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "b01ec856701648a55f44172afde54898957cff7eaf80256391e75354246303d6",
+      "source_ancestry_fingerprint": "36c86aef6904762b5d489de495df573a3ac562550241dd8c2355d251aa077db6",
+      "seconds": 3.776,
+      "stdout_sha256": "271ae86d40d0502cdd35e05b122f35157a6eca2e1d49f08023be804443a1cd37",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart03",
+      "receipt_sha256": "26b45fd5f4c95b79bca3cf68b0ea39b9062a08cad31dee9fbbe6cf4bf96912d6",
+      "key": {
+        "source_sha256": "e68bcccd556ead9037286318091ab57e404e4641f3c7364989438497b9f42c96",
+        "imports": [
+          "LSHomFiberInjectivity",
+          "RecompileExtensionsPart02"
+        ],
+        "dependency_artifacts": {
+          "LSHomFiberInjectivity": {
+            "sha256": "5044e406079bd991af31a3fc4910cc5de1286965ddea31833a48f0f0cc796cca",
+            "kind": "project"
+          },
+          "RecompileExtensionsPart02": {
+            "sha256": "ff35afac8717972213b899078fa9aaabae584556001b7a6f4f3b9495a1dcadf4",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+      "source_ancestry_fingerprint": "2141b10a63fb679418586682d1e5d4fd9de84b2db0b82e8d2ddaf0433fc674ce",
+      "seconds": 71.05,
+      "stdout_sha256": "90ab8b6ba2eb3b68938788d1f27ffd146fb88cff2d6c978a2c04c89884b63bdb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSConicSplitting",
+      "receipt_sha256": "06f10ad65f227d989b3d0bb7d27314180515bb0fa315cda266e68f01ab8b20f3",
+      "key": {
+        "source_sha256": "a33d75ba21f64cf2aa3d539f629a5ec62609f806f29f6a34501eb203d9c801f9",
+        "imports": [
+          "RecompileExtensionsPart03"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart03": {
+            "sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a",
+      "source_ancestry_fingerprint": "4ca1a258b60934557c002d129bac77f9be823c6d2c7847eb67b7b79c9e297b4e",
+      "seconds": 7.635,
+      "stdout_sha256": "a08835c244d42cf86d0fce6fb5c879892590e13b5f0b7867c484c2958199b043",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSProperSections",
+      "receipt_sha256": "0cd1251404ca5bc63ac53f050aadfb560e9f7880a3e15a7e974415c44a59a581",
+      "key": {
+        "source_sha256": "ea037192655ab0ee0fdb95f11cbb4cb93a298a6bea6da1d0def8cce45fffa240",
+        "imports": [
+          "RecompileExtensionsPart03"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart03": {
+            "sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85",
+      "source_ancestry_fingerprint": "738766cb153a493ffc57a3ee0fcc3d5ec35ccf56c1d8a101f742d75d674204d3",
+      "seconds": 2.926,
+      "stdout_sha256": "1adfba6f1f9316fbf92313cdd562a54fad7b61e30e39d971e0ae14a209405ebd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04Geometry",
+      "receipt_sha256": "03139a017a10862b9c3661fa23cf2d744513d5f57652423bbfa5865dbeb1526d",
+      "key": {
+        "source_sha256": "97e4af54a212b50d235ce936a9e87e91d6908da4c0395ed6830e73c844fbcd5e",
+        "imports": [
+          "LSSectionRepresentability",
+          "LSAffineSectionRepresentability",
+          "LSGeneratingUnitOpens",
+          "RecompileExtensionsPart03",
+          "LSConicSplitting"
+        ],
+        "dependency_artifacts": {
+          "LSSectionRepresentability": {
+            "sha256": "8bb2c1d155b389c601f8629ea4060f46d0341b5b310f8891b0af287bf1f78d4e",
+            "kind": "project"
+          },
+          "LSAffineSectionRepresentability": {
+            "sha256": "f4d97ce8b0faf306eba421b56485a4b3ea1547013ccd13d818f6ec9eb0b98fda",
+            "kind": "project"
+          },
+          "LSGeneratingUnitOpens": {
+            "sha256": "168a3242d90a86b3e31c7dbd4720926ff8736d14439aeb3432890682e08c6f9f",
+            "kind": "project"
+          },
+          "RecompileExtensionsPart03": {
+            "sha256": "53c3aad955f62cad3b171df29f58d9610a980b3259c505a3b84e487624257d76",
+            "kind": "project"
+          },
+          "LSConicSplitting": {
+            "sha256": "3ce0d7eea0eb4a09a9bf886975612f9e0914f95aad262dc3cff827ae91b6188a",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+      "source_ancestry_fingerprint": "b140ada3248d09aaf8b9e4adcd72353ffd1d5e0b814d5372f36cebfaf3f9ee00",
+      "seconds": 296.65,
+      "stdout_sha256": "e5cafe43c774e952a8c2f6c75ded0a4d1acfd5ba5fbbcd9e07bdb572959d9edd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingPrefix",
+      "receipt_sha256": "6d242acb43a00e7bb2e0228434830af40e2fda80537fb1324be1a7af6088a265",
+      "key": {
+        "source_sha256": "22d70feae4bfa53bcc53fb5dbf0a0a85b53a10ea468660c0168f59d87177f9c8",
+        "imports": [
+          "RecompileExtensionsPart04Geometry"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04Geometry": {
+            "sha256": "862a07f417be8e72361775cdbd59cfca774dae4f7c279e7d57e5973366a3299f",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "60542f544cb40cd834f8dc3ddc50f029f0030b80c1a4ea5a9cdc2d333cd1ee7e",
+      "source_ancestry_fingerprint": "e1ef1261a4f43315b33bbfa6e0dbc3e61b5d6694021dc02037f608064664ee1e",
+      "seconds": 2.379,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04Gluing",
+      "receipt_sha256": "dacf5db61d384e407256827484e816447eb283cbb1c67b3cd4fdb438b707ddfe",
+      "key": {
+        "source_sha256": "ad5c1c7b4fbdc1734643b0e614af68c2c1dd46b1f082ccef3bf98c14db312c0e",
+        "imports": [
+          "RecompileExtensionsPart04GluingPrefix"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04GluingPrefix": {
+            "sha256": "60542f544cb40cd834f8dc3ddc50f029f0030b80c1a4ea5a9cdc2d333cd1ee7e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "a5ff6315c7d5c7afa7e1227815a0b020d19fe9490045a3fb6a58ea2b15e1e656",
+      "source_ancestry_fingerprint": "b785f2c598e011e38386b86240ae2c70feef233962470764ba06add848061cce",
+      "seconds": 2.37,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04GluingSections",
+      "receipt_sha256": "bb8850e628adbcbab540e87a1a443ddf0ab06a8c0d1d984b383b826df6fd85c2",
+      "key": {
+        "source_sha256": "8a09576464066fc2da8c74afacae92297e2dc6301518e2711f5b196c1b2f1697",
+        "imports": [
+          "RecompileExtensionsPart04Gluing"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04Gluing": {
+            "sha256": "a5ff6315c7d5c7afa7e1227815a0b020d19fe9490045a3fb6a58ea2b15e1e656",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "8858d9314a224fd2737b21d8450da60cc3dae3b86e9f2606964956ad959a980a",
+      "source_ancestry_fingerprint": "08d2c63c58afda472e8ee2da12dfe5fc304151cefef2b6091c21071ad91b7ed5",
+      "seconds": 3.173,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04Nodes",
+      "receipt_sha256": "a75970e21a57689eaa0323fa61a05d3b8f7550e8d394668724da2d0d1cfeb131",
+      "key": {
+        "source_sha256": "fd11260f301496e9435ca722a7ab2aaf5a45a1a1724a305bb8b54769aa335614",
+        "imports": [
+          "RecompileExtensionsPart04GluingSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04GluingSections": {
+            "sha256": "8858d9314a224fd2737b21d8450da60cc3dae3b86e9f2606964956ad959a980a",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d",
+      "source_ancestry_fingerprint": "7b088a05b4fc8bbd81ed0dd230a29b2d7becf76c13f657d8c6fc5038c2b9b051",
+      "seconds": 3.374,
+      "stdout_sha256": "c89a5cf1134b07ba38d1080a172391606eaee0607581df5809b9168223524486",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensionsPart04",
+      "receipt_sha256": "f1f91eb1428543532f403b00fd27f5d0f51c57ec25c910ab6222430979fa68b5",
+      "key": {
+        "source_sha256": "9a989e4bb84ad679a39af81cf79ad1f95fba5929a111245cc840b9c3e087ca8c",
+        "imports": [
+          "RecompileExtensionsPart04Nodes"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04Nodes": {
+            "sha256": "6467b50d429a9b8b56d7f09270ea12cd31571e6ce5a90de3b0d693c78323542d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+      "source_ancestry_fingerprint": "4e1ddcc3b24f0dab984c13edcaf62790138ba8372435bd6c274e62691438a5e1",
+      "seconds": 24.583,
+      "stdout_sha256": "7f2c31f869b78fc4ccbdbcef5dc017dd3b53ab9d5187b562b79b24633e3be240",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSLineValueDescent",
+      "receipt_sha256": "b8d15a04004e77093ff0995a0a3fbac68eebfdafd79fb5a1c8d5325e924a1b4b",
+      "key": {
+        "source_sha256": "2c3d1b3336501b611c19fde0c9f6525d18d57ec495ae1da883fdad3c2c53dc72",
+        "imports": [
+          "RecompileExtensionsPart04",
+          "LSProperSections"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04": {
+            "sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+            "kind": "project"
+          },
+          "LSProperSections": {
+            "sha256": "a941899225ce98d6a1f40ccab6debf103b864b1ecc4c1f06abfdeb0ee4d67c85",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "de78d7a07498d05c1cf4d67581746c553b48086f9a519a9f121f7ac397a14fb6",
+      "source_ancestry_fingerprint": "477bd6ded06d14499fad3331fd67d7c62dda93410101cbb5f1342abd53635f28",
+      "seconds": 30.805,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSGenericSheets",
+      "receipt_sha256": "017099a6a8fa0b7537b4648da32f6bb0310d9644ba5c302b81aa95b4069249d6",
+      "key": {
+        "source_sha256": "d2745a2ceb1ec5161840629b731532bbe033f75787bc31d8e54bd622e728de86",
+        "imports": [
+          "RecompileExtensionsPart04",
+          "LSLineValueDescent"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04": {
+            "sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+            "kind": "project"
+          },
+          "LSLineValueDescent": {
+            "sha256": "de78d7a07498d05c1cf4d67581746c553b48086f9a519a9f121f7ac397a14fb6",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "cde57c6caedc0fe4fab8a38ad596b90975ecacc8714fd4e2cfef66e6f393d942",
+      "source_ancestry_fingerprint": "edc77f26fb405e9323516adfd03e8fd5cf8da2e4688647402e5b5e1131814e3d",
+      "seconds": 14.256,
+      "stdout_sha256": "d68ecf9a09900ce5881b3160617f1ae5c0e6768ad803ed785708734318a7118f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileExtensions",
+      "receipt_sha256": "d1b48ffa150f6e741c469b8d1f0e273133a1ff37144c0df18a3a8b968baf0199",
+      "key": {
+        "source_sha256": "0591bcbcde84157eaee7cf93e5fd0d3d13d0c6b9623f48147636440ce68a10fb",
+        "imports": [
+          "RecompileExtensionsPart04",
+          "LSGenericSheets"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensionsPart04": {
+            "sha256": "9d55c3a2e766ae934be544e5bdc62f11bff9d7b193b20a5b518a50362d816aff",
+            "kind": "project"
+          },
+          "LSGenericSheets": {
+            "sha256": "cde57c6caedc0fe4fab8a38ad596b90975ecacc8714fd4e2cfef66e6f393d942",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "7191aeab268cda32b213afade1d84366b06872d5ca91e879ed4d54e346a7da4d",
+      "source_ancestry_fingerprint": "3d21a615155c570d7e189aa5835bc8d6246bc14a53ea16f811979dad0cad779c",
+      "seconds": 2.176,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RecompileTail",
+      "receipt_sha256": "567504644e1df0740529da92812c881d678324db8bb01674fcdd48bc81bd9c51",
+      "key": {
+        "source_sha256": "006e79155c7ad36f5ebe27a38624d7588a8bac9986bced1fc4748b248a58a937",
+        "imports": [
+          "RecompileExtensions"
+        ],
+        "dependency_artifacts": {
+          "RecompileExtensions": {
+            "sha256": "7191aeab268cda32b213afade1d84366b06872d5ca91e879ed4d54e346a7da4d",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e",
+      "source_ancestry_fingerprint": "c1063e9f9d7b0394f50a41f6bd4bf8b4d10da4e33c2e1c888c5456ce8077b619",
+      "seconds": 3.172,
+      "stdout_sha256": "7bed8d61db35755a56c76a64783c88ae79652b203c09330e23bd4912157e8416",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPositiveQuotient",
+      "receipt_sha256": "09ba1cdf88bab131cf24c32015a2ccf0ca5f709024d4dc55664b0157518feb53",
+      "key": {
+        "source_sha256": "23172c6c41b6ad9d31f69a000d5b127e555073054797fda1eb4d45edaf644cd5",
+        "imports": [
+          "RecompileTail"
+        ],
+        "dependency_artifacts": {
+          "RecompileTail": {
+            "sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53",
+      "source_ancestry_fingerprint": "9aef66a423635bfc376d712cf1eea81d12739f5b1d78c137d56f58ab3e8ec055",
+      "seconds": 2.221,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSSuitableDirections",
+      "receipt_sha256": "5cf3bed7c15b51980fc7a17db50137b684c577d02078254a6dd3f9b0461ad62d",
+      "key": {
+        "source_sha256": "f3618c8de36929722cbbe3711d9b86f9cf238bfa74ea5da1492afb100eefd10a",
+        "imports": [
+          "RecompileTail"
+        ],
+        "dependency_artifacts": {
+          "RecompileTail": {
+            "sha256": "b234f15d80b1e72e82087dd3192018258b402016e064b1670890738a423c973e",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+      "source_ancestry_fingerprint": "25642de789b82d355c4cd35527a17a1e4db54881a57994985d45aa869a621929",
+      "seconds": 5.682,
+      "stdout_sha256": "e9053e715723715c42e482d7e4d9e82122bf100af4c70bb7b819ea7ae9a3e648",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPositiveHom",
+      "receipt_sha256": "489afef86f7065c4b3897d5500ba35fee326053abfce8ddd4ce2de499f5e0f8f",
+      "key": {
+        "source_sha256": "0a3f6907226731c3212492222446abe3736f7a824095ea78bd4e1967d03edc58",
+        "imports": [
+          "LSPositiveQuotient"
+        ],
+        "dependency_artifacts": {
+          "LSPositiveQuotient": {
+            "sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+      "source_ancestry_fingerprint": "4c0084e3955e5051f7de61b9a85d13060b87f49c54918315d552ac73bfe17e5f",
+      "seconds": 2.17,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPositiveSplit",
+      "receipt_sha256": "c77c8336c28cbdada0fa5676f69b37ae5ed28018ab61e7652078c1e0b5d12750",
+      "key": {
+        "source_sha256": "89e32f2db0770965b8e4e3c61447eda445bb063e848e46da3510f8f14424b773",
+        "imports": [
+          "LSPositiveQuotient"
+        ],
+        "dependency_artifacts": {
+          "LSPositiveQuotient": {
+            "sha256": "6f985d55ec0b17b90c513955c8f0d420ce5c9cba16e57cf42121804602d15c53",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+      "source_ancestry_fingerprint": "ddfd094d9ace950057bbaa4db94a8da33a02d2062ca1db24a42fe767a7b0f4fc",
+      "seconds": 2.171,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSSuitableLinear",
+      "receipt_sha256": "36fe2bb42ded49cf2d90ddba093c3e7d055076cca4a40b7de63446eca2fd606c",
+      "key": {
+        "source_sha256": "8b682e75fbf03c9e8f83f7b8a4a56f99b896cac7f70c89f931581a86ea88dc28",
+        "imports": [
+          "LSSuitableDirections"
+        ],
+        "dependency_artifacts": {
+          "LSSuitableDirections": {
+            "sha256": "4f1fec98f489bea650804c6dffeb250b4b1a3d2739e20bff030731572cfab566",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c",
+      "source_ancestry_fingerprint": "506acc349e5d34304ed01c73146b76b3c9d36995608a930f227433e34aa341af",
+      "seconds": 7.134,
+      "stdout_sha256": "e2f3bfd57f19783ae672b5a58764e7c4e0141933e2aeed9a15134c5a6296d5c8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactGeneration",
+      "receipt_sha256": "a8727b8053e97aabb80233f5cb3781b2886662fb80da7d0f8b9e7603a607a201",
+      "key": {
+        "source_sha256": "d4417afa67b215262ba3e4b2e893bac666e4375f816f133577ef353a0b713164",
+        "imports": [
+          "LSPositiveSplit"
+        ],
+        "dependency_artifacts": {
+          "LSPositiveSplit": {
+            "sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "544f474c5c436fc7333dafac3e2201cbe7ff01cf030c8d32fb76d107e87852f3",
+      "source_ancestry_fingerprint": "8988010b17cb7811a4782dc712150a54b6fee83e6914d8349bc41ffa10049571",
+      "seconds": 2.17,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSLeviFiber",
+      "receipt_sha256": "0c40a62746573fdc3ae34c5ebe82940ccd14e195c48d98081c3276d5e9b20072",
+      "key": {
+        "source_sha256": "720c77d982bcfbb35e3e232f24b2823aeb5013ff4f64a475d8fda48a1e3aaab6",
+        "imports": [
+          "LSSuitableLinear",
+          "LSConePole"
+        ],
+        "dependency_artifacts": {
+          "LSSuitableLinear": {
+            "sha256": "dec8b81deb36a8e85404dfffb64b675d4cdffa011d133a980e7ea31bcc65064c",
+            "kind": "project"
+          },
+          "LSConePole": {
+            "sha256": "4ee35741a94669100a7d210b7f1f9d2415340378ebb61c79d0ee61c33926bbe6",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757",
+      "source_ancestry_fingerprint": "1b8912ea3962f9f6b8ccd4bbc024c54d8b3dee1ed393b13a6918772030428f5d",
+      "seconds": 2.222,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPositiveIndependence",
+      "receipt_sha256": "28baf310aea2c3ad5963f0be5dd9ecfc7428653aede6132df7f95bc2911d786e",
+      "key": {
+        "source_sha256": "f9b58456ade15929afb1b134eca8461d1bf31929650bf3d7571881112289924a",
+        "imports": [
+          "LSPositiveHom",
+          "LSPositiveSplit"
+        ],
+        "dependency_artifacts": {
+          "LSPositiveHom": {
+            "sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+            "kind": "project"
+          },
+          "LSPositiveSplit": {
+            "sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd",
+      "source_ancestry_fingerprint": "8ef72ccc341ffb121bf97aeaed2f5194cba32f6d68295d81d5a00de40ac453fb",
+      "seconds": 2.321,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSPositiveNodeImage",
+      "receipt_sha256": "a48ac3e9ea4512a1078348ec01338b09c511a3d828f624fe8f90440a3004e472",
+      "key": {
+        "source_sha256": "b0e3516ffe0cd9c81e1dcbf4030a925b7b224bcfb4c19c55e07beee87b36ea45",
+        "imports": [
+          "LSPositiveSplit"
+        ],
+        "dependency_artifacts": {
+          "LSPositiveSplit": {
+            "sha256": "23be2f07661ebb0ac7485e8fa48b1747afe377142fd4646a052e2cbfda16b3b9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "348d7a511c941aa0e4da2972043c08a224bd69685dad90f022cae41646792334",
+      "source_ancestry_fingerprint": "d7f40d7203b905d3723ef99ff10d4c4c25035deb5bc12793e123c55cf9ffbc38",
+      "seconds": 2.223,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactHomBaseChange",
+      "receipt_sha256": "132fd18d4f8c5849e5712174160e568899c7f134b8c238f29597f2817ef08e39",
+      "key": {
+        "source_sha256": "f086674325c6c1a45b41788eb3504d9e634b061190df61b24b029d714d13936d",
+        "imports": [
+          "LSLeviFiber"
+        ],
+        "dependency_artifacts": {
+          "LSLeviFiber": {
+            "sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "583cee379a8cb816d4e4009f5e3c234b50ab66cac47187086f0fe35c5a6196c5",
+      "source_ancestry_fingerprint": "3e647afe40fad36363beee5bb6d284fd38e9ee28c03acb9f8ead3cfbef2a5148",
+      "seconds": 2.17,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactStandardInputs",
+      "receipt_sha256": "d15aaeeecb527516b72b72452632e7a26ef5d0dbdb392cd069990f39b5036f1c",
+      "key": {
+        "source_sha256": "1d4889fd8584613f592adeaa81a80cca1ed7959e70276981f447a2f68f8c499a",
+        "imports": [
+          "LSLeviFiber"
+        ],
+        "dependency_artifacts": {
+          "LSLeviFiber": {
+            "sha256": "41e86a15bd1c03c6762027a06961a5cc9aa6c81c0de37e451bd81eefe37db757",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "0acfd0a11cff0dd15afb85590ca195c8c5c2d6f243365788ef063bf8dfbe1372",
+      "source_ancestry_fingerprint": "3091e3dd7a8bf32f547c0f360aa16887e5b5407fc34808a0c5f1df8c80f0daa9",
+      "seconds": 2.219,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactHorizontal",
+      "receipt_sha256": "d74d14e90be754f61cf2f911a4a10bdbdeebdf91a9667de5b6538b419c853669",
+      "key": {
+        "source_sha256": "b5b8688875a755205d2649c07a84629b21a07c9f4a10ec09c258fb3e766cc440",
+        "imports": [
+          "LSContactStandardInputs",
+          "LSContactGeneration",
+          "LSContactHomBaseChange",
+          "LSPositiveNodeImage"
+        ],
+        "dependency_artifacts": {
+          "LSContactStandardInputs": {
+            "sha256": "0acfd0a11cff0dd15afb85590ca195c8c5c2d6f243365788ef063bf8dfbe1372",
+            "kind": "project"
+          },
+          "LSContactGeneration": {
+            "sha256": "544f474c5c436fc7333dafac3e2201cbe7ff01cf030c8d32fb76d107e87852f3",
+            "kind": "project"
+          },
+          "LSContactHomBaseChange": {
+            "sha256": "583cee379a8cb816d4e4009f5e3c234b50ab66cac47187086f0fe35c5a6196c5",
+            "kind": "project"
+          },
+          "LSPositiveNodeImage": {
+            "sha256": "348d7a511c941aa0e4da2972043c08a224bd69685dad90f022cae41646792334",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42",
+      "source_ancestry_fingerprint": "2a6f4dbc01819ccb2614ecd6adc87712d02f3ec189af0d245e8aacdc056e9065",
+      "seconds": 2.271,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactCompletion",
+      "receipt_sha256": "7c50ce5000c6764b024108f900bc422d4eed01e531d8f2e58e0220f22c1c39ce",
+      "key": {
+        "source_sha256": "0e9ea8e4454e9d81a510fc3f8077d67ee7ae5a6a93ab11737240c5e72ce26d39",
+        "imports": [
+          "LSContactHorizontal",
+          "LSPositiveHom",
+          "LSPositiveIndependence"
+        ],
+        "dependency_artifacts": {
+          "LSContactHorizontal": {
+            "sha256": "fa858c43ecc5f176fa16257b7c067ef76b531a0603fa40115fe31f72790a2a42",
+            "kind": "project"
+          },
+          "LSPositiveHom": {
+            "sha256": "0b3f23afe9c7afa9be77b6e7b6ddb99b5fae2cbb25058392ebb887a1eaf536d1",
+            "kind": "project"
+          },
+          "LSPositiveIndependence": {
+            "sha256": "cf7b0578598fbcb162abd2109ed4649240efe96cfc07b343f10697863340eabd",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139",
+      "source_ancestry_fingerprint": "7531b0fb005d8e2ad886d8c7298f6a6a60f16059d91a5284c7bda44c38bb3366",
+      "seconds": 9.843,
+      "stdout_sha256": "ae29cf7cd042e61083f2369fbaf4df02ed8ac4f77cc52dc179335122d4320ba5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSHomVelocity",
+      "receipt_sha256": "3beaf24a412d00af24ed262f5334d3ec58613278b70f4f68de81835de7aea7ed",
+      "key": {
+        "source_sha256": "48d083e2acc1ecca5cb623830268204cb301b5b1a36c9333c576f050c56d8592",
+        "imports": [
+          "LSContactCompletion",
+          "LSNilpotentTopology",
+          "LSDualThickeningNormalForm"
+        ],
+        "dependency_artifacts": {
+          "LSContactCompletion": {
+            "sha256": "5ec5d3562e55ed8213985eb243af2695cf2fb516d918a40cc7a630c5e1437139",
+            "kind": "project"
+          },
+          "LSNilpotentTopology": {
+            "sha256": "e39a5e90e094034528432c112315cc44b14e0d26b9dfc91b056271aeadc6fd38",
+            "kind": "project"
+          },
+          "LSDualThickeningNormalForm": {
+            "sha256": "b01ec856701648a55f44172afde54898957cff7eaf80256391e75354246303d6",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+      "source_ancestry_fingerprint": "cde4e469e424fc05f80386739ba43e5300790eb9af18135cf2a66138d7d018ef",
+      "seconds": 47.295,
+      "stdout_sha256": "8bf7d5573607d718a48f9e0cc5d562704a0941653c0af226be57e098885c4102",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSGlobalVelocity",
+      "receipt_sha256": "9098e45c0b87f1de5ccb9109875151644719aba07a40e279510a2269041d115e",
+      "key": {
+        "source_sha256": "969dbf9f87fd99a830702345f6e12122bdc7c29e1b668d8911ca00a785871e1e",
+        "imports": [
+          "LSHomVelocity"
+        ],
+        "dependency_artifacts": {
+          "LSHomVelocity": {
+            "sha256": "028a425013e72eba661d5f06485e511e73c2d23c92470274997d3897edbdf7b0",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "217095a26f1fc70c22a35254918f8d611cfba788c847274f6cd41947e7e5109b",
+      "source_ancestry_fingerprint": "f8da260562b18099ac35c33d64b46ae9b314c5a20d22e947517eb6bf42406b99",
+      "seconds": 40.525,
+      "stdout_sha256": "e1f5b2ddea80697b2f311f4d8896ddf907c02da5e045485c31d7993c73fc698f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSTangentComparison",
+      "receipt_sha256": "a676483265945226f51e4e4ed3b7572ae69aef9b4fc3b23335280ffd16721190",
+      "key": {
+        "source_sha256": "0792412e084bb93da1350cb56f7ecf364fb151d1cb8db53facd0144be85a660b",
+        "imports": [
+          "LSGlobalVelocity"
+        ],
+        "dependency_artifacts": {
+          "LSGlobalVelocity": {
+            "sha256": "217095a26f1fc70c22a35254918f8d611cfba788c847274f6cd41947e7e5109b",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+      "source_ancestry_fingerprint": "56c4f592c510578b1f9c34d9a1a03f0ed2309b7c19978145834f1302b4c3c7e4",
+      "seconds": 31.44,
+      "stdout_sha256": "51fdaf8ac84c872ee2ceb5de10a0c4c9e593d48cd3dc440e2f79d46f6a14ce62",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSContactVelocityTarget",
+      "receipt_sha256": "a65bb17aca37deead32d24b1362096d7a5fe7f6e56093baf95dc99593016dfa4",
+      "key": {
+        "source_sha256": "1d5f39fefa23bee6ca718d49f891c64ce228eb8a2d6d3c710a7c0e818a318d1b",
+        "imports": [
+          "LSTangentComparison"
+        ],
+        "dependency_artifacts": {
+          "LSTangentComparison": {
+            "sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226",
+      "source_ancestry_fingerprint": "e538bddd7313c8784931e9007fc9f0ed0cbeb09a227a3aa1a8b81834ccff4a48",
+      "seconds": 19.251,
+      "stdout_sha256": "2f66eb2de2cf55b4bef47131f813fd73ee4631817b8cd46f18e6f80e4ac12e38",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSHamiltonianJets",
+      "receipt_sha256": "41e12e9401df230c89dbe17f5a74f8056fae538e3872787d9ec54cdcea8b1bce",
+      "key": {
+        "source_sha256": "5cfc2314e4adf51ff5c5dec9e7611d5ada7a13226eed2a2449dbabba4c3f9b2e",
+        "imports": [
+          "LSTangentComparison"
+        ],
+        "dependency_artifacts": {
+          "LSTangentComparison": {
+            "sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "b40084cdf93426b3450442b64e941de897ddc1fd1aa0a79a07b4a6aa15f66d4c",
+      "source_ancestry_fingerprint": "9ec86ea8f285da304baa5e301b305a92474db985c5a099ced1dd99be95663f18",
+      "seconds": 24.381,
+      "stdout_sha256": "a3ed69f6d6a02b27f3b0800eaecf849de059ca124c0e1f35918c6f2b2cbdc56e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSIntrinsicVelocity",
+      "receipt_sha256": "2ce8ab8c3444c55516f8423b1ffb0cdb715cf34dcce771f2c91433b0e1b1d2cb",
+      "key": {
+        "source_sha256": "775b1c793d6e8c9ecd8a5b4d70f24993816bf53d29bcc9e75c51de82f5fc9021",
+        "imports": [
+          "LSTangentComparison",
+          "LSContactVelocityTarget"
+        ],
+        "dependency_artifacts": {
+          "LSTangentComparison": {
+            "sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+            "kind": "project"
+          },
+          "LSContactVelocityTarget": {
+            "sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "100d2f65867de243de1278f52b7fe693c835ddcd1e583623c915daff036d1f39",
+      "source_ancestry_fingerprint": "017606e4d4cd1c09c95b55391af531568b685eb736e74483baa563afacaa06c8",
+      "seconds": 102.902,
+      "stdout_sha256": "9a88dd7e1a3d02f6cb9cd6af9d71406d53100338a4389e76466b398516aa2e71",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "LSConicJets",
+      "receipt_sha256": "15cfcb759862e83e2765505d1b2b4163d6d61f098028fd03f424d3e9b45cdef0",
+      "key": {
+        "source_sha256": "5143a58d90cf3770b165e5b15df0ea45a494dcf8a20a4fc5d99be51de516157d",
+        "imports": [
+          "LSProjectiveLineReparametrization",
+          "LSTangentComparison",
+          "LSHamiltonianJets",
+          "LSContactVelocityTarget",
+          "LSIntrinsicVelocity"
+        ],
+        "dependency_artifacts": {
+          "LSProjectiveLineReparametrization": {
+            "sha256": "f4cb4af544511404bbb19643e34c5fdf8bfdc1cb742edb3bb27ebb2a340fe3f6",
+            "kind": "project"
+          },
+          "LSTangentComparison": {
+            "sha256": "9b3e999b9402494ad14a35b0775ada2c09df290ea4c6f64f348ff4b281308ab9",
+            "kind": "project"
+          },
+          "LSHamiltonianJets": {
+            "sha256": "b40084cdf93426b3450442b64e941de897ddc1fd1aa0a79a07b4a6aa15f66d4c",
+            "kind": "project"
+          },
+          "LSContactVelocityTarget": {
+            "sha256": "4c406541f098f3471e8f790b596da6986618025e75b3dc7e4644778b1e3af226",
+            "kind": "project"
+          },
+          "LSIntrinsicVelocity": {
+            "sha256": "100d2f65867de243de1278f52b7fe693c835ddcd1e583623c915daff036d1f39",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "60c6eb49fd0f46f3f0c59e08ca555b4a55398d4aca0371e226114ac90fc7ad38",
+      "source_ancestry_fingerprint": "d5a32e266a91a84b3253562985558ff05c8f86d21e5e822da8d4ec8423cddb17",
+      "seconds": 163.525,
+      "stdout_sha256": "cbb02c53e58290a25c217f5a766ef628a869031638f923769cbfe4287f9d99a1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "report_run": 41778108660,
+  "report_commit": "595dc70a91bcfa32feed054a940b744c3e83747b"
+}

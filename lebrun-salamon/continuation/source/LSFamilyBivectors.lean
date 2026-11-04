@@ -3,6 +3,7 @@ import LSNodalFixedEnds
 import LSStableMapFamily
 import LSMovingPairAssembly
 import LSRelativeDifferential
+import LSFamilyDerivativeRestriction
 
 /-!
 # The two tensor sections on an actual parametrized family
@@ -17,6 +18,7 @@ descent will use equality on the actual overlap of parametrizations.
 noncomputable section
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
 open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
@@ -26,6 +28,12 @@ open LeBrunSalamon.PhaseThirty LeBrunSalamon.PhaseThirtyFive
 open LeBrunSalamon.Core LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.FamilyBivectors
+
+open ContactDerivativeIsoProof
+
+-- Expose the same existing type aliases used by the checked conic chain rule.
+set_option allowUnsafeReducibility true
+attribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle
 
 /-- Naturality of the actual equality comparison on pullbacks. -/
 theorem pullbackEquality_naturality {Y X : Scheme} {f g : Y ⟶ X}
@@ -44,12 +52,32 @@ theorem pullbackEquality_naturality {Y X : Scheme} {f g : Y ⟶ X}
         (pullbackSquareIso a b c d h E').hom =
       (pullbackSquareIso a b c d h E).hom ≫
         (Scheme.Modules.pullback c).map ((Scheme.Modules.pullback d).map v) := by
+  have hab := (Scheme.Modules.pullbackComp a b).hom.naturality v
+  change (Scheme.Modules.pullback a).map ((Scheme.Modules.pullback b).map v) ≫
+      (Scheme.Modules.pullbackComp a b).hom.app E' =
+    (Scheme.Modules.pullbackComp a b).hom.app E ≫
+      (Scheme.Modules.pullback (a ≫ b)).map v at hab
+  have hcd := (Scheme.Modules.pullbackComp c d).inv.naturality v
+  change (Scheme.Modules.pullback (c ≫ d)).map v ≫
+      (Scheme.Modules.pullbackComp c d).inv.app E' =
+    (Scheme.Modules.pullbackComp c d).inv.app E ≫
+      (Scheme.Modules.pullback c).map ((Scheme.Modules.pullback d).map v) at hcd
+  have h₁ := congrArg (fun u :
+      pullbackModule a (pullbackModule b E) ⟶ pullbackModule (a ≫ b) E' =>
+    u ≫ eqToHom (congrArg (fun q => pullbackModule q E') h) ≫
+      (Scheme.Modules.pullbackComp c d).inv.app E') hab
+  have h₂ := congrArg (fun u : pullbackModule (a ≫ b) E ⟶ pullbackModule (c ≫ d) E' =>
+    (Scheme.Modules.pullbackComp a b).hom.app E ≫ u ≫
+      (Scheme.Modules.pullbackComp c d).inv.app E')
+    (pullbackEquality_naturality h v)
+  have h₃ := congrArg (fun u :
+      pullbackModule (c ≫ d) E ⟶ pullbackModule c (pullbackModule d E') =>
+    (Scheme.Modules.pullbackComp a b).hom.app E ≫
+      eqToHom (congrArg (fun q => pullbackModule q E) h) ≫ u) hcd
+  simp only [Category.assoc] at h₁ h₂ h₃
   simp only [pullbackSquareIso, Iso.trans_hom, Iso.symm_hom,
     eqToIso.hom, Iso.app_hom, Iso.app_inv, Category.assoc]
-  rw [← Category.assoc, (Scheme.Modules.pullbackComp a b).hom.naturality]
-  rw [Category.assoc, ← Category.assoc,
-    pullbackEquality_naturality h v, Category.assoc]
-  rw [(Scheme.Modules.pullbackComp c d).inv.naturality]
+  exact h₁.trans (h₂.trans h₃)
 
 @[reassoc] theorem tensorPullback_naturality {Y Z : Scheme} (f : Y ⟶ Z)
     {E E' F F' : OModule Z} (a : E ⟶ E') (b : F ⟶ F') :
@@ -135,6 +163,7 @@ theorem comparison_isIso {X : Scheme} (sX : X ⟶ ComplexBase)
   rw [← Category.assoc, ← tensorMap_comp]
   rw [pullbackSquare_naturality, pullbackSquare_naturality]
   rw [tensorMap_comp, Category.assoc, tensorPullback_naturality]
+  simp only [Category.assoc]
 
 end RelativeSquare
 
@@ -203,7 +232,7 @@ theorem relativeCotangentMap_differential (U : X.scheme.Opens)
         (pullLocalSection e (cotangentSheaf X.structureMap) U
           ((cotangentPresentation X.structureMap).differential.apply U a)))) = _
   rw [ContactDerivativeIsoProof.cotangentMap_differential,
-    ContactDerivativeIsoProof.differential_transport,
+    ContactDerivativeIsoProof.differential_transport _ _ he,
     CotangentTransitivityRederivedV02.cotangentToRelative_differential]
 
 def relativeCotangent : pullbackModule e (cotangentSheaf X.structureMap) ⟶
@@ -262,7 +291,13 @@ theorem relativeCotangent_atSection
   rw [RelativeDifferential.cotangent_congr P.structureMap X.structureMap
     rfl hb hc (by simpa only [Category.comp_id] using hf)]
   simp only [eqToHom_refl, Category.id_comp]
-  rw [RelativeDifferential.cotangent_overC (projectiveLineVariety P) X (j ≫ e) hf]
+  exact congrArg (fun k : pullbackModule (j ≫ e) (cotangentSheaf X.structureMap) ⟶
+      cotangentSheaf P.structureMap =>
+    (Scheme.Modules.pullbackComp j e).hom.app (cotangentSheaf X.structureMap) ≫ k)
+    (RelativeDifferential.cotangent_overC (projectiveLineVariety P) X (j ≫ e) hf
+      (by
+        change (j ≫ e) ≫ X.structureMap = P.structureMap ≫ 𝟙 ComplexBase
+        exact hf.trans (Category.comp_id P.structureMap).symm))
 
 /-- The actual relative derivative specializes to the original derivative
 of the entire fibre map. Both source and target pullbacks use the fixed
@@ -282,26 +317,13 @@ theorem differential_atSection
     (smooth_cotangent_rank X.structureMap d X.smooth)
   letI := dualBaseChange_isIso (j ≫ e)
     (smooth_cotangent_rank X.structureMap d X.smooth)
-  let S := RelativeDifferential.sectionPullbackIso j (projection P sB) hj₁
-    (tangentSheaf P.structureMap)
-  let C := RelativeDifferential.sectionPullbackIso j (projection P sB) hj₁
-    (cotangentSheaf P.structureMap)
-  apply (cancel_epi S.hom).mp
-  simp only [← Category.assoc, S, Iso.hom_inv_id, Category.id_comp]
-  apply (cancel_mono (dualBaseChange (j ≫ e) (cotangentSheaf X.structureMap))).mp
   rw [ContactDerivativeIsoProof.differentialOver_dual]
-  simp only [differential, Functor.map_comp, Functor.map_inv,
-    Category.assoc, IsIso.inv_hom_id, Category.comp_id]
-  rw [ContactDerivativeIsoProof.dualBaseChange_comp]
-  simp only [Category.assoc, IsIso.inv_hom_id_assoc]
-  rw [ContactDerivativeIsoProof.dualBaseChange_naturality_assoc]
-  rw [← Category.assoc, RelativeDifferential.dualBaseChange_section]
-  simp only [Category.assoc, ← ContactDerivativeIsoProof.dualMap_comp]
-  have hc := relativeCotangent_atSection P sB X e he b hb j hj₁ hj₂ hf
-  have ht := congrArg (fun k =>
-    (Scheme.Modules.pullbackComp j e).inv.app (cotangentSheaf X.structureMap) ≫ k) hc
-  simp only [← Category.assoc, Iso.inv_hom_id_app, Category.id_comp] at ht
-  rw [ht]
+  exact FamilyDerivativeRestriction.section_morphism
+    j (projection P sB) e hj₁
+    (cotangentSheaf P.structureMap) (cotangentSheaf X.structureMap)
+    (relativeCotangent P sB X e he)
+    (ContactDerivativeIsoProof.cotangentOver (projectiveLineVariety P) X (j ≫ e) hf)
+    (relativeCotangent_atSection P sB X e he b hb j hj₁ hj₂ hf)
 
 end Parametrized
 
@@ -366,8 +388,10 @@ def value : AlgebraicSection
         X.contact.sequence.line.sheaf) ≫
       (Scheme.Modules.pullback (evaluationSquare P sB X e he)).map
         (externalTensorMap X.variety.structureMap X.contact.sequence.form (𝟙 _)) = _
-  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality]
-  rw [← Category.assoc, RelativeSquare.boxMap_comp]
+  simp only [Category.assoc]
+  erw [← RelativeSquare.comparison_naturality (Parametrized.parameter P sB)
+    X.variety.structureMap sB e he X.contact.sequence.form (𝟙 X.contact.sequence.line.sheaf)]
+  rw [RelativeSquare.boxMap_comp_assoc]
   simp only [CategoryTheory.Functor.map_id, Category.comp_id]
   rfl
 
@@ -383,8 +407,10 @@ def value : AlgebraicSection
         (tangentSheaf X.variety.structureMap)) ≫
       (Scheme.Modules.pullback (evaluationSquare P sB X e he)).map
         (externalTensorMap X.variety.structureMap (𝟙 _) X.contact.sequence.form) = _
-  rw [Category.assoc, Category.assoc, ← RelativeSquare.comparison_naturality]
-  rw [← Category.assoc, RelativeSquare.boxMap_comp]
+  simp only [Category.assoc]
+  erw [← RelativeSquare.comparison_naturality (Parametrized.parameter P sB)
+    X.variety.structureMap sB e he (𝟙 X.contact.sequence.line.sheaf) X.contact.sequence.form]
+  rw [RelativeSquare.boxMap_comp_assoc]
   simp only [CategoryTheory.Functor.map_id, Category.comp_id]
   rfl
 
@@ -480,8 +506,9 @@ def mixedPull (E F : OModule ProjectiveLine)
           (externalTensorMap P.structureMap a b) := by
   unfold curveExternalComparison externalTensorMap
   rw [← Category.assoc, ← tensorMap_comp]
-  rw [pullbackSquare_naturality, pullbackSquare_naturality]
+  erw [pullbackSquare_naturality, pullbackSquare_naturality]
   rw [tensorMap_comp, Category.assoc, tensorPullback_naturality]
+  simp only [Category.assoc]
 
 theorem mixedPull_map {E E' F F' : OModule ProjectiveLine}
     (a : E ⟶ E') (b : F ⟶ F')
@@ -522,7 +549,13 @@ theorem leftRaw :
           (tangentSheaf X.variety.structureMap)).hom
         (compositionPullback e.hom f.map g.map hg.symm X.contact.sequence.line.sheaf).hom =
       Curve.leftRaw P X g := by
-  rw [Curve.leftRaw, mixedPull_map, mixedPull_source]
+  have hS : mixedPull P e he (identityCurveContact P).sequence.line.sheaf
+      (identityCurveContact P).sequence.line.sheaf (sourceBivector P) =
+      sourceBivector P ≫ externalTensorMap P.structureMap
+        (SourceReparamProof.derivativeIso P e he).hom
+        (SourceReparamProof.derivativeIso P e he).hom :=
+    mixedPull_source P e he
+  rw [Curve.leftRaw, mixedPull_map, hS]
   simp only [Category.assoc, externalTensorMap_comp]
   rw [Curve.differential_comp P X f g e he hg,
     SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg]
@@ -536,7 +569,13 @@ theorem rightRaw :
         (compositionPullback e.hom f.map g.map hg.symm
           (tangentSheaf X.variety.structureMap)).hom =
       Curve.rightRaw P X g := by
-  rw [Curve.rightRaw, mixedPull_map, mixedPull_source]
+  have hS : mixedPull P e he (identityCurveContact P).sequence.line.sheaf
+      (identityCurveContact P).sequence.line.sheaf (sourceBivector P) =
+      sourceBivector P ≫ externalTensorMap P.structureMap
+        (SourceReparamProof.derivativeIso P e he).hom
+        (SourceReparamProof.derivativeIso P e he).hom :=
+    mixedPull_source P e he
+  rw [Curve.rightRaw, mixedPull_map, hS]
   simp only [Category.assoc, externalTensorMap_comp]
   rw [SourceReparamProof.curveContactVelocity_comp P X.contact f g e he hg,
     Curve.differential_comp P X f g e he hg]

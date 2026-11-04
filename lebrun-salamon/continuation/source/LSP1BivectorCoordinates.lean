@@ -68,9 +68,16 @@ theorem action_polynomial (v : SectionsOn (tangentSheaf P.structureMap) U)
       (chartAlgebraEquiv a).derivative *
         chartAlgebraEquiv (tangentActs P.structureMap U v coordinate) := by
   have h := (polynomialAction v).map_aeval (chartAlgebraEquiv a) Polynomial.X
-  simpa only [Polynomial.aeval_X_left_apply, smul_eq_mul, polynomialAction,
-    LinearMap.comp_apply, AlgEquiv.toLinearMap_apply, AlgEquiv.symm_apply_apply,
-    coefficientDerivation, derivativeLinear, coordinate] using h
+  simp only [Polynomial.aeval_X_left_apply, smul_eq_mul] at h
+  have ha : polynomialAction v (chartAlgebraEquiv a) =
+      chartAlgebraEquiv (tangentActs P.structureMap U v a) := by
+    change chartAlgebraEquiv
+      (tangentActs P.structureMap U v (chartAlgebraEquiv.symm (chartAlgebraEquiv a))) = _
+    rw [AlgEquiv.symm_apply_apply]
+  have hX : polynomialAction v Polynomial.X =
+      chartAlgebraEquiv (tangentActs P.structureMap U v coordinate) := rfl
+  rw [ha, hX] at h
+  exact h
 
 def coordinateFunctional :
     SectionsOn (tangentSheaf P.structureMap) U →ₗ[RingSections ProjectiveLine U]
@@ -81,7 +88,7 @@ def coordinateFunctional :
 
 theorem coordinateFunctional_injective : Function.Injective coordinateFunctional := by
   intro v w h
-  apply EvaluateVectorProof.affine_tangent_action_faithful P.structureMap U
+  apply TangentAffine.affine_tangent_action_faithful P.structureMap U
     (chartOpen_affine 0) v w
   intro a
   apply chartAlgebraEquiv.injective
@@ -91,7 +98,7 @@ theorem coordinateFunctional_injective : Function.Injective coordinateFunctional
 theorem coordinateFunctional_surjective : Function.Surjective coordinateFunctional := by
   let D : RingSections ProjectiveLine U → RingSections ProjectiveLine U :=
     fun a => chartAlgebraEquiv.symm (chartAlgebraEquiv a).derivative
-  obtain ⟨v, hv⟩ := EvaluateVectorProof.affine_tangent_action_exists P.structureMap U
+  obtain ⟨v, hv⟩ := TangentAffine.affine_tangent_action_exists P.structureMap U
     (chartOpen_affine 0) D
     (by simp [D])
     (fun a b => by simp [D, Polynomial.derivative_add])
@@ -134,13 +141,22 @@ theorem coordinateVector_action (a : RingSections ProjectiveLine U) :
 def polynomial (a : AlgebraicSection TangentLine.sheaf) : Polynomial ℂ :=
   chartAlgebraEquiv (frame.localCoefficient a)
 
+private def sectionsLinearEquiv {Y : Scheme} {E F : OModule Y}
+    (e : E ≅ F) (V : Y.Opens) :
+    SectionsOn E V ≃ₗ[RingSections Y V] SectionsOn F V where
+  toFun := Scheme.Modules.Hom.app e.hom V
+  invFun := Scheme.Modules.Hom.app e.inv V
+  left_inv v := congrArg (fun k : E ⟶ E => Scheme.Modules.Hom.app k V v) e.hom_inv_id
+  right_inv v := congrArg (fun k : F ⟶ F => Scheme.Modules.Hom.app k V v) e.inv_hom_id
+  map_add' v w := (Scheme.Modules.Hom.app e.hom V).hom.map_add v w
+  map_smul' c v := Scheme.Modules.Hom.app_smul e.hom c v
+
 def twistFrame (e : TangentLine.sheaf ≅ (projectiveTwist P Lines.marking 2).sheaf) :
     AffineLineFrame TangentLine where
   openSet := U
   isAffine := chartOpen_affine 0
-  coefficient :=
-    (((SheafOfModules.evaluation ProjectiveLine.ringCatSheaf (op U)).mapIso e).toLinearEquiv).trans
-      (coordinates (twistOverFrame P Lines.marking 2 0))
+  coefficient := (sectionsLinearEquiv e U).trans
+    (coordinates (twistOverFrame P Lines.marking 2 0))
 
 theorem twistFrame_polynomial
     (e : TangentLine.sheaf ≅ (projectiveTwist P Lines.marking 2).sheaf)
@@ -150,7 +166,7 @@ theorem twistFrame_polynomial
   rw [algebraicMatchingEquiv_fst]
   change chartAlgebraEquiv
       (coordinates (twistOverFrame P Lines.marking 2 0)
-        (e.hom.app U (a.app U 1))) =
+        (e.hom.app U (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U)))) =
     polynomialCoordinates P Lines.marking 2 0
       ((projectiveTwist P Lines.marking 2).sheaf.presheaf.map
         (homOfLE (show U ≤ ⊤ from le_top)).op (sectionValue (a ≫ e.hom)))
@@ -170,7 +186,8 @@ theorem polynomial_natDegree_le (a : AlgebraicSection TangentLine.sheaf) :
   obtain ⟨c, hc, heq⟩ := Polynomial.isUnit_iff.mp hu
   have hpoly : polynomial a = Polynomial.C c *
       (algebraicMatchingEquiv P Lines.marking 2 (a ≫ e.hom)).val.1 := by
-    change chartAlgebraEquiv (frame.coefficient (a.app U 1)) = _
+    change chartAlgebraEquiv
+      (frame.coefficient (Scheme.Modules.Hom.app a U (1 : RingSections ProjectiveLine U))) = _
     rw [hq, map_mul, ← heq]
     rw [← twistFrame_polynomial]
     rfl
@@ -197,24 +214,27 @@ theorem polynomial_value : ∑ i, left i * right i = 0 := by
     left, right, polynomial] using h
 
 theorem polynomial_first : ∑ i, left i * (right i).derivative = 0 := by
-  have h := congrArg chartAlgebraEquiv
-    (expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector)
-  simpa only [ExternalExpansion.secondSlotFirst, map_sum, map_mul, map_zero,
-    coordinateVector_action, left, right, polynomial] using h
+  have h := expansion.secondSlotFirst_zero_of_orderTwo kernel.orderTwo frame coordinateVector
+  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *
+      tangentActs P.structureMap U coordinateVector
+        (frame.localCoefficient (expansion.right i))) = (0 : RingSections ProjectiveLine U) at h
+  have hp := congrArg chartAlgebraEquiv h
+  simpa only [map_sum, map_mul, map_zero,
+    coordinateVector_action, left, right, polynomial] using hp
 
 theorem polynomial_second : ∑ i, left i * (right i).derivative.derivative = 2 := by
-  have h := congrArg chartAlgebraEquiv
-    (kernel.expansion_normalized frame coordinateVector coordinateVector)
-  change chartAlgebraEquiv
-      (∑ i, frame.localCoefficient (expansion.left i) *
+  have h := kernel.expansion_normalized frame coordinateVector coordinateVector
+  change (∑ i, (frame.localCoefficient (expansion.left i) : RingSections ProjectiveLine U) *
         tangentActs P.structureMap U coordinateVector
           (tangentActs P.structureMap U coordinateVector
             (frame.localCoefficient (expansion.right i)))) =
-    chartAlgebraEquiv (2 * frame.coefficient coordinateVector *
-      frame.coefficient coordinateVector) at h
+    (2 : RingSections ProjectiveLine U) *
+      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) *
+      (frame.coefficient coordinateVector : RingSections ProjectiveLine U) at h
+  have hp := congrArg chartAlgebraEquiv h
   simpa only [map_sum, map_mul, coordinateVector_action,
     coordinateVector_coefficient, map_one, map_ofNat, mul_one,
-    left, right, polynomial] using h
+    left, right, polynomial] using hp
 
 namespace QuadraticAlgebra
 
@@ -225,24 +245,7 @@ theorem taylor_two {R : Type*} [CommRing R] [Algebra ℂ R]
     Polynomial.aeval w q = Polynomial.aeval z q +
       Polynomial.aeval z q.derivative * (w - z) +
       (algebraMap ℂ R (1 / 2)) * Polynomial.aeval z q.derivative.derivative * (w - z)^2 := by
-  have he : q = Polynomial.C (q.coeff 0) + Polynomial.C (q.coeff 1) * Polynomial.X +
-      Polynomial.C (q.coeff 2) * Polynomial.X^2 := by
-    simpa only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add,
-      pow_zero, mul_one, pow_one] using
-      q.as_sum_range_C_mul_X_pow' (show q.natDegree < 3 by omega)
-  conv_lhs => rw [he]
-  conv_rhs => rw [he]
-  simp only [Polynomial.derivative_add, Polynomial.derivative_mul,
-    Polynomial.derivative_C, Polynomial.derivative_X, Polynomial.derivative_X_sq,
-    Polynomial.derivative_zero, Polynomial.derivative_one,
-    map_add, map_mul, map_pow, Polynomial.aeval_C, Polynomial.aeval_X,
-    zero_mul, mul_zero, zero_add, add_zero, one_mul, mul_one, pow_one,
-    Nat.reduceSub, Nat.cast_ofNat, map_ofNat, pow_zero]
-  have hhalf : (algebraMap ℂ R (1 / 2)) * 2 = 1 := by
-    have h := congrArg (algebraMap ℂ R) (show (1 / 2 : ℂ) * 2 = 1 by norm_num)
-    simpa only [map_mul, map_ofNat, map_one] using h
-  linear_combination
-    -((algebraMap ℂ R (q.coeff 2)) * (w - z)^2) * hhalf
+  exact P1SourceAlgebra.taylor_two q hq z w
 
 end QuadraticAlgebra
 
@@ -268,10 +271,17 @@ theorem polynomial_formula {R : Type*} [CommRing R] [Algebra ℂ R] (z w : R) :
       (algebraMap ℂ R (1 / 2)) *
         (∑ i, Polynomial.aeval z (left i) *
           Polynomial.aeval z (right i).derivative.derivative) * (w - z)^2 := by
-    rw [Finset.sum_mul, Finset.mul_sum]
-    apply Finset.sum_congr rfl
-    intro i hi
-    ring
+    calc
+      _ = ∑ i, ((algebraMap ℂ R (1 / 2)) *
+          (Polynomial.aeval z (left i) * Polynomial.aeval z (right i).derivative.derivative)) *
+            (w - z)^2 := by
+        apply Finset.sum_congr rfl
+        intro i hi
+        ring
+      _ = (∑ i, (algebraMap ℂ R (1 / 2)) *
+          (Polynomial.aeval z (left i) * Polynomial.aeval z (right i).derivative.derivative)) *
+            (w - z)^2 := by rw [Finset.sum_mul]
+      _ = _ := by rw [Finset.mul_sum]
   rw [hs₁, hs₂, h₀, h₁, h₂, zero_mul, zero_add, zero_add]
   have hhalf : (algebraMap ℂ R (1 / 2)) * 2 = 1 := by
     have h := congrArg (algebraMap ℂ R) (show (1 / 2 : ℂ) * 2 = 1 by norm_num)
@@ -279,12 +289,24 @@ theorem polynomial_formula {R : Type*} [CommRing R] [Algebra ℂ R] (z w : R) :
   rw [hhalf, one_mul]
   ring
 
+private theorem sectionValue_finsetSum {Y : Scheme} {E : OModule Y}
+    {ι : Type*} (s : Finset ι) (a : ι → AlgebraicSection E) :
+    sectionValue (s.sum a) = s.sum (fun i => sectionValue (a i)) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp only [Finset.sum_empty, sectionValue_zero]
+  | @insert i s hi ih =>
+      simp only [Finset.sum_insert hi, sectionValue_add, ih]
+
 namespace TestMaps
 
 open PointFrame.LocalFrameJetProof
 open Smoothing.CoordinateCharts Smoothing.SourceAffineCharts
 
 variable {T : Scheme} (sT : T ⟶ ComplexBase)
+
+local instance testSectionsAlgebra : Algebra ℂ (RingSections T ⊤) :=
+  coefficientsAlgebra sT ⊤
 
 /-- Actual pullback of chart functions, including the complex structure
 on the test scheme and the original appLE map. -/
@@ -339,13 +361,13 @@ def frameSection (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U) :
 
 theorem frameSection_apply (f : T ⟶ ProjectiveLine) (hU : ⊤ ≤ f ⁻¹ᵁ U)
     (a : RingSections T ⊤) :
-    (frameSection f hU).app ⊤ a = (pulledCoefficient f hU).symm a := by
-  have h1 : (frameSection f hU).app ⊤ (1 : RingSections T ⊤) =
+    Scheme.Modules.Hom.app (frameSection f hU) ⊤ a = (pulledCoefficient f hU).symm a := by
+  have h1 : Scheme.Modules.Hom.app (frameSection f hU) ⊤ (1 : RingSections T ⊤) =
       (pulledCoefficient f hU).symm 1 := sectionFromValue_spec _
   calc
-    _ = a • (frameSection f hU).app ⊤ (1 : RingSections T ⊤) := by
+    _ = a • Scheme.Modules.Hom.app (frameSection f hU) ⊤ (1 : RingSections T ⊤) := by
       simpa only [smul_eq_mul, mul_one] using
-        ((frameSection f hU).app ⊤).hom.map_smul a (1 : RingSections T ⊤)
+        (Scheme.Modules.Hom.app_smul (frameSection f hU) a (1 : RingSections T ⊤))
     _ = _ := by
       rw [h1, ← (pulledCoefficient f hU).symm.map_smul]
       simp only [smul_eq_mul, mul_one]
@@ -380,7 +402,8 @@ theorem frameIso_apply [IsAffine T] (f : T ⟶ ProjectiveLine)
   have h := congrArg (fun q : structureModule T ⟶ structureModule T =>
     q.app ⊤ (pulledCoefficient f hU a)) (asIso (frameSection f hU)).hom_inv_id
   change (frameIso f hU).hom.app ⊤
-    ((frameSection f hU).app ⊤ (pulledCoefficient f hU a)) = pulledCoefficient f hU a at h
+    (Scheme.Modules.Hom.app (frameSection f hU) ⊤ (pulledCoefficient f hU a)) =
+      pulledCoefficient f hU a at h
   rw [frameSection_apply, (pulledCoefficient f hU).symm_apply_apply] at h
   exact h
 
@@ -391,8 +414,11 @@ theorem frameIso_section [IsAffine T] (f : T ⟶ ProjectiveLine)
   apply (sectionValue_bijective (structureModule T)).injective
   rw [sectionValue_comp, frameIso_apply]
   change pulledCoefficient f hU (sectionValue (pullSection f a)) = _
-  simpa only [scalarSection, sectionFromValue_spec, homOfLE_refl, op_id,
-    CategoryTheory.Functor.map_id, ModuleCat.id_apply] using coefficientOn_global frame f ⊤ hU a
+  have hc := coefficientOn_global frame f ⊤ hU a
+  simp only [homOfLE_refl, op_id, CategoryTheory.Functor.map_id] at hc
+  change pulledCoefficient f hU (sectionValue (pullSection f a)) =
+    f.appLE U ⊤ hU (frame.localCoefficient a) at hc
+  simpa only [scalarSection, sectionFromValue_spec] using hc
 
 def pair (f g : T ⟶ ProjectiveLine)
     (hf : f ≫ P.structureMap = sT) (hg : g ≫ P.structureMap = sT) :
@@ -424,7 +450,7 @@ theorem pairPullIso_product (f g : T ⟶ ProjectiveLine)
     (pullbackModule (secondProjection P.structureMap) TangentLine.sheaf)
   rw [externalProductSection, ← tensorPullbackComparison_onSections]
   simp only [pairPullIso, Iso.trans_hom, Iso.symm_hom, asIso_hom, asIso_inv,
-    Category.assoc, IsIso.hom_inv_id_assoc]
+    Category.assoc, IsIso.hom_inv_id_assoc, tensorIso]
   rw [tensorSection_map, compositionPullback_sections, compositionPullback_sections]
 
 def pairFrameIso [IsAffine T] (f g : T ⟶ ProjectiveLine)
@@ -471,13 +497,7 @@ theorem sourceBivector_coefficient [IsAffine T] (f g : T ⟶ ProjectiveLine)
   rw [hp, Preadditive.sum_comp]
   simp_rw [pairFrameIso_product]
   apply (sectionValue_bijective (structureModule T)).injective
-  change (sectionAddEquiv (structureModule T)) (∑ i, scalarSection
-    (f.appLE U ⊤ hU (frame.localCoefficient (expansion.left i)) *
-      g.appLE U ⊤ hV (frame.localCoefficient (expansion.right i)))) = _
-  rw [map_sum]
-  change (∑ i, sectionValue (scalarSection
-    (f.appLE U ⊤ hU (frame.localCoefficient (expansion.left i)) *
-      g.appLE U ⊤ hV (frame.localCoefficient (expansion.right i))))) = _
+  rw [sectionValue_finsetSum]
   simp only [scalarSection, sectionFromValue_spec]
   exact coefficient_formula sT f g hf hg hU hV
 

@@ -1,0 +1,52 @@
+name: LeBrun-Salamon current Family frontier
+
+on:
+  push:
+    branches:
+      - codex/lebrun-frontier-diagnostic-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  family:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out the exact diagnostic snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download coherent cloud247 evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-takeover-kernel-41775309669-1
+          run-id: 41775309669
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/lebrun-prior-evidence
+      - name: Restore only exact current ancestry and runtime matches
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41775309669 --source-artifact-name lebrun-takeover-kernel-41775309669-1
+      - name: Check Family through Descent and BaseChange plus ProjectAssembly
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBaseChange --module LSProjectAssembly --keep-going --timeout 300
+      - name: Expose exact native diagnostics and revalidated receipts
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve current Family evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-frontier-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn

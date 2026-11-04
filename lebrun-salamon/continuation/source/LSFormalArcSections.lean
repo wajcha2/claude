@@ -25,6 +25,8 @@ open LeBrunSalamon.Skeleton LeBrunSalamon.Refinement
 
 namespace LeBrunSalamon.Construction.FormalArcSections
 
+local notation "Model" => LeBrunSalamon.Construction.StableMaps.FormalArcs.Model
+
 open StableMaps StableMaps.FormalArcs StableMaps.TraitPullback
 open FamilyBivectors TraitContact
 

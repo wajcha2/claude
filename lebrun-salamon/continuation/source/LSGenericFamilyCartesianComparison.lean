@@ -121,15 +121,18 @@ def transition : Parametrized.Source P sT ≅ Parametrized.Source P sT :=
 @[reassoc] theorem transition_source :
     (transition Q sT q b hq k hk).hom ≫ Q.atPointMap sT q = k := by
   rw [← Q.atPointIso_source sT q, ← Category.assoc, transition_fibre]
-  simp only [Category.assoc, pullback.congrHom_hom, pullback.map_fst,
-    Category.comp_id, hk.isoPullback_hom_fst]
+  simp only [Category.assoc, pullback.congrHom_hom, pullback.map,
+    pullback.lift_fst, Category.comp_id, hk.isoPullback_hom_fst]
 
 @[reassoc] theorem transition_parameter :
     (transition Q sT q b hq k hk).hom ≫ Parametrized.parameter P sT =
       Parametrized.parameter P sT := by
+  change (transition Q sT q b hq k hk).hom ≫ pullback.snd P.structureMap sT =
+    pullback.snd P.structureMap sT
   rw [← Q.atPointIso_parameter sT q, ← Category.assoc, transition_fibre]
-  simp only [Category.assoc, pullback.congrHom_hom, pullback.map_snd,
-    Category.comp_id, hk.isoPullback_hom_snd]
+  simp only [Category.assoc, pullback.congrHom_hom, pullback.map,
+    pullback.lift_snd, Category.comp_id, hk.isoPullback_hom_snd,
+    StableMaps.FullHomComparison.atPointIso_parameter, Parametrized.parameter]
 
 abbrev evaluation : Parametrized.Source P sT ⟶ X.variety.scheme := k ≫ F.evaluation
 

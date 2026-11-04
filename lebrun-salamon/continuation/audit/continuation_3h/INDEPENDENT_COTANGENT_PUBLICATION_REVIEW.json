@@ -1,0 +1,79 @@
+{
+  "schema": "lebrun-independent-publication-review-v1",
+  "reviewed_utc": "2026-11-04T19:16:15Z",
+  "reviewer": "root",
+  "status": "Mathematical publication eligibility approved for the exact candidate declarations; current native instantiation, boundary and reverse-dependency acceptance remain pending.",
+  "baseline_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
+  "source": {
+    "path": "source/RecompileBasePart06.lean",
+    "baseline_sha256": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+    "candidate_sha256": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b",
+    "candidate_git_blob": "7319b03cb652ee49c7265c19eab644e6599a7bf0"
+  },
+  "independently_verified": {
+    "reversible_patch_count": 2,
+    "inverse_recovers_exact_baseline": true,
+    "original_public_headers_unchanged": true,
+    "imports_unchanged": true,
+    "actual_candidate_translation_read": true,
+    "locally_free_definition_and_both_free_cover_comparisons_read": true,
+    "compiler_evidence_scope": "The conditional diagnostic passed; this record does not certify compilation of the actual new admitted declarations."
+  },
+  "interfaces": [
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.Differentials.openImmersionPresentation",
+      "declaration_sha256": "d6a6acc178714388060d413e6558f88cf7a29aeacd02083eb64da63dc9fae4e3",
+      "primary_sources": [
+        "https://stacks.math.columbia.edu/tag/01US",
+        "https://stacks.math.columbia.edu/tag/01UV"
+      ],
+      "conclusion": "The restriction isomorphism for universal differentials under an open immersion, specified by its local derivative formula.",
+      "hypothesis_review": "Arbitrary schemes and arbitrary universal differential presentations suffice. No smoothness, finite type or project geometry is added.",
+      "project_translation": "The checked project lemmas prove uniqueness of the adjoint derivative formula and prove that the chosen cotangentMap satisfies it. Equality transfers the isomorphism to the actual chosen map.",
+      "eligible": true
+    },
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.Differentials.immersionPresentationSurjection",
+      "declaration_sha256": "890b112f11caf28527331a2eab15d025c073b49b4b2b77cf067097fd8de8eb18",
+      "primary_sources": [
+        "https://stacks.math.columbia.edu/tag/01UZ",
+        "https://stacks.math.columbia.edu/tag/01UV"
+      ],
+      "conclusion": "The canonical differential for an immersion is an epimorphism of module sheaves.",
+      "hypothesis_review": "IsImmersion is sufficient; the original closed immersion supplies this instance. Epimorphism is categorical sheaf epimorphism, without asserting surjectivity of sections on each open.",
+      "project_translation": "Uniqueness identifies the supplied canonical arrow with cotangentMap. No conormal-rank or smoothness conclusion is included in the admitted input.",
+      "eligible": true
+    },
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.SheafFunctoriality.epi_kernel_locallyFreeOfRank",
+      "declaration_sha256": "bf8dc15099562f8cac55e4910c6992261c451fb345761bbe5119e29997585ebe",
+      "primary_sources": [
+        "https://stacks.math.columbia.edu/tag/0B37",
+        "https://stacks.math.columbia.edu/tag/0BCI",
+        "https://stacks.math.columbia.edu/tag/01C6"
+      ],
+      "conclusion": "The kernel of a sheaf epimorphism between finite locally free sheaves of ranks d+c and d is finite locally free of rank c.",
+      "hypothesis_review": "This is the constant-rank form of exactness and rank additivity. Scheme stalks meet the locally ringed and nonzero-stalk hypotheses. Arbitrary sheaves E and F carry actual local free-cover witnesses.",
+      "project_translation": "Existing proved free-cover comparisons match IsLocallyFreeOfRank to the standard definition. The original proof specializes only after supplying smooth cotangent ranks and pullback preservation. Its conclusion concerns the literal categorical kernel of cotangentMap; no identification with I/I² is presumed.",
+      "eligible": true
+    }
+  ],
+  "trust_transition": {
+    "original_obligations": [
+      "OBL-044",
+      "OBL-045"
+    ],
+    "original_direct_placeholders_removed": 2,
+    "new_generic_published_leaves": 3,
+    "net_admission_count_change": 1,
+    "old_eligible_leaf_retired": "LeBrunSalamon.PhaseThirty.openImmersion_cotangentMap_isIso",
+    "required_current_audit": "The two original roots must not be direct admissions. Every current transitive admission must match the exact reviewed allowlist; the new generic leaf types and declaring-module ancestry must be bound to fresh native outputs.",
+    "milestone_units_credited": 0
+  },
+  "evidence": {
+    "candidate_guard_blob": "ebb32285c4b281e9f51a66361888e30e343cfbc8",
+    "author_publication_review_blob": "a745d20555d041e046b8de905a6d820d2dcbc216",
+    "conditional_translation_evidence_blob": "643edd5035d541f108fc2e822b7ce708757ed76f",
+    "conditional_translation_probe_sha256": "3df4d93ded5bfb4e1654625ef7156ef0a6a124fb3d3be4f260f236766dcf5bcd"
+  }
+}

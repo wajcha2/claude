@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Approved continuation candidate plan",
+  "type": "object",
+  "required": [
+    "schema",
+    "status",
+    "baseline_accepted_commit",
+    "baseline_source_manifest_sha256",
+    "candidate_manifest_sha256",
+    "source_edits",
+    "added_sources",
+    "publication_reviews",
+    "baseline_accepted_units",
+    "denominator",
+    "dispatch_authorized"
+  ],
+  "properties": {
+    "schema": {
+      "const": "lebrun-continuation-candidate-plan-v1"
+    },
+    "status": {
+      "enum": [
+        "awaiting_complete_candidate_handoff",
+        "approved_for_native_validation"
+      ]
+    },
+    "baseline_accepted_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "baseline_source_manifest_sha256": {
+      "$ref": "#/$defs/sha"
+    },
+    "candidate_manifest_sha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sha"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_edits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "baseline_sha256",
+          "candidate_sha256",
+          "patches"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/sourcepath"
+          },
+          "baseline_sha256": {
+            "$ref": "#/$defs/sha"
+          },
+          "candidate_sha256": {
+            "$ref": "#/$defs/sha"
+          },
+          "patches": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "before",
+                "after"
+              ],
+              "properties": {
+                "before": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "after": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "added_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/sourcepath"
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha"
+          }
+        }
+      }
+    },
+    "publication_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256",
+          "declarations"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^audit/.+\\.json$"
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha"
+          },
+          "declarations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "declaration_source"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "declaration_source": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "baseline_accepted_units": {
+      "const": 74
+    },
+    "denominator": {
+      "const": 133
+    },
+    "dispatch_authorized": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved_for_native_validation"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "dispatch_authorized": {
+            "const": true
+          },
+          "candidate_manifest_sha256": {
+            "$ref": "#/$defs/sha"
+          },
+          "source_edits": {
+            "minItems": 1
+          },
+          "publication_reviews": {
+            "minItems": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "dispatch_authorized": {
+            "const": false
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourcepath": {
+      "type": "string",
+      "pattern": "^source/[A-Za-z0-9_/]+\\.lean$"
+    }
+  }
+}
+

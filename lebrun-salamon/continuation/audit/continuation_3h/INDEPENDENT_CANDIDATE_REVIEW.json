@@ -1,0 +1,175 @@
+{
+  "schema": "lebrun-step3h-independent-candidate-review-v1",
+  "reviewed_utc": "2026-11-04T19:40:46Z",
+  "reviewer": "root",
+  "baseline_accepted_commit": "bd3524b4bb12ac73cbf7572698208b017071b699",
+  "candidate_source": {
+    "module_count": 308,
+    "manifest_sha256": "6df4c1ec09bb2eae9bab28e154cec8678e4f24d396155eb6ccdf03e45657e9a5",
+    "changes": {
+      "source/RecompileBasePart06.lean": {
+        "baseline": "1c6409d3ad0847d0f68a13577a54ddef081332ccf819e225f813b20be38f4994",
+        "candidate": "74fec182265ed691c8a6de75c8aa81956d693ad6c9f0163496430c2253b1452b"
+      },
+      "source/RecompileExtensionsPart02.lean": {
+        "baseline": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+        "candidate": "ea41c239f295f7b3d0179f9f5c63404a0c04bb87529a324512e0240634ef9c52"
+      },
+      "source/LSChartSmoothnessCriteria.lean": {
+        "baseline": null,
+        "candidate": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6"
+      }
+    }
+  },
+  "original_obligations": [
+    "OBL-044",
+    "OBL-045",
+    "OBL-046",
+    "OBL-047",
+    "OBL-048"
+  ],
+  "independent_source_integrity": {
+    "part06_two_patch_inverse_recovers_exact_baseline": true,
+    "extensions02_six_patch_inverse_recovers_exact_baseline": true,
+    "all_five_original_public_written_headers_unchanged": true,
+    "prior_046_047_translation_spans_retained": true,
+    "generic_smoothness_module_retained_exactly": true,
+    "completed_048_helper_bodies_and_scoped_options_copied_exactly": true,
+    "original_published_declarations_other_than_044_retained": true
+  },
+  "proof_review": [
+    {
+      "id": "OBL-044",
+      "finding": "Universal derivation and adjunction prove uniqueness of the canonical map; the chosen cotangentMap satisfies the formula and inherits the supplied restriction isomorphism."
+    },
+    {
+      "id": "OBL-045",
+      "finding": "The immersion epimorphism is identified with the actual chosen differential. Existing smooth ranks and pullback preservation instantiate the generic kernel-rank fact. The conclusion is about the literal kernel, with no presumed I/I² identification."
+    },
+    {
+      "id": "OBL-046",
+      "finding": "Actual dual-number augmentation surjectivity and square-zero kernel are proved. The marked point factors through its supplied smooth open; a general lift there yields a valid point lift. Proved naturality transfers it to the project differential."
+    },
+    {
+      "id": "OBL-047",
+      "finding": "The arbitrary-field criterion specializes to the actual complex dual numbers. The proved differential/lift equivalence supplies its canonical-map hypothesis; both original structural smoothness hypotheses and the actual marked point are preserved."
+    },
+    {
+      "id": "OBL-048",
+      "finding": "A canonical linear equivalence between project derivations and the dual of the actual cotangent fiber is proved using existing affine derivation inputs, cotangent universality, the actual adjunction and Mathlib's affine module equivalence. Smooth cotangent rank, fiber dimension and finite-dimensional duality finish the original statement. No new published input."
+    }
+  ],
+  "published_input_eligibility": {
+    "new_input_count": 5,
+    "cotangent_review_blob": "dce03ba820a8583b1d9036193251b181a0a067ba",
+    "smoothness_review_blob": "5c0882c73cd6aa280d4009b5470d05c0360983e5",
+    "all_sources_independently_read": true,
+    "native_expanded_type_review": "pending_current_native_instantiation"
+  },
+  "completed_local_diagnostics": [
+    {
+      "scope": "OBL044-045 complete conditional translation",
+      "seconds": 38.1,
+      "source_sha256": "3df4d93ded5bfb4e1654625ef7156ef0a6a124fb3d3be4f260f236766dcf5bcd",
+      "receipt_sha256": "aee2a4899c647d1cfce774469d1930f9b79822d9ea09a1d5e78edc67ca89fe29",
+      "output_sha256": "7fb207ec1732ed0a44f445ad170ed86b97defd8c4bcbfc7054cdd3e01f49e57a"
+    },
+    {
+      "receipt": "root_diagnostics/runs/20261104T191455546708-LSChartTangentTranslationProfileV2/receipt.json",
+      "receipt_sha256": "ae0257fa6fd6a420c105e936884750f8090f9ea86d6c26652b03fe842b31e24c",
+      "module": "LSChartTangentTranslationProfileV2",
+      "source_sha256": "109436e562b8642048f6ff4d1a95c2ea6195a798c7a15c29448778ed3dfb10ba",
+      "seconds": 33.289,
+      "output_sha256": "55970a113d6e2859942975c03291dc8d29dcfcef599951ca2790eb188fa99449",
+      "complete_success": true,
+      "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+      "scope": "Local diagnostic only; never stock native acceptance"
+    },
+    {
+      "receipt": "root_diagnostics/runs/20261104T191639635645-LSChartSmoothConverseProfile/receipt.json",
+      "receipt_sha256": "d68da5039a74efe82fc8dbf6607883c2d4779f22b06a7417611ffed4566f81f8",
+      "module": "LSChartSmoothConverseProfile",
+      "source_sha256": "6de4dd25ab57c31ed0246dee810b575d3bfb954b01b3f2c31ab5ca3924b9b2a5",
+      "seconds": 38.883,
+      "output_sha256": "bcb714d1653b08f10e7b45f1dd8fccd47bda3e67d6079421d687faa20c2d5031",
+      "complete_success": true,
+      "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+      "scope": "Local diagnostic only; never stock native acceptance"
+    },
+    {
+      "scope": "OBL048 complete proof, no new admission",
+      "seconds": 41.052,
+      "source_sha256": "54a1594c6f860f885de7383294b06d894e7866710eddccb3368d990952d3c500",
+      "profile_sha256": "fa978bd12719fd24efe97c09c385160460d0b2a359bb9260acfaeebb6ea3ad5f",
+      "receipt_sha256": "097f0d5d3cfd833d12e5f79e1c0a356d6e4f309a8b6f4e8eba9657b84f71cc8b",
+      "output_sha256": "ad938df6d34640a4dd55d16ef86a7ad294505138176d457fe3f6569132fef050"
+    }
+  ],
+  "diagnostic_receipt_source_log_output_hashes_independently_checked": true,
+  "audit_generator_syntax_and_parser_checks": {
+    "syntax_probes": [
+      {
+        "kind": "signature",
+        "parse_success": true,
+        "signatures": 1,
+        "summaries": [],
+        "axioms": []
+      },
+      {
+        "kind": "boundary",
+        "parse_success": true,
+        "signatures": 1,
+        "summaries": [
+          {
+            "all_constants": 19230,
+            "project_constants": 38,
+            "direct_sorry_count": 2,
+            "missing_count": 0,
+            "custom_project_axiom_count": 0,
+            "nonstandard_axiom_count": 0
+          }
+        ],
+        "axioms": [
+          [
+            "Classical.choice",
+            "Quot.sound",
+            "propext",
+            "sorryAx"
+          ]
+        ]
+      }
+    ]
+  },
+  "infrastructure_review": {
+    "reviewed_by": [
+      "root",
+      "source_milestone_audit"
+    ],
+    "intended_root_accounting": {
+      "all": 49,
+      "fresh_walks": 39,
+      "affected_prior_roots": 34,
+      "new_roots": 5,
+      "exact_preserved_roots": 10
+    },
+    "historical_point1_record_immutable": true,
+    "changed_contexts_require_fresh_current_native_validation": true,
+    "original_native_types_compared_with_accepted_baseline": true,
+    "actual_transitive_admissions_reconciled_to_reviewed_types": true,
+    "flags_and_runtime_locked": true,
+    "part07_only_wall_clock_seconds": 600,
+    "other_module_wall_clock_seconds": 300,
+    "native_job_minutes": 120,
+    "final_source_graph_and_boundaries_must_pass": true,
+    "final_git_plan_commit_review": "pending_candidate_publication",
+    "no_automatic_ledger_credit": true
+  },
+  "accounting": {
+    "accepted_units_unchanged": 74,
+    "denominator": 133,
+    "new_units_credited": 0,
+    "helper_units_credited": 0,
+    "milestone_met": false
+  },
+  "status": "Combined mathematical/source candidate and validation design reviewed. Current native compilation, official artifact verification, exact new native input-type review, and final acceptance remain pending."
+}

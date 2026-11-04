@@ -1262,10 +1262,138 @@ theorem cotangentToRelative_epi {X Y S : Scheme}
     (f : X ⟶ Y) (s : Y ⟶ S) : Epi (cotangentToRelative f s) := by
   exact LeBrunSalamon.PhaseThirty.CotangentTransitivityRederivedV02.cotangentToRelative_epi (f := f) (s := s)
 
+
+section CotangentImmersionProofSection
+set_option backward.isDefEq.respectTransparency false
+
+namespace CotangentImmersionProof
+
+/-- The canonical-map condition is the local differential formula after adjunction. -/
+def CanonicalMap {X Y S : Scheme} (f : X ⟶ Y) (s : Y ⟶ S)
+    (P : CotangentPresentation s) (Q : CotangentPresentation (f ≫ s))
+    (q : pullbackModule f P.object ⟶ Q.object) : Prop :=
+  ∀ (U : Y.Opens) (a : RingSections Y U),
+    (((Scheme.Modules.pullbackPushforwardAdjunction f).homEquiv
+      P.object Q.object q).app U) (P.differential.apply U a) =
+      Q.differential.apply (f ⁻¹ᵁ U) (f.app U a)
+
+/-- A morphism with the canonical local differential formula is unique. -/
+theorem canonicalMap_unique {X Y S : Scheme} (f : X ⟶ Y) (s : Y ⟶ S)
+    (P : CotangentPresentation s) (Q : CotangentPresentation (f ≫ s))
+    (q q' : pullbackModule f P.object ⟶ Q.object)
+    (hq : CanonicalMap f s P Q q) (hq' : CanonicalMap f s P Q q') :
+    q = q' := by
+  apply ((Scheme.Modules.pullbackPushforwardAdjunction f).homEquiv
+    P.object Q.object).injective
+  apply (P.universal ((Scheme.Modules.pushforward f).obj Q.object)).1
+  apply CotangentTransitivityRederivedV02.relativeDerivation_ext
+  intro U a
+  exact (hq U a).trans (hq' U a).symm
+
+/-- The project's definition has exactly the canonical local differential formula. -/
+theorem cotangentMap_canonical {X Y S : Scheme}
+    (f : X ⟶ Y) (s : Y ⟶ S) :
+    CanonicalMap f s (cotangentPresentation s)
+      (cotangentPresentation (f ≫ s)) (cotangentMap f s) := by
+  intro U a
+  rw [cotangentMap_adjoint]
+  exact congrArg
+    (fun D : RelativeSheafDerivation s
+      ((Scheme.Modules.pushforward f).obj (cotangentSheaf (f ≫ s))) => D.apply U a)
+    (differentialLift_spec (pulledFunctionDifferential f s))
+
+/-- Exact published restriction theorem: universal differentials restrict along
+an open immersion, with the local differential formula. Stacks Project
+Lemma 29.33.3 (Tag 01US); the canonical-map characterization is
+Lemma 29.33.8 (Tag 01UV). The inputs are arbitrary universal presentations,
+not the project's chosen cotangent sheaves or chosen differential map. -/
+theorem _root_.LeBrunSalamon.PublishedInputs.Differentials.openImmersionPresentation
+    {X Y S : Scheme} (f : X ⟶ Y) [IsOpenImmersion f] (s : Y ⟶ S)
+    (P : CotangentPresentation s) (Q : CotangentPresentation (f ≫ s)) :
+    ∃ e : pullbackModule f P.object ≅ Q.object,
+      CanonicalMap f s P Q e.hom := by
+  sorry
+
+/-- Exact published surjectivity part of the conormal sequence for an
+immersion. Stacks Project Lemma 29.33.15 (Tag 01UZ), with its differential
+specified by Lemma 29.33.8 (Tag 01UV). This has no smoothness, dimension,
+kernel-rank, or chosen-project-map hypothesis or conclusion. -/
+theorem _root_.LeBrunSalamon.PublishedInputs.Differentials.immersionPresentationSurjection
+    {X Y S : Scheme} (f : X ⟶ Y) [IsImmersion f] (s : Y ⟶ S)
+    (P : CotangentPresentation s) (Q : CotangentPresentation (f ≫ s)) :
+    ∃ q : pullbackModule f P.object ⟶ Q.object,
+      Epi q ∧ CanonicalMap f s P Q q := by
+  sorry
+
+/-- Generic finite locally free kernel/rank fact. Stacks Project,
+Section 17.26 (Tag 0B37), states that finite locally free sheaves form
+an exact category with surjections as admissible epimorphisms, and that
+ranks add in short exact sequences. Here the two constant ranks are
+d+c and d. This is a theorem about arbitrary sheaf morphisms; no
+differential, immersion, or smooth morphism occurs in the statement. -/
+theorem _root_.LeBrunSalamon.PublishedInputs.SheafFunctoriality.epi_kernel_locallyFreeOfRank
+    {X : Scheme} {E F : OModule X} (q : E ⟶ F) [Epi q] (d c : ℕ)
+    (hE : IsLocallyFreeOfRank E (d + c))
+    (hF : IsLocallyFreeOfRank F d) :
+    IsLocallyFreeOfRank (kernel q) c := by
+  sorry
+
+
+/-- The open-restriction input is used only through its actual compatible isomorphism. -/
+theorem openImmersion_from_restriction {X Y S : Scheme}
+    (f : X ⟶ Y) [IsOpenImmersion f] (s : Y ⟶ S)
+    (hRestriction : ∃ e : pullbackModule f (cotangentSheaf s) ≅
+        cotangentSheaf (f ≫ s),
+      CanonicalMap f s (cotangentPresentation s)
+        (cotangentPresentation (f ≫ s)) e.hom) :
+    IsIso (cotangentMap f s) := by
+  obtain ⟨e, he⟩ := hRestriction
+  have h : cotangentMap f s = e.hom :=
+    canonicalMap_unique f s _ _ _ _ (cotangentMap_canonical f s) he
+  rw [h]
+  infer_instance
+
+/-- The immersion input yields an epimorphism of the actual chosen differential. -/
+theorem cotangentMap_epi_from_surjection {X Y S : Scheme}
+    (f : X ⟶ Y) (s : Y ⟶ S)
+    (hSurjection : ∃ q : pullbackModule f (cotangentSheaf s) ⟶
+        cotangentSheaf (f ≫ s),
+      Epi q ∧ CanonicalMap f s (cotangentPresentation s)
+        (cotangentPresentation (f ≫ s)) q) :
+    Epi (cotangentMap f s) := by
+  obtain ⟨q, hq, hcanonical⟩ := hSurjection
+  have h : q = cotangentMap f s :=
+    canonicalMap_unique f s _ _ _ _ hcanonical (cotangentMap_canonical f s)
+  simpa only [h] using hq
+
+/-- The rank calculation uses only a generic kernel theorem and the two existing rank facts. -/
+theorem conormal_rank_from_inputs
+    (kernelRank : ∀ {X : Scheme} {E F : OModule X}
+      (q : E ⟶ F) [Epi q] (d c : ℕ),
+      IsLocallyFreeOfRank E (d + c) →
+      IsLocallyFreeOfRank F d →
+      IsLocallyFreeOfRank (kernel q) c)
+    {X Y S : Scheme} (f : X ⟶ Y) [IsClosedImmersion f] (s : Y ⟶ S)
+    (d c : ℕ) (hY : SmoothOfRelativeDimension (d + c) s)
+    (hX : SmoothOfRelativeDimension d (f ≫ s))
+    (hSurjection : Epi (cotangentMap f s)) :
+    IsLocallyFreeOfRank (kernel (cotangentMap f s)) c := by
+  letI := hSurjection
+  exact kernelRank (cotangentMap f s) d c
+    (pullback_locallyFree f (smooth_cotangent_rank s (d + c) hY))
+    (smooth_cotangent_rank (f ≫ s) d hX)
+
+
+end CotangentImmersionProof
+end CotangentImmersionProofSection
+
 /-- The intrinsic derivative for an open immersion is an isomorphism. -/
 theorem openImmersion_cotangentMap_isIso {X Y S : Scheme}
     (f : X ⟶ Y) [IsOpenImmersion f] (s : Y ⟶ S) :
-    IsIso (cotangentMap f s) := by sorry
+    IsIso (cotangentMap f s) := by
+  exact CotangentImmersionProof.openImmersion_from_restriction f s
+    (LeBrunSalamon.PublishedInputs.Differentials.openImmersionPresentation
+      f s (cotangentPresentation s) (cotangentPresentation (f ≫ s)))
 
 /-- The kernel of the actual differential. For a regular closed immersion between smooth schemes this is
 the usual conormal sheaf. For arbitrary immersions it must not be silently identified with I/I². -/
@@ -1281,7 +1409,13 @@ theorem smoothClosedImmersion_conormal_rank {X Y S : Scheme}
     (f : X ⟶ Y) [IsClosedImmersion f] (s : Y ⟶ S)
     (d c : ℕ) (hY : SmoothOfRelativeDimension (d + c) s)
     (hX : SmoothOfRelativeDimension d (f ≫ s)) :
-    IsLocallyFreeOfRank (differentialConormal f s) c := by sorry
+    IsLocallyFreeOfRank (differentialConormal f s) c := by
+  exact CotangentImmersionProof.conormal_rank_from_inputs
+    LeBrunSalamon.PublishedInputs.SheafFunctoriality.epi_kernel_locallyFreeOfRank
+    f s d c hY hX
+    (CotangentImmersionProof.cotangentMap_epi_from_surjection f s
+      (LeBrunSalamon.PublishedInputs.Differentials.immersionPresentationSurjection
+        f s (cotangentPresentation s) (cotangentPresentation (f ≫ s))))
 
 noncomputable section
 set_option autoImplicit false

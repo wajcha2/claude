@@ -1,0 +1,108 @@
+name: LeBrun 3h continuation native validation
+on:
+  push:
+    branches: [codex/lebrun-3h-native-20261104]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: lebrun-3h-native-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  current_native_and_boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CONTINUATION: lebrun-salamon/continuation
+      BASELINE_RECORD: lebrun-salamon/continuation/audit/continuation_3h/BASELINE.json
+      CANDIDATE_PLAN: lebrun-salamon/continuation/audit/continuation_3h/CANDIDATE_PLAN.json
+    steps:
+      - name: Check out exact combined candidate
+        uses: actions/checkout@v4
+      - name: Validate frozen drivers, approved candidate and exact accepted source
+        run: |
+          git fetch --no-tags --depth=1 origin 80bbb1ce6343260cdba2de6a1d067a3a4e65fd91
+          python3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --materialize --output continuation-evidence/PREFLIGHT.json
+          python3 "$CONTINUATION/scripts/check_checkpoint.py" --root "$CONTINUATION" --verify-manifest --output-dir diagnostic-static
+      - name: Restore exact pinned stock runtime
+        timeout-minutes: 12
+        run: python3 "$CONTINUATION/scripts/restore_ci_runtime.py" --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Read exact official accepted artifact metadata
+        run: |
+          gh api repos/wajcha2/claude/actions/artifacts/13353190843 > continuation-evidence/BASELINE_ARTIFACT_METADATA.json
+      - name: Download accepted full native artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-final-current-native-41888465259-2
+          run-id: 41888465259
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Independently verify every accepted native context
+        run: |
+          python3 "$CONTINUATION/scripts/prepare_continuation.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --artifact-dir lebrun-cache-inputs/0 --artifact-metadata continuation-evidence/BASELINE_ARTIFACT_METADATA.json --runtime-config runtime-config.json --output continuation-evidence/PREFLIGHT.json
+      - name: Capture complete original native types before rebuilding changed sources
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_audit.py" --root accepted-baseline --build-dir lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode baseline --output continuation-evidence/baseline-audit
+      - name: Restore only exact current reusable contexts
+        run: |
+          python3 "$CONTINUATION/scripts/restore_replay_cache_union.py" --root "$CONTINUATION" --runtime-config runtime-config.json --inputs "$CONTINUATION/audit/continuation_3h/BASELINE_CACHE_INPUTS.json" --build-dir kernel-evidence
+      - name: Compile current Part07 ancestors with ordinary limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07_parents
+      - name: Compile Part07 alone with measured 600-second limit
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage part07
+      - name: Compile current core closure with ordinary limit
+        id: core
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage core
+      - name: Preserve completed core evidence before later work
+        if: ${{ !cancelled() && steps.core.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-3h-current-core-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            kernel-evidence/
+            continuation-evidence/
+            runtime-config.json
+            diagnostic-static/
+          if-no-files-found: error
+      - name: Compile current accepted-root and 3h closure
+        id: boundaries
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage accepted_boundaries
+      - name: Preserve completed accepted-root closure before reverse-dependency replay
+        if: ${{ !cancelled() && steps.boundaries.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-3h-current-boundary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            kernel-evidence/
+            continuation-evidence/
+            runtime-config.json
+            diagnostic-static/
+          if-no-files-found: error
+      - name: Audit current roots and exact published input types
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_audit.py" --root "$CONTINUATION" --build-dir kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --mode current --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --output continuation-evidence/current-audit
+          python3 "$CONTINUATION/scripts/verify_continuation_boundaries.py" --root "$CONTINUATION" --baseline-root accepted-baseline --build-dir kernel-evidence --baseline-build lebrun-cache-inputs/0/kernel-evidence --runtime-config runtime-config.json --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --baseline-audit continuation-evidence/baseline-audit --current-audit continuation-evidence/current-audit --output continuation-evidence/CURRENT_BOUNDARIES.json
+      - name: Revalidate the whole current source graph
+        run: |
+          python3 "$CONTINUATION/scripts/run_continuation_stage.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --runtime-config runtime-config.json --build-dir kernel-evidence --reports continuation-evidence/stages --stage full
+      - name: Independently require all current native and boundary evidence
+        run: |
+          python3 "$CONTINUATION/scripts/finalize_continuation_evidence.py" --root "$CONTINUATION" --baseline-root accepted-baseline --baseline-build lebrun-cache-inputs/0/kernel-evidence --build-dir kernel-evidence --baseline "$BASELINE_RECORD" --plan "$CANDIDATE_PLAN" --preflight continuation-evidence/PREFLIGHT.json --baseline-audit continuation-evidence/baseline-audit --current-audit continuation-evidence/current-audit --runtime-config runtime-config.json --reports continuation-evidence/stages --output continuation-evidence/FULL_CONTINUATION_VERIFICATION.json
+      - name: Preserve exact completed or failed continuation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-3h-current-native-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            kernel-evidence/
+            continuation-evidence/
+            accepted-baseline/SOURCE.sha256
+            runtime-config.json
+            diagnostic-static/
+          if-no-files-found: warn
+

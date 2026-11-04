@@ -1,6 +1,7 @@
 import RecompileExtensionsPart01
 import LSVectorBundlePullback
 import Mathlib.Algebra.Category.ModuleCat.Products
+import LSChartSmoothnessCriteria
 
 noncomputable section
 
@@ -5015,14 +5016,175 @@ theorem Hom.differential_zero_iff_constantLift {A B : PointedAffine} (f : Hom A 
 def SmoothAtCentre {A B : PointedAffine} (f : Hom A B) : Prop :=
   ∃ U : A.scheme.Opens, (Set.range A.point.val ⊆ U) ∧ Smooth (U.ι ≫ f.map)
 
+/-! Generic lifting and tangent-map translations.  The two external
+criteria live in the separate Mathlib-only published-input module. -/
+theorem _root_.LeBrunSalamon.DualNumberGeometry.dualToBase_complex :
+    LeBrunSalamon.DualNumberGeometry.dualToBase ℂ = Infinitesimal.dualToC := rfl
+
+theorem _root_.LeBrunSalamon.DualNumberGeometry.origin_complex :
+    LeBrunSalamon.DualNumberGeometry.origin ℂ = Infinitesimal.origin := rfl
+
+namespace TangentTranslation
+
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+
+/-- The generic affine square-zero lifting property of a smooth morphism.
+The diagnostic receives this published input as a proof parameter. -/
+def SmoothSquareZeroLifting : Prop :=
+  ∀ (R S : Type) [CommRing R] [CommRing S] (φ : R →+* S),
+    Function.Surjective φ → (RingHom.ker φ)^2 = ⊥ →
+    ∀ (X Y : Scheme) (f : X ⟶ Y), Smooth f →
+      ∀ (a : Spec (CommRingCat.of S) ⟶ X) (b : Spec (CommRingCat.of R) ⟶ Y),
+        a ≫ f = Spec.map (CommRingCat.ofHom φ) ≫ b →
+        ∃ l : Spec (CommRingCat.of R) ⟶ X,
+          Spec.map (CommRingCat.ofHom φ) ≫ l = a ∧ l ≫ f = b
+
+theorem pointLift_ext {X : Scheme} {s : X ⟶ ComplexBase}
+    {x : PointsOver ComplexBase (𝟙 ComplexBase) X s}
+    (L M : Infinitesimal.PointLift X s x) (h : L.map = M.map) : L = M := by
+  cases L
+  cases M
+  cases h
+  rfl
+
+/-- The differential defined by precomposition is the actual map of
+dual-number lifts, with the normalization already proved for each chart. -/
+theorem tangentLift_naturality {A B : PointedAffine} (f : Hom A B)
+    (D : A.Tangent) :
+    (A.tangentLiftEquiv D).map ≫ f.map =
+      (B.tangentLiftEquiv (f.differential D)).map := by
+  apply ext_of_isAffine
+  ext a
+  change (A.tangentLiftEquiv D).map.appTop (f.onFunctions a) =
+    (B.tangentLiftEquiv (f.differential D)).map.appTop a
+  rw [A.tangentLiftEquiv_normalized, B.tangentLiftEquiv_normalized]
+  congr 1
+  change algebraMap ℂ Infinitesimal.Dual (A.evaluation (f.onFunctions a)) +
+      Infinitesimal.epsilon * algebraMap ℂ Infinitesimal.Dual
+        (D.val (f.onFunctions a)) =
+    algebraMap ℂ Infinitesimal.Dual (B.evaluation a) +
+      Infinitesimal.epsilon * algebraMap ℂ Infinitesimal.Dual
+        ((f.differential D).val a)
+  rw [f.evaluation_onFunctions]
+  rfl
+
+theorem differential_surjective_iff_lifts {A B : PointedAffine} (f : Hom A B) :
+    Function.Surjective f.differential ↔
+      ∀ L : Infinitesimal.PointLift B.scheme B.toC B.point,
+        ∃ M : Infinitesimal.PointLift A.scheme A.toC A.point,
+          M.map ≫ f.map = L.map := by
+  constructor
+  · intro h L
+    obtain ⟨D, hD⟩ := h (B.tangentLiftEquiv.symm L)
+    refine ⟨A.tangentLiftEquiv D, ?_⟩
+    rw [tangentLift_naturality f D, hD, B.tangentLiftEquiv.apply_symm_apply]
+  · intro h D
+    obtain ⟨M, hM⟩ := h (B.tangentLiftEquiv D)
+    refine ⟨A.tangentLiftEquiv.symm M, ?_⟩
+    apply B.tangentLiftEquiv.injective
+    apply pointLift_ext
+    rw [← tangentLift_naturality f (A.tangentLiftEquiv.symm M),
+      A.tangentLiftEquiv.apply_symm_apply]
+    exact hM
+
+theorem residue_surjective : Function.Surjective Infinitesimal.residue := by
+  intro c
+  exact ⟨algebraMap ℂ Infinitesimal.Dual c, Infinitesimal.residue.commutes c⟩
+
+theorem residue_kernel_square_zero :
+    (RingHom.ker Infinitesimal.residue.toRingHom)^2 = ⊥ := by
+  apply le_antisymm ?_ bot_le
+  intro z hz
+  change z = 0
+  rw [pow_two] at hz
+  refine Submodule.mul_induction_on hz ?_ ?_
+  · intro a ha b hb
+    change Infinitesimal.residue a = 0 at ha
+    change Infinitesimal.residue b = 0 at hb
+    have hna := Infinitesimal.dual_normalForm_reconstruct a
+    have hnb := Infinitesimal.dual_normalForm_reconstruct b
+    rw [ha, map_zero, zero_add] at hna
+    rw [hb, map_zero, zero_add] at hnb
+    rw [hna, hnb]
+    calc
+      _ = Infinitesimal.epsilon^2 *
+          (algebraMap ℂ Infinitesimal.Dual (Infinitesimal.linearCoefficient a) *
+            algebraMap ℂ Infinitesimal.Dual (Infinitesimal.linearCoefficient b)) := by ring
+      _ = 0 := by rw [Infinitesimal.epsilon_square, zero_mul]
+  · intro a b ha hb
+    rw [ha, hb, zero_add]
+
+/-- The chart translation of the generic lifting criterion.  The original
+smoothness hypothesis is only on a neighborhood of the marked source point. -/
+theorem smooth_differential_surjective_of_lifting
+    (hLift : SmoothSquareZeroLifting) {A B : PointedAffine} (f : Hom A B)
+    (hf : SmoothAtCentre f) : Function.Surjective f.differential := by
+  obtain ⟨U, hU, hfU⟩ := hf
+  have hUrange : Set.range A.point.val ⊆ Set.range U.ι := by
+    simpa only [Scheme.Opens.range_ι] using hU
+  let u : ComplexBase ⟶ U.toScheme := IsOpenImmersion.lift U.ι A.point.val hUrange
+  have hu : u ≫ U.ι = A.point.val := IsOpenImmersion.lift_fac U.ι A.point.val hUrange
+  apply (differential_surjective_iff_lifts f).mpr
+  intro L
+  have hsquare : u ≫ (U.ι ≫ f.map) = Infinitesimal.origin ≫ L.map := by
+    rw [← Category.assoc, hu, f.atCentre, L.reduces]
+  obtain ⟨l, hl0, hlf⟩ := hLift Infinitesimal.Dual ℂ
+    Infinitesimal.residue.toRingHom residue_surjective residue_kernel_square_zero
+    U.toScheme B.scheme (U.ι ≫ f.map) hfU u L.map hsquare
+  change Infinitesimal.origin ≫ l = u at hl0
+  refine ⟨{
+    map := l ≫ U.ι
+    overC := ?_
+    reduces := ?_ }, ?_⟩
+  · calc
+      (l ≫ U.ι) ≫ A.toC = (l ≫ (U.ι ≫ f.map)) ≫ B.toC := by
+        simp only [Category.assoc, f.overC]
+      _ = Infinitesimal.dualToC := by rw [hlf, L.overC]
+  · change Infinitesimal.origin ≫ (l ≫ U.ι) = A.point.val
+    rw [← Category.assoc, hl0, hu]
+  · change (l ≫ U.ι) ≫ f.map = L.map
+    rw [Category.assoc]
+    exact hlf
+
+
+/-- The actual chart differential is the canonical tangent map in EGA:
+the previously proved naturality transfers surjectivity to all lifts.
+Both original smoothness hypotheses are preserved. -/
+theorem differential_surjective_implies_smooth_of_criterion
+    (hCriterion : LeBrunSalamon.DualNumberGeometry.RationalPointDifferentialCriterion)
+    {A B : PointedAffine} (f : Hom A B)
+    (hA : Smooth A.toC) (hB : Smooth B.toC)
+    (hd : Function.Surjective f.differential) : SmoothAtCentre f := by
+  apply hCriterion ℂ A.scheme B.scheme A.toC B.toC f.map f.overC
+    A.point.val A.point.property hA hB
+  intro b hb hb0
+  rw [LeBrunSalamon.DualNumberGeometry.dualToBase_complex] at hb
+  rw [LeBrunSalamon.DualNumberGeometry.origin_complex, f.atCentre] at hb0
+  let L : Infinitesimal.PointLift B.scheme B.toC B.point :=
+    { map := b, overC := hb, reduces := hb0 }
+  obtain ⟨M, hM⟩ := (differential_surjective_iff_lifts f).mp hd L
+  refine ⟨M.map, ?_, ?_, hM⟩
+  · rw [LeBrunSalamon.DualNumberGeometry.dualToBase_complex]
+    exact M.overC
+  · rw [LeBrunSalamon.DualNumberGeometry.origin_complex]
+    exact M.reduces
+
+
+end TangentTranslation
+
 theorem smooth_differential_surjective {A B : PointedAffine} (f : Hom A B)
-    (hf : SmoothAtCentre f) : Function.Surjective f.differential := by sorry
+    (hf : SmoothAtCentre f) : Function.Surjective f.differential := by
+  exact TangentTranslation.smooth_differential_surjective_of_lifting
+    @LeBrunSalamon.PublishedInputs.Smoothness.smooth_squareZero_lift f hf
 
 /-- Converse needs BOTH schemes smooth over C; it is not asserted for
 arbitrary singular sources from surjectivity of Zariski tangent maps alone. -/
 theorem differential_surjective_implies_smooth {A B : PointedAffine} (f : Hom A B)
     (hA : Smooth A.toC) (hB : Smooth B.toC)
-    (hd : Function.Surjective f.differential) : SmoothAtCentre f := by sorry
+    (hd : Function.Surjective f.differential) : SmoothAtCentre f := by
+  exact TangentTranslation.differential_surjective_implies_smooth_of_criterion
+    @LeBrunSalamon.PublishedInputs.Smoothness.smooth_of_surjective_tangent_lifts f hA hB hd
 
 theorem tangent_finite_of_lfp (A : PointedAffine)
     (hA : LocallyOfFinitePresentation A.toC) : FiniteDimensional ℂ A.Tangent := by
@@ -5035,9 +5197,325 @@ theorem tangent_finite_of_lfp (A : PointedAffine)
     A.evaluation (Infinitesimal.tangentSpace A.Ring A.evaluation) (fun D => D.property)
 
 
+/-! The point-derivation/cotangent-fibre equivalence and rank translation.
+This block uses only the already accepted arbitrary-coefficient affine
+derivation inputs, the actual pullback adjunction, and Mathlib. -/
+section Step3hTangentDimensionTranslation
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
+
+open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite
+open LeBrunSalamon.PhaseOne LeBrunSalamon.PhaseTwo LeBrunSalamon.PhaseThree
+open LeBrunSalamon.PhaseTwentyFive LeBrunSalamon.PhaseTwentySix
+open LeBrunSalamon.PhaseTwentyEight LeBrunSalamon.PhaseThirty
+open LeBrunSalamon.Skeleton LeBrunSalamon.Construction
+
+
+namespace TangentDimensionProof
+
+/-! The only sheaf-derivation inputs below are the already accepted, generic
+01UO existence and uniqueness theorems, with arbitrary coefficient sheaf. -/
+
+def localOfGlobal {X S : Scheme} {s : X ⟶ S} {E : OModule X}
+    (D : RelativeSheafDerivation s E) :
+    LocalDerivationProof.LocalDerivation s E ⊤ where
+  apply W a := D.apply W.left a
+  zero W := D.zero W.left
+  add W a b := D.add W.left a b
+  leibniz W a b := D.leibniz W.left a b
+  naturality i a := D.naturality i.left a
+  killsBase := by
+    intro V a W i
+    have h := D.naturality i (s.app V a)
+    rw [D.killsBase, map_zero] at h
+    exact h.symm
+
+def globalOfTop {X S : Scheme} {s : X ⟶ S} {E : OModule X}
+    (D : LocalDerivationProof.LocalDerivation s E ⊤) :
+    RelativeSheafDerivation s E where
+  apply U a := D.apply (Over.mk (homOfLE le_top)) a
+  zero U := D.zero (Over.mk (homOfLE (show U ≤ ⊤ from le_top)))
+  add U a b := D.add (Over.mk (homOfLE (show U ≤ ⊤ from le_top))) a b
+  leibniz U a b := D.leibniz (Over.mk (homOfLE (show U ≤ ⊤ from le_top))) a b
+  naturality := by
+    intro U V i a
+    let j : Over.mk (homOfLE (show U ≤ ⊤ from le_top)) ⟶
+        Over.mk (homOfLE (show V ≤ ⊤ from le_top)) := Over.homMk i
+    exact D.naturality j a
+  killsBase W a := by
+    have h := D.killsBase W a (Over.mk (homOfLE (show s ⁻¹ᵁ W ≤ ⊤ from le_top)))
+      (𝟙 (s ⁻¹ᵁ W))
+    have hid : X.presheaf.map (𝟙 (s ⁻¹ᵁ W)).op (s.app W a) = s.app W a := by simp
+    exact (congrArg
+      (D.apply (Over.mk (homOfLE (show s ⁻¹ᵁ W ≤ ⊤ from le_top)))) hid).symm.trans h
+
+theorem affineDerivation_ext {X S : Scheme} [IsAffine X] [IsAffine S]
+    {s : X ⟶ S} {E : OModule X} (D F : RelativeSheafDerivation s E)
+    (h : ∀ a, D.apply ⊤ a = F.apply ⊤ a) : D = F := by
+  have he := PublishedInputs.AffineDerivations.ext_relative s ⊤
+    (isAffineOpen_top X) E (localOfGlobal D) (localOfGlobal F) h
+  apply CotangentTransitivityRederivedV02.relativeDerivation_ext
+  intro U a
+  exact congrArg (fun δ : LocalDerivationProof.LocalDerivation s E ⊤ =>
+    δ.apply (Over.mk (homOfLE (show U ≤ ⊤ from le_top))) a) he
+
+theorem affineDerivation_exists {X S : Scheme} [IsAffine X] [IsAffine S]
+    (s : X ⟶ S) (E : OModule X)
+    (D : RingSections X ⊤ → SectionsOn E ⊤)
+    (h0 : D 0 = 0) (hadd : ∀ a b, D (a + b) = D a + D b)
+    (hmul : ∀ a b, D (a * b) = a • D b + b • D a)
+    (hbase : ∀ a : RingSections S ⊤, D (s.appTop a) = 0) :
+    ∃ δ : RelativeSheafDerivation s E, ∀ a, δ.apply ⊤ a = D a := by
+  have hmap : s.appLE ⊤ ⊤ (by simp) = s.appTop := by simp [Scheme.Hom.appLE]
+  obtain ⟨δ, hδ⟩ := PublishedInputs.AffineDerivations.exists_relative s ⊤
+    (isAffineOpen_top X) E D h0 hadd hmul (by
+      intro a
+      simpa only [hmap] using hbase a)
+  refine ⟨globalOfTop δ, ?_⟩
+  intro a
+  change δ.apply (Over.mk (homOfLE (show (⊤ : X.Opens) ≤ ⊤ from le_top))) a = D a
+  have hi : (homOfLE (show (⊤ : X.Opens) ≤ ⊤ from le_top)) = 𝟙 ⊤ :=
+    Subsingleton.elim _ _
+  rw [hi]
+  exact hδ a
+
+/-! On the point, the project scalar action agrees with the canonical
+Mathlib global-section module action. -/
+
+def pointScalarEquiv (M : OModule ComplexBase) :
+    CSections (𝟙 ComplexBase) M ≃ₗ[ℂ]
+      (moduleSpecΓFunctor (R := CommRingCat.of ℂ)).obj M where
+  toFun v := v
+  invFun v := v
+  left_inv v := rfl
+  right_inv v := rfl
+  map_add' _ _ := rfl
+  map_smul' c v := by
+    change complexConstants (𝟙 ComplexBase) c • (show GlobalSections M from v) =
+      ComplexBase.presheaf.map (homOfLE (show (⊤ : ComplexBase.Opens) ≤ ⊤ from le_top)).op
+        ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c) • (show GlobalSections M from v)
+    rw [complexConstants_apply_top]
+    simp
+
+def pointRingEquiv :
+    CSections (𝟙 ComplexBase) (structureModule ComplexBase) ≃ₗ[ℂ] ℂ where
+  toFun a := (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom a
+  invFun c := (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c
+  left_inv a := Iso.hom_inv_id_apply (Scheme.ΓSpecIso (CommRingCat.of ℂ))
+    (show RingSections ComplexBase ⊤ from a)
+  right_inv c := Iso.inv_hom_id_apply (Scheme.ΓSpecIso (CommRingCat.of ℂ)) c
+  map_add' a b := map_add (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom.hom
+    (show RingSections ComplexBase ⊤ from a) (show RingSections ComplexBase ⊤ from b)
+  map_smul' c v := by
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+      (complexConstants (𝟙 ComplexBase) c * (show RingSections ComplexBase ⊤ from v)) = c * _
+    rw [map_mul, complexConstants_apply_top]
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+      ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv c) * _ = _
+    rw [Iso.inv_hom_id_apply]
+
+def functionalOfHom {M : OModule ComplexBase}
+    (f : M ⟶ structureModule ComplexBase) :
+    Module.Dual ℂ (CSections (𝟙 ComplexBase) M) :=
+  pointRingEquiv.toLinearMap.comp (onCSections (𝟙 ComplexBase) f)
+
+theorem functionalOfHom_surjective (M : OModule ComplexBase) [M.IsQuasicoherent] :
+    Function.Surjective (functionalOfHom (M := M)) := by
+  let Q := SheafOfModules.isQuasicoherent ComplexBase.ringCatSheaf
+  let M' : Q.FullSubcategory := ⟨M, inferInstance⟩
+  let O' : Q.FullSubcategory := ⟨structureModule ComplexBase, by
+    change (SheafOfModules.unit ComplexBase.ringCatSheaf).IsQuasicoherent
+    exact (isQuasicoherent_iff_isIso_fromTildeΓ
+      (R := CommRingCat.of ℂ) (SheafOfModules.unit ComplexBase.ringCatSheaf)).mpr
+        inferInstance⟩
+  intro φ
+  let l : (moduleSpecΓFunctor (R := CommRingCat.of ℂ)).obj M →ₗ[ℂ]
+      (moduleSpecΓFunctor (R := CommRingCat.of ℂ)).obj (structureModule ComplexBase) :=
+    (pointScalarEquiv (structureModule ComplexBase)).toLinearMap.comp
+      (pointRingEquiv.symm.toLinearMap.comp
+        (φ.comp (pointScalarEquiv M).symm.toLinearMap))
+  let g : (tildeEquiv (R := CommRingCat.of ℂ)).inverse.obj M' ⟶
+      (tildeEquiv (R := CommRingCat.of ℂ)).inverse.obj O' := by
+    change (moduleSpecΓFunctor (R := CommRingCat.of ℂ)).obj M ⟶
+      (moduleSpecΓFunctor (R := CommRingCat.of ℂ)).obj (structureModule ComplexBase)
+    exact ConcreteCategory.ofHom (C := ModuleCat ℂ) l
+  let f : M' ⟶ O' := (tildeEquiv (R := CommRingCat.of ℂ)).inverse.preimage g
+  let fM : M ⟶ structureModule ComplexBase := f.hom
+  refine ⟨fM, ?_⟩
+  ext v
+  have he := congrArg (fun k : (tildeEquiv (R := CommRingCat.of ℂ)).inverse.obj M' ⟶
+      (tildeEquiv (R := CommRingCat.of ℂ)).inverse.obj O' => k v)
+    ((tildeEquiv (R := CommRingCat.of ℂ)).inverse.map_preimage g)
+  change fM.app ⊤ v = (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (φ v) at he
+  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (fM.app ⊤ v) = φ v
+  rw [he, Iso.inv_hom_id_apply]
+
+variable (A : PointedAffine) (P : CotangentPresentation A.toC)
+
+def globalDifferential : A.Ring →ₗ[ℂ] CSections A.toC P.object where
+  toFun a := P.differential.apply ⊤ a
+  map_add' a b := P.differential.add ⊤ a b
+  map_smul' c a := by
+    change P.differential.apply ⊤
+        (complexConstants A.toC c * (show RingSections A.scheme ⊤ from a)) =
+      complexConstants A.toC c • P.differential.apply ⊤ a
+    rw [P.differential.leibniz]
+    have hc : P.differential.apply ⊤ (complexConstants A.toC c) = 0 :=
+      TangentAffine.relativeDerivation_constant A.toC P.differential ⊤ c
+    rw [hc, smul_zero, add_zero]
+
+def pointDifferential : A.Ring →ₗ[ℂ] Fiber P.object A.point.val :=
+  (evaluateSection A.toC P.object A.point.val A.point.property).comp
+    (globalDifferential A P)
+
+theorem evaluation_inv (a : A.Ring) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (A.evaluation a) = A.point.val.appTop a :=
+  Iso.hom_inv_id_apply _ _
+
+theorem evaluate_ring_smul (a : A.Ring) (v : CSections A.toC P.object) :
+    evaluateSection A.toC P.object A.point.val A.point.property
+        (show CSections A.toC P.object from
+          (show RingSections A.scheme ⊤ from a) •
+            (show GlobalSections P.object from v)) =
+      A.evaluation a •
+        evaluateSection A.toC P.object A.point.val A.point.property v := by
+  change sectionValue (pullSection A.point.val
+      (sectionFromValue ((show RingSections A.scheme ⊤ from a) •
+        (show GlobalSections P.object from v)))) =
+    complexConstants (𝟙 ComplexBase) (A.evaluation a) •
+      sectionValue (pullSection A.point.val
+        (sectionFromValue (show GlobalSections P.object from v)))
+  rw [pullSectionValue_smul, complexConstants_apply_top]
+  change A.point.val.appTop (show RingSections A.scheme ⊤ from a) • _ =
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (A.evaluation a) • _
+  rw [evaluation_inv]
+
+theorem pointDifferential_mul (a b : A.Ring) :
+    pointDifferential A P (a * b) =
+      A.evaluation a • pointDifferential A P b +
+      A.evaluation b • pointDifferential A P a := by
+  change evaluateSection A.toC P.object A.point.val A.point.property
+      (P.differential.apply ⊤ (a * b)) = _
+  rw [P.differential.leibniz, map_add, evaluate_ring_smul, evaluate_ring_smul]
+  rfl
+
+def tangentOfFunctional : Module.Dual ℂ (Fiber P.object A.point.val) →ₗ[ℂ] A.Tangent where
+  toFun φ := ⟨φ.comp (pointDifferential A P), by
+    intro a b
+    change φ (pointDifferential A P (a * b)) = _
+    rw [pointDifferential_mul, map_add, map_smul, map_smul]
+    rfl⟩
+  map_add' φ ψ := by apply Subtype.ext; ext a; rfl
+  map_smul' c φ := by apply Subtype.ext; ext a; rfl
+
+theorem pointDerivation_exists (D : A.Tangent) :
+    ∃ δ : RelativeSheafDerivation A.toC
+        ((Scheme.Modules.pushforward A.point.val).obj (structureModule ComplexBase)),
+      ∀ a, δ.apply ⊤ a =
+        (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (D.val a) := by
+  apply affineDerivation_exists A.toC
+    ((Scheme.Modules.pushforward A.point.val).obj (structureModule ComplexBase))
+    (fun a => (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (D.val a))
+  · simp only [map_zero]
+  · intro a b
+    simp only [map_add]
+  · intro a b
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (D.val (a * b)) =
+      A.point.val.appTop a * (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (D.val b) +
+      A.point.val.appTop b * (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv (D.val a)
+    rw [D.property, map_add, map_mul, map_mul, evaluation_inv, evaluation_inv]
+  · intro a
+    have hc : A.toC.appTop a =
+        algebraMap ℂ A.Ring ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom a) := by
+      change A.toC.appTop a = complexConstants A.toC _
+      rw [complexConstants_apply_top, Iso.hom_inv_id_apply]
+    rw [hc, Infinitesimal.tangent_kills_constants, map_zero]
+
+theorem functional_action (f : pullbackModule A.point.val P.object ⟶
+    structureModule ComplexBase) (a : A.Ring) :
+    functionalOfHom f (pointDifferential A P a) =
+      (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+        ((((Scheme.Modules.pullbackPushforwardAdjunction A.point.val).homEquiv
+          P.object (structureModule ComplexBase) f).app ⊤)
+          (P.differential.apply ⊤ a)) := by
+  change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+    (f.app ⊤ (sectionValue (pullSection A.point.val
+      (sectionFromValue (P.differential.apply ⊤ a))))) = _
+  rw [pullSection_value, sectionFromValue_spec]
+  rfl
+
+theorem tangentOfFunctional_surjective :
+    Function.Surjective (tangentOfFunctional A P) := by
+  intro D
+  obtain ⟨δ, hδ⟩ := pointDerivation_exists A D
+  obtain ⟨g, hg⟩ := (P.universal
+    ((Scheme.Modules.pushforward A.point.val).obj (structureModule ComplexBase))).2 δ
+  let f := ((Scheme.Modules.pullbackPushforwardAdjunction A.point.val).homEquiv
+    P.object (structureModule ComplexBase)).symm g
+  refine ⟨functionalOfHom f, ?_⟩
+  apply Subtype.ext
+  ext a
+  change functionalOfHom f (pointDifferential A P a) = D.val a
+  rw [functional_action]
+  have hf : (Scheme.Modules.pullbackPushforwardAdjunction A.point.val).homEquiv
+      P.object (structureModule ComplexBase) f = g :=
+    ((Scheme.Modules.pullbackPushforwardAdjunction A.point.val).homEquiv
+      P.object (structureModule ComplexBase)).apply_symm_apply g
+  rw [hf]
+  have hv := congrArg (fun ε : RelativeSheafDerivation A.toC
+      ((Scheme.Modules.pushforward A.point.val).obj (structureModule ComplexBase)) =>
+        ε.apply ⊤ a) hg
+  change g.app ⊤ (P.differential.apply ⊤ a) = δ.apply ⊤ a at hv
+  rw [hv, hδ, Iso.inv_hom_id_apply]
+
+theorem tangentOfFunctional_injective
+    [(pullbackModule A.point.val P.object).IsQuasicoherent] :
+    Function.Injective (tangentOfFunctional A P) := by
+  intro φ ψ h
+  obtain ⟨f, rfl⟩ := functionalOfHom_surjective (pullbackModule A.point.val P.object) φ
+  obtain ⟨g, rfl⟩ := functionalOfHom_surjective (pullbackModule A.point.val P.object) ψ
+  suffices f = g by rw [this]
+  apply ((Scheme.Modules.pullbackPushforwardAdjunction A.point.val).homEquiv
+    P.object (structureModule ComplexBase)).injective
+  apply (P.universal ((Scheme.Modules.pushforward A.point.val).obj
+    (structureModule ComplexBase))).1
+  apply affineDerivation_ext
+  intro a
+  apply (ConcreteCategory.bijective_of_isIso
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom).1
+  have hv := congrArg (fun D : A.Tangent => D.val a) h
+  exact (functional_action A P f a).symm.trans (hv.trans (functional_action A P g a))
+
+def tangentCotangentFiberEquiv
+    [(pullbackModule A.point.val P.object).IsQuasicoherent] :
+    A.Tangent ≃ₗ[ℂ] Module.Dual ℂ (Fiber P.object A.point.val) :=
+  (LinearEquiv.ofBijective (tangentOfFunctional A P)
+    ⟨tangentOfFunctional_injective A P, tangentOfFunctional_surjective A P⟩).symm
+
+theorem tangent_dimension_of_smooth_proved (d : ℕ)
+    (hA : SmoothOfRelativeDimension d A.toC) : Module.finrank ℂ A.Tangent = d := by
+  let E : AlgebraicVectorBundle A.scheme d :=
+    ⟨cotangentSheaf A.toC, smooth_cotangent_rank A.toC d hA⟩
+  letI : (pullbackModule A.point.val (cotangentSheaf A.toC)).IsQuasicoherent :=
+    FiberExactProof.fiber_quasicoherent E A.point.val
+  letI : FiniteDimensional ℂ (Fiber E.sheaf A.point.val) := fiber_finite E A.point.val
+  calc
+    Module.finrank ℂ A.Tangent =
+        Module.finrank ℂ (Module.Dual ℂ (Fiber E.sheaf A.point.val)) :=
+      (tangentCotangentFiberEquiv A (cotangentPresentation A.toC)).finrank_eq
+    _ = Module.finrank ℂ (Fiber E.sheaf A.point.val) := Subspace.dual_finrank_eq
+    _ = d := fiber_dimension E A.point.val
+
+end TangentDimensionProof
+
+end Step3hTangentDimensionTranslation
+
 theorem tangent_dimension_of_smooth (A : PointedAffine) (d : ℕ)
     (hA : SmoothOfRelativeDimension d A.toC) :
-    Module.finrank ℂ A.Tangent = d := by sorry
+    Module.finrank ℂ A.Tangent = d := by
+  exact TangentDimensionProof.tangent_dimension_of_smooth_proved A d hA
 
 end Charts
 

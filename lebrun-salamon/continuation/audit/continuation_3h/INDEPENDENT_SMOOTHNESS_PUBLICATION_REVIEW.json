@@ -1,0 +1,97 @@
+{
+  "schema": "lebrun-independent-publication-review-v1",
+  "reviewed_utc": "2026-11-04T19:21:32Z",
+  "reviewer": "root",
+  "status": "Publication eligibility approved for two standalone general criteria. Conditional project translations pass locally. Actual candidate native compilation, public-type comparison and current transitive boundary remain pending.",
+  "source": {
+    "path": "source/LSChartSmoothnessCriteria.lean",
+    "sha256": "f92ae358bb7d24473f5ffbee604aef03d2b3dc0115025c10164d9c77e6788bd6",
+    "imports": [
+      "Mathlib"
+    ],
+    "absent_from_accepted_baseline": true
+  },
+  "candidate_translation_review": {
+    "path": "source/RecompileExtensionsPart02.lean",
+    "reviewed_partial_source_sha256": "491340e8118e7897c0e8ec95e5df6e8c09f82e1af635443faaa4ddc8ecf90b4d",
+    "baseline_source_sha256": "b665e4c47cd5687ea13c49c076e2ab7023272c0cb4bfc1058bd4041c172fb06e",
+    "four_edits_reverse_to_exact_baseline": true,
+    "original_046_047_048_headers_unchanged": true,
+    "OBL048_not_yet_replaced": true,
+    "required_final_binding": "Verify that the final Ext02 candidate retains these exact translation declarations and original public headers. The final candidate hash and native evidence must be recorded separately."
+  },
+  "interfaces": [
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.Smoothness.smooth_squareZero_lift",
+      "declaration_sha256": "36ee525d0da6a1ad9f7dee6ef54fee00c16a43c97451f9a0db59a5a27a120c62",
+      "primary_sources": [
+        "https://stacks.math.columbia.edu/tag/02H6",
+        "https://stacks.math.columbia.edu/tag/02H0"
+      ],
+      "mathematical_statement": "An arbitrary smooth scheme morphism lifts a commuting square against Spec of a surjective ring map with square-zero kernel.",
+      "source_review": "Definition37.11.1 requires a global lift for affine first-order thickenings. Lemma37.11.7 proves smooth implies formally smooth, including affine torsor triviality. The input does not merely assert local existence.",
+      "hypotheses": "R and S are arbitrary commutative rings; the ring map is surjective with kernel square zero. X and Y are arbitrary schemes. No affine, integral, separated, characteristic-zero or project-chart condition is added.",
+      "proved_project_translation": "The actual dual-number augmentation is surjective and has square-zero kernel. The original point factors through its supplied smooth open. The resulting lift is composed with that open immersion, and all base and reduction identities are proved. Naturality of tangentLiftEquiv transfers the lift to surjectivity of the project's f.differential.",
+      "eligible": true
+    },
+    {
+      "declaration": "LeBrunSalamon.PublishedInputs.Smoothness.smooth_of_surjective_tangent_lifts",
+      "declaration_sha256": "7e4fe01b856fd2359a5245645a0201cd60c911a1c1b1d30fe487f6860f72a895",
+      "primary_sources": [
+        "https://www.numdam.org/item/PMIHES_1967__32__5_0/",
+        "https://webusers.imj-prg.fr/~leila.schneps/grothendieckcircle/EGA/EGAIV.4.pdf",
+        "https://stacks.math.columbia.edu/tag/0B28",
+        "https://stacks.math.columbia.edu/tag/0B2F"
+      ],
+      "publication_locator": "EGA IV4, Theorem17.11.1, implication(d)⇒(a), printed pages82–83; Stacks Definition33.16.3 and Lemma33.16.6.",
+      "mathematical_statement": "For schemes smooth over an arbitrary field K, a K-morphism with surjective tangent map at a K-rational point is smooth on an open neighborhood of that point. Tangents are the ordinary dual-number lifts and their map is literal postcomposition.",
+      "hypothesis_review": "Smooth structural morphisms supply the required local finite presentation. The rational point and its image have residue fields canonically K, meeting EGA's residue-field-isomorphism condition. Both smoothness hypotheses from the original statement are retained. No algebraic closure, integrality or separation assumption is introduced.",
+      "proved_project_translation": "The generic polynomial quotient, augmentation and structural map specialize definitionally to the actual complex dual-number definitions. The proved differential/lift equivalence and f.atCentre provide the literal canonical-map surjectivity required by the general criterion; its open neighborhood is exactly SmoothAtCentre.",
+      "eligible": true
+    }
+  ],
+  "independent_primary_read": true,
+  "independent_candidate_and_translation_read": true,
+  "local_diagnostics": [
+    {
+      "receipt": "root_diagnostics/runs/20261104T191455546708-LSChartTangentTranslationProfileV2/receipt.json",
+      "receipt_sha256": "ae0257fa6fd6a420c105e936884750f8090f9ea86d6c26652b03fe842b31e24c",
+      "module": "LSChartTangentTranslationProfileV2",
+      "source_sha256": "109436e562b8642048f6ff4d1a95c2ea6195a798c7a15c29448778ed3dfb10ba",
+      "seconds": 33.289,
+      "output_sha256": "55970a113d6e2859942975c03291dc8d29dcfcef599951ca2790eb188fa99449",
+      "complete_success": true,
+      "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+      "scope": "Local diagnostic only; never stock native acceptance"
+    },
+    {
+      "receipt": "root_diagnostics/runs/20261104T191639635645-LSChartSmoothConverseProfile/receipt.json",
+      "receipt_sha256": "d68da5039a74efe82fc8dbf6607883c2d4779f22b06a7417611ffed4566f81f8",
+      "module": "LSChartSmoothConverseProfile",
+      "source_sha256": "6de4dd25ab57c31ed0246dee810b575d3bfb954b01b3f2c31ab5ca3924b9b2a5",
+      "seconds": 38.883,
+      "output_sha256": "bcb714d1653b08f10e7b45f1dd8fccd47bda3e67d6079421d687faa20c2d5031",
+      "complete_success": true,
+      "compiler_kind": "stock_pinned_frontend_with_explicit_own_executable_path",
+      "scope": "Local diagnostic only; never stock native acceptance"
+    }
+  ],
+  "trust_accounting": {
+    "original_obligations": [
+      "OBL-046",
+      "OBL-047"
+    ],
+    "original_project_placeholders_replaced": 2,
+    "new_generic_published_leaves": 2,
+    "new_admissions_in_project_translation": 0,
+    "native_instantiation_pending": true,
+    "milestone_units_credited": 0
+  },
+  "final_requirements": [
+    "The two original roots are not direct admissions.",
+    "The final public native types equal their accepted-baseline types.",
+    "Current native recursive dependencies and both exact generic leaf types match the reviewed sources.",
+    "All actual transitive admissions have exact publication eligibility; no missing constants or nonstandard axioms.",
+    "The full affected dependency and reverse-dependency graph passes under the locked native runtime."
+  ]
+}

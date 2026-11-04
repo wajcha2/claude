@@ -1,0 +1,31 @@
+{
+  "schema": "lebrun-family-field-basechange-exact-five-three-split-v1",
+  "parent_sha256": "e64bd65fc1de8d78698cb29ed5b458ff47e5de5ada10e935aa2835692c8028a0",
+  "helper_sha256": "738ab9ebefaf12a230e0d5dab622020e5c2732d1138ed9a65dd1105a3ff67985",
+  "main_sha256": "4cbc38f4510f728da66e5d92f5d4f1dae83cff2863abf988fb8ef7e457357988",
+  "all_original_declaration_bytes_unchanged": true,
+  "all_original_headers_and_scoped_contexts_preserved": true,
+  "original_count": 8,
+  "helper_declarations": [
+    "sourceMap_comp",
+    "inclusion_sourceMap",
+    "pulledEvaluation_overC",
+    "pulledFamily",
+    "squareMap_baseChange"
+  ],
+  "main_declarations": [
+    "sections_field",
+    "leftSection_field",
+    "rightSection_field"
+  ],
+  "inverse_restoration_exact": true,
+  "no_added_admissions": true,
+  "purpose": "Check five independent field base-change declarations with already-native imports while finite-type invariance parents are under repair.",
+  "helper_removed_pending_imports": [
+    "LSFamilyReparametrizationLeftFiniteType",
+    "LSFamilyReparametrizationRightFiniteType"
+  ],
+  "block": "\nnamespace FamilyReparametrization\n\nopen Parametrized\n\nvariable (P : ProjectiveLineOverC)\n\n/-- Functoriality of the literal source-family map. -/\ntheorem sourceMap_comp {A B C : Scheme}\n    {sA : A ⟶ ComplexBase} {sB : B ⟶ ComplexBase} {sC : C ⟶ ComplexBase}\n    (a : PointsOver A sA B sB) (b : PointsOver B sB C sC)\n    (c : PointsOver A sA C sC) (h : a.val ≫ b.val = c.val) :\n    rationalSourceMap P a ≫ rationalSourceMap P b = rationalSourceMap P c := by\n  apply pullback.hom_ext\n  · simp only [rationalSourceMap, Category.assoc, pullback.lift_fst, pullback.lift_fst_assoc]\n  · simp only [rationalSourceMap, Category.assoc, pullback.lift_snd, pullback.lift_snd_assoc, h]\n\n@[reassoc] theorem inclusion_sourceMap {A B : Scheme}\n    (sA : A ⟶ ComplexBase) (sB : B ⟶ ComplexBase)\n    (u : PointsOver A sA B sB) (t : BasePoint sA) :\n    inclusion P sA t ≫ rationalSourceMap P u =\n      inclusion P sB (⟨t.val ≫ u.val, by\n        rw [Category.assoc, u.property, t.property]⟩ : BasePoint sB) := by\n  apply pullback.hom_ext\n  · simp only [Category.assoc, rationalSourceMap, pullback.lift_fst, inclusion_projection]\n  · simp only [Category.assoc, rationalSourceMap, pullback.lift_snd, inclusion_parameter]\n\ntheorem pulledEvaluation_overC {A B : Scheme}\n    (sA : A ⟶ ComplexBase) (sB : B ⟶ ComplexBase)\n    (u : PointsOver A sA B sB) {n : ℕ} (X : ContactFanoManifold n)\n    (f : Source P sB ⟶ X.variety.scheme)\n    (hf : f ≫ X.variety.structureMap = parameter P sB ≫ sB) :\n    (rationalSourceMap P u ≫ f) ≫ X.variety.structureMap = parameter P sA ≫ sA := by\n  rw [Category.assoc, hf, ← Category.assoc]\n  simp only [rationalSourceMap, parameter, pullback.lift_snd_assoc,\n    Category.assoc, u.property]\n\ndef pulledFamily {A B : Scheme}\n    (sA : A ⟶ ComplexBase) (sB : B ⟶ ComplexBase)\n    (u : PointsOver A sA B sB) {n : ℕ} (X : ContactFanoManifold n)\n    (f : Source P sB ⟶ X.variety.scheme) (C : NonconstantFamily P sB X f) :\n    NonconstantFamily P sA X (rationalSourceMap P u ≫ f) where\n  curve t := C.curve ⟨t.val ≫ u.val, by rw [Category.assoc, u.property, t.property]⟩\n  curve_spec t := by\n    rw [← Category.assoc, inclusion_sourceMap]\n    exact C.curve_spec _\n\n/-- The entire square of a spread automorphism commutes with its\nactual base-change map, including every diagonal point. -/\ntheorem squareMap_baseChange {A B : Scheme}\n    (sA : A ⟶ ComplexBase) (sB : B ⟶ ComplexBase)\n    (b : A ⟶ B) (k : Source P sA ⟶ Source P sB)\n    (hk : k ≫ parameter P sB = parameter P sA ≫ b)\n    (eA : Source P sA ≅ Source P sA)\n    (heA : eA.hom ≫ parameter P sA = parameter P sA)\n    (eB : Source P sB ≅ Source P sB)\n    (heB : eB.hom ≫ parameter P sB = parameter P sB)\n    (he : k ≫ eB.hom = eA.hom ≫ k) :\n    RelativeSquare.map (parameter P sA) (parameter P sB) k b hk ≫\n        squareMap P sB eB heB =\n      squareMap P sA eA heA ≫\n        RelativeSquare.map (parameter P sA) (parameter P sB) k b hk := by\n  apply pullback.hom_ext\n  · simp only [Category.assoc, squareMap_left, RelativeSquare.map_left,\n      RelativeSquare.map_left_assoc, squareMap_left_assoc, he]\n  · simp only [Category.assoc, squareMap_right, RelativeSquare.map_right,\n      RelativeSquare.map_right_assoc, squareMap_right_assoc, he]\n\nend FamilyReparametrization\n",
+  "main_added_import": "import LSFamilyReparametrizationFieldBaseChange\n",
+  "native_acceptance": false
+}

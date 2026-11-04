@@ -1,0 +1,109 @@
+{
+  "schema": "lebrun-failed-native-receipt-exact-archive-export-v1",
+  "artifact": {
+    "artifact_id": 13326848432,
+    "run_id": 41837343626,
+    "job_id": 126599556267,
+    "artifact_sha256": "d0067e143d95e761bb69123c22ef53ceffa75eb39fdcda4a905a775157ae160d",
+    "files": [
+      {
+        "zip_path": "kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stderr.txt",
+        "local_path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41837343626-left/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "content": ""
+      },
+      {
+        "zip_path": "kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stdout.jsonl",
+        "local_path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41837343626-left/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stdout.jsonl",
+        "sha256": "cee1b57b849ffb9a36a801cbdda73170b21ded88c2f64fc2b53ebbea6f06fa3f",
+        "content": "{\"caption\":\"\",\"data\":\"Try this: \\n  letI̵\\n\\nThe goal is a proposition, so `let` is preferred over `letI`.\\nThe difference between `let` and `letI` is that `letI` inlines the value.\\nBut this is not relevant for proofs because of proof irrelevance.\\n\\nNote: This linter can be disabled with `set_option linter.style.haveILetI false`\",\"endPos\":{\"column\":73,\"line\":57},\"fileName\":\"/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationLeftFiniteType.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.style.haveILetI\",\"pos\":{\"column\":2,\"line\":57},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"Try this: \\n  letI̵\\n\\nThe goal is a proposition, so `let` is preferred over `letI`.\\nThe difference between `let` and `letI` is that `letI` inlines the value.\\nBut this is not relevant for proofs because of proof irrelevance.\\n\\nNote: This linter can be disabled with `set_option linter.style.haveILetI false`\",\"endPos\":{\"column\":80,\"line\":58},\"fileName\":\"/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationLeftFiniteType.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"linter.style.haveILetI\",\"pos\":{\"column\":2,\"line\":58},\"severity\":\"warning\"}\n{\"caption\":\"\",\"data\":\"(kernel) excessive memory consumption detected\",\"endPos\":{\"column\":30,\"line\":49},\"fileName\":\"/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationLeftFiniteType.lean\",\"isSilent\":false,\"keepFullRange\":false,\"kind\":\"[anonymous]\",\"pos\":{\"column\":8,\"line\":49},\"severity\":\"error\"}\n"
+      },
+      {
+        "zip_path": "kernel-evidence/receipts/LSFamilyReparametrizationLeftFiniteType.json",
+        "local_path": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41837343626-left/LSFamilyReparametrizationLeftFiniteType.json",
+        "sha256": "25c656fdd0f2d0ab18752128a6820ddad5d56fa2557b0d8e3c67b5c0f90a832b",
+        "content": "{\n  \"schema\": \"lebrun-module-receipt-v1\",\n  \"status\": \"failed\",\n  \"module\": \"LSFamilyReparametrizationLeftFiniteType\",\n  \"source_ancestry_fingerprint\": \"57cbd941ce7527f8a217d47666ea5c10b34e04ddc987f3cea02d011f03500f5a\",\n  \"key\": {\n    \"source_sha256\": \"1b9026cf28b779492d08e84be958b4cdaf68c35ecbc8fef90a93f3abf387c25d\",\n    \"imports\": [\n      \"LSFiniteTypeSpreading\",\n      \"LSContactLineTests\",\n      \"LSFamilyDescentReparametrization\",\n      \"LSFamilyReparametrizationFibres\"\n    ],\n    \"dependency_artifacts\": {\n      \"LSFiniteTypeSpreading\": {\n        \"sha256\": \"ce1852b635f58d506f3f661cd25bca4c4902a792628aaec14b7deccabdd35706\",\n        \"kind\": \"project\"\n      },\n      \"LSContactLineTests\": {\n        \"sha256\": \"da86f1daf623c357272708c3db59c745981311d602c64776a10430307118bce5\",\n        \"kind\": \"project\"\n      },\n      \"LSFamilyDescentReparametrization\": {\n        \"sha256\": \"795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3\",\n        \"kind\": \"project\"\n      },\n      \"LSFamilyReparametrizationFibres\": {\n        \"sha256\": \"d6fdcf2383e3320f8dff95fbc51be00828a0375f0f38e820817d9172ef4e943b\",\n        \"kind\": \"project\"\n      }\n    },\n    \"runtime_fingerprint\": \"9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004\",\n    \"flags\": [\n      \"--json\",\n      \"-j1\",\n      \"-DElab.async=false\",\n      \"-M12000\",\n      \"-DmaxErrors=1000\",\n      \"-DmaxHeartbeats=2000000\"\n    ]\n  },\n  \"command\": [\n    \"/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so\",\n    \"--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so\",\n    \"--json\",\n    \"-j1\",\n    \"-DElab.async=false\",\n    \"-M12000\",\n    \"-DmaxErrors=1000\",\n    \"-DmaxHeartbeats=2000000\",\n    \"--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source\",\n    \"-o\",\n    \"/home/runner/work/claude/claude/kernel-evidence/olean/LSFamilyReparametrizationLeftFiniteType.olean\",\n    \"/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationLeftFiniteType.lean\"\n  ],\n  \"started_utc\": \"2026-11-04T13:24:51.371281+00:00\",\n  \"stdout\": \"/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stdout.jsonl\",\n  \"stderr\": \"/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stderr.txt\",\n  \"return_code\": 1,\n  \"finished_utc\": \"2026-11-04T13:29:35.091183+00:00\",\n  \"seconds\": 283.643,\n  \"source_and_dependencies_unchanged\": true,\n  \"stdout_sha256\": \"cee1b57b849ffb9a36a801cbdda73170b21ded88c2f64fc2b53ebbea6f06fa3f\",\n  \"stderr_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n}\n"
+      }
+    ]
+  },
+  "receipt": {
+    "schema": "lebrun-module-receipt-v1",
+    "status": "failed",
+    "module": "LSFamilyReparametrizationLeftFiniteType",
+    "source_ancestry_fingerprint": "57cbd941ce7527f8a217d47666ea5c10b34e04ddc987f3cea02d011f03500f5a",
+    "key": {
+      "source_sha256": "1b9026cf28b779492d08e84be958b4cdaf68c35ecbc8fef90a93f3abf387c25d",
+      "imports": [
+        "LSFiniteTypeSpreading",
+        "LSContactLineTests",
+        "LSFamilyDescentReparametrization",
+        "LSFamilyReparametrizationFibres"
+      ],
+      "dependency_artifacts": {
+        "LSFiniteTypeSpreading": {
+          "sha256": "ce1852b635f58d506f3f661cd25bca4c4902a792628aaec14b7deccabdd35706",
+          "kind": "project"
+        },
+        "LSContactLineTests": {
+          "sha256": "da86f1daf623c357272708c3db59c745981311d602c64776a10430307118bce5",
+          "kind": "project"
+        },
+        "LSFamilyDescentReparametrization": {
+          "sha256": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+          "kind": "project"
+        },
+        "LSFamilyReparametrizationFibres": {
+          "sha256": "d6fdcf2383e3320f8dff95fbc51be00828a0375f0f38e820817d9172ef4e943b",
+          "kind": "project"
+        }
+      },
+      "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ]
+    },
+    "command": [
+      "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+      "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+      "--json",
+      "-j1",
+      "-DElab.async=false",
+      "-M12000",
+      "-DmaxErrors=1000",
+      "-DmaxHeartbeats=2000000",
+      "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+      "-o",
+      "/home/runner/work/claude/claude/kernel-evidence/olean/LSFamilyReparametrizationLeftFiniteType.olean",
+      "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyReparametrizationLeftFiniteType.lean"
+    ],
+    "started_utc": "2026-11-04T13:24:51.371281+00:00",
+    "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stdout.jsonl",
+    "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilyReparametrizationLeftFiniteType.20261104T132451371242.stderr.txt",
+    "return_code": 1,
+    "finished_utc": "2026-11-04T13:29:35.091183+00:00",
+    "seconds": 283.643,
+    "source_and_dependencies_unchanged": true,
+    "stdout_sha256": "cee1b57b849ffb9a36a801cbdda73170b21ded88c2f64fc2b53ebbea6f06fa3f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "validation": {
+    "official_zip_digest_checked": true,
+    "stdout_stderr_hashes_match": true,
+    "all_direct_outputs_match_native288": true,
+    "recursive_ancestry_recomputed": true,
+    "source_and_dependencies_unchanged": true,
+    "accepted_output": false
+  }
+}

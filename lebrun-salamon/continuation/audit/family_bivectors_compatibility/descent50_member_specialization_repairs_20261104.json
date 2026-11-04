@@ -1,0 +1,31 @@
+{
+  "schema": "lebrun-descent-first50-three-rewrite-arguments-v1",
+  "baseline_sha256": "a1976dfa14535897b5ee4055b28d8c0c9aa2983cee5bf2bb391bc0cf28ee68c4",
+  "source_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+  "status": "uncompiled_narrow_fix_for_three_completed_native_diagnostics",
+  "native_baseline": {
+    "run_id": 41841595784,
+    "job_id": 126614311349,
+    "seconds": 220.411,
+    "return_code": 1,
+    "error_count": 3
+  },
+  "patches": [
+    {
+      "before": "  rw [memberToParametrized_toHom, ← Category.assoc, z.property, Category.id_comp]",
+      "after": "  rw [memberToParametrized_toHom Q t, ← Category.assoc, z.property, Category.id_comp]",
+      "expected_count": 1
+    },
+    {
+      "before": "  simpa only [memberPoint_coordinates, memberPoint_curve] using hp",
+      "after": "  simpa only [memberPoint_coordinates Q t z, memberPoint_curve Q t z] using hp",
+      "expected_count": 2
+    }
+  ],
+  "exact_inverse_recovers_baseline": true,
+  "all_written_headers_unchanged": true,
+  "header_count": 50,
+  "imports_and_variable_contexts_unchanged": true,
+  "new_admissions": 0,
+  "change": "Fully supply Q t and z to three original rewrite/simplification sites, preserving all existing statements and proof structure."
+}

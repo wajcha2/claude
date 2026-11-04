@@ -1,0 +1,204 @@
+{
+  "schema": "lebrun-original-points-native-pass-descent52-frontier-v1",
+  "commit": "ad2ff8517464720c8295ebc9b5f653d133febb90",
+  "run_id": 41831278470,
+  "job_id": 126578797485,
+  "point_values_receipt": {
+    "key": {
+      "source_sha256": "68f558c26f37dd67fa00b385a3d97462cc075fddda6eaaada51f388ab3f038fa",
+      "imports": [
+        "LSFamilyDescentReparametrization",
+        "LSOpenSectionTransport",
+        "LSFamilySmoothCoordinates"
+      ],
+      "dependency_artifacts": {
+        "LSFamilyDescentReparametrization": {
+          "sha256": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+          "kind": "project"
+        },
+        "LSOpenSectionTransport": {
+          "sha256": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+          "kind": "project"
+        },
+        "LSFamilySmoothCoordinates": {
+          "sha256": "d8549a93bcf0b0f966b920692f25d0afbbe533a8b5381313ac6e5a5900a93fdc",
+          "kind": "project"
+        }
+      },
+      "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+      "flags": [
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000"
+      ]
+    },
+    "output_sha256": "88063fc496708f00592c866213eeb37a4b1fe51c6a2e5962aba12bd9d28c2ed9",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_ancestry_fingerprint": "faf5d1ca5be6c3c6a0834eab64567bfcacb5933a30d4811c322f73d3e2824b60",
+    "module": "LSFamilySmoothPointValues",
+    "receipt_sha256": "5ec82ec21dd1b26609546d9a2e037d126eae92ea86bdf86cbcfda57c5280a521",
+    "seconds": 92.164
+  },
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "ad2ff8517464720c8295ebc9b5f653d133febb90",
+      "source_modules": 296,
+      "selected_modules": 109,
+      "accepted_modules": 109,
+      "failed_modules": [],
+      "full_selected_graph_passed": true,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    },
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "ad2ff8517464720c8295ebc9b5f653d133febb90",
+      "source_modules": 296,
+      "selected_modules": 110,
+      "accepted_modules": 109,
+      "failed_modules": [
+        "LSFamilyBivectorDescent"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "descendant_diagnostics": [
+    {
+      "module": "LSFamilyBivectorDescent",
+      "status": "failed",
+      "source_sha256": "12790c948ba3a2bd181275b2049c919f2bf96b5998cfe2b8d1ac56bbc4569c36",
+      "return_code": 124,
+      "seconds": 300.354,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  pullSection Q.parametrizedSquareToSmooth (smoothLeft Q ≫ MovingPair.leftContact smoothEvaluation)\nin the target expression\n  (fun s => pullSection Q.parametrizedSquareToSmooth s) (smoothLeft Q ≫ MovingPair.leftContact smoothEvaluation) ≫\n      (compositionPullback Q.parametrizedSquareToSmooth smoothEvaluation (parametrizedEvaluation Q) ⋯\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom =\n    (fun s => pullSection Q.parametrizedSquareToSmooth s) (smoothRight Q ≫ MovingPair.rightContact smoothEvaluation) ≫\n      (compositionPullback Q.parametrizedSquareToSmooth smoothEvaluation (parametrizedEvaluation Q) ⋯\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nthis✝ : Smooth Q.parametrizedSquareToSmooth := ⋯\nthis : Surjective Q.parametrizedSquareToSmooth := ⋯\n⊢ (fun s => pullSection Q.parametrizedSquareToSmooth s) (smoothLeft Q ≫ MovingPair.leftContact smoothEvaluation) ≫\n      (compositionPullback Q.parametrizedSquareToSmooth smoothEvaluation (parametrizedEvaluation Q) ⋯\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom =\n    (fun s => pullSection Q.parametrizedSquareToSmooth s) (smoothRight Q ≫ MovingPair.rightContact smoothEvaluation) ≫\n      (compositionPullback Q.parametrizedSquareToSmooth smoothEvaluation (parametrizedEvaluation Q) ⋯\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).hom\n\nNote: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.\nFull error:\n  Application type mismatch: The argument\n    SheafOfModules.unit Q.ParametrizedSquare.ringCatSheaf\n  has type\n    SheafOfModules Q.ParametrizedSquare.ringCatSheaf\n  but is expected to have type\n    OModule Q.ParametrizedSquare\n  in the application\n    Quiver.Hom (SheafOfModules.unit Q.ParametrizedSquare.ringCatSheaf)",
+          "endPos": {
+            "column": 73,
+            "line": 237
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectorDescent.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 7,
+            "line": 236
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "unsolved goals\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\n⊢ (smoothRight Q ≫ MovingPair.rightContact smoothEvaluation) ≫\n      (compositionPullback F.smoothSquareOpen.ι F.squareEvaluation smoothEvaluation ⋯\n          (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).inv =\n    smoothRight Q ≫\n      (Scheme.Modules.pullback smoothEvaluation).map (movingPairContactRight X.variety X.contact) ≫\n        (compositionPullback F.smoothSquareOpen.ι F.squareEvaluation smoothEvaluation ⋯\n            (externalSquareLine X.variety.structureMap X.contact.sequence.line).sheaf).inv",
+          "endPos": {
+            "column": 43,
+            "line": 269
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilyBivectorDescent.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 56,
+            "line": 265
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "archive_validation": {
+    "schema": "lebrun-independent-native-archive-and-extra-export-v1",
+    "artifact_id": 13323123640,
+    "run_id": 41831278470,
+    "artifact_name": "lebrun-family-smooth-point-values-41831278470-1",
+    "official_archive_sha256": "7025f5a306281b380ed7cf630cee82c6df1d7d59244fbfd103f4c343a470af0b",
+    "source_commit": "ad2ff8517464720c8295ebc9b5f653d133febb90",
+    "source_manifest_sha256": "ec81205411ef90a7e873ff7d8a4b04faff847ccacdfc2a6c395df3ca4b858bb3",
+    "source_modules": 296,
+    "checked_native_receipts": 287,
+    "known_native_contexts_exactly_matched": 286,
+    "all_output_log_source_runtime_direct_and_recursive_hashes_verified": true,
+    "verified_full_report_sha256": "a961a196e10945f49f7ad01b7d08d6ab3e6efbbaf4aa89cf610c69512ab3685e",
+    "point1_190_contexts_covered_by_unchanged286": true,
+    "fresh_native_receipt": {
+      "key": {
+        "source_sha256": "68f558c26f37dd67fa00b385a3d97462cc075fddda6eaaada51f388ab3f038fa",
+        "imports": [
+          "LSFamilyDescentReparametrization",
+          "LSOpenSectionTransport",
+          "LSFamilySmoothCoordinates"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyDescentReparametrization": {
+            "sha256": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+            "kind": "project"
+          },
+          "LSOpenSectionTransport": {
+            "sha256": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+            "kind": "project"
+          },
+          "LSFamilySmoothCoordinates": {
+            "sha256": "d8549a93bcf0b0f966b920692f25d0afbbe533a8b5381313ac6e5a5900a93fdc",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "output_sha256": "88063fc496708f00592c866213eeb37a4b1fe51c6a2e5962aba12bd9d28c2ed9",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_ancestry_fingerprint": "faf5d1ca5be6c3c6a0834eab64567bfcacb5933a30d4811c322f73d3e2824b60",
+      "module": "LSFamilySmoothPointValues",
+      "receipt_sha256": "5ec82ec21dd1b26609546d9a2e037d126eae92ea86bdf86cbcfda57c5280a521",
+      "seconds": 92.164
+    },
+    "native_evidence_not_rewritten": true,
+    "compiler_not_invoked_by_export": true,
+    "acceptance_units": 30,
+    "export_directory": "/workspace/scratch/4deac2cdddbb/lebrun_recovery/native-extra/family-smooth-points-68f"
+  },
+  "official_artifacts": [
+    {
+      "id": 13323123640,
+      "name": "lebrun-family-smooth-point-values-41831278470-1",
+      "run_id": 41831278470,
+      "sha256": "7025f5a306281b380ed7cf630cee82c6df1d7d59244fbfd103f4c343a470af0b",
+      "size_in_bytes": 66423483
+    },
+    {
+      "id": 13322719930,
+      "name": "lebrun-family-descent-tail-41831278470-1",
+      "run_id": 41831278470,
+      "sha256": "385a31e6fc05df8f181c7c217f800f719cad1fb8dda0f916078e268ec741f9ba",
+      "size_in_bytes": 66428622
+    }
+  ],
+  "job_log_sha256": "2df88547b6c8ef1e629a3b6a75a579e8848c8985b95afb3e7b70332db2234492",
+  "all190_contexts_unchanged": true,
+  "accepted_obligation_units": 30,
+  "point1_acceptance": false,
+  "tail_status": "Historical12790 timed out with2errors; exact a55 repair is in the next separate diagnostic snapshot."
+}

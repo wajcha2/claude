@@ -1,0 +1,31 @@
+{
+  "schema": "lebrun-model-generic-five-proof-repair-guard-v1",
+  "parent_sha256": "d98e6ad77a9dd61f50cc11beb89d8288cde712c2c1429b9ebe9eb62694e91de7",
+  "candidate_sha256": "2246dcd8a1404ef216e7f0ecf40c7d2a3aa3fb9e482e881246a113a5ec09539c",
+  "public_declarations_preserved": 5,
+  "all_five_headers_unchanged": true,
+  "private_proved_helpers_added": 20,
+  "no_added_admissions": true,
+  "inverse_restoration_exact": true,
+  "changes": [
+    {
+      "theorem": "genericNumerator_source",
+      "old_body": " := by\n  letI := Parametrized.sourceComparison_isIso Lines.P genericBase\n  apply (cancel_mono (Parametrized.sourceComparison Lines.P genericBase)).mp\n  simp only [Category.assoc, Parametrized.bivector_comparison]\n  let q := parametrizedToModelSquare F a ha\n  let j := parametrizedToGenericSquare F a ha\n  let c := ModelBivector.canonicalPair F a (toModelSquare F a)\n  have hjc : j ≫ c = Parametrized.sourceSquare Lines.P genericBase := by\n    rw [← canonicalPair_eq, ← Category.assoc, parametrizedToModelSquare_factor,\n      parametrizedToModelSquare_source]\n  have hs := LogVelocity.section_comp j (toModelSquare F a) (modelSourceSquare F a)\n    c (canonicalPair_eq F a (toModelSquare F a)) q\n    (parametrizedToModelSquare_factor F a ha)\n    (Parametrized.sourceSquare Lines.P genericBase) hjc\n    (parametrizedToModelSquare_source F a ha) (modelSourceNumerator F a)\n  have h := congrArg\n    (fun s => pullSection j s ≫ (compositionPullback j c\n      (Parametrized.sourceSquare Lines.P genericBase) hjc\n      (externalTensor Lines.P.structureMap (tangentSheaf Lines.P.structureMap)\n        (tangentSheaf Lines.P.structureMap))).hom)\n    (genericSourceNumerator_eq F a ha)\n  rw [hs, LogVelocity.pullSection_scalar, Category.assoc, compositionPullback_sections] at h\n  have ht := numerator_transport F a ha Lines.P.structureMap\n    (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a)\n    p1Projection pullback.condition (genericParametrization_coordinate F a ha)\n    (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a)\n    (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) rfl rfl\n  rw [← ht]\n  have hcoef : j.appTop\n      ((toModelSquare F a ≫ ModelNumerator.squareProjection F a).appTop (coefficientSection a)) =\n      genericCoefficient F a ha := by\n    change ((j ≫ toModelSquare F a) ≫ ModelNumerator.squareProjection F a).appTop\n      (coefficientSection a) = _\n    rw [parametrizedToModelSquare_factor]\n    rfl\n  rw [hcoef] at h\n  simpa only [genericSourceNumerator, modelSourceNumerator, modelSourceMorphism,\n    Parametrized.sourceComparison, q, j, c, Category.assoc] using h",
+      "new_body": " := by\n  exact genericNumerator_source_of_transport F a ha\n    (numerator_transport F a ha Lines.P.structureMap\n      (ModelDifferential.modelPoint F a) (ModelDifferential.modelPoint_over F a)\n      p1Projection pullback.condition (genericParametrization_coordinate F a ha)\n      (ModelDifferential.modelVelocity F a) (ModelDifferential.modelVelocity F a)\n      (genericSourceVelocity F a ha) (genericSourceVelocity F a ha) rfl rfl)"
+    },
+    {
+      "theorem": "generic_left_raw",
+      "old": "genericCoefficient_base] at h",
+      "new": "genericCoefficient_base F a ha] at h"
+    },
+    {
+      "theorem": "generic_right_raw",
+      "old": "genericCoefficient_base] at h",
+      "new": "genericCoefficient_base F a ha] at h"
+    }
+  ],
+  "source_consumer_local_pass_evidence_blob": "27de1930323fc1ce085e9f79586a040c45619865",
+  "raw_consumers_local_pass_evidence_blob": "bd95d0ede4c0e246142062e520939ed67d7d5d0d",
+  "native_acceptance": false,
+  "remaining_final_two": "Two original final bodies have an ordinary alias-conversion error in conditional test; next fix pending."
+}

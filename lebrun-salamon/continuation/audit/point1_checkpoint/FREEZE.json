@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T14:19:25Z",
-  "frozen_utc": "2026-11-04T14:19:25Z",
-  "parent_commit": "646eb65e43c031141b265c827b6ef2348506f569",
-  "base_tree": "24577d99bf5ec93a71405e80fd7456ebed1a1eea",
+  "announced_utc": "2026-11-04T14:36:38Z",
+  "frozen_utc": "2026-11-04T14:36:38Z",
+  "parent_commit": "21789b5a2ca832328781cacb87c1e36665ae937c",
+  "base_tree": "53887474561843baebc16af94b85d1855542d7f6",
   "repository": "wajcha2/claude",
-  "branch": "codex/lebrun-finite-type-normalized-20261104",
-  "source_modules": 303,
+  "branch": "codex/lebrun-smooth-normalization28-20261104",
+  "source_modules": 304,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -108,7 +108,7 @@
     "source/LSFrameTransport.lean": "17910cf565eb2cee8123b5833f7b9d0074c1cc2b04bede76e5bf5ed783923c1e",
     "source/LSFunctionFieldPlaces.lean": "e94a492c316f76d29a82fdf26b4a65450b4eed7574315c27ac86d4fd89a20f27",
     "source/LSGeneratingUnitOpens.lean": "dfe5be9319a3a003740147e7ca9f955a44adaec009b8a396cadc2076daf3a1e4",
-    "source/LSGenericFamilyComparison.lean": "0c055ae8e7e51f73363a402c6f81bc40d99b9aaf4ae2b92c1b55c3eae6bcef94",
+    "source/LSGenericFamilyComparison.lean": "440723d358a5d4047b5e91dc2426a6c6d381af9ed3adeab2f39f295e75838e34",
     "source/LSGenericGlobalFunctions.lean": "91a2b160a91a74fb080f0d26c9b156f4a92b72009d217c34ae69112a9729a3f4",
     "source/LSGenericSheets.lean": "d2745a2ceb1ec5161840629b731532bbe033f75787bc31d8e54bd622e728de86",
     "source/LSGlobalVelocity.lean": "969dbf9f87fd99a830702345f6e12122bdc7c29e1b668d8911ca00a785871e1e",
@@ -309,20 +309,21 @@
     "source/LSFamilyReparametrizationRightFiniteType.lean": "cba6bc535701c7d653f7b3fac3e3e5d6f2792e21c752e7abb1018b58e3eae8a9",
     "source/LSGenericFamilyPointComparison.lean": "d4bd4966360d7086a51d52769a8484b811c64cb4e9a4f1503e1680fcab039902",
     "source/LSGenericFamilyFieldTransport.lean": "ff583db765d7b7224657f606d3438d553e59fffcf24cb94d45b52941e01d1df2",
-    "source/LSFamilySmoothDescent.lean": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
-    "source/LSFamilyReparametrizationFieldBaseChange.lean": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2"
+    "source/LSFamilySmoothDescent.lean": "1035d3b0aaafdc2dca11fc2a46defbb73fb8e0b327b786e97290ba6886531956",
+    "source/LSFamilyReparametrizationFieldBaseChange.lean": "e9f878bfd10b18967caf92f29b2c9c86f9d8da281e6aa97afb8530394b3b40d2",
+    "source/LSFamilySmoothNormalization.lean": "a479798fa89ad72b28a50f7652d1fd038c992a157c60c30fc010f22e29ed5213"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "Changed exact left/right finite-type proofs pending native checks; local profiles are diagnostic only.",
+  "status": "pending-current-reverse-cone",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "Two independent actual theorem checks at300 seconds, using unchanged290 native contexts and the already-proved SchemeTransport normalizer. Public theorem headers and include C remain exact. No marker module enters this303-source snapshot; remaining field main stays gated.",
+  "scope": "Exact first28 native check; corrected remaining22 and Generic22 import trim are preserved pending their actual parent gate.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -353,7 +354,7 @@
   "known_verified_native_module_union_before_new_helpers": 274,
   "diagnostic_only": false,
   "current_native_module_union": 285,
-  "production_source_modules": 296,
+  "production_source_modules": 304,
   "diagnostic_modules": [],
   "pending_candidate_modules": [
     "LSFamilySmoothPointValues",
@@ -362,5 +363,6 @@
   "native_cache_union_modules": 290,
   "point1_audited_ancestors_unchanged": 190,
   "diagnostic_only_modules": [],
-  "current_review_state": "audit/point1_checkpoint/CURRENT_REVIEWABLE_STATE.json"
+  "current_review_state": "audit/point1_checkpoint/CURRENT_REVIEWABLE_STATE.json",
+  "native_validated_contexts": 294
 }

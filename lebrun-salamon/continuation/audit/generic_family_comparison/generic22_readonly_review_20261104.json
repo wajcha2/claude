@@ -1,0 +1,210 @@
+{
+  "schema": "lebrun-generic22-read-only-source-review-v1",
+  "date_utc": "2026-11-04",
+  "actual_source_sha256": "0c055ae8e7e51f73363a402c6f81bc40d99b9aaf4ae2b92c1b55c3eae6bcef94",
+  "actual_source_blob": "99d908c1f7abbdbc00f4d6402e3e3597e3b3f1e5",
+  "scope": "Read-only static review, no proof/source edits and no native verification claim",
+  "declarations": 22,
+  "definite_missing_premise_or_missing_name_found": false,
+  "findings": [
+    {
+      "scope": "Section variables",
+      "finding": "Proof-only hq/hk are explicitly included in base_equality/evaluation_overC, and ha is explicitly included in square_smooth/smooth_evaluation. Later ha uses occur in written theorem types via smooth_evaluation or square_evaluation. No new missing include was identified."
+    },
+    {
+      "scope": "Repaired Field17 API",
+      "finding": "Both final field theorems supply ha explicitly to extendedSquare_family, consistent with the stock-passed Field17 include-ha correction."
+    },
+    {
+      "scope": "Rewrite arguments",
+      "finding": "Bare transition_fibre in transition_source/transition_parameter, transition_source in transition_evaluation, and atPointSmooth_family/square_evaluation in smooth-square proofs are under-instantiated syntactically. No failure is inferred without native diagnostics; if matching fails, supply the existing Q/sT/q/b/hq/k/hk arguments rather than alter statements."
+    },
+    {
+      "scope": "Written Scheme/map aliases",
+      "finding": "CartesianParametrization.square is a RelativeSquare.map with its transition_parameter proof, while FamilyReparametrization.squareMap is a separate definition of the same map used by the supplied field-invariance theorem. squareEvaluation/evaluation also name the literal target expressions. These are possible conversion boundaries for the profile, not established kernel failures."
+    },
+    {
+      "scope": "Written module alias",
+      "finding": "FieldComparison.smoothLeft/smoothRight invoke squareMap_section_injective with MovingPair.leftBundle/rightBundle rK, while displayed section goals use the literal pullback module. This is the same class of sheaf alias now explicitly transported in finiteType proofs; no change is made before a concrete result."
+    },
+    {
+      "scope": "Dependency slices",
+      "finding": "The first18 declarations do not invoke FamilyReparametrization.leftSection_field/rightSection_field; the last4 do. The first18 still require actual SmoothFamily normalization from the pending first50 Descent module. No additional split or import substitution was staged."
+    }
+  ],
+  "actual_source_unchanged": true,
+  "profile": {
+    "schema": "lebrun-generic-family22-exact-marker-profile-v1",
+    "actual_source_sha256": "0c055ae8e7e51f73363a402c6f81bc40d99b9aaf4ae2b92c1b55c3eae6bcef94",
+    "actual_source_blob": "99d908c1f7abbdbc00f4d6402e3e3597e3b3f1e5",
+    "profile_source_sha256": "c3747bc1a06e27c0f961b9b62e53b7945e5a61b9442602daa4b224681c1a13d2",
+    "declaration_count": 22,
+    "raw_marker_blocks": 44,
+    "diagnostic_options": [
+      "set_option profiler true",
+      "set_option stderrAsMessages false",
+      "set_option maxErrors 1"
+    ],
+    "stripped_profile_equals_actual_bytes": true,
+    "all_actual_declaration_headers_bodies_contexts_and_imports_unchanged": true,
+    "profile_is_diagnostic_only": true,
+    "status": "uncompiled_waiting_for_actual_native_parents",
+    "declarations": [
+      {
+        "name": "smoothLeft_atPoint",
+        "namespace": "SmoothFamily",
+        "line": 47,
+        "start": 1741,
+        "end": 2686
+      },
+      {
+        "name": "smoothRight_atPoint",
+        "namespace": "SmoothFamily",
+        "line": 61,
+        "start": 2686,
+        "end": 3510
+      },
+      {
+        "name": "atPointSmooth_family",
+        "namespace": "SmoothFamily",
+        "line": 75,
+        "start": 3510,
+        "end": 4237
+      },
+      {
+        "name": "base_equality",
+        "namespace": "CartesianParametrization",
+        "line": 105,
+        "start": 4989,
+        "end": 5147
+      },
+      {
+        "name": "transition",
+        "namespace": "CartesianParametrization",
+        "line": 111,
+        "start": 5147,
+        "end": 5486
+      },
+      {
+        "name": "transition_fibre",
+        "namespace": "CartesianParametrization",
+        "line": 115,
+        "start": 5486,
+        "end": 5793
+      },
+      {
+        "name": "transition_source",
+        "namespace": "CartesianParametrization",
+        "line": 121,
+        "start": 5793,
+        "end": 6087
+      },
+      {
+        "name": "transition_parameter",
+        "namespace": "CartesianParametrization",
+        "line": 127,
+        "start": 6087,
+        "end": 6429
+      },
+      {
+        "name": "evaluation",
+        "namespace": "CartesianParametrization",
+        "line": 134,
+        "start": 6429,
+        "end": 6514
+      },
+      {
+        "name": "evaluation_overC",
+        "namespace": "CartesianParametrization",
+        "line": 137,
+        "start": 6514,
+        "end": 6944
+      },
+      {
+        "name": "transition_evaluation",
+        "namespace": "CartesianParametrization",
+        "line": 146,
+        "start": 6944,
+        "end": 7398
+      },
+      {
+        "name": "square",
+        "namespace": "CartesianParametrization",
+        "line": 155,
+        "start": 7398,
+        "end": 7675
+      },
+      {
+        "name": "squareEvaluation",
+        "namespace": "CartesianParametrization",
+        "line": 160,
+        "start": 7675,
+        "end": 7880
+      },
+      {
+        "name": "square_evaluation",
+        "namespace": "CartesianParametrization",
+        "line": 164,
+        "start": 7880,
+        "end": 8489
+      },
+      {
+        "name": "square_smooth",
+        "namespace": "CartesianParametrization",
+        "line": 180,
+        "start": 8698,
+        "end": 9196
+      },
+      {
+        "name": "smooth_evaluation",
+        "namespace": "CartesianParametrization",
+        "line": 191,
+        "start": 9196,
+        "end": 9462
+      },
+      {
+        "name": "smoothLeft_of_invariance",
+        "namespace": "CartesianParametrization",
+        "line": 199,
+        "start": 9462,
+        "end": 11268
+      },
+      {
+        "name": "smoothRight_of_invariance",
+        "namespace": "CartesianParametrization",
+        "line": 224,
+        "start": 11268,
+        "end": 12880
+      },
+      {
+        "name": "smoothLeft_field",
+        "namespace": "CartesianParametrization",
+        "line": 274,
+        "start": 14014,
+        "end": 15231
+      },
+      {
+        "name": "smoothRight_field",
+        "namespace": "CartesianParametrization",
+        "line": 291,
+        "start": 15231,
+        "end": 16245
+      },
+      {
+        "name": "smoothLeft",
+        "namespace": "FieldComparison",
+        "line": 338,
+        "start": 17397,
+        "end": 20241
+      },
+      {
+        "name": "smoothRight",
+        "namespace": "FieldComparison",
+        "line": 387,
+        "start": 20241,
+        "end": 22958
+      }
+    ]
+  },
+  "next_gate": "Use exact native first50 Descent and complete original FamilyReparametrization parents, then compile the diagnostic profile; only actual unchanged/repair source may enter native acceptance."
+}

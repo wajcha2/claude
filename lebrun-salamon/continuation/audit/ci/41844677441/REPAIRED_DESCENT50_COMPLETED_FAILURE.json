@@ -1,0 +1,182 @@
+{
+  "schema": "lebrun-repaired-descent50-completed-native-failure-v1",
+  "commit": "4b4706547ebef65fdabcb042ead50147051338b0",
+  "run_id": 41844677441,
+  "job_id": 126624979531,
+  "source_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+  "diagnostics": [
+    {
+      "module": "LSFamilySmoothDescent",
+      "status": "failed",
+      "source_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+      "return_code": 1,
+      "seconds": 357.297,
+      "errors": [
+        {
+          "caption": "",
+          "data": "Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  memberToParametrized Q t ≫ Q.parametrizedSquareToCover ≫ Q.toHom\nin the target expression\n  ↑z ≫\n      memberToParametrized Q t ≫\n        pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫ Q.parametrizedParameter ≫ Q.toHom =\n    ↑t\n\nP : ProjectiveLineOverC\np : ProjectiveLinePoint P\nn : ℕ\nX : ContactFanoManifold n\ng : VeryFreeContactConic P p X\nN : FullConicNeighborhood P p X g\nF : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2\nQ : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood X.contact.sequence.line 2 F\nt : PointsOver ComplexBase (𝟙 ComplexBase) (↑N.neighborhood) (N.neighborhood.ι ≫ N.homSpace.toC)\nz : PointsOver ComplexBase (𝟙 ComplexBase) (Q.ReducedMemberCover t) (Q.reducedMemberToC t)\n⊢ ↑z ≫\n      memberToParametrized Q t ≫\n        pullback.fst Q.parametrizedParameter Q.parametrizedParameter ≫ Q.parametrizedParameter ≫ Q.toHom =\n    ↑t",
+          "endPos": {
+            "column": 36,
+            "line": 413
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothDescent.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 6,
+            "line": 413
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  hp\n has type\n  pullSection (↑(memberPoint Q t z)) (left Q) ≫\n      (compositionPullback (↑(memberPoint Q t z)) (parametrizedEvaluation Q) (↑z ≫ memberEvaluation Q t) hx\n          (movingPairBundleLeft X.variety X.contact)).hom =\n    pullSection (coordinatePair Q (memberPoint Q t z))\n        (Curve.leftSection P X (curve Q (coverPoint Q (memberPoint Q t z)))) ≫\n      (compositionPullback (coordinatePair Q (memberPoint Q t z))\n          (curveSquareMap P (curve Q (coverPoint Q (memberPoint Q t z)))) (↑z ≫ memberEvaluation Q t) hz\n          (movingPairBundleLeft X.variety X.contact)).hom\nbut is expected to have type\n  pullSection (↑(memberPoint Q t z)) (left Q) ≫\n      (compositionPullback (↑(memberPoint Q t z)) (parametrizedEvaluation Q) (↑z ≫ memberEvaluation Q t) hx\n          (movingPairBundleLeft X.variety X.contact)).hom =\n    pullSection (↑z ≫ Q.reducedMemberToSquare t) (Curve.leftSection P X (N.curveAt t)) ≫\n      (compositionPullback (↑z ≫ Q.reducedMemberToSquare t) (curveSquareMap P (N.curveAt t)) (↑z ≫ memberEvaluation Q t)\n          ⋯ (movingPairBundleLeft X.variety X.contact)).hom",
+          "endPos": {
+            "column": 78,
+            "line": 459
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothDescent.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 2,
+            "line": 459
+          },
+          "severity": "error"
+        },
+        {
+          "caption": "",
+          "data": "Type mismatch: After simplification, term\n  hp\n has type\n  pullSection (↑(memberPoint Q t z)) (right Q) ≫\n      (compositionPullback (↑(memberPoint Q t z)) (parametrizedEvaluation Q) (↑z ≫ memberEvaluation Q t) hx\n          (movingPairBundleRight X.variety X.contact)).hom =\n    pullSection (coordinatePair Q (memberPoint Q t z))\n        (Curve.rightSection P X (curve Q (coverPoint Q (memberPoint Q t z)))) ≫\n      (compositionPullback (coordinatePair Q (memberPoint Q t z))\n          (curveSquareMap P (curve Q (coverPoint Q (memberPoint Q t z)))) (↑z ≫ memberEvaluation Q t) hz\n          (movingPairBundleRight X.variety X.contact)).hom\nbut is expected to have type\n  pullSection (↑(memberPoint Q t z)) (right Q) ≫\n      (compositionPullback (↑(memberPoint Q t z)) (parametrizedEvaluation Q) (↑z ≫ memberEvaluation Q t) hx\n          (movingPairBundleRight X.variety X.contact)).hom =\n    pullSection (↑z ≫ Q.reducedMemberToSquare t) (Curve.rightSection P X (N.curveAt t)) ≫\n      (compositionPullback (↑z ≫ Q.reducedMemberToSquare t) (curveSquareMap P (N.curveAt t)) (↑z ≫ memberEvaluation Q t)\n          ⋯ (movingPairBundleRight X.variety X.contact)).hom",
+          "endPos": {
+            "column": 78,
+            "line": 492
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothDescent.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "[anonymous]",
+          "pos": {
+            "column": 2,
+            "line": 492
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "summaries": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "4b4706547ebef65fdabcb042ead50147051338b0",
+      "source_modules": 304,
+      "selected_modules": 110,
+      "accepted_modules": 109,
+      "failed_modules": [
+        "LSFamilySmoothDescent"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "actual_final2_skipped": true,
+  "current_completed_failure_not_pass": true,
+  "acceptance_ledger_modified": false,
+  "archive_validation": {
+    "schema": "lebrun-independent-failed-native-archive-validation-v1",
+    "artifact_id": 13330867487,
+    "artifact_name": "lebrun-smooth-descent50-repaired-41844677441-1",
+    "run_id": 41844677441,
+    "source_commit": "4b4706547ebef65fdabcb042ead50147051338b0",
+    "archive_sha256": "f3a654418b52161514f6d7fba03c962e815c74cb4f76a414078c75bab8a7bfed",
+    "full_verification_sha256": "fb3347d3e916f742d1e3c8f382ad8b965d57d8645c18f43fbc23781668b55732",
+    "source_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+    "failed_receipt_sha256": "578503ec9e5deb0b6f7cda3429dbb422bde1b0641423c42abd9dbafc373efa05",
+    "failed_receipt": {
+      "schema": "lebrun-module-receipt-v1",
+      "status": "failed",
+      "module": "LSFamilySmoothDescent",
+      "source_ancestry_fingerprint": "6a2f9c9dfd1fab2d667961e37ee8cc4084b0b8775b93de67cdda1185049827ab",
+      "key": {
+        "source_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+        "imports": [
+          "LSFamilyDescentReparametrization",
+          "LSOpenSectionTransport",
+          "LSFamilySmoothCoordinates",
+          "LSFamilySmoothPointValues"
+        ],
+        "dependency_artifacts": {
+          "LSFamilyDescentReparametrization": {
+            "sha256": "795ae2f2167e7fb9e0e2269d703166caf69bbb2990d810b9b3097355f69e57a3",
+            "kind": "project"
+          },
+          "LSOpenSectionTransport": {
+            "sha256": "8d337264a76555773a14cde91bf2f9f416c53ced7d3fa4ddcefc98a09ea7da1f",
+            "kind": "project"
+          },
+          "LSFamilySmoothCoordinates": {
+            "sha256": "d8549a93bcf0b0f966b920692f25d0afbbe533a8b5381313ac6e5a5900a93fdc",
+            "kind": "project"
+          },
+          "LSFamilySmoothPointValues": {
+            "sha256": "88063fc496708f00592c866213eeb37a4b1fe51c6a2e5962aba12bd9d28c2ed9",
+            "kind": "project"
+          }
+        },
+        "runtime_fingerprint": "9387025ac24e8fbfc8c41c101ebb879f2345074bbb8683f5b65951d1f5cb8004",
+        "flags": [
+          "--json",
+          "-j1",
+          "-DElab.async=false",
+          "-M12000",
+          "-DmaxErrors=1000",
+          "-DmaxHeartbeats=2000000"
+        ]
+      },
+      "command": [
+        "/home/runner/work/_temp/lebrun-runtime/toolchain/bin/lean",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/batteries/.lake/build/lib/libbatteries_Batteries.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/Qq/.lake/build/lib/libQq_Qq.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/aesop/.lake/build/lib/libaesop_Aesop.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/proofwidgets/.lake/build/lib/libproofwidgets_ProofWidgets.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/LeanSearchClient/.lake/build/lib/libLeanSearchClient_LeanSearchClient.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/importGraph/.lake/build/lib/libimportGraph_ImportGraph.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/plausible/.lake/build/lib/libplausible_Plausible.so",
+        "--load-dynlib=/home/runner/work/_temp/lebrun-runtime/mathlib/packages/mathlib/.lake/build/lib/libmathlib_Mathlib.so",
+        "--json",
+        "-j1",
+        "-DElab.async=false",
+        "-M12000",
+        "-DmaxErrors=1000",
+        "-DmaxHeartbeats=2000000",
+        "--root=/home/runner/work/claude/claude/lebrun-salamon/continuation/source",
+        "-o",
+        "/home/runner/work/claude/claude/kernel-evidence/olean/LSFamilySmoothDescent.olean",
+        "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFamilySmoothDescent.lean"
+      ],
+      "started_utc": "2026-11-04T14:10:10.243995+00:00",
+      "stdout": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilySmoothDescent.20261104T141010243962.stdout.jsonl",
+      "stderr": "/home/runner/work/claude/claude/kernel-evidence/logs/LSFamilySmoothDescent.20261104T141010243962.stderr.txt",
+      "return_code": 1,
+      "finished_utc": "2026-11-04T14:16:07.541603+00:00",
+      "seconds": 357.297,
+      "source_and_dependencies_unchanged": true,
+      "stdout_sha256": "c08cfdd88a80f842080191af81108cdd70dc2721298d2ddc9760e537c6c59ed3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "accepted_parent_contexts_exactly_matched": 290,
+    "all_parent_outputs_logs_native_keys_recursive_stamps_verified": true,
+    "failed_source_and_input_stamps_verified": true,
+    "failed_output_absent": true,
+    "export_directory": "/workspace/scratch/4deac2cdddbb/github_checkpoint_audit/native_failures/41844677441-descent50-bc6",
+    "acceptance_credit": false
+  },
+  "decoded_job_log_sha256": "5b31c6dbb85b3bfb2c63482ebdb3fd30d6c89bcf5eba4d6ee0ca73ec92bb494e",
+  "full_native_diagnostic_scope": "Completed rc1 with three ordinary errors; no output; final pair skipped; all290 accepted parent contexts byte/key identical."
+}

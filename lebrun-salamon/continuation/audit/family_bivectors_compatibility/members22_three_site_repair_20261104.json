@@ -1,0 +1,227 @@
+{
+  "schema": "lebrun-smooth-members22-measured-three-site-repair-v1",
+  "target_module": "LSFamilySmoothDescent",
+  "baseline_remaining22_sha256": "626a142813ae167d35ef451d7571a03d4e0fc2b6268c9c4f397ce8f497a0961f",
+  "source_sha256": "1035d3b0aaafdc2dca11fc2a46defbb73fb8e0b327b786e97290ba6886531956",
+  "whole_repaired50_sha256": "59e59a4cb1e2f9e96ee35c70188dfb6468f9096c5d41146ae437fa58c7de073b",
+  "reconstructs_whole_repaired50_exactly": true,
+  "unchanged_first28_sha256": "a479798fa89ad72b28a50f7652d1fd038c992a157c60c30fc010f22e29ed5213",
+  "original22_public_headers_and_context_exact": true,
+  "new_private_generic_lemmas": 2,
+  "new_admissions": 0,
+  "patches": [
+    {
+      "before": "  simp only [Category.assoc]\n  rw [memberToParametrized_toHom Q t, ← Category.assoc, z.property, Category.id_comp]",
+      "after": "  have h := congrArg\n    (fun m : Q.ReducedMemberCover t ⟶ N.neighborhood.toScheme => z.val ≫ m)\n    (memberToParametrized_toHom Q t)\n  calc\n    ((z.val ≫ memberToParametrized Q t) ≫ Q.parametrizedSquareToCover) ≫ Q.toHom =\n        z.val ≫ (memberToParametrized Q t ≫ Q.parametrizedSquareToCover ≫ Q.toHom) := by\n          simp only [Category.assoc]\n    _ = z.val ≫ (Q.reducedMemberToC t ≫ t.val) := h\n    _ = t.val := by rw [← Category.assoc, z.property, Category.id_comp]"
+    },
+    {
+      "before": "/-- Whole-member normalization after the proper surjective reduction",
+      "after": "private theorem member_left_point_transport {T : Scheme}\n    (u v : RationalCurve P X.variety) (huv : u = v)\n    (k k' : T ⟶ SelfProduct P.structureMap) (hkk' : k = k')\n    (r : T ⟶ SelfProduct X.variety.structureMap)\n    (h : k ≫ curveSquareMap P u = r) (h' : k' ≫ curveSquareMap P v = r) :\n    pullSection k (Curve.leftSection P X u) ≫\n        (compositionPullback k (curveSquareMap P u) r h\n          (movingPairBundleLeft X.variety X.contact)).hom =\n      pullSection k' (Curve.leftSection P X v) ≫\n        (compositionPullback k' (curveSquareMap P v) r h'\n          (movingPairBundleLeft X.variety X.contact)).hom := by\n  cases huv\n  cases hkk'\n  rfl\n\nprivate theorem member_right_point_transport {T : Scheme}\n    (u v : RationalCurve P X.variety) (huv : u = v)\n    (k k' : T ⟶ SelfProduct P.structureMap) (hkk' : k = k')\n    (r : T ⟶ SelfProduct X.variety.structureMap)\n    (h : k ≫ curveSquareMap P u = r) (h' : k' ≫ curveSquareMap P v = r) :\n    pullSection k (Curve.rightSection P X u) ≫\n        (compositionPullback k (curveSquareMap P u) r h\n          (movingPairBundleRight X.variety X.contact)).hom =\n      pullSection k' (Curve.rightSection P X v) ≫\n        (compositionPullback k' (curveSquareMap P v) r h'\n          (movingPairBundleRight X.variety X.contact)).hom := by\n  cases huv\n  cases hkk'\n  rfl\n\n/-- Whole-member normalization after the proper surjective reduction"
+    },
+    {
+      "before": "  have hp := point_left Q (memberPoint Q t z) (z.val ≫ memberEvaluation Q t) hx hz\n  simpa only [memberPoint_coordinates Q t z, memberPoint_curve Q t z] using hp",
+      "after": "  have hp := point_left Q (memberPoint Q t z) (z.val ≫ memberEvaluation Q t) hx hz\n  exact hp.trans (member_left_point_transport\n    (curve Q (coverPoint Q (memberPoint Q t z))) (N.curveAt t) (memberPoint_curve Q t z)\n    (coordinatePair Q (memberPoint Q t z)) (z.val ≫ Q.reducedMemberToSquare t)\n    (memberPoint_coordinates Q t z) (z.val ≫ memberEvaluation Q t) hz\n    (Category.assoc z.val (Q.reducedMemberToSquare t) (curveSquareMap P (N.curveAt t))))"
+    },
+    {
+      "before": "  have hp := point_right Q (memberPoint Q t z) (z.val ≫ memberEvaluation Q t) hx hz\n  simpa only [memberPoint_coordinates Q t z, memberPoint_curve Q t z] using hp",
+      "after": "  have hp := point_right Q (memberPoint Q t z) (z.val ≫ memberEvaluation Q t) hx hz\n  exact hp.trans (member_right_point_transport\n    (curve Q (coverPoint Q (memberPoint Q t z))) (N.curveAt t) (memberPoint_curve Q t z)\n    (coordinatePair Q (memberPoint Q t z)) (z.val ≫ Q.reducedMemberToSquare t)\n    (memberPoint_coordinates Q t z) (z.val ≫ memberEvaluation Q t) hz\n    (Category.assoc z.val (Q.reducedMemberToSquare t) (curveSquareMap P (N.curveAt t))))"
+    }
+  ],
+  "exact_inverse_recovers_remaining22_baseline": true,
+  "completed_local_evidence": {
+    "profile_source_sha256": "93e9ecd3a160e51430a52abd26fafabe65a574b353aaa60da484dbe9e5372224",
+    "seconds": 68.765,
+    "return_code": 0,
+    "error_count": 0,
+    "source_runtime_and_imports_unchanged": true,
+    "output_sha256": "6d7ce008b1b742811e923b0a10ac9c294871bf71e2a58d3e37f7cb7e5eb03964",
+    "scope": "First46 original declarations plus2 new helpers passed; last4 unchanged original declarations, including expensive extension-member pair, remain for stock checking"
+  },
+  "status": "locally_closed_three_repair_sites_stock_remaining22_pending",
+  "profile": {
+    "schema": "lebrun-exact-declaration-marker-profile-v1",
+    "actual_source": "source_milestone_audit/smooth28_split/LSFamilySmoothDescentRepaired.lean",
+    "actual_source_sha256": "1035d3b0aaafdc2dca11fc2a46defbb73fb8e0b327b786e97290ba6886531956",
+    "profile_source_sha256": "160e0651d5903f53756c836939e90ba0ceb509b611008007e7d3fe231b6356c8",
+    "declaration_count": 24,
+    "raw_marker_blocks": 48,
+    "diagnostic_options": [
+      "set_option profiler true",
+      "set_option stderrAsMessages false",
+      "set_option maxErrors 1"
+    ],
+    "stripped_profile_equals_actual_bytes": true,
+    "all_actual_declaration_headers_bodies_contexts_and_imports_unchanged": true,
+    "profile_is_diagnostic_only": true,
+    "declarations": [
+      {
+        "name": "memberToParametrized",
+        "namespace": "SmoothFamily",
+        "line": 48,
+        "start": 1925,
+        "end": 2064
+      },
+      {
+        "name": "memberToSmooth",
+        "namespace": "SmoothFamily",
+        "line": 51,
+        "start": 2064,
+        "end": 2200
+      },
+      {
+        "name": "memberToFamily",
+        "namespace": "SmoothFamily",
+        "line": 54,
+        "start": 2200,
+        "end": 2315
+      },
+      {
+        "name": "memberEvaluation",
+        "namespace": "SmoothFamily",
+        "line": 57,
+        "start": 2315,
+        "end": 2466
+      },
+      {
+        "name": "memberToSmooth_ι",
+        "namespace": "SmoothFamily",
+        "line": 60,
+        "start": 2466,
+        "end": 2738
+      },
+      {
+        "name": "memberToFamily_evaluation",
+        "namespace": "SmoothFamily",
+        "line": 66,
+        "start": 2738,
+        "end": 3036
+      },
+      {
+        "name": "memberToSmooth_evaluation",
+        "namespace": "SmoothFamily",
+        "line": 72,
+        "start": 3036,
+        "end": 3251
+      },
+      {
+        "name": "memberToParametrized_evaluation",
+        "namespace": "SmoothFamily",
+        "line": 76,
+        "start": 3251,
+        "end": 3475
+      },
+      {
+        "name": "memberToParametrized_parameter",
+        "namespace": "SmoothFamily",
+        "line": 81,
+        "start": 3475,
+        "end": 3734
+      },
+      {
+        "name": "memberToParametrized_toC",
+        "namespace": "SmoothFamily",
+        "line": 86,
+        "start": 3734,
+        "end": 4025
+      },
+      {
+        "name": "memberToParametrized_toHom",
+        "namespace": "SmoothFamily",
+        "line": 93,
+        "start": 4025,
+        "end": 4291
+      },
+      {
+        "name": "memberToParametrized_coordinates",
+        "namespace": "SmoothFamily",
+        "line": 100,
+        "start": 4291,
+        "end": 5060
+      },
+      {
+        "name": "memberPoint",
+        "namespace": "SmoothFamily",
+        "line": 115,
+        "start": 5060,
+        "end": 5305
+      },
+      {
+        "name": "memberPoint_parameter",
+        "namespace": "SmoothFamily",
+        "line": 122,
+        "start": 5305,
+        "end": 6102
+      },
+      {
+        "name": "memberPoint_curve",
+        "namespace": "SmoothFamily",
+        "line": 139,
+        "start": 6102,
+        "end": 6333
+      },
+      {
+        "name": "memberPoint_coordinates",
+        "namespace": "SmoothFamily",
+        "line": 144,
+        "start": 6333,
+        "end": 6657
+      },
+      {
+        "name": "member_left_point_transport",
+        "namespace": "SmoothFamily",
+        "line": 150,
+        "start": 6657,
+        "end": 7314
+      },
+      {
+        "name": "member_right_point_transport",
+        "namespace": "SmoothFamily",
+        "line": 165,
+        "start": 7314,
+        "end": 7976
+      },
+      {
+        "name": "member_left",
+        "namespace": "SmoothFamily",
+        "line": 182,
+        "start": 7976,
+        "end": 10452
+      },
+      {
+        "name": "member_right",
+        "namespace": "SmoothFamily",
+        "line": 219,
+        "start": 10452,
+        "end": 12794
+      },
+      {
+        "name": "smoothLeft_member",
+        "namespace": "SmoothFamily",
+        "line": 256,
+        "start": 12794,
+        "end": 13725
+      },
+      {
+        "name": "smoothRight_member",
+        "namespace": "SmoothFamily",
+        "line": 271,
+        "start": 13725,
+        "end": 14665
+      },
+      {
+        "name": "extension_left_member",
+        "namespace": "SmoothFamily",
+        "line": 286,
+        "start": 14665,
+        "end": 15736
+      },
+      {
+        "name": "extension_right_member",
+        "namespace": "SmoothFamily",
+        "line": 304,
+        "start": 15736,
+        "end": 16816
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "lebrun-exact-smooth-normalization28-members22-split-v1",
+  "baseline_first50_sha256": "bc6a97e4f93b1448458b008e014e902471071450cb8b8bb8579156a96d5e65cb",
+  "baseline_first50_source_blob": "57426563817fa2cdd95f7edb420a6028884033d1",
+  "baseline_generic22_sha256": "0c055ae8e7e51f73363a402c6f81bc40d99b9aaf4ae2b92c1b55c3eae6bcef94",
+  "source_sha256": {
+    "LSFamilySmoothNormalization": "a479798fa89ad72b28a50f7652d1fd038c992a157c60c30fc010f22e29ed5213",
+    "LSFamilySmoothDescent": "626a142813ae167d35ef451d7571a03d4e0fc2b6268c9c4f397ce8f497a0961f",
+    "LSGenericFamilyComparison": "440723d358a5d4047b5e91dc2426a6c6d381af9ed3adeab2f39f295e75838e34",
+    "LSGenericFamilyComparison22Profile": "09a0539389dc4ed24a24967cc5c587abf80400a91d7571dc79c2e572c1cb0ae0"
+  },
+  "counts": {
+    "first": 28,
+    "rest": 22,
+    "generic": 22
+  },
+  "first28_body_sha256": "cdea9bc496576c45d2985c4ca58f6bfd4e53a49ba80ef8f5e16a4396bd6d70e9",
+  "remaining22_body_sha256": "4bd35912375ee0266e7fa2b5113e7897499008e6f81283719c5190ce3e94d7af",
+  "copied_preamble_sha256": "e71ea0a446815806152c99cc513785dc3a16b48ed384eef821f16772bc546215",
+  "copied_scope": {
+    "options": [
+      "set_option autoImplicit false",
+      "set_option backward.isDefEq.respectTransparency false",
+      "set_option backward.isDefEq.respectTransparency.types false",
+      "set_option allowUnsafeReducibility true"
+    ],
+    "local_reducibility": [
+      "attribute [local reducible] projectiveLineVariety identityCurveContact intrinsicTangentBundle"
+    ],
+    "namespace_and_variable_lines": [
+      "namespace LeBrunSalamon.Construction.FamilyBivectors",
+      "namespace SmoothFamily",
+      "variable {P : ProjectiveLineOverC} {p : ProjectiveLinePoint P}",
+      "variable {n : ℕ} {X : ContactFanoManifold n} {g : VeryFreeContactConic P p X}",
+      "variable {N : FullConicNeighborhood P p X g}",
+      "variable {F : StableMaps.ProjectiveNodalFamily P p X.variety X.contact.sequence.line 2}",
+      "variable (Q : StableMaps.FullHomComparison P p X.variety N.homSpace N.neighborhood",
+      "  X.contact.sequence.line 2 F)"
+    ]
+  },
+  "exact_all50_written_headers_and_proof_bytes_preserved": true,
+  "whole50_reconstruction_exact": true,
+  "remaining22_has_only_new_helper_import_plus_exact_context_and_body": true,
+  "generic22_import_only_change": {
+    "from": "import LSFamilySmoothDescent",
+    "to": "import LSFamilySmoothNormalization"
+  },
+  "generic22_all_declarations_contexts_proofs_exact": true,
+  "generic_profile_strips_to_exact_new_actual": true,
+  "unchanged_final_covered2": "LSFamilyBivectorDescent SHA3d596cf5f35f6b69cb49c2c33f6cd4e07cc11da2c6bc82caf5e505ace83dba66 still imports LSFamilySmoothDescent",
+  "status": "uncompiled_exact_first28_extraction; remaining22 retains known three-site bc6 errors; local measured repair remains separate"
+}

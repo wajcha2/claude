@@ -34,7 +34,7 @@ jobs:
       - name: Restore only exact current ancestry and runtime matches
         run: |
           python3 lebrun-salamon/continuation/scripts/restore_replay_cache.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --artifact-dir "$RUNNER_TEMP/lebrun-prior-evidence" --build-dir kernel-evidence --source-run-id 41782933633 --source-artifact-name lebrun-current-full-41782933633-1
-      - name: Check unchanged Descent with a600-second wall bound and continue its branch
+      - name: Check the measured-cost Descent refactor and continue its branch
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrization --keep-going --timeout 600
       - name: Expose exact native diagnostics and revalidated receipts

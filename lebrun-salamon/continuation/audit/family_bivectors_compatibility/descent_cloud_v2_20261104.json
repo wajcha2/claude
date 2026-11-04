@@ -1,0 +1,53 @@
+{
+  "schema": "lebrun-native-frontier-repair-v2",
+  "module": "LSFamilyBivectorDescent",
+  "candidate": {
+    "git_blob": "3829753b8360e18864edc9ef1eec30b4c5f93462",
+    "sha256": "195974cc00680ee852a77903fab6b214a0638410d152158eed067db9487328cb",
+    "status": "uncompiled"
+  },
+  "parent": {
+    "git_blob": "f4db04b67fb8315d26d460419f9ddfa8ae8ab0e2",
+    "sha256": "60d77d7c6950275445d18f9ee00d16a33527813b9a48ab4b5e8be7e6a17f2cdc",
+    "full_native_status": "zero emitted errors;600.281s timeout, no acceptance"
+  },
+  "evidence": {
+    "run_id": 41787478792,
+    "job_id": 126432826604,
+    "diagnostic_sha256": "a710e674aa4bc3cf7e7472bd108d1fd5615a72ba253f9036469361f1d654fca5",
+    "result": "300.237s diagnostic-prefix timeout; both atCurve proof checks completed",
+    "left_atCurve_kernel_seconds": 74.2,
+    "right_atCurve_kernel_seconds": 72.9,
+    "marker_note": "Lean captures #eval stderr as information; final output remained partial. The two complete profiler records and EXIT markers are preserved; no precise later frontier claimed."
+  },
+  "change": "Prove finite-sum whole-curve transport once for arbitrary modules/sections; apply this opaque theorem to the existing actual family tensors and exact existing expansions/endpoint specializations.",
+  "existing_public_headers_preserved": 134,
+  "new_proved_generic_declarations": 1,
+  "new_admissions": 0,
+  "inverse_patch_restores_exact_parent": true,
+  "lexical_header_sequence_unchanged_after_removing_new_helper": true,
+  "original_header_sequence_sha256": "94baccfad674453b1ef9eb205e74d76dd9effe8a0340352345643bec32bd65b3",
+  "changed_files": [
+    "source/LSFamilyBivectorDescent.lean"
+  ],
+  "audited_190_sources_modified": [],
+  "passed_family_source_unchanged": "4d73f36e6dfe9ba0a5fb24613dcddae007bc6e40b2bbf9a8030999fa4ea48539",
+  "no_native_acceptance_claim": true,
+  "patches": [
+    {
+      "label": "generic finite-sum whole-curve transport",
+      "before": "end RelativeSquare\n",
+      "after": "/-- Finite sums of compared endpoint products restrict along the whole source\nsquare. All bundles, sections and source/target tensors are parameters. -/\ntheorem sum_products_atCurve (P : ProjectiveLineOverC) {d : ℕ}\n    (X : SmoothProperComplexVariety d) (sB : B ⟶ ComplexBase)\n    (e : C ⟶ X.scheme) (he : e ≫ X.structureMap = pi ≫ sB)\n    (j : ProjectiveLine ⟶ C) (f : RationalCurve P X) (hf : j ≫ e = f.map)\n    (k : SelfProduct P.structureMap ⟶ Space pi)\n    (hk₁ : k ≫ left pi = firstProjection P.structureMap ≫ j)\n    (hk₂ : k ≫ right pi = secondProjection P.structureMap ≫ j)\n    (hk : k ≫ evaluation pi X.structureMap sB e he = curveSquareMap P f)\n    {E F : OModule X.scheme} {N : ℕ}\n    (a : Fin N → AlgebraicSection (pullbackModule e E))\n    (b : Fin N → AlgebraicSection (pullbackModule e F))\n    (a₀ : Fin N → AlgebraicSection (pullbackModule f.map E))\n    (b₀ : Fin N → AlgebraicSection (pullbackModule f.map F))\n    (S : AlgebraicSection (pullbackModule (evaluation pi X.structureMap sB e he)\n      (externalTensor X.structureMap E F)))\n    (T : AlgebraicSection (pullbackModule (curveSquareMap P f)\n      (externalTensor X.structureMap E F)))\n    (hS : S = ∑ i, productSection pi (a i) (b i) ≫\n      comparison pi X.structureMap sB e he E F)\n    (hT : T = ∑ i, externalProductSection P.structureMap (a₀ i) (b₀ i) ≫\n      curveExternalComparison P f E F)\n    (ha : ∀ i, pullSection j (a i) ≫\n      (compositionPullback j e f.map hf E).hom = a₀ i)\n    (hb : ∀ i, pullSection j (b i) ≫\n      (compositionPullback j e f.map hf F).hom = b₀ i) :\n    pullSection k S ≫\n      (compositionPullback k (evaluation pi X.structureMap sB e he)\n        (curveSquareMap P f) hk (externalTensor X.structureMap E F)).hom = T := by\n  rw [hS, hT, SectionTransport.pull_sum, Preadditive.sum_comp]\n  apply Finset.sum_congr rfl\n  intro i hi\n  exact product_atCurve pi P X sB e he j f hf k hk₁ hk₂ hk\n    (a i) (b i) (a₀ i) (b₀ i) (ha i) (hb i)\n\nend RelativeSquare\n"
+    },
+    {
+      "label": "left atCurve generic specialization",
+      "before": "  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  rw [leftSection_expansion P sB X e he E, Curve.leftSection_expansion P X f E,\n    SectionTransport.pull_sum, Preadditive.sum_comp]\n  apply Finset.sum_congr rfl\n  intro i hi\n  exact RelativeSquare.product_atCurve (Parametrized.parameter P sB)\n    P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)\n    (Parametrized.squareAtSection_left P sB b j hj₂)\n    (Parametrized.squareAtSection_right P sB b j hj₂)\n    (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)\n    (Parametrized.vector P sB X.variety e he (E.left i))\n    (contactVector P sB X e he (E.right i))\n    (E.left i ≫ Curve.differential P X f)\n    (E.right i ≫ curveContactVelocity P X.contact f)\n    (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.left i))\n    (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.right i))\n",
+      "after": "  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  exact RelativeSquare.sum_products_atCurve (Parametrized.parameter P sB)\n    P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)\n    (Parametrized.squareAtSection_left P sB b j hj₂)\n    (Parametrized.squareAtSection_right P sB b j hj₂)\n    (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)\n    (E := tangentSheaf X.variety.structureMap)\n    (F := X.contact.sequence.line.sheaf) (N := E.size)\n    (fun i => Parametrized.vector P sB X.variety e he (E.left i))\n    (fun i => contactVector P sB X e he (E.right i))\n    (fun i => E.left i ≫ Curve.differential P X f)\n    (fun i => E.right i ≫ curveContactVelocity P X.contact f)\n    (leftSection P sB X e he) (Curve.leftSection P X f)\n    (leftSection_expansion P sB X e he E) (Curve.leftSection_expansion P X f E)\n    (fun i => Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf\n      (E.left i))\n    (fun i => contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.right i))\n"
+    },
+    {
+      "label": "right atCurve generic specialization",
+      "before": "  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  rw [rightSection_expansion P sB X e he E, Curve.rightSection_expansion P X f E,\n    SectionTransport.pull_sum, Preadditive.sum_comp]\n  apply Finset.sum_congr rfl\n  intro i hi\n  exact RelativeSquare.product_atCurve (Parametrized.parameter P sB)\n    P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)\n    (Parametrized.squareAtSection_left P sB b j hj₂)\n    (Parametrized.squareAtSection_right P sB b j hj₂)\n    (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)\n    (contactVector P sB X e he (E.left i))\n    (Parametrized.vector P sB X.variety e he (E.right i))\n    (E.left i ≫ curveContactVelocity P X.contact f)\n    (E.right i ≫ Curve.differential P X f)\n    (contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.left i))\n    (Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf (E.right i))\n",
+      "after": "  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)\n    (identityCurveContact P).sequence.line (sourceBivector P)\n  exact RelativeSquare.sum_products_atCurve (Parametrized.parameter P sB)\n    P X.variety sB e he j f hf (Parametrized.squareAtSection P sB b j hj₂)\n    (Parametrized.squareAtSection_left P sB b j hj₂)\n    (Parametrized.squareAtSection_right P sB b j hj₂)\n    (Parametrized.squareAtSection_evaluation P sB X.variety e he b j hj₂ f hf)\n    (E := X.contact.sequence.line.sheaf)\n    (F := tangentSheaf X.variety.structureMap) (N := E.size)\n    (fun i => contactVector P sB X e he (E.left i))\n    (fun i => Parametrized.vector P sB X.variety e he (E.right i))\n    (fun i => E.left i ≫ curveContactVelocity P X.contact f)\n    (fun i => E.right i ≫ Curve.differential P X f)\n    (rightSection P sB X e he) (Curve.rightSection P X f)\n    (rightSection_expansion P sB X e he E) (Curve.rightSection_expansion P X f E)\n    (fun i => contactVector_atCurve P sB X e he b hb j hj₁ hj₂ f hf (E.left i))\n    (fun i => Parametrized.vector_atCurve P sB X.variety e he b hb j hj₁ hj₂ f hf\n      (E.right i))\n"
+    }
+  ]
+}

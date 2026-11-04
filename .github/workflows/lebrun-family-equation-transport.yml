@@ -1,0 +1,127 @@
+name: LeBrun-Salamon actual family equation transport
+
+on:
+  push:
+    branches:
+      - codex/lebrun-family-equation-transport-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  family-equation-transport:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41822866014
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-parametrized-base-change-41822866014-1
+          run-id: 41822866014
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Profile closed actual family endpoint ingredients
+        id: profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparamFinalSectionsProfile --keep-going --timeout 300
+      - name: Report exact endpoint profile scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose receipt-bound endpoint markers and profiler
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyReparamFinalSectionsProfile --allow-unattempted
+      - name: Preserve endpoint profile before actual check
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-equation-transport-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual uninstrumented final two original statements
+        id: actual
+        if: steps.profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyDescentReparametrization --keep-going --timeout 300
+      - name: Report actual reparametrization closure
+        if: always() && steps.profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve actual reparametrization evidence
+        if: always() && steps.profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-equation-transport-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check original independent family descendants
+        id: descendants
+        if: steps.actual.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyBivectorDescent --module LSFamilyReparametrization --keep-going --timeout 300
+      - name: Report original family descendant outcomes
+        if: always() && steps.actual.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve original family descendant evidence
+        if: always() && steps.actual.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-equation-transport-descendants-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check original generic-family comparison after both parent branches
+        id: comparison
+        if: steps.descendants.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSGenericFamilyComparison --keep-going --timeout 300
+      - name: Report generic-family comparison outcome
+        if: always() && steps.descendants.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve generic-family comparison evidence
+        if: always() && steps.descendants.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-equation-transport-comparison-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require all native stages to pass
+        if: always()
+        env:
+          PROFILE_OUTCOME: ${{ steps.profile.outcome }}
+          ACTUAL_OUTCOME: ${{ steps.actual.outcome }}
+          DESCENDANT_OUTCOME: ${{ steps.descendants.outcome }}
+          COMPARISON_OUTCOME: ${{ steps.comparison.outcome }}
+        run: |
+          test "$PROFILE_OUTCOME" = success
+          test "$ACTUAL_OUTCOME" = success
+          test "$DESCENDANT_OUTCOME" = success
+          test "$COMPARISON_OUTCOME" = success

@@ -1,0 +1,99 @@
+{
+  "schema": "lebrun-parametrized-prefix-native-failure-v1",
+  "commit": "fd4717c89e3803151a867d2943a3fdaa9b3a4726",
+  "run_id": 41822575955,
+  "job_id": 126549115968,
+  "diagnostics": [
+    {
+      "module": "LSParametrizedBaseChange",
+      "status": "failed",
+      "source_sha256": "07860efd5846877dd4fce1519cf5e6542bd08614c7999f3014f3882fafd35414",
+      "return_code": 1,
+      "seconds": 2.523,
+      "errors": [
+        {
+          "caption": "",
+          "data": "unsolved goals\nC A D B : Scheme\npiA : C ⟶ A\npiB : D ⟶ B\nk : C ⟶ D\nb : A ⟶ B\nhk : IsPullback k piA piB b\nhbase : map piA piB k b ⋯ ≫ left piB ≫ piB = (left piA ≫ piA) ≫ b\nT : Scheme\na : T ⟶ Space piB\nc : T ⟶ A\nhac : a ≫ left piB ≫ piB = c ≫ b\nh₁ : (a ≫ left piB) ≫ piB = c ≫ b\nh₂ : (a ≫ right piB) ≫ piB = c ≫ b\nl₁ : T ⟶ C := hk.lift (a ≫ left piB) c h₁\nl₂ : T ⟶ C := hk.lift (a ≫ right piB) c h₂\n⊢ hk.lift (a ≫ left piB) c h₁ ≫ ?m.411 = hk.lift (a ≫ right piB) c h₂ ≫ ?m.412",
+          "endPos": {
+            "column": 45,
+            "line": 58
+          },
+          "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSParametrizedBaseChange.lean",
+          "isSilent": false,
+          "keepFullRange": false,
+          "kind": "Tactic.unsolvedGoals",
+          "pos": {
+            "column": 34,
+            "line": 57
+          },
+          "severity": "error"
+        }
+      ],
+      "stderr": ""
+    }
+  ],
+  "summary": [
+    {
+      "schema": "lebrun-remote-stage-validation-v1",
+      "commit": "fd4717c89e3803151a867d2943a3fdaa9b3a4726",
+      "source_modules": 295,
+      "selected_modules": 101,
+      "accepted_modules": 100,
+      "failed_modules": [
+        "LSParametrizedBaseChange"
+      ],
+      "full_selected_graph_passed": false,
+      "whole_source_graph_passed": false,
+      "Point1_source_boundary_unchanged": 190,
+      "Point1_native_boundary_rechecked_in_this_stage": 86,
+      "all_final_hash_and_runtime_checks_passed": true,
+      "acceptance_ledger_modified": false
+    }
+  ],
+  "official_artifacts": [
+    {
+      "id": 13318106872,
+      "name": "lebrun-parametrized-base-change-41822575955-1",
+      "size_in_bytes": 66204096,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13318106872",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13318106872/zip",
+      "expired": false,
+      "created_at": "2026-11-04T11:41:59Z",
+      "expires_at": "2027-02-02T11:38:35Z",
+      "updated_at": "2026-11-04T11:41:59Z",
+      "digest": "sha256:f69ed498c6b229ed6cc93cd131850f7bb39d11bf5a4a501f4d35a1053d4ed351",
+      "workflow_run": {
+        "id": 41822575955,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-model-frontier-20261104",
+        "head_sha": "fd4717c89e3803151a867d2943a3fdaa9b3a4726"
+      }
+    },
+    {
+      "id": 13317423162,
+      "name": "lebrun-parametrized-formal-arc-41822575955-1",
+      "size_in_bytes": 66204096,
+      "url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13317423162",
+      "archive_download_url": "https://api.github.com/repos/wajcha2/claude/actions/artifacts/13317423162/zip",
+      "expired": false,
+      "created_at": "2026-11-04T11:42:12Z",
+      "expires_at": "2027-02-02T11:38:35Z",
+      "updated_at": "2026-11-04T11:42:12Z",
+      "digest": "sha256:11262b3eafc089934b435fac2ec0560e4dc88548477cd154d6bb06009e0aa2f9",
+      "workflow_run": {
+        "id": 41822575955,
+        "repository_id": 1384963622,
+        "head_repository_id": 1384963622,
+        "head_branch": "codex/lebrun-model-frontier-20261104",
+        "head_sha": "fd4717c89e3803151a867d2943a3fdaa9b3a4726"
+      }
+    }
+  ],
+  "decoded_log_sha256": "5a3297e377d5013538f8bb0430e0e84e47464aa39a4c84d415b8d67f87d09292",
+  "corrected_actual_arc_skipped": true,
+  "subsequent_changed_candidate_sha256": "8ba2ad890d30c1848fb2c0c7ea4e0107baf8f44c8ad2eb970ec77d8e68eed821",
+  "subsequent_commit": "94893a33f764f04fd2c93de922e60cbdbfb6216a",
+  "subsequent_run_id": 41822866014,
+  "acceptance_ledger_modified": false
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "module": "LSFormalArcNormalizationProfile",
+    "status": "failed",
+    "source_sha256": "d1085c8ca8b5a75a29202e85bd18d43bd6c58dc1a8a9bab20bb58663ee180c95",
+    "return_code": 1,
+    "seconds": 4.927,
+    "errors": [
+      {
+        "caption": "",
+        "data": "Type mismatch\n  err.putStrLn \"ARC_NORMALIZATION_COMPLETE\"\nhas type\n  IO Unit\nbut is expected to have type\n  BaseIO PUnit.{1}",
+        "endPos": {
+          "column": 43,
+          "line": 244
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcNormalizationProfile.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 244
+        },
+        "severity": "error"
+      },
+      {
+        "caption": "",
+        "data": "Type mismatch\n  err.flush\nhas type\n  IO Unit\nbut is expected to have type\n  BaseIO ?α",
+        "endPos": {
+          "column": 11,
+          "line": 245
+        },
+        "fileName": "/home/runner/work/claude/claude/lebrun-salamon/continuation/source/LSFormalArcNormalizationProfile.lean",
+        "isSilent": false,
+        "keepFullRange": false,
+        "kind": "[anonymous]",
+        "pos": {
+          "column": 2,
+          "line": 245
+        },
+        "severity": "error"
+      }
+    ],
+    "stderr": "ARC_NORMALIZATION_STAGE ENTER_PROOF\nARC_NORMALIZATION_STAGE AFTER_HM\nARC_NORMALIZATION_STAGE AFTER_HP_HG\nARC_NORMALIZATION_STAGE AFTER_HMODEL\nARC_NORMALIZATION_STAGE AFTER_HSMOOTH\nARC_NORMALIZATION_STAGE AFTER_CANCEL\nARC_NORMALIZATION_STAGE AFTER_SECTION_PULL\nARC_NORMALIZATION_STAGE AFTER_SQUARE_COMP\nARC_NORMALIZATION_STAGE AFTER_PULL_SPECIALIZATION\nARC_NORMALIZATION_STAGE AFTER_INVERSE_VALUE\ntype checking took 286ms\ncumulative profiling times:\n\tattribute application 21.6ms\n\tcompilation (IR) 1.16ms\n\tcompilation (LCNF base) 69.6ms\n\tcompilation (LCNF impure) 5.17ms\n\tcompilation (LCNF mono) 12ms\n\tcongr simp thm 10.1ms\n\tdeclTypeLinter 0.713ms\n\tdo element elaborator 19.9ms\n\telaboration 431ms\n\tfix level params 0.962ms\n\tinstantiate metavars 0.792ms\n\tinterpretation 0.691ms\n\tlet-to-have transformation 0.358ms\n\tlinting 21.1ms\n\tparsing 10.2ms\n\tprocess pre-definitions 13.7ms\n\tshare common exprs 5.93ms\n\tsimp 70.9ms\n\ttactic execution 270ms\n\ttacticAnalysis 0.721ms\n\ttype checking 349ms\n\ttypeclass inference 464ms\n"
+  }
+]

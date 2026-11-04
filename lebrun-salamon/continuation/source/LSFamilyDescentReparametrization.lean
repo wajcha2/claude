@@ -1,16 +1,10 @@
-import LSFamilyDescentFibres
-import LSFamilyExternalProductMap
-import LSFamilyCurveProductDirect
-import LSFamilyReparamProductTransport
-import LSFamilyAdditiveExpansion
-import LSFamilySectionSums
+import LSFamilyReparamExpansionStages
 
 /-!
-# Source reparametrization and its canonical external comparison.
+# The two actual target-section reparametrization identities.
 
-Public names and statements are retained from the candidate descent source.
-The final comparison uses opaque generic product-map naturality; the preceding
-transport blocks are imported so each completed native output can be reused.
+The comparison prefix is imported byte-for-byte. Each final identity uses
+closed comparison, raw-tensor transport, and definition equalities.
 -/
 
 noncomputable section
@@ -38,188 +32,122 @@ namespace Reparametrization
 variable (P : ProjectiveLineOverC) (e : ProjectiveLine ≅ ProjectiveLine)
 variable (he : e.hom ≫ P.structureMap = P.structureMap)
 
-theorem mixedPull_product {E F : OModule ProjectiveLine}
-    (a : AlgebraicSection E) (b : AlgebraicSection F) :
-    mixedPull P e he E F (externalProductSection P.structureMap a b) =
-      externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) := by
-  letI := curveExternalComparison_isIso P (curve P e he) E F
-  apply (cancel_mono (curveExternalComparison P (curve P e he) E F)).mp
-  rw [mixedPull_comparison]
-  exact (curveExternalComparison_onProducts P (curve P e he) a b).symm
-
-theorem mixedPull_sum {E F : OModule ProjectiveLine} {N : ℕ}
-    (a : Fin N → AlgebraicSection (externalTensor P.structureMap E F)) :
-    mixedPull P e he E F (∑ i, a i) = ∑ i, mixedPull P e he E F (a i) := by
-  simp only [mixedPull, SectionTransport.pull_sum, Preadditive.sum_comp]
-
 variable {n : ℕ} (X : ContactFanoManifold n) (f g : RationalCurve P X.variety)
 variable (hg : g.map = e.hom ≫ f.map)
 
-include hg in
-@[reassoc] theorem square_comp :
-    curveSquareMap P (curve P e he) ≫ curveSquareMap P f = curveSquareMap P g := by
-  apply pullback.hom_ext
-  · rw [Category.assoc, curveSquareMap_first, ← Category.assoc,
-      curveSquareMap_first, curveSquareMap_first]
-    change (firstProjection P.structureMap ≫ e.hom) ≫ f.map =
-      firstProjection P.structureMap ≫ g.map
-    rw [Category.assoc, hg]
-  · rw [Category.assoc, curveSquareMap_second, ← Category.assoc,
-      curveSquareMap_second, curveSquareMap_second]
-    change (secondProjection P.structureMap ≫ e.hom) ≫ f.map =
-      secondProjection P.structureMap ≫ g.map
-    rw [Category.assoc, hg]
+namespace FinalSectionProof
 
-namespace ExpansionProof
+theorem left_raw_expansion
+    (E : ExternalExpansion (projectiveLineVariety P)
+      (identityCurveContact P).sequence.line (sourceBivector P)) :
+    Curve.leftRaw P X f = ∑ i,
+      externalProductSection P.structureMap
+        (E.left i ≫ Curve.differential P X f)
+        (E.right i ≫ curveContactVelocity P X.contact f) := by
+  letI := curveExternalComparison_isIso P f
+    (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf
+  apply (cancel_mono (curveExternalComparison P f
+    (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf)).mp
+  simpa only [Curve.leftSection, Preadditive.sum_comp] using
+    Curve.leftSection_expansion P X f E
 
-variable {E F : OModule X.variety.scheme}
-
-def leftAction (q : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F))) :
-    AlgebraicSection (pullbackModule (curveSquareMap P g)
-      (externalTensor X.variety.structureMap E F)) :=
-  pullSection (curveSquareMap P (curve P e he))
-    (q ≫ curveExternalComparison P f E F) ≫
-    (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
-      (curveSquareMap P g) (square_comp P e he X f g hg)
-      (externalTensor X.variety.structureMap E F)).hom
-
-def rightAction (hfg : e.hom ≫ f.map = g.map) (q : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F))) :
-    AlgebraicSection (pullbackModule (curveSquareMap P g)
-      (externalTensor X.variety.structureMap E F)) :=
-  (mixedPull P e he (pullbackModule f.map E) (pullbackModule f.map F) q ≫
-    externalTensorMap P.structureMap
-      (compositionPullback e.hom f.map g.map hfg E).hom
-      (compositionPullback e.hom f.map g.map hfg F).hom) ≫
-    curveExternalComparison P g E F
-
-abbrev literalLeftAction (q : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F))) :
-    AlgebraicSection (pullbackModule (curveSquareMap P g)
-      (externalTensor X.variety.structureMap E F)) :=
-  @pullSection (SelfProduct P.structureMap) (SelfProduct P.structureMap)
-    (curveSquareMap P (curve P e he))
-    (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F))
-    (q ≫ curveExternalComparison P f E F) ≫
-    (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)
-      (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he))
-      (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg)
-      (externalTensor X.variety.structureMap E F)).hom
-
-theorem leftAction_eq_literal (q : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F))) :
-    leftAction P e he X f g hg q = literalLeftAction P e he X f g hg q := by
-  exact FamilySchemeTransport.projective_pull_comp P
-    (curveSquareMap P (curve P e he)) (curveSquareMap P f) (curveSquareMap P g)
-    (square_comp P e he X f g hg) (externalTensor X.variety.structureMap E F)
-    (q ≫ curveExternalComparison P f E F)
-
-theorem literal_left_sum {N : ℕ} (z : Fin N → AlgebraicSection
-    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
-    literalLeftAction P e he X f g hg (∑ i, z i) =
-      ∑ i, literalLeftAction P e he X f g hg (z i) := by
-  exact @SectionSums.pull_map_post_sum
-    (SelfProduct P.structureMap) (SelfProduct P.structureMap)
-    (curveSquareMap P (curve P e he))
-    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))
-    (pullbackModule (curveSquareMap P f) (externalTensor X.variety.structureMap E F))
-    (pullbackModule (curveSquareMap P g) (externalTensor X.variety.structureMap E F))
-    (curveExternalComparison P f E F)
-    (@compositionPullback (SelfProduct P.structureMap) (SelfProduct P.structureMap)
-      (SelfProduct X.variety.structureMap) (curveSquareMap P (curve P e he))
-      (curveSquareMap P f) (curveSquareMap P g) (square_comp P e he X f g hg)
-      (externalTensor X.variety.structureMap E F)).hom N z
-
-theorem left_sum {N : ℕ} (z : Fin N → AlgebraicSection
-    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
-    leftAction P e he X f g hg (∑ i, z i) =
-      ∑ i, leftAction P e he X f g hg (z i) := by
-  calc
-    leftAction P e he X f g hg (∑ i, z i) =
-        literalLeftAction P e he X f g hg (∑ i, z i) :=
-      leftAction_eq_literal P e he X f g hg _
-    _ = ∑ i, literalLeftAction P e he X f g hg (z i) :=
-      literal_left_sum P e he X f g hg z
-    _ = ∑ i, leftAction P e he X f g hg (z i) :=
-      Finset.sum_congr rfl (fun i _ => (leftAction_eq_literal P e he X f g hg (z i)).symm)
-
-theorem right_sum {N : ℕ} (z : Fin N → AlgebraicSection
-    (externalTensor P.structureMap (pullbackModule f.map E) (pullbackModule f.map F))) :
-    rightAction P e he X f g hg.symm (∑ i, z i) =
-      ∑ i, rightAction P e he X f g hg.symm (z i) := by
-  simp only [rightAction, mixedPull_sum, Preadditive.sum_comp]
-
-theorem product_comparison (a : AlgebraicSection (pullbackModule f.map E))
-    (b : AlgebraicSection (pullbackModule f.map F)) :
-    leftAction P e he X f g hg (externalProductSection P.structureMap a b) =
-      (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫
-        externalTensorMap P.structureMap
-          (compositionPullback e.hom f.map g.map hg.symm E).hom
-          (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
-        curveExternalComparison P g E F := by
-  exact ReparametrizationProductTransport.comparison P e he X f g hg
-    (square_comp P e he X f g hg) a b
-
-theorem product_right (a : AlgebraicSection (pullbackModule f.map E))
-    (b : AlgebraicSection (pullbackModule f.map F)) :
-    rightAction P e he X f g hg.symm (externalProductSection P.structureMap a b) =
-      (externalProductSection P.structureMap (pullSection e.hom a) (pullSection e.hom b) ≫
-        externalTensorMap P.structureMap
-          (compositionPullback e.hom f.map g.map hg.symm E).hom
-          (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
-        curveExternalComparison P g E F := by
-  exact congrArg
-    (fun q : AlgebraicSection (externalTensor P.structureMap
-        (pullbackModule e.hom (pullbackModule f.map E))
-        (pullbackModule e.hom (pullbackModule f.map F))) =>
-      (q ≫ externalTensorMap P.structureMap
-        (compositionPullback e.hom f.map g.map hg.symm E).hom
-        (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
-        curveExternalComparison P g E F)
-    (mixedPull_product P e he a b)
-
-theorem product (a : AlgebraicSection (pullbackModule f.map E))
-    (b : AlgebraicSection (pullbackModule f.map F)) :
-    leftAction P e he X f g hg (externalProductSection P.structureMap a b) =
-      rightAction P e he X f g hg.symm (externalProductSection P.structureMap a b) := by
-  exact (product_comparison P e he X f g hg a b).trans
-    (product_right P e he X f g hg a b).symm
-
-theorem expanded (B : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F)))
-    {N : ℕ} (a : Fin N → AlgebraicSection (pullbackModule f.map E))
-    (b : Fin N → AlgebraicSection (pullbackModule f.map F))
-    (hB : B = ∑ i, externalProductSection P.structureMap (a i) (b i)) :
-    leftAction P e he X f g hg B = rightAction P e he X f g hg.symm B := by
-  exact AdditiveExpansion.eq_of_sum
-    (leftAction P e he X f g hg) (rightAction P e he X f g hg.symm)
-    (fun i => externalProductSection P.structureMap (a i) (b i)) B hB
-    (left_sum P e he X f g hg _) (right_sum P e he X f g hg _)
-    (fun i => product P e he X f g hg (a i) (b i))
-
-end ExpansionProof
-
-/-- Comparison with the target external bundle commutes with an
-actual source reparametrization. A finite expansion is used only to
-prove canonical tensor coherence; the tensor itself remains fixed. -/
-theorem compared_of_expansion {E F : OModule X.variety.scheme}
-    (B : AlgebraicSection (externalTensor P.structureMap
-      (pullbackModule f.map E) (pullbackModule f.map F)))
-    {N : ℕ} (a : Fin N → AlgebraicSection (pullbackModule f.map E))
-    (b : Fin N → AlgebraicSection (pullbackModule f.map F))
-    (hB : B = ∑ i, externalProductSection P.structureMap (a i) (b i)) :
-    pullSection (curveSquareMap P (curve P e he))
-        (B ≫ curveExternalComparison P f E F) ≫
+theorem left_comparison
+    (A : ExternalExpansion (projectiveLineVariety P)
+      (identityCurveContact P).sequence.line (sourceBivector P)) :
+    pullSection (curveSquareMap P (curve P e he)) (Curve.leftSection P X f) ≫
       (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
         (curveSquareMap P g) (square_comp P e he X f g hg)
-        (externalTensor X.variety.structureMap E F)).hom =
-      (mixedPull P e he (pullbackModule f.map E) (pullbackModule f.map F) B ≫
-        externalTensorMap P.structureMap
-          (compositionPullback e.hom f.map g.map hg.symm E).hom
-          (compositionPullback e.hom f.map g.map hg.symm F).hom) ≫
-        curveExternalComparison P g E F := by
-  exact ExpansionProof.expanded P e he X f g hg B a b hB
+        (movingPairBundleLeft X.variety X.contact)).hom =
+    (mixedPull P e he (pullbackModule f.map (tangentSheaf X.variety.structureMap))
+        (pullbackModule f.map X.contact.sequence.line.sheaf) (Curve.leftRaw P X f) ≫
+      externalTensorMap P.structureMap
+        (compositionPullback e.hom f.map g.map hg.symm (tangentSheaf X.variety.structureMap)).hom
+        (compositionPullback e.hom f.map g.map hg.symm X.contact.sequence.line.sheaf).hom) ≫
+      curveExternalComparison P g (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf := by
+  exact compared_of_expansion P e he X f g hg
+    (E := (tangentSheaf X.variety.structureMap)) (F := X.contact.sequence.line.sheaf)
+    (Curve.leftRaw P X f) (N := A.size)
+    (fun i => A.left i ≫ Curve.differential P X f)
+    (fun i => A.right i ≫ curveContactVelocity P X.contact f)
+    (left_raw_expansion P X f A)
+
+theorem left_transport :
+    (mixedPull P e he (pullbackModule f.map (tangentSheaf X.variety.structureMap))
+        (pullbackModule f.map X.contact.sequence.line.sheaf) (Curve.leftRaw P X f) ≫
+      externalTensorMap P.structureMap
+        (compositionPullback e.hom f.map g.map hg.symm (tangentSheaf X.variety.structureMap)).hom
+        (compositionPullback e.hom f.map g.map hg.symm X.contact.sequence.line.sheaf).hom) ≫
+      curveExternalComparison P g (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf =
+    Curve.leftRaw P X g ≫
+      curveExternalComparison P g (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf := by
+  exact congrArg
+    (fun q : AlgebraicSection (externalTensor P.structureMap
+        (pullbackModule g.map (tangentSheaf X.variety.structureMap)) (pullbackModule g.map X.contact.sequence.line.sheaf)) =>
+      q ≫ curveExternalComparison P g (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf)
+    (LeBrunSalamon.Construction.FamilyBivectors.Reparametrization.leftRaw
+      P e he X f g hg)
+
+theorem left_definition :
+    Curve.leftRaw P X g ≫
+      curveExternalComparison P g (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf = Curve.leftSection P X g := by
+  rfl
+
+theorem right_raw_expansion
+    (E : ExternalExpansion (projectiveLineVariety P)
+      (identityCurveContact P).sequence.line (sourceBivector P)) :
+    Curve.rightRaw P X f = ∑ i,
+      externalProductSection P.structureMap
+        (E.left i ≫ curveContactVelocity P X.contact f)
+        (E.right i ≫ Curve.differential P X f) := by
+  letI := curveExternalComparison_isIso P f
+    X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap)
+  apply (cancel_mono (curveExternalComparison P f
+    X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap))).mp
+  simpa only [Curve.rightSection, Preadditive.sum_comp] using
+    Curve.rightSection_expansion P X f E
+
+theorem right_comparison
+    (A : ExternalExpansion (projectiveLineVariety P)
+      (identityCurveContact P).sequence.line (sourceBivector P)) :
+    pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫
+      (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
+        (curveSquareMap P g) (square_comp P e he X f g hg)
+        (movingPairBundleRight X.variety X.contact)).hom =
+    (mixedPull P e he (pullbackModule f.map X.contact.sequence.line.sheaf)
+        (pullbackModule f.map (tangentSheaf X.variety.structureMap)) (Curve.rightRaw P X f) ≫
+      externalTensorMap P.structureMap
+        (compositionPullback e.hom f.map g.map hg.symm X.contact.sequence.line.sheaf).hom
+        (compositionPullback e.hom f.map g.map hg.symm (tangentSheaf X.variety.structureMap)).hom) ≫
+      curveExternalComparison P g X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap) := by
+  exact compared_of_expansion P e he X f g hg
+    (E := X.contact.sequence.line.sheaf) (F := (tangentSheaf X.variety.structureMap))
+    (Curve.rightRaw P X f) (N := A.size)
+    (fun i => A.left i ≫ curveContactVelocity P X.contact f)
+    (fun i => A.right i ≫ Curve.differential P X f)
+    (right_raw_expansion P X f A)
+
+theorem right_transport :
+    (mixedPull P e he (pullbackModule f.map X.contact.sequence.line.sheaf)
+        (pullbackModule f.map (tangentSheaf X.variety.structureMap)) (Curve.rightRaw P X f) ≫
+      externalTensorMap P.structureMap
+        (compositionPullback e.hom f.map g.map hg.symm X.contact.sequence.line.sheaf).hom
+        (compositionPullback e.hom f.map g.map hg.symm (tangentSheaf X.variety.structureMap)).hom) ≫
+      curveExternalComparison P g X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap) =
+    Curve.rightRaw P X g ≫
+      curveExternalComparison P g X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap) := by
+  exact congrArg
+    (fun q : AlgebraicSection (externalTensor P.structureMap
+        (pullbackModule g.map X.contact.sequence.line.sheaf) (pullbackModule g.map (tangentSheaf X.variety.structureMap))) =>
+      q ≫ curveExternalComparison P g X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap))
+    (LeBrunSalamon.Construction.FamilyBivectors.Reparametrization.rightRaw
+      P e he X f g hg)
+
+theorem right_definition :
+    Curve.rightRaw P X g ≫
+      curveExternalComparison P g X.contact.sequence.line.sheaf (tangentSheaf X.variety.structureMap) = Curve.rightSection P X g := by
+  rfl
+
+end FinalSectionProof
 
 /-- Reparametrization invariance in the actual target bundle, including
 all the canonical composition and external-product comparisons. -/
@@ -228,42 +156,22 @@ theorem leftSection :
       (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
         (curveSquareMap P g) (square_comp P e he X f g hg)
         (movingPairBundleLeft X.variety X.contact)).hom = Curve.leftSection P X g := by
-  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)
+  obtain ⟨A⟩ := externalExpansion_exists (projectiveLineVariety P)
     (identityCurveContact P).sequence.line (sourceBivector P)
-  have hB : Curve.leftRaw P X f = ∑ i,
-      externalProductSection P.structureMap
-        (E.left i ≫ Curve.differential P X f)
-        (E.right i ≫ curveContactVelocity P X.contact f) := by
-    letI := curveExternalComparison_isIso P f
-      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf
-    apply (cancel_mono (curveExternalComparison P f
-      (tangentSheaf X.variety.structureMap) X.contact.sequence.line.sheaf)).mp
-    simpa only [Curve.leftSection, Preadditive.sum_comp] using
-      Curve.leftSection_expansion P X f E
-  rw [Curve.leftSection, compared_of_expansion P e he X f g hg
-    (Curve.leftRaw P X f) _ _ hB, leftRaw P e he X f g hg]
-  rfl
+  exact (FinalSectionProof.left_comparison P e he X f g hg A).trans
+    ((FinalSectionProof.left_transport P e he X f g hg).trans
+      (FinalSectionProof.left_definition P X g))
 
 theorem rightSection :
     pullSection (curveSquareMap P (curve P e he)) (Curve.rightSection P X f) ≫
       (compositionPullback (curveSquareMap P (curve P e he)) (curveSquareMap P f)
         (curveSquareMap P g) (square_comp P e he X f g hg)
         (movingPairBundleRight X.variety X.contact)).hom = Curve.rightSection P X g := by
-  obtain ⟨E⟩ := externalExpansion_exists (projectiveLineVariety P)
+  obtain ⟨A⟩ := externalExpansion_exists (projectiveLineVariety P)
     (identityCurveContact P).sequence.line (sourceBivector P)
-  have hB : Curve.rightRaw P X f = ∑ i,
-      externalProductSection P.structureMap
-        (E.left i ≫ curveContactVelocity P X.contact f)
-        (E.right i ≫ Curve.differential P X f) := by
-    letI := curveExternalComparison_isIso P f X.contact.sequence.line.sheaf
-      (tangentSheaf X.variety.structureMap)
-    apply (cancel_mono (curveExternalComparison P f X.contact.sequence.line.sheaf
-      (tangentSheaf X.variety.structureMap))).mp
-    simpa only [Curve.rightSection, Preadditive.sum_comp] using
-      Curve.rightSection_expansion P X f E
-  rw [Curve.rightSection, compared_of_expansion P e he X f g hg
-    (Curve.rightRaw P X f) _ _ hB, rightRaw P e he X f g hg]
-  rfl
+  exact (FinalSectionProof.right_comparison P e he X f g hg A).trans
+    ((FinalSectionProof.right_transport P e he X f g hg).trans
+      (FinalSectionProof.right_definition P X g))
 
 end Reparametrization
 

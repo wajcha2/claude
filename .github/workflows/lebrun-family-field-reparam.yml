@@ -1,0 +1,85 @@
+name: LeBrun-Salamon family field reparametrization frontier
+
+on:
+  push:
+    branches:
+      - codex/lebrun-family-field-reparam-20261104
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  family-field-reparam:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact immutable snapshot
+        uses: actions/checkout@v4
+      - name: Verify exact source manifest
+        run: python3 lebrun-salamon/continuation/scripts/check_checkpoint.py --root lebrun-salamon/continuation --verify-manifest --output-dir diagnostic-static
+      - name: Restore pinned stock runtime
+        timeout-minutes: 12
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_ci_runtime.py --runtime "$RUNNER_TEMP/lebrun-runtime" --config "$GITHUB_WORKSPACE/runtime-config.json"
+      - name: Download verified native cache 1 from 41827757215
+        uses: actions/download-artifact@v4
+        with:
+          name: lebrun-formal-arc-equation-actual-41827757215-1
+          run-id: 41827757215
+          github-token: ${{ github.token }}
+          path: lebrun-cache-inputs/0
+      - name: Restore only exact coherent native artifact union
+        run: |
+          python3 lebrun-salamon/continuation/scripts/restore_replay_cache_union.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --inputs lebrun-salamon/continuation/audit/outage_frontier/MODEL_CACHE_INPUTS.json --build-dir kernel-evidence
+      - name: Profile all 47 original family field declarations
+        id: profile
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyFieldReparametrizationProfile --keep-going --timeout 300
+      - name: Report exact full family profile scope
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Expose receipt-bound family markers and profiler
+        if: always()
+        run: python3 lebrun-salamon/continuation/scripts/report_profile_streams.py --build-dir kernel-evidence --module LSFamilyFieldReparametrizationProfile --allow-unattempted
+      - name: Preserve full family profile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-field-reparam-profile-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Check actual uninstrumented family field reparametrization
+        id: actual
+        if: steps.profile.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSFamilyReparametrization --keep-going --timeout 300
+      - name: Report actual family field reparametrization scope
+        if: always() && steps.profile.outcome == 'success'
+        run: python3 lebrun-salamon/continuation/scripts/report_native_stage.py
+      - name: Preserve actual family field reparametrization evidence
+        if: always() && steps.profile.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lebrun-family-field-reparam-actual-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runtime-config.json
+            diagnostic-static/
+            kernel-evidence/
+          if-no-files-found: warn
+      - name: Require both native gates to pass
+        if: always()
+        env:
+          PROFILE_OUTCOME: ${{ steps.profile.outcome }}
+          ACTUAL_OUTCOME: ${{ steps.actual.outcome }}
+        run: |
+          test "$PROFILE_OUTCOME" = success
+          test "$ACTUAL_OUTCOME" = success

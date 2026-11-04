@@ -145,14 +145,23 @@ theorem sourcePoint_factor (t : BasePoint sB)
 
 @[reassoc] theorem point_factorization (z : SquarePoint P sB) :
     coordinates P sB z ≫ fibreSquare P sB (basePoint P sB z) = z.val := by
+  have hleft : (z.val ≫ RelativeSquare.left (parameter P sB)) ≫ parameter P sB =
+      (basePoint P sB z).val := by
+    simp only [basePoint, Category.assoc]
+  have hright : (z.val ≫ RelativeSquare.right (parameter P sB)) ≫ parameter P sB =
+      (basePoint P sB z).val := by
+    simpa only [basePoint, Category.assoc] using
+      congrArg (fun f => z.val ≫ f)
+        (pullback.condition (f := parameter P sB) (g := parameter P sB)).symm
   apply pullback.hom_ext
   · rw [Category.assoc, fibreSquare_left, ← Category.assoc, coordinates_left]
-    apply sourcePoint_factor P sB (basePoint P sB z)
-    rfl
+    simpa only [Category.assoc, RelativeSquare.left] using
+      (sourcePoint_factor P sB (basePoint P sB z)
+        (z.val ≫ RelativeSquare.left (parameter P sB)) hleft)
   · rw [Category.assoc, fibreSquare_right, ← Category.assoc, coordinates_right]
-    apply sourcePoint_factor P sB (basePoint P sB z)
-    simpa only [basePoint, Category.assoc] using congrArg (fun f => z.val ≫ f)
-      (pullback.condition (f := parameter P sB) (g := parameter P sB)).symm
+    simpa only [Category.assoc, RelativeSquare.right] using
+      (sourcePoint_factor P sB (basePoint P sB z)
+        (z.val ≫ RelativeSquare.right (parameter P sB)) hright)
 
 /-- Whole-fibre equality detects family sections only under the actual
 reduced and locally-finite-type hypotheses required by point detection. -/
@@ -234,6 +243,7 @@ def fibreIso (t : BasePoint sB) : ProjectiveLine ≅ ProjectiveLine where
     change fibreHom P sB e.symm t ≫ (inclusion P sB t ≫ e.hom ≫ projection P sB) = _
     rw [← Category.assoc,
       fibreHom_inclusion P sB e.symm (inverse_parameter P sB e he) t]
+    change inclusion P sB t ≫ e.inv ≫ e.hom ≫ projection P sB = 𝟙 ProjectiveLine
     simp only [Category.assoc, e.inv_hom_id_assoc, inclusion_projection]
 
 @[reassoc] theorem fibreIso_overC (t : BasePoint sB) :
@@ -259,12 +269,26 @@ def squareMap : Square P sB ⟶ Square P sB :=
       curveSquareMap P (Reparametrization.curve P (fibreIso P sB e he t)
         (fibreIso_overC P sB e he t)) ≫ fibreSquare P sB t := by
   apply pullback.hom_ext
-  · simp only [Category.assoc, squareMap_left, fibreSquare_left_assoc,
-      fibreSquare_left, curveSquareMap_first_assoc]
-    rw [fibreHom_inclusion P sB e he t]
-  · simp only [Category.assoc, squareMap_right, fibreSquare_right_assoc,
-      fibreSquare_right, curveSquareMap_second_assoc]
-    rw [fibreHom_inclusion P sB e he t]
+  · simp only [Category.assoc, squareMap_left, fibreSquare_left_assoc, fibreSquare_left]
+    rw [← Category.assoc
+      (curveSquareMap P (Reparametrization.curve P (fibreIso P sB e he t)
+        (fibreIso_overC P sB e he t)))
+      (firstProjection P.structureMap) (inclusion P sB t)]
+    erw [curveSquareMap_first P (Reparametrization.curve P (fibreIso P sB e he t)
+        (fibreIso_overC P sB e he t))]
+    change firstProjection P.structureMap ≫ inclusion P sB t ≫ e.hom =
+      (firstProjection P.structureMap ≫ fibreHom P sB e t) ≫ inclusion P sB t
+    rw [Category.assoc, fibreHom_inclusion P sB e he t]
+  · simp only [Category.assoc, squareMap_right, fibreSquare_right_assoc, fibreSquare_right]
+    rw [← Category.assoc
+      (curveSquareMap P (Reparametrization.curve P (fibreIso P sB e he t)
+        (fibreIso_overC P sB e he t)))
+      (secondProjection P.structureMap) (inclusion P sB t)]
+    erw [curveSquareMap_second P (Reparametrization.curve P (fibreIso P sB e he t)
+        (fibreIso_overC P sB e he t))]
+    change secondProjection P.structureMap ≫ inclusion P sB t ≫ e.hom =
+      (secondProjection P.structureMap ≫ fibreHom P sB e t) ≫ inclusion P sB t
+    rw [Category.assoc, fibreHom_inclusion P sB e he t]
 
 def reparametrizeCurve {n : ℕ} (X : ContactFanoManifold n)
     (f : RationalCurve P X.variety) (a : ProjectiveLine ≅ ProjectiveLine)

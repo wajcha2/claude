@@ -1,6 +1,6 @@
 from pathlib import Path
 import hashlib,json
-names=["LSModelDifferentialFlushSmoke","LSModelDifferentialProfileScalar","LSModelDifferentialProfileBaseChange"]
+names=["LSModelDifferentialFlushSmoke","LSModelDifferentialProfileTail"]
 for name in names:
     p=Path("kernel-evidence/receipts")/(name+".json")
     if not p.exists():

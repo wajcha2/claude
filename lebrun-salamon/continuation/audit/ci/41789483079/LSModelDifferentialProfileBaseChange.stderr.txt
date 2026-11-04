@@ -1,0 +1,44 @@
+MODEL_DIFFERENTIAL_PROFILE BEGIN_PREFIX
+MODEL_DIFFERENTIAL_PROFILE ENTER_polynomial_scalar
+type checking took 1.73s
+MODEL_DIFFERENTIAL_PROFILE EXIT_polynomial_scalar
+type checking took 420ms
+type checking took 105ms
+MODEL_DIFFERENTIAL_PROFILE ENTER_LogVelocity
+MODEL_DIFFERENTIAL_PROFILE ENTER_fromForm_coefficient
+tactic execution of Lean.Parser.Tactic.change took 116ms
+type checking took 1.48s
+MODEL_DIFFERENTIAL_PROFILE ENTER_fromForm_baseChange
+tactic execution of Lean.Parser.Tactic.change took 224ms
+type checking took 426ms
+MODEL_DIFFERENTIAL_PROFILE ENTER_ModelDifferential
+MODEL_DIFFERENTIAL_PROFILE ENTER_chartVelocity_baseChange
+tactic execution of Lean.Parser.Tactic.change took 422ms
+tactic execution of Lean.Parser.Tactic.exact took 235ms
+type checking took 2.55s
+MODEL_DIFFERENTIAL_PROFILE EXIT_chartVelocity_baseChange
+cumulative profiling times:
+	attribute application 9.43ms
+	compilation (IR) 1.27ms
+	compilation (LCNF base) 29.2ms
+	compilation (LCNF impure) 5.5ms
+	compilation (LCNF mono) 12.3ms
+	congr simp thm 11.8ms
+	declTypeLinter 1.76ms
+	do element elaborator 9.16ms
+	elaboration 446ms
+	fix level params 2.47ms
+	instantiate metavars 6.31ms
+	interpretation 0.941ms
+	let-to-have transformation 0.451ms
+	linting 52.1ms
+	norm_num 1.33ms
+	parsing 26.3ms
+	process pre-definitions 88ms
+	ring 1.32ms
+	share common exprs 19ms
+	simp 157ms
+	tactic execution 2.77s
+	tacticAnalysis 1.51ms
+	type checking 6.97s
+	typeclass inference 864ms

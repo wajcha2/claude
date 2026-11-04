@@ -38,9 +38,9 @@ jobs:
         run: |
           python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialFlushSmoke --timeout 30
           python3 lebrun-salamon/continuation/scripts/verify_model_profile_smoke.py
-      - name: Check both exact proof prefixes with bounded profiling
+      - name: Check the exact full-source tail localization
         run: |
-          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialProfileScalar --module LSModelDifferentialProfileBaseChange --keep-going --timeout 180
+          python3 lebrun-salamon/continuation/scripts/replay_checkpoint.py --root lebrun-salamon/continuation --runtime-config runtime-config.json --build-dir kernel-evidence --module LSModelDifferentialProfileTail --keep-going --timeout 180
       - name: Expose complete native profiler and raw marker output
         if: always()
         run: python3 lebrun-salamon/continuation/scripts/report_model_profile.py

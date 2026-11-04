@@ -1,12 +1,12 @@
 {
   "schema": "lebrun-immutable-source-freeze-v1",
-  "announced_utc": "2026-11-04T11:01:06Z",
-  "frozen_utc": "2026-11-04T11:01:06Z",
-  "parent_commit": "62490515bee8c335bd32077dffc369370f6b9d1f",
-  "base_tree": "9073fba34f793142af8e05b758690ee69e9d6879",
+  "announced_utc": "2026-11-04T11:11:43Z",
+  "frozen_utc": "2026-11-04T11:11:43Z",
+  "parent_commit": "e79a5a00d5019e277f158be5bbe0cf690d11d618",
+  "base_tree": "8029967c45381463b888c9ed1ecf207902490ac5",
   "repository": "wajcha2/claude",
-  "branch": "codex/lebrun-model-frontier-20261104",
-  "source_modules": 291,
+  "branch": "codex/lebrun-formal-arc-normalization-profile-20261104",
+  "source_modules": 292,
   "source_sha256": {
     "source/FieldDifferentials.lean": "d5834536197452a7837fccdd9892d37a4da4f7bd842cafa60c87d185977ea5c8",
     "source/LSAdditionFiberPresentation.lean": "007f9d4adce3e0409f7a0e86ffa0f83f0cfd2ef371b6b2cfbbea909d0ddf072b",
@@ -298,19 +298,20 @@
     "source/LSModelGenericNormalization.lean": "3bd01dee5f726fc0bf35eecadb60384de62776274c401b5c5357f87b7a562be0",
     "source/LSFamilyAdditiveExpansion.lean": "f8f416b600ce6d10d3b9d0a51c6513fbcaee9a26fb8ea9f5ef83f3621f7f8fff",
     "source/LSFamilySectionSums.lean": "bc444c3041af20902358c19a7dfcba84f690234ae6e2a150ec300f34395eade3",
-    "source/LSModelTensorScalar.lean": "289b800491beddd1d72d16b67646d9ddb91252c1872e31124bbcf88ebaee754b"
+    "source/LSModelTensorScalar.lean": "289b800491beddd1d72d16b67646d9ddb91252c1872e31124bbcf88ebaee754b",
+    "source/LSFormalArcNormalizationProfile.lean": "d1085c8ca8b5a75a29202e85bd18d43bd6c58dc1a8a9bab20bb58663ee180c95"
   },
   "target_sha256": "9afe9c5b2e63db17e8f217b71c821eaca83fe26c5cfbc2956fc1b92832d09296",
   "lock_sha256": "7f60e90fabda82f0e4e3c3bf4537d24f1298514f116bc18215f162e203f11c19",
   "input_tree_stable_during_copy": true,
   "all_copied_bytes_verified": true,
-  "status": "pending actual model scalar compatibility check",
+  "status": "diagnostic-only original formal-arc normalization boundary",
   "accepted_units": 30,
   "acceptance_denominator": 133,
   "acceptance_metric_source": "audit/MILESTONE_PROGRESS.json",
   "acceptance_metric_preserved_without_promotion": true,
   "strict_ci_cache_source_run": null,
-  "scope": "The six actual model scalar declarations retain their original public headers; two proof bodies repair the three emitted native carrier/linearity errors. Independent family endpoint and numerator diagnostics run on separate branches. No native diagnostic module is counted here; exact190 boundary remains unchanged and obligation acceptance remains pending.",
+  "scope": "Separate diagnostic branch checks the exact first14 actual declarations with raw markers. A second job only prints archived family/numerator profile streams bound to their receipt hashes; it invokes no compiler and changes no native status.",
   "diagnostic_scope": "Whole-source diagnostic on a separate branch. No acceptance ledger promotion.",
   "additional_parent_commit": null,
   "strict_ci_cache_union_runs": [
@@ -338,5 +339,7 @@
   "point1_acceptance": false,
   "accepted_obligation_units": 30,
   "total_obligation_units": 133,
-  "known_verified_native_module_union_before_new_helpers": 274
+  "known_verified_native_module_union_before_new_helpers": 274,
+  "diagnostic_only": true,
+  "production_parent": "e79a5a00d5019e277f158be5bbe0cf690d11d618"
 }

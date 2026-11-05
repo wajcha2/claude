@@ -1,0 +1,134 @@
+{
+  "schema": "residue-point-lifting-independent-source-review-v1",
+  "reviewer": "/root/published_leaf_audit",
+  "reviewed_utc": "2026-11-04T22:03:16.912251+00:00",
+  "status": "exact generic construction and orientations verified; completed local proof evidence independently rehashed; zero milestone credit",
+  "actual_source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next3i/obl056/LSResiduePointLiftingV2.lean",
+  "actual_source_sha256": "53da8dfb3645f25aabb232910ab67e2913451367ddda02c265ed59062582fa7c",
+  "profile_source": "/workspace/scratch/4deac2cdddbb/source_milestone_audit/next3i/obl056/LSResiduePointLiftingProfileV2.lean",
+  "profile_source_sha256": "af3fe919361221c82da31f4b5ecc1dba8767ac38ea77af858ec19673cf338ab8",
+  "declaration_names": [
+    "residuePointLift",
+    "residuePointLift_comp",
+    "residuePointLift_closedPoint",
+    "exists_residuePointLift",
+    "residuePointLift_overBase",
+    "exists_compatible_residuePointLift",
+    "exists_localTestCentre"
+  ],
+  "import_scope": [
+    "Mathlib"
+  ],
+  "profile_inverse": {
+    "removed_options": [
+      "profiler true",
+      "stderrAsMessages false"
+    ],
+    "removed_stage_commands": 8,
+    "removed_axiom_queries": 7,
+    "removed_one_final_appended_blank_line": true,
+    "all_remaining_bytes_equal_actual": true
+  },
+  "contract": {
+    "arbitrary_data": [
+      "T,X : Scheme.{u}",
+      "f : T ⟶ X",
+      "t : T",
+      "K : Type u with Field K",
+      "p : Spec K ⟶ X"
+    ],
+    "essential_hypotheses": [
+      "IsIso (f.residueFieldMap t)",
+      "p(closedPoint K) = f(t)"
+    ],
+    "conclusion": "A specified q : Spec K ⟶ T with q≫f=p and q(closedPoint K)=t.",
+    "base_extension": "For arbitrary S, s:X→S, sT:T→S, b:Spec K→S, f≫s=sT and p≫s=b imply this same q≫sT=b.",
+    "local_test": "Specializes T to Spec B and t to its actual closed point for arbitrary commutative local B. No Artinian or Noetherian assumption is added.",
+    "not_assumed": [
+      "smoothness",
+      "flatness",
+      "separatedness",
+      "properness",
+      "project presentation",
+      "algebraic closure of K",
+      "Henselian property",
+      "a preexisting lift",
+      "a scheme-isomorphism f",
+      "an isomorphism on the full stalk map"
+    ]
+  },
+  "orientation_review": [
+    {
+      "step": "actual residue map",
+      "domain": "κ_X(f(t))",
+      "codomain": "κ_T(t)",
+      "map": "r=f.residueFieldMap t"
+    },
+    {
+      "step": "inverse",
+      "domain": "κ_T(t)",
+      "codomain": "κ_X(f(t))",
+      "map": "inv r; justified by the explicit IsIso hypothesis"
+    },
+    {
+      "step": "point-equality transport",
+      "domain": "κ_X(f(t))",
+      "codomain": "κ_X(p(closedPoint K))",
+      "map": "(X.residueFieldCongr hp.symm).hom; hp.symm has exactly f(t)=p(closedPoint K)"
+    },
+    {
+      "step": "canonical embedding attached to p",
+      "domain": "κ_X(p(closedPoint K))",
+      "codomain": "K",
+      "map": "X.descResidueField (Scheme.stalkClosedPointTo p)"
+    },
+    {
+      "step": "contravariant spectrum followed by canonical source point",
+      "domain": "Spec K",
+      "codomain": "T",
+      "map": "Spec.map(inv r≫residueFieldCongr≫descResidueField)≫T.fromSpecResidueField t"
+    }
+  ],
+  "proof_review": {
+    "composition": "The canonical residue-point naturality gives T.fromSpecResidueField t≫f=Spec.map r≫X.fromSpecResidueField(f t). Contravariance combines this into Spec.map(r≫a). The r≫inv r cancellation is in the correct order; residueFieldCongr_fromSpecResidueField hp.symm transports the point back to p(closedPoint K), and the canonical factorization of p gives equality with p itself.",
+    "centre": "fromSpecResidueField_apply sends the image of the unique field-spectrum point to the specified t. The result is the actual chosen point, not an existential point of the fibre.",
+    "base": "The existing equations f≫s=sT and p≫s=b compose with q≫f=p. The proof reuses the same q and imposes no independent lift choice or stronger square.",
+    "binder_scope": "The two existential lemmas explicitly include hp and hres, so the centre equality and residue-isomorphism premise remain actual inputs although their syntactic conclusions omit the construction. All other occurrences infer those same parameters from residuePointLift.",
+    "source_order": "Mathlib-only helper can be placed before project geometry; it creates no Ext02/Geometry/representability dependency. A production namespace/import cleanup, if chosen, must be separately guarded.",
+    "remaining_scope": "This closes the proposed test-dependent residue-point construction only. It does not prove a Hom smoothness criterion, obstruction-sheaf identification, global lifting over small extensions, or original OBL056."
+  },
+  "local_diagnostic_evidence": {
+    "receipt": "/workspace/scratch/4deac2cdddbb/root_diagnostics/runs/20261104T215947470393-LSResiduePointLiftingProfileV2/receipt.json",
+    "receipt_sha256": "a7edd145aae31036190e8cfdc2fab0509e707d43d0388c1ba1f9f6d8d2244809",
+    "seconds": 29.762,
+    "return_code": 0,
+    "errors": 0,
+    "complete_success": true,
+    "all_guards_stable": true,
+    "stdout_sha256": "414868fed305e9d3cdb0580e337748d58c974428305b325f656a08b0ecacb1b3",
+    "stderr_sha256": "a30c4c8d729ad941a06f930ed1d0028cb020b901f8da09a7d6c632048b8ec465",
+    "output_sha256": "d9b6db33a867241bbd68083258c276af18612fbe9b58785da0bdf578d71fa9e6",
+    "direct_import_artifacts": {
+      "/workspace/scratch/4deac2cdddbb/lebrun_recovery/runtime/mathlib/packages/mathlib/.lake/build/lib/lean/Mathlib.olean": "cf4e1b9c97a496d1a653ac6ebe1abfac5b62e8f6a3e442041b5d8845789e09bf"
+    },
+    "source_output_logs_direct_imports_rehashed": true,
+    "all_seven_axiom_prints_exactly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "inherited_sorryAx": false
+  },
+  "findings": {
+    "inverse_or_transport_orientation_defect": false,
+    "hidden_strengthening": false,
+    "unused_extra_geometric_hypothesis": false,
+    "new_published_input": false
+  },
+  "review_actions": {
+    "new_compiler_runs": 0,
+    "source_or_production_edits": false,
+    "ref_or_ledger_changes": false,
+    "milestone_units_credited": 0
+  }
+}

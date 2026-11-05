@@ -1,0 +1,45 @@
+{
+  "schema": "lebrun-handoff-package-prepublication-review-v1",
+  "date": "2026-11-05",
+  "reviewer": "root",
+  "accepted_base_commit": "11c18cdcb5e92e3975626a6a1276abfe419ad4f8",
+  "accepted_base_tree": "a78c46ad6af4a3d96a42b8bd47895de30fcb92f6",
+  "all_changes_are_new_handoff_paths": true,
+  "existing_paths_overwritten": 0,
+  "markdown_relative_links_checked": 28,
+  "broken_relative_links": [],
+  "deferred_groups": 35,
+  "deferred_files": 126,
+  "all_deferred_index_git_blob_and_size_bindings_match": true,
+  "substantive_latest_proofs_missing_known_to_three_owners": false,
+  "recovered_supplement_blobs": [
+    "000e59197f6b91e90accdef8943757c7e58726da",
+    "e1b00b7aa0c2ca00887696c0adec5389d9d886e8"
+  ],
+  "guide_sha256": "cadda60ff9abf0f4b52ab286c89ce3555d5627df8c668a2cf4d1a53feb2ceff4",
+  "independent_guide_reviews": [
+    "published_leaf_audit",
+    "source_milestone_audit",
+    "github_checkpoint_audit"
+  ],
+  "root_review": "Read complete guide, all three technical handoff notes, reproduction script, checkpoint metadata and recovered residue review. Scope and filenames agree with the pinned sources and owner audits.",
+  "validation_performed": [
+    "Python verifier syntax",
+    "verifier Git-hash calculation against fetched known blobs",
+    "verifier rejection of path escapes",
+    "shell reproduction script syntax only",
+    "relative Markdown links against complete base tree plus all additions",
+    "deferred index against pinned complete Git tree"
+  ],
+  "not_performed": [
+    "new Lean compilation",
+    "execution of the reproduction shell script",
+    "redownload of binary runtime or native Actions ZIPs"
+  ],
+  "script_adjustment": "The recovered shell commands use task-specific LEBRUN_NATIVE_TEMP and LEBRUN_NATIVE_WORKSPACE variable names without changing the pinned runtime location or commands.",
+  "remaining_reconstruction_limits": "See BUILD_AND_RESUME.md section5: a redundant old scratch-only administrative readback is replaced by fresh checks; two named metadata inputs can be regenerated. No missing latest source/proof candidate was identified.",
+  "milestone_accepted_units": 79,
+  "milestone_denominator": 133,
+  "milestone_units_added": 0,
+  "full_milestone_complete": false
+}

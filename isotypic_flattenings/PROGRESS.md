@@ -128,3 +128,9 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   partial; KBUDGET=5e7 KMAXM=12 redo C^5 d=5 38/40 then d=6 0/122.
 - Other agents (status files pulled 21:39 UTC): d13 last update Nov 3 06:11 (no hits); d10 (C^4x5x5 rank 8 vs 9) resumed 2026-11-07 21:38,
   d=10 in progress, no hits; scan branch unchanged since Nov 3 07:21.
+
+### 2026-11-07T23:02Z high-budget Koszul redo: C^5 d=5 complete
+- KWEDGE Koszul, KBUDGET=5e7, KMAXM=12, rank 9 vs 10: all 40 components with g>0 done (koszul_b5e7_done.log), no separation at p=1,2 in
+  any of the 3 wedge factors / both orders. The wedged factor was projected to m=12 in every case with dim > 12 (115 wedge settings),
+  so this supersedes the KBUDGET=2e6 pass (m=5..7) for d=5. Lowest Koszul-of-isotypic degree for C^5 stays unknown (>= 6).
+- The chain moved on to C^5 d=6 at 23:01 UTC: 113 components queued (costs 2.1e4 .. 4.3e6), live/koszul5_d6_b5e7.log.

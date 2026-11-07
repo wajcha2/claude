@@ -120,3 +120,11 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   2 generic d=8, stacked d=7, redo chain from C^5 d=5 at 33/40). Only the components in flight were lost.
 - 2026-11-03 06:16 UTC: container restart (third in 30 h) killed all workers; relaunched all seven with RESUME (KWEDGE d=7 at 60/187,
   redo chain at C^5 d=5 37/40, generic d=8 and stacked d=7 continuing). Only the components in flight were lost.
+
+### 2026-11-07T21:41Z outage recovery
+- The container was replaced several times between 2026-11-03 ~07:40 UTC and 2026-11-07 21:37 UTC; all seven workers were down for the whole
+  gap (the disk, live/ logs and snapshots survived, no work lost beyond the components in progress at 07:40). No new separators anywhere.
+- Relaunched with RESUME at 21:40 UTC from the Nov 3 state: KWEDGE C^5 d=7 62/187; generic C^5 d=8 662/729 (113 computed); stacked d=7
+  partial; KBUDGET=5e7 KMAXM=12 redo C^5 d=5 38/40 then d=6 0/122.
+- Other agents (status files pulled 21:39 UTC): d13 last update Nov 3 06:11 (no hits); d10 (C^4x5x5 rank 8 vs 9) resumed 2026-11-07 21:38,
+  d=10 in progress, no hits; scan branch unchanged since Nov 3 07:21.

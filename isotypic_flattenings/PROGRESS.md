@@ -134,3 +134,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   any of the 3 wedge factors / both orders. The wedged factor was projected to m=12 in every case with dim > 12 (115 wedge settings),
   so this supersedes the KBUDGET=2e6 pass (m=5..7) for d=5. Lowest Koszul-of-isotypic degree for C^5 stays unknown (>= 6).
 - The chain moved on to C^5 d=6 at 23:01 UTC: 113 components queued (costs 2.1e4 .. 4.3e6), live/koszul5_d6_b5e7.log.
+
+### 2026-11-08T03:37Z check-in
+- 7 workers running since the 21:40 relaunch, no separators. KWEDGE d=7 78/187, generic d=8 663/729 (114 computed), stacked d=7 10 computed, redo C^5 d=6 22/113.

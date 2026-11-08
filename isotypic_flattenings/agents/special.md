@@ -121,7 +121,12 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   2026-11-02 03:00: tlimit 7 days (604800 s): some components need days -- ((5,1,1,1),(3,2,1,1,1),(2,2,1,1,1,1))
   dir 1 rank-14 tensor: planned cost 7.5e14 with the evaluation basis (old fillings: no feasible plan), one filling
   evaluation 416856 blocks (64 % after this run's 14 h); the 36 h limit would kill such jobs, and with block
-  checkpoints a long job no longer loses work at a restart.  `special/sync.sh` copies special/live into
+  checkpoints a long job no longer loses work at a restart.
+  Stopped 2026-11-03 ~07:30 (session gone); 2026-11-08 13:50 a FRESH container (no special/live, no fcache, no
+  python-flint): deps installed, special/live rebuilt from special/res + special/logs + special/runner.log, ncores 4,
+  maxbig 2, tlimit 7 d; C^4 d=8 control rechecked (220/225, numpy 2.5.3); runner restarted 13:52.  277 of 495
+  components done, no hit; the long evaluations (and anything finished after the last sync, 2026-11-03 07:21)
+  restart from scratch.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

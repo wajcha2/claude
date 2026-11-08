@@ -173,3 +173,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   Together with the special-U agent's generic H_k/V_k profiles of all g>=2 components (d=5..8) and the earlier sweeps, every
   component with g>0 of degree <= 7 has now been tested classically against rank 9 vs 10: no classical isotypic flattening of
   degree <= 7 separates rank 9 from rank 10 in (C^5)^{(x)3}. d=8 remains partial for g=1 (75 of 314 components).
+
+### 2026-11-08T21:36Z check-in
+- 7 workers running, no separators. KWEDGE d=7 128/187, generic d=8 682/729 (133 computed), stacked d=7 29 computed, redo C^5 d=6 60/113; classical gap-filler d<=7 complete (115/115, none).

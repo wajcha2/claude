@@ -17,11 +17,13 @@ d9_455_dir1_B_big @8 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources 
 # next pass: sources lam_1 >= 6 ((8,1), (7,2), (7,1,1), (6,3), (6,2,1), (6,1,1,1)), family B aux 1, every subset (levels 1, g)
 d9_455_dir0_B_p3 @4.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 8000
 d9_555_B_p3 @4.5 | 5 9 9,10 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 8000
-d9_455_dir1_B_p3 @4.5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 8000
 # sources lam_1 >= 5 (adds (5,4), (5,3,1), (5,2,2), (5,2,1,1)): small targets, all subsets of <= 3 members at levels 1, g
 d9_455_dir0_B_p4 @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmax 3000
 d9_555_B_p4 @1.5 | 5 9 9,10 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmax 3000
 d9_455_dir1_B_p4 @1.5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmax 3000
+d9_455_dir1_B_p3 @4.5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 8000
+# sources lam_1 >= 4 for 5x5x5 (16 sources), small targets (fills a core next to the 8 GB job)
+d9_555_B_p5 @1.5 | 5 9 9,10 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:5 --bmax 2000
 # (2026-11-03 00:45, after a container restart) the two other large jobs after the small ones: d9_455_dir1_B_big (@8,
 # 5 lattices left) runs next to the small jobs only; these start when it is done (memory budget 13.5 GB)
 d9_555_B_big @5.5 | 5 9 9,10 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000

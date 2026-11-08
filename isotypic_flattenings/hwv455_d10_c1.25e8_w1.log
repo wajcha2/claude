@@ -1383,3 +1383,13 @@ lam=((6, 2, 2), (7, 3), (4, 4, 1, 1)) g=2 dims=(270, 4125, 700)  H1:270/270 g1:2
 #partial ((5, 4, 1), (7, 3), (4, 3, 3)) next=1 res={(0, 'gen'): (384, 384), (0, 'Hstack'): (384, 384)} spans=[2] secs=3.8 state={'bit_generator': 'PCG64', 'state': {'state': 330849368856708788049526019363376159113, 'inc': 80993275058709509550072859198550746071}, 'has_uint32': 0, 'uinteger': 1267049407}
 # blocks: Z-first (4133 x 5) of 4133 x 4133, 1.73e+12 flops, largest intermediate 3.31e+07
 # blocks: Z-first (4133 x 3) of 4133 x 4133, 3.34e+12 flops, largest intermediate 3.17e+07
+# blocks: Z-first (4133 x 5) of 4133 x 4133, 3.54e+12 flops, largest intermediate 2.58e+07
+# blocks: Z-first (4133 x 2) of 4133 x 4133, 4.97e+12 flops, largest intermediate 3.01e+07
+#partial ((5, 4, 1), (7, 3), (4, 3, 3)) next=2 res={(0, 'gen'): (384, 384), (0, 'Hstack'): (384, 384), (1, 'gen'): (4125, 4125), (1, 'Hstack'): (4125, 4125)} spans=[2, 2] secs=5140.3 state={'bit_generator': 'PCG64', 'state': {'state': 203469954960993735465943691610300729703, 'inc': 80993275058709509550072859198550746071}, 'has_uint32': 0, 'uinteger': 534218789}
+# blocks: Z-first (708 x 89) of 708 x 708, 6.31e+09 flops, largest intermediate 3.15e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 2.44e+09 flops, largest intermediate 2.26e+07
+# blocks: Z-first (708 x 89) of 708 x 708, 6.56e+09 flops, largest intermediate 3.15e+07
+lam=((5, 4, 1), (7, 3), (4, 3, 3)) g=2 dims=(384, 4125, 700)  H1:384/384 g1:384/384 H2:4125/4125 g2:4125/4125 H3:700/700 g3:700/700  span=2,2,2 cost=3.55e+07 (5158.5s)
+#partial ((6, 2, 2), (8, 2), (5, 3, 1, 1)) next=1 res={(0, 'gen'): (270, 270), (0, 'Hstack'): (270, 270)} spans=[2] secs=2.2 state={'bit_generator': 'PCG64', 'state': {'state': 271493377012632541852765666534053470217, 'inc': 69217535131121328851490603980717911419}, 'has_uint32': 1, 'uinteger': 4166135513}
+# blocks: Z-first (3858 x 4) of 3858 x 3858, 3.73e+11 flops, largest intermediate 1.54e+07
+# blocks: Z-first (3858 x 1) of 3858 x 3858, 1.68e+12 flops, largest intermediate 1.93e+07

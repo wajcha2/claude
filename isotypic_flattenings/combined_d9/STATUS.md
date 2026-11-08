@@ -52,6 +52,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   from 1 to 16), every subset of at most 3 members at the levels 1 and g, 1732 subsets: **no separation** (largest drop 0).
   2026-11-08 16:59 UTC, 3.1 h.
 
+* **d9_455_dir1_B_p4** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 5 (11); family B, aux 1): the 75 targets of
+  compressed size <= 3000 (307 larger ones skipped; members per target after dropping saturated ones from 1 to 11), every subset
+  of at most 3 members at the levels 1 and g, 4381 subsets: **no separation** (largest drop 0).  2026-11-08 19:42 UTC, 10 h in all.
+
 ## Running / queued (no separation so far)
 
 * d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);

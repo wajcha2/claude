@@ -12,7 +12,6 @@ d9_455_dir1_B  | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources patter
 d9_555_B       | 5 9 9,10 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmax 6000
 d9_455_dir0_AE | 4,5,5 9 8,9 --dir 0 --fam A,E --aux 1,2 --sources pattern:2 --nrand 100 --greedy 1 --pairs 4000
 # the targets skipped above (compressed size > 6000), with the fast low-memory combflat.py (2026-10-23)
-d9_455_dir1_B_big @8 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000
 # memory hints '@GB' (expected peak; d9_jobs.py launches a job only when it fits in 13.5 GB, see d9_jobs.py)
 # next pass: sources lam_1 >= 6 ((8,1), (7,2), (7,1,1), (6,3), (6,2,1), (6,1,1,1)), family B aux 1, every subset (levels 1, g)
 d9_455_dir0_B_p3 @4.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmax 8000
@@ -38,3 +37,6 @@ d9_455_dir0_B_p3_big @4.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --s
 d9_455_dir0_B_p4_mid @3 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmin 3000 --bmax 6000
 # sources lam_1 >= 4 (adds (4,4,1), (4,3,2), (4,3,1,1), (4,2,2,1); 14 sources), small dir-0 targets, subsets of <= 3 members
 d9_455_dir0_B_p5 @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:5 --bmax 2000
+# (2026-11-08 18:30) the last 3 lattices of d9_455_dir1_B_big need > 9.9 GB (OOM-killed at 9.9 GB on lattice 76; learned hint 12.1 GB):
+# it runs last, alone, so the other jobs are not held behind it
+d9_455_dir1_B_big @8 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000

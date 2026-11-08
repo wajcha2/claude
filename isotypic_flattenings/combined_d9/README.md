@@ -66,6 +66,8 @@ It did at 05:52 UTC: d9_455_dir1_B_p3 (3.5 GB, hint 1.5) was killed, d9_455_dir1
 now 4.5 GB, so it waits until the large job is done (lattice 129 is redone from the cached flattenings).
 The container stopped at about 08:00 UTC on 2026-11-03 and was started again on 2026-11-08 13:50 (no work in between); the
 runner was restarted with d9_455_dir1_B_p3 after the small jobs (4 workers: the 8 GB job and three small ones).
+2026-11-08 18:28 UTC: d9_455_dir1_B_big was OOM-killed at 9.9 GB on its lattice 76 (hint 8; the job furthest above its hint);
+the runner raised its hint to 12.1 GB (`logs/jobs/memhints.json`), and the job (3 lattices left) now runs last, alone.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 291 | 774 | 0 | 833794 s |
+| 6x6x6 | 8 | 11-13 | 292 | 776 | 0 | 836017 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2456,6 +2456,8 @@ None so far.
 | 6x6x6 | 8 | (422,422,311111) | 2 | 3 | 21, 6350400 | 11-13 | 11:21 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 ; sw23+=2 sw23-=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 18 s / 526 MB |
 | 6x6x6 | 8 | (422,422,32111) | 5 | 1 | 2520, 967680 | 11-13 | 11:2520 | U1=5 U2=5 U3=5 U4=5 U5=0 ; sw12+=2 sw12-=3 tested sw12+, sw12- | 6 lines: no tensor-independent drop point. | none | 2794 s / 1741 MB |
 | 6x6x6 | 8 | (422,422,32111) | 5 | 3 | 384, 6350400 | 11-13 | 11:384 | U1=5 U2=5 U3=5 U4=5 U5=0 ; sw23+=2 sw23-=3 tested sw23+, sw23- | 12 lines: no tensor-independent drop point. | none | 60 s / 500 MB |
+| 6x6x6 | 8 | (422,422,3221) | 5 | 1 | 2520, 2646000 | 11-13 | 11:2520 | U1=5 U2=5 U3=5 U4=0 ; sw12+=3 sw12-=2 tested sw12+, sw12- | 6 lines: no tensor-independent drop point. | none | 2003 s / 1739 MB |
+| 6x6x6 | 8 | (422,422,3221) | 5 | 3 | 1050, 6350400 | 11-13 | 11:1050 | U1=5 U2=5 U3=5 U4=0 ; sw23+=3 sw23-=2 tested sw23+, sw23- | 8 lines: no tensor-independent drop point. | none | 220 s / 972 MB |
 | 6x6x6 | 8 | (422,422,332) | 2 | 1 | 2520, 3704400 | 11-13 | 11:2520 | U1=2 U2=2 U3=2 U4=0 ; sw12+=1 sw12-=1 tested sw12+, sw12- | 1 lines: no tensor-independent drop point. | none | 496 s / 1094 MB |
 | 6x6x6 | 8 | (422,422,332) | 2 | 3 | 1470, 6350400 | 11-13 | 11:1470 | U1=2 U2=2 U3=2 U4=0 ; sw23+=1 sw23-=1 tested sw23+, sw23- | 1 lines: no tensor-independent drop point. | none | 189 s / 375 MB |
 | 6x6x6 | 8 | (422,422,41111) | 4 | 1 | 2520, 793800 | 11-13 | 11:2520 | U1=4 U2=4 U3=4 U4=4 U5=0 ; sw12+=2 sw12-=2 tested sw12+, sw12- | 6 lines: no tensor-independent drop point. | none | 2799 s / 1390 MB |

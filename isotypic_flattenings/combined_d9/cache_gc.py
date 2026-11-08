@@ -14,7 +14,8 @@ JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srca3d7b922', [1]), 'd9_
         'd9_555_B_p4': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srce9d6342a', [1]),        # sources lam_1 >= 5 (5 rows)
         'd9_455_dir1_B_p4': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srce9d6342a', [1]),
         'd9_455_dir0_B_p5': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26', [1]),     # sources lam_1 >= 4
-        'd9_555_B_p5': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4', [1])}     # its own cache only (the pattern:2 cache is in use by d9_555_B_big)
+        'd9_555_B_p5': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4', [1]),
+        'd9_455_dir1_B_p5': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4', [1])}     # its own cache only (the pattern:2 cache is in use by d9_555_B_big)
 dry = '--dry' in sys.argv
 freed = 0
 for job, (pat, auxes) in JOBS.items():

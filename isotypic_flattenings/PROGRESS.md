@@ -166,3 +166,10 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   d=10 29/790; d=11..14 only the "promising" lists (48/104, 42/180, 114/255, 135/337). So no degree >= 5 is complete for g=1.
 - Classical, C^4 rank 6 vs 7: d<=8 complete (all components; generic U of every dimension, H and V, by the n x n x n scan; generic+H by
   d7d8), d=9 782/782 (generic + H-stacks, no V-stacks; two g=1 separators), d=10 19/279 pass-1 components only.
+
+### 2026-11-08T20:22Z C^5 rank 9 vs 10: classical isotypic flattenings now complete for d <= 7
+- Gap-filler (sweep_fast.py, generic functional, p = 524287) on the 115 g=1 components that had no classical rank record
+  (d=2: 2, d=3: 5, d=5: 11, d=6: 39, d=7: 58; lists gap5_d*.txt, snapshot hwv5_gap_done.log): all computed, FOUND: [] in every degree.
+  Together with the special-U agent's generic H_k/V_k profiles of all g>=2 components (d=5..8) and the earlier sweeps, every
+  component with g>0 of degree <= 7 has now been tested classically against rank 9 vs 10: no classical isotypic flattening of
+  degree <= 7 separates rank 9 from rank 10 in (C^5)^{(x)3}. d=8 remains partial for g=1 (75 of 314 components).

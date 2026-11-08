@@ -8,7 +8,8 @@ slot, so that no two running processes append to one file; special/live is not t
 to special/res, special/logs and commits).  Resume: a component is skipped when every distinct direction has a
 record with the same ranks and methods in some special/live/res/n<n>_d<d>*.jsonl.  A job running longer than
 TLIMIT seconds (special/live/tlimit, default 10800) is killed and listed in special/runner.log as 'timeout'.
-EXCLUSIVE=1 jobs run without any other big job (no new big job starts once one is the highest-priority job left).  Memory guard: at most special/live/maxbig (default 2) jobs with an estimated peak above special/live/biggb GB
+A job starts only while the memory estimates of the running jobs plus its own stay within special/live/membudget GB
+(default 14).  EXCLUSIVE=1 jobs run without any other big job (no new big job starts once one is the highest-priority job left).  Memory guard: at most special/live/maxbig (default 2) jobs with an estimated peak above special/live/biggb GB
 (default 3; mem_estimate_gb) run at once (the queue skips ahead to small jobs), and a job starts only while MemAvailable >=
 special/live/minfree MB (default 5000) or nothing runs."""
 import os, sys, time, json, glob, subprocess, signal
@@ -67,6 +68,11 @@ def mem_estimate_gb(n, lam):
             est = 3 * g * N1 * K * 4 + K * K * 8 + 4 * N1 * K * 8
             if est <= vbudget or K == min(n1, n23) + 8:
                 break
+        # line phase (2026-11-08): minimal polynomials of rho x rho pencils (rho = rank of one functional, at most
+        # min(n1, n23)) with Krylov / flint work arrays: recorded 6x6x6 d=8 peaks reach ~20 rho^2 * 8 bytes on top of
+        # the cached filling tensors (estimate above was exceeded 2.6x, one OOM kill)
+        rho = min(n1, n23)
+        est = max(est, 3 * g * N1 * K * 4 + 20 * rho * rho * 8)
         m = max(m, est)
     return m / 1e9
 
@@ -193,9 +199,13 @@ def main():
             nbig = sum(1 for j in cur if big(j))
             reserve = bool(todo) and excl(todo[0])
             maxbig = read_int(os.path.join(LIVE, 'maxbig'), 2)
+            # memory budget (special/live/membudget GB, default 14): the estimates of the running jobs plus the new one
+            budget = read_int(os.path.join(LIVE, 'membudget'), 14)
+            used = sum(mem_estimate_gb(c[0], c[4]) for c in cur)
+            fits = lambda j: not cur or used + mem_estimate_gb(j[0], j[4]) <= budget
             k = next((i for i, j in enumerate(todo)
-                      if (excl(j) and nbig == 0) or
-                         (not excl(j) and (not big(j) or (nbig < maxbig and not reserve and not any(excl(c) for c in cur))))), None)
+                      if fits(j) and ((excl(j) and nbig == 0) or
+                         (not excl(j) and (not big(j) or (nbig < maxbig and not reserve and not any(excl(c) for c in cur)))))), None)
             if k is None:
                 break
             job = todo.pop(k)

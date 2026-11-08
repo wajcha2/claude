@@ -126,7 +126,11 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   python-flint): deps installed, special/live rebuilt from special/res + special/logs + special/runner.log, ncores 4,
   maxbig 2, tlimit 7 d; C^4 d=8 control rechecked (220/225, numpy 2.5.3); runner restarted 13:52.  277 of 495
   components done, no hit; the long evaluations (and anything finished after the last sync, 2026-11-03 07:21)
-  restart from scratch.  `special/sync.sh` copies special/live into
+  restart from scratch.
+  2026-11-08 21:12: OOM kill (rc -9) of ((5,2,1),(3,2,1,1,1),(3,1,1,1,1,1)) after 2.4 h (5.6 GB, estimate 4.2): the
+  peaks since the fast rankscan exceed the old estimate up to 2.6x (line phase: rho x rho minimal polynomials).
+  special_runner: estimate + 20 rho^2 * 8 bytes, and a memory budget (special/live/membudget, 14 GB) on the sum of
+  the running jobs' estimates; runner restarted 21:14 (running jobs adopted), the killed component is requeued.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

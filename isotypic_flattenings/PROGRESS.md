@@ -152,3 +152,17 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-08T18:37Z check-in
 - 7 workers running, no separators. KWEDGE d=7 122/187, generic d=8 680/729 (131 computed), stacked d=7 26 computed, redo C^5 d=6 55/113.
+
+### 2026-11-08 coverage audit (what is really complete; corrections to earlier notes)
+- Koszul C^4 d=7 (koszul4_d7_done.log): 170 components computed at KBUDGET=2e6, 25 size-skipped (dims >= 120x216x216), so the
+  earlier "195/195 complete" meant "pass finished", not "all components computed". No separator among the 170.
+- Stacked-U Koszul (koszul_stack.py, size cap 4e6): C^5 d=5 1 of 2 g>=2 components computed, d=6 6 of 24, d=7 27 of 115 so far;
+  the rest are size-skipped. Earlier notes calling d=5, d=6 "complete" meant the run finished.
+- Koszul-of-isotypic, C^5 rank 9 vs 10: d=4 15/15 (KBUDGET 2e6 only); d=5 40/40 at KBUDGET=5e7/KMAXM=12; d=6 high-budget redo running
+  (old pass: 19 computed, 94 size-skipped); d=7: 110 generic (2e6) + KWEDGE high-budget 124/187; d=8: 132 computed of 729 (size cap 3e6).
+- Classical isotypic flattenings, C^5 rank 9 vs 10 (counted from hwv5_*_done.log, live/v5_*.log and the classical ranks printed by the
+  Koszul passes; g>=2 components: generic H_k/V_k for all k by the special-U agent, special/RESULTS.md, d=5,6,7,8 all 2/24/121/415):
+  g=1 components (unique functional) covered: d=2 0/2, d=3 0/5, d=4 15/15, d=5 27/38, d=6 50/89, d=7 118/176, d=8 75/314, d=9 29/479,
+  d=10 29/790; d=11..14 only the "promising" lists (48/104, 42/180, 114/255, 135/337). So no degree >= 5 is complete for g=1.
+- Classical, C^4 rank 6 vs 7: d<=8 complete (all components; generic U of every dimension, H and V, by the n x n x n scan; generic+H by
+  d7d8), d=9 782/782 (generic + H-stacks, no V-stacks; two g=1 separators), d=10 19/279 pass-1 components only.

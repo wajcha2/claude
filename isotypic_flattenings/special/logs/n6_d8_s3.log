@@ -2415,3 +2415,29 @@ lam=((6, 2), (4, 2, 1, 1), (3, 2, 2, 1)) g=3 dir 1: n1=4950 n23=2551500 N1=4958 
    generic U: r11 H[4950, 4950, 4950] V[]
    U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
    no natural U with 0 < dim < g
+   line0 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (319.9s)
+   line1 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (323.2s)
+   gline H2: skipped (size)
+   done dir 1: ok, 4 cases, 0 hits, wall 1141.8s (F 481.6s), peak 3904 MB
+lam=((6, 2), (4, 2, 1, 1), (3, 2, 2, 1)) g=3 dir 2: n1=2430 n23=5197500 N1=2438 K=7298  ranks [11, 12, 13]
+   generic U: r11 H[2430, 2430, 2430] V[4860, 7290]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.6s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (45.9s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   done dir 2: ok, 5 cases, 0 hits, wall 287.0s (F 144.6s), peak 1126 MB
+lam=((6, 2), (4, 2, 1, 1), (3, 2, 2, 1)) g=3 dir 3: n1=1050 n23=12028500 N1=1058 K=3158  ranks [11, 12, 13]
+  . ((3, 2, 2, 1), (6, 2), (4, 2, 1, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.66e+11 -> 8.80e+10 (6s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1050, 1050, 1050] V[2100, 3150]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (5.1s)
+   line1 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (5.1s)
+   gline H2 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (8.8s)
+   gline V2 rho 2100  minpoly deg [2100, 2100]  gcd deg 0    (32.5s)
+   done dir 3: ok, 5 cases, 0 hits, wall 81.9s (F 24.0s), peak 824 MB
+lam=((4, 3, 1), (3, 2, 2, 1), (2, 2, 1, 1, 1, 1)) dir 1: V-stacks need ~8 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((4, 3, 1), (3, 2, 2, 1), (2, 2, 1, 1, 1, 1)) g=4 dir 1: n1=4410 n23=15750 N1=4418 K=4418  ranks [11, 12, 13]

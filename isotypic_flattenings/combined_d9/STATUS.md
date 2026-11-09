@@ -73,10 +73,12 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   compressed size 2000..3000 (members per target after dropping saturated ones from 5 to 14), every subset of at most 3 members at the
   levels 1 and g, 15288 subsets: **no separation** (largest drop 0).  2026-11-09 10:52 UTC, 5.1 h.
 
-* **d9_455_dir1_A1, source (7,1,1)** (4x5x5, source a C^5 factor, rank 8 vs 9; family A aux 1, one pass without a flattening
+* **d9_455_dir1_A1, sources (7,1,1) and (8,1)** (4x5x5, source a C^5 factor, rank 8 vs 9; family A aux 1, one pass without a flattening
   cache): 55 members (159 of 214 left out as saturated per the dir-1 B logs; 3 more saturated), all named groups, 1326 pairs,
   1000 triples, 100 random subsets and every all-but-one sum at levels 1 and g, 2616 subsets: **no separation** (largest drop 0;
   the sum of all members is S_(7,1,1) C^5, 1540).  2026-11-09 07:09 UTC, 4.6 h.
+  Source (8,1): 46 members (61 of 107 left out per the B logs; 1 more saturated), 2254 subsets: **no separation** (largest drop
+  0).  2026-11-09 14:10 UTC, 7.0 h.  Source (7,2) running.
 
 ## Running / queued (no separation so far)
 

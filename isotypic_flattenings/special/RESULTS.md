@@ -79,7 +79,7 @@ Grassmannian pencils of the largest stacks (size cap: 204 of 406 in 6x6x6 d = 7,
 | 6x6x6 | 5 | 10-13 | 2 | 4 | 0 | 104 s |
 | 6x6x6 | 6 | 10-13 | 24 | 53 | 0 | 8087 s |
 | 6x6x6 | 7 | 10-13 | 122 | 310 | 0 | 238523 s |
-| 6x6x6 | 8 | 11-13 | 355 | 946 | 0 | 1201396 s |
+| 6x6x6 | 8 | 11-13 | 356 | 948 | 0 | 1206641 s |
 | 7x7x7 | 5 | 12-18 | 2 | 4 | 0 | 456 s |
 | 7x7x7 | 6 | 12-18 | 24 | 53 | 0 | 29671 s |
 | 8x8x8 | 5 | 12-23 | 2 | 4 | 0 | 2318 s |
@@ -2346,6 +2346,8 @@ None so far.
 | 6x6x6 | 8 | (4211,3311,3221) | 9 | 1 | 2430, 1234800 | 11-13 | 11:2430 | U1=9 U2=9 U3=9 U4=7 U5=0 tested U4 | 5 lines: no tensor-independent drop point. | none | 888 s / 1273 MB |
 | 6x6x6 | 8 | (4211,3311,3221) | 9 | 2 | 1176, 2551500 | 11-13 | 11:1176 | U1=9 U2=9 U3=9 U4=7 U5=0 tested U4 | 4 lines: no tensor-independent drop point. | none | 953 s / 1202 MB |
 | 6x6x6 | 8 | (4211,3311,3221) | 9 | 3 | 1050, 2857680 | 11-13 | 11:1050 | U1=9 U2=9 U3=9 U4=7 U5=0 tested U4 | 4 lines: no tensor-independent drop point. | none | 548 s / 992 MB |
+| 6x6x6 | 8 | (4211,3311,3311) | 6 | 1 | 2430, 1382976 | 11-13 | 11:2430 | U1=6 U2=6 U3=6 U4=5 U5=0 ; sw23+=2 sw23-=4 tested U4, sw23+, U4^sw23+, sw23- | 8 lines: no tensor-independent drop point. | none | 4686 s / 2220 MB |
+| 6x6x6 | 8 | (4211,3311,3311) | 6 | 2 | 1176, 2857680 | 11-13 | 11:1176 | U1=6 U2=6 U3=6 U4=5 U5=0 ; sw13+=2 sw13-=4 tested U4, sw13+, U4^sw13+, sw13- | 8 lines: no tensor-independent drop point. | none | 560 s / 807 MB |
 | 6x6x6 | 8 | (4211,332,221111) | 2 | 1 | 2430, 22050 | 11-13 | 11:2430 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 916 s / 1036 MB |
 | 6x6x6 | 8 | (4211,332,221111) | 2 | 2 | 1470, 36450 | 11-13 | 11:1470 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 254 s / 668 MB |
 | 6x6x6 | 8 | (4211,332,221111) | 2 | 3 | 15, 3572100 | 11-13 | 11:15 | U1=2 U2=2 U3=2 U4=2 U5=2 U6=0 no natural U with 0 < dim < g | 1 lines: no tensor-independent drop point. | none | 9 s / 459 MB |

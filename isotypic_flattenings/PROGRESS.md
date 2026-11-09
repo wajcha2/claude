@@ -209,3 +209,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 ### 2026-11-09 21:02 UTC — C^5 d=4 high-budget Koszul redo complete
 - KBUDGET=5e7, KMAXM=12, KWEDGE sampled grids (m=12 on the wedged factor, p=1,2, all factor/swap choices): 15/15 components of S^4(C^5)^{\otimes 3} with g>0 checked for rank 9 vs 10, no separation (live/koszul5_d4_b5e7.log, merged into koszul_b5e7_done.log). Runtime 2026-11-09 00:58 to 21:02 UTC at nice 10/5.
 - The high-budget redo chain is now complete and negative for C^4 d=3, C^4 d=4, C^5 d=4, C^5 d=5; C^5 d=6 is at 91/113. 6 worker processes remain (KWEDGE d=7 x3, generic d=8 x2, d=6 redo).
+
+### 2026-11-09 21:06 UTC — classical gap-filler extended to d=8 (started)
+- gap5_d8.txt: the 235 g=1 components of S^8(C^5)^{\otimes 3} that still have no classical isotypic-flattening record (314 g=1 components at d=8, 79 covered by hwv5_d8_*_done.log / Koszul passes; the earlier d=8 sweep ran with MAXDIM=800). sweep_fast.py (generic functional, noV, p = 524287, MAXFLOPS=5e12) on the freed core at nice 5, log live/gap5_d8.log, snapshot hwv5_gap8_done.log. Together with the special-U agent profiles of the 415 g>=2 components this will complete the classical test of rank 9 vs 10 at d=8.

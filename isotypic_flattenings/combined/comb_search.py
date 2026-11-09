@@ -296,10 +296,15 @@ def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
     global _FAM
     prune = len(ranks) == 2 and fam.aux == 1
     dfile = sfile + '.direct' if sfile else None
-    dlist = []
+    lofile = sfile + '.lo' if sfile else None              # r_lo dims of subsets that are not direct (r_hi still to do)
+    dlist, lo_known = [], {}
     if dfile and os.path.exists(dfile):
         for l in open(dfile):
             dlist.append(dict(ast.literal_eval(l.split('\t')[0])))
+    if lofile and os.path.exists(lofile):
+        for l in open(lofile):
+            k, v = l.rstrip('\n').split('\t')
+            lo_known[k] = int(v)
     def covered(S):
         return any(all(x in D and lev <= D[x] for x, lev in S) for D in dlist)
     single_dims = {s: max(v) for s, v in singles.items()}
@@ -307,23 +312,30 @@ def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
     def nbytes(S):
         rows = sum(single_dims[s] for s in S) + 8
         return rows * min(fam.ncols, rows) * 8
-    def run(tasks, idx):
-        """(S, idx, dims) for every S of tasks, as they arrive; processes as many as --mem-budget allows for the
-        largest matrix of this batch."""
+    def run(tasks):
+        """tasks: [(S, rank indices)]; yields (S, idx, dims) as they arrive, in as many processes as --mem-budget
+        allows for the largest matrix of this batch."""
         if not tasks:
             return
-        tasks = sorted(tasks, key=lambda S: -nbytes(S))                     # largest first: load balance
-        procs = max(1, min(args.procs, len(tasks), int((args.mem_budget - mats_bytes) // max(nbytes(tasks[0]), 1))))
+        tasks = sorted(tasks, key=lambda t: -nbytes(t[0]))                  # largest first: load balance
+        procs = max(1, min(args.procs, len(tasks), int((args.mem_budget - mats_bytes) // max(nbytes(tasks[0][0]), 1))))
         if procs == 1:
-            for S in tasks:
-                yield _dimjob((S, idx))
+            for t in tasks:
+                yield _dimjob(t)
             return
         pool = mp.get_context('fork').Pool(procs)
         try:
-            for res in pool.imap_unordered(_dimjob, [(S, idx) for S in tasks], chunksize=1):
+            for res in pool.imap_unordered(_dimjob, tasks, chunksize=1):
                 yield res
         finally:
             pool.terminate(); pool.join()
+    def record(S, d):
+        k_ = repr(sorted(S))
+        store[k_] = d
+        if sfile:
+            with open(sfile, 'a') as fh:
+                fh.write('%s\t%s\n' % (k_, ','.join(map(str, d))))
+        test(S, 'exhaustive')
     uniq = {}
     for S in subsets:
         uniq.setdefault(frozenset(S), tuple(sorted(S, key=repr)))
@@ -338,31 +350,36 @@ def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
     nd = ns = nr = 0
     try:
         for key in sorted(groups, reverse=True):
-            lo, both = [], []
+            lo, rest, d0 = [], [], {}
             for S in groups[key]:
-                if repr(sorted(S)) in store:
+                k_ = repr(sorted(S))
+                if k_ in store:
                     test(S, 'exhaustive')                         # counted and reported from the store
                     continue
                 eq = prune and all(singles[s][0] == singles[s][1] for s in S)
                 if eq and covered(S):
                     ns += 1
                     continue
-                (lo if eq else both).append(S)
-            for S, idx, d in run(lo, (0,)):
+                if eq and k_ in lo_known:                         # not direct on r_lo (earlier run): r_hi still to do
+                    d0[k_] = lo_known[k_]; rest.append((S, (1,)))
+                elif eq:
+                    lo.append((S, (0,)))
+                else:
+                    rest.append((S, tuple(range(len(ranks)))))
+            for S, idx, d in run(lo):
+                k_ = repr(sorted(S))
                 if d[0] == sum(singles[s][0] for s in S):
                     dlist.append(dict(S)); nd += 1
                     if dfile:
                         with open(dfile, 'a') as fh:
-                            fh.write('%s\t%d\n' % (repr(sorted(S)), d[0]))
+                            fh.write('%s\t%d\n' % (k_, d[0]))
                 else:
-                    both.append(S)
-            for S, idx, d in run(both, tuple(range(len(ranks)))):
-                k_ = repr(sorted(S))
-                store[k_] = d
-                if sfile:
-                    with open(sfile, 'a') as fh:
-                        fh.write('%s\t%s\n' % (k_, ','.join(map(str, d))))
-                test(S, 'exhaustive')
+                    d0[k_] = d[0]; rest.append((S, (1,)))
+                    if lofile:
+                        with open(lofile, 'a') as fh:
+                            fh.write('%s\t%d\n' % (k_, d[0]))
+            for S, idx, d in run(rest):
+                record(S, (d0[repr(sorted(S))],) + d if idx == (1,) else d)
                 nr += 1
             print('# direct-sub size %d, level sum %d: %d ranked, %d direct on r%d, %d skipped (so far)'
                   % (key[0], key[1], nr, nd, ranks[0], ns))

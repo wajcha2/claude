@@ -312,23 +312,6 @@ def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
     def nbytes(S):
         rows = sum(single_dims[s] for s in S) + 8
         return rows * min(fam.ncols, rows) * 8
-    def run(tasks):
-        """tasks: [(S, rank indices)]; yields (S, idx, dims) as they arrive, in as many processes as --mem-budget
-        allows for the largest matrix of this batch."""
-        if not tasks:
-            return
-        tasks = sorted(tasks, key=lambda t: -nbytes(t[0]))                  # largest first: load balance
-        procs = max(1, min(args.procs, len(tasks), int((args.mem_budget - mats_bytes) // max(nbytes(tasks[0][0]), 1))))
-        if procs == 1:
-            for t in tasks:
-                yield _dimjob(t)
-            return
-        pool = mp.get_context('fork').Pool(procs)
-        try:
-            for res in pool.imap_unordered(_dimjob, tasks, chunksize=1):
-                yield res
-        finally:
-            pool.terminate(); pool.join()
     def record(S, d):
         k_ = repr(sorted(S))
         store[k_] = d
@@ -339,53 +322,106 @@ def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
     uniq = {}
     for S in subsets:
         uniq.setdefault(frozenset(S), tuple(sorted(S, key=repr)))
-    groups = {}
-    for S in uniq.values():
-        groups.setdefault((len(S), sum(lev for _, lev in S)), []).append(S)
-    print('# direct-sub %d members, %d subsets in %d batches, thin matrices %.1f GB, largest subset matrix %.1f GB, '
-          'up to %d processes' % (len(fam.members), len(uniq), len(groups), mats_bytes / 1e9,
-                                  max(nbytes(S) for S in uniq.values()) / 1e9 if uniq else 0, args.procs))
+    # one queue for the whole lattice: larger subsets first (size, then level sum, then matrix size); the cover test is
+    # made when a subset is handed out, so it uses every direct subset found by then; a free process gets the next task
+    # whose matrix fits in --mem-budget next to the ones running (the thin matrices are shared)
+    order = sorted(uniq.values(), key=lambda S: (-len(S), -sum(l for _, l in S), -nbytes(S)))
+    budget = args.mem_budget - mats_bytes
+    print('# direct-sub %d members, %d subsets, thin matrices %.1f GB, largest subset matrix %.1f GB, up to %d processes'
+          % (len(fam.members), len(order), mats_bytes / 1e9, max([nbytes(S) for S in order] or [0]) / 1e9, args.procs))
     sys.stdout.flush()
-    _FAM = fam
     nd = ns = nr = 0
+    d0 = {}
+    hi = []                      # (S, (1,)) tasks: not direct on r_lo, r_hi still to do (run before the next lo task)
+    pend = []
+    for S in order:
+        k_ = repr(sorted(S))
+        if k_ in store:
+            test(S, 'exhaustive')                                 # counted and reported from the store
+            continue
+        eq = prune and all(singles[s][0] == singles[s][1] for s in S)
+        if eq and k_ in lo_known:
+            d0[k_] = lo_known[k_]; hi.append((S, (1,)))
+        else:
+            pend.append((S, (0,) if eq else tuple(range(len(ranks)))))
+    pend.reverse()               # pop() from the end = largest first
+    def handle(S, idx, d):
+        nonlocal nd, nr
+        k_ = repr(sorted(S))
+        if idx == (0,):
+            if d[0] == sum(singles[s][0] for s in S):
+                dlist.append(dict(S)); nd += 1
+                if dfile:
+                    with open(dfile, 'a') as fh:
+                        fh.write('%s\t%d\n' % (k_, d[0]))
+            else:
+                d0[k_] = d[0]; hi.append((S, (1,)))
+                if lofile:
+                    with open(lofile, 'a') as fh:
+                        fh.write('%s\t%d\n' % (k_, d[0]))
+        else:
+            record(S, (d0[k_],) + d if idx == (1,) else d)
+            nr += 1
+    def next_task(free):
+        """the next task whose matrix fits in `free` bytes (None if the next one does not fit); covered lo tasks are
+        dropped here."""
+        nonlocal ns
+        while True:
+            if hi:
+                t = hi[-1]
+            elif pend:
+                t = pend[-1]
+                if t[1] == (0,) and covered(t[0]):
+                    pend.pop(); ns += 1
+                    continue
+            else:
+                return None
+            if nbytes(t[0]) > free:
+                return None
+            (hi if hi and t is hi[-1] else pend).pop()
+            return t
+    _FAM = fam
+    procs = max(1, args.procs)
+    pool = mp.get_context('fork').Pool(procs) if procs > 1 else None
+    last = time.time()
     try:
-        for key in sorted(groups, reverse=True):
-            lo, rest, d0 = [], [], {}
-            for S in groups[key]:
-                k_ = repr(sorted(S))
-                if k_ in store:
-                    test(S, 'exhaustive')                         # counted and reported from the store
+        if pool is None:
+            while True:
+                t = next_task(float('inf'))
+                if t is None:
+                    break
+                handle(*_dimjob(t))
+        else:
+            running = {}                                          # id -> (AsyncResult, bytes)
+            nid = 0
+            while True:
+                used = sum(b for _, b in running.values())
+                while len(running) < procs:
+                    t = next_task(budget - used if running else float('inf'))   # one task always runs
+                    if t is None:
+                        break
+                    running[nid] = (pool.apply_async(_dimjob, (t,)), nbytes(t[0])); nid += 1
+                    used += nbytes(t[0])
+                if not running:
+                    break
+                done = [k for k, (r, _) in running.items() if r.ready()]
+                if not done:
+                    time.sleep(0.5)
                     continue
-                eq = prune and all(singles[s][0] == singles[s][1] for s in S)
-                if eq and covered(S):
-                    ns += 1
-                    continue
-                if eq and k_ in lo_known:                         # not direct on r_lo (earlier run): r_hi still to do
-                    d0[k_] = lo_known[k_]; rest.append((S, (1,)))
-                elif eq:
-                    lo.append((S, (0,)))
-                else:
-                    rest.append((S, tuple(range(len(ranks)))))
-            for S, idx, d in run(lo):
-                k_ = repr(sorted(S))
-                if d[0] == sum(singles[s][0] for s in S):
-                    dlist.append(dict(S)); nd += 1
-                    if dfile:
-                        with open(dfile, 'a') as fh:
-                            fh.write('%s\t%d\n' % (k_, d[0]))
-                else:
-                    d0[k_] = d[0]; rest.append((S, (1,)))
-                    if lofile:
-                        with open(lofile, 'a') as fh:
-                            fh.write('%s\t%d\n' % (k_, d[0]))
-            for S, idx, d in run(rest):
-                record(S, (d0[repr(sorted(S))],) + d if idx == (1,) else d)
-                nr += 1
-            print('# direct-sub size %d, level sum %d: %d ranked, %d direct on r%d, %d skipped (so far)'
-                  % (key[0], key[1], nr, nd, ranks[0], ns))
-            sys.stdout.flush()
+                for k in done:
+                    r, _ = running.pop(k)
+                    handle(*r.get())
+                if time.time() - last > 600:
+                    last = time.time()
+                    print('# direct-sub %s: %d ranked, %d direct on r%d, %d skipped, %d to do'
+                          % (time.strftime('%H:%M'), nr, nd, ranks[0], ns, len(pend) + len(hi)))
+                    sys.stdout.flush()
     finally:
+        if pool is not None:
+            pool.terminate(); pool.join()
         _FAM = None
+    print('# direct-sub done: %d ranked, %d direct on r%d, %d skipped' % (nr, nd, ranks[0], ns))
+    sys.stdout.flush()
     return nr, nd, ns
 
 def summary(fam, tested, best, singles, named, secs):

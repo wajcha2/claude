@@ -36,7 +36,7 @@ ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subs
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust); from the degree-9 combined session')
 ap.add_argument('--allsub-maxconf', type=int, default=256, help='with --allsub: if the number of level combinations exceeds this, test every subset only at uniform levels (all full, all level 1)')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
-ap.add_argument('--direct-sub', dest='direct_sub', action='store_true', help='with --exhaust and --maxsub: test the subsets '
+ap.add_argument('--direct-sub', dest='direct_sub', action='store_true', help='with --exhaust and --maxsub, or with --allsub: test the subsets '
                 'by direct ranks (fam.dims, kept in the dims store, so a lattice resumes after a restart) instead of the '
                 'incremental RREF walk, whose per-member bases and DFS stack need several K x K arrays (2026-11-09: the '
                 'all-source d = 7 targets of size 14008..20858)')
@@ -206,6 +206,14 @@ def search(fam, rng):
             # whole Kronecker spaces or one generic functional each (2 * (2^m - 1) subsets)
             confs = itertools.chain(itertools.product(*[[None, fam.full(x)] for x in members]),
                                     itertools.product(*[[None, (x, 1)] for x in members]))
+        if args.direct_sub:
+            subs = [S for S in ([s for s in c if s is not None] for c in confs) if len(S) >= 2]
+            res = direct_subsets(fam, subs, singles, test, store, sfile, tested, best)
+            named = {'direct-sub': res}
+            for nm, S in (('all', full), ('all:1', one)):
+                if repr(sorted(S)) in store:
+                    named[nm] = store[repr(sorted(S))]
+            return tested[0], best, singles, named
         for S in confs:
             S = [s for s in S if s is not None]
             if len(S) < 2:
@@ -216,8 +224,11 @@ def search(fam, rng):
             if len(S) == m and all(lev == 1 for x, lev in S):
                 named['all:1'] = dims
         return tested[0], best, singles, named
-    if m <= args.exhaust and args.direct_sub and args.maxsub:
-        return direct_sub(fam, members, singles, test, store, sfile, tested, best)
+    if m <= args.exhaust and args.direct_sub and args.maxsub and m > args.allsub:
+        subs = [S for lev in ('full', 1) for k in range(2, min(args.maxsub, m) + 1)
+                for S in itertools.combinations([fam.full(x) if lev == 'full' else (x, 1) for x in members], k)]
+        res = direct_subsets(fam, subs, singles, test, store, sfile, tested, best)
+        return tested[0], best, singles, {'direct-sub': res}
     if m <= args.exhaust:
         # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)
         named = {}
@@ -273,85 +284,92 @@ def _dimjob(task):
     S, idx = task
     return S, idx, _FAM.dims_at(S, idx)
 
-def direct_sub(fam, members, singles, test, store, sfile, tested, best):
-    """--direct-sub: the subsets of the walk (sizes 2..maxsub; all members at the full level, then all at level 1) by
-    direct ranks, largest subsets first, in --procs forked processes.  With two ranks r_lo < r_hi, a subset S whose
-    singles all have equal dims on r_lo and r_hi needs only r_lo when its sum is direct there (dim = sum of the single
-    r_lo dims): then dim_hi(S) <= sum of the single r_hi dims = dim_lo(S), so S does not separate (the direct-sum
-    certificate of one subset).  Every subset of a direct sum is direct, and with aux 1 a level-1 subspace lies in the
-    full-level one, so a subset whose members at the full level lie inside a direct subset is skipped without a rank.
-    Results: full dims in the dims store, direct subsets in <store>.direct (both read again on a restart)."""
+def direct_subsets(fam, subsets, singles, test, store, sfile, tested, best):
+    """--direct-sub: rank the given subsets (tuples of (member, level)) directly, larger ones first (by size, then by the
+    sum of the levels), in --procs forked processes that share the thin matrices.  With two ranks r_lo < r_hi and aux 1,
+    a subset S whose singles all have equal dims on r_lo and r_hi needs only r_lo when its sum is direct there (dim =
+    sum of the single r_lo dims): then dim_hi(S) <= sum of the single r_hi dims = dim_lo(S), so S does not separate (the
+    direct-sum certificate of one subset).  A subset whose every (member, level) lies in a member of a direct subset at
+    a level >= its own (with aux 1 the level-l subspace lies in every higher-level one) is direct too and is skipped.
+    Results: full dims in the dims store, direct subsets in <store>.direct; both are read again after a restart, and
+    every result is written as soon as it arrives."""
     global _FAM
-    m = len(members)
     prune = len(ranks) == 2 and fam.aux == 1
     dfile = sfile + '.direct' if sfile else None
-    direct = {}
+    dlist = []
     if dfile and os.path.exists(dfile):
         for l in open(dfile):
-            k, v = l.rstrip('\n').split('\t')
-            direct[frozenset(ast.literal_eval(k))] = int(v)
-    full_of = {x: fam.full(x) for x in members}
-    def lift(S):
-        return frozenset(full_of[x] for x, lev in S)
-    def inside_direct(S):
-        fs, fl = frozenset(S), lift(S)
-        return any(fs <= D or fl <= D for D in direct)
-    # processes: the thin matrices are shared (fork, copy on write); each process holds one subset matrix
+            dlist.append(dict(ast.literal_eval(l.split('\t')[0])))
+    def covered(S):
+        return any(all(x in D and lev <= D[x] for x, lev in S) for D in dlist)
     single_dims = {s: max(v) for s, v in singles.items()}
-    big = sorted((single_dims[full_of[x]] for x in members), reverse=True)
-    rows = sum(big[:min(args.maxsub, m)]) + 8
-    sub_bytes = rows * min(fam.ncols, rows) * 8
     mats_bytes = sum(a.nbytes for d in fam.mats.values() for a in d.values())
-    procs = max(1, min(args.procs, int((args.mem_budget - mats_bytes) // max(sub_bytes, 1))))
-    print('# direct-sub %s: %d members, thin matrices %.1f GB, largest subset matrix %.1f GB, %d processes'
-          % (fam.describe([full_of[x] for x in members])[:60], m, mats_bytes / 1e9, sub_bytes / 1e9, procs))
+    def nbytes(S):
+        rows = sum(single_dims[s] for s in S) + 8
+        return rows * min(fam.ncols, rows) * 8
+    def run(tasks, idx):
+        """(S, idx, dims) for every S of tasks, as they arrive; processes as many as --mem-budget allows for the
+        largest matrix of this batch."""
+        if not tasks:
+            return
+        tasks = sorted(tasks, key=lambda S: -nbytes(S))                     # largest first: load balance
+        procs = max(1, min(args.procs, len(tasks), int((args.mem_budget - mats_bytes) // max(nbytes(tasks[0]), 1))))
+        if procs == 1:
+            for S in tasks:
+                yield _dimjob((S, idx))
+            return
+        pool = mp.get_context('fork').Pool(procs)
+        try:
+            for res in pool.imap_unordered(_dimjob, [(S, idx) for S in tasks], chunksize=1):
+                yield res
+        finally:
+            pool.terminate(); pool.join()
+    uniq = {}
+    for S in subsets:
+        uniq.setdefault(frozenset(S), tuple(sorted(S, key=repr)))
+    groups = {}
+    for S in uniq.values():
+        groups.setdefault((len(S), sum(lev for _, lev in S)), []).append(S)
+    print('# direct-sub %d members, %d subsets in %d batches, thin matrices %.1f GB, largest subset matrix %.1f GB, '
+          'up to %d processes' % (len(fam.members), len(uniq), len(groups), mats_bytes / 1e9,
+                                  max(nbytes(S) for S in uniq.values()) / 1e9 if uniq else 0, args.procs))
     sys.stdout.flush()
     _FAM = fam
-    pool = mp.get_context('fork').Pool(procs) if procs > 1 else None
-    def run(tasks):
-        tasks = sorted(tasks, key=lambda t: -sum(single_dims[s] for s in t[0]))      # largest first: load balance
-        if pool is None:
-            return (_dimjob(t) for t in tasks)
-        return pool.imap_unordered(_dimjob, tasks, chunksize=1)    # lazy: each result is stored as soon as it arrives
     nd = ns = nr = 0
     try:
-        for lev in ('full', 1):
-            sel = [fam.full(x) if lev == 'full' else (x, 1) for x in members]
-            for k in range(min(args.maxsub, m), 1, -1):
-                lo, both = [], []
-                for S in itertools.combinations(sel, k):
-                    if repr(sorted(S)) in store:
-                        test(S, 'exhaustive')                     # counted and reported from the store
-                        continue
-                    eq = prune and all(singles[s][0] == singles[s][1] for s in S)
-                    if eq and inside_direct(S):
-                        ns += 1
-                        continue
-                    (lo if eq else both).append(S)
-                for S, idx, d in run([(S, (0,)) for S in lo]):
-                    if d[0] == sum(singles[s][0] for s in S):
-                        direct[frozenset(S)] = d[0]; nd += 1
-                        if dfile:
-                            with open(dfile, 'a') as fh:
-                                fh.write('%s\t%d\n' % (repr(sorted(S)), d[0]))
-                    else:
-                        both.append(S)
-                for S, idx, d in run([(S, tuple(range(len(ranks)))) for S in both]):
-                    k_ = repr(sorted(S))
-                    store[k_] = d
-                    if sfile:
-                        with open(sfile, 'a') as fh:
-                            fh.write('%s\t%s\n' % (k_, ','.join(map(str, d))))
-                    test(S, 'exhaustive')
-                    nr += 1
-                print('# direct-sub level %s size %d: %d ranked, %d direct on r%d, %d skipped (so far)'
-                      % (lev, k, nr, nd, ranks[0], ns))
-                sys.stdout.flush()
+        for key in sorted(groups, reverse=True):
+            lo, both = [], []
+            for S in groups[key]:
+                if repr(sorted(S)) in store:
+                    test(S, 'exhaustive')                         # counted and reported from the store
+                    continue
+                eq = prune and all(singles[s][0] == singles[s][1] for s in S)
+                if eq and covered(S):
+                    ns += 1
+                    continue
+                (lo if eq else both).append(S)
+            for S, idx, d in run(lo, (0,)):
+                if d[0] == sum(singles[s][0] for s in S):
+                    dlist.append(dict(S)); nd += 1
+                    if dfile:
+                        with open(dfile, 'a') as fh:
+                            fh.write('%s\t%d\n' % (repr(sorted(S)), d[0]))
+                else:
+                    both.append(S)
+            for S, idx, d in run(both, tuple(range(len(ranks)))):
+                k_ = repr(sorted(S))
+                store[k_] = d
+                if sfile:
+                    with open(sfile, 'a') as fh:
+                        fh.write('%s\t%s\n' % (k_, ','.join(map(str, d))))
+                test(S, 'exhaustive')
+                nr += 1
+            print('# direct-sub size %d, level sum %d: %d ranked, %d direct on r%d, %d skipped (so far)'
+                  % (key[0], key[1], nr, nd, ranks[0], ns))
+            sys.stdout.flush()
     finally:
-        if pool is not None:
-            pool.close(); pool.join()
         _FAM = None
-    return tested[0], best, singles, {'direct-sub': (nr, nd, ns)}
+    return nr, nd, ns
 
 def summary(fam, tested, best, singles, named, secs):
     sv = ' '.join('%s:%s' % (fam.describe([s])[1:-1], '/'.join(map(str, v))) for s, v in singles.items())

@@ -114,6 +114,10 @@ the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices
   at a time in forked processes sharing the thin matrices (the 4 cores; more BLAS threads do not speed up modrank).
   On C^4 d = 6 (targets 321\|222, 411\|321, 321\|321, 3111\|321, maxsub 3) it reports the same 3 separators
   (316/320, 512/516, 912/916) as the walk, with 35 + 84 instead of 277 ranks on 321\|321;
+  with `--allsub` it takes every mixed-level subset the same way (a (member, level) inside a direct subset's member at a
+  level ≥ its own counts as covered): on C^4 d = 6 321\|222 and 222\|321 the same 8 + 8 separating subsets as plain
+  `--allsub` (44 instead of 96 ranks each); pat_555_d8_huge runs this way (`--direct-sub --procs 4`; the number of
+  processes per batch is cut to what `--mem-budget` (12 GB) allows for the batch's largest matrix);
 * p555_d7_B_huge: 5x5x5 d = 7, all sources, 421\|3211 (17408; its mirror 3211\|421 is equivalent), 421\|421 and 3211\|3211 (20858);
 * pat_555_d8_huge: 5x5x5 d = 8, pattern sources, 431\|3221 (20018), 431\|422 and 3311\|3221 (22118), one per mirror pair
   (estimated peak about 11.5 GB).

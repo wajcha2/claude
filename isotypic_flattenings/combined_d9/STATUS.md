@@ -80,6 +80,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   Source (8,1): 46 members (61 of 107 left out per the B logs; 1 more saturated), 2254 subsets: **no separation** (largest drop
   0).  2026-11-09 14:10 UTC, 7.0 h.  Source (7,2) running.
 
+* **d9_455_dir1_B_p4_mid** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 5 (11); family B, aux 1): the 20 targets of
+  compressed size 3000..4500 (members per target after dropping saturated ones from 2 to 11), every subset of at most 3 members at
+  the levels 1 and g, 4397 subsets: **no separation** (largest drop 0).  2026-11-09 18:48 UTC, 20.7 h.
+
 ## Running / queued (no separation so far)
 
 * d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);

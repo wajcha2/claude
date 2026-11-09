@@ -33,7 +33,8 @@ k555_d6_321  | 5 6 9,10 --fam B --bmax 6000 --only-mn 321|321
 k455_d6_dir1_321 | 4,5,5 6 8,9 --dir 1 --fam B --bmax 6000 --only-mn 321|321
 # d=7 kpB lattices above the first runs' size caps (47 at 5x5x5 alone; most members with g >= 3 sit there), affordable with
 # the low-memory combflat; --bmin = the cap of the first run, so only the skipped lattices are done
-k555_d7_big  | 5 7 9,10 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror --nocache
+# 2026-11-09: --bmax 12000 -> 11100: lattice 421|3211 (size 11183) was OOM-killed at 10.6 GB (anon) next to k455_d7_dir1_big
+k555_d7_big  | 5 7 9,10 --fam B --bmin 2500 --bmax 11100 --exhB 8000 --nrand 800 --greedy 1 --nomirror --nocache
 k455_d7_dir0_big | 4,5,5 7 8,9 --dir 0 --fam B --bmin 3000 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror
 k455_d7_dir1_big | 4,5,5 7 8,9 --dir 1 --fam B --bmin 2500 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nocache
 # kpE grids skipped by --emax at 5x5x5 d=7 (164 values, 12 components entirely): ranked after a random right compression of
@@ -56,4 +57,6 @@ vinc_455_d7_dir1_last | kp_single.py 4,5,5 7 8,9 --dir 1 --mode V --only 421|321
 # 2026-11-01: the next cost band of the d=8 V_s (components with 4e7 < g N1 K <= 1e8: g = 5..17, the large Kronecker spaces;
 # 46 at 5x5x5, 63 at 4x5x5 source C^5; largest basis 9458 columns, ~0.8 GB flattenings per rank)
 s555_d8_V_b  | kp_single.py 5 8 9,10 --mode V --nomirror --mincost 4e7 --maxcost 1e8
-# PAUSED 2026-11-02 15:25 (memory: k555_d7_big at 8 GB) s455_d8_dir1_V_b | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 4e7 --maxcost 1e8
+s455_d8_dir1_V_b | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 4e7 --maxcost 1e8
+# DEFERRED (needs > 10 GB alone; run only when k455_d7_dir1_big is finished, i.e. nothing else big is running):
+# k555_d7_big2 | 5 7 9,10 --fam B --bmin 11100 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror --nocache

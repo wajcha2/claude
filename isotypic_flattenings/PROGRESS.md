@@ -187,3 +187,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   for the stacked tensor, which koszul_stack.py does not have.
 - Freed core: high-budget redo (KWEDGE, KBUDGET=5e7, KMAXM=12) of the C^5 d=4 Koszul pass (15 components, previously only at
   KBUDGET=2e6), log live/koszul5_d4_b5e7.log.
+
+### 2026-11-09T03:38Z check-in
+- 7 processes running (6 long-running workers + d=4 redo, reniced 10 -> 5 at 03:19), no separators. KWEDGE d=7 139/187, generic d=8 691/729 (142 computed), redo C^5 d=6 70/113, redo C^5 d=4 3/15.

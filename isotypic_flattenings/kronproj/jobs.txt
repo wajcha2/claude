@@ -60,3 +60,6 @@ s555_d8_V_b  | kp_single.py 5 8 9,10 --mode V --nomirror --mincost 4e7 --maxcost
 s455_d8_dir1_V_b | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 4e7 --maxcost 1e8
 # DEFERRED (needs > 10 GB alone; run only when k455_d7_dir1_big is finished, i.e. nothing else big is running):
 # k555_d7_big2 | 5 7 9,10 --fam B --bmin 11100 --bmax 12000 --exhB 8000 --nrand 800 --greedy 1 --nomirror --nocache
+# 2026-11-09: next d=8 V_s band 1e8 < g N1 K <= 2e8 (15 comps at 5x5x5, 19 at 4x5x5 dir 1; g = 7..11; ~5 GB peak) -- ONE AT A
+# TIME next to k455_d7_dir1_big; add s455_d8_dir1_V_c only after s555_d8_V_c has finished
+s555_d8_V_c  | kp_single.py 5 8 9,10 --mode V --nomirror --mincost 1e8 --maxcost 2e8

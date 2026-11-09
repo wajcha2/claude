@@ -136,7 +136,8 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   2026-11-09 02:25: that left cores idle (estimates are peaks of the line phase only): membudget 20 GB, and a job
   killed for memory (rc -9) is requeued up to twice (cheap with the filling checkpoints).  A restarted runner now
   takes the output slots of adopted jobs from their environment (a restart had given two jobs slot 4; the newer,
-  33 s old, was stopped).  `special/sync.sh` copies special/live into
+  33 s old, was stopped).
+  maxbig 4 (05:29): the memory budget is the binding limit; maxbig 2 had kept a core idle.  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

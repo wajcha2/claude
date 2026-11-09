@@ -2719,3 +2719,30 @@ lam=((4, 2, 2), (4, 2, 1, 1), (4, 2, 1, 1)) g=12 dir 1: n1=2520 n23=5904900 N1=2
 lam=((4, 2, 2), (4, 2, 1, 1), (4, 2, 1, 1)) dir 2: V-stacks need ~19 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
 lam=((4, 2, 2), (4, 2, 1, 1), (4, 2, 1, 1)) g=12 dir 2: n1=2430 n23=6123600 N1=2438 K=2438  ranks [11, 12, 13]
   . ((4, 2, 1, 1), (4, 2, 2), (4, 2, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.07e+12 -> 1.93e+12 (12s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   U_k dims {1: 12, 2: 12, 3: 12, 4: 4, 5: 0}  swaps {'sw13+': 9, 'sw13-': 3}  (5.7s)
+   U4                           r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   sw13+                        r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   U4^sw13+                     r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   sw13-                        r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   U4^sw13-                     r11 H[2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430, 2430] V[]
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.9s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (43.4s)
+   gline H2 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (51.2s)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   gline H5: skipped (size)
+   gline H6: skipped (size)
+   gline H7: skipped (size)
+   gline H8: skipped (size)
+   gline H9: skipped (size)
+   gline H10: skipped (size)
+   gline H11: skipped (size)
+   thru-U40 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.8s)
+   in-U40 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.4s)
+   thru-sw13+0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (43.7s)
+   in-sw13+0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.6s)
+   thru-sw13-0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (45.2s)
+   in-sw13-0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.9s)
+   done dir 2: ok, 23 cases, 0 hits, wall 845.6s (F 413.6s), peak 1336 MB

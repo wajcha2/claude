@@ -33,6 +33,6 @@ p555_d6_AE   | 5 6 9,10 --fam E,A --aux 1 --nrand 500 --greedy 1
 p455_d6_dir1_AE | 4,5,5 6 8,9 --dir 1 --fam E,A --aux 1 --nrand 500 --greedy 1
 # 2026-11-09: the deferred largest targets that fit in memory (estimate: flats + 2 K^2 float64; the limit is 14.3 GB, so
 # they run one at a time: the runner was restarted with 1 worker).  555 targets up to the mirror symmetry mu|nu = nu|mu.
-p455_d7_dir1_huge | 4,5,5 7 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsub 4 --bmax 21000 --only-mn 3211|421;421|3211;421|421
-p555_d7_B_huge | 5 7 9,10 --fam B --aux 1 --exhaust 14 --maxsub 4 --bmax 21000 --only-mn 421|3211;421|421;3211|3211
+p455_d7_dir1_huge | 4,5,5 7 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsub 4 --direct-sub --bmax 21000 --only-mn 3211|421;421|3211;421|421
+p555_d7_B_huge | 5 7 9,10 --fam B --aux 1 --exhaust 14 --maxsub 4 --direct-sub --bmax 21000 --only-mn 421|3211;421|421;3211|3211
 pat_555_d8_huge | 5 8 9,10 --fam B --aux 1 --allsub 6 --exhaust 14 --sources pattern:3 --bmax 22200 --only-mn 431|3221;431|422;3311|3221

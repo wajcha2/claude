@@ -103,6 +103,11 @@ Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank
 Queued 2026-11-09, one worker at a time (the deferred largest targets that fit in the 14.3 GB memory limit; peak RSS measured on
 the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices, and 2.5 K² · 8 bytes while subsets are ranked):
 * p455_d7_dir1_huge: 4x5x5 d = 7 dir 1, all sources, the 3 targets 3211\|421 (14008), 421\|3211 (17408), 421\|421 (20858);
+  these two d = 7 jobs use `--direct-sub`: the subsets of at most 4 sources by direct ranks (kept in the dims store, so a
+  lattice resumes) instead of the incremental RREF walk, which held about 4.5 K² · 8 bytes on 3211\|421 (7.3 GB at
+  K = 14008, so about 16 GB at 20858); the same dims as the walk (checked on 1326 subsets of C^4 d = 6 lattices;
+  the C^4 d = 6 separator [411 + 42 + 51], 316 vs 320, is found either way).  Also new: Family.dims stacks the
+  blocks straight into the float64 work array of modrank (overwrite=True), 1 x instead of 1.5 x the stack;
 * p555_d7_B_huge: 5x5x5 d = 7, all sources, 421\|3211 (17408; its mirror 3211\|421 is equivalent), 421\|421 and 3211\|3211 (20858);
 * pat_555_d8_huge: 5x5x5 d = 8, pattern sources, 431\|3221 (20018), 431\|422 and 3311\|3221 (22118), one per mirror pair
   (estimated peak about 11.5 GB).

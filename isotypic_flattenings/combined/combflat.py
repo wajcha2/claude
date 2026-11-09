@@ -899,7 +899,18 @@ class LatticeFamily:
         key = tuple(sorted(S, key=repr))
         if key not in self._dims:
             c = min(self.ncols, sum(max(self._dims[(s,)]) for s in key) + EXTRA)
-            self._dims[key] = tuple(modrank(np.vstack([self.mats[r][s][:, :c] for s in key])) for r in self.ctx.ranks)
+            out = []
+            for r in self.ctx.ranks:
+                # stacked straight into one float64 work array that modrank overwrites (2026-11-09: np.vstack of the float32
+                # blocks and modrank's float64 copy held 1.5 x the stack; the residues < p are exact in both types)
+                blocks = [self.mats[r][s] for s in key]
+                A = np.empty((sum(b.shape[0] for b in blocks), c))
+                i = 0
+                for b in blocks:
+                    A[i:i + b.shape[0]] = b[:, :c]; i += b.shape[0]
+                out.append(modrank(A, overwrite=True))
+                del A
+            self._dims[key] = tuple(out)
         return self._dims[key]
 
     def basis_rows(self, r, s):

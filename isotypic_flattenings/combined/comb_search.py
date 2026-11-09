@@ -35,6 +35,10 @@ ap.add_argument('--maxsub', type=int, default=0, help='with --exhaust: only subs
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust); from the degree-9 combined session')
 ap.add_argument('--allsub-maxconf', type=int, default=256, help='with --allsub: if the number of level combinations exceeds this, test every subset only at uniform levels (all full, all level 1)')
 ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most this many members: ALL subsets (levels full and 1) by incremental enumeration instead of sampling')
+ap.add_argument('--direct-sub', dest='direct_sub', action='store_true', help='with --exhaust and --maxsub: test the subsets '
+                'by direct ranks (fam.dims, kept in the dims store, so a lattice resumes after a restart) instead of the '
+                'incremental RREF walk, whose per-member bases and DFS stack need several K x K arrays (2026-11-09: the '
+                'all-source d = 7 targets of size 14008..20858)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--resume', default='', help='log1:log2: skip lattices / components already summarised there')
@@ -206,6 +210,18 @@ def search(fam, rng):
                 named['all'] = dims
             if len(S) == m and all(lev == 1 for x, lev in S):
                 named['all:1'] = dims
+        return tested[0], best, singles, named
+    if m <= args.exhaust and args.direct_sub and args.maxsub:
+        # the same subsets as the walk below (sizes 2..maxsub, all members at the full level, then all at level 1), each by a
+        # direct rank: memory = the thin matrices + one subset matrix; every result goes to the dims store
+        named = {}
+        for lev in ('full', 1):
+            sel = [fam.full(x) if lev == 'full' else (x, 1) for x in members]
+            for k in range(2, min(args.maxsub, m) + 1):
+                for S in itertools.combinations(sel, k):
+                    dims = test(S, 'exhaustive')
+                    if k == m:
+                        named['all' if lev == 'full' else 'all:1'] = dims
         return tested[0], best, singles, named
     if m <= args.exhaust:
         # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)

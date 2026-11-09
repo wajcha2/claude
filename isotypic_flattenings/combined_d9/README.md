@@ -94,6 +94,8 @@ quick` 0 failures with the defaults and with `TALLRANK=1` (`logs/test_quick_sing
 Queued: d9_555_A1 and d9_455_dir1_A1 (sources (8,1), (7,2), (7,1,1); all named groups, 4000 pairs, 1000 triples, 100
 random subsets; no greedy run: its RREF bases would double the memory), after d9_555_B_big (whose logs complete the
 exclusion list).
+d9_455_dir1_A1 moved first (2026-11-09 02:33): its exclusion list is complete up to 3 targets (dir-1 B logs: 239 targets; kept
+(8,1) 43, (7,2) 45, (7,1,1) 52 members), estimated thin matrices <= 2.6 GB plus one member's flattenings <= 0.75 GB, hint 3.8 GB.
 
 ## Plan and flattenings tested
 

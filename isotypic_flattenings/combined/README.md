@@ -85,7 +85,7 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | pat_555_d7 | 5x5x5, d = 7 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 148 (58 by the certificate); 4 SKIPPED (421\|3211, 3211\|421: size 12948; 421\|421, 3211\|3211: 16308) -> job pat_555_d7_big | 15872 s (last part) |
 | pat_555_d7_big | 5x5x5, d = 7 | the 4 skipped pattern targets, `--bmax 17000`: all 152 pattern targets of 5x5x5 d = 7 now done | 4 (3 by the certificate; 3211\|3211: all 127 subsets, full sum 12805/12805) | 30363 s |
 | pat_455_d7_dir1_big | 4x5x5, d = 7, source on C^5 | the 3 skipped pattern targets, `--bmax 17000`: all 129 pattern targets done | 3 (421\|421 by the certificate; 421\|3211 and 3211\|421: all 126 subsets each) | 29311 s |
-| pat_555_d8 | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels (`--bmax 10000`) | 197 of 273 (67 by the certificate); 76 SKIPPED: the 54 of size 10418..19418 -> pat_555_d8_big (one per mirror pair), the 22 of size 20018..41768 (13 up to mirror symmetry) not queued | 46779 s (last part) |
+| pat_555_d8 | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels (`--bmax 10000`) | 197 of 273 (67 by the certificate); 76 SKIPPED: the 54 of size 10418..19418 -> pat_555_d8_big (one per mirror pair), the 22 of size 20018..41768 (13 up to mirror symmetry): 3 in pat_555_d8_huge, 10 not run (see below) | 46779 s (last part) |
 | pat_455_d7_dir1 | 4x5x5, d = 7, source on C^5 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels | 126 (30 by the certificate); 3 SKIPPED (421\|3211, 3211\|421: 12948; 421\|421: 16308) -> job pat_455_d7_dir1_big | 521 s (last part) |
 | p555_d7_B | 5x5x5, d = 7 | B, aux 1; all sources, subsets of at most 4 sources | 91 of 169 (21 by the certificate); 78 SKIPPED (size > 4000) -> the 74 of size ≤ 11708 in job p555_d7_B_big | 1329 s (last part) |
 | p455_d5_dir1 | 4x5x5, d = 5, source on C^5 | A (aux 1, 2: all-but-one, groups, pairs, triples, 1000 random, greedy) and E (reshaped components) | 14 A, 6 E | 1123 s |
@@ -95,9 +95,9 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p455_d7_dir1 | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources | 82 of 143 (26 by the certificate); 61 SKIPPED (size > 4000) -> the 58 of size ≤ 12000 in job p455_d7_dir1_big | 14895 s (last part) |
 | p555_d7_B_big | 5x5x5, d = 7 | B, aux 1; all sources, subsets of at most 4 sources, the 74 targets of size 4008..11708 that p555_d7_B skipped (`--bmax 12000`) | 74 (63 by the certificate) | 2 OOM restarts on one lattice (~5 GB peak), run with 3 workers from 2026-11-02 00:53 |
 | p455_d7_dir1_big | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources, the 58 targets of size ≤ 12000 that p455_d7_dir1 skipped (`--bmax 12000`) | 58 (42 by the certificate) | up to ~4 h per lattice (12 sources, size ~11000) |
+| pat_555_d8_big | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels; the 29 targets of size 10418..19418 that pat_555_d8 skipped, one per mirror pair (`--bmax 20000`) | 29 (21 by the certificate) | 6 log parts (container restarts), 88570 s in the last; up to 8.3 h and 8.3 GB RSS per lattice |
 
-Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: the 29 pattern targets of size
-10418..19418 at 5x5x5 d = 8 (one per mirror pair μ\|ν, ν\|μ; pat_555_d8_big, `--bmax 20000`; 26 done on 2026-11-09, all maxdrop 0).
+Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  pat_555_d8_big finished on 2026-11-09.
 4x5x5 d = 8 and all d = 9 run in other threads (`claude/project-thread-uj02nh`, `claude/charming-heisenberg-f66sy8`, PROJECT_STATUS.md).
 
 Queued 2026-11-09, one worker at a time (the deferred largest targets that fit in the 14.3 GB memory limit; peak RSS measured on

@@ -205,3 +205,7 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-09T18:36Z check-in
 - 7 processes running, no separators. KWEDGE d=7 165/187, generic d=8 696/729 (147 computed), redo C^5 d=6 88/113, redo C^5 d=4 13/15.
+
+### 2026-11-09 21:02 UTC — C^5 d=4 high-budget Koszul redo complete
+- KBUDGET=5e7, KMAXM=12, KWEDGE sampled grids (m=12 on the wedged factor, p=1,2, all factor/swap choices): 15/15 components of S^4(C^5)^{\otimes 3} with g>0 checked for rank 9 vs 10, no separation (live/koszul5_d4_b5e7.log, merged into koszul_b5e7_done.log). Runtime 2026-11-09 00:58 to 21:02 UTC at nice 10/5.
+- The high-budget redo chain is now complete and negative for C^4 d=3, C^4 d=4, C^5 d=4, C^5 d=5; C^5 d=6 is at 91/113. 6 worker processes remain (KWEDGE d=7 x3, generic d=8 x2, d=6 redo).

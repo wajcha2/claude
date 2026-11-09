@@ -13,9 +13,9 @@
 | d9_555_B_p5 | 53 | 51 | 461 | 0 | yes | 11304 |
 | d9_455_dir1_B_p5 | 61 | 57 | 342 | 0 | yes | 26878 |
 | d9_555_B_p4_mid | 18 | 14 | 401 | 0 | yes | 45757 |
-| d9_455_dir1_B_p4_mid | 10 | 6 | 0 | 0 | no | 29496 |
-| d9_455_dir0_B_p5_mid | 8 | 0 | 0 | 0 | no | 4810 |
-| d9_555_B_big | 89 | 54 | 0 | 0 | no | 233453 |
+| d9_455_dir1_B_p4_mid | 13 | 8 | 0 | 0 | no | 35281 |
+| d9_455_dir0_B_p5_mid | 12 | 0 | 0 | 0 | no | 8456 |
+| d9_555_B_big | 90 | 54 | 0 | 0 | no | 236875 |
 | d9_455_dir1_A1 | 1 | 1 | 0 | 0 | no | 16439 |
 | d9_555_A1 | not started | | | | | |
 | d9_455_dir0_B_p3_big | 8 | 7 | 0 | 0 | no | 39973 |
@@ -23,7 +23,7 @@
 | d9_455_dir0_B_p5 | 149 | 60 | 361 | 0 | yes | 7007 |
 | d9_455_dir1_B_big | 75 | 46 | 0 | 0 | no | 226783 |
 
-family B, aux 1, not saturated at the lower rank: 670 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+family B, aux 1, not saturated at the lower rank: 676 lattices (gap = size bound - lower-rank value; values lower/higher rank)
   d9_455_dir1_B_big famB mn=4221|4221 bound 17280 gap 10185 max 7095/7095
   d9_555_B_big famB mn=42111|42111 bound 11025 gap 9355 max 1670/1670
   d9_455_dir1_B_big famB mn=4311|4221 bound 15345 gap 9080 max 6265/6265
@@ -34,6 +34,7 @@ family B, aux 1, not saturated at the lower rank: 670 lattices (gap = size bound
   d9_555_B_big famB mn=4221|32211 bound 13805 gap 8685 max 5120/5120
   d9_555_B_big famB mn=42111|5211 bound 13805 gap 8685 max 5120/5120
   d9_555_B_big famB mn=42111|4311 bound 13805 gap 8685 max 5120/5120
+  d9_555_B_big famB mn=42111|4221 bound 13805 gap 8685 max 5120/5120
   d9_455_dir1_B_big famB mn=5211|4311 bound 13805 gap 7990 max 5815/5815
   d9_455_dir1_B_big famB mn=5211|4221 bound 13805 gap 7990 max 5815/5815
   d9_455_dir1_B_big famB mn=4311|5211 bound 13805 gap 7990 max 5815/5815
@@ -48,4 +49,3 @@ family B, aux 1, not saturated at the lower rank: 670 lattices (gap = size bound
   d9_555_B_big famB mn=5211|51111 bound 9790 gap 6390 max 3400/3400
   d9_555_B_big famB mn=51111|5211 bound 9790 gap 6390 max 3400/3400
   d9_555_B_big famB mn=4311|33111 bound 9790 gap 6390 max 3400/3400
-  d9_555_B_big famB mn=3321|33111 bound 9790 gap 6390 max 3400/3400

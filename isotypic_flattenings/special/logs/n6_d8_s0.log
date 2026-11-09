@@ -908,3 +908,32 @@ lam=((5, 3), (4, 2, 1, 1), (4, 1, 1, 1, 1)) g=3 dir 2: n1=2430 n23=1389150 N1=24
    generic U: r11 H[2430, 2430, 2430] V[4860, 7290]
    U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
    no natural U with 0 < dim < g
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.5s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.3s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   done dir 2: ok, 5 cases, 0 hits, wall 482.0s (F 341.4s), peak 1156 MB
+lam=((5, 3), (4, 2, 1, 1), (4, 1, 1, 1, 1)) g=3 dir 3: n1=315 n23=10716300 N1=323 K=953  ranks [11, 12, 13]
+   generic U: r11 H[315, 315, 315] V[630, 945]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.3s)
+   line1 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.2s)
+   gline H2 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   gline V2 rho 630  minpoly deg [630, 630]  gcd deg 0    (1.3s)
+   done dir 3: ok, 5 cases, 0 hits, wall 9.9s (F 5.0s), peak 394 MB
+lam=((6, 2), (6, 2), (5, 2, 1)) g=2 dir 1: n1=4950 n23=28512000 N1=4958 K=9908  ranks [11, 12, 13]
+  . ((6, 2), (6, 2), (5, 2, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost inf -> 2.88e+12 (2s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4950, 4950] V[9900]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {'sw12+': 1, 'sw12-': 1}  (0.1s)
+   sw12+                        r11 H[4950, 4950] V[9900]
+   sw12-                        r11 H[4950, 4950] V[9900]
+   line0 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (322.1s)
+   done dir 1: ok, 3 cases, 0 hits, wall 1146.7s (F 444.6s), peak 4015 MB
+lam=((6, 2), (6, 2), (5, 2, 1)) g=2 dir 3: n1=5760 n23=24502500 N1=5768 K=11528  ranks [11, 12, 13]
+  . ((5, 2, 1), (6, 2), (6, 2)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.16e+15 -> 4.72e+12 (3s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[5760, 5760] V[11520]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {'sw23+': 1, 'sw23-': 1}  (0.1s)
+   sw23+                        r11 H[5760, 5760] V[11520]

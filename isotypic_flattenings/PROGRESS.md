@@ -212,3 +212,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-09 21:06 UTC — classical gap-filler extended to d=8 (started)
 - gap5_d8.txt: the 235 g=1 components of S^8(C^5)^{\otimes 3} that still have no classical isotypic-flattening record (314 g=1 components at d=8, 79 covered by hwv5_d8_*_done.log / Koszul passes; the earlier d=8 sweep ran with MAXDIM=800). sweep_fast.py (generic functional, noV, p = 524287, MAXFLOPS=5e12) on the freed core at nice 5, log live/gap5_d8.log, snapshot hwv5_gap8_done.log. Together with the special-U agent profiles of the 415 g>=2 components this will complete the classical test of rank 9 vs 10 at d=8.
+
+### 2026-11-09T21:36Z check-in
+- 7 processes running, no separators. KWEDGE d=7 168/187, generic d=8 698/729 (149 computed), redo C^5 d=6 91/113, classical gap-filler d=8 32/235.

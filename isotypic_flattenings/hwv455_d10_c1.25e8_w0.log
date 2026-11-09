@@ -2494,3 +2494,38 @@ lam=((4, 4, 1, 1), (5, 3, 1, 1), (4, 2, 2, 2)) g=13 dims=(50, 1701, 200)  H1:50/
 # blocks: Y-first (50 x 3158) of 3158 x 3158, 3.74e+11 flops, largest intermediate 3.16e+07
 # blocks: Y-first (7 x 3158) of 3158 x 3158, 1.76e+12 flops, largest intermediate 2.21e+07
 # blocks: Z-first (3158 x 13) of 3158 x 3158, 7.11e+11 flops, largest intermediate 2.99e+07
+#partial ((3, 3, 3, 1), (6, 4), (5, 3, 1, 1)) next=2 res={(0, 'gen'): (10, 10), (0, 'Hstack'): (10, 10), (1, 'gen'): (3150, 3150), (1, 'Hstack'): (3150, 3150)} spans=[3, 3] secs=2186.6 state={'bit_generator': 'PCG64', 'state': {'state': 143712937642795184769020816650055682264, 'inc': 146344621943842539123620184488594472127}, 'has_uint32': 0, 'uinteger': 1287479425}
+# blocks: Z-first (1709 x 54) of 1709 x 1709, 5.40e+10 flops, largest intermediate 2.95e+07
+# blocks: Z-first (1709 x 54) of 1709 x 1709, 3.49e+10 flops, largest intermediate 2.95e+07
+# blocks: Z-first (1709 x 14) of 1709 x 1709, 9.09e+10 flops, largest intermediate 2.99e+07
+# blocks: Z-first (1709 x 27) of 1709 x 1709, 5.54e+10 flops, largest intermediate 1.87e+07
+# blocks: Z-first (1709 x 27) of 1709 x 1709, 6.32e+10 flops, largest intermediate 1.87e+07
+# blocks: Z-first (1709 x 14) of 1709 x 1709, 9.36e+10 flops, largest intermediate 2.99e+07
+lam=((3, 3, 3, 1), (6, 4), (5, 3, 1, 1)) g=3 dims=(10, 3150, 1701)  H1:10/10 g1:10/10 H2:3150/3150 g2:3150/3150 H3:1701/1701 g3:1701/1701  span=3,3,3 cost=3.87e+07 (2527.9s)
+# blocks: Z-first (638 x 80) of 638 x 638, 3.27e+09 flops, largest intermediate 1.47e+07
+# blocks: Z-first (638 x 160) of 638 x 638, 2.88e+09 flops, largest intermediate 2.94e+07
+# blocks: Z-first (638 x 80) of 638 x 638, 6.18e+09 flops, largest intermediate 2.94e+07
+# blocks: Y-first (80 x 638) of 638 x 638, 1.49e+10 flops, largest intermediate 2.61e+07
+# blocks: Z-first (638 x 40) of 638 x 638, 1.26e+10 flops, largest intermediate 2.94e+07
+# blocks: Z-first (638 x 80) of 638 x 638, 1.63e+10 flops, largest intermediate 2.61e+07
+# blocks: Z-first (638 x 10) of 638 x 638, 2.11e+10 flops, largest intermediate 1.47e+07
+# blocks: Z-first (638 x 80) of 638 x 638, 4.24e+09 flops, largest intermediate 1.65e+07
+# blocks: Z-first (638 x 160) of 638 x 638, 3.67e+09 flops, largest intermediate 1.47e+07
+# blocks: Z-first (638 x 80) of 638 x 638, 8.13e+09 flops, largest intermediate 2.94e+07
+# blocks: Y-first (40 x 638) of 638 x 638, 2.36e+10 flops, largest intermediate 1.86e+07
+# blocks: Z-first (638 x 40) of 638 x 638, 1.49e+10 flops, largest intermediate 3.31e+07
+# blocks: Z-first (638 x 40) of 638 x 638, 2.49e+10 flops, largest intermediate 1.86e+07
+# blocks: Z-first (638 x 10) of 638 x 638, 2.55e+10 flops, largest intermediate 1.47e+07
+#partial ((6, 3, 1), (6, 2, 2), (4, 3, 1, 1, 1)) next=1 res={(0, 'gen'): (630, 630), (0, 'Hstack'): (630, 630)} spans=[7] secs=202.3 state={'bit_generator': 'PCG64', 'state': {'state': 105118594167280322160228549991783706639, 'inc': 86021779395770667284874145386523212423}, 'has_uint32': 1, 'uinteger': 2011353084}
+# blocks: Y-first (36 x 2258) of 2258 x 2258, 8.21e+10 flops, largest intermediate 2.08e+07
+# blocks: Z-first (2258 x 5) of 2258 x 2258, 2.36e+11 flops, largest intermediate 2.26e+07
+# blocks: Y-first (36 x 2258) of 2258 x 2258, 1.61e+11 flops, largest intermediate 2.08e+07
+# blocks: Z-first (2258 x 9) of 2258 x 2258, 1.55e+11 flops, largest intermediate 2.54e+07
+# blocks: Y-first (5 x 2258) of 2258 x 2258, 3.48e+11 flops, largest intermediate 1.16e+07
+# blocks: Y-first (18 x 2258) of 2258 x 2258, 2.39e+11 flops, largest intermediate 2.08e+07
+# blocks: Z-first (2258 x 9) of 2258 x 2258, 1.59e+11 flops, largest intermediate 2.54e+07
+# blocks: Y-first (18 x 2258) of 2258 x 2258, 2.18e+11 flops, largest intermediate 1.98e+07
+# blocks: Z-first (2258 x 5) of 2258 x 2258, 2.68e+11 flops, largest intermediate 2.54e+07
+# blocks: Y-first (36 x 2258) of 2258 x 2258, 2.26e+11 flops, largest intermediate 2.63e+07
+# blocks: Z-first (2258 x 5) of 2258 x 2258, 1.61e+11 flops, largest intermediate 1.41e+07
+# blocks: Y-first (9 x 2258) of 2258 x 2258, 4.75e+11 flops, largest intermediate 2.63e+07

@@ -913,6 +913,23 @@ class LatticeFamily:
             self._dims[key] = tuple(out)
         return self._dims[key]
 
+    def dims_at(self, S, idx):
+        """dims of the sum over S on the ranks ranks[i], i in idx (same computation as dims, without caching): for
+        comb_search --direct-sub, which needs only the lowest rank of a subset when that sum is direct."""
+        key = tuple(sorted(S, key=repr))
+        c = min(self.ncols, sum(max(self._dims[(s,)]) for s in key) + EXTRA)
+        out = []
+        for i in idx:
+            r = self.ctx.ranks[i]
+            blocks = [self.mats[r][s] for s in key]
+            A = np.empty((sum(b.shape[0] for b in blocks), c))
+            j = 0
+            for b in blocks:
+                A[j:j + b.shape[0]] = b[:, :c]; j += b.shape[0]
+            out.append(modrank(A, overwrite=True))
+            del A
+        return tuple(out)
+
     def basis_rows(self, r, s):
         """RREF basis (rows in F_p^ncols, the projected coordinates) of the subspace of (member, level) s for the rank-r
         tensor (cached): the column space of the column block for family A, the row space of the row block for B."""

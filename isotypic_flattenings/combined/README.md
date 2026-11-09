@@ -108,6 +108,12 @@ the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices
   K = 14008, so about 16 GB at 20858); the same dims as the walk (checked on 1326 subsets of C^4 d = 6 lattices;
   the C^4 d = 6 separator [411 + 42 + 51], 316 vs 320, is found either way).  Also new: Family.dims stacks the
   blocks straight into the float64 work array of modrank (overwrite=True), 1 x instead of 1.5 x the stack;
+  `--direct-sub` takes the largest subsets first and skips work by the direct-sum certificate of one subset (if the
+  singles of S have equal dims on r_lo and r_hi and the sum is direct on r_lo, S does not separate; subsets of a direct
+  sum, and level-1 subsets whose full-level members lie in one, are direct too), and with `--procs 4` ranks 4 subsets
+  at a time in forked processes sharing the thin matrices (the 4 cores; more BLAS threads do not speed up modrank).
+  On C^4 d = 6 (targets 321\|222, 411\|321, 321\|321, 3111\|321, maxsub 3) it reports the same 3 separators
+  (316/320, 512/516, 912/916) as the walk, with 35 + 84 instead of 277 ranks on 321\|321;
 * p555_d7_B_huge: 5x5x5 d = 7, all sources, 421\|3211 (17408; its mirror 3211\|421 is equivalent), 421\|421 and 3211\|3211 (20858);
 * pat_555_d8_huge: 5x5x5 d = 8, pattern sources, 431\|3221 (20018), 431\|422 and 3311\|3221 (22118), one per mirror pair
   (estimated peak about 11.5 GB).

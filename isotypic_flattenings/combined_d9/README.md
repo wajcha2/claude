@@ -68,6 +68,8 @@ The container stopped at about 08:00 UTC on 2026-11-03 and was started again on 
 runner was restarted with d9_455_dir1_B_p3 after the small jobs (4 workers: the 8 GB job and three small ones).
 2026-11-08 18:28 UTC: d9_455_dir1_B_big was OOM-killed at 9.9 GB on its lattice 76 (hint 8; the job furthest above its hint);
 the runner raised its hint to 12.1 GB (`logs/jobs/memhints.json`), and the job (3 lattices left) now runs last, alone.
+2026-11-09 14:53 UTC: d9_555_B_big (hint 5) was OOM-killed at 6.3 GB on its lattice 94 (the job furthest above its hint);
+learned hint 7.64 GB, it waits for memory (13 lattices left); d9_555_B_p5_mid fills the core.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
@@ -125,6 +127,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir1_B_p4_mid | 4x5x5 dir 1, B, aux 1, sources λ1 >= 5 (11), subsets of at most 3 members, targets of size 3000..4500 | queued 2026-11-08 22:02 |
 | d9_455_dir0_B_p5_mid | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), subsets of at most 3 members, targets of size 2000..3000 | queued 2026-11-09 06:05 |
 | d9_455_dir1_B_p5_mid | 4x5x5 dir 1, B, aux 1, sources λ1 >= 4 (16), subsets of at most 3 members, targets of size 2000..3000 | queued 2026-11-09 11:00 |
+| d9_555_B_p5_mid | 5x5x5, B, aux 1, sources λ1 >= 4 (16), subsets of at most 3 members, targets of size 2000..3000 | queued 2026-11-09 14:55 |
 | d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs, one greedy run and (from 2026-10-25, after three container restarts lost the (7,2) aux-2 lattice) 100 random subsets ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0

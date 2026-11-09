@@ -2938,3 +2938,14 @@ lam=((5, 2, 2, 1), (6, 2, 1, 1), (4, 3, 3)) g=11 dims=(70, 1750, 700)  H1:70/70 
 # blocks: Z-first (2204 x 1) of 4408 x 4408, 4.45e+12 flops, largest intermediate 2.20e+07
 # blocks: Y-first (3 x 4408) of 4408 x 4408, 2.08e+12 flops, largest intermediate 2.14e+07
 # blocks: Z-first (2204 x 1) of 4408 x 4408, 5.05e+12 flops, largest intermediate 2.48e+07
+#partial ((6, 2, 1, 1), (7, 2, 1), (4, 3, 3)) next=2 res={(0, 'gen'): (140, 140), (0, 'Hstack'): (140, 140), (1, 'gen'): (4400, 4400), (1, 'Hstack'): (4400, 4400)} spans=[2, 2] secs=8709.3 state={'bit_generator': 'PCG64', 'state': {'state': 168336339044676965694095661051399838911, 'inc': 182270626913633237765999708945496845179}, 'has_uint32': 0, 'uinteger': 1339174143}
+# blocks: Z-first (708 x 354) of 708 x 708, 1.94e+09 flops, largest intermediate 2.51e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 1.77e+09 flops, largest intermediate 2.01e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 2.40e+09 flops, largest intermediate 2.51e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 2.31e+09 flops, largest intermediate 2.32e+07
+lam=((6, 2, 1, 1), (7, 2, 1), (4, 3, 3)) g=2 dims=(140, 4400, 700)  H1:140/140 g1:140/140 H2:4400/4400 g2:4400/4400 H3:700/700 g3:700/700  span=2,2,2 cost=3.99e+07 (8721.3s)
+#partial ((7, 1, 1, 1), (7, 3), (5, 3, 1, 1)) next=1 res={(0, 'gen'): (84, 84), (0, 'Hstack'): (84, 84)} spans=[2] secs=0.9 state={'bit_generator': 'PCG64', 'state': {'state': 338830760047503778452610615499770881777, 'inc': 22868954228892539287330381996273187653}, 'has_uint32': 1, 'uinteger': 949203665}
+# blocks: Z-first (4133 x 5) of 4133 x 4133, 4.79e+11 flops, largest intermediate 2.58e+07
+# blocks: Y-first (17 x 4133) of 4133 x 4133, 1.87e+11 flops, largest intermediate 2.81e+07
+# blocks: Y-first (5 x 4133) of 4133 x 4133, 4.11e+11 flops, largest intermediate 1.49e+07
+# blocks: Y-first (17 x 4133) of 4133 x 4133, 2.10e+11 flops, largest intermediate 2.81e+07

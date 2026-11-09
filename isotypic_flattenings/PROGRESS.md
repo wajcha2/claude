@@ -179,3 +179,11 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-09T00:36Z check-in
 - 7 workers running, no separators. KWEDGE d=7 134/187, generic d=8 684/729 (135 computed), stacked d=7 31 computed, redo C^5 d=6 65/113.
+
+### 2026-11-09T00:54Z stacked-U Koszul C^5 d=7 finished
+- koszul_stack.py (U = full multiplicity space, kinds W/V/H, p = 1,2, both orders, size cap 4e6), rank 9 vs 10: all 121 components
+  with g >= 2 accounted for, 32 computed and 89 size-skipped, no separation (process exited 00:52 UTC after its last component).
+  Stacked-U Koszul totals: d=5 1/2, d=6 6/24, d=7 32/121 computed, none; the skipped components need a KWEDGE-style sampled grid
+  for the stacked tensor, which koszul_stack.py does not have.
+- Freed core: high-budget redo (KWEDGE, KBUDGET=5e7, KMAXM=12) of the C^5 d=4 Koszul pass (15 components, previously only at
+  KBUDGET=2e6), log live/koszul5_d4_b5e7.log.

@@ -70,6 +70,8 @@ runner was restarted with d9_455_dir1_B_p3 after the small jobs (4 workers: the 
 the runner raised its hint to 12.1 GB (`logs/jobs/memhints.json`), and the job (3 lattices left) now runs last, alone.
 2026-11-09 14:53 UTC: d9_555_B_big (hint 5) was OOM-killed at 6.3 GB on its lattice 94 (the job furthest above its hint);
 learned hint 7.64 GB, it waits for memory (13 lattices left); d9_555_B_p5_mid fills the core.
+2026-11-09 19:36 UTC: d9_455_dir1_A1 finished (family A of the C^5 source, (7,1,1), (8,1), (7,2): no separation, peak about
+3 GB).  d9_555_B_big's learned hint set to 7.4 GB (killed at 6.3 GB) so that it fits next to the three small jobs.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

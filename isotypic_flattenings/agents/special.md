@@ -132,7 +132,11 @@ direction: every case checked, profiles, hits, wall/CPU/F time, peak RSS), logs 
   special_runner: estimate + 20 rho^2 * 8 bytes, and a memory budget (special/live/membudget, 14 GB) on the sum of
   the running jobs' estimates; runner restarted 21:14 (running jobs adopted), the killed component is requeued.
   membudget 15 GB (16 GB container).  The remaining ~194 components are all estimated at 4-7.5 GB, so 2-3 run at a
-  time instead of 4 (a peak of three ~6 GB jobs at once would not fit).  `special/sync.sh` copies special/live into
+  time instead of 4 (a peak of three ~6 GB jobs at once would not fit).
+  2026-11-09 02:25: that left cores idle (estimates are peaks of the line phase only): membudget 20 GB, and a job
+  killed for memory (rc -9) is requeued up to twice (cheap with the filling checkpoints).  A restarted runner now
+  takes the output slots of adopted jobs from their environment (a restart had given two jobs slot 4; the newer,
+  33 s old, was stopped).  `special/sync.sh` copies special/live into
   special/res, special/logs, regenerates special/RESULTS.md, commits and pushes.
 
 ## Restart

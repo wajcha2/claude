@@ -100,6 +100,28 @@ def external_jobs(own_pids):
     return out
 
 
+def external_slots(own_pids):
+    """output slots (OUT=...s<k>.jsonl in the environment) of specialscan.py processes not started by this runner,
+    so that a restarted runner never gives a new job the slot of an adopted one (2026-11-09: two jobs got slot 4)."""
+    out = set()
+    for d in os.listdir('/proc'):
+        if not d.isdigit() or int(d) in own_pids:
+            continue
+        try:
+            if b'specialscan.py' not in open('/proc/%s/cmdline' % d, 'rb').read():
+                continue
+            env = open('/proc/%s/environ' % d, 'rb').read().decode(errors='replace').split('\0')
+        except OSError:
+            continue
+        for e in env:
+            if e.startswith('OUT=') and '_s' in e and e.endswith('.jsonl'):
+                try:
+                    out.add(int(e.rsplit('_s', 1)[1][:-6]))
+                except ValueError:
+                    pass
+    return out
+
+
 def expand(jobfile):
     """jobs in priority order.  A job named by a '::' line takes that line's position and environment; general lines
     skip it."""
@@ -176,7 +198,13 @@ def main():
         for slot, (proc, job, t0) in list(running.items()):
             if proc.poll() is not None:
                 print('%s done  slot %d rc %s %.0fs  %s' % (time.strftime('%H:%M:%S'), slot, proc.returncode, time.time() - t0, job), flush=True)
-                if proc.returncode != 0:
+                if proc.returncode == -9 and getattr(main, 'ooms', {}).get(job, 0) < 2:
+                    # killed for memory (2026-11-08): requeue, at most twice; the filling checkpoints (per filling and
+                    # inside long evaluations) make a rerun cheap
+                    main.ooms = getattr(main, 'ooms', {})
+                    main.ooms[job] = main.ooms.get(job, 0) + 1
+                    print('%s requeued after rc -9 (%d)' % (time.strftime('%H:%M:%S'), main.ooms[job]), flush=True)
+                elif proc.returncode != 0:
                     main.failed = getattr(main, 'failed', set()) | {job}
                 del running[slot]
             elif time.time() - t0 > tlimit:
@@ -209,7 +237,7 @@ def main():
             if k is None:
                 break
             job = todo.pop(k)
-            slot = min(set(range(slot0, slot0 + 16)) - set(running))
+            slot = min(set(range(0, 64)) - set(running) - external_slots({pr.pid for pr, _, _ in running.values()}))
             n, d, Rs, methods, lam = job
             env = dict(os.environ, **JOBENV.get(job, {}))
             env = dict(env, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', PYTHONHASHSEED='0',

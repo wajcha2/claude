@@ -846,3 +846,18 @@ lam=((5, 2, 1), (4, 4), (4, 3, 1)) g=2 dir 2: n1=1764 n23=25401600 N1=1772 K=353
    generic U: r11 H[1764, 1764] V[3528]
    U_k dims {1: 2, 2: 2, 3: 0}  swaps {}  (0.1s)
    no natural U with 0 < dim < g
+   line0 rho 1764  minpoly deg [1764, 1764]  gcd deg 0    (20.5s)
+   done dir 2: ok, 2 cases, 0 hits, wall 73.9s (F 45.2s), peak 519 MB
+lam=((5, 2, 1), (4, 4), (4, 3, 1)) g=2 dir 3: n1=4410 n23=10160640 N1=4418 K=8828  ranks [11, 12, 13]
+  . ((4, 3, 1), (5, 2, 1), (4, 4)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.29e+12 -> 6.73e+11 (8s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410] V[8820]
+   U_k dims {1: 2, 2: 2, 3: 0}  swaps {}  (0.1s)
+   no natural U with 0 < dim < g
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (230.8s)
+   done dir 3: ok, 2 cases, 0 hits, wall 453.8s (F 129.9s), peak 3211 MB
+lam=((4, 2, 2), (4, 2, 2), (4, 2, 2)) g=6 dir 1: n1=2520 n23=6350400 N1=2528 K=15128  ranks [11, 12, 13]
+  . ((4, 2, 2), (4, 2, 2), (4, 2, 2)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 7.60e+12 -> 4.19e+12 (11s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2520, 2520, 2520, 2520, 2520, 2520] V[5040, 7560, 10080, 12600, 15120]
+   U_k dims {1: 6, 2: 6, 3: 4, 4: 0}  swaps {'sw23+': 5, 'sw23-': 1, 'sw12+': 5, 'sw12-': 1, 'sw13+': 5, 'sw13-': 1}  (1.6s)

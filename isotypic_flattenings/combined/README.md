@@ -97,8 +97,19 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p455_d7_dir1_big | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources, the 58 targets of size ≤ 12000 that p455_d7_dir1 skipped (`--bmax 12000`) | 58 (42 by the certificate) | up to ~4 h per lattice (12 sources, size ~11000) |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  Running or queued: the 29 pattern targets of size
-10418..19418 at 5x5x5 d = 8 (one per mirror pair μ\|ν, ν\|μ; pat_555_d8_big, `--bmax 20000`).  4x5x5 d = 8 and all d = 9 run in other
-threads (`claude/project-thread-uj02nh`, PROJECT_STATUS.md).
+10418..19418 at 5x5x5 d = 8 (one per mirror pair μ\|ν, ν\|μ; pat_555_d8_big, `--bmax 20000`; 26 done on 2026-11-09, all maxdrop 0).
+4x5x5 d = 8 and all d = 9 run in other threads (`claude/project-thread-uj02nh`, `claude/charming-heisenberg-f66sy8`, PROJECT_STATUS.md).
+
+Queued 2026-11-09, one worker at a time (the deferred largest targets that fit in the 14.3 GB memory limit; peak RSS measured on
+the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices, and 2.5 K² · 8 bytes while subsets are ranked):
+* p455_d7_dir1_huge: 4x5x5 d = 7 dir 1, all sources, the 3 targets 3211\|421 (14008), 421\|3211 (17408), 421\|421 (20858);
+* p555_d7_B_huge: 5x5x5 d = 7, all sources, 421\|3211 (17408; its mirror 3211\|421 is equivalent), 421\|421 and 3211\|3211 (20858);
+* pat_555_d8_huge: 5x5x5 d = 8, pattern sources, 431\|3221 (20018), 431\|422 and 3311\|3221 (22118), one per mirror pair
+  (estimated peak about 11.5 GB).
+
+Not run: the 10 pattern targets of size 24818..41768 at 5x5x5 d = 8 (one per mirror pair).  At 2.8 K² · 8 bytes their peaks
+(13.7 GB for 24818, 39 GB for 41768) do not fit in the 14.3 GB limit, and at the measured speed (about 8 h for a size-19418
+lattice of 126 subsets, time ∝ K³) they would take about 12 days in total.
 
 ### C^3, rank 4 vs 5: separated at d = 4 (isotypic flattenings: d = 5)
 Family B, target S^{211}B ⊗ S^{211}C (≅ B⊗C ⊗ det_B ⊗ det_C, dimension 9), sources λ ∈ {22, 31} (all g = 1):

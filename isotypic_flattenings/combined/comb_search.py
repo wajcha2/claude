@@ -311,8 +311,8 @@ def direct_sub(fam, members, singles, test, store, sfile, tested, best):
     def run(tasks):
         tasks = sorted(tasks, key=lambda t: -sum(single_dims[s] for s in t[0]))      # largest first: load balance
         if pool is None:
-            return [_dimjob(t) for t in tasks]
-        return list(pool.imap_unordered(_dimjob, tasks, chunksize=1))
+            return (_dimjob(t) for t in tasks)
+        return pool.imap_unordered(_dimjob, tasks, chunksize=1)    # lazy: each result is stored as soon as it arrives
     nd = ns = nr = 0
     try:
         for lev in ('full', 1):

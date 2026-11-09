@@ -176,3 +176,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-08T21:36Z check-in
 - 7 workers running, no separators. KWEDGE d=7 128/187, generic d=8 682/729 (133 computed), stacked d=7 29 computed, redo C^5 d=6 60/113; classical gap-filler d<=7 complete (115/115, none).
+
+### 2026-11-09T00:36Z check-in
+- 7 workers running, no separators. KWEDGE d=7 134/187, generic d=8 684/729 (135 computed), stacked d=7 31 computed, redo C^5 d=6 65/113.

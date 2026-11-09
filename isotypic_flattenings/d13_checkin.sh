@@ -60,6 +60,13 @@ left() {  # degree maxcost -> number of listed components with cost <= maxcost n
 import os, re
 mc = float("$2"); n = 0
 done = {l.split(' g=')[0][4:].strip() for l in open('hwv5_d$1_prom_done.log')} if os.path.exists('hwv5_d$1_prom_done.log') else set()
+# components deferred after an OOM kill (claim file content "OOM", see deferred_oom.txt) do not count as left
+import glob, itertools
+oomidx = [int(os.path.basename(f)) for f in glob.glob('claims5_p$1/*') if os.path.basename(f).isdigit() and open(f).read().strip() == 'OOM']
+if oomidx:
+    from isoflat import partitions
+    combos = list(itertools.combinations_with_replacement(partitions($1, 5), 3))
+    done |= {str(combos[i]) for i in oomidx}
 for l in open('prom5_d$1_cost.txt'):
     m = re.match(r'^(\(.*\)) (\d+) (\d+) (\(.*\))$', l.strip())
     if m and float(m.group(3)) <= mc and m.group(1) not in done: n += 1

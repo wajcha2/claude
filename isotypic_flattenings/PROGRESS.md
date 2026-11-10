@@ -258,3 +258,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 - KBUDGET=5e7, KMAXM=12, KWEDGE sampled grids: all 113 components of S^6(C^5)^{\otimes 3} with g>0 checked for rank 9 vs 10 (p=1,2, every factor/swap choice), no separation (live/koszul5_d6_b5e7.log, merged into koszul_b5e7_done.log; 2026-11-07 23:01 to 2026-11-10 21:1x UTC, resumed after three container replacements). The old 2e6 pass had computed only 19 of these 113.
 - The high-budget redo chain is now complete and negative for C^4 d=3, C^4 d=4, C^5 d=4, C^5 d=5 and C^5 d=6. Koszul flattenings of the isotypic tensor therefore do not separate rank 9 from 10 in (C^5)^{(x)3} for d <= 6 (d=7: KWEDGE 185/187).
 - The freed core runs a fourth KWEDGE d=8 worker (claims, log live/koszul5_d8_kw2_w3.log).
+
+### 2026-11-10T21:37Z check-in
+- 7 processes running, no separators. KWEDGE d=7 185/187 (last worker, 2 components left), generic d=8 712/729 (163 computed), KWEDGE d=8 39/549 keys (4 computed; 4 workers with claims).

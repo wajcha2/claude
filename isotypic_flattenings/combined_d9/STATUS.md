@@ -101,6 +101,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   compressed size 4000..5000 (members per target after dropping saturated ones from 9 to 14), every subset of at most 3 members at
   the levels 1 and g, 18408 subsets: **no separation** (largest drop 0).  2026-11-10 23:20 UTC, 10.5 h.
 
+* **d9_455_dir0_B_p5_mid4** (4x5x5, source the C^4 factor, rank 8 vs 9; sources lam_1 >= 4 (14); family B, aux 1): the 24 targets of
+  compressed size 5000..6000 (members per target after dropping saturated ones from 11 to 14), every subset of at most 3 members at
+  the levels 1 and g, 15758 subsets: **no separation** (largest drop 0).  2026-11-10 23:54 UTC, 10.6 h.
+
 ## Running / queued (no separation so far)
 
 * d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);

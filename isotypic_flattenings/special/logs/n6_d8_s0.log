@@ -1549,3 +1549,32 @@ lam=((5, 2, 1), (4, 2, 2), (4, 1, 1, 1, 1)) g=3 dir 1: n1=5760 n23=793800 N1=576
    generic U: r11 H[5760, 5760, 5760] V[]
    U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.5s)
    no natural U with 0 < dim < g
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (514.0s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (516.2s)
+   gline H2: skipped (size)
+   done dir 1: ok, 4 cases, 0 hits, wall 2771.6s (F 1713.6s), peak 5284 MB
+lam=((5, 2, 1), (4, 2, 2), (4, 1, 1, 1, 1)) g=3 dir 2: n1=2520 n23=1814400 N1=2528 K=7568  ranks [11, 12, 13]
+  . ((4, 2, 2), (5, 2, 1), (4, 1, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.37e+12 -> 9.76e+11 (9s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2520, 2520, 2520] V[5040, 7560]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (49.4s)
+   line1 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (49.9s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   done dir 2: ok, 5 cases, 0 hits, wall 340.2s (F 183.4s), peak 1240 MB
+lam=((5, 2, 1), (4, 2, 2), (4, 1, 1, 1, 1)) g=3 dir 3: n1=315 n23=14515200 N1=323 K=953  ranks [11, 12, 13]
+  . ((4, 1, 1, 1, 1), (5, 2, 1), (4, 2, 2)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.33e+10 -> 1.21e+10 (2s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[315, 315, 315] V[630, 945]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.3s)
+   line1 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.3s)
+   gline H2 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   gline V2 rho 630  minpoly deg [630, 630]  gcd deg 0    (1.5s)
+   done dir 3: ok, 5 cases, 0 hits, wall 9.1s (F 3.9s), peak 379 MB
+lam=((5, 3), (5, 2, 1), (4, 2, 2)) g=3 dir 1: n1=4410 n23=14515200 N1=4418 K=13238  ranks [11, 12, 13]
+  . ((5, 3), (5, 2, 1), (4, 2, 2)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.18e+12 -> 1.33e+12 (8s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)

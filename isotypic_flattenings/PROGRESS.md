@@ -224,3 +224,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10T03:36Z check-in
 - 7 processes running (relaunched 01:21 UTC after a container replacement), no separators. KWEDGE d=7 174/187, generic d=8 699/729 (150 computed), redo C^5 d=6 97/113, classical gap-filler d=8 180/235.
+
+### 2026-11-10 03:44 UTC — second container replacement (uptime reset between 03:37 and 03:42 UTC); all 7 workers relaunched again with RESUME
+- Nothing recorded was lost (counts unchanged since the 03:36 check-in: KWEDGE d=7 174/187, generic d=8 699/729, redo C^5 d=6 97/113, gap-filler d=8 180/235); only the components in progress are recomputed.

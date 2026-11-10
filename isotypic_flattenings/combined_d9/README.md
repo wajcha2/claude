@@ -84,6 +84,8 @@ it); learned hint 12.0 GB: its last lattices (the largest 5x5x5 targets) need > 
 d9_455_dir1_B_big.  d9_555_A1 (family A of the C^5 source for 5x5x5) moved ahead of the small passes and started at 12:51
 (the two lam_1 >= 4 passes on sizes 3000..4000 stopped, they resume later): exclusions from 297 of 304 targets of the 5x5x5 B
 logs, e.g. (7,1,1): 206 of 269 members left out, 63 kept.
+2026-11-10 15:45 UTC: disk at 9.8 GB free; the flattening caches of the finished first dir-0 jobs (sources lam_1 >= 7, aux 1 and
+aux 2: 9.1 GB, used by no queued job) deleted, 19 GB free.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

@@ -218,3 +218,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10T00:36Z check-in
 - 7 processes running, no separators. KWEDGE d=7 172/187, generic d=8 699/729 (150 computed), redo C^5 d=6 94/113, classical gap-filler d=8 120/235.
+
+### 2026-11-10 01:22 UTC — container replaced (uptime reset between 01:08 and 01:20 UTC); all 7 workers relaunched with RESUME
+- Disk, live/ logs and snapshots persisted. Remaining after resume: KWEDGE d=7 14 components (2/6/6 per worker), generic d=8 30 (21/9), redo C^5 d=6 18, classical gap-filler d=8 103 (132 already done, half-done component resumed from its #partial line). Lost: only the components in progress at the restart (one per Koszul worker). Kernel autogroup disabled again.

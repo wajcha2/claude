@@ -72,3 +72,8 @@ s555_d8_V_d  | kp_single.py 5 8 9,10 --mode V --nomirror --mincost 2e8 --maxcost
 # 2026-11-10 09:02: s555_d8_V_d done (peak 6.9 GB, 9.8 GB in all next to k455_d7_dir1_big at ~3 GB) -> the same band at 4x5x5 source C^5
 # (521|431|4211, 521|4211|431 g=10, 431|4211|4211 g=14; same N1, K as at 5x5x5)
 s455_d8_dir1_V_d | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 2e8 --maxcost 2.2e8
+# 2026-11-10 10:35: s455_d8_dir1_V_d done; the last d=8 V_s component per format (521|4211|4211 g=13, ~10+ GB) waits for
+# k455_d7_dir1_big. Meanwhile the random general block matrices (kpG, so far only at d=6) at d=7, 300 configurations each,
+# --emax 4e7 (default); add k455_d7_dir0_G once the memory of these two is known
+k555_d7_G    | 5 7 9,10 --fam G --gcount 300 --nocache
+k455_d7_dir1_G | 4,5,5 7 8,9 --dir 1 --fam G --gcount 300 --nocache

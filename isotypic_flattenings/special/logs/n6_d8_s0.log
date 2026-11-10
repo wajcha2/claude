@@ -1594,3 +1594,33 @@ lam=((5, 3), (5, 2, 1), (4, 2, 2)) g=3 dir 2: n1=5760 n23=11113200 N1=5768 K=576
    U_k dims {1: 3, 2: 3, 3: 0}  swaps {}  (0.2s)
    no natural U with 0 < dim < g
    line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (505.0s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (523.7s)
+   gline H2: skipped (size)
+   done dir 2: ok, 4 cases, 0 hits, wall 1385.0s (F 330.6s), peak 5158 MB
+lam=((5, 3), (5, 2, 1), (4, 2, 2)) g=3 dir 3: n1=2520 n23=25401600 N1=2528 K=7568  ranks [11, 12, 13]
+  . ((4, 2, 2), (5, 3), (5, 2, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.16e+12 -> 4.30e+11 (22s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2520, 2520, 2520] V[5040, 7560]
+   U_k dims {1: 3, 2: 3, 3: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (51.0s)
+   line1 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (51.6s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   done dir 3: ok, 5 cases, 0 hits, wall 274.5s (F 115.5s), peak 1281 MB
+lam=((6, 2), (5, 2, 1), (4, 2, 1, 1)) dir 1: V-stacks need ~7 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((6, 2), (5, 2, 1), (4, 2, 1, 1)) g=3 dir 1: n1=4950 n23=13996800 N1=4958 K=4958  ranks [11, 12, 13]
+  . ((6, 2), (5, 2, 1), (4, 2, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.47e+12 -> 5.70e+11 (12s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4950, 4950, 4950] V[]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g
+   line0 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (333.5s)
+   line1 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (330.8s)
+   gline H2: skipped (size)
+   done dir 1: ok, 4 cases, 0 hits, wall 815.8s (F 134.6s), peak 3891 MB
+lam=((6, 2), (5, 2, 1), (4, 2, 1, 1)) dir 2: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((6, 2), (5, 2, 1), (4, 2, 1, 1)) g=3 dir 2: n1=5760 n23=12028500 N1=5768 K=5768  ranks [11, 12, 13]
+   generic U: r11 H[5760, 5760, 5760] V[]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g

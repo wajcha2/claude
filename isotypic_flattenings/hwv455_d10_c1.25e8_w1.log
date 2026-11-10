@@ -4013,3 +4013,16 @@ lam=((6, 4), (6, 3, 1), (4, 3, 1, 1, 1)) g=2 dims=(540, 4725, 175)  H1:540/540 g
 # blocks: Y-first (8 x 3858) of 3858 x 3858, 8.07e+11 flops, largest intermediate 9.26e+06
 # blocks: Z-first (3858 x 16) of 3858 x 3858, 7.86e+11 flops, largest intermediate 2.50e+07
 # blocks: Z-first (3858 x 1) of 3858 x 3858, 4.41e+12 flops, largest intermediate 2.53e+07
+#partial ((4, 4, 1, 1), (8, 2), (4, 4, 1, 1)) next=2 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50), (1, 'gen'): (3850, 3850), (1, 'Hstack'): (3850, 3850)} spans=[3, 3] secs=5876.9 state={'bit_generator': 'PCG64', 'state': {'state': 140216125627256853923103500807377326417, 'inc': 326741061578579944566873450860207907305}, 'has_uint32': 1, 'uinteger': 1122146543}
+# blocks: Z-first (708 x 354) of 708 x 708, 6.66e+09 flops, largest intermediate 2.03e+07
+lam=((4, 4, 1, 1), (8, 2), (4, 4, 1, 1)) g=3 dims=(50, 3850, 700)  H1:50/50 g1:50/50 H2:3850/3850 g2:3850/3850 H3:700/700 g3:700/700  span=3,3,3 cost=4.62e+07 (5889.0s)
+#partial ((5, 2, 2, 1), (6, 2, 2), (4, 2, 2, 2)) next=1 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70)} spans=[9] secs=5.0 state={'bit_generator': 'PCG64', 'state': {'state': 182272440390933709172357704317254838386, 'inc': 20289766293619411500413029884751924171}, 'has_uint32': 1, 'uinteger': 2703014702}
+# blocks: Y-first (5 x 2258) of 2258 x 2258, 1.12e+11 flops, largest intermediate 1.81e+07
+# blocks: Y-first (18 x 2258) of 2258 x 2258, 5.67e+11 flops, largest intermediate 2.08e+07
+# blocks: Z-first (2258 x 36) of 2258 x 2258, 3.07e+11 flops, largest intermediate 3.25e+07
+# blocks: Y-first (9 x 2258) of 2258 x 2258, 1.41e+11 flops, largest intermediate 3.25e+07
+# blocks: Y-first (9 x 2258) of 2258 x 2258, 1.30e+11 flops, largest intermediate 3.25e+07
+# blocks: Y-first (9 x 2258) of 2258 x 2258, 1.43e+11 flops, largest intermediate 3.25e+07
+# blocks: Y-first (18 x 2258) of 2258 x 2258, 5.53e+11 flops, largest intermediate 2.08e+07
+# blocks: Y-first (18 x 2258) of 2258 x 2258, 6.13e+11 flops, largest intermediate 2.08e+07
+# blocks: Z-first (2258 x 3) of 2258 x 2258, 7.82e+11 flops, largest intermediate 2.77e+07

@@ -237,3 +237,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10T06:37Z check-in
 - 7 processes running, no separators. KWEDGE d=7 175/187, generic d=8 699/729 (150 computed), redo C^5 d=6 99/113, KWEDGE d=8 35/549 lines (0 computed).
+
+### 2026-11-10T09:41Z check-in
+- 7 processes running, no separators. KWEDGE d=7 177/187, generic d=8 703/729 (154 computed), redo C^5 d=6 102/113, KWEDGE d=8 36/549 lines (1 computed).

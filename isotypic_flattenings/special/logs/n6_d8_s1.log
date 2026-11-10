@@ -3237,3 +3237,20 @@ lam=((6, 1, 1), (5, 2, 1), (4, 2, 1, 1)) g=3 dir 2: n1=5760 n23=8419950 N1=5768 
    generic U: r11 H[5760, 5760, 5760] V[]
    U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
    no natural U with 0 < dim < g
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (499.4s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (505.7s)
+   gline H2: skipped (size)
+   done dir 2: ok, 4 cases, 0 hits, wall 1264.9s (F 235.0s), peak 5286 MB
+lam=((6, 1, 1), (5, 2, 1), (4, 2, 1, 1)) g=3 dir 3: n1=2430 n23=19958400 N1=2438 K=7298  ranks [11, 12, 13]
+  . ((4, 2, 1, 1), (6, 1, 1), (5, 2, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.87e+11 -> 9.61e+10 (10s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430, 2430] V[4860, 7290]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 0}  swaps {}  (0.2s)
+   no natural U with 0 < dim < g
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (48.1s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (50.8s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   done dir 3: ok, 5 cases, 0 hits, wall 182.9s (F 31.2s), peak 1164 MB
+lam=((5, 2, 1), (5, 2, 1), (3, 2, 1, 1, 1)) dir 1: V-stacks need ~15 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (5, 2, 1), (3, 2, 1, 1, 1)) g=4 dir 1: n1=5760 n23=2211840 N1=5768 K=5768  ranks [11, 12, 13]

@@ -75,5 +75,7 @@ s455_d8_dir1_V_d | kp_single.py 4,5,5 8 8,9 --dir 1 --mode V --mincost 2e8 --max
 # 2026-11-10 10:35: s455_d8_dir1_V_d done; the last d=8 V_s component per format (521|4211|4211 g=13, ~10+ GB) waits for
 # k455_d7_dir1_big. Meanwhile the random general block matrices (kpG, so far only at d=6) at d=7, 300 configurations each,
 # --emax 4e7 (default); add k455_d7_dir0_G once the memory of these two is known
-k555_d7_G    | 5 7 9,10 --fam G --gcount 300 --nocache
-k455_d7_dir1_G | 4,5,5 7 8,9 --dir 1 --fam G --gcount 300 --nocache
+k555_d7_G    | 5 7 9,10 --fam G --gcount 300 --nocache --gmem 1.5
+# 2026-11-10 11:26: k455_d7_dir1_G killed at 5.7 GB (12.8 GB in all): kpG kept every flattening it touched in memory;
+# --gmem 1.5 frees them once they exceed 1.5 GB (both kpG jobs restarted with it; kpG restarts from configuration 1 on resume)
+k455_d7_dir1_G | 4,5,5 7 8,9 --dir 1 --fam G --gcount 300 --nocache --gmem 1.5

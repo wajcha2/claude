@@ -73,6 +73,8 @@ ap.add_argument('--emax2', type=float, default=1.5e8, help='kpE: skip compressed
 ap.add_argument('--eredo', default='', help='log1:log2: kpE components with a complete line (no :skip) there are done')
 ap.add_argument('--emax', type=float, default=4e7); ap.add_argument('--kmax', type=int, default=3)
 ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random general block configurations')
+ap.add_argument('--gmem', type=float, default=float('inf'), help='kpG: free the in-memory flattenings after a configuration once they '
+                'exceed this many GB (2026-11-10: at d=7 they otherwise pile up, 5.7 GB after 1 h)')
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
 ap.add_argument('--resume', default='')
@@ -475,6 +477,8 @@ if 'G' in fams and args.gcount and ('G',) not in DONE:
                 desc.append('%s>%s,%s:%d/%d' % (fmt(lam), fmt(mn[0]), fmt(mn[1]), s, g))
         dims, ex = ctx.block_rank([(l, ks[l]) for l in srcs], [(m, ls[m]) for m in tgts], psis=psis)
         ng += 1
+        if sum(F.nbytes for F in ctx._F.values()) > args.gmem * 2**30:
+            ctx.drop()
         conf = 'rows %s cols %s blocks %s' % (' '.join('%s^%d' % (fmt(l), ks[l]) for l in srcs),
                                                ' '.join('%s,%s^%d' % (fmt(m[0]), fmt(m[1]), ls[m]) for m in tgts), ' '.join(desc))
         for i in range(NPAIR):
@@ -482,7 +486,7 @@ if 'G' in fams and args.gcount and ('G',) not in DONE:
                 line = '*** SEPARATES [G] r%d<r%d kpG %s %s ranks %s exact=%s' % (ranks[i], ranks[i + 1], conf, '/'.join(map(str, dims)), '/'.join(map(str, ranks)), ex)
                 print(line); FOUND.append(line); sys.stdout.flush()
                 TOT[(i, 'G', True)] = TOT.get((i, 'G', True), 0) + 1
-        if ng % 50 == 0:
+        if ng % 10 == 0:
             print('# kpG %d configurations, %.0fs' % (ng, time.time() - t0)); sys.stdout.flush()
     print('kpG done %d configurations (%.1fs)' % (ng, time.time() - t0)); sys.stdout.flush()
 for i in range(NPAIR):

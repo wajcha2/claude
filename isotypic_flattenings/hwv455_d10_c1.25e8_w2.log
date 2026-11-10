@@ -4029,3 +4029,31 @@ lam=((4, 4, 1, 1), (6, 1, 1, 1, 1), (5, 3, 2)) g=6 dims=(50, 126, 2700)  H1:50/5
 # blocks: Z-first (3158 x 13) of 3158 x 3158, 7.48e+11 flops, largest intermediate 2.05e+07
 # blocks: Z-first (3158 x 13) of 3158 x 3158, 6.11e+11 flops, largest intermediate 2.10e+07
 # blocks: Y-first (2 x 3158) of 3158 x 3158, 3.42e+12 flops, largest intermediate 2.59e+07
+# blocks: Y-first (4 x 3158) of 3158 x 3158, 5.57e+11 flops, largest intermediate 2.05e+07
+# blocks: Z-first (3158 x 7) of 3158 x 3158, 9.54e+11 flops, largest intermediate 1.11e+07
+# blocks: Z-first (3158 x 13) of 3158 x 3158, 8.63e+11 flops, largest intermediate 2.99e+07
+# blocks: Z-first (3158 x 4) of 3158 x 3158, 2.74e+12 flops, largest intermediate 1.02e+07
+#partial ((4, 3, 3), (6, 4), (4, 3, 2, 1)) next=2 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70), (1, 'gen'): (3150, 3150), (1, 'Hstack'): (3150, 3150)} spans=[4, 4] secs=2719.1 state={'bit_generator': 'PCG64', 'state': {'state': 44894064030244696823487410245892677254, 'inc': 25586906311023357170163361000840261375}, 'has_uint32': 1, 'uinteger': 513558222}
+# blocks: Z-first (1032 x 516) of 1032 x 1032, 2.05e+09 flops, largest intermediate 2.66e+07
+# blocks: Z-first (1032 x 129) of 1032 x 1032, 1.08e+10 flops, largest intermediate 3.33e+07
+# blocks: Z-first (1032 x 258) of 1032 x 1032, 7.14e+09 flops, largest intermediate 2.13e+07
+# blocks: Z-first (1032 x 129) of 1032 x 1032, 6.63e+09 flops, largest intermediate 2.66e+07
+# blocks: Z-first (1032 x 516) of 1032 x 1032, 2.42e+09 flops, largest intermediate 2.40e+07
+# blocks: Z-first (1032 x 65) of 1032 x 1032, 2.43e+10 flops, largest intermediate 1.68e+07
+# blocks: Z-first (1032 x 129) of 1032 x 1032, 5.67e+09 flops, largest intermediate 1.33e+07
+# blocks: Z-first (1032 x 129) of 1032 x 1032, 7.72e+09 flops, largest intermediate 3.33e+07
+lam=((4, 3, 3), (6, 4), (4, 3, 2, 1)) g=4 dims=(70, 3150, 1024)  H1:70/70 g1:70/70 H2:3150/3150 g2:3150/3150 H3:1024/1024 g3:1024/1024  span=4,4,4 cost=4.42e+07 (2755.2s)
+#partial ((4, 4, 1, 1), (7, 3), (6, 2, 2)) next=1 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50)} spans=[2] secs=0.4 state={'bit_generator': 'PCG64', 'state': {'state': 207417461411855960698488637307761105999, 'inc': 279223223421567361070321895308385188993}, 'has_uint32': 1, 'uinteger': 182136004}
+# blocks: Y-first (130 x 4133) of 4133 x 4133, 4.33e+10 flops, largest intermediate 2.58e+07
+# blocks: Z-first (4133 x 5) of 4133 x 4133, 6.59e+11 flops, largest intermediate 1.32e+07
+# blocks: Y-first (130 x 4133) of 4133 x 4133, 4.88e+10 flops, largest intermediate 2.90e+07
+# blocks: Z-first (4133 x 2) of 4133 x 4133, 9.16e+11 flops, largest intermediate 1.67e+07
+#partial ((4, 4, 1, 1), (7, 3), (6, 2, 2)) next=2 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50), (1, 'gen'): (4125, 4125), (1, 'Hstack'): (4125, 4125)} spans=[2, 2] secs=951.8 state={'bit_generator': 'PCG64', 'state': {'state': 293163361795371617340490113343263674942, 'inc': 279223223421567361070321895308385188993}, 'has_uint32': 0, 'uinteger': 1049122533}
+# blocks: Z-first (2258 x 36) of 2258 x 2258, 9.18e+10 flops, largest intermediate 2.60e+07
+# blocks: Z-first (2258 x 142) of 2258 x 2258, 4.87e+10 flops, largest intermediate 2.05e+07
+# blocks: Y-first (36 x 2258) of 2258 x 2258, 1.14e+11 flops, largest intermediate 7.32e+06
+# blocks: Z-first (2258 x 71) of 2258 x 2258, 4.72e+10 flops, largest intermediate 1.30e+07
+lam=((4, 4, 1, 1), (7, 3), (6, 2, 2)) g=2 dims=(50, 4125, 2250)  H1:50/50 g1:50/50 H2:4125/4125 g2:4125/4125 H3:2250/2250 g3:2250/2250  span=2,2,2 cost=4.44e+07 (1097.5s)
+#partial ((4, 3, 3), (8, 2), (5, 3, 2)) next=1 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70)} spans=[2] secs=0.4 state={'bit_generator': 'PCG64', 'state': {'state': 14887881953093715273022308239489013949, 'inc': 147258247220136054363721302576918473815}, 'has_uint32': 1, 'uinteger': 1032706331}
+# blocks: Y-first (8 x 3858) of 3858 x 3858, 4.50e+11 flops, largest intermediate 3.16e+07
+# blocks: Z-first (3858 x 16) of 3858 x 3858, 8.46e+11 flops, largest intermediate 1.98e+07

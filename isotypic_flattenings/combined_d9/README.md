@@ -74,6 +74,9 @@ learned hint 7.64 GB, it waits for memory (13 lattices left); d9_555_B_p5_mid fi
 3 GB).  d9_555_B_big's learned hint set to 7.4 GB (killed at 6.3 GB) so that it fits next to the three small jobs.
 2026-11-10 01:22 UTC: container restart (up 1 day 11 h); runner and memlog restarted at 01:24, the same four jobs resumed from
 their logs (13.4 of 13.5 GB reserved).
+2026-11-10 08:37 UTC: d9_555_B_p5_mid2 (hint 2) OOM-killed at 3.3 GB (the job furthest above its hint; d9_555_B_big at 6.6 GB
+kept its lattice); learned hint 4.5 GB, it waits.  The lam_1 >= 4 passes on sizes 3000..4000 reach 3-4 GB, so no further filler
+is queued next to d9_555_B_big (3 workers until it finishes).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

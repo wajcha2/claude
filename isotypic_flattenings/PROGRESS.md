@@ -227,3 +227,7 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10 03:44 UTC — second container replacement (uptime reset between 03:37 and 03:42 UTC); all 7 workers relaunched again with RESUME
 - Nothing recorded was lost (counts unchanged since the 03:36 check-in: KWEDGE d=7 174/187, generic d=8 699/729, redo C^5 d=6 97/113, gap-filler d=8 180/235); only the components in progress are recomputed.
+
+### 2026-11-10 06:17 UTC — classical gap-filler d=8 complete: classical isotypic flattenings for C^5 rank 9 vs 10 are complete and negative for d <= 8
+- sweep_fast.py (generic functional, exact mod p = 524287, noV, MAXFLOPS=5e12) computed all 235 g=1 components of degree 8 that had no classical record: FOUND: [], no SEPARATES, no NOT CHECKED line (live/gap5_d8.log, snapshot hwv5_gap8_done.log; 2026-11-09 21:08 to 2026-11-10 06:1x UTC on one core at nice 5, resumed from the log after two container replacements).
+- Together with the 79 g=1 components recorded earlier (hwv5_d8_*_done.log, Koszul passes) and the special-U agent's generic H_k/V_k profiles of all 415 g>=2 components at d=8 (special/RESULTS.md), every component with g>0 of degree <= 8 has now been tested classically: no classical isotypic flattening of degree <= 8 separates rank 9 from rank 10 in (C^5)^{(x)3}. g=1 coverage is now d<=8 complete; d=9 479 components (29 done), d=10 790 (29 done) remain partial.

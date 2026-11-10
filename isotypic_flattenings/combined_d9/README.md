@@ -72,6 +72,8 @@ the runner raised its hint to 12.1 GB (`logs/jobs/memhints.json`), and the job (
 learned hint 7.64 GB, it waits for memory (13 lattices left); d9_555_B_p5_mid fills the core.
 2026-11-09 19:36 UTC: d9_455_dir1_A1 finished (family A of the C^5 source, (7,1,1), (8,1), (7,2): no separation, peak about
 3 GB).  d9_555_B_big's learned hint set to 7.4 GB (killed at 6.3 GB) so that it fits next to the three small jobs.
+2026-11-10 01:22 UTC: container restart (up 1 day 11 h); runner and memlog restarted at 01:24, the same four jobs resumed from
+their logs (13.4 of 13.5 GB reserved).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

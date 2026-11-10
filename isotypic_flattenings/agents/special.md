@@ -147,3 +147,5 @@ components/directions with a record for the same ranks and methods in special/li
 Filling-matrix evaluations longer than 60 s are checkpointed in special/live/fcache (deterministic in the seed;
 removed when the direction is done), so a container restart only loses the work since the last evaluation.
 Never kill with a `pkill -f` pattern that also occurs in the killing command line (it kills the shell).
+
+- 2026-11-10 01:14Z: container restarted (filesystem kept, special/live intact); runner restarted with ./special/start_runner.sh, the 3 interrupted 6x6x6 d=8 components resumed from their filling checkpoints.

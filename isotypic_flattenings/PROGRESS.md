@@ -246,3 +246,7 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10T15:37Z check-in
 - 7 processes running, no separators. KWEDGE d=7 181/187, generic d=8 706/729 (157 computed), redo C^5 d=6 107/113, KWEDGE d=8 36/549 lines (1 computed).
+
+### 2026-11-10 17:27 UTC — KWEDGE d=8: dynamic claims added to koszul_fast.py, second worker started
+- koszul_fast.py: optional CLAIMDIR (one file per component with the worker pid, `done` when finished; a claim whose pid is dead is taken over), so any number of workers can share a queue and be added or restarted without re-splitting; workers without CLAIMDIR behave as before. Tested on C^4 d=2 (claims, done-skip, stale takeover).
+- KWEDGE d=7 worker 2 finished its share (kw2 183/187; workers 0 and 1 have 1 + 3 components left). Its core now runs a second KWEDGE d=8 worker (CLAIMDIR=claims5_kw8, log live/koszul5_d8_kw2_w1.log); the first d=8 worker (log live/koszul5_d8_kw2.log, no claims) is restarted with claims as soon as it finishes its current component.

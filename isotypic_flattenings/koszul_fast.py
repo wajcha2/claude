@@ -31,7 +31,31 @@ for lam in itertools.combinations_with_replacement(partitions(d, n), 3):
     todo.append((cost, lam, g, dims))
 todo.sort()
 print("# %d components to do, costs %s .. %s" % (len(todo), todo[0][0] if todo else None, todo[-1][0] if todo else None)); sys.stdout.flush()
+CLAIMDIR = os.environ.get('CLAIMDIR', '')   # dynamic claims: any number of workers (all WORKER=0/1) share the queue
+if CLAIMDIR: os.makedirs(CLAIMDIR, exist_ok=True)
+def _cfile(lam): return os.path.join(CLAIMDIR, '_'.join('-'.join(map(str, l)) for l in lam))
+def claim(lam):
+    """One file per component holding the pid of the worker computing it ('done' once finished).  A claim whose pid is
+    dead (crash, container replacement) is taken over; a finished component is never recomputed."""
+    if not CLAIMDIR: return True
+    cf, me = _cfile(lam), '%d\n' % os.getpid()
+    try:
+        fd = os.open(cf, os.O_CREAT | os.O_EXCL | os.O_WRONLY); os.write(fd, me.encode()); os.close(fd); return True
+    except FileExistsError:
+        pass
+    txt = open(cf).read().strip()
+    if txt == 'done': return False
+    try:
+        pid = int(txt)
+        alive = os.path.exists('/proc/%d' % pid) and b'koszul_fast' in open('/proc/%d/cmdline' % pid, 'rb').read()
+    except Exception:
+        alive = False
+    if alive: return False
+    open(cf, 'w').write(me); return True
+def release(lam):
+    if CLAIMDIR: open(_cfile(lam), 'w').write('done\n')
 for cost, lam, g, dims in todo:
+    if not claim(lam): continue
     t0 = time.time()
     try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2))
     except Exception as ex: line = "lam=%s ERROR %r" % (lam, ex)
@@ -41,3 +65,4 @@ for cost, lam, g, dims in todo:
         try: line = schur2.analyse(lam, n, rl, rh, rng)
         except Exception as ex: line = "lam=%s DEG2 ERROR %r" % (lam, ex)
         print(line + " (%.0fs)" % (time.time() - t0)); sys.stdout.flush()
+    release(lam)

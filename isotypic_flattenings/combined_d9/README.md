@@ -77,6 +77,8 @@ their logs (13.4 of 13.5 GB reserved).
 2026-11-10 08:37 UTC: d9_555_B_p5_mid2 (hint 2) OOM-killed at 3.3 GB (the job furthest above its hint; d9_555_B_big at 6.6 GB
 kept its lattice); learned hint 4.5 GB, it waits.  The lam_1 >= 4 passes on sizes 3000..4000 reach 3-4 GB, so no further filler
 is queued next to d9_555_B_big (3 workers until it finishes).
+2026-11-10 11:26 UTC: d9_555_B_big at 8.9 GB (hint 7.4) with 13.4 of 14.3 GB used; d9_455_dir1_B_p5_mid2 (2.9 GB, 3 lattices in
+9 h) stopped and its hint raised to 4 GB, so the large job (7 lattices left) is not the next OOM victim; 2 workers for now.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

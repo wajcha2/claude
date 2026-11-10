@@ -96,13 +96,15 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | p555_d7_B_big | 5x5x5, d = 7 | B, aux 1; all sources, subsets of at most 4 sources, the 74 targets of size 4008..11708 that p555_d7_B skipped (`--bmax 12000`) | 74 (63 by the certificate) | 2 OOM restarts on one lattice (~5 GB peak), run with 3 workers from 2026-11-02 00:53 |
 | p455_d7_dir1_big | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources, the 58 targets of size ≤ 12000 that p455_d7_dir1 skipped (`--bmax 12000`) | 58 (42 by the certificate) | up to ~4 h per lattice (12 sources, size ~11000) |
 | pat_555_d8_big | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels; the 29 targets of size 10418..19418 that pat_555_d8 skipped, one per mirror pair (`--bmax 20000`) | 29 (21 by the certificate) | 6 log parts (container restarts), 88570 s in the last; up to 8.3 h and 8.3 GB RSS per lattice |
+| p455_d7_dir1_huge | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources by direct ranks (`--direct-sub --procs 4`), the 3 targets of size 14008..20858 that p455_d7_dir1_big skipped | 3: 3211\|421 (279 ranked, 495 direct on r8, 678 skipped), 421\|3211 (39 / 353 / 1092), 421\|421 (certified: the full sum of 13 sources is direct, 20850) | 4.1 h, 1.3 h (after a container restart), 1.2 h; peak 8.8 GB |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  pat_555_d8_big finished on 2026-11-09.
 4x5x5 d = 8 and all d = 9 run in other threads (`claude/project-thread-uj02nh`, `claude/charming-heisenberg-f66sy8`, PROJECT_STATUS.md).
 
 Queued 2026-11-09, one worker at a time (the deferred largest targets that fit in the 14.3 GB memory limit; peak RSS measured on
 the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices, and 2.5 K² · 8 bytes while subsets are ranked):
-* p455_d7_dir1_huge: 4x5x5 d = 7 dir 1, all sources, the 3 targets 3211\|421 (14008), 421\|3211 (17408), 421\|421 (20858);
+* p455_d7_dir1_huge: 4x5x5 d = 7 dir 1, all sources, the 3 targets 3211\|421 (14008), 421\|3211 (17408), 421\|421 (20858) -- done
+  2026-11-10, maxdrop 0 (row in the table above);
   these two d = 7 jobs use `--direct-sub`: the subsets of at most 4 sources by direct ranks (kept in the dims store, so a
   lattice resumes) instead of the incremental RREF walk, which held about 4.5 K² · 8 bytes on 3211\|421 (7.3 GB at
   K = 14008, so about 16 GB at 20858); the same dims as the walk (checked on 1326 subsets of C^4 d = 6 lattices;

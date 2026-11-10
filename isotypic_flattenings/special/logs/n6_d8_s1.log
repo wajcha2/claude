@@ -3350,3 +3350,30 @@ lam=((5, 2, 1), (5, 2, 1), (3, 3, 2)) g=4 dir 3: n1=1470 n23=33177600 N1=1478 K=
    sw23+                        r11 H[1470, 1470, 1470, 1470] V[2940, 4410, 5880]
    U3^sw23+                     r11 H[1470, 1470, 1470, 1470] V[2940, 4410, 5880]
    sw23-                        r11 H[1470, 1470, 1470, 1470] V[2940, 4410, 5880]
+   U3^sw23-                     r11 H[1470, 1470, 1470, 1470] V[2940, 4410, 5880]
+   line0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.6s)
+   line1 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.4s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   thru-U30 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.3s)
+   in-U30 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.1s)
+   thru-sw23+0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.3s)
+   in-sw23+0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.3s)
+   thru-sw23-0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.7s)
+   in-sw23-0 rho 1470  minpoly deg [1470, 1470]  gcd deg 0    (12.0s)
+   done dir 3: ok, 17 cases, 0 hits, wall 328.7s (F 72.6s), peak 552 MB
+lam=((5, 2, 1), (3, 3, 2), (3, 3, 1, 1)) dir 1: V-stacks need ~15 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (3, 3, 2), (3, 3, 1, 1)) g=4 dir 1: n1=5760 n23=1728720 N1=5768 K=5768  ranks [11, 12, 13]
+  . ((5, 2, 1), (3, 3, 2), (3, 3, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.47e+13 -> 3.84e+12 (6s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[5760, 5760, 5760, 5760] V[]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (485.7s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (482.1s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   done dir 1: ok, 5 cases, 0 hits, wall 1678.4s (F 685.2s), peak 5412 MB
+lam=((5, 2, 1), (3, 3, 2), (3, 3, 1, 1)) g=4 dir 2: n1=1470 n23=6773760 N1=1478 K=5888  ranks [11, 12, 13]

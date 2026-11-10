@@ -234,3 +234,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-10 06:20 UTC — KWEDGE Koszul pass on the large C^5 d=8 components started
 - koszul_fast.py 5 8 9,10 2e7 with KWEDGE=1 KBUDGET=5e7 MINPROD=3e6 (the same settings as the d=7 KWEDGE pass) on the 549 components the generic d=8 pass size-skipped: 514 to do in increasing cost order (costs 1.3e6 .. 2.0e7), 35 largest SKIPPED (size) at the 2e7 cap (dims (1155,1155,1155) and up). One worker at nice 5 on the core freed by the gap-filler, log live/koszul5_d8_kw2.log, merged into koszul5_d8_done.log by the snapshots; more workers will be added as the d=7/d=6 runs finish.
+
+### 2026-11-10T06:37Z check-in
+- 7 processes running, no separators. KWEDGE d=7 175/187, generic d=8 699/729 (150 computed), redo C^5 d=6 99/113, KWEDGE d=8 35/549 lines (0 computed).

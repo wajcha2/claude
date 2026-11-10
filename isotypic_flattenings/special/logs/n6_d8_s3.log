@@ -2917,3 +2917,29 @@ lam=((4, 3, 1), (4, 1, 1, 1, 1), (3, 2, 1, 1, 1)) g=4 dir 2: n1=315 n23=1693440 
    done dir 2: ok, 8 cases, 0 hits, wall 55.5s (F 31.9s), peak 454 MB
 lam=((4, 3, 1), (4, 1, 1, 1, 1), (3, 2, 1, 1, 1)) g=4 dir 3: n1=384 n23=1389150 N1=392 K=1544  ranks [11, 12, 13]
   . ((3, 2, 1, 1, 1), (4, 3, 1), (4, 1, 1, 1, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.82e+11 -> 1.12e+11 (5s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[384, 384, 384, 384] V[768, 1152, 1536]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 4, 5: 1, 6: 0}  swaps {}  (1.2s)
+   U5                           r11 H[384, 384, 384, 384] V[768, 1152, 1536]
+   line0 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.5s)
+   line1 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   gline H2 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.7s)
+   gline V2 rho 768  minpoly deg [768, 768]  gcd deg 0    (2.5s)
+   gline H3 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.9s)
+   gline V3 rho 1152  minpoly deg [1152, 1152]  gcd deg 0    (6.5s)
+   thru-U50 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   done dir 3: ok, 8 cases, 0 hits, wall 48.1s (F 23.7s), peak 468 MB
+lam=((4, 3, 1), (3, 2, 2, 1), (3, 1, 1, 1, 1, 1)) dir 1: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((4, 3, 1), (3, 2, 2, 1), (3, 1, 1, 1, 1, 1)) g=4 dir 1: n1=4410 n23=22050 N1=4418 K=4418  ranks [11, 12, 13]
+  . ((4, 3, 1), (3, 2, 2, 1), (3, 1, 1, 1, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 6.91e+13 -> 8.13e+12 (18s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410, 4410, 4410] V[]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 4, 5: 4, 6: 0}  swaps {}  (2.2s)
+   no natural U with 0 < dim < g
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (246.5s)
+   line1 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (245.4s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   done dir 1: ok, 5 cases, 0 hits, wall 1685.9s (F 1134.3s), peak 3201 MB
+lam=((4, 3, 1), (3, 2, 2, 1), (3, 1, 1, 1, 1, 1)) g=4 dir 2: n1=1050 n23=92610 N1=1058 K=4208  ranks [11, 12, 13]
+  . ((3, 2, 2, 1), (4, 3, 1), (3, 1, 1, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.05e+12 -> 1.38e+12 (15s)

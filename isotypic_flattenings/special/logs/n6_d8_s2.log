@@ -3058,3 +3058,31 @@ lam=((5, 2, 1), (4, 1, 1, 1, 1), (3, 3, 1, 1)) g=3 dir 1: n1=5760 n23=370440 N1=
    U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.7s)
    no natural U with 0 < dim < g
    line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (483.0s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (473.8s)
+   gline H2: skipped (size)
+   done dir 1: ok, 4 cases, 0 hits, wall 2143.4s (F 1160.6s), peak 5284 MB
+lam=((5, 2, 1), (4, 1, 1, 1, 1), (3, 3, 1, 1)) g=3 dir 2: n1=315 n23=6773760 N1=323 K=953  ranks [11, 12, 13]
+   generic U: r11 H[315, 315, 315] V[630, 945]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.3s)
+   no natural U with 0 < dim < g
+   line0 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.2s)
+   line1 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.3s)
+   gline H2 rho 315  minpoly deg [315, 315]  gcd deg 0    (0.4s)
+   gline V2 rho 630  minpoly deg [630, 630]  gcd deg 0    (1.4s)
+   done dir 2: ok, 5 cases, 0 hits, wall 12.2s (F 7.1s), peak 421 MB
+lam=((5, 2, 1), (4, 1, 1, 1, 1), (3, 3, 1, 1)) g=3 dir 3: n1=1176 n23=1814400 N1=1184 K=3536  ranks [11, 12, 13]
+   generic U: r11 H[1176, 1176, 1176] V[2352, 3528]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.5s)
+   no natural U with 0 < dim < g
+   line0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.3s)
+   line1 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.2s)
+   gline H2 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (10.7s)
+   gline V2 rho 2352  minpoly deg [2352, 2352]  gcd deg 0    (41.3s)
+   done dir 3: ok, 5 cases, 0 hits, wall 162.9s (F 87.1s), peak 1057 MB
+lam=((4, 3, 1), (4, 3, 1), (4, 1, 1, 1, 1)) dir 1: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((4, 3, 1), (4, 3, 1), (4, 1, 1, 1, 1)) g=4 dir 1: n1=4410 n23=1389150 N1=4418 K=4418  ranks [11, 12, 13]
+   generic U: r11 H[4410, 4410, 4410, 4410] V[]
+   U_k dims {1: 4, 2: 4, 3: 4, 4: 4, 5: 0}  swaps {'sw12+': 2, 'sw12-': 2}  (6.6s)
+   sw12+                        r11 H[4410, 4410, 4410, 4410] V[]
+   sw12-                        r11 H[4410, 4410, 4410, 4410] V[]
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (237.7s)

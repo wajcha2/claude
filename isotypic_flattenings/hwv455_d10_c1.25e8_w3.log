@@ -4907,3 +4907,16 @@ lam=((6, 3, 1), (8, 1, 1), (5, 4, 1)) g=3 dims=(630, 2376, 3024)  H1:630/630 g1:
 # blocks: Z-first (758 x 48) of 758 x 758, 2.09e+10 flops, largest intermediate 1.86e+07
 # blocks: Z-first (758 x 95) of 758 x 758, 1.24e+10 flops, largest intermediate 2.33e+07
 # blocks: Z-first (758 x 48) of 758 x 758, 3.56e+10 flops, largest intermediate 2.65e+07
+#partial ((7, 3), (6, 3, 1), (5, 2, 1, 1, 1)) next=1 res={(0, 'gen'): (750, 750), (0, 'Hstack'): (750, 750)} spans=[2] secs=47.9 state={'bit_generator': 'PCG64', 'state': {'state': 254053077753421126716691458940025676208, 'inc': 300664841936752168362580575872686457665}, 'has_uint32': 1, 'uinteger': 2810116574}
+# blocks: Z-first (4733 x 3) of 4733 x 4733, 1.01e+12 flops, largest intermediate 2.84e+07
+# blocks: Z-first (4733 x 3) of 4733 x 4733, 4.10e+11 flops, largest intermediate 1.14e+07
+# blocks: Z-first (4733 x 3) of 4733 x 4733, 1.13e+12 flops, largest intermediate 3.19e+07
+# blocks: Z-first (4733 x 3) of 4733 x 4733, 4.65e+11 flops, largest intermediate 1.28e+07
+#partial ((7, 3), (6, 3, 1), (5, 2, 1, 1, 1)) next=2 res={(0, 'gen'): (750, 750), (0, 'Hstack'): (750, 750), (1, 'gen'): (4725, 4725), (1, 'Hstack'): (4725, 4725)} spans=[2, 2] secs=2632.0 state={'bit_generator': 'PCG64', 'state': {'state': 264702843679665865238912247110721695558, 'inc': 300664841936752168362580575872686457665}, 'has_uint32': 1, 'uinteger': 3006601709}
+lam=((7, 3), (6, 3, 1), (5, 2, 1, 1, 1)) g=2 dims=(750, 4725, 224)  H1:750/750 g1:750/750 H2:4725/4725 g2:4725/4725 H3:224/224 g3:224/224  span=2,2,2 cost=4.61e+07 (2633.9s)
+#partial ((6, 2, 1, 1), (5, 4, 1), (3, 3, 2, 2)) next=1 res={(0, 'gen'): (140, 140), (0, 'Hstack'): (140, 140)} spans=[5] secs=11.0 state={'bit_generator': 'PCG64', 'state': {'state': 232898328477278263864146412943617387789, 'inc': 105472231887150857808121391644055530335}, 'has_uint32': 1, 'uinteger': 1887545796}
+# blocks: Y-first (24 x 3032) of 3032 x 3032, 7.67e+10 flops, largest intermediate 2.91e+07
+# blocks: Z-first (3032 x 6) of 3032 x 3032, 6.36e+11 flops, largest intermediate 9.10e+06
+# blocks: Y-first (6 x 3032) of 3032 x 3032, 3.28e+11 flops, largest intermediate 2.91e+07
+# blocks: Z-first (3032 x 3) of 3032 x 3032, 1.15e+12 flops, largest intermediate 4.66e+06
+# blocks: Z-first (3032 x 2) of 3032 x 3032, 1.20e+12 flops, largest intermediate 3.03e+07

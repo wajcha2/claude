@@ -243,6 +243,8 @@ out.append('  Restored from the pushed logs (last push 11-03 06:34, c1.25e8 at 1
 out.append('  in-flight components (no checkpoint files carried over) are recomputed. Runner + 4 workers relaunched 21:35.')
 out.append('* 2026-11-09 23:22 UTC: container restart (uptime 0; filesystem kept, logs written up to 23:22, c1.25e8 at 486/1833).')
 out.append('  Runner + 4 workers relaunched 23:23 by the check-in; in-flight components resume from their CKPT_SECS checkpoints.')
+out.append('* 2026-11-10 14:53 UTC: container restart (uptime 0; filesystem kept, logs written up to 14:53, c1.25e8 at 632/1833).')
+out.append('  Runner + 4 workers relaunched 14:54 by the check-in; no checkpoint files were pending, in-flight components restart.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

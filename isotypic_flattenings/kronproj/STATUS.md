@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-11-10 00:40 UTC): NO separation anywhere
+## Results so far (2026-11-10 01:25 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -39,6 +39,9 @@ large targets, kpE, kpG), no separation.
   for all s (`logs/smoke_single_455_d6_dir0.log`): all full rank, no separation.
 * Validation: `test_kp.py full` 382 ok / 0 failures (`logs/test_full.log`), including C^4 d=8 ((6,2),(3,2,2,1),(3,2,2,1)):
   H_1 225/225, H_2 = H_3 = H_4 = 304/309 (the known values); `test_kp.py quick` 143 ok / 0 failures (`logs/test_quick.log`).
+
+* Container restart 2026-11-10 ~01:22 UTC (about a minute); runner, memory log and watch relaunched at 01:23 (k455_d7_dir1_big
+  restarts its current lattice, s455_d8_dir1_V_c its current component).
 
 * 2026-11-09 15:33 UTC: k555_d7_big was OOM-killed (10.6 GB anon) on lattice 421|322 (size 11183) next to
   k455_d7_dir1_big (3.4 GB).  Its --bmax was lowered to 11100, so the job finished (all lattices up to 11100 done); the

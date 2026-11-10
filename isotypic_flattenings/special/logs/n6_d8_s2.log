@@ -3400,3 +3400,27 @@ lam=((6, 1, 1), (4, 3, 1), (4, 3, 1)) g=4 dir 1: n1=3465 n23=19448100 N1=3473 K=
    generic U: r11 H[3465, 3465, 3465, 3465] V[6930, 10395, 13860]
    U_k dims {1: 4, 2: 4, 3: 2, 4: 0}  swaps {'sw23+': 1, 'sw23-': 3}  (0.6s)
    U3                           r11 H[3465, 3465, 3465, 3465] V[6930, 10395, 13860]
+   sw23+                        r11 H[3465, 3465, 3465, 3465] V[6930, 10395, 13860]
+   sw23-                        r11 H[3465, 3465, 3465, 3465] V[6930, 10395, 13860]
+   line0 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (125.0s)
+   line1 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (127.7s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   thru-U30 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (123.7s)
+   in-U30 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (124.1s)
+   thru-sw23+0 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (121.3s)
+   thru-sw23-0 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (120.9s)
+   in-sw23-0 rho 3465  minpoly deg [3465, 3465]  gcd deg 0    (120.9s)
+   done dir 1: ok, 14 cases, 0 hits, wall 2928.7s (F 783.9s), peak 2513 MB
+lam=((6, 1, 1), (4, 3, 1), (4, 3, 1)) dir 2: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((6, 1, 1), (4, 3, 1), (4, 3, 1)) g=4 dir 2: n1=4410 n23=15280650 N1=4418 K=4418  ranks [11, 12, 13]
+  . ((4, 3, 1), (6, 1, 1), (4, 3, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.17e+12 -> 6.13e+11 (12s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410, 4410, 4410] V[]
+   U_k dims {1: 4, 2: 4, 3: 2, 4: 0}  swaps {'sw13+': 1, 'sw13-': 3}  (0.5s)
+   U3                           r11 H[4410, 4410, 4410, 4410] V[]
+   sw13+                        r11 H[4410, 4410, 4410, 4410] V[]
+   sw13-                        r11 H[4410, 4410, 4410, 4410] V[]
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (253.6s)

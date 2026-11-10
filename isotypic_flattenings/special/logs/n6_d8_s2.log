@@ -3488,3 +3488,27 @@ lam=((6, 2), (4, 2, 1, 1), (4, 2, 1, 1)) g=5 dir 1: n1=4950 n23=5904900 N1=4958 
    generic U: r11 H[4950, 4950, 4950, 4950, 4950] V[]
    U_k dims {1: 5, 2: 5, 3: 5, 4: 0}  swaps {'sw23+': 5, 'sw23-': 0}  (2.0s)
    no natural U with 0 < dim < g
+   line0 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (324.7s)
+   line1 rho 4950  minpoly deg [4950, 4950]  gcd deg 0    (335.6s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   done dir 1: ok, 6 cases, 0 hits, wall 4034.4s (F 3354.3s), peak 4079 MB
+lam=((6, 2), (4, 2, 1, 1), (4, 2, 1, 1)) g=5 dir 2: n1=2430 n23=12028500 N1=2438 K=12158  ranks [11, 12, 13]
+  . ((4, 2, 1, 1), (6, 2), (4, 2, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 5.02e+12 -> 1.52e+12 (30s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2430, 2430, 2430, 2430, 2430] V[4860, 7290, 9720, 12150]
+   U_k dims {1: 5, 2: 5, 3: 5, 4: 0}  swaps {'sw13+': 5, 'sw13-': 0}  (1.9s)
+   no natural U with 0 < dim < g
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (44.6s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (45.1s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   done dir 2: ok, 9 cases, 0 hits, wall 619.9s (F 324.3s), peak 1684 MB
+lam=((5, 2, 1), (4, 2, 1, 1), (2, 2, 1, 1, 1, 1)) dir 1: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (4, 2, 1, 1), (2, 2, 1, 1, 1, 1)) g=3 dir 1: n1=5760 n23=36450 N1=5768 K=5768  ranks [11, 12, 13]
+  . ((5, 2, 1), (4, 2, 1, 1), (2, 2, 1, 1, 1, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.53e+13 -> 6.27e+12 (23s)

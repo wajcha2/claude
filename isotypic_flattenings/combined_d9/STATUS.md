@@ -107,8 +107,8 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 * **d9_555_A1, source (7,1,1)** (5x5x5, rank 9 vs 10; family A aux 1, one pass without a flattening cache): 63 members (206 of
   269 left out as saturated per the 5x5x5 B logs; 7 more saturated), all named groups, pairs, 1000 triples, 100 random subsets
-  and every all-but-one sum at levels 1 and g, 2892 subsets: **no separation** (largest drop 0).  2026-11-11 00:2x UTC, 11.5 h.
-  Sources (8,1) and (7,2) running.
+  and every all-but-one sum at levels 1 and g, 2892 subsets: **no separation** (largest drop 0).  2026-11-10 23:59 UTC, 11.1 h.
+  Source (8,1) (61 of 133 members kept per the B logs) running, then (7,2).
 
 ## Running / queued (no separation so far)
 

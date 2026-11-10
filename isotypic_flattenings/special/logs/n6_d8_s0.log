@@ -1171,3 +1171,31 @@ lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 1, 1, 1)) g=3 dir 1: n1=5760 n23=604800 N1=
    generic U: r11 H[5760, 5760, 5760] V[]
    U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.5s)
    no natural U with 0 < dim < g
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (506.2s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (509.0s)
+   gline H2: skipped (size)
+   done dir 1: ok, 4 cases, 0 hits, wall 1873.9s (F 829.4s), peak 5285 MB
+lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 1, 1, 1)) g=3 dir 2: n1=1575 n23=2211840 N1=1583 K=4733  ranks [11, 12, 13]
+  . ((5, 1, 1, 1), (5, 2, 1), (3, 2, 1, 1, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.50e+12 -> 1.01e+12 (13s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1575, 1575, 1575] V[3150, 4725]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (18.1s)
+   line1 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (17.6s)
+   gline H2 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (26.4s)
+   gline V2 rho 3150  minpoly deg [3150, 3150]  gcd deg 0    (103.3s)
+   done dir 2: ok, 5 cases, 0 hits, wall 385.3s (F 199.0s), peak 1702 MB
+lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 1, 1, 1)) g=3 dir 3: n1=384 n23=9072000 N1=392 K=1160  ranks [11, 12, 13]
+  . ((3, 2, 1, 1, 1), (5, 2, 1), (5, 1, 1, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 3.87e+10 -> 1.69e+10 (2s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[384, 384, 384] V[768, 1152]
+   U_k dims {1: 3, 2: 3, 3: 3, 4: 3, 5: 0}  swaps {}  (0.4s)
+   no natural U with 0 < dim < g
+   line0 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.4s)
+   line1 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.6s)
+   gline H2 rho 384  minpoly deg [384, 384]  gcd deg 0    (0.7s)
+   gline V2 rho 768  minpoly deg [768, 768]  gcd deg 0    (2.5s)
+   done dir 3: ok, 5 cases, 0 hits, wall 11.1s (F 3.4s), peak 440 MB
+lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 2, 1)) dir 1: V-stacks need ~9 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (5, 1, 1, 1), (3, 2, 2, 1)) g=3 dir 1: n1=5760 n23=1653750 N1=5768 K=5768  ranks [11, 12, 13]

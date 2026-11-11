@@ -5780,3 +5780,16 @@ lam=((6, 3, 1), (4, 4, 2), (4, 3, 2, 1)) g=18 dims=(630, 1176, 1024)  H1:630/630
 # blocks: Y-first (25 x 3158) of 3158 x 3158, 6.95e+10 flops, largest intermediate 1.97e+07
 # blocks: Y-first (13 x 3158) of 3158 x 3158, 3.24e+12 flops, largest intermediate 2.10e+07
 # blocks: Z-first (1579 x 1) of 3158 x 3158, 1.12e+12 flops, largest intermediate 4.04e+06
+# blocks: Y-first (25 x 3158) of 3158 x 3158, 7.55e+10 flops, largest intermediate 1.97e+07
+# blocks: Z-first (790 x 1) of 3158 x 3158, 1.34e+12 flops, largest intermediate 5.76e+05
+# blocks: Y-first (1 x 790) of 3158 x 3158, 1.13e+12 flops, largest intermediate 5.76e+05
+#partial ((3, 3, 2, 2), (6, 4), (5, 3, 2)) next=2 res={(0, 'gen'): (6, 6), (0, 'Hstack'): (6, 6), (1, 'gen'): (3150, 3150), (1, 'Hstack'): (3150, 3150)} spans=[3, 3] secs=1959.4 state={'bit_generator': 'PCG64', 'state': {'state': 315827451430014083116621316042961420146, 'inc': 293467067395283983813373137458164546913}, 'has_uint32': 0, 'uinteger': 1382373307}
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 4.21e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 5.47e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 5.17e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 4.27e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 6.58e+11 flops, largest intermediate 2.03e+07
+# blocks: Z-first (2708 x 3) of 2708 x 2708, 6.00e+11 flops, largest intermediate 2.03e+07
+lam=((3, 3, 2, 2), (6, 4), (5, 3, 2)) g=3 dims=(6, 3150, 2700)  H1:6/6 g1:6/6 H2:3150/3150 g2:3150/3150 H3:2700/2700 g3:2700/2700  span=3,3,3 cost=5.19e+07 (3834.3s)
+#partial ((4, 4, 2), (6, 4), (5, 3, 2)) next=1 res={(0, 'gen'): (126, 126), (0, 'Hstack'): (126, 126)} spans=[3] secs=2.4 state={'bit_generator': 'PCG64', 'state': {'state': 174332392348005995298231742257960999174, 'inc': 64259612255112846991349995077753488089}, 'has_uint32': 0, 'uinteger': 3626763158}
+# blocks: Z-first (3158 x 4) of 3158 x 3158, 4.71e+11 flops, largest intermediate 2.53e+07

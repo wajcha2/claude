@@ -2825,3 +2825,36 @@ lam=((5, 2, 1), (4, 3, 1), (4, 2, 2)) g=7 dir 1: n1=5760 n23=11113200 N1=5768 K=
 lam=((5, 2, 1), (4, 3, 1), (4, 2, 2)) dir 2: V-stacks need ~23 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
 lam=((5, 2, 1), (4, 3, 1), (4, 2, 2)) g=7 dir 2: n1=4410 n23=14515200 N1=4418 K=4418  ranks [11, 12, 13]
   . ((4, 3, 1), (5, 2, 1), (4, 2, 2)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 4.36e+12 -> 2.43e+12 (9s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410, 4410, 4410, 4410, 4410, 4410] V[]
+   U_k dims {1: 7, 2: 7, 3: 4, 4: 0}  swaps {}  (0.4s)
+   U3                           r11 H[4410, 4410, 4410, 4410, 4410, 4410, 4410] V[]
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (197.6s)
+   line1 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (198.5s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   gline H5: skipped (size)
+   gline H6: skipped (size)
+   thru-U30 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (199.4s)
+   in-U30 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (196.6s)
+   done dir 2: ok, 10 cases, 0 hits, wall 1230.8s (F 417.4s), peak 3431 MB
+lam=((5, 2, 1), (4, 3, 1), (4, 2, 2)) dir 3: V-stacks need ~8 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (4, 3, 1), (4, 2, 2)) g=7 dir 3: n1=2520 n23=25401600 N1=2528 K=2528  ranks [11, 12, 13]
+  . ((4, 2, 2), (5, 2, 1), (4, 3, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.44e+12 -> 9.22e+11 (9s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[2520, 2520, 2520, 2520, 2520, 2520, 2520] V[]
+   U_k dims {1: 7, 2: 7, 3: 4, 4: 0}  swaps {}  (0.5s)
+   U3                           r11 H[2520, 2520, 2520, 2520, 2520, 2520, 2520] V[]
+   line0 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (39.4s)
+   line1 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (41.5s)
+   gline H2 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (46.1s)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   gline H5: skipped (size)
+   gline H6: skipped (size)
+   thru-U30 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (39.8s)
+   in-U30 rho 2520  minpoly deg [2520, 2520]  gcd deg 0    (42.3s)
+   done dir 3: ok, 10 cases, 0 hits, wall 391.8s (F 176.2s), peak 1296 MB
+lam=((5, 2, 1), (5, 2, 1), (4, 2, 1, 1)) dir 1: V-stacks need ~63 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 2, 1), (5, 2, 1), (4, 2, 1, 1)) g=9 dir 1: n1=5760 n23=13996800 N1=5768 K=5768  ranks [11, 12, 13]

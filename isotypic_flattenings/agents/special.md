@@ -150,3 +150,4 @@ Never kill with a `pkill -f` pattern that also occurs in the killing command lin
 
 - 2026-11-10 01:14Z: container restarted (filesystem kept, special/live intact); runner restarted with ./special/start_runner.sh, the 3 interrupted 6x6x6 d=8 components resumed from their filling checkpoints.
 - 2026-11-11 02:17Z: second container restart (filesystem kept); runner restarted, the 3 interrupted components resumed from checkpoints.
+- 2026-11-11 11:25Z: 19 components left (incl. 2 running), almost all with a (5,2,1) factor and memory estimates 7.7-10.5 GB (recorded peaks match the estimates), so membudget 20 allows only 2 at a time; left as is (15 GB physical). Expected finish in roughly 10-14 h.

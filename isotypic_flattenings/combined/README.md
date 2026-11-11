@@ -98,6 +98,7 @@ Finished, every lattice complete (no `SKIPPED`), no single or combined flattenin
 | pat_555_d8_big | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels; the 29 targets of size 10418..19418 that pat_555_d8 skipped, one per mirror pair (`--bmax 20000`) | 29 (21 by the certificate) | 6 log parts (container restarts), 88570 s in the last; up to 8.3 h and 8.3 GB RSS per lattice |
 | p455_d7_dir1_huge | 4x5x5, d = 7, source on C^5 | B, aux 1; all sources, subsets of at most 4 sources by direct ranks (`--direct-sub --procs 4`), the 3 targets of size 14008..20858 that p455_d7_dir1_big skipped | 3: 3211\|421 (279 ranked, 495 direct on r8, 678 skipped), 421\|3211 (39 / 353 / 1092), 421\|421 (certified: the full sum of 13 sources is direct, 20850) | 4.1 h, 1.3 h (after a container restart), 1.2 h; peak 8.8 GB |
 | p555_d7_B_huge | 5x5x5, d = 7 | B, aux 1; all sources, subsets of at most 4 sources by direct ranks (`--direct-sub --procs 4`), the targets of size 17408..20858 that p555_d7_B_big skipped, one per mirror pair | 3: 421\|3211 (certified, full sum 17400 direct), 421\|421 (certified, 20850), 3211\|3211 (553 ranked, 660 direct on r9, 945 skipped) | 1.1 h, 1.3 h, 9.0 h; peak 11.8 GB |
+| pat_555_d8_huge | 5x5x5, d = 8 | B, aux 1; sources λ_1 ≥ d - 3; all subsets with mixed levels by direct ranks (`--allsub 6 --direct-sub --procs 4`), the targets of size 20018..22118 that pat_555_d8 skipped, one per mirror pair | 3: 431\|3221 (certified, full sum 20010 direct), 431\|422 (certified, 22110), 3311\|3221 (all 114 mixed-level subsets: ranked, direct on r9 or inside a direct one; full sum 16860/16860) | 2.8 h, 2.3 h, about 6 h (a container restart in between); peak 12.3 GB anonymous memory of 16 GB RAM |
 
 Every lattice had maxdrop 0 (no subset has a smaller dimension on the lower rank).  pat_555_d8_big finished on 2026-11-09.
 4x5x5 d = 8 and all d = 9 run in other threads (`claude/project-thread-uj02nh`, `claude/charming-heisenberg-f66sy8`, PROJECT_STATUS.md).
@@ -124,11 +125,15 @@ the d = 8 targets is about 2.8 K² · 8 bytes, at the build of the thin matrices
 * p555_d7_B_huge: 5x5x5 d = 7, all sources, 421\|3211 (17408; its mirror 3211\|421 is equivalent), 421\|421 and 3211\|3211 (20858)
   -- done 2026-11-10, maxdrop 0 (row in the table above);
 * pat_555_d8_huge: 5x5x5 d = 8, pattern sources, 431\|3221 (20018), 431\|422 and 3311\|3221 (22118), one per mirror pair
-  (estimated peak about 11.5 GB).
+  -- done 2026-11-11, maxdrop 0 (row in the table above).
 
-Not run: the 10 pattern targets of size 24818..41768 at 5x5x5 d = 8 (one per mirror pair).  At 2.8 K² · 8 bytes their peaks
-(13.7 GB for 24818, 39 GB for 41768) do not fit in the 14.3 GB limit, and at the measured speed (about 8 h for a size-19418
-lattice of 126 subsets, time ∝ K³) they would take about 12 days in total.
+All queued jobs are done (2026-11-11 06:13): no 8 vs 9 (4x5x5) or 9 vs 10 (5x5x5) separation by any combined family-B
+flattening tested.  The machine has 16 GB of RAM and no tighter cgroup limit (the 14.3 GB used above was a low estimate).
+
+Not run: the 10 pattern targets of size 24818..41768 at 5x5x5 d = 8 (one per mirror pair).  The build of the thin matrices
+peaked at 8.3 GB for size 19418 and about 11.5 GB for 22118 (∝ K²), so about 14.5 GB for 24818 (2 targets, next to the
+16 GB of RAM) and 20..40 GB for 27758..41768 (8 targets, do not fit).  Most lattices of size ≤ 22118 were settled by the
+direct-sum certificate within 2..3 h; the others took 6..9 h with `--direct-sub`.
 
 ### C^3, rank 4 vs 5: separated at d = 4 (isotypic flattenings: d = 5)
 Family B, target S^{211}B ⊗ S^{211}C (≅ B⊗C ⊗ det_B ⊗ det_C, dimension 9), sources λ ∈ {22, 31} (all g = 1):

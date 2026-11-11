@@ -149,3 +149,4 @@ removed when the direction is done), so a container restart only loses the work 
 Never kill with a `pkill -f` pattern that also occurs in the killing command line (it kills the shell).
 
 - 2026-11-10 01:14Z: container restarted (filesystem kept, special/live intact); runner restarted with ./special/start_runner.sh, the 3 interrupted 6x6x6 d=8 components resumed from their filling checkpoints.
+- 2026-11-11 02:17Z: second container restart (filesystem kept); runner restarted, the 3 interrupted components resumed from checkpoints.

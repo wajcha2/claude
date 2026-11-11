@@ -2035,3 +2035,48 @@ lam=((4, 3, 1), (3, 3, 1, 1), (3, 2, 2, 1)) g=7 dir 1: n1=4410 n23=1234800 N1=44
    done dir 1: ok, 10 cases, 0 hits, wall 3332.8s (F 2403.6s), peak 3424 MB
 lam=((4, 3, 1), (3, 3, 1, 1), (3, 2, 2, 1)) g=7 dir 2: n1=1176 n23=4630500 N1=1184 K=8240  ranks [11, 12, 13]
   . ((3, 3, 1, 1), (4, 3, 1), (3, 2, 2, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.80e+12 -> 1.89e+12 (4s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1176, 1176, 1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880, 7056, 8232]
+   U_k dims {1: 7, 2: 7, 3: 7, 4: 3, 5: 0}  swaps {}  (0.8s)
+   U4                           r11 H[1176, 1176, 1176, 1176, 1176, 1176, 1176] V[2352, 3528, 4704, 5880, 7056, 8232]
+   line0 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.2s)
+   line1 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.3s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   gline H5: skipped (size)
+   gline V5: skipped (size)
+   gline H6: skipped (size)
+   gline V6: skipped (size)
+   thru-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.2s)
+   in-U40 rho 1176  minpoly deg [1176, 1176]  gcd deg 0    (6.1s)
+   done dir 2: ok, 15 cases, 0 hits, wall 491.5s (F 333.2s), peak 829 MB
+lam=((4, 3, 1), (3, 3, 1, 1), (3, 2, 2, 1)) g=7 dir 3: n1=1050 n23=5186160 N1=1058 K=7358  ranks [11, 12, 13]
+  . ((3, 2, 2, 1), (4, 3, 1), (3, 3, 1, 1)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.81e+12 -> 9.87e+11 (4s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350]
+   U_k dims {1: 7, 2: 7, 3: 7, 4: 3, 5: 0}  swaps {}  (0.8s)
+   U4                           r11 H[1050, 1050, 1050, 1050, 1050, 1050, 1050] V[2100, 3150, 4200, 5250, 6300, 7350]
+   line0 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (4.6s)
+   line1 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (4.8s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   gline H5: skipped (size)
+   gline V5: skipped (size)
+   gline H6: skipped (size)
+   gline V6: skipped (size)
+   thru-U40 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (4.8s)
+   in-U40 rho 1050  minpoly deg [1050, 1050]  gcd deg 0    (4.9s)
+   done dir 3: ok, 15 cases, 0 hits, wall 277.9s (F 165.2s), peak 688 MB
+lam=((4, 3, 1), (4, 3, 1), (4, 3, 1)) dir 1: V-stacks need ~30 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((4, 3, 1), (4, 3, 1), (4, 3, 1)) g=8 dir 1: n1=4410 n23=19448100 N1=4418 K=4418  ranks [11, 12, 13]
+  . ((4, 3, 1), (4, 3, 1), (4, 3, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.40e+13 -> 3.33e+12 (12s)
+lam=((5, 2, 1), (3, 3, 2), (3, 2, 2, 1)) g=5 dir 3: n1=1050 n23=8467200 N1=1058 K=5258  ranks [11, 12, 13]
+  . ((3, 2, 2, 1), (5, 2, 1), (3, 3, 2)) dir 2 r=11: evaluation basis from a pool of 1500 fillings, planned cost 5.73e+11 -> 2.90e+11 (3s)

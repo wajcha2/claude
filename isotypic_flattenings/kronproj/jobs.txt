@@ -86,4 +86,5 @@ k455_d8_dir0_G | 4,5,5 8 8,9 --dir 0 --fam G --gcount 300 --nocache --gmem 1.5
 # 2026-11-10 16:40: k455_d7_dir1_G done -> kpG at d=8 for 5x5x5, with --emax 1e7 (one 5x5x5 d=8 component's flattenings reach
 # g N1 K * 4 bytes = 1.4 GB per rank and a configuration holds all of its components; rows * cols <= 1e7 keeps it to ~g_max * 80 MB)
 # 2026-11-10 20:18: resumed alone next to k455_d7_dir1_big (paused 19:35 at 12.3 GB with three kpG jobs; restarts from configuration 1)
-k555_d8_G    | 5 8 9,10 --fam G --gcount 300 --nocache --gmem 1.5 --emax 1e7
+# 2026-11-11 01:41: container restart at 01:40 after 120 of 300 configurations (none): --gskip 120 replays their random draws only
+k555_d8_G    | 5 8 9,10 --fam G --gcount 300 --nocache --gmem 1.5 --emax 1e7 --gskip 120

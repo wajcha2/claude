@@ -73,6 +73,8 @@ ap.add_argument('--emax2', type=float, default=1.5e8, help='kpE: skip compressed
 ap.add_argument('--eredo', default='', help='log1:log2: kpE components with a complete line (no :skip) there are done')
 ap.add_argument('--emax', type=float, default=4e7); ap.add_argument('--kmax', type=int, default=3)
 ap.add_argument('--gcount', type=int, default=0, help='kpG: number of random general block configurations')
+ap.add_argument('--gskip', type=int, default=0, help='kpG: replay only the random draws of the first N configurations '
+                '(their ranks were computed by a run cut off by a restart; 2026-11-11) and compute from configuration N+1 on')
 ap.add_argument('--gmem', type=float, default=float('inf'), help='kpG: free the in-memory flattenings after a configuration once they '
                 'exceed this many GB (2026-11-10: at d=7 they otherwise pile up, 5.7 GB after 1 h)')
 ap.add_argument('--only-lam', default=''); ap.add_argument('--only-mn', default='')
@@ -475,6 +477,9 @@ if 'G' in fams and args.gcount and ('G',) not in DONE:
                 g = ctx.g[tri]; s = int(rng.integers(1, min(g, ks[lam] * ls[mn]) + 1))
                 psis[(lam, mn)] = mulmod(rng.integers(0, p, (g, s)), rng.integers(0, p, (s, ks[lam] * ls[mn]))).reshape(g, ks[lam], ls[mn])
                 desc.append('%s>%s,%s:%d/%d' % (fmt(lam), fmt(mn[0]), fmt(mn[1]), s, g))
+        if ng < args.gskip:
+            ng += 1
+            continue
         dims, ex = ctx.block_rank([(l, ks[l]) for l in srcs], [(m, ls[m]) for m in tgts], psis=psis)
         ng += 1
         if sum(F.nbytes for F in ctx._F.values()) > args.gmem * 2**30:
@@ -488,7 +493,7 @@ if 'G' in fams and args.gcount and ('G',) not in DONE:
                 TOT[(i, 'G', True)] = TOT.get((i, 'G', True), 0) + 1
         if ng % 10 == 0:
             print('# kpG %d configurations, %.0fs' % (ng, time.time() - t0)); sys.stdout.flush()
-    print('kpG done %d configurations (%.1fs)' % (ng, time.time() - t0)); sys.stdout.flush()
+    print('kpG done %d configurations%s (%.1fs)' % (ng, ' (the first %d replayed, ranks from the earlier run)' % args.gskip if args.gskip else '', time.time() - t0)); sys.stdout.flush()
 for i in range(NPAIR):
     parts = ' '.join('[%s]%s:%d' % (c, 'new' if n else 'inherited', v) for (j, c, n), v in sorted(TOT.items()) if j == i)
     print('n=%s d=%d rank %d vs %d total %.0fs: hits %s' % (args.n, args.d, ranks[i], ranks[i + 1], time.time() - T0, parts or 'none'))

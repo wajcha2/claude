@@ -3746,3 +3746,37 @@ lam=((5, 2, 1), (5, 1, 1, 1), (4, 2, 1, 1)) g=5 dir 2: n1=1575 n23=13996800 N1=1
    in-U40 rho 1575  minpoly deg [1575, 1575]  gcd deg 0    (14.1s)
    done dir 2: ok, 11 cases, 0 hits, wall 560.6s (F 407.4s), peak 806 MB
 lam=((5, 2, 1), (5, 1, 1, 1), (4, 2, 1, 1)) g=5 dir 3: n1=2430 n23=9072000 N1=2438 K=12158  ranks [11, 12, 13]
+   generic U: r11 H[2430, 2430, 2430, 2430, 2430] V[4860, 7290, 9720, 12150]
+   U_k dims {1: 5, 2: 5, 3: 5, 4: 2, 5: 0}  swaps {}  (0.5s)
+   U4                           r11 H[2430, 2430, 2430, 2430, 2430] V[4860, 7290, 9720, 12150]
+   line0 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (37.6s)
+   line1 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (34.4s)
+   gline H2: skipped (size)
+   gline V2: skipped (size)
+   gline H3: skipped (size)
+   gline V3: skipped (size)
+   gline H4: skipped (size)
+   gline V4: skipped (size)
+   thru-U40 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (36.3s)
+   in-U40 rho 2430  minpoly deg [2430, 2430]  gcd deg 0    (35.7s)
+   done dir 3: ok, 11 cases, 0 hits, wall 876.1s (F 401.0s), peak 1690 MB
+lam=((5, 3), (5, 2, 1), (5, 2, 1)) dir 1: V-stacks need ~13 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 3), (5, 2, 1), (5, 2, 1)) g=5 dir 1: n1=4410 n23=33177600 N1=4418 K=4418  ranks [11, 12, 13]
+  . ((5, 3), (5, 2, 1), (5, 2, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 2.59e+12 -> 4.71e+11 (12s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[4410, 4410, 4410, 4410, 4410] V[]
+   U_k dims {1: 5, 2: 5, 3: 0}  swaps {'sw23+': 4, 'sw23-': 1}  (0.4s)
+   sw23+                        r11 H[4410, 4410, 4410, 4410, 4410] V[]
+   sw23-                        r11 H[4410, 4410, 4410, 4410, 4410] V[]
+   line0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (189.5s)
+   line1 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (186.0s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   thru-sw23+0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (187.3s)
+   in-sw23+0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (190.0s)
+   thru-sw23-0 rho 4410  minpoly deg [4410, 4410]  gcd deg 0    (189.0s)
+   done dir 1: ok, 10 cases, 0 hits, wall 1054.8s (F 83.7s), peak 3277 MB
+lam=((5, 3), (5, 2, 1), (5, 2, 1)) dir 2: V-stacks need ~22 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
+lam=((5, 3), (5, 2, 1), (5, 2, 1)) g=5 dir 2: n1=5760 n23=25401600 N1=5768 K=5768  ranks [11, 12, 13]
+  . ((5, 2, 1), (5, 3), (5, 2, 1)) dir 1 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.84e+12 -> 1.26e+12 (18s)

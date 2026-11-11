@@ -271,3 +271,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-11 01:41 UTC — third container replacement (uptime reset between 01:34 and 01:39 UTC); all 7 workers relaunched
 - Nothing recorded was lost (generic d=8 712/729 lines, 163 computed; KWEDGE d=8 43/549 keys, 8 computed). The five KWEDGE d=8 workers took over the claims of their dead predecessors automatically (CLAIMDIR); only the components in progress are recomputed.
+
+### 2026-11-11T03:36Z check-in
+- 7 processes running, no separators. generic d=8 713/729 (164 computed), KWEDGE d=8 47/549 keys (12 computed; 5 workers with claims).

@@ -86,6 +86,9 @@ d9_455_dir1_B_big.  d9_555_A1 (family A of the C^5 source for 5x5x5) moved ahead
 logs, e.g. (7,1,1): 206 of 269 members left out, 63 kept.
 2026-11-10 15:45 UTC: disk at 9.8 GB free; the flattening caches of the finished first dir-0 jobs (sources lam_1 >= 7, aux 1 and
 aux 2: 9.1 GB, used by no queued job) deleted, 19 GB free.
+2026-11-11 01:46 UTC: container restart; runner and memlog restarted at 01:48 with the same three jobs (d9_555_A1 resumes at
+source (8,1), (7,1,1) being done; d9_455_dir0_B_p5_mid5/_mid6); the two stopped lam_1 >= 4 passes on sizes 3000..4000 moved
+after them in the queue.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

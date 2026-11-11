@@ -4545,3 +4545,21 @@ lam=((3, 3, 3, 1), (5, 4, 1), (4, 3, 1, 1, 1)) g=9 dims=(10, 3024, 175)  H1:10/1
 # blocks: Z-first (3032 x 12) of 3032 x 3032, 1.65e+12 flops, largest intermediate 2.65e+07
 # blocks: Z-first (3032 x 2) of 3032 x 3032, 1.13e+12 flops, largest intermediate 3.03e+07
 # blocks: Z-first (3032 x 2) of 3032 x 3032, 1.64e+12 flops, largest intermediate 3.03e+07
+# blocks: Z-first (3032 x 2) of 3032 x 3032, 1.09e+12 flops, largest intermediate 3.03e+07
+#partial ((4, 4, 1, 1), (5, 4, 1), (4, 3, 3)) next=2 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50), (1, 'gen'): (3024, 3024), (1, 'Hstack'): (3024, 3024)} spans=[5, 5] secs=5654.1 state={'bit_generator': 'PCG64', 'state': {'state': 104823874350966405844159249168070317807, 'inc': 132059038753987728729795292267560711833}, 'has_uint32': 1, 'uinteger': 3442691545}
+# blocks: Z-first (708 x 89) of 708 x 708, 1.45e+10 flops, largest intermediate 3.15e+07
+# blocks: Z-first (708 x 89) of 708 x 708, 1.34e+10 flops, largest intermediate 3.23e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 1.31e+10 flops, largest intermediate 2.51e+07
+# blocks: Z-first (708 x 23) of 708 x 708, 1.21e+10 flops, largest intermediate 8.14e+06
+# blocks: Z-first (708 x 89) of 708 x 708, 1.50e+10 flops, largest intermediate 3.15e+07
+# blocks: Z-first (708 x 45) of 708 x 708, 1.32e+10 flops, largest intermediate 1.59e+07
+# blocks: Z-first (708 x 45) of 708 x 708, 1.20e+10 flops, largest intermediate 1.59e+07
+# blocks: Z-first (708 x 354) of 708 x 708, 1.97e+10 flops, largest intermediate 2.51e+07
+# blocks: Z-first (708 x 45) of 708 x 708, 3.00e+10 flops, largest intermediate 2.87e+07
+# blocks: Z-first (708 x 45) of 708 x 708, 2.06e+10 flops, largest intermediate 1.64e+07
+lam=((4, 4, 1, 1), (5, 4, 1), (4, 3, 3)) g=5 dims=(50, 3024, 700)  H1:50/50 g1:50/50 H2:3024/3024 g2:3024/3024 H3:700/700 g3:700/700  span=5,5,5 cost=4.85e+07 (5763.8s)
+#partial ((3, 3, 2, 2), (7, 3), (5, 3, 2)) next=1 res={(0, 'gen'): (6, 6), (0, 'Hstack'): (6, 6)} spans=[2] secs=0.5 state={'bit_generator': 'PCG64', 'state': {'state': 226272292501662265194405089322226660166, 'inc': 126965450677593237969218322982424531741}, 'has_uint32': 0, 'uinteger': 1504069721}
+# blocks: Z-first (4133 x 9) of 4133 x 4133, 6.03e+11 flops, largest intermediate 1.19e+07
+# blocks: Y-first (1 x 2067) of 4133 x 4133, 1.52e+12 flops, largest intermediate 1.24e+06
+# blocks: Y-first (3 x 4133) of 4133 x 4133, 8.94e+11 flops, largest intermediate 2.79e+07
+# blocks: Z-first (4133 x 2) of 4133 x 4133, 1.78e+12 flops, largest intermediate 1.67e+07

@@ -292,3 +292,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-11 21:36 UTC check-in
 - 7 processes running, no separators. generic d=8 worker 0: 716/729 keys (167 computed); KWEDGE d=8 (6 claim workers): 81/549 keys (46 of 514 computed); separators: 0.
+
+### 2026-11-14 21:39 UTC relaunch after a 3-day outage
+- The container was replaced at about 2026-11-11 22:40 UTC and the session stayed offline until 2026-11-14 21:36 UTC (23 routine check-ins queued, none executed): all 7 workers died, no computation ran for ~71 h. Disk, live/ logs and claims persisted; nothing already logged was lost (only the 7 in-progress components are recomputed). The 6 stale pid claims were removed before the relaunch (in a fresh container a dead pid can be reused by a new worker, so the pid-liveness check alone is not safe), the 47 `done` claims were kept. Relaunched all 7 workers (generic d=8 worker 0 with 13 components left; 6 KWEDGE d=8 claim workers, 466 components left). generic d=8 worker 0: 716/729 keys (167 computed, 13 left); KWEDGE d=8 (6 claim workers): 83/549 keys (48 of 514 computed, 466 left); separators: 0.

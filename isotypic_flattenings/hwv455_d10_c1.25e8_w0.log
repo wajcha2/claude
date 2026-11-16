@@ -7878,3 +7878,16 @@ lam=((4, 2, 2, 2), (5, 3, 1, 1), (5, 2, 1, 1, 1)) g=21 dims=(10, 1701, 224)  H1:
 # resuming ((4, 4, 1, 1), (5, 3, 1, 1), (5, 2, 1, 1, 1)) at direction 1 (checkpoint after 12.1s)
 # resuming ((4, 4, 1, 1), (5, 3, 1, 1), (5, 2, 1, 1, 1)) direction 1 at rank 1 after filling 18 (checkpoint file)
 # blocks: Z-first (1709 x 14) of 1709 x 1709, 1.66e+11 flops, largest intermediate 2.99e+07
+# blocks: Z-first (1709 x 7) of 1709 x 1709, 1.24e+11 flops, largest intermediate 2.99e+07
+#partial ((4, 4, 1, 1), (5, 3, 1, 1), (5, 2, 1, 1, 1)) next=2 res={(0, 'gen'): (50, 50), (0, 'Hstack'): (50, 50), (1, 'gen'): (1701, 1701), (1, 'Hstack'): (1701, 1701)} spans=[21, 21] secs=181.2 state={'bit_generator': 'PCG64', 'state': {'state': 101652882213828515300529127175338394771, 'inc': 44373641390651960212435873278584870975}, 'has_uint32': 0, 'uinteger': 1321035667}
+# blocks: Z-first (232 x 116) of 232 x 232, 2.63e+09 flops, largest intermediate 8.61e+06
+# blocks: Z-first (232 x 116) of 232 x 232, 1.15e+09 flops, largest intermediate 1.96e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 1.34e+09 flops, largest intermediate 1.09e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 1.38e+09 flops, largest intermediate 1.96e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 1.44e+09 flops, largest intermediate 1.96e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 3.25e+09 flops, largest intermediate 6.06e+06
+# blocks: Z-first (232 x 116) of 232 x 232, 1.70e+09 flops, largest intermediate 1.96e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 5.47e+09 flops, largest intermediate 1.09e+07
+# blocks: Z-first (232 x 116) of 232 x 232, 5.58e+09 flops, largest intermediate 1.09e+07
+lam=((4, 4, 1, 1), (5, 3, 1, 1), (5, 2, 1, 1, 1)) g=21 dims=(50, 1701, 224)  H1:50/50 g1:50/50 H2:1701/1701 g2:1701/1701 H3:224/224 g3:224/224  span=21,21,21 cost=6.25e+07 (213.9s)
+#partial ((6, 2, 1, 1), (7, 2, 1), (4, 4, 2)) next=1 res={(0, 'gen'): (140, 140), (0, 'Hstack'): (140, 140)} spans=[3] secs=1.6 state={'bit_generator': 'PCG64', 'state': {'state': 6194015941348585707328267574652699520, 'inc': 163963299881211586772036988300502395683}, 'has_uint32': 1, 'uinteger': 3918312458}

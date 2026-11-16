@@ -343,3 +343,8 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-16 21:37 UTC check-in
 - 7 processes running, no separators. generic d=8 worker 0: 725/729 keys (176 computed); KWEDGE d=8 (6 claim workers): 151/549 keys (116 of 514 computed); separators: 0.
+
+### 2026-11-16 23:17 UTC relaunch after container replacement
+- Container replaced between 23:03 and 23:15 UTC on 2026-11-16 (uptime reset; the previous container had run 2 d 1.5 h). Disk, logs and claims persisted; nothing logged was lost. The 7 in-progress components (one per worker) were lost: about 12 worker-hours (workers had been on them between 0.3 h and 3.3 h).
+- 6 stale pid claims removed (same 6 components, re-claimed by the new workers at once), 118 done claims kept.
+- Relaunched all 7 workers with RESUME at 23:17 UTC: generic C^5 d=8 worker 0 (pid 528, 3 components left) and six KWEDGE claim workers (pids 533, 535, 537, 539, 541, 544; 395 of 514 left, 119 computed). No separators anywhere (sep=0).

@@ -714,6 +714,7 @@ class LatticeFamily:
 
     skip_saturated = False
     single_pass = False
+    ckpt_dir = None         # single_pass only: directory for per-member checkpoints (see _build_single), None = off
 
     def __init__(self, ctx, kind, key, aux=1, levels='ends', members=None, tag=0):
         self.ctx, self.kind, self.key, self.aux, self.tag = ctx, kind, key, aux, tag
@@ -921,6 +922,11 @@ class LatticeFamily:
         r0, keep = ctx.ranks[0], []
         for m in self.members:
             tri = self.tri(m); top = max(self.levels[m])
+            fn = self._ckpt_file(m)
+            if fn and self._ckpt_load(m, fn):
+                if (m, min(self.levels[m])) in self.mats[r0]:      # kept (not saturated): its thin matrices were loaded
+                    keep.append(m)
+                continue
             psis[m] = ctx.psi(tri, a, top, self.tag) if self.kind == 'A' else ctx.psi(tri, top, a, self.tag)
             rngs[m] = np.random.default_rng([ctx.seed, 17, ctx.dirn, self.tag, a, 0 if self.kind == 'A' else 1] + ctx.tri_index(tri))
             d = {r: self._sketch(m, r, psis[m], rngs[m]) for r in ctx.ranks}
@@ -933,8 +939,64 @@ class LatticeFamily:
                     for lev in self.levels[m]:
                         self.mats[r][(m, lev)] = thin[lev]
             ctx.drop([tri])
+            if fn:
+                self._ckpt_save(m, fn)
         self.thin_members = keep
         self._W = []
+
+    def _ckpt_file(self, m):
+        """single_pass checkpoint file of member m (None if ckpt_dir is unset): its single dims and, if kept, its thin
+        matrices, so that a relaunch after a container restart reloads the members built so far instead of rebuilding
+        them (family A of the C^5 source (7,2) for 5x5x5 at d = 9: ~7 h of members, lost twice; 2026-11-17).  The name
+        hashes everything the member's output depends on: the Context tag (format, d, seed, dir, ranks, sample caps,
+        sources), the lattice (kind, key, aux, tag, size, ncols, skip_saturated, rankcap), the member and its levels."""
+        if not self.ckpt_dir:
+            return None
+        ident = ('single-v1', os.path.basename(self.ctx.cache or ''), self.ctx.ns, self.ctx.d, self.ctx.seed, self.ctx.dirn,
+                 tuple(self.ctx.ranks), p, EXTRA, self.kind, self.key, self.aux, self.tag, self.size, self.ncols,
+                 self.skip_saturated, self.rankcap, m, tuple(self.levels[m]))
+        h = hashlib.md5(repr(ident).encode()).hexdigest()[:16]
+        return os.path.join(self.ckpt_dir, '%s_%s.npz' % (self.kind, h))
+
+    def _ckpt_save(self, m, fn):
+        levs, ranks = self.levels[m], self.ctx.ranks
+        arrs = {'dims': np.array([self._dims[((m, lev),)] for lev in levs], dtype=np.int64)}
+        kept = (m, levs[0]) in self.mats[ranks[0]]
+        arrs['kept'] = np.array(kept)
+        if kept:
+            for ri, r in enumerate(ranks):
+                for li, lev in enumerate(levs):
+                    arrs['m%d_%d' % (ri, li)] = self.mats[r][(m, lev)]
+        os.makedirs(self.ckpt_dir, exist_ok=True)
+        tmp = fn[:-4] + '.tmp.npz'
+        np.savez(tmp, **arrs)
+        os.replace(tmp, fn)
+
+    def _ckpt_load(self, m, fn):
+        """load member m's checkpoint into _dims (and mats if it was kept); False if absent or unreadable."""
+        if not os.path.exists(fn):
+            return False
+        try:
+            z = np.load(fn)
+            levs, ranks = self.levels[m], self.ctx.ranks
+            dims = z['dims']
+            if dims.shape != (len(levs), len(ranks)):
+                return False
+            mats = {}
+            if bool(z['kept']):
+                for ri, r in enumerate(ranks):
+                    for li, lev in enumerate(levs):
+                        mats[(r, lev)] = z['m%d_%d' % (ri, li)]
+        except (OSError, ValueError, KeyError):
+            return False
+        for li, lev in enumerate(levs):
+            self._dims[((m, lev),)] = tuple(int(x) for x in dims[li])
+        for (r, lev), M in mats.items():
+            self.mats[r][(m, lev)] = M
+        if self.ctx.verbose:
+            print('#   checkpoint %s %s loaded%s' % (self.tri(m), os.path.basename(fn), '' if mats else ' (saturated, no thin matrices)'),
+                  file=sys.stderr); sys.stderr.flush()
+        return True
 
     def dims(self, S):
         """S: iterable of (member, level).  Returns (dim on rank r_1, ..., dim on rank r_last).

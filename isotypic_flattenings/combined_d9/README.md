@@ -92,6 +92,17 @@ after them in the queue.
 The container stopped at about 23:03 UTC on 2026-11-11 (d9_555_A1 had built all 97 members of source (7,2) and had just
 started its ~5000 subset tests) and was started again on 2026-11-17 20:07; runner and memlog restarted at 20:07 with the same
 three jobs.  d9_555_A1 runs without a flattening cache, so it rebuilds the (7,2) members (~7 h) before the subset tests.
+2026-11-17 23:52 UTC: container restart (up 3 h 45 min; 21 of the 97 (7,2) members rebuilt, lost again); runner and memlog
+restarted at 23:52.
+**Per-member checkpoints for the single-pass build** (2026-11-17): with `--single-pass`, `LatticeFamily._build_single` now
+saves each member's single dims and (if kept) its thin matrices to `<cache>/<tag>/ckpt_single/<kind>_<hash>.npz` (written
+via a temporary file and `os.replace`), and a relaunch loads the members found there instead of rebuilding them; `--no-ckpt`
+turns it off.  The file name hashes everything a member's output depends on (Context tag, format, d, seed, dir, ranks, p,
+EXTRA, the lattice's kind/key/aux/tag/size/ncols/skip_saturated/rankcap, the member and its levels).  Validated on
+`comb_search.py 3 6 4,5 --fam A --aux 1 --single-pass` (rank 4 vs 5, 8 separating singles, 31 hits containing one): the
+output with checkpoints written, with all 159 loaded (1 s instead of 44 s) and with every second one deleted is line for
+line that of `--no-ckpt` (timings aside).  d9_555_A1 was restarted on it at 23:57 (part 5); expected disk use ~5 GB (the
+thin matrices of the 90 kept (7,2) members, float32), to be deleted once the job is done.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

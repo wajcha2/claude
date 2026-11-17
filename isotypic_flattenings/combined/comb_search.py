@@ -38,6 +38,7 @@ ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most th
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
 ap.add_argument('--keepsat', action='store_true', help='build the thin matrices of saturated members too (by default they are skipped: search() drops them anyway, see LatticeFamily.skip_saturated)')
 ap.add_argument('--no-cache-write', action='store_true', help='read existing flattenings from --cache but do not write new ones (with --single-pass: no disk growth)')
+ap.add_argument('--no-ckpt', action='store_true', help='with --single-pass: no per-member checkpoints (default: kept in <cache>/<tag>/ckpt_single, see LatticeFamily._ckpt_file)')
 ap.add_argument('--single-pass', action='store_true', help='lattices built in one pass over the members, each member\'s flattenings freed after use (no disk cache needed; see LatticeFamily._build_single)')
 ap.add_argument('--a-exclude', default='', help='family A: JSON file {source: ["mu|nu", ...]}, or GLOB[;GLOB] of family-B logs of the same tensors, of members known to be saturated at level 1 on the lowest rank (e.g. from family-B logs, same tensors and flattenings): left out of the lattice (search() would drop them)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
@@ -60,6 +61,8 @@ if args.sources.startswith('pattern:'):
 elif args.sources:
     only_sources = [parse_lam(s) for s in args.sources.split(';') if s]
 ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes), only_sources=only_sources)
+if args.single_pass and not args.no_ckpt and ctx.cache:
+    LatticeFamily.ckpt_dir = os.path.join(ctx.cache, 'ckpt_single')
 ctx.cache_write = not args.no_cache_write
 if only_sources is not None:
     print('# restricted to sources %s' % only_sources)

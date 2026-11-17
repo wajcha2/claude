@@ -361,3 +361,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 ### 2026-11-17 02:21 UTC generic Koszul C^5 d=8 pass finished
 - Generic (full-grid) Koszul flattenings of the isotypic tensor, C^5 rank 9 vs 10, d=8: all 729 components handled (180 computed with KBUDGET=2e6 / cost cap 3e6, 549 size-skipped and handed to the KWEDGE pass), no separator. Worker 0 logged its last component (4,2,1,1),(4,1,1,1,1),(3,2,2,1) g=6 at 02:21 and exited; koszul5_d8_done.log holds the merged results.
 - Started a 7th KWEDGE claim worker (pid 3485, log live/koszul5_d8_kw2_w6.log) so that 7 processes run again: KWEDGE d=8 now 120 of 514 computed, 394 left, 7 in progress with checkpoints.
+
+### 2026-11-17 03:37 UTC check-in
+- 7 KWEDGE processes running (checkpointing since 01:25), no separators. KWEDGE d=8 156/549 keys (121 of 514 computed), ckpt 121 ranks in 7 files, sep=0, load 7.00 7.00 7.00, up 2 hours, 19 minutes.

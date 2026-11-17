@@ -54,10 +54,13 @@ def claim(lam):
     open(cf, 'w').write(me); return True
 def release(lam):
     if CLAIMDIR: open(_cfile(lam), 'w').write('done\n')
+CKPTDIR = os.environ.get('CKPTDIR', '')   # per-component checkpoints of the ranks already computed (a killed worker
+if CKPTDIR: os.makedirs(CKPTDIR, exist_ok=True)   # resumes the component instead of restarting it; file removed when logged)
+def _ckfile(lam): return os.path.join(CKPTDIR, '_'.join('-'.join(map(str, l)) for l in lam) + '.ckpt') if CKPTDIR else None
 for cost, lam, g, dims in todo:
     if not claim(lam): continue
     t0 = time.time()
-    try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2))
+    try: line = koszul.analyse(lam, n, rl, rh, rng, pks=(1, 2), ckpt=_ckfile(lam))
     except Exception as ex: line = "lam=%s ERROR %r" % (lam, ex)
     print(line + " (%.0fs)" % (time.time() - t0)); sys.stdout.flush()
     if os.environ.get('DEG2', '0') == '1':
@@ -66,3 +69,4 @@ for cost, lam, g, dims in todo:
         except Exception as ex: line = "lam=%s DEG2 ERROR %r" % (lam, ex)
         print(line + " (%.0fs)" % (time.time() - t0)); sys.stdout.flush()
     release(lam)
+    if CKPTDIR and os.path.exists(_ckfile(lam)): os.remove(_ckfile(lam))

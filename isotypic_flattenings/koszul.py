@@ -17,7 +17,17 @@ def iso_tensor(lam, fills, coeffs, vecs, gsA, gsB, gsC, chunk=48):
     return Y.reshape(gsA.shape[0], nb, nc)
 
 from math import comb
-import os
+import os, json
+def _ck_load(path):
+    """checkpoint of a component: the ranks already computed, keyed 'tensor|factor|swap|p' (so that a worker killed
+    mid-component, e.g. by a container replacement, loses at most one rank computation)."""
+    if path and os.path.exists(path):
+        try: return json.load(open(path))
+        except Exception: return {}
+    return {}
+def _ck_save(path, C):
+    if not path: return
+    tmp = path + '.tmp'; json.dump(C, open(tmp, 'w')); os.replace(tmp, path)
 BUDGET = float(os.environ.get('KBUDGET', '3e7'))   # max number of matrix entries
 KWEDGE = int(os.environ.get('KWEDGE', '0'))   # 1: per wedged factor f use a grid with f sampled at m_f orbit points, others full
 def kwedge_cost(dims, extra=2, pks=(1, 2)):
@@ -61,7 +71,7 @@ def koszul_rank(Y, factor, pk, rng, swap=False):
             K[i * nB:(i + 1) * nB, j * nC:(j + 1) * nC] = (sign * Z[k]) % p
     return (m, modrank(K))
 
-def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
+def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2, ckpt=None):
     g = kronecker(*lam); dims = tuple(dim_schur(l, n) for l in lam)
     G = tuple(rng.integers(0, p, (8, n, n)) for _ in range(3))
     def rvecs(r): return tuple(rng.integers(0, p, (r, n)) for _ in range(3))
@@ -84,17 +94,28 @@ def analyse(lam, n, r_low, r_high, rng, pks=(1, 2), extra=2):
             mf = max(koszul_dim(sizes[f], o[0], o[1], pk) for pk in pks)
             wgs[f] = (mf, [rng.integers(0, p, (mf, n, n)) if i == f else gs[i] for i in range(3)])
         sizes = tuple((sizes[f], wgs[f][0]) for f in range(3))
+    C = _ck_load(ckpt)
+    def key(*a): return '|'.join(map(str, a))
+    def krank(Y, f, pk, sw): return [int(x) for x in koszul_rank(Y, f, pk, rng, swap=bool(sw))]
     for k, v in tens.items():
         if KWEDGE:
             flat, kz = None, {}
             for f in range(3):
-                Yf = iso_tensor(lam, fills, coeffs, v, *wgs[f][1])
+                need = [(sw, pk) for sw in (0, 1) for pk in pks if key(k, f, sw, pk) not in C]
+                if need:
+                    Yf = iso_tensor(lam, fills, coeffs, v, *wgs[f][1])
+                    for sw, pk in need: C[key(k, f, sw, pk)] = krank(Yf, f, pk, sw); _ck_save(ckpt, C)
                 for sw in (0, 1):
-                    for pk in pks: kz[(f, sw, pk)] = koszul_rank(Yf, f, pk, rng, swap=bool(sw))
+                    for pk in pks: kz[(f, sw, pk)] = tuple(C[key(k, f, sw, pk)])
             res[k] = (flat, kz); continue
-        Y = iso_tensor(lam, fills, coeffs, v, gsA, gsB, gsC)
-        flat = [modrank(np.moveaxis(Y, f, 0).reshape(Y.shape[f], -1)) for f in range(3)]
-        kz = {(f, sw, pk): koszul_rank(Y, f, pk, rng, swap=bool(sw)) for f in range(3) for sw in (0, 1) for pk in pks}
+        need = [(f, sw, pk) for f in range(3) for sw in (0, 1) for pk in pks if key(k, f, sw, pk) not in C]
+        if need or key(k, 'flat') not in C:
+            Y = iso_tensor(lam, fills, coeffs, v, gsA, gsB, gsC)
+            if key(k, 'flat') not in C:
+                C[key(k, 'flat')] = [int(modrank(np.moveaxis(Y, f, 0).reshape(Y.shape[f], -1))) for f in range(3)]; _ck_save(ckpt, C)
+            for f, sw, pk in need: C[key(k, f, sw, pk)] = krank(Y, f, pk, sw); _ck_save(ckpt, C)
+        flat = C[key(k, 'flat')]
+        kz = {(f, sw, pk): tuple(C[key(k, f, sw, pk)]) for f in range(3) for sw in (0, 1) for pk in pks}
         res[k] = (flat, kz)
     sep = [key for key in res['high'][1] if res['low'][1][key][1] < res['high'][1][key][1] and res['low2'][1][key][1] < res['high'][1][key][1]]
     return "lam=%s g=%d dims=%s%s | flat low/high=%s/%s | koszul (factor,swap,p): low=%s high(m,rank)=%s%s" % (

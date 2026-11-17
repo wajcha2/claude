@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-11-11 22:31 UTC): NO separation anywhere
+## Results so far (2026-11-17 20:07 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -44,6 +44,7 @@ large targets, kpE, kpG), no separation.
 * Container restart 2026-11-10 ~01:22 UTC (about a minute); runner, memory log and watch relaunched at 01:23 (k455_d7_dir1_big
   restarts its current lattice, s455_d8_dir1_V_c its current component).
 
+* 2026-11-11 22:53 - 2026-11-17 20:06 UTC: the session and its container were down for ~6 days (last mem.log line 22:53 Nov 11; container fresh at 20:06 Nov 17). Relaunched the runner, memory log and watch at 20:06 Nov 17. k455_d7_dir1_big resumed after its 45 finished lattices; lattice 46 (size ~6458, started ~17:18 Nov 11) starts over. Nothing else was running.
 * 2026-11-11 01:40 UTC: container restart (uptime 1 day). Relaunched the runner (launch_jobs.sh) and the memory log at 01:41. k455_d7_dir1_big resumed after its 44 finished lattices; lattice 3211|331 (started ~19:30 Nov 10) starts over. k555_d8_G had done 120 of 300 configurations (none): new `--gskip N` in kp_search.py replays only the random draws of the first N kpG configurations (no ranks) so the resumed run (`--gskip 120`) goes on with configuration 121 instead of repeating 1-120.
 * 2026-11-10 19:35 UTC: k455_d7_dir1_big moved to lattice 3211|331 and grew to 5.5 GB (from ~3 GB); with three kpG jobs total used reached 12.3 GB. As the largest process it would be the OOM killer's first victim (losing ~18 h of in-lattice work), so the newest kpG job, k555_d8_G (50 of 300 configurations, none), was paused (jobs.txt line commented out) and killed: 9.6 GB left. k555_d7_G and k455_d8_dir0_G (270 of 300 each) were left to finish; no new job is started while the big lattices run at > 5 GB.
 * 2026-11-10 11:25 UTC: memory alarm, 12.8 GB used: the kpG loop (kp_search.py) kept every flattening it computed in memory (no ctx.drop, harmless at d=6), so at d=7 k455_d7_dir1_G grew to 5.7 GB and k555_d7_G to 3.5 GB in 53 min next to k455_d7_dir1_big (2.9 GB). Killed k455_d7_dir1_G (11:26; 7.0 GB left), added `--gmem` (free the in-memory flattenings after a configuration once they exceed that many GB; default unlimited, so earlier runs are unchanged; progress line now every 10 configurations) and restarted both kpG jobs with `--gmem 1.5` at 11:27 (kpG starts again from configuration 1; no configuration results were lost, none had been printed yet). k455_d7_dir1_big was not touched.

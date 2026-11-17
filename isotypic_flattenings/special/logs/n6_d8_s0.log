@@ -2970,3 +2970,21 @@ lam=((5, 2, 1), (4, 3, 1), (4, 3, 1)) g=9 dir 1: n1=5760 n23=19448100 N1=5768 K=
   . ((5, 2, 1), (4, 3, 1), (4, 3, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 1.52e+13 -> 6.82e+12 (17s)
 lam=((5, 2, 1), (5, 2, 1), (4, 3, 1)) dir 1: V-stacks need ~63 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
 lam=((5, 2, 1), (5, 2, 1), (4, 3, 1)) g=9 dir 1: n1=5760 n23=25401600 N1=5768 K=5768  ranks [11, 12, 13]
+  . ((5, 2, 1), (5, 2, 1), (4, 3, 1)) dir 0 r=11: evaluation basis from a pool of 1500 fillings, planned cost 9.03e+12 -> 4.91e+12 (35s)
+   P11: evaluation basis (cheaper fillings, mapped back exactly)
+   generic U: r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U_k dims {1: 9, 2: 9, 3: 4, 4: 0}  swaps {'sw12+': 4, 'sw12-': 5}  (1.4s)
+   U3                           r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   sw12+                        r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U3^sw12+                     r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   sw12-                        r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U3^sw12-                     r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (518.6s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (512.6s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   gline H5: skipped (size)
+   gline H6: skipped (size)
+   gline H7: skipped (size)
+   gline H8: skipped (size)

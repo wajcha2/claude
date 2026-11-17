@@ -351,3 +351,8 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-17 00:36 UTC check-in
 - 7 processes running (relaunched 23:17 after the container replacement), no separators. generic d=8 727/729 keys (178 computed), KWEDGE d=8 154/549 keys (119 of 514 computed), sep=0, load 6.95 7.04 7.00, up 1 hour, 21 minutes.
+
+### 2026-11-17 01:18 UTC second relaunch after container replacement
+- Container replaced again between 01:01 and 01:17 UTC on 2026-11-17 (uptime reset; the previous container lasted only 2 h). Disk, logs and claims persisted; nothing logged was lost. The 7 in-progress components were lost again: about 11 worker-hours (five KWEDGE workers had been 1.9 h into the same six components they lost at 23:08; w5 had just finished (5,1,1,1),(5,1,1,1),(3,3,2) at 01:01, none).
+- 6 stale pid claims removed, 119 done claims kept. Relaunched all 7 workers with RESUME at 01:19 UTC (pids 490 492 494 496 498 500 502 ): generic d=8 worker 0 (2 components left) and six KWEDGE claim workers (394 of 514 left, 120 computed). No separators (sep=0).
+- Two replacements within two hours: if this continues, the multi-hour KWEDGE components cannot complete; sub-component checkpointing is the next step.

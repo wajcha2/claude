@@ -89,6 +89,9 @@ aux 2: 9.1 GB, used by no queued job) deleted, 19 GB free.
 2026-11-11 01:46 UTC: container restart; runner and memlog restarted at 01:48 with the same three jobs (d9_555_A1 resumes at
 source (8,1), (7,1,1) being done; d9_455_dir0_B_p5_mid5/_mid6); the two stopped lam_1 >= 4 passes on sizes 3000..4000 moved
 after them in the queue.
+The container stopped at about 23:03 UTC on 2026-11-11 (d9_555_A1 had built all 97 members of source (7,2) and had just
+started its ~5000 subset tests) and was started again on 2026-11-17 20:07; runner and memlog restarted at 20:07 with the same
+three jobs.  d9_555_A1 runs without a flattening cache, so it rebuilds the (7,2) members (~7 h) before the subset tests.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

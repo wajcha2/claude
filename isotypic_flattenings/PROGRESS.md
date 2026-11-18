@@ -406,3 +406,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-18 09:36 UTC check-in
 - 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 209/549 keys (174 of 514 computed), ckpt 134 ranks in 7 files, sep=0, load 7.08 7.05 7.00, up 4 hours, 35 minutes.
+
+### 2026-11-18 12:36 UTC check-in
+- 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 214/549 keys (179 of 514 computed), ckpt 117 ranks in 6 files, sep=0, load 7.13 7.09 7.04, up 7 hours, 35 minutes.

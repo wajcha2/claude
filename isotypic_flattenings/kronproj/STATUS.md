@@ -2,7 +2,7 @@
 Session https://claude.ai/code/session_016hXfA1TEXGV2WrtJUbf7Kp, branch `claude/zealous-mendel-i9qpdu`.  Started 2026-10-22 15:08 UTC.
 Jobs: `jobs.txt` (runner `kp_jobs.py jobs.txt 4`, logs `logs/jobs/`).  Hits: `grep SEPARATES logs/jobs/*.log`.
 
-## Results so far (2026-11-18 06:27 UTC): NO separation anywhere
+## Results so far (2026-11-18 07:27 UTC): NO separation anywhere
 **Degree 7 grids complete** (kpE incl. the compressed ones) for both formats; no separation.
 
 **Degree 6 complete** for 4x5x5 (both sources) and 5x5x5: every family (single components H_s / V_s, kpA, kpB incl. the
@@ -44,6 +44,7 @@ large targets, kpE, kpG), no separation.
 * Container restart 2026-11-10 ~01:22 UTC (about a minute); runner, memory log and watch relaunched at 01:23 (k455_d7_dir1_big
   restarts its current lattice, s455_d8_dir1_V_c its current component).
 
+* 2026-11-18 ~07:26 UTC: another container restart; runner and memory log relaunched at 07:26. k455_d7_dir1_big starts its 47th lattice (3211|511, size 6458, begun 06:27) over.
 * 2026-11-17 ~23:59 UTC: another container restart; runner and memory log relaunched at 00:00 Nov 18. k455_d7_dir1_big starts lattice 46 over again (the redo since 20:06 is lost). The memory-log starter's "already running" test (pgrep -f) could match the shell that launched it; it now checks for a process whose first argument is memlog_loop.
 * 2026-11-11 22:53 - 2026-11-17 20:06 UTC: the session and its container were down for ~6 days (last mem.log line 22:53 Nov 11; container fresh at 20:06 Nov 17). Relaunched the runner, memory log and watch at 20:06 Nov 17. k455_d7_dir1_big resumed after its 45 finished lattices; lattice 46 (size ~6458, started ~17:18 Nov 11) starts over. Nothing else was running.
 * 2026-11-11 01:40 UTC: container restart (uptime 1 day). Relaunched the runner (launch_jobs.sh) and the memory log at 01:41. k455_d7_dir1_big resumed after its 44 finished lattices; lattice 3211|331 (started ~19:30 Nov 10) starts over. k555_d8_G had done 120 of 300 configurations (none): new `--gskip N` in kp_search.py replays only the random draws of the first N kpG configurations (no ranks) so the resumed run (`--gskip 120`) goes on with configuration 121 instead of repeating 1-120.

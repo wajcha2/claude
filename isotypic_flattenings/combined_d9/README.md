@@ -115,6 +115,9 @@ subsets in the same order: named groups and pairs, then triples and random subse
 every dim is exact or seeded by its subset).  Validated on the 3x3x3 d=6 case above: `DIMS_SAVE=0` fresh and reloaded runs,
 and a run with half of every dims file dropped, give line for line the `--no-ckpt` output.  d9_555_A1 restarted on it at
 09:02 (part 8: reloads the 97 member checkpoints, then the subset tests from the start).
+2026-11-18 14:58 UTC: d9_455_dir0_B_p5_mid5 done (no separation).  d9_555_A1's memory hint lowered from 9 to 6 GB (its build is
+over; RSS ~4.1 GB in the subset tests, the big sums done first) so that d9_455_dir1_B_p5_mid2 (@4) fits the 13.5 GB budget
+next to it and d9_455_dir0_B_p5_mid6; started 14:59.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

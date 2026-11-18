@@ -3076,3 +3076,24 @@ lam=((5, 2, 1), (4, 3, 1), (4, 2, 1, 1)) g=10 dir 3: n1=2430 n23=25401600 N1=243
    done dir 3: ok, 11 cases, 0 hits, wall 244.0s (F 92.3s), peak 1324 MB
 lam=((5, 2, 1), (4, 2, 1, 1), (4, 2, 1, 1)) dir 1: V-stacks need ~126 GB > VBUDGET 6 GB: H-stacks, lines and natural U only
 lam=((5, 2, 1), (4, 2, 1, 1), (4, 2, 1, 1)) g=13 dir 1: n1=5760 n23=5904900 N1=5768 K=5768  ranks [11, 12, 13]
+   generic U: r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U_k dims {1: 13, 2: 13, 3: 13, 4: 5, 5: 0}  swaps {'sw23+': 7, 'sw23-': 6}  (7.0s)
+   U4                           r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   sw23+                        r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U4^sw23+                     r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   sw23-                        r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   U4^sw23-                     r11 H[5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760, 5760] V[]
+   line0 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (464.0s)
+   line1 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (454.4s)
+   gline H2: skipped (size)
+   gline H3: skipped (size)
+   gline H4: skipped (size)
+   gline H5: skipped (size)
+   gline H6: skipped (size)
+   gline H7: skipped (size)
+   gline H8: skipped (size)
+   gline H9: skipped (size)
+   gline H10: skipped (size)
+   gline H11: skipped (size)
+   gline H12: skipped (size)
+   thru-U40 rho 5760  minpoly deg [5760, 5760]  gcd deg 0    (455.5s)

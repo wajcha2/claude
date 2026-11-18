@@ -153,3 +153,7 @@ Never kill with a `pkill -f` pattern that also occurs in the killing command lin
 - 2026-11-11 11:25Z: 19 components left (incl. 2 running), almost all with a (5,2,1) factor and memory estimates 7.7-10.5 GB (recorded peaks match the estimates), so membudget 20 allows only 2 at a time; left as is (15 GB physical). Expected finish in roughly 10-14 h.
 - 2026-11-17 20:07Z: the container had restarted after 2026-11-11 22:46Z and the runner sat idle for ~6 days; restarted, 4 components left.
 - 2026-11-18 00:58Z: third container restart; runner restarted for the last component ((5,2,1),(4,2,1,1),(4,2,1,1)) (dirs 2,3 already done, dir 1 resumes from filling checkpoints).
+- 2026-11-18 02:17Z: **6x6x6 d = 8, ranks 11..13 complete.** All 495 g >= 2 components, 1315 directions, 8364 special-U
+  cases: 0 hits; generic H/V profiles separate nothing either (V-stacks in 1131 directions, H-only in 184 by VBUDGET);
+  2249 of 3252 Grassmannian pencils skipped by the size cap.  Total wall 481 h (longest direction 25.7 h), peak 7.1 GB.
+  special/SUMMARY.md updated.  Runner finished ("nothing left"); no jobs pending.

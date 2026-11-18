@@ -103,6 +103,8 @@ EXTRA, the lattice's kind/key/aux/tag/size/ncols/skip_saturated/rankcap, the mem
 output with checkpoints written, with all 159 loaded (1 s instead of 44 s) and with every second one deleted is line for
 line that of `--no-ckpt` (timings aside).  d9_555_A1 was restarted on it at 23:57 (part 5); expected disk use ~5 GB (the
 thin matrices of the 90 kept (7,2) members, float32), to be deleted once the job is done.
+2026-11-18 00:50 UTC: container restart (up 58 min); runner and memlog restarted at 00:51; d9_555_A1 (part 6) reloads the 9
+(7,2) member checkpoints written since 23:57.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

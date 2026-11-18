@@ -45,7 +45,7 @@ used, leave memory once their lattice block is stored (Context.release).
 Random streams: tensors as in sweep_fast.py (np.random.default_rng(seed), then rank by rank, factor by factor), so
 the same seed and rank list give the same tensors; points, fillings and Psi come from default_rng([seed, tag, ...]).
 """
-import os, sys, time, itertools, hashlib
+import os, sys, time, itertools, hashlib, pickle
 import numpy as np
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _PARENT = os.path.dirname(_HERE)
@@ -67,6 +67,7 @@ FILLCHEAP = float(os.environ.get('FILLCHEAP', '1e8'))   # stop enlarging the poo
 EVALMEM = int(float(os.environ.get('EVALMEM', str(1 << 23))))  # max float64 elements (64 MB) alive in one flattening evaluation (simulated), else blocks
 STEPCOST = float(os.environ.get('STEPCOST', '2e5'))     # cost (flops) charged per block-dependent pairwise contraction and block
 TALL = int(float(os.environ.get("TALLRANK", str(1 << 27))))                                        # elements: dims() ranks stacks of more rows x columns by random combinations (_tall_rank)
+DIMS_SAVE = float(os.environ.get("DIMS_SAVE", "300"))   # seconds between saves of a lattice's subset dims (_dims_save)
 CHUNK = 1 << 23                                         # elements (float64) of a row chunk when lattice blocks are built
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -943,6 +944,49 @@ class LatticeFamily:
                 self._ckpt_save(m, fn)
         self.thin_members = keep
         self._W = []
+        self._dims_load()
+
+    def _dims_file(self):
+        """single_pass checkpoint of the lattice's computed subset dims (None if ckpt_dir is unset): dims() saves _dims
+        here at most every DIMS_SAVE seconds, and a relaunch preloads it, so the subset tests resume where they stopped
+        (they ask for the same subsets in the same order: named groups, pairs, then triples and random subsets from
+        seeded generators; every dim is exact or seeded by its subset).  Family A of the C^5 source (7,2) for 5x5x5 at
+        d = 9: ~5000 subsets of 90 members (2026-11-18)."""
+        if not self.ckpt_dir:
+            return None
+        ident = ('dims-v1', os.path.basename(self.ctx.cache or ''), self.ctx.ns, self.ctx.d, self.ctx.seed, self.ctx.dirn,
+                 tuple(self.ctx.ranks), p, EXTRA, self.kind, self.key, self.aux, self.tag, self.size, self.ncols,
+                 self.skip_saturated, self.rankcap, tuple(self.members), tuple(tuple(self.levels[m]) for m in self.members))
+        h = hashlib.md5(repr(ident).encode()).hexdigest()[:16]
+        return os.path.join(self.ckpt_dir, 'dims_%s_%s.pkl' % (self.kind, h))
+
+    def _dims_load(self):
+        self._dims_saved = time.time()
+        fn = self._dims_file()
+        if not fn or not os.path.exists(fn):
+            return
+        try:
+            with open(fn, 'rb') as fh:
+                saved = pickle.load(fh)
+        except (OSError, EOFError, pickle.UnpicklingError, ValueError):
+            return
+        new = 0
+        for k, v in saved.items():
+            if k not in self._dims:
+                self._dims[k] = v; new += 1
+        if self.ctx.verbose:
+            print('#   checkpoint %s: %d subset dims loaded' % (os.path.basename(fn), new), file=sys.stderr); sys.stderr.flush()
+
+    def _dims_save(self, force=False):
+        fn = self._dims_file()
+        if not fn or (not force and time.time() - getattr(self, '_dims_saved', 0) < DIMS_SAVE):
+            return
+        os.makedirs(self.ckpt_dir, exist_ok=True)
+        tmp = fn + '.tmp'
+        with open(tmp, 'wb') as fh:
+            pickle.dump(self._dims, fh)
+        os.replace(tmp, fn)
+        self._dims_saved = time.time()
 
     def _ckpt_file(self, m):
         """single_pass checkpoint file of member m (None if ckpt_dir is unset): its single dims and, if kept, its thin
@@ -1023,6 +1067,8 @@ class LatticeFamily:
                 else:
                     out.append(modrank(np.vstack(blocks)))
             self._dims[key] = tuple(out)
+            if self.ckpt_dir:
+                self._dims_save()
         return self._dims[key]
 
     def _tall_rank(self, blocks, c, key, r):

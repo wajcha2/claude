@@ -107,6 +107,14 @@ thin matrices of the 90 kept (7,2) members, float32), to be deleted once the job
 (7,2) member checkpoints written since 23:57 (all 9 loaded within a minute, then the build went on).
 2026-11-18 05:03 UTC: container restart (up 4 h 12 min); runner and memlog restarted at 05:04; d9_555_A1 (part 7) reloads
 58 member checkpoints (2.4 GB).
+2026-11-18 09:00 UTC: all 97 (7,2) members built (3.8 GB of checkpoints), 7 saturated, the subset tests on 90 members
+started.  **Subset dims checkpoint**: with checkpoints on, `LatticeFamily.dims()` now also saves the lattice's computed
+subset dims (`_dims`) to `ckpt_single/dims_<kind>_<hash>.pkl` at most every `DIMS_SAVE` seconds (default 300; temporary
+file + `os.replace`), and `_build_single` preloads it, so a relaunch resumes the subset tests (they ask for the same
+subsets in the same order: named groups and pairs, then triples and random subsets from the lattice's seeded generator;
+every dim is exact or seeded by its subset).  Validated on the 3x3x3 d=6 case above: `DIMS_SAVE=0` fresh and reloaded runs,
+and a run with half of every dims file dropped, give line for line the `--no-ckpt` output.  d9_555_A1 restarted on it at
+09:02 (part 8: reloads the 97 member checkpoints, then the subset tests from the start).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

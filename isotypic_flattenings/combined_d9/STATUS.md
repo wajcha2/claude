@@ -128,6 +128,7 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 ## Running / queued (no separation so far)
 
 * Running (2026-11-19 06:40 UTC): d9_455_dir1_B_p5_mid2 (dir 1, sources lam_1 >= 4, size 3000..4000), d9_555_B_p5_mid2
-  (5x5x5, sources lam_1 >= 4, size 3000..4000), d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000),
-  d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000; 8 of 44 targets done in 2026-11-02).
-* Queued: d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000, ~12 GB each).
+  (5x5x5, sources lam_1 >= 4, size 3000..4000), d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000; 8 of 44
+  targets done in 2026-11-02).
+* Queued: d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000; stopped 2026-11-19 17:06 for memory, resumes when a
+  job finishes), then d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000, ~12 GB each).

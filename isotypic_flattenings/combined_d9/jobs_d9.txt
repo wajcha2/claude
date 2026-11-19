@@ -46,7 +46,7 @@ d9_555_B_p5_mid2 @2 | 5 9 9,10 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources
 # the same tensors left out (2026-11-03; --greedy 0: the RREF bases of ~100 members of 2483 x 2483 would double the memory)
 d9_455_dir1_A1 @3.8 | 4,5,5 9 8,9 --dir 1 --fam A --aux 1 --sources pattern:2 --single-pass --no-cache-write --a-exclude /home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_455_dir1_B_part*.log;/home/user/claude/isotypic_flattenings/combined_d9/logs/jobs/d9_455_dir1_B_big_part*.log --nrand 100 --greedy 0 --pairs 4000 --triples 1000
 d9_455_dir0_B_p3_big @3 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:3 --bmin 8000 --bmax 15000
-d9_455_dir0_B_p4_mid @2 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmin 3000 --bmax 6000
+d9_455_dir0_B_p4_mid @3 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:4 --bmin 3000 --bmax 6000
 # sources lam_1 >= 4 (adds (4,4,1), (4,3,2), (4,3,1,1), (4,2,2,1); 14 sources), small dir-0 targets, subsets of <= 3 members
 d9_455_dir0_B_p5 @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:5 --bmax 2000
 # (2026-11-08 18:30) the last 3 lattices of d9_455_dir1_B_big need > 9.9 GB (OOM-killed at 9.9 GB on lattice 76; learned hint 12.1 GB):

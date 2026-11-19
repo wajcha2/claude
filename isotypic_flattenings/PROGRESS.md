@@ -447,3 +447,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
   ((4,2,1,1),(4,2,1,1),(4,2,1,1)) g=17 ~21 h. Pass continues unchanged unless told otherwise.
 - Worker w5 (pid 627) has been on ((4,2,1,1),(4,2,1,1),(3,3,2)) g=8 dims (450,450,315) since 05:03 with no rank
   checkpointed yet (predicted 10 h for the component): consistent with the g-scaling above, not a hang.
+
+### 2026-11-19 09:36 UTC check-in
+- 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 246/549 keys (211 of 514 computed), ckpt 176 ranks in 7 files, sep=0, load 7.00 7.00 7.00, up 9 hours, 39 minutes.

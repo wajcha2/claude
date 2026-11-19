@@ -118,6 +118,8 @@ and a run with half of every dims file dropped, give line for line the `--no-ckp
 2026-11-18 14:58 UTC: d9_455_dir0_B_p5_mid5 done (no separation).  d9_555_A1's memory hint lowered from 9 to 6 GB (its build is
 over; RSS ~4.1 GB in the subset tests, the big sums done first) so that d9_455_dir1_B_p5_mid2 (@4) fits the 13.5 GB budget
 next to it and d9_455_dir0_B_p5_mid6; started 14:59.
+2026-11-19 01:15 UTC: container restart (up 19 h 26 min; d9_555_A1 in the (7,2) triples, ~4000 pairs done); runner and memlog
+restarted at 01:16; d9_555_A1 (part 9) reloads the member checkpoints and the saved subset dims.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

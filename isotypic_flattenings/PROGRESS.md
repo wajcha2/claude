@@ -431,3 +431,19 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-19 06:37 UTC check-in
 - 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 245/549 keys (210 of 514 computed), ckpt 141 ranks in 6 files, sep=0, load 7.13 7.06 7.01, up 6 hours, 40 minutes.
+
+### 2026-11-19 06:50 UTC: revised time estimate for the KWEDGE C^5 d=8 pass
+- 210 of 514 computed (41% of the components) but only 19% of the work: the claim queue is ordered by grid cost
+  (`kwedge_cost`, which ignores g), while the construction time of the isotypic tensor scales with g times the grid size
+  (one `chunked_F` pass per filling). Fit on 175 per-worker durations from the snapshot history:
+  hours per component = 2.26e-7 * (g * kwedge_cost) + 2.2 (mean 3.8 h, median 2.5 h so far; the 7 components with
+  g*cost in [2e7, 4e7) took 8.6 h on average).
+- Remaining 304 components: g*cost sum 7.26e9 (done: 1.65e9); predicted 2306 worker-hours = 13.7 days with 7 workers
+  (17 days at the throughput of the last 48 h), i.e. completion around 2026-12-03 .. 12-06 instead of "about 7 days".
+  Remaining by g: g=1 129, g=2 66, g=3 30, g=4 21, g=5 21, g=6 13, g=7 6, g>=8 18 (max g=17).
+- Deferral options (predicted): skip the 8 components > 24 h each -> 12.3 days; skip the 42 > 12 h -> 9.1 days;
+  skip the 92 > 8 h -> 6.3 days; g=1 components only (129) -> 3.4 days. Largest: ((5,2,1),(5,2,1),(4,2,1,1)) g=9
+  dims (1440,1440,450) ~37 h; ((5,2,1),(4,3,1),(4,2,1,1)) g=10 ~33 h; ((4,3,1),(4,3,1),(4,3,1)) g=8 ~32 h;
+  ((4,2,1,1),(4,2,1,1),(4,2,1,1)) g=17 ~21 h. Pass continues unchanged unless told otherwise.
+- Worker w5 (pid 627) has been on ((4,2,1,1),(4,2,1,1),(3,3,2)) g=8 dims (450,450,315) since 05:03 with no rank
+  checkpointed yet (predicted 10 h for the component): consistent with the g-scaling above, not a hang.

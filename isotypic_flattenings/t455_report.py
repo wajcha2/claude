@@ -261,6 +261,8 @@ out.append('* 2026-11-18 05:17 UTC: container restart (compute stopped ~05:17, 1
 out.append('  Runner + 4 workers relaunched 05:18 by the check-in; one in-flight component resumes from a CKPT_SECS checkpoint.')
 out.append('* 2026-11-18 21:59 UTC: container restart (compute stopped ~21:59, 1255/1833 of c1.25e8; gap ~1 min).')
 out.append('  Runner + 4 workers relaunched 21:59 by the check-in; one in-flight component resumes from a CKPT_SECS checkpoint.')
+out.append('* 2026-11-19 22:16 UTC: container restart (compute stopped ~22:15, 1347/1833 of c1.25e8; gap ~1 min).')
+out.append('  Runner + 4 workers relaunched 22:16 by the check-in; three in-flight components resume from CKPT_SECS checkpoints.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

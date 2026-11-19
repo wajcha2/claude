@@ -125,6 +125,10 @@ dims loaded within minutes, the triples went on).
 started d9_555_B_p5_mid2 in its place.  04:47: d9_455_dir0_B_p4_mid's hint lowered from 3 to 2 GB (dir 0, sources lam_1 >= 5
 (10), size 3000..6000: smaller than the lam_1 >= 4 bands of the same sizes, which ran at @2), so it fills the fourth core
 next to the three jobs (12.8 of 13.5 GB reserved).
+2026-11-19 06:36 UTC: d9_455_dir0_B_p5_mid6 done (no separation).  d9_455_dir0_B_p3_big's hint lowered from 4.5 to 3 GB (dir 0,
+sources lam_1 >= 6 (6), at most 6 members per target against 14 in the lam_1 >= 4 band of size 8000..11000, which stayed
+below ~3 GB) so that it fits next to the three running jobs (13.5 of 13.5 GB reserved, ~5.3 GB used); started 06:38, resumes
+after the 8 targets of its first part (2026-11-02).  If it is OOM-killed, the runner learns a larger hint.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

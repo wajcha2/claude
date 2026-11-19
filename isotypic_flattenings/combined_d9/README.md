@@ -129,6 +129,8 @@ next to the three jobs (12.8 of 13.5 GB reserved).
 sources lam_1 >= 6 (6), at most 6 members per target against 14 in the lam_1 >= 4 band of size 8000..11000, which stayed
 below ~3 GB) so that it fits next to the three running jobs (13.5 of 13.5 GB reserved, ~5.3 GB used); started 06:38, resumes
 after the 8 targets of its first part (2026-11-02).  If it is OOM-killed, the runner learns a larger hint.
+2026-11-19 11:40 UTC: cache_gc.py had no entry for d9_455_dir0_B_p4_mid, so the flattenings of its finished targets stayed on
+disk (cache src96259e42 at 6.2 GB, 14 GB free); entry added, 5.96 GB freed (20 GB free).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

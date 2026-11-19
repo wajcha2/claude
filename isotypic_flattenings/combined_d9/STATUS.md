@@ -110,13 +110,20 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   the levels 1 and g, 40459 subsets: **no separation** (largest drop 0).  2026-11-18 14:58 UTC (6 parts across the container
   stops and restarts since 2026-11-11; the last part 9.9 h).
 
-* **d9_555_A1, sources (7,1,1) and (8,1)** (5x5x5, rank 9 vs 10; family A aux 1, one pass without a flattening cache): 63 members (206 of
+* **d9_555_A1, sources (7,1,1), (8,1) and (7,2)** (5x5x5, rank 9 vs 10; family A aux 1, one pass without a flattening cache): 63 members (206 of
   269 left out as saturated per the 5x5x5 B logs; 7 more saturated), all named groups, pairs, 1000 triples, 100 random subsets
   and every all-but-one sum at levels 1 and g, 2892 subsets: **no separation** (largest drop 0).  2026-11-10 23:59 UTC, 11.1 h.
   Source (8,1): 61 members (72 of 133 left out per the B logs; 7 more saturated), 2759 subsets: **no separation** (largest drop
-  0).  2026-11-11 11:39 UTC, 9.8 h (rebuilt after the container restart of 01:46).  Source (7,2) running: 97 of 260 members kept.
+  0).  2026-11-11 11:39 UTC, 9.8 h (rebuilt after the container restart of 01:46).  Source (7,2): 97 members (163 of 260 left out per the B logs; 7 more saturated, 90 tested), the sum of all
+  members at levels 1 and g, the 90 all-but-one sums, all named groups, 4000 pairs, 1000 triples and 100 random subsets, 5481
+  subsets: **no separation** (largest drop 0).  2026-11-19 04:38 UTC (members built 2026-11-17 23:57 .. 2026-11-18 09:00 with
+  per-member checkpoints, subset tests 09:03 .. 04:38 with saved subset dims, across the restarts of 00:50, 05:03 and 01:15).
+  So family A of the C^5 source finds no separation for 5x5x5 on any of the sources (8,1), (7,2), (7,1,1).
 
 ## Running / queued (no separation so far)
 
-* d9_455_dir1_B_big, d9_555_B_big (size 6000..25000); d9_455_dir1_B_p3 (source a C^5 factor, sources lam_1 >= 6);
-  d9_455_dir0_B_p3_big (the 44 dir-0 lam_1 >= 6 targets of size 8000..15000).
+* Running (2026-11-19 04:40 UTC): d9_455_dir0_B_p5_mid6 (dir 0, sources lam_1 >= 4, targets of size 8000..11000),
+  d9_455_dir1_B_p5_mid2 (dir 1, sources lam_1 >= 4, size 3000..4000), d9_555_B_p5_mid2 (5x5x5, sources lam_1 >= 4, size
+  3000..4000).
+* Queued: d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000), d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5,
+  size 3000..6000), then alone d9_555_B_big and d9_455_dir1_B_big (sources lam_1 >= 7, size 6000..25000, ~12 GB each).

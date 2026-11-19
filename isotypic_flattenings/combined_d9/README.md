@@ -119,7 +119,10 @@ and a run with half of every dims file dropped, give line for line the `--no-ckp
 over; RSS ~4.1 GB in the subset tests, the big sums done first) so that d9_455_dir1_B_p5_mid2 (@4) fits the 13.5 GB budget
 next to it and d9_455_dir0_B_p5_mid6; started 14:59.
 2026-11-19 01:15 UTC: container restart (up 19 h 26 min; d9_555_A1 in the (7,2) triples, ~4000 pairs done); runner and memlog
-restarted at 01:16; d9_555_A1 (part 9) reloads the member checkpoints and the saved subset dims.
+restarted at 01:16; d9_555_A1 (part 9) reloads the member checkpoints and the saved subset dims (97 members and 4594 subset
+dims loaded within minutes, the triples went on).
+2026-11-19 04:38 UTC: d9_555_A1 done (source (7,2): 5481 subsets, no separation); ckpt_single (3.8 GB) deleted; the runner
+started d9_555_B_p5_mid2 in its place.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

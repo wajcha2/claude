@@ -169,6 +169,11 @@ no checkpoint is left.  (A first version restored only the callback count and mi
 done branches: tested=17 instead of 21 on one target; fixed by saving the test count since the enumeration began.)
 The three running jobs were restarted on the new code at 07:01 (d9_455_dir0_B_p3_big, d9_455_dir0_B_p5_mid7,
 d9_455_dir1_B_p5_mid2; ~10 min of progress each since the 06:51 relaunch).
+2026-11-20 23:40 UTC: OOM kill of d9_455_dir0_B_p3_big (6.8 GB anon RSS while building target (4,3,2)|(4,3,2), multiplicity
+10, size ~11000; 13.4 GB used in total); the runner learned its hint 7.44 GB, which no longer fits next to both other jobs.  As
+it is the closest to done (32 of 44 targets; it completes lam_1 >= 6) d9_455_dir0_B_p5_mid7 was stopped at 23:42 (its
+checkpoints keep its progress; it waits in the queue behind d9_455_dir0_B_p3_big), and the runner relaunched
+d9_455_dir0_B_p3_big next to d9_455_dir1_B_p5_mid2.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

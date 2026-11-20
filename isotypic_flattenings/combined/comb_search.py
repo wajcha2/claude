@@ -17,7 +17,7 @@ usage: python3 comb_search.py n d r_1,r_2[,r_3..] [options]   (separations r_i v
 Every subset S tested is a flattening; '*** SEPARATES' marks dim on rank r_low < dim on rank r_high (exact = the
 sample sizes guarantee the exact rank).  Ranks are nondecreasing in r (semicontinuity); every consecutive pair of the rank list is checked.
 Per lattice a summary line: members, number of subsets tested, singles/all/natural values, max drop."""
-import sys, os, re, time, itertools, argparse
+import pickle, sys, os, re, time, itertools, argparse
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import json
@@ -38,7 +38,7 @@ ap.add_argument('--exhaust', type=int, default=0, help='lattices with at most th
 ap.add_argument('--allsub', type=int, default=0, help='lattices with at most this many members: every subset with every combination of levels (1, g), each by a direct rank (checked before --exhaust)')
 ap.add_argument('--keepsat', action='store_true', help='build the thin matrices of saturated members too (by default they are skipped: search() drops them anyway, see LatticeFamily.skip_saturated)')
 ap.add_argument('--no-cache-write', action='store_true', help='read existing flattenings from --cache but do not write new ones (with --single-pass: no disk growth)')
-ap.add_argument('--no-ckpt', action='store_true', help='with --single-pass: no per-member checkpoints (default: kept in <cache>/<tag>/ckpt_single, see LatticeFamily._ckpt_file)')
+ap.add_argument('--no-ckpt', action='store_true', help='no checkpoints (default: with --single-pass per-member ones in <cache>/<tag>/ckpt_single, see LatticeFamily._ckpt_file; otherwise the built lattice and the enumeration progress in <cache>/<tag>/ckpt_lattice)')
 ap.add_argument('--single-pass', action='store_true', help='lattices built in one pass over the members, each member\'s flattenings freed after use (no disk cache needed; see LatticeFamily._build_single)')
 ap.add_argument('--a-exclude', default='', help='family A: JSON file {source: ["mu|nu", ...]}, or GLOB[;GLOB] of family-B logs of the same tensors, of members known to be saturated at level 1 on the lowest rank (e.g. from family-B logs, same tensors and flattenings): left out of the lattice (search() would drop them)')
 ap.add_argument('--cache', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'live', 'cache'))
@@ -63,6 +63,11 @@ elif args.sources:
 ctx = Context(ns, args.d, ranks, seed=args.seed, dirn=args.dir, cache=args.cache, auxmax=max(auxes), only_sources=only_sources)
 if args.single_pass and not args.no_ckpt and ctx.cache:
     LatticeFamily.ckpt_dir = os.path.join(ctx.cache, 'ckpt_single')
+elif not args.no_ckpt and ctx.cache:
+    # two-pass build: checkpoint each built lattice and the progress of its exhaustive enumeration, removed once the
+    # lattice is done (2026-11-20; see LatticeFamily._build_file and search())
+    LatticeFamily.ckpt_dir = os.path.join(ctx.cache, 'ckpt_lattice')
+    LatticeFamily.ckpt_build = True
 ctx.cache_write = not args.no_cache_write
 if only_sources is not None:
     print('# restricted to sources %s' % only_sources)
@@ -177,6 +182,39 @@ def search(fam, rng):
     if m <= args.exhaust:
         # every subset at the full level (Kronecker spaces whole) and at level 1 (one generic functional each)
         named = {}
+        # resumable (2026-11-20): after each complete top-level branch of the depth-first walk (the subsets whose first
+        # member is the j-th) the done branches, the number of subsets tested in them, the best drop and the named dims are
+        # saved; a relaunch skips those branches and restores the counts, so the summary line is the same
+        ck = fam.ckpt_path('enum', tuple(members), args.maxsub, args.exhaust)
+        st = {'done': [], 'tested': 0, 'best': [0, None, None], 'named': {}}
+        if ck and os.path.exists(ck):
+            try:
+                with open(ck, 'rb') as fh:
+                    st = pickle.load(fh)
+                print('#   checkpoint %s: %d of %d top-level branches done, %d subsets' % (os.path.basename(ck), len(st['done']),
+                                                                                       2 * m, st['tested']), file=sys.stderr)
+            except (OSError, EOFError, KeyError, pickle.UnpicklingError, ValueError):
+                st = {'done': [], 'tested': 0, 'best': [0, None, None], 'named': {}}
+        lid = (fam.kind, fam.key, fam.aux)
+        base0 = tested[0]                                    # the singles' tests (redone on a relaunch)
+        tested[0] += st['tested']
+        if st['best'][0] > best[0]:
+            best[:] = list(st['best'])
+        named.update(st['named'])
+        for pair, v in st.get('nhits', {}).items():          # hit counts of the done branches (the singles' are included)
+            NHITS[lid + (pair,)] = list(v)
+        SEEN.update(st.get('seen', ()))
+        def save_branch(levname, j):
+            # tests since the enumeration began: the callbacks and the direct re-checks of hits (test() in cb)
+            st['done'].append((levname, j)); st['tested'] = tested[0] - base0; st['best'] = list(best); st['named'] = dict(named)
+            st['nhits'] = {k[3]: list(v) for k, v in NHITS.items() if k[:3] == lid}
+            st['seen'] = [k for k in SEEN if k[:3] == lid]
+            os.makedirs(os.path.dirname(ck), exist_ok=True)
+            with open(ck + '.tmp', 'wb') as fh:
+                pickle.dump(st, fh)
+            os.replace(ck + '.tmp', ck)
+            if len(st['done']) == int(os.environ.get('COMB_TEST_ABORT_AFTER', '0') or 0):
+                os._exit(3)                          # test hook: simulate a container restart after that many branches
         for lev in ('full', 1):
             def cb(S, dims, lev=lev):
                 tested[0] += 1
@@ -187,7 +225,10 @@ def search(fam, rng):
                     named['all' if lev == 'full' else 'all:1'] = dims
                 if any(dims[i] < dims[i + 1] for i in range(len(dims) - 1)):
                     test(S, 'exhaustive')            # re-checked by a direct rank, then reported
-            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None, members=members)
+            levname = str(lev)
+            fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None, members=members,
+                          skip={j for l, j in st['done'] if l == levname},
+                          on_branch=(lambda j, levname=levname: save_branch(levname, j)) if ck else None)
         return tested[0], best, singles, named
     named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
     for x in members:
@@ -293,6 +334,7 @@ if 'A' in fams:
             ctx.drop()                  # the search needs only fam.mats; the flattenings of all targets of lam can be GB
             res = search(fam, np.random.default_rng([args.seed, 21, aux] + list(lam)))
             summary(fam, *res, time.time() - t0)
+            fam.ckpt_cleanup()
         ctx.drop()
 if 'B' in fams:
     def parse_mn(s):
@@ -316,6 +358,7 @@ if 'B' in fams:
             fam = LatticeFamily(ctx, 'B', mn, aux=aux, levels='ends')
             res = search(fam, np.random.default_rng([args.seed, 22, aux] + list(mn[0]) + [0] + list(mn[1])))
             summary(fam, *res, time.time() - t0)
+            fam.ckpt_cleanup()
         ctx.drop()
 if 'E' in fams:
     for tri in sorted(ctx.g, key=lambda t: ctx.g[t] * ctx.N1[t[0]] * ctx.K[t[1:]]):

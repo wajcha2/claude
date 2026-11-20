@@ -151,6 +151,22 @@ Target counts per band (lam_1 >= 4): dir 0 510 targets, 77 above 15000 (largest 
 5x5x5 514, 322 above 15000.  The dir-0 lam_1 >= 6 targets end at 14340, so d9_455_dir0_B_p3_big completes lam_1 >= 6.
 2026-11-20 06:13 UTC: container restart (up 5 h 17 min); runner and memlog restarted at 06:13 with the same three jobs
 (d9_455_dir0_B_p3_big, d9_455_dir0_B_p5_mid7, d9_455_dir1_B_p5_mid2).
+2026-11-20 06:50 UTC: container restart again (up 37 min); runner and memlog restarted at 06:51.
+**Checkpoints for the two-pass (family B) lattices** (2026-11-20).  The family-B jobs resume only per target, and a target
+takes 1.5 h (d9_455_dir0_B_p3_big, size ~10000) to 18 h (d9_455_dir1_B_p5_mid2, 5211|32211, size 3788) -- with restarts
+every few hours the long targets kept starting over.  Now, unless `--no-ckpt`, comb_search.py keeps in
+`<cache>/<tag>/ckpt_lattice/`: (1) `build_<kind>_<hash>.pkl`, the built lattice (ncols, kept members, single dims, all thin
+matrices; `LatticeFamily._build_file`, written once after the two-pass build, loaded instead of rebuilding); (2)
+`enum_<kind>_<hash>_<h>.pkl`, the progress of the exhaustive enumeration: after each complete top-level branch of the
+depth-first walk (the subsets whose first member is the j-th; `LatticeFamily.enumerate(skip=, on_branch=)`) the done
+branches, the number of tests since the enumeration began, the best drop, the named dims and the lattice's hit bookkeeping
+(NHITS, SEEN), so a relaunch skips those branches and prints the same summary line; (3) the subset-dims file of the
+dims() path (`--allsub`, sampled subsets), now also for two-pass lattices.  All three are removed once the lattice's summary
+line is printed (`LatticeFamily.ckpt_cleanup`).  Validated on `comb_search.py 3 6 4,5 --fam B --exhaust 14 --maxsub 3`
+(49 targets, 41 new combined hits): with checkpoints, and killed after 3 then 5 and after 1 then 2 top-level branches
+(test hook `COMB_TEST_ABORT_AFTER`) and resumed with --resume, the famB lines are those of `--no-ckpt` (timings aside), and
+no checkpoint is left.  (A first version restored only the callback count and missed the direct re-checks of hits in the
+done branches: tested=17 instead of 21 on one target; fixed by saving the test count since the enumeration began.)
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

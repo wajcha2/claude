@@ -716,6 +716,7 @@ class LatticeFamily:
     skip_saturated = False
     single_pass = False
     ckpt_dir = None         # single_pass only: directory for per-member checkpoints (see _build_single), None = off
+    ckpt_build = False      # two-pass build: also checkpoint the built lattice in ckpt_dir (see _build_file), set by comb_search
 
     def __init__(self, ctx, kind, key, aux=1, levels='ends', members=None, tag=0):
         self.ctx, self.kind, self.key, self.aux, self.tag = ctx, kind, key, aux, tag
@@ -879,6 +880,10 @@ class LatticeFamily:
         psis, rngs, sd = {}, {}, {r: {} for r in ctx.ranks}
         if self.single_pass:
             return self._build_single(psis, rngs)
+        fn = self._build_file() if (self.ckpt_build and self.ckpt_dir) else None
+        if fn and self._build_load(fn):
+            self._dims_load()
+            return
         for m in self.members:
             tri = self.tri(m); top = max(self.levels[m])
             # generic Psi (g, k, l): family A: k = aux, l = level (nested); family B: k = level (nested), l = aux
@@ -909,6 +914,71 @@ class LatticeFamily:
                 for lev in self.levels[m]:
                     self.mats[r][(m, lev)] = thin[lev]
         self._W = []
+        if fn:
+            self._build_save(fn)
+        self._dims_load()
+
+    def _ckpt_ident(self):
+        """everything a lattice's build depends on (the Context tag: format, d, seed, dir, ranks, sample caps, sources; the
+        lattice: kind, key, aux, tag, size, ambient, rankcap, skip_saturated, members and their levels)."""
+        return (os.path.basename(self.ctx.cache or ''), self.ctx.ns, self.ctx.d, self.ctx.seed, self.ctx.dirn,
+                tuple(self.ctx.ranks), p, EXTRA, self.kind, self.key, self.aux, self.tag, self.size, self.ambient,
+                self.rankcap, self.skip_saturated, tuple(self.members), tuple(tuple(self.levels[m]) for m in self.members))
+
+    def ckpt_path(self, prefix, *extra):
+        """checkpoint file <ckpt_dir>/<prefix>_<kind>_<hash of the lattice ident>[_<hash of extra>].pkl (None if off)."""
+        if not self.ckpt_dir:
+            return None
+        h = hashlib.md5(repr(('v1',) + self._ckpt_ident()).encode()).hexdigest()[:16]
+        x = ('_' + hashlib.md5(repr(extra).encode()).hexdigest()[:8]) if extra else ''
+        return os.path.join(self.ckpt_dir, '%s_%s_%s%s.pkl' % (prefix, self.kind, h, x))
+
+    def _build_file(self):
+        """two-pass build checkpoint (ckpt_build): ncols, the kept members, the single dims and the thin matrices of the
+        built lattice, so that a relaunch after a container restart skips the flattenings, sketches and thin matrices of
+        an unfinished target (family B at d = 9: targets of 1.5 .. 18 h, container restarts every few hours;
+        2026-11-20).  Removed by ckpt_cleanup() once the lattice is done."""
+        return self.ckpt_path('build')
+
+    def _build_save(self, fn):
+        os.makedirs(self.ckpt_dir, exist_ok=True)
+        tmp = fn + '.tmp'
+        with open(tmp, 'wb') as fh:
+            pickle.dump({'ncols': self.ncols, 'thin_members': self.thin_members, 'cap': self.cap, 'dims': dict(self._dims),
+                         'mats': self.mats}, fh, protocol=4)
+        os.replace(tmp, fn)
+
+    def _build_load(self, fn):
+        if not os.path.exists(fn):
+            return False
+        try:
+            with open(fn, 'rb') as fh:
+                z = pickle.load(fh)
+            ncols, thin, cap, dims, mats = z['ncols'], z['thin_members'], z['cap'], z['dims'], z['mats']
+        except (OSError, EOFError, KeyError, pickle.UnpicklingError, ValueError):
+            return False
+        if set(mats) != set(self.ctx.ranks):
+            return False
+        self.ncols, self.thin_members, self.cap, self.mats = ncols, thin, cap, mats
+        self._dims.update(dims)
+        self._W = []
+        if self.ctx.verbose:
+            print('#   checkpoint %s loaded (%d thin matrices, ncols %d)' % (os.path.basename(fn), sum(len(v) for v in mats.values()),
+                                                                          ncols), file=sys.stderr); sys.stderr.flush()
+        return True
+
+    def ckpt_cleanup(self):
+        """remove this lattice's build, subset-dims and enumeration checkpoints (once its summary is printed)."""
+        if not self.ckpt_dir:
+            return
+        import glob as _glob
+        base = self.ckpt_path('build')
+        h = os.path.basename(base)[len('build_'):-len('.pkl')]
+        for f in _glob.glob(os.path.join(self.ckpt_dir, '*_%s*.pkl' % h)) + [self._dims_file()]:
+            try:
+                os.remove(f)
+            except (OSError, TypeError):
+                pass
 
     def _build_single(self, psis, rngs):
         """single_pass (opt-in, set by comb_search.py --single-pass; meant for family A without a disk cache): one pass over
@@ -1127,12 +1197,14 @@ class LatticeFamily:
             chain.append((list(S), dims))
         return chain
 
-    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None, members=None):
+    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None, members=None, skip=(), on_branch=None):
         """every nonempty subset of the members (or of `members`, a sublist), each at level `level` ('full' = g_m, or
         an int, capped at the member's top level), by a depth-first walk that keeps one RREF basis per rank and adds one
         member at a time (reduce its basis modulo the current one, then back-substitute): 2^m - 1 incremental additions
         instead of 2^m rank computations.  maxsize: only subsets with at most that many members.  callback(S, dims) is
-        called for every subset; returns the number of subsets."""
+        called for every subset; returns the number of subsets.  skip: top-level branches (indices j: the subsets whose
+        first member is the j-th) to leave out; on_branch(j) is called when top-level branch j is complete (comb_search
+        uses both to resume an enumeration after a restart, 2026-11-20)."""
         ms = self.members if members is None else members
         if len(ms) > maxmembers:
             raise ValueError('%d members > maxmembers %d' % (len(ms), maxmembers))
@@ -1156,12 +1228,16 @@ class LatticeFamily:
             if maxsize is not None and len(S) >= maxsize:
                 return
             for j in range(i, len(sel)):
+                if not S and j in skip:
+                    continue                    # top-level branch j (the subsets whose first member is sel[j]) done before
                 nxt = {r: add(*cur[r], self.basis_rows(r, sel[j])) for r in ranks}
                 S2 = S + [sel[j]]
                 count[0] += 1
                 if callback:
                     callback(S2, tuple(len(nxt[r][1]) for r in ranks))
                 dfs(j + 1, nxt, S2)
+                if not S and on_branch:
+                    on_branch(j)
         dfs(0, {r: (np.zeros((0, self.ncols)), []) for r in ranks}, [])
         return count[0]
 

@@ -163,10 +163,12 @@ branches, the number of tests since the enumeration began, the best drop, the na
 (NHITS, SEEN), so a relaunch skips those branches and prints the same summary line; (3) the subset-dims file of the
 dims() path (`--allsub`, sampled subsets), now also for two-pass lattices.  All three are removed once the lattice's summary
 line is printed (`LatticeFamily.ckpt_cleanup`).  Validated on `comb_search.py 3 6 4,5 --fam B --exhaust 14 --maxsub 3`
-(49 targets, 41 new combined hits): with checkpoints, and killed after 3 then 5 and after 1 then 2 top-level branches
+(49 targets, 41 new combined hits): with checkpoints, and killed after 3 then 5, 1 then 2, and 4 then 9 top-level branches
 (test hook `COMB_TEST_ABORT_AFTER`) and resumed with --resume, the famB lines are those of `--no-ckpt` (timings aside), and
 no checkpoint is left.  (A first version restored only the callback count and missed the direct re-checks of hits in the
 done branches: tested=17 instead of 21 on one target; fixed by saving the test count since the enumeration began.)
+The three running jobs were restarted on the new code at 07:01 (d9_455_dir0_B_p3_big, d9_455_dir0_B_p5_mid7,
+d9_455_dir1_B_p5_mid2; ~10 min of progress each since the 06:51 relaunch).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

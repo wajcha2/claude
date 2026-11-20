@@ -149,6 +149,8 @@ place the next lam_1 >= 4 bands: d9_455_dir0_B_p5_mid7 (dir 0, size 11000..15000
 d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (size 4000..5000, 16 and 11 targets), ahead of the two big lam_1 >= 7 jobs.
 Target counts per band (lam_1 >= 4): dir 0 510 targets, 77 above 15000 (largest 35124); dir 1 403, 217 above 15000;
 5x5x5 514, 322 above 15000.  The dir-0 lam_1 >= 6 targets end at 14340, so d9_455_dir0_B_p3_big completes lam_1 >= 6.
+2026-11-20 06:13 UTC: container restart (up 5 h 17 min); runner and memlog restarted at 06:13 with the same three jobs
+(d9_455_dir0_B_p3_big, d9_455_dir0_B_p5_mid7, d9_455_dir1_B_p5_mid2).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

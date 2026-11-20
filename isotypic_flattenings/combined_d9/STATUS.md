@@ -93,6 +93,11 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   2000..3000 (members per target after dropping saturated ones from 1 to 16), every subset of at most 3 members at the levels 1 and
   g, 5912 subsets: **no separation** (largest drop 0).  2026-11-10 03:50 UTC.
 
+* **d9_555_B_p5_mid2** (5x5x5, rank 9 vs 10; sources lam_1 >= 4 (16); family B, aux 1): the 14 targets of compressed size
+  3000..4000 (members per target after dropping saturated ones from 5 to 16), every subset of at most 3 members at the levels 1
+  and g, 9680 subsets: **no separation** (largest drop 0).  2026-11-20 05:52 UTC (4 parts).  With p5 and p5_mid every 5x5x5
+  lam_1 >= 4 target of compressed size up to 4000 is covered.
+
 * **d9_455_dir0_B_p5_mid2** (4x5x5, source the C^4 factor, rank 8 vs 9; sources lam_1 >= 4 (14); family B, aux 1): the 51 targets of
   compressed size 3000..4000 (members per target after dropping saturated ones from 8 to 14), every subset of at most 3 members at
   the levels 1 and g, 22953 subsets: **no separation** (largest drop 0).  2026-11-10 13:13 UTC, 9.4 h.
@@ -127,8 +132,7 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 ## Running / queued (no separation so far)
 
-* Running (2026-11-19 06:40 UTC): d9_455_dir1_B_p5_mid2 (dir 1, sources lam_1 >= 4, size 3000..4000), d9_555_B_p5_mid2
-  (5x5x5, sources lam_1 >= 4, size 3000..4000), d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000; 8 of 44
-  targets done in 2026-11-02).
-* Queued: d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000; stopped 2026-11-19 17:06 for memory, resumes when a
-  job finishes), then d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000, ~12 GB each).
+* Running (2026-11-20 05:54 UTC): d9_455_dir1_B_p5_mid2 (dir 1, sources lam_1 >= 4, size 3000..4000), d9_455_dir0_B_p3_big
+  (dir 0, sources lam_1 >= 6, size 8000..15000), d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000; restarted
+  05:53 by the runner after d9_555_B_p5_mid2 finished).
+* Queued: d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000, ~12 GB each).

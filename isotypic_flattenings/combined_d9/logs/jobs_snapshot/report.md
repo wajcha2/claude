@@ -26,13 +26,13 @@
 | d9_455_dir1_B_p5_mid2 | 4 | 2 | 0 | 0 | no | 88154 |
 | d9_555_B_p5_mid2 | 11 | 5 | 0 | 0 | no | 96174 |
 | d9_455_dir1_A1 | 3 | 3 | 0 | 0 | yes | 61162 |
-| d9_455_dir0_B_p3_big | 22 | 14 | 0 | 0 | no | 114446 |
+| d9_455_dir0_B_p3_big | 23 | 14 | 0 | 0 | no | 120497 |
 | d9_455_dir0_B_p4_mid | 71 | 0 | 0 | 0 | no | 43614 |
 | d9_455_dir0_B_p5 | 149 | 60 | 361 | 0 | yes | 7007 |
 | d9_555_B_big | 99 | 57 | 0 | 0 | no | 298535 |
 | d9_455_dir1_B_big | 75 | 46 | 0 | 0 | no | 226783 |
 
-family B, aux 1, not saturated at the lower rank: 1015 lattices (gap = size bound - lower-rank value; values lower/higher rank)
+family B, aux 1, not saturated at the lower rank: 1016 lattices (gap = size bound - lower-rank value; values lower/higher rank)
   d9_455_dir1_B_big famB mn=4221|4221 bound 17280 gap 10185 max 7095/7095
   d9_555_B_big famB mn=42111|42111 bound 11025 gap 9355 max 1670/1670
   d9_455_dir1_B_big famB mn=4311|4221 bound 15345 gap 9080 max 6265/6265

@@ -135,6 +135,8 @@ disk (cache src96259e42 at 6.2 GB, 14 GB free); entry added, 5.96 GB freed (20 G
 GB).  The OOM killer would likely have picked d9_455_dir0_B_p3_big (largest RSS plus its oom_score_adj) and lost its current
 target, so d9_455_dir0_B_p4_mid (1.7 GB, resumes per target) was stopped instead and its hint raised from 2 to 3 GB, so the
 runner restarts it only once a job finishes; 11.3 GB used afterwards.  The Monitor now also reports MEMORY HIGH above 13 GB.
+2026-11-20 00:55 UTC: container restart (up 23 h 40 min); runner and memlog restarted at 00:56 with the same three jobs
+(d9_455_dir0_B_p3_big, d9_455_dir1_B_p5_mid2, d9_555_B_p5_mid2), each resuming after its finished targets.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

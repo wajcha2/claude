@@ -12009,3 +12009,17 @@ lam=((4, 4, 2), (5, 4, 1), (5, 2, 1, 1, 1)) g=9 dims=(126, 3024, 224)  H1:126/12
 # blocks: Z-first (4733 x 2) of 4733 x 4733, 1.01e+12 flops, largest intermediate 1.89e+07
 # blocks: Z-first (4733 x 2) of 4733 x 4733, 1.00e+12 flops, largest intermediate 1.89e+07
 # blocks: Z-first (4733 x 2) of 4733 x 4733, 1.00e+12 flops, largest intermediate 1.89e+07
+# blocks: Z-first (4733 x 2) of 4733 x 4733, 1.13e+12 flops, largest intermediate 2.13e+07
+# blocks: Z-first (4733 x 1) of 4733 x 4733, 1.13e+12 flops, largest intermediate 1.06e+07
+# blocks: Z-first (4733 x 3) of 4733 x 4733, 1.13e+12 flops, largest intermediate 3.19e+07
+lam=((5, 3, 1, 1), (8, 1, 1), (6, 3, 1)) g=3 dims=(126, 2376, 4725)  H1:126/126 g1:126/126 H2:2376/2376 g2:2376/2376 H3:4725/4725 g3:4725/4725  span=3,3,3 cost=8.43e+07 (4533.7s)
+#partial ((5, 3, 2), (8, 1, 1), (6, 3, 1)) next=1 res={(0, 'gen'): (300, 300), (0, 'Hstack'): (300, 300)} spans=[3] secs=2.5 state={'bit_generator': 'PCG64', 'state': {'state': 35916684959646396176690191689584417530, 'inc': 78331648588829609537950197753349289395}, 'has_uint32': 0, 'uinteger': 3649721770}
+# blocks: Z-first (2384 x 75) of 2384 x 2384, 2.60e+10 flops, largest intermediate 2.24e+07
+# blocks: Y-first (10 x 2384) of 2384 x 2384, 1.00e+11 flops, largest intermediate 7.15e+06
+# blocks: Z-first (2384 x 10) of 2384 x 2384, 1.34e+11 flops, largest intermediate 2.38e+07
+# blocks: Z-first (2384 x 75) of 2384 x 2384, 2.64e+10 flops, largest intermediate 2.24e+07
+# blocks: Z-first (2384 x 75) of 2384 x 2384, 1.30e+11 flops, largest intermediate 2.24e+07
+# blocks: Z-first (2384 x 10) of 2384 x 2384, 1.52e+11 flops, largest intermediate 2.68e+07
+#partial ((5, 3, 2), (8, 1, 1), (6, 3, 1)) next=2 res={(0, 'gen'): (300, 300), (0, 'Hstack'): (300, 300), (1, 'gen'): (2376, 2376), (1, 'Hstack'): (2376, 2376)} spans=[3, 3] secs=372.9 state={'bit_generator': 'PCG64', 'state': {'state': 198921064920836849949928413470426671741, 'inc': 78331648588829609537950197753349289395}, 'has_uint32': 0, 'uinteger': 3126546970}
+# blocks: Z-first (4733 x 74) of 4733 x 4733, 1.55e+11 flops, largest intermediate 2.24e+07
+# blocks: Z-first (4733 x 2) of 4733 x 4733, 1.25e+12 flops, largest intermediate 2.37e+07

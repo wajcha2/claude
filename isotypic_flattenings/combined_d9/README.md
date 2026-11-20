@@ -137,6 +137,18 @@ target, so d9_455_dir0_B_p4_mid (1.7 GB, resumes per target) was stopped instead
 runner restarts it only once a job finishes; 11.3 GB used afterwards.  The Monitor now also reports MEMORY HIGH above 13 GB.
 2026-11-20 00:55 UTC: container restart (up 23 h 40 min); runner and memlog restarted at 00:56 with the same three jobs
 (d9_455_dir0_B_p3_big, d9_455_dir1_B_p5_mid2, d9_555_B_p5_mid2), each resuming after its finished targets.
+2026-11-20 05:52 UTC: d9_555_B_p5_mid2 done (no separation); the runner restarted d9_455_dir0_B_p4_mid in its place.
+**lam_1 >= 5 passes with --maxsub 3 are subsumed by the lam_1 >= 4 passes**: a family-B lattice's members are its sources, so
+the lam_1 >= 5 lattice of a target has a subset of the members of its lam_1 >= 4 lattice, and the dims of a sum do not depend
+on the other members (exact ranks), so "every subset of at most 3 members at levels 1 and g" of the former is part of the
+latter.  The band filter uses the compressed size min(K - 8, capB) + 8, which grows with the sources, so the check is that
+every target of the lam_1 >= 5 band lies in a finished lam_1 >= 4 band: for d9_455_dir0_B_p4_mid's 117 targets (lam_1 >= 5 size
+3000..6000) the lam_1 >= 4 sizes are at most 8252, inside d9_455_dir0_B_p5_mid2..mid5 (all 71 targets it had finished were
+in their logs).  So d9_455_dir0_B_p4_mid was stopped at 05:55 and taken out of the queue (its cache, 145 MB, deleted).  In its
+place the next lam_1 >= 4 bands: d9_455_dir0_B_p5_mid7 (dir 0, size 11000..15000, 42 targets; started 05:56),
+d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (size 4000..5000, 16 and 11 targets), ahead of the two big lam_1 >= 7 jobs.
+Target counts per band (lam_1 >= 4): dir 0 510 targets, 77 above 15000 (largest 35124); dir 1 403, 217 above 15000;
+5x5x5 514, 322 above 15000.  The dir-0 lam_1 >= 6 targets end at 14340, so d9_455_dir0_B_p3_big completes lam_1 >= 6.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

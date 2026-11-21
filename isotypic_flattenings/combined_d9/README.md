@@ -184,6 +184,14 @@ hint 11.76 GB, so it can only run alone; as the first waiting job it would also 
 goes first (4 targets left, then lam_1 >= 6 is complete for dir 0): d9_455_dir0_B_p5_mid7 (target 7: build and 1+ enumeration
 branches checkpointed) was stopped at 18:38 and the runner relaunched d9_455_dir0_B_p3_big alone (part 9: build checkpoint
 and 1 of 12 enumeration branches reloaded).
+2026-11-21 ~20:45 UTC: **fresh container** (not just a restart: the untracked `live/` and `logs/jobs/` were gone, and
+`opt_einsum` was no longer installed).  Lost: the flattening cache and all checkpoints (d9_455_dir0_B_p3_big: target 41 build
+and 2 of 12 enumeration branches; d9_455_dir0_B_p5_mid7: target 7 build), and the learned memory hints.  Restored at 20:51:
+`logs/jobs/` from the committed `logs/jobs_snapshot/` of 19:58 (so every finished job and every finished target is still
+known; `--resume` skips them), `memhints.json` from the values recorded here (dir1_B_big 12.1, 555_B_big 12.04,
+555_B_p5_mid2 4.48, dir0_B_p3_big 11.76), `pip install opt_einsum`; the quick test `comb_search.py 3 6 4,5 --fam B
+--exhaust 14 --maxsub 3` again gives 41 new combined hits.  The runner restarted d9_455_dir0_B_p3_big alone (part 10, target
+41 from scratch).  `snapshot.sh` now also copies `memhints.json`.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

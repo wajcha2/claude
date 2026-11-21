@@ -174,6 +174,8 @@ d9_455_dir1_B_p5_mid2; ~10 min of progress each since the 06:51 relaunch).
 it is the closest to done (32 of 44 targets; it completes lam_1 >= 6) d9_455_dir0_B_p5_mid7 was stopped at 23:42 (its
 checkpoints keep its progress; it waits in the queue behind d9_455_dir0_B_p3_big), and the runner relaunched
 d9_455_dir0_B_p3_big next to d9_455_dir1_B_p5_mid2.
+2026-11-21 00:13 UTC: container restart (up 17 h 22 min); runner and memlog restarted at 00:14 with the same two jobs, which
+reload their checkpoints (build, enumeration branches, subset dims).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

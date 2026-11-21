@@ -178,6 +178,12 @@ d9_455_dir0_B_p3_big next to d9_455_dir1_B_p5_mid2.
 reload their checkpoints (build, enumeration branches, subset dims).
 2026-11-21 16:40 UTC: d9_455_dir1_B_p5_mid2 done (no separation; 11 targets, 7728 subsets, 59151 s over 10 parts); the runner
 resumed d9_455_dir0_B_p5_mid7 in its place, which reloaded its build checkpoint and 6 of 26 enumeration branches.
+2026-11-21 18:35 UTC: second OOM kill of d9_455_dir0_B_p3_big (9.85 GB anon RSS in the enumeration of target 41 of 44,
+(5,3,1)|(5,3,1)-type, size 13384, all subsets of 6 members; 13.0 GB used next to d9_455_dir0_B_p5_mid7 at 3.9 GB).  Learned
+hint 11.76 GB, so it can only run alone; as the first waiting job it would also hold back the @5 jobs behind it.  As before it
+goes first (4 targets left, then lam_1 >= 6 is complete for dir 0): d9_455_dir0_B_p5_mid7 (target 7: build and 1+ enumeration
+branches checkpointed) was stopped at 18:38 and the runner relaunched d9_455_dir0_B_p3_big alone (part 9: build checkpoint
+and 1 of 12 enumeration branches reloaded).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

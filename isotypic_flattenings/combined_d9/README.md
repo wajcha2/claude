@@ -176,6 +176,8 @@ checkpoints keep its progress; it waits in the queue behind d9_455_dir0_B_p3_big
 d9_455_dir0_B_p3_big next to d9_455_dir1_B_p5_mid2.
 2026-11-21 00:13 UTC: container restart (up 17 h 22 min); runner and memlog restarted at 00:14 with the same two jobs, which
 reload their checkpoints (build, enumeration branches, subset dims).
+2026-11-21 16:40 UTC: d9_455_dir1_B_p5_mid2 done (no separation; 11 targets, 7728 subsets, 59151 s over 10 parts); the runner
+resumed d9_455_dir0_B_p5_mid7 in its place, which reloaded its build checkpoint and 6 of 26 enumeration branches.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

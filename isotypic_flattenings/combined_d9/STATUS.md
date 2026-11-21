@@ -89,6 +89,14 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   compressed size 2000..3000 (members per target after dropping saturated ones from 1 to 16), every subset of at most 3 members at
   the levels 1 and g, 6759 subsets: **no separation** (largest drop 0).  2026-11-10 02:22 UTC.
 
+* **d9_455_dir1_B_p5_mid2** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 4 (16); family B, aux 1): the 11 targets
+  of compressed size 3000..4000 (members per target after dropping saturated ones from 5 to 16).  The 8 targets with at most 14
+  members: every subset of at most 3 members at the levels 1 and g.  The 3 targets with 15 or 16 members (5211|32211,
+  6111|51111, 3321|333): every pair and every triple of full members, the all-but-one sums, the named groups, 300 random subsets
+  and 2 greedy runs.  7728 subsets in all: **no separation** (largest drop 0).  2026-11-21 16:40 UTC (10 parts, 59151 s of
+  computing; the 15-member target alone took ~18 h, with its subset dims saved across restarts).  With dir1_B_p5 and p5_mid
+  every 4x5x5 dir-1 lam_1 >= 4 target of compressed size up to 4000 is covered.
+
 * **d9_555_B_p5_mid** (5x5x5, rank 9 vs 10; sources lam_1 >= 4 (16); family B, aux 1): the 22 targets of compressed size
   2000..3000 (members per target after dropping saturated ones from 1 to 16), every subset of at most 3 members at the levels 1 and
   g, 5912 subsets: **no separation** (largest drop 0).  2026-11-10 03:50 UTC.
@@ -132,11 +140,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 ## Running / queued (no separation so far)
 
-* Running (2026-11-20 23:42 UTC): d9_455_dir1_B_p5_mid2 (dir 1, sources lam_1 >= 4, size 3000..4000; 4 of 11 targets),
-  d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000: the last lam_1 >= 6 targets; 32 of 44; hint 7.44 GB after
-  an OOM kill).
-* Queued: d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 5 of 42 done; paused 23:42 for memory, resumes
-  from its checkpoints), d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (sources lam_1 >= 4, size 4000..5000), then d9_555_B_big and
+* Running (2026-11-21 16:40 UTC): d9_455_dir0_B_p3_big (dir 0, sources lam_1 >= 6, size 8000..15000: the last lam_1 >= 6
+  targets; 39 of 44; hint 7.44 GB after an OOM kill), d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 5 of
+  42 done; resumed 16:40 from its checkpoints after d9_455_dir1_B_p5_mid2 finished).
+* Queued: d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (sources lam_1 >= 4, size 4000..5000), then d9_555_B_big and
   d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000, ~12 GB each).
 * Dropped: d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000, subsets of at most 3 members): subsumed by the
   finished lam_1 >= 4 bands d9_455_dir0_B_p5_mid2..mid5 (same test on a superset of members; see README, 2026-11-20).

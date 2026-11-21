@@ -59,3 +59,7 @@ d9_555_B_p5_mid3 @5 | 5 9 9,10 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources
 d9_455_dir1_B_p5_mid3 @5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 14 --maxsub 3 --sources pattern:5 --bmin 4000 --bmax 5000
 d9_555_B_big @5 | 5 9 9,10 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000
 d9_455_dir1_B_big @8 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources pattern:2 --bmin 6000 --bmax 25000
+# (2026-11-21 23:40) while d9_455_dir0_B_p3_big (hint 11.76 GB) runs alone, a small job for the idle core: the lam_1 >= 4
+# targets of size <= 2000 of d9_455_dir0_B_p5 again, now with EVERY subset of the members (no --maxsub; saturation pruning
+# keeps it cheap: a 5-minute sample did 31 lattices).  cache_gc.py protects its cache until it is done.
+d9_455_dir0_B_p5_all @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:5 --bmax 2000

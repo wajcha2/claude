@@ -141,7 +141,9 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 ## Running / queued (no separation so far)
 
 * Running (2026-11-21 18:38 UTC): d9_455_dir0_B_p3_big alone (dir 0, sources lam_1 >= 6, size 8000..15000: the last lam_1 >= 6
-  targets; 40 of 44; hint 11.76 GB after a second OOM kill at 9.85 GB on target 41).
+  targets; 40 of 44; hint 11.76 GB after a second OOM kill at 9.85 GB on target 41; restarted 20:51 in a fresh container,
+  target 41 from scratch), and next to it since 23:33 the small d9_455_dir0_B_p5_all (dir 0, sources lam_1 >= 4, size <= 2000,
+  every subset of the members instead of at most 3).
 * Queued: d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 6 of 42 done; stopped 18:38 to let
   d9_455_dir0_B_p3_big run alone, resumes from its checkpoints), d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (sources
   lam_1 >= 4, size 4000..5000), then d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000,

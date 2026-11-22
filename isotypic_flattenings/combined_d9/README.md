@@ -203,6 +203,9 @@ place (05:08) d9_555_B_p5_all (@1.5): the 53 lam_1 >= 4 targets of size <= 2000 
 2026-11-22 09:48 UTC: d9_555_B_p5_all done (53 targets, 9112 subsets, 4.7 h, RSS <= 0.7 GB; no separation).  In its place
 (09:49) d9_455_dir1_B_p5_all (@1.5): the 61 lam_1 >= 4 targets of size <= 2000 of d9_455_dir1_B_p5 with every subset
 (`--exhaust 16`), cache protected.
+2026-11-22 14:28 UTC: d9_455_dir0_B_p3_big done (44 targets, 6036 subsets, no separation): with d9_455_dir0_B_p3 all 426 dir-0
+targets of the lam_1 >= 6 sources are done with every subset.  The runner started d9_455_dir0_B_p5_mid7 (resumed at 6 of 42)
+and d9_555_B_p5_mid3; d9_455_dir1_B_p5_all keeps running as a third process, reniced to 10 so it only takes spare CPU.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

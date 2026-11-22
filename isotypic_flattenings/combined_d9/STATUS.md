@@ -57,6 +57,11 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   from 1 to 16), every subset of at most 3 members at the levels 1 and g, 1732 subsets: **no separation** (largest drop 0).
   2026-11-08 16:59 UTC, 3.1 h.
 
+* **d9_555_B_p5_all** (5x5x5, rank 9 vs 10; sources lam_1 >= 4 (16); family B, aux 1): the same 53 targets of compressed size
+  <= 2000 as d9_555_B_p5 (members per target after dropping saturated ones from 1 to 16), now with EVERY subset of the members
+  at the levels 1 and g (`--exhaust 16`; supersets of a saturated subset are pruned), 9112 subsets: **no separation** (largest
+  drop 0).  2026-11-22 09:48 UTC, 4.7 h, next to d9_455_dir0_B_p3_big.
+
 * **d9_455_dir1_B_p4** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 5 (11); family B, aux 1): the 75 targets of
   compressed size <= 3000 (307 larger ones skipped; members per target after dropping saturated ones from 1 to 11), every subset
   of at most 3 members at the levels 1 and g, 4381 subsets: **no separation** (largest drop 0).  2026-11-08 19:42 UTC, 10 h in all.
@@ -147,8 +152,8 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 * Running (2026-11-21 18:38 UTC): d9_455_dir0_B_p3_big alone (dir 0, sources lam_1 >= 6, size 8000..15000: the last lam_1 >= 6
   targets; 40 of 44; hint 11.76 GB after a second OOM kill at 9.85 GB on target 41; restarted 20:51 in a fresh container,
-  target 41 from scratch; 42 of 44 at 04:38), and next to it since 05:08 the small d9_555_B_p5_all (5x5x5, sources
-  lam_1 >= 4, size <= 2000, every subset of the members).
+  target 41 from scratch; 43 of 44 at 09:47), and next to it since 09:49 the small d9_455_dir1_B_p5_all (4x5x5 dir 1,
+  sources lam_1 >= 4, size <= 2000, every subset of the members).
 * Queued: d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 6 of 42 done; stopped 18:38 to let
   d9_455_dir0_B_p3_big run alone, resumes from its checkpoints), d9_555_B_p5_mid3 and d9_455_dir1_B_p5_mid3 (sources
   lam_1 >= 4, size 4000..5000), then d9_555_B_big and d9_455_dir1_B_big, each alone (sources lam_1 >= 7, size 6000..25000,

@@ -35,7 +35,8 @@ JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srca3d7b922', [1]), 'd9_
 # unfinished jobs that re-test targets other jobs already finished (e.g. all subsets where those used at most 3 members):
 # while such a job has no final summary line, nothing in its cache directories is deleted (2026-11-21)
 PROTECT = {'d9_455_dir0_B_p5_all': 'n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26',
-           'd9_555_B_p5_all': 'n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4'}
+           'd9_555_B_p5_all': 'n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4',
+           'd9_455_dir1_B_p5_all': 'n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4'}
 protected = set()
 for job, pat in PROTECT.items():
     if not any(' total ' in l for f in glob.glob(os.path.join(HERE, 'logs', 'jobs', '%s_part*.log' % job)) for l in open(f)):

@@ -63,3 +63,6 @@ d9_455_dir1_B_big @8 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --allsub 3 --sources 
 # targets of size <= 2000 of d9_455_dir0_B_p5 again, now with EVERY subset of the members (no --maxsub; saturation pruning
 # keeps it cheap: a 5-minute sample did 31 lattices).  cache_gc.py protects its cache until it is done.
 d9_455_dir0_B_p5_all @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:5 --bmax 2000
+# (2026-11-22 05:10) d9_455_dir0_B_p5_all done (no separation); the same every-subset test for 5x5x5: the 53 lam_1 >= 4
+# targets of size <= 2000 of d9_555_B_p5 (16 sources, so --exhaust 16; the 16-member targets have size < 500).
+d9_555_B_p5_all @1.5 | 5 9 9,10 --fam B --aux 1 --exhaust 16 --sources pattern:5 --bmax 2000

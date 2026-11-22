@@ -197,6 +197,9 @@ lam_1 >= 4 targets of size <= 2000 of d9_455_dir0_B_p5 again, now with every sub
 (`--exhaust 14` without `--maxsub`; supersets of a saturated subset are pruned, so a 5-minute sample did 31 lattices).
 `cache_gc.py` got a PROTECT list: while an unfinished job re-tests targets that another job already finished, its cache
 directories are left alone (otherwise the flattenings it writes would be deleted as "finished").
+2026-11-22 05:05 UTC: d9_455_dir0_B_p5_all done (149 targets, 75816 subsets, 5.6 h, RSS <= 0.5 GB; no separation).  In its
+place (05:08) d9_555_B_p5_all (@1.5): the 53 lam_1 >= 4 targets of size <= 2000 of d9_555_B_p5 with every subset (16 sources:
+`--exhaust 16`; the four 16-member targets have size < 500), its cache protected in `cache_gc.py` as well.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
@@ -262,6 +265,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir0_B_p5_mid5 | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), subsets of at most 3 members, targets of size 6000..8000 | queued 2026-11-10 23:22 |
 | d9_455_dir0_B_p5_mid6 | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), subsets of at most 3 members, targets of size 8000..11000 | queued 2026-11-10 23:56 |
 | d9_455_dir0_B_p5_all | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), every subset of the members at levels 1 and g, targets of size <= 2000 | queued 2026-11-21 23:33 |
+| d9_555_B_p5_all | 5x5x5, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size <= 2000 | queued 2026-11-22 05:08 |
 | d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs, one greedy run and (from 2026-10-25, after three container restarts lost the (7,2) aux-2 lattice) 100 random subsets ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0

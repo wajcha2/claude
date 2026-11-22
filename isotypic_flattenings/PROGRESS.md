@@ -495,3 +495,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-21 21:39 UTC: relaunch after container replacement and a 24 h session outage
 - The container was replaced at about 21:50 UTC on 2026-11-20 (last log write 21:43; all 7 workers killed) and the session itself was offline until 2026-11-21 21:37 (8 queued check-ins delivered at once), so about 24 h passed without computation. Disk, live logs, 263 `done` claims and 6 checkpoint files persisted. Stale pid claims deleted, 7 KWEDGE workers relaunched at 21:39 (pids 802..814): 6 resumed their checkpointed components, 1 restarts a component claimed at 21:43 that had not produced a rank yet (((6,2),(3,3,2),(3,2,2,1)); minutes lost). 250 components left in the queue (264 of 514 computed), no separators. Completion estimate shifts by one day to about 2026-12-04 .. 12-07.
+
+### 2026-11-22 00:37 UTC check-in
+- 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 302/549 keys (267 of 514 computed), ckpt 135 ranks in 6 files, sep=0, load 7.04 7.03 7.00, up 3 hours, 0 minutes.

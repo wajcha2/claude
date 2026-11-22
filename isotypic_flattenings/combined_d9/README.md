@@ -206,6 +206,10 @@ place (05:08) d9_555_B_p5_all (@1.5): the 53 lam_1 >= 4 targets of size <= 2000 
 2026-11-22 14:28 UTC: d9_455_dir0_B_p3_big done (44 targets, 6036 subsets, no separation): with d9_455_dir0_B_p3 all 426 dir-0
 targets of the lam_1 >= 6 sources are done with every subset.  The runner started d9_455_dir0_B_p5_mid7 (resumed at 6 of 42)
 and d9_555_B_p5_mid3; d9_455_dir1_B_p5_all keeps running as a third process, reniced to 10 so it only takes spare CPU.
+2026-11-22 15:51 UTC: correction: the container has 4 CPUs (`nproc` 4, no cgroup CPU limit), so memory, not cores, is what
+limits the runner (4 workers).  While d9_455_dir0_B_p3_big ran alone, 3 cores were idle, not 1.  A 4th job,
+d9_455_dir0_B_p5_mid_all (@1.5): the 44 lam_1 >= 4 dir-0 targets of size 2000..3000 with every subset of the members,
+next to d9_455_dir0_B_p5_mid7, d9_555_B_p5_mid3 and d9_455_dir1_B_p5_all (back at nice 0); cache protected.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
@@ -273,6 +277,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir0_B_p5_all | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), every subset of the members at levels 1 and g, targets of size <= 2000 | queued 2026-11-21 23:33 |
 | d9_555_B_p5_all | 5x5x5, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size <= 2000 | queued 2026-11-22 05:08 |
 | d9_455_dir1_B_p5_all | 4x5x5 dir 1, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size <= 2000 | queued 2026-11-22 09:49 |
+| d9_455_dir0_B_p5_mid_all | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), every subset of the members at levels 1 and g, targets of size 2000..3000 | queued 2026-11-22 15:51 |
 | d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs, one greedy run and (from 2026-10-25, after three container restarts lost the (7,2) aux-2 lattice) 100 random subsets ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0

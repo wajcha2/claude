@@ -69,3 +69,6 @@ d9_555_B_p5_all @1.5 | 5 9 9,10 --fam B --aux 1 --exhaust 16 --sources pattern:5
 # (2026-11-22 09:50) d9_555_B_p5_all done (no separation); the same every-subset test for 4x5x5 dir 1: the 61 lam_1 >= 4
 # targets of size <= 2000 of d9_455_dir1_B_p5 (16 sources: --exhaust 16; 9 targets with 16 members, up to size ~2000).
 d9_455_dir1_B_p5_all @1.5 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 16 --sources pattern:5 --bmax 2000
+# (2026-11-22 15:55) the container has 4 CPUs (memory, not cores, is the limit): a 4th small every-subset job, the 44
+# lam_1 >= 4 dir-0 targets of size 2000..3000 of d9_455_dir0_B_p5_mid with every subset of the members.
+d9_455_dir0_B_p5_mid_all @1.5 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:5 --bmin 2000 --bmax 3000

@@ -210,6 +210,9 @@ and d9_555_B_p5_mid3; d9_455_dir1_B_p5_all keeps running as a third process, ren
 limits the runner (4 workers).  While d9_455_dir0_B_p3_big ran alone, 3 cores were idle, not 1.  A 4th job,
 d9_455_dir0_B_p5_mid_all (@1.5): the 44 lam_1 >= 4 dir-0 targets of size 2000..3000 with every subset of the members,
 next to d9_455_dir0_B_p5_mid7, d9_555_B_p5_mid3 and d9_455_dir1_B_p5_all (back at nice 0); cache protected.
+2026-11-23 09:57 UTC: memory peaked at 13.3 GB used (d9_555_B_p5_mid3 at 5.4 GB RSS on its sampled 16-member target 6, hint 5;
+d9_455_dir0_B_p5_mid7 at 4.6 GB, hint 4).  d9_455_dir0_B_p5_mid_all (7 of 44; its first target, 32211|32211 with 14 members,
+took 9.9 h for 32794 subsets) was stopped and commented out in jobs_d9.txt; it resumes from its checkpoints when re-enabled.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

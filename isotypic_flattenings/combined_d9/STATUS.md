@@ -159,8 +159,9 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 * Running (2026-11-22 14:28 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 6 of 42 done,
   resumed after d9_455_dir0_B_p3_big; its target-7 checkpoints were lost in the fresh container), d9_555_B_p5_mid3 (5x5x5,
   sources lam_1 >= 4, size 4000..5000), the small d9_455_dir1_B_p5_all (4x5x5 dir 1, sources lam_1 >= 4, size <= 2000,
-  every subset of the members; 48 of 61 at 15:50) and, since 15:51, the small d9_455_dir0_B_p5_mid_all (dir 0, sources
-  lam_1 >= 4, size 2000..3000, every subset of the members).  (4 CPUs; memory is the limit.)
+  every subset of the members; 59 of 61 on 2026-11-23).  (4 CPUs; memory is the limit.)
+* Paused (2026-11-23 09:57, memory): d9_455_dir0_B_p5_mid_all (dir 0, sources lam_1 >= 4, size 2000..3000, every subset of the
+  members; 7 of 44 done, all without separation, among them 32211|32211 with 14 members and 32794 subsets).
 * Queued: d9_455_dir1_B_p5_mid3 (sources lam_1 >= 4, size 4000..5000), then d9_555_B_big and d9_455_dir1_B_big, each alone
   (sources lam_1 >= 7, size 6000..25000, ~12 GB each).
 * Dropped: d9_455_dir0_B_p4_mid (dir 0, sources lam_1 >= 5, size 3000..6000, subsets of at most 3 members): subsumed by the

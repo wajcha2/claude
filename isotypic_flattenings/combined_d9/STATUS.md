@@ -158,8 +158,9 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 * Running (2026-11-23 14:48 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 12 of 42), the small
   d9_455_dir1_B_p5_all (4x5x5 dir 1, sources lam_1 >= 4, size <= 2000, every subset of the members; 60 of 61) and the small
-  d9_455_dir0_B_p5_mid_all (dir 0, sources lam_1 >= 4, size 2000..3000, every subset of the members; 7 of 44).  (4 CPUs;
-  memory is the limit.)
+  d9_455_dir0_B_p5_mid_all (dir 0, sources lam_1 >= 4, size 2000..3000, every subset of the members; 7 of 44), and since
+  15:09 the small d9_555_B_p5_mid_all (5x5x5, sources lam_1 >= 4, size 2000..3000, every subset).  (4 CPUs; memory is the
+  limit.)
 * Queued: d9_555_B_p5_mid3 (5x5x5, sources lam_1 >= 4, size 4000..5000; 6 done; OOM-killed at 7.8 GB on 2026-11-23, now
   @10 GB) and d9_455_dir1_B_p5_mid3 (dir 1, same band, @9 GB), then d9_555_B_big and d9_455_dir1_B_big, each alone
   (sources lam_1 >= 7, size 6000..25000, ~12 GB each).

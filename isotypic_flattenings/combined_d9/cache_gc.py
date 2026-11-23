@@ -33,33 +33,38 @@ JOBS = {'d9_455_dir1_B': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srca3d7b922', [1]), 'd9_
         'd9_455_dir1_B_p5_mid2': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4', [1]),
         'd9_455_dir1_B_p5_mid3': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4', [1])}     # its own cache only (the pattern:2 cache is in use by d9_555_B_big)
 # unfinished jobs that re-test targets other jobs already finished (e.g. all subsets where those used at most 3 members):
-# while such a job has no final summary line, nothing in its cache directories is deleted (2026-11-21)
-PROTECT = {'d9_455_dir0_B_p5_all': 'n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26',
-           'd9_555_B_p5_all': 'n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4',
-           'd9_455_dir1_B_p5_all': 'n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4',
-           'd9_455_dir0_B_p5_mid_all': 'n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26',
-           'd9_555_B_p5_mid_all': 'n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4'}
-protected = set()
-for job, pat in PROTECT.items():
+# while such a job has no final summary line, the flattenings in its cache directories of targets whose compressed size lies
+# in its band [bmin, bmax] are kept (2026-11-21; per band since 2026-11-23, so that large finished targets of other jobs
+# sharing the directory are still freed)
+PROTECT = {'d9_455_dir0_B_p5_all': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26', 0, 2000),
+           'd9_555_B_p5_all': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4', 0, 2000),
+           'd9_455_dir1_B_p5_all': ('n4-5-5_d9_s5_dir1_r8-9_*_ax1_srccb9e46f4', 0, 2000),
+           'd9_455_dir0_B_p5_mid_all': ('n4-5-5_d9_s5_dir0_r8-9_*_ax1_srcb2a8ea26', 2000, 3000),
+           'd9_555_B_p5_mid_all': ('n5-5-5_d9_s5_dir0_r9-10_*_ax1_srccb9e46f4', 2000, 3000)}
+protected = {}
+for job, (pat, lo, hi) in PROTECT.items():
     if not any(' total ' in l for f in glob.glob(os.path.join(HERE, 'logs', 'jobs', '%s_part*.log' % job)) for l in open(f)):
-        protected |= set(glob.glob(os.path.join(HERE, 'live', 'cache', pat)))
+        for d in glob.glob(os.path.join(HERE, 'live', 'cache', pat)):
+            protected.setdefault(d, []).append((lo, hi))
 dry = '--dry' in sys.argv
 freed = 0
+size = {}
 for job, (pat, auxes) in JOBS.items():
     done = {}
     for f in glob.glob(os.path.join(HERE, 'logs', 'jobs', '%s_part*.log' % job)):
         for l in open(f):
             # only lattice summaries (members=): a 'SKIPPED' line of the bmax job is a target the --bmin job computes
-            m = re.match(r'famB(?:\(aux=(\d+)\))? mn=(\S+)\|(\S+) members=', l)
+            m = re.match(r'famB(?:\(aux=(\d+)\))? mn=(\S+)\|(\S+) members=\d+ size=(\d+)', l)
             if m:
                 done.setdefault((m.group(2), m.group(3)), set()).add(int(m.group(1) or 1))
+                size[(m.group(2), m.group(3))] = int(m.group(4))
     fin = {mn for mn, a in done.items() if set(auxes) <= a}
     for d in glob.glob(os.path.join(HERE, 'live', 'cache', pat)):
-        if d in protected:
-            continue
+        bands = protected.get(d, [])
         for fn in os.listdir(d):
             m = re.match(r'r\d+_[^_]+_([^_]+)_([^_.]+)\.npy$', fn)
-            if m and (m.group(1), m.group(2)) in fin:
+            mn = m and (m.group(1), m.group(2))
+            if mn and mn in fin and not any(lo <= size.get(mn, -1) <= hi for lo, hi in bands):
                 path = os.path.join(d, fn)
                 freed += os.path.getsize(path)
                 if not dry:

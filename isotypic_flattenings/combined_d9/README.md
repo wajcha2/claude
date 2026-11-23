@@ -219,6 +219,10 @@ gives it @10 and its dir-1 twin d9_455_dir1_B_p5_mid3 (same band, 16 sources) @9
 until d9_455_dir0_B_p5_mid7 is done).  d9_455_dir0_B_p5_mid_all re-enabled (resumed at 2 of 28 branches of its target 8).
 2026-11-23 15:09 UTC: with a core and ~7 GB free, a 4th job d9_555_B_p5_mid_all (@2): every subset for the 22 lam_1 >= 4
 5x5x5 targets of size 2000..3000 (`--exhaust 16`), cache protected.
+2026-11-23 16:55 UTC: disk fell ~2 GB/h (26 GB free) because PROTECT kept whole cache directories, including the large
+flattenings of d9_455_dir0_B_p5_mid7's finished targets (size ~11900).  `cache_gc.py` PROTECT entries now carry the protecting
+job's size band [bmin, bmax]; only finished targets inside an unfinished protecting job's band are kept (sizes come from the
+famB summary lines).  First run freed 6.65 GB.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

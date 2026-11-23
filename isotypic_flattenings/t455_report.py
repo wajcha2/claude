@@ -267,6 +267,8 @@ out.append('* 2026-11-23 19:35 UTC: container replaced by a fresh one (filesyste
 out.append('  between ~19:05 and 19:34 UTC at 1646/1833 of c1.25e8 (state of the 18:34 push; work done after that push was lost and is redone).')
 out.append('  Restored per the Restart section: python3 is now 3.11 with numpy 2.4.6 / OpenBLAS 0.3.31; d=4 rerun identical to hwv455_d4 on all 28 components.')
 out.append('  Runner + 4 workers relaunched 19:37 by the check-in; the four in-flight components resume from the #partial states in the pushed logs.')
+out.append('* 2026-11-23 23:55 UTC: container restart, filesystem preserved (compute stopped ~23:52, 1656/1833 of c1.25e8; gap ~3 min).')
+out.append('  Runner + 4 workers relaunched 23:55 by the check-in; in-flight components resume from CKPT_SECS checkpoints.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

@@ -213,6 +213,10 @@ next to d9_455_dir0_B_p5_mid7, d9_555_B_p5_mid3 and d9_455_dir1_B_p5_all (back a
 2026-11-23 09:57 UTC: memory peaked at 13.3 GB used (d9_555_B_p5_mid3 at 5.4 GB RSS on its sampled 16-member target 6, hint 5;
 d9_455_dir0_B_p5_mid7 at 4.6 GB, hint 4).  d9_455_dir0_B_p5_mid_all (7 of 44; its first target, 32211|32211 with 14 members,
 took 9.9 h for 32794 subsets) was stopped and commented out in jobs_d9.txt; it resumes from its checkpoints when re-enabled.
+2026-11-23 14:48 UTC: OOM kill of d9_555_B_p5_mid3 (7.8 GB anon RSS while building its target 7, 16 members, size 4733; 6 targets
+done, the build of target 7 (~4 h) lost).  The runner learned hint 8.45 GB, too low (it was still building), so jobs_d9.txt now
+gives it @10 and its dir-1 twin d9_455_dir1_B_p5_mid3 (same band, 16 sources) @9: both wait until memory allows (in practice
+until d9_455_dir0_B_p5_mid7 is done).  d9_455_dir0_B_p5_mid_all re-enabled (resumed at 2 of 28 branches of its target 8).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

@@ -223,6 +223,10 @@ until d9_455_dir0_B_p5_mid7 is done).  d9_455_dir0_B_p5_mid_all re-enabled (resu
 flattenings of d9_455_dir0_B_p5_mid7's finished targets (size ~11900).  `cache_gc.py` PROTECT entries now carry the protecting
 job's size band [bmin, bmax]; only finished targets inside an unfinished protecting job's band are kept (sizes come from the
 famB summary lines).  First run freed 6.65 GB.
+2026-11-23 17:13 UTC: d9_455_dir1_B_p5_all done (61 targets, 125399 subsets, 31.4 h; no separation).  In its place (17:45)
+d9_455_dir1_B_p5_mid_all (@2): every subset for the 22 lam_1 >= 4 dir-1 targets of size 2000..3000 (`--exhaust 16`), cache
+protected for that band.  (The monitor missed the finish: it fell between two 30-min monitor windows; the monitor now keeps
+its last-seen state in logs/jobs/.monitor_seen.)
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
@@ -292,6 +296,7 @@ Kronecker spaces whole (level g) and one generic functional (level 1).
 | d9_455_dir1_B_p5_all | 4x5x5 dir 1, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size <= 2000 | queued 2026-11-22 09:49 |
 | d9_455_dir0_B_p5_mid_all | 4x5x5 dir 0, B, aux 1, sources λ1 >= 4 (14), every subset of the members at levels 1 and g, targets of size 2000..3000 | queued 2026-11-22 15:51 |
 | d9_555_B_p5_mid_all | 5x5x5, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size 2000..3000 | queued 2026-11-23 15:09 |
+| d9_455_dir1_B_p5_mid_all | 4x5x5 dir 1, B, aux 1, sources λ1 >= 4 (16), every subset of the members at levels 1 and g (`--exhaust 16`), targets of size 2000..3000 | queued 2026-11-23 17:45 |
 | d9_455_dir0_AE | A: fixed source, sums over targets (aux 1: Kronecker spaces on the target side; aux 2: shared X = C^2 on the source side, "family C"); E: reshaped single components (Ψ generic in M^*⊗X^*⊗Y, k, l >= 2) | shares the flattening cache with d9_455_dir0_B; every transposed pair {(μ,ν), (ν,μ)} at both levels (the C^5 d=5 family-A hit for 7 vs 8 was such a pair); 4000 random pairs, one greedy run and (from 2026-10-25, after three container restarts lost the (7,2) aux-2 lattice) 100 random subsets ((7,1,1) aux 1: all pairs; all 14000 pairs of (7,1,1) aux 2 took > 4.5 h, so the job was restarted with these settings) |
 
 Estimated evaluation cost (from the timing of ((8,1),(5,3,1),(5,3,1)): 24.5 s per functional for 448 x 4708 samples): dir 0

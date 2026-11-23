@@ -76,6 +76,13 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   compressed size <= 2000 (342 larger ones skipped; members per target after dropping saturated ones from 1 to 16), every subset
   of at most 3 members at the levels 1 and g, 7603 subsets: **no separation** (largest drop 0).  2026-11-08 22:01 UTC, 7.5 h.
 
+* **d9_455_dir1_B_p5_all** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 4 (16); family B, aux 1): the same 61
+  targets of compressed size <= 2000 as d9_455_dir1_B_p5 (members per target after dropping saturated ones from 1 to 16), now
+  with EVERY subset of the members at the levels 1 and g (`--exhaust 16`; supersets of a saturated subset are pruned), 125399
+  subsets: **no separation** (largest drop 0).  2026-11-23 17:13 UTC, 31.4 h (the 14-member targets 4221|33111 and its kin
+  took ~9 h each).  With d9_455_dir0_B_p5_all and d9_555_B_p5_all: every subset of the members for all lam_1 >= 4 targets of
+  size <= 2000 in all three settings, no separation.
+
 * **d9_455_dir1_B_p3** (4x5x5, source a C^5 factor, rank 8 vs 9; sources lam_1 >= 6; family B, aux 1): the 142 targets of
   compressed size <= 8000 (193 larger ones skipped; members per target after dropping saturated ones: 43 with 1, 32 with 2, 18 with
   3, 13 with 4, 18 with 5, 18 with 6), every subset of the members at the levels 1 and g (`--exhaust 14`), 3514 subsets: **no
@@ -156,8 +163,8 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 ## Running / queued (no separation so far)
 
-* Running (2026-11-23 14:48 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 12 of 42), the small
-  d9_455_dir1_B_p5_all (4x5x5 dir 1, sources lam_1 >= 4, size <= 2000, every subset of the members; 60 of 61) and the small
+* Running (2026-11-23 17:45 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 13 of 42), the small
+  d9_455_dir1_B_p5_mid_all (dir 1, sources lam_1 >= 4, size 2000..3000, every subset; since 17:45), the small
   d9_455_dir0_B_p5_mid_all (dir 0, sources lam_1 >= 4, size 2000..3000, every subset of the members; 7 of 44), and since
   15:09 the small d9_555_B_p5_mid_all (5x5x5, sources lam_1 >= 4, size 2000..3000, every subset).  (4 CPUs; memory is the
   limit.)

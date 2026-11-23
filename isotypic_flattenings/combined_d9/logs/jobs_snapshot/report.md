@@ -36,7 +36,7 @@
 | d9_455_dir0_B_p5_all | 149 | 145 | 361 | 0 | yes | 20013 |
 | d9_555_B_p5_all | 53 | 53 | 461 | 0 | yes | 16754 |
 | d9_455_dir1_B_p5_all | 54 | 52 | 0 | 0 | no | 32246 |
-| d9_455_dir0_B_p5_mid_all | 0 | 0 | 0 | 0 | no | 0 |
+| d9_455_dir0_B_p5_mid_all | 6 | 6 | 0 | 0 | no | 36921 |
 
 family B, aux 1, not saturated at the lower rank: 989 lattices (gap = size bound - lower-rank value; values lower/higher rank)
   d9_455_dir1_B_big famB mn=4221|4221 bound 17280 gap 10185 max 7095/7095

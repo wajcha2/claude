@@ -227,6 +227,8 @@ famB summary lines).  First run freed 6.65 GB.
 d9_455_dir1_B_p5_mid_all (@2): every subset for the 22 lam_1 >= 4 dir-1 targets of size 2000..3000 (`--exhaust 16`), cache
 protected for that band.  (The monitor missed the finish: it fell between two 30-min monitor windows; the monitor now keeps
 its last-seen state in logs/jobs/.monitor_seen.)
+2026-11-24 00:44 UTC: container restart (up 2 d 4 h; files kept); runner and memlog restarted at 00:45 with the same four jobs,
+which reloaded their checkpoints (d9_555_B_p5_mid_all at 15 of 28 branches of its first target).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

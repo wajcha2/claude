@@ -2,7 +2,7 @@
 # Monitor script (30 min): prints a line on a new SEPARATES line, a new kpB lattice line, a finished job,
 # a dead runner, a relaunch loop or high memory; silent otherwise
 cd /home/user/claude/isotypic_flattenings/kronproj
-JOB=${JOB:-s555_d8_V_last}   # the job whose new result lines (kpB lattices / kpS components) are reported
+JOB=${JOB:-s455_d8_dir1_V_last}   # the job whose new result lines (kpB lattices / kpS components) are reported
 seen=$(cat logs/jobs/*.log 2>/dev/null | grep -c 'SEPARATES')
 done0=$(grep -o "done: .*" logs/jobs/runner.status 2>/dev/null)
 np0=$(ls logs/jobs/*_part*.log 2>/dev/null | wc -l)

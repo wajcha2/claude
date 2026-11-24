@@ -269,6 +269,8 @@ out.append('  Restored per the Restart section: python3 is now 3.11 with numpy 2
 out.append('  Runner + 4 workers relaunched 19:37 by the check-in; the four in-flight components resume from the #partial states in the pushed logs.')
 out.append('* 2026-11-23 23:55 UTC: container restart, filesystem preserved (compute stopped ~23:52, 1656/1833 of c1.25e8; gap ~3 min).')
 out.append('  Runner + 4 workers relaunched 23:55 by the check-in; in-flight components resume from CKPT_SECS checkpoints.')
+out.append('* 2026-11-24 01:15 UTC: container restart, filesystem preserved (compute stopped ~01:15, 1661/1833 of c1.25e8; gap ~1 min).')
+out.append('  Runner + 4 workers relaunched 01:16 by the check-in; in-flight components resume from CKPT_SECS checkpoints.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

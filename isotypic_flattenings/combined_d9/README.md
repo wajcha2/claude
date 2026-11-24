@@ -229,6 +229,10 @@ protected for that band.  (The monitor missed the finish: it fell between two 30
 its last-seen state in logs/jobs/.monitor_seen.)
 2026-11-24 00:44 UTC: container restart (up 2 d 4 h; files kept); runner and memlog restarted at 00:45 with the same four jobs,
 which reloaded their checkpoints (d9_555_B_p5_mid_all at 15 of 28 branches of its first target).
+2026-11-24 13:40 UTC: timing of the every-subset jobs on 15-member targets (one CPU each): the first top-level branch
+(2^14 = 16384 subsets at the full level) took 8.2 h (d9_555_B_p5_mid_all target 2, built 02:48, branch saved 10:59) and
+7.6 h (d9_455_dir1_B_p5_mid_all target 16, 05:45 -> 13:20), so about 16 h for the full level of one such target.  A
+13-member dir-0 target (d9_455_dir0_B_p5_mid_all target 13) did its whole full level (8191 subsets) in 2.9 h.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

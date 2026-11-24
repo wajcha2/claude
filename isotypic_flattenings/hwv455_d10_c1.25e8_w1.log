@@ -13353,3 +13353,15 @@ lam=((3, 3, 3, 1), (6, 3, 1), (6, 2, 1, 1)) g=4 dims=(10, 4725, 1750)  H1:10/10 
 # blocks: Y-first (65 x 4133) of 4133 x 4133, 7.00e+10 flops, largest intermediate 3.22e+07
 # blocks: Y-first (9 x 4133) of 4133 x 4133, 9.59e+11 flops, largest intermediate 1.51e+07
 # blocks: Y-first (9 x 4133) of 4133 x 4133, 3.35e+11 flops, largest intermediate 3.35e+07
+# blocks: Y-first (1 x 4133) of 4133 x 4133, 1.07e+12 flops, largest intermediate 1.21e+07
+# blocks: Y-first (2 x 4133) of 4133 x 4133, 1.43e+12 flops, largest intermediate 2.98e+07
+# blocks: Z-first (4133 x 17) of 4133 x 4133, 9.06e+11 flops, largest intermediate 2.85e+07
+#partial ((5, 3, 1, 1), (7, 3), (5, 2, 1, 1, 1)) next=2 res={(0, 'gen'): (126, 126), (0, 'Hstack'): (126, 126), (1, 'gen'): (2450, 2450), (1, 'Hstack'): (2450, 2450)} spans=[6, 6] secs=4572.6 state={'bit_generator': 'PCG64', 'state': {'state': 161180511028967721440412859145310149898, 'inc': 28151291097615099024572069370152707981}, 'has_uint32': 1, 'uinteger': 1928348217}
+lam=((5, 3, 1, 1), (7, 3), (5, 2, 1, 1, 1)) g=6 dims=(126, 4125, 224)  H1:126/126 g1:126/126 H2:2450/2450 g2:2450/2450 H3:224/224 g3:224/224  span=6,6,6 cost=1.03e+08 (4576.0s)
+#partial ((5, 2, 2, 1), (6, 4), (5, 3, 1, 1)) next=1 res={(0, 'gen'): (70, 70), (0, 'Hstack'): (70, 70)} spans=[8] secs=1.5 state={'bit_generator': 'PCG64', 'state': {'state': 8404398666942741775056468830021314531, 'inc': 140948311682463253300939273676112195317}, 'has_uint32': 0, 'uinteger': 3286804200}
+# blocks: Z-first (3158 x 25) of 3158 x 3158, 1.39e+11 flops, largest intermediate 2.53e+07
+# blocks: Z-first (3158 x 13) of 3158 x 3158, 2.82e+11 flops, largest intermediate 1.31e+07
+# blocks: Y-first (13 x 3158) of 3158 x 3158, 1.91e+11 flops, largest intermediate 3.28e+07
+# sweep_fast n=4,5,5 d=10 ranks=[8, 9] seed=5 worker 1/4 noV=True p=524287 MEMCAP=33554432 MAXCOST=inf MAXDIM=inf MAXFLOPS=inf: 1833 components, 6357 already done
+# resuming ((4, 3, 3), (5, 3, 2), (4, 2, 2, 1, 1)) at direction 1 (checkpoint after 27.2s)
+# resuming ((4, 3, 3), (5, 3, 2), (4, 2, 2, 1, 1)) direction 1 at rank 0 after filling 11 (checkpoint file)

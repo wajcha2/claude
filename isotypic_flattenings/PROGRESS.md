@@ -570,3 +570,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-24 21:37 UTC check-in
 - 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 398/549 keys (363 of 514 computed), ckpt 86 ranks in 5 files, sep=0, load 7.00 7.00 7.00, up 21 hours, 18 minutes. Throughput 2026-11-24 (21:37 to 21:37): 31 components.
+
+### 2026-11-25 00:36 UTC: relaunch after container replacement
+- Real container replacement at about 00:34 UTC (uptime 0 min, new kernel 6.18.44-fc-v880, no workers; the previous workers pids 556..568 had run 24 h 15 min since 2026-11-24 00:19). Disk, live logs, claims5_kw8 and ckpt5_kw8 persisted. Deleted the 7 stale pid claims (365 done claims kept), relaunched 7 KWEDGE claim workers (pids 585..597) at 00:35 UTC: 4 resumed their components from checkpoints (12..24 ranks each), 3 components ((5,2,1),(4,2,1,1),(4,2,1,1) claimed 21:34 the day before; (5,2,1),(4,2,2),(3,3,2); (5,3),(4,2,2),(4,2,1,1)) had no checkpoint yet and redo their build phase (at most about 3 h each). 366 of 514 computed, 148 left (7 in progress). Snapshot 1095 components, 0 separators. Session was back within 1 minute.

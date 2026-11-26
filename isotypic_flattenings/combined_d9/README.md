@@ -242,6 +242,8 @@ with the same four jobs, which reload their checkpoints.
 d9_455_dir0_B_p5_mid7 (hint @4, real RSS up to 9.9 GB since the restart), so `d9_455_dir0_B_p5_mid2_all` (@2) is queued
 to take the freed core: every subset for the 51 lam_1 >= 4 dir-0 targets of size 3000..4000 (8..14 members), cache band
 protected in `cache_gc.py`.
+2026-11-26 23:14 UTC: d9_455_dir0_B_p5_mid_all done (44 targets, 210700 subsets; no separation).  d9_455_dir0_B_p5_mid2_all
+started in its place at 23:15.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

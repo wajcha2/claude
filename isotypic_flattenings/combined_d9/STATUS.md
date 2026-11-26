@@ -96,6 +96,13 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
   compressed size 2000..3000 (members per target after dropping saturated ones from 5 to 14), every subset of at most 3 members at the
   levels 1 and g, 15288 subsets: **no separation** (largest drop 0).  2026-11-09 10:52 UTC, 5.1 h.
 
+* **d9_455_dir0_B_p5_mid_all** (4x5x5, source the C^4 factor, rank 8 vs 9; sources lam_1 >= 4 (14); family B, aux 1): the same
+  44 targets of compressed size 2000..3000 as d9_455_dir0_B_p5_mid (members per target after dropping saturated ones from 5 to
+  14), now with EVERY subset of the members at the levels 1 and g (`--exhaust 14`, no `--maxsub`), 210700 subsets: **no
+  separation** (largest drop 0).  2026-11-26 23:14 UTC (started 2026-11-22; paused 11-23 09:57..14:50 and idle during the
+  11-25 00:59 .. 11-26 16:04 container outage).  With d9_455_dir0_B_p5_all: every subset for all lam_1 >= 4 dir-0 targets of
+  size <= 3000.
+
 * **d9_455_dir1_A1** (family A of a C^5 source, all three sources (7,1,1), (8,1), (7,2)) (4x5x5, source a C^5 factor, rank 8 vs 9; family A aux 1, one pass without a flattening
   cache): 55 members (159 of 214 left out as saturated per the dir-1 B logs; 3 more saturated), all named groups, 1326 pairs,
   1000 triples, 100 random subsets and every all-but-one sum at levels 1 and g, 2616 subsets: **no separation** (largest drop 0;
@@ -163,11 +170,10 @@ Started 2026-10-22 20:54 UTC (runner `d9_jobs.py jobs_d9.txt 4`).  Live logs in 
 
 ## Running / queued (no separation so far)
 
-* Running (2026-11-23 17:45 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000; 13 of 42), the small
-  d9_455_dir1_B_p5_mid_all (dir 1, sources lam_1 >= 4, size 2000..3000, every subset; since 17:45), the small
-  d9_455_dir0_B_p5_mid_all (dir 0, sources lam_1 >= 4, size 2000..3000, every subset of the members; 7 of 44), and since
-  15:09 the small d9_555_B_p5_mid_all (5x5x5, sources lam_1 >= 4, size 2000..3000, every subset).  (4 CPUs; memory is the
-  limit.)
+* Running (2026-11-26 23:15 UTC): d9_455_dir0_B_p5_mid7 (dir 0, sources lam_1 >= 4, size 11000..15000, subsets of at most
+  3 members; 22 of 42), the small every-subset jobs d9_555_B_p5_mid_all (5x5x5, sources lam_1 >= 4, size 2000..3000; 2 of 22)
+  and d9_455_dir1_B_p5_mid_all (dir 1, sources lam_1 >= 4, size 2000..3000; 16 of 22), and since 23:15 d9_455_dir0_B_p5_mid2_all
+  (dir 0, sources lam_1 >= 4, size 3000..4000, every subset; 51 targets).  (4 CPUs; memory is the limit.)
 * Queued: d9_555_B_p5_mid3 (5x5x5, sources lam_1 >= 4, size 4000..5000; 6 done; OOM-killed at 7.8 GB on 2026-11-23, now
   @10 GB) and d9_455_dir1_B_p5_mid3 (dir 1, same band, @9 GB), then d9_555_B_big and d9_455_dir1_B_big, each alone
   (sources lam_1 >= 7, size 6000..25000, ~12 GB each).

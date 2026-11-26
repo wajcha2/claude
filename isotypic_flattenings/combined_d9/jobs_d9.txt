@@ -82,3 +82,7 @@ d9_555_B_p5_mid_all @2 | 5 9 9,10 --fam B --aux 1 --exhaust 16 --sources pattern
 # (2026-11-23 17:45) d9_455_dir1_B_p5_all done (no separation): the same every-subset test for the 22 lam_1 >= 4 dir-1 targets
 # of size 2000..3000 of d9_455_dir1_B_p5_mid (16 sources: --exhaust 16).
 d9_455_dir1_B_p5_mid_all @2 | 4,5,5 9 8,9 --dir 1 --fam B --aux 1 --exhaust 16 --sources pattern:5 --bmin 2000 --bmax 3000
+# (2026-11-26 23:05) d9_455_dir0_B_p5_mid_all is at 42 of 44; the waiting jobs (@9..@12) cannot start next to
+# d9_455_dir0_B_p5_mid7 (real RSS up to 9.9 GB), so a small filler keeps the 4th core busy: every subset for the 51
+# lam_1 >= 4 dir-0 targets of size 3000..4000 of d9_455_dir0_B_p5_mid2 (8..14 members, so all are exhaustive).
+d9_455_dir0_B_p5_mid2_all @2 | 4,5,5 9 8,9 --dir 0 --fam B --aux 1 --exhaust 14 --sources pattern:5 --bmin 3000 --bmax 4000

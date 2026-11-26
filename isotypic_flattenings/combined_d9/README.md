@@ -238,6 +238,10 @@ which reloaded their checkpoints (d9_555_B_p5_mid_all at 15 of 28 branches of it
 no jobs running.  Progress at the stop: mid7 21 of 42, dir0 mid_all 24 of 44, 555 mid_all 1 of 22 (target 2: full level
 done, level 1 branch 0 saved), dir1 mid_all 15 of 22 (target 16: full level done).  Runner and memlog restarted at 16:04
 with the same four jobs, which reload their checkpoints.
+2026-11-26 23:05 UTC: d9_455_dir0_B_p5_mid_all at 42 of 44.  The waiting jobs (@9..@12) cannot start next to
+d9_455_dir0_B_p5_mid7 (hint @4, real RSS up to 9.9 GB since the restart), so `d9_455_dir0_B_p5_mid2_all` (@2) is queued
+to take the freed core: every subset for the 51 lam_1 >= 4 dir-0 targets of size 3000..4000 (8..14 members), cache band
+protected in `cache_gc.py`.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

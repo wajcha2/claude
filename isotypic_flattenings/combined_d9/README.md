@@ -233,6 +233,11 @@ which reloaded their checkpoints (d9_555_B_p5_mid_all at 15 of 28 branches of it
 (2^14 = 16384 subsets at the full level) took 8.2 h (d9_555_B_p5_mid_all target 2, built 02:48, branch saved 10:59) and
 7.6 h (d9_455_dir1_B_p5_mid_all target 16, 05:45 -> 13:20), so about 16 h for the full level of one such target.  A
 13-member dir-0 target (d9_455_dir0_B_p5_mid_all target 13) did its whole full level (8191 subsets) in 2.9 h.
+2026-11-26 16:04 UTC: the container stopped at about 2026-11-25 00:59 (last mem.log line 00:58:44) and came back only at
+16:04 on 11-26 (files kept; the session itself was down too, so the 01:12 check-in was delivered at 16:04): about 39 h with
+no jobs running.  Progress at the stop: mid7 21 of 42, dir0 mid_all 24 of 44, 555 mid_all 1 of 22 (target 2: full level
+done, level 1 branch 0 saved), dir1 mid_all 15 of 22 (target 16: full level done).  Runner and memlog restarted at 16:04
+with the same four jobs, which reload their checkpoints.
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,

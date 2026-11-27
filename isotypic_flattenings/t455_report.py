@@ -283,6 +283,8 @@ out.append('  last components). c3e8 worker 2 started by hand on the freed core 
 out.append('  runner; dynamic claims, so no overlap); the runner adopts it when it switches to c3e8 after the last c1.25e8 worker.')
 out.append('* 2026-11-27 06:55 UTC: c1.25e8 worker 3 finished (FOUND: [], 455 components; pass at 1831/1833); c3e8 worker 3 started by')
 out.append('  hand on its core the same way (PYTHONDONTWRITEBYTECODE=1, so the tracked __pycache__ files stay untouched).')
+out.append('* 2026-11-27 06:58 UTC: c1.25e8 worker 1 finished (FOUND: [], 422 components; pass at 1832/1833, worker 0 on the last one);')
+out.append('  c3e8 worker 1 started by hand on its core.')
 out.append('')
 out.append('## Restart (fresh container, from the pushed logs alone)')
 out.append('```')

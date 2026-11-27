@@ -621,3 +621,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-27 06:20 UTC check-in
 - 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 445/549 keys (410 of 514 computed), ckpt 114 ranks in 7 files, sep=0, load 7.10 7.03 7.01, up 1 day, 20 hours, 44 minutes. Longest single rank so far: ((5,1,1,1),(4,3,1),(4,3,1)) rank 13 (first low2 rank), running since 23:48 with normal CPU accrual.
+
+### 2026-11-27 09:17 UTC check-in
+- 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 447/549 keys (412 of 514 computed), ckpt 149 ranks in 7 files, sep=0, load 7.07 7.02 7.00, up 1 day, 23 hours, 41 minutes.

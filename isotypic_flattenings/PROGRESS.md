@@ -627,3 +627,6 @@ C^3 check (rank 4 vs 5, d=5): pencil finds special point t=2/3 on ((3,2),(3,1,1)
 
 ### 2026-11-27 12:31 UTC check-in
 - 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 451/549 keys (416 of 514 computed), ckpt 119 ranks in 6 files, sep=0, mem 9/15 GB, load 7.00 7.00 7.00, up 2 days, 2 hours, 54 minutes. Memory peaked at 12.4 GB of 15 around 10:45 (three concurrent components with 1440/1260-dim factors at 2.6-3.5 GB each); no OOM; the monitor now alerts at 13 GB.
+
+### 2026-11-27 15:28 UTC check-in
+- 7 KWEDGE processes running (checkpointing), no separators. KWEDGE d=8 453/549 keys (418 of 514 computed), ckpt 104 ranks in 5 files, sep=0, mem 3/15 GB, load 7.00 7.01 7.00, up 2 days, 5 hours, 51 minutes. Session-only restart at 13:1x (no loss).

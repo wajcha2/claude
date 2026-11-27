@@ -1197,14 +1197,21 @@ class LatticeFamily:
             chain.append((list(S), dims))
         return chain
 
-    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None, members=None, skip=(), on_branch=None):
+    def enumerate(self, level, maxmembers=12, callback=None, maxsize=None, members=None, skip=(), on_branch=None,
+                  done_paths=(), on_path=None, every=600.0):
         """every nonempty subset of the members (or of `members`, a sublist), each at level `level` ('full' = g_m, or
         an int, capped at the member's top level), by a depth-first walk that keeps one RREF basis per rank and adds one
         member at a time (reduce its basis modulo the current one, then back-substitute): 2^m - 1 incremental additions
         instead of 2^m rank computations.  maxsize: only subsets with at most that many members.  callback(S, dims) is
         called for every subset; returns the number of subsets.  skip: top-level branches (indices j: the subsets whose
         first member is the j-th) to leave out; on_branch(j) is called when top-level branch j is complete (comb_search
-        uses both to resume an enumeration after a restart, 2026-11-20)."""
+        uses both to resume an enumeration after a restart, 2026-11-20).
+        Finer resume points (2026-11-27; a top-level branch of a 15-member lattice is 2^14 subsets, ~8 h): a branch path
+        is the tuple of member indices (j1 < j2 < ... < jk) of the subsets that begin with sel[j1], ..., sel[jk];
+        done_paths: completed paths to leave out (a path (j,) = top-level branch j); on_path(path) is called when the
+        branch of `path` is complete, always for top-level paths and for deeper ones once `every` seconds have passed
+        since the last call.  On a resume the subset of a path that is a proper prefix of a done path is not tested (or
+        counted) again: it was tested before that done branch began."""
         ms = self.members if members is None else members
         if len(ms) > maxmembers:
             raise ValueError('%d members > maxmembers %d' % (len(ms), maxmembers))
@@ -1224,21 +1231,29 @@ class LatticeFamily:
             R2 = np.vstack([R, Rn]).astype(np.float32); p2 = piv + pn       # float32: exact for residues < 2^24
             order = np.argsort(p2)
             return R2[order], [p2[i] for i in order]
-        def dfs(i, cur, S):
+        done = {tuple(q) for q in done_paths} | {(j,) for j in skip}
+        partial = {q[:k] for q in done for k in range(1, len(q))}     # paths whose own subset was tested before
+        last = [time.time()]
+        def dfs(i, cur, S, path):
             if maxsize is not None and len(S) >= maxsize:
                 return
             for j in range(i, len(sel)):
-                if not S and j in skip:
-                    continue                    # top-level branch j (the subsets whose first member is sel[j]) done before
+                pj = path + (j,)
+                if pj in done:
+                    continue                    # the branch of pj (e.g. top-level branch j) was completed before
                 nxt = {r: add(*cur[r], self.basis_rows(r, sel[j])) for r in ranks}
                 S2 = S + [sel[j]]
-                count[0] += 1
-                if callback:
-                    callback(S2, tuple(len(nxt[r][1]) for r in ranks))
-                dfs(j + 1, nxt, S2)
+                if pj not in partial:
+                    count[0] += 1
+                    if callback:
+                        callback(S2, tuple(len(nxt[r][1]) for r in ranks))
+                dfs(j + 1, nxt, S2, pj)
                 if not S and on_branch:
                     on_branch(j)
-        dfs(0, {r: (np.zeros((0, self.ncols)), []) for r in ranks}, [])
+                if on_path and (not S or time.time() - last[0] >= every):
+                    on_path(pj)
+                    last[0] = time.time()
+        dfs(0, {r: (np.zeros((0, self.ncols)), []) for r in ranks}, [], ())
         return count[0]
 
     def exact(self, S):

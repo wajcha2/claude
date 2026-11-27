@@ -184,15 +184,18 @@ def search(fam, rng):
         named = {}
         # resumable (2026-11-20): after each complete top-level branch of the depth-first walk (the subsets whose first
         # member is the j-th) the done branches, the number of subsets tested in them, the best drop and the named dims are
-        # saved; a relaunch skips those branches and restores the counts, so the summary line is the same
+        # saved; a relaunch skips those branches and restores the counts, so the summary line is the same.  Since
+        # 2026-11-27 also completed deeper branches (paths (j1, .., jk), see LatticeFamily.enumerate) at most every
+        # COMB_CKPT_EVERY seconds (default 600), so a restart loses minutes, not a whole top-level branch (~8 h on 15 members)
         ck = fam.ckpt_path('enum', tuple(members), args.maxsub, args.exhaust)
         st = {'done': [], 'tested': 0, 'best': [0, None, None], 'named': {}}
         if ck and os.path.exists(ck):
             try:
                 with open(ck, 'rb') as fh:
                     st = pickle.load(fh)
-                print('#   checkpoint %s: %d of %d top-level branches done, %d subsets' % (os.path.basename(ck), len(st['done']),
-                                                                                       2 * m, st['tested']), file=sys.stderr)
+                ntop = sum(1 for l, q in st['done'] if isinstance(q, int) or len(q) == 1)
+                print('#   checkpoint %s: %d of %d top-level branches done (+%d deeper), %d subsets' % (
+                    os.path.basename(ck), ntop, 2 * m, len(st['done']) - ntop, st['tested']), file=sys.stderr)
             except (OSError, EOFError, KeyError, pickle.UnpicklingError, ValueError):
                 st = {'done': [], 'tested': 0, 'best': [0, None, None], 'named': {}}
         lid = (fam.kind, fam.key, fam.aux)
@@ -204,17 +207,22 @@ def search(fam, rng):
         for pair, v in st.get('nhits', {}).items():          # hit counts of the done branches (the singles' are included)
             NHITS[lid + (pair,)] = list(v)
         SEEN.update(st.get('seen', ()))
-        def save_branch(levname, j):
-            # tests since the enumeration began: the callbacks and the direct re-checks of hits (test() in cb)
-            st['done'].append((levname, j)); st['tested'] = tested[0] - base0; st['best'] = list(best); st['named'] = dict(named)
+        as_path = lambda q: (q,) if isinstance(q, int) else tuple(q)      # done entries of older checkpoints: ints j
+        nsave = [0]
+        def save_branch(levname, path):
+            # a completed path replaces the done paths below it; tests since the enumeration began: the callbacks and the
+            # direct re-checks of hits (test() in cb)
+            st['done'] = [(l, q) for l, q in st['done'] if not (l == levname and as_path(q)[:len(path)] == path)]
+            st['done'].append((levname, path)); st['tested'] = tested[0] - base0; st['best'] = list(best); st['named'] = dict(named)
             st['nhits'] = {k[3]: list(v) for k, v in NHITS.items() if k[:3] == lid}
             st['seen'] = [k for k in SEEN if k[:3] == lid]
             os.makedirs(os.path.dirname(ck), exist_ok=True)
             with open(ck + '.tmp', 'wb') as fh:
                 pickle.dump(st, fh)
             os.replace(ck + '.tmp', ck)
-            if len(st['done']) == int(os.environ.get('COMB_TEST_ABORT_AFTER', '0') or 0):
-                os._exit(3)                          # test hook: simulate a container restart after that many branches
+            nsave[0] += 1
+            if nsave[0] == int(os.environ.get('COMB_TEST_ABORT_AFTER', '0') or 0):
+                os._exit(3)                          # test hook: simulate a container restart after that many saves
         for lev in ('full', 1):
             def cb(S, dims, lev=lev):
                 tested[0] += 1
@@ -227,8 +235,9 @@ def search(fam, rng):
                     test(S, 'exhaustive')            # re-checked by a direct rank, then reported
             levname = str(lev)
             fam.enumerate(lev, maxmembers=args.exhaust, callback=cb, maxsize=args.maxsub or None, members=members,
-                          skip={j for l, j in st['done'] if l == levname},
-                          on_branch=(lambda j, levname=levname: save_branch(levname, j)) if ck else None)
+                          done_paths={as_path(q) for l, q in st['done'] if l == levname},
+                          on_path=(lambda q, levname=levname: save_branch(levname, q)) if ck else None,
+                          every=float(os.environ.get('COMB_CKPT_EVERY', '600')))
         return tested[0], best, singles, named
     named = {'all': test(full, 'all'), 'all:1': test(one, 'all:1')}
     for x in members:

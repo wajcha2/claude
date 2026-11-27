@@ -244,6 +244,19 @@ to take the freed core: every subset for the 51 lam_1 >= 4 dir-0 targets of size
 protected in `cache_gc.py`.
 2026-11-26 23:14 UTC: d9_455_dir0_B_p5_mid_all done (44 targets, 210700 subsets; no separation).  d9_455_dir0_B_p5_mid2_all
 started in its place at 23:15.
+2026-11-27 00:23 UTC: container restart (files kept); runner and memlog restarted at 00:24.  The every-subset jobs lost the
+unsaved first top-level branch of their current target: d9_555_B_p5_mid_all target 3 (15 members, enumerating since 19:10,
+~5.2 h) and d9_455_dir1_B_p5_mid_all target 17 (since 22:00, ~2.4 h).  A top-level branch of a 15-member lattice is 2^14
+subsets (~8 h at the full level), so finer resume points (`../combined/`): `LatticeFamily.enumerate(done_paths=, on_path=,
+every=)` names a branch by the path (j1 < .. < jk) of its first members and reports completed branches, top-level ones
+always and deeper ones at most every `every` seconds; `comb_search.py` saves them in the enum checkpoint
+(`COMB_CKPT_EVERY`, default 600 s; a completed path replaces the done paths below it; old checkpoints with integer
+branches are read as before), and on a resume the subset of a path that is a proper prefix of a done path is not tested
+again (it was tested and counted before).  Validated on `comb_search.py 3 6 4,5 --fam B --exhaust 14` (49 targets, up to
+7 members, 115 new combined hits) with `COMB_CKPT_EVERY=0`: killed after every 37 saves (34 launches) and after every 13
+saves with the saved top-level paths rewritten to the old integer format between launches (129 launches), resumed with
+--resume; the famB lines (tested, hits, drops, named dims) equal those of `--no-ckpt`, and no checkpoint is left.  The
+four jobs were restarted on the new code at 00:31 (about 7 min of progress each since 00:24).
 
 **Family A of a C^5 source** (2026-11-03; for 5x5x5 and 4x5x5 dir 1, which so far had family B only).  A family-A lattice
 of a source λ lives in S_λ C^5 (n1 = 1760, 2475, 1540 for (8,1), (7,2), (7,1,1)) and has one member per target (106, 233,
